@@ -11,9 +11,13 @@ https://home.apache.org/~steffenal/VC15/binaries/httpd-2.4.39-win64-VC15.zip
 
 Copy mod_example_1.dll to c:\Apache24\modules\mod_example_1.dll
 
-In c:\Apache24\conf\httpd.conf add this line:
+In c:\Apache24\conf\httpd.conf add these lines:
 
-LoadModule example_module modules/mod_example_1.dll
+LoadModule harbour_module modules/mod_harbour.dll
+
+...
+
+AddHandler harbour-handler .prg    (after </Directory>)
 
 
 ***
