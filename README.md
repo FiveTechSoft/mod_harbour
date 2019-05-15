@@ -9,7 +9,7 @@ Download Apache from here:
 
 https://home.apache.org/~steffenal/VC15/binaries/httpd-2.4.39-win64-VC15.zip
 
-Copy mod_example_1.dll to c:\Apache24\modules\mod_example_1.dll
+Copy mod_harbour.dll to c:\Apache24\modules\mod_harbour.dll
 
 In c:\Apache24\conf\httpd.conf add these lines:
 
