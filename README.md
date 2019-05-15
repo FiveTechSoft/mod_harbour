@@ -17,7 +17,7 @@ LoadModule harbour_module modules/mod_harbour.dll
 
 ...
 
-AddHandler harbour-handler .prg    (after </Directory>)
+AddHandler harbour-handler .prg    (after < / Directory>)
 
 
 ***
