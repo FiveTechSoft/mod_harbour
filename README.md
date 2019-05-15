@@ -2,3 +2,5 @@
 
 # mod_harbour
 Apache mod for Harbour
+
+https://httpd.apache.org/docs/2.4/developer/modguide.html
