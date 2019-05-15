@@ -3,6 +3,8 @@
 #include "http_protocol.h"
 #include "http_request.h"
 
+#include <hbvm.h>
+
 static void register_hooks( apr_pool_t * pool );
 static int harbour_handler( request_rec * r );
 
@@ -22,8 +24,12 @@ static void register_hooks( apr_pool_t * pool )
    ap_hook_handler( harbour_handler, NULL, NULL, APR_HOOK_LAST );
 }
 
+static request_rec * _r;
+
 static int harbour_handler( request_rec * r )
 {
+   _r = r;
+
    if( ! r->handler || strcmp( r->handler, "harbour-handler" ) ) 
       return DECLINED;
    
@@ -31,6 +37,13 @@ static int harbour_handler( request_rec * r )
    
    if( r->args ) 
       ap_rprintf( r, "Provided arguments: %s", r->args );
-    
+   
+   hb_vmInit( HB_TRUE );
+   
    return OK;
 }
+
+HB_FUNC( AP_RPUTS )
+{
+   ap_rputs( hb_parc( 1 ), _r );
+}   
