@@ -13,7 +13,7 @@ Copy mod_example_1.dll to c:\Apache24\modules\mod_example_1.dll
 
 In c:\Apache24\conf\httpd.conf add this line:
 
-LoadModule mod_example_1 c:\Apache24\modules\mod_example_1.dll
+LoadModule example-handler c:\Apache24\modules\mod_example_1.dll
 
 
 ***
