@@ -9,5 +9,12 @@ Download Apache from here:
 
 https://home.apache.org/~steffenal/VC15/binaries/httpd-2.4.39-win64-VC15.zip
 
+Copy mod_example_1.dll to c:\Apache24\modules\mod_example_1.dll
+
+In c:\Apache24\conf\httpd.conf add this line:
+
+LoadModule mod_example_1 c:\Apache24\modules\mod_example_1.dll
+
+
 ***
 [![](https://bitbucket.org/fivetech/screenshots/downloads/harbour.jpg)](https://harbour.github.io "The Harbour Project")
