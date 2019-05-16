@@ -33,11 +33,6 @@ static int harbour_handler( request_rec * r )
    if( ! r->handler || strcmp( r->handler, "harbour-handler" ) ) 
       return DECLINED;
    
-   ap_rprintf( r, "called file: %s\n\n", r->filename );
-   
-   if( r->args ) 
-      ap_rprintf( r, "Provided arguments: %s", r->args );
-   
    hb_vmInit( HB_TRUE );
    
    return OK;
@@ -46,4 +41,19 @@ static int harbour_handler( request_rec * r )
 HB_FUNC( AP_RPUTS )
 {
    ap_rputs( hb_parc( 1 ), _r );
+}   
+
+HB_FUNC( AP_RPRINTF )
+{
+   ap_rprintf( _r, hb_parc( 1 ), hb_parc( 2 ) );
+}   
+
+HB_FUNC( AP_FILENAME )
+{
+   hb_retc( _r->filename );
+}
+
+HB_FUNC( AP_ARGS )
+{
+   hb_retc( _r->args );
 }   
