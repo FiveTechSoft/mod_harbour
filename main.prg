@@ -6,7 +6,7 @@ extern Version
 
 function Main()
 
-   ErrorSys( { | o | Ap_RPuts( o:Description ) } )
+   ErrorSys( { | o | Ap_RPuts( GetErrorInfo( o ) ) } )
 
    AP_SetContentType( "text/html" )
 
@@ -44,7 +44,7 @@ return uRet
 
 //----------------------------------------------------------------//
 
-static function DoBreak( oError )
+function GetErrorInfo( oError )
 
    local cInfo := oError:operation, n
 
@@ -56,8 +56,14 @@ static function DoBreak( oError )
       next
    endif
 
-   AP_RPuts( oError:Description + hb_OsNewLine() + cInfo,;
-             "Script error at line: " + AllTrim( Str( ProcLine( 2 ) ) ) )
+return oError:Description + hb_OsNewLine() + cInfo,;
+       "Script error at line: " + AllTrim( Str( ProcLine( 2 ) ) ) )
+
+//----------------------------------------------------------------//
+
+static function DoBreak( oError )
+
+   AP_RPuts( GetErrorInfo( oError ) )
 
    BREAK
 
