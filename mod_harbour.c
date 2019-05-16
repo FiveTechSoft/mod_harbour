@@ -62,3 +62,8 @@ HB_FUNC( AP_SETCONTENTTYPE )
 {
    ap_set_content_type( _r, hb_parc( 1 ) );
 }   
+
+HB_FUNC( AP_METHOD )
+{
+   hb_retc( _r->method );
+}    
