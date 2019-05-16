@@ -1,4 +1,5 @@
 // Please copy this file to c:\Apache24\htdocs\
+// From your web browser go to localhost/test.prg
 
 #xcommand ? <cText> => AP_RPuts( <cText> )
 
