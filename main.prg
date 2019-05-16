@@ -58,8 +58,8 @@ function GetErrorInfo( oError )
       next
    endif
 
-return oError:Description + hb_OsNewLine() + cInfo + CRLF + ;
-       "Error at line: " + AllTrim( Str( ProcLine( 2 ) ) )
+return "Error: " + oError:Description + hb_OsNewLine() + cInfo + "<br>" + CRLF + ;
+       "Error from " + ProcName( 3 ) + ", line: " + AllTrim( Str( ProcLine( 3 ) ) )
 
 //----------------------------------------------------------------//
 
