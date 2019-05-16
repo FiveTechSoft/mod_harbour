@@ -67,3 +67,8 @@ HB_FUNC( AP_METHOD )
 {
    hb_retc( _r->method );
 }    
+
+HB_FUNC( AP_USERIP )
+{
+   hb_retc( r->useragent_ip );
+}   
