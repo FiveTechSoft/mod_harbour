@@ -7,7 +7,7 @@ extern hb_BuildDate
 extern OS
 extern hb_Compiler
 extern rddList
-extern AEVal
+extern AEval
 
 //----------------------------------------------------------------//
 

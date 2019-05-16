@@ -34,8 +34,8 @@ static int harbour_handler( request_rec * r )
       return DECLINED;
    
    hb_vmInit( HB_TRUE );
-   
-   return OK;
+
+   return hb_vmQuit();
 }
 
 HB_FUNC( AP_RPUTS )
