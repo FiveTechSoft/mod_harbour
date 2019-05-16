@@ -6,7 +6,7 @@ extern Version
 
 function Main()
 
-   ErrorSys( { | o | AP_RPuts( GetErrorInfo( o ) ) } )
+   ErrorSys( { | o | ? GetErrorInfo( o ) } )
 
    AP_SetContentType( "text/html" )
 
