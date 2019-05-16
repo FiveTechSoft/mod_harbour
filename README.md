@@ -9,4 +9,4 @@ Please visit the [wiki](https://github.com/FiveTechSoft/mod_harbour/wiki) to lea
 
 ***
 
-[![](https://bitbucket.org/fivetech/screenshots/downloads/harbour.jpg)](https://harbour.github.io "The Harbour Project")[![](http://www.apache.org/img/support-apache.jpg)](https://httpd.apache.org/ "The Apache HTTP Server Project")
+[![](https://bitbucket.org/fivetech/screenshots/downloads/harbour.jpg)](https://harbour.github.io "The Harbour Project")[![](http://www.apache.org/img/support-apache.jpg | width=100)](https://httpd.apache.org/ "The Apache HTTP Server Project")
