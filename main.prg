@@ -22,7 +22,7 @@ return nil
 
 function Alert( x )
 
-return ? x
+return AP_RPuts( x ) 
 
 //----------------------------------------------------------------//
 
@@ -56,8 +56,8 @@ function GetErrorInfo( oError )
       next
    endif
 
-return oError:Description + hb_OsNewLine() + cInfo,;
-       "Script error at line: " + AllTrim( Str( ProcLine( 2 ) ) ) )
+return oError:Description + hb_OsNewLine() + cInfo + CRLF + ;
+       "Error at line: " + AllTrim( Str( ProcLine( 2 ) ) )
 
 //----------------------------------------------------------------//
 
