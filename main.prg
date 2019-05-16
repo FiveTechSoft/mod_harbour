@@ -22,7 +22,7 @@ return nil
 
 function Alert( x )
 
-return AP_RPuts( x )
+return ? x
 
 //----------------------------------------------------------------//
 
