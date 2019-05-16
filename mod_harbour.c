@@ -57,3 +57,8 @@ HB_FUNC( AP_ARGS )
 {
    hb_retc( _r->args );
 }   
+
+HB_FUNC( AP_SETCONTENTTYPE )
+{
+   ap_set_content_type( _r, hb_parc( 1 ) );
+}   
