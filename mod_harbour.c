@@ -40,7 +40,8 @@ static int harbour_handler( request_rec * r )
 
 HB_FUNC( AP_RPUTS )
 {
-   ap_rputs( hb_parc( 1 ), _r );
+   if( HB_ISCHAR( 1 ) )
+      ap_rputs( hb_parc( 1 ), _r );
 }   
 
 HB_FUNC( AP_RPRINTF )
