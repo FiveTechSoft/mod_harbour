@@ -63,7 +63,7 @@ return oError:Description + hb_OsNewLine() + cInfo,;
 
 static function DoBreak( oError )
 
-   AP_RPuts( GetErrorInfo( oError ) )
+   ? GetErrorInfo( oError )
 
    BREAK
 
