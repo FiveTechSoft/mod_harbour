@@ -49,6 +49,7 @@ return uRet
 function GetErrorInfo( oError )
 
    local cInfo := oError:operation, n
+   local cCallStack := ""
 
    if ValType( oError:Args ) == "A"
       cInfo += "   Args:" + CRLF
@@ -57,9 +58,15 @@ function GetErrorInfo( oError )
                    "   " + ValToChar( oError:Args[ n ] ) + hb_OsNewLine()
       next
    endif
+   
+   n = 0
+   while ! Empty( ProcName( n ) )
+      cCallStack += "called from: " + ProcName( n ) + ", line: " + AllTrim( Str( ProcLine( n ) ) ) + "<br>" + CRLF
+      n++
+   end   
 
 return "error: " + oError:Description + hb_OsNewLine() + cInfo + "<br><br>" + CRLF + ;
-       "called from " + ProcName( 3 ) + ", line: " + AllTrim( Str( ProcLine( 3 ) ) )
+       cCallStack
 
 //----------------------------------------------------------------//
 
