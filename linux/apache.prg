@@ -68,13 +68,11 @@ return "error: " + oError:Description + hb_OsNewLine() + cInfo + "<br><br>" + CR
 
 //----------------------------------------------------------------//
 
-static function DoBreak( oError )
+static procedure DoBreak( oError )
 
    ? GetErrorInfo( oError )
 
    BREAK
-
-return nil
 
 //----------------------------------------------------------------//
 
