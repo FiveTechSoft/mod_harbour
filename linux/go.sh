@@ -1,1 +1,0 @@
-gcc -fpic -DSHARED_MODULE -I/usr/include/apache2 -I/usr/include/apr-1.0 -I../harbour/include mod_harbour.c -L/root/harbour/lib/linux/gcc -Wl,--start-group -lhbvm -lhbrtl -lhbcommon -lhbrdd -lhbmacro -lhbsix -lrddntx -lrddfpt -lhbcplr -lhbpp -lgttrm -lm -Wl,--end-group
