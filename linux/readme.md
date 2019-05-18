@@ -22,11 +22,11 @@ sudo make install
 
 sudo make test
 
-**5.** Now replace your mod_harbour.c with the one provided here
-
-**6.** Create a symbolic link to the Harbour.so object doing this in /lib64:
+**5.** Create a symbolic link to the Harbour.so object doing this in /lib64:
 
 ln -s ~/harbour/lib/linux/gcc/libharbour.so.3.2.0 libharbour.so
+
+**6.** Now replace your mod_harbour.c with the one provided here
 
 ***
 
