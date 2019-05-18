@@ -57,7 +57,7 @@ static int harbour_handler(request_rec *r)
    lib_harbour = dlopen( "/lib64/libharbour.so", RTLD_LAZY );
 
    if( lib_harbour == NULL )
-      ap_rputs( "can't load /lib64/libharbour.so\n", r );
+      ap_rputs( dlerror(), r );
    else
    {
       _hb_apache = dlsym( lib_harbour, "hb_apache" );
