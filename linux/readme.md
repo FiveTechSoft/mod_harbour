@@ -12,6 +12,8 @@ sudo apt-get install apache2-dev
 
 apxs -n harbour -g
 
+This will create a harbour folder with all the required files inside it
+
 **4.** In order to test this do:
 
 make all
