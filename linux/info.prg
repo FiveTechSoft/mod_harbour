@@ -4,8 +4,6 @@
 
 #define CRLF hb_OsNewLine()
 
-extern FHtmlEncode
-
 Function Info()
 
   local cI  := " "
