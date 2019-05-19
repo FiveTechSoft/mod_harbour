@@ -8,6 +8,8 @@ In **src/Makefile** DYNDIRLIST_BASE add src/compiler \
 
 In **src/harbour.def** add HB_FUN_COMPILEFROMBUF
 
+Copy apache.prg to src/rtl and modify Majefile to add it
+
 **1. It has been built using the Windows 10 bash:**
 
 https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/
