@@ -15,7 +15,7 @@ In /etc/apache2/apache2.conf add these lines:
 ```
 Restart apache doing this: 
 
-so apachectl restart
+sudo apachectl restart
 
 Create a test.prg at /var/www/html and go to localhost/test.prg in your browser
 
