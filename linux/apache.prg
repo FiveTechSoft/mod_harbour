@@ -8,7 +8,7 @@ function Main()
 
    ErrorSys( { | o | AP_RPuts( GetErrorInfo( o ) ) } )
 
-   AP_SetContentType( "text/html" )
+   // AP_SetContentType( "text/html" )
 
    if File( AP_FileName() )
       Execute( MemoRead( AP_FileName() ), AP_Args() )
