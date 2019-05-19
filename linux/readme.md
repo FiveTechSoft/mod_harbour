@@ -22,7 +22,7 @@ sudo make install
 
 sudo make test
 
-**5.** Create a symbolic link to the Harbour.so object doing this in /lib64:
+**5.** Create a symbolic link to the Harbour.so object doing this in /var/www/html:
 
 ln -s ~/harbour/lib/linux/gcc/libharbour.so.3.2.0 libharbour.so
 
