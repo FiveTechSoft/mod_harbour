@@ -8,7 +8,7 @@ In **src/Makefile** DYNDIRLIST_BASE add src/compiler \
 
 In **src/harbour.def** add HB_FUN_COMPILEFROMBUF
 
-Copy apache.prg to src/rtl and modify Makefile to add it
+Copy **apache.prg** to src/rtl and modify Makefile to add it in PRG_SOURCES section
 
 **1. It has been built using the Windows 10 bash:**
 
