@@ -1,5 +1,10 @@
 The mod_harbour for Apache on Linux uses a different approach that turns it much much faster and lighter.
 
+**0.** Changes to build Harbour:
+
+In both config/dyn.mk and config/lib.mk HB_DYN_LIBS add hbcplr \
+
+
 **1.** It has been built using the Windows 10 bash:
 
 https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/
