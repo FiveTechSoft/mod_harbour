@@ -5,7 +5,7 @@ without having to build them, select your Linux distribution, download the two f
 
 Copy libharbour.so.3.2.0 to /var/www/html
 
-Copy mod_harbour.so to /usr/lib/apache3/modules
+Copy mod_harbour.so to /usr/lib/apache2/modules
 
 In /etc/apache2/apache2.conf add these lines:
 ```
