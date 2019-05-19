@@ -7,4 +7,5 @@ echo '<FilesMatch "\.(prg)$">' | sudo tee -a /etc/apache2/apache2.conf > /dev/nu
 echo 'SetHandler harbour' | sudo tee -a /etc/apache2/apache2.conf > /dev/null
 echo '</FilesMatch>' | sudo tee -a /etc/apache2/apache2.conf > /dev/null
 sudo cp ./mod_harbour/linux/test.prg /var/www/html
+sudo cp ./mod_harbour/linux/info.prg /var/www/html
 sudo apachectl restart
