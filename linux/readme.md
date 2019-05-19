@@ -1,3 +1,8 @@
+These instructions are to build the mod and the libharbour.so.3.2.0 files. If you simply want to test them
+without having to build them, select your Linux distribution and download the two files.
+
+**Instructions to build them (skip this if you just want to test it without built them)**
+
 The mod_harbour for Apache on Linux uses a different approach that turns it much much faster and lighter.
 
 **0. Changes to build Harbour:**
