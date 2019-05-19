@@ -22,11 +22,11 @@ sudo make install
 
 sudo make test
 
-**5.** Create a symbolic link to the Harbour.so object doing this in /var/www/html:
+**5.** Copy ~/harbour/lib/linux/gcc/libharbour.so.3.2.0 to /var/www/html
 
-ln -s ~/harbour/lib/linux/gcc/libharbour.so.3.2.0 libharbour.so
+cp ~/harbour/lib/linux/gcc/libharbour.so.3.2.0 /var/www/html
 
-**6.** Now replace your mod_harbour.c with the one provided here
+**6.** Now replace your mod_harbour.c with the one provided here and repeat the step 4
 
 ***
 
