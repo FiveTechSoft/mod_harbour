@@ -3,6 +3,22 @@
 These instructions are to build the mod and the libharbour.so.3.2.0 files. If you simply want to test them
 without having to build them, select your Linux distribution and download the two files.
 
+Copy libharbour.so.3.2.0 to /var/www/html
+
+Copy mod_harbour.so to /usr/lib/apache3/modules
+
+In /etc/apache2/apache2.conf add these lines:
+```
+<FilesMatch "\.(prg)$">
+    SetHandler harbour
+</FilesMatch>
+```
+Restart apache doing this: 
+
+so apachectl restart
+
+Create a test.prg at /var/www/html and go to localhost/test.prg in your browser
+
 **Instructions to build them (skip this if you just want to test it without built them)**
 
 The mod_harbour for Apache on Linux uses a different approach that turns it much much faster and lighter.
