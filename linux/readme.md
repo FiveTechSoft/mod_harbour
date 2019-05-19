@@ -9,6 +9,7 @@ Copy mod_harbour.so to /usr/lib/apache2/modules
 
 In /etc/apache2/apache2.conf add these lines:
 ```
+LoadModule harbour_module /usr/lib/apache2/modules/mod_harbour.so
 <FilesMatch "\.(prg)$">
     SetHandler harbour
 </FilesMatch>
