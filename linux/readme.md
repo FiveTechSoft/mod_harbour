@@ -2,8 +2,11 @@ The mod_harbour for Apache on Linux uses a different approach that turns it much
 
 **0.** Changes to build Harbour:
 
-In both config/dyn.mk and config/lib.mk HB_DYN_LIBS add hbcplr \
+In both **config/dyn.mk** and **config/lib.mk** HB_DYN_LIBS add hbcplr \
 
+In **src/Makefile** DYNDIRLIST_BASE add src/compiler \
+
+In **src/harbour.def** add HB_FUN_COMPILEFROMBUF
 
 **1.** It has been built using the Windows 10 bash:
 
