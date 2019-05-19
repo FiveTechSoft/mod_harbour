@@ -33,6 +33,10 @@ In **src/harbour.def** add HB_FUN_COMPILEFROMBUF
 
 Copy **apache.prg** to src/rtl and modify Makefile to add it in PRG_SOURCES section
 
+If you want to have sources line numbers do this before calling make:
+
+export HB_USER_PRGFLAGS=-l-
+
 Correct libharbour.so.3.2.0 size should be around 6.262.832
 
 **1. It has been built using the Windows 10 bash:**
