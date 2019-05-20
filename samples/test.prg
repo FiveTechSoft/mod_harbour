@@ -4,7 +4,7 @@
 
 function Test()
 
-   ? "Harbour power" + CRLF + CRLF
+   ? "Harbour power" + "<br><br>" + CRLF + CRLF
    
    ? Version()
 
