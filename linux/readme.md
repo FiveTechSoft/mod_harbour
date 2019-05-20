@@ -18,7 +18,7 @@ Restart apache doing this:
 
 sudo apachectl restart
 
-Create a test.prg at /var/www/html and go to localhost/test.prg in your browser
+Copy samples/test.prg to /var/www/html and go to localhost/test.prg in your browser
 
 **Instructions to build them (skip this if you just want to test it without built them)**
 
