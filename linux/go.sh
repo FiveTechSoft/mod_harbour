@@ -6,6 +6,6 @@ echo 'LoadModule harbour_module /usr/lib/apache2/modules/mod_harbour.so' | sudo 
 echo '<FilesMatch "\.(prg)$">' | sudo tee -a /etc/apache2/apache2.conf > /dev/null
 echo 'SetHandler harbour' | sudo tee -a /etc/apache2/apache2.conf > /dev/null
 echo '</FilesMatch>' | sudo tee -a /etc/apache2/apache2.conf > /dev/null
-sudo cp ./mod_harbour/linux/test.prg /var/www/html
-sudo cp ./mod_harbour/linux/info.prg /var/www/html
+sudo cp ./mod_harbour/samples/test.prg /var/www/html
+sudo cp ./mod_harbour/samples/info.prg /var/www/html
 sudo apachectl restart
