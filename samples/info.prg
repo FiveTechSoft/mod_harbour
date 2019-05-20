@@ -1,12 +1,10 @@
-//----------------------------------------------------------------------------//
-
 #xcommand ? <cText> => AP_RPuts( <cText> )
 
 #define CRLF hb_OsNewLine()
 
-extern FHtmlEncode
+//----------------------------------------------------------------------------//
 
-Function Info()
+function Info()
 
    local cI  := " "
 
@@ -26,5 +24,28 @@ Function Info()
    ? '</table>' + CRLF
 
 Return nil
+
+//----------------------------------------------------------------------------//
+
+function FHtmlEncode( cString )
+
+  local nI, cI, cRet := ""
+
+  for nI := 1 to Len( cString )
+     cI := SubStr( cString, nI, 1 )
+     if cI == "<"
+        cRet += "&lt;"
+     elseif cI == ">"
+        cRet += "&gt;"
+     elseif cI == "&"
+        cRet += "&amp;"
+     elseif cI == '"'
+        cRet += "&quot;"
+     else
+        cRet += cI
+     endif
+  next nI
+
+return cRet
 
 //----------------------------------------------------------------------------//
