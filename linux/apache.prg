@@ -20,12 +20,6 @@ return nil
 
 //----------------------------------------------------------------//
 
-// function Alert( x )
-
-// return AP_RPuts( x ) 
-
-//----------------------------------------------------------------//
-
 function Execute( cCode, ... )
 
    local oHrb, bOldError, uRet
@@ -97,6 +91,9 @@ function ValToChar( u )
       case cType == "A"
            cResult = "{ ... }"
            
+      case cType == "P"
+           cResult = "(pointer)" 
+
       otherwise
            cResult = "type not supported yet in function ValToChar()"
    endcase
@@ -111,14 +108,15 @@ return cResult
 #include <hbvm.h>
 
 static void * pRequestRec, * pAPRPuts;
-static char * szFileName, * szArgs;
+static char * szFileName, * szArgs, * szMethod;
 
-int hb_apache( void * p1, void * p2, char * cFileName, char * cArgs )
+int hb_apache( void * p1, void * p2, char * cFileName, char * cArgs, char * cMethod )
 {
    pRequestRec = p1;
    pAPRPuts    = p2; 
    szFileName  = cFileName;
    szArgs      = cArgs;
+   szMethod    = cMethod;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -139,6 +137,11 @@ HB_FUNC( AP_FILENAME )
 HB_FUNC( AP_ARGS )
 {
    hb_retc( szArgs );
+}
+
+HB_FUNC( AP_METHOD )
+{
+   hb_retc( szMethod );
 }
 
 #pragma ENDDUMP
