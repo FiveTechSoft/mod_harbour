@@ -131,7 +131,7 @@ HB_FUNC( AP_RPUTS )
    int ( * ap_rputs )( const char * s, void * r ) = pAPRPuts;
    HB_SIZE nLen;
    HB_BOOL bFreeReq;
-   char * buffer = hb_itemString( hb_param( 1 ), &nLen, &bFreeReq );
+   char * buffer = hb_itemString( hb_param( 1, HB_IT_ANY ), &nLen, &bFreeReq );
 
    ap_rputs( buffer, pRequestRec );
 
