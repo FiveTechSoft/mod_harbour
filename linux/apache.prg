@@ -129,8 +129,14 @@ int hb_apache( void * p1, void * p2, char * cFileName, char * cArgs, char * cMet
 HB_FUNC( AP_RPUTS )
 {
    int ( * ap_rputs )( const char * s, void * r ) = pAPRPuts;
+   HB_SIZE nLen;
+   HB_BOOL bFreeReq;
+   char * buffer = hb_itemString( hb_param( 1 ), &nLen, &bFreeReq );
 
-   ap_rputs( hb_parc( 1 ), pRequestRec );
+   ap_rputs( buffer, pRequestRec );
+
+   if( bFreeReq )
+      hb_xfree( buffer );   
 }
 
 HB_FUNC( AP_FILENAME )
