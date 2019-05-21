@@ -43,10 +43,10 @@
 #include "ap_config.h"
 #include <dlfcn.h>
 
-static int harbour_handler(request_rec *r)
+static int harbour_handler( request_rec * r )
 {
    void * lib_harbour = NULL;
-   int ( * _hb_apache )( void * p1, void * p2, char * szFileName, char * szArgs, char * szMethod ) = NULL;
+   int ( * _hb_apache )( void * p1, void * p2, char * szFileName, char * szArgs, char * szMethod, char * szUserIP ) = NULL;
    int iResult = OK;
 
    if( strcmp( r->handler, "harbour" ) )
@@ -65,7 +65,7 @@ static int harbour_handler(request_rec *r)
       if( _hb_apache == NULL )
          ap_rputs( "failed to load hb_apache()", r );
       else
-         iResult = _hb_apache( r, ap_rputs, r->filename, r->args, r->method );
+         iResult = _hb_apache( r, ap_rputs, r->filename, r->args, r->method, r->useragent_ip );
    }
 
    if( lib_harbour != NULL )
@@ -74,7 +74,7 @@ static int harbour_handler(request_rec *r)
    return iResult;
 }
 
-static void harbour_register_hooks(apr_pool_t *p)
+static void harbour_register_hooks( apr_pool_t * p )
 {
     ap_hook_handler( harbour_handler, NULL, NULL, APR_HOOK_MIDDLE );
 }
