@@ -92,7 +92,10 @@ function ValToChar( u )
            cResult = "{ ... }"
            
       case cType == "P"
-           cResult = "(pointer)" 
+           cResult = "(P)" 
+           
+      case cType == "H"
+           cResult = "{=>}"
 
       otherwise
            cResult = "type not supported yet in function ValToChar()"
@@ -108,15 +111,16 @@ return cResult
 #include <hbvm.h>
 
 static void * pRequestRec, * pAPRPuts;
-static char * szFileName, * szArgs, * szMethod;
+static char * szFileName, * szArgs, * szMethod, * szUserIP;
 
-int hb_apache( void * p1, void * p2, char * cFileName, char * cArgs, char * cMethod )
+int hb_apache( void * p1, void * p2, char * cFileName, char * cArgs, char * cMethod, char * cUserIP )
 {
    pRequestRec = p1;
    pAPRPuts    = p2; 
    szFileName  = cFileName;
    szArgs      = cArgs;
    szMethod    = cMethod;
+   szUserIP    = cUserIP;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -142,6 +146,11 @@ HB_FUNC( AP_ARGS )
 HB_FUNC( AP_METHOD )
 {
    hb_retc( szMethod );
+}
+
+HB_FUNC( AP_USERIP )
+{
+   hb_retc( szUserIP );
 }
 
 #pragma ENDDUMP
