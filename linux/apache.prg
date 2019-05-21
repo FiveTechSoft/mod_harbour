@@ -113,7 +113,7 @@ return cResult
 static void * pRequestRec, * pAPRPuts;
 static char * szFileName, * szArgs, * szMethod, * szUserIP;
 
-int hb_apache( void * p1, void * p2, char * cFileName, char * cArgs, char * cMethod, char * cUserIP )
+int hb_apache( void * p1, void * p2, char * cFileName, char * cArgs, const char * cMethod, char * cUserIP )
 {
    pRequestRec = p1;
    pAPRPuts    = p2; 
