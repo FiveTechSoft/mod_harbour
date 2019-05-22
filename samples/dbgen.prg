@@ -49,7 +49,7 @@ function Main()
 	       </thead>
           <tbody>
              <?prg local cRow := "", nRow := 1, n
-                   while nRow < 10 .and. ! Eof()
+                   while nRow < 11 .and. ! Eof()
                       cRow += '<tr>' 
                       for n = 1 to FCount()
                          cRow += '<td class="center">' + ValToChar( FieldGet( n ) ) + "</td>"
