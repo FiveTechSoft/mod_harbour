@@ -51,8 +51,8 @@ function Main()
                    for n = 1 to FCount()
                       cRows += '<tr>'
                       cRows += '   <td class="center">' + FieldName( n ) + "</td>"
-                      cRows += '   <td class="center"><input type="text" class="form-control" style="border-radius:0px" placeholder="' + ;
-                                   ValToChar( FieldGet( n ) ) + '"' + "></td>"
+                      cRows += '   <td class="center"><input type="text" class="form-control" style="border-radius:0px"' + ;
+                                   " value='" + ValToChar( FieldGet( n ) ) + "'></td>"
                       cRows += '</tr>'
                    next
                    return cRows?>
