@@ -9,7 +9,7 @@ static pLib, hMySQL, hConnection
 function Main()
    
    pLib = hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
-   hMySQL = hb_DynCall( { "mysql_init", pLib, HB_DYN_CALLCONV_CDECL }, NULL )
+   hMySQL = mysql_init()
 
    AP_RPuts( "pLib = " + ValType( pLib ) + '<br>' )
    AP_RPuts( "hMySQL = " + Str( hMySQL ) + '<br>' )
@@ -19,6 +19,10 @@ function Main()
    AP_RPuts( HB_LibFree( pLib ) )                        
 
 return nil
+
+function mysql_init()
+
+return hb_DynCall( { "mysql_init", pLib, HB_DYN_CALLCONV_CDECL }, NULL )
 
 function mysql_real_connect( cServer, cUserName, cPassword, cDataBaseName )
 
