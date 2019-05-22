@@ -18,7 +18,6 @@ function Main()
      .table-striped>tbody>tr:nth-of-type(even) {background-color: #e1ebf2;}  
      .table-striped>tbody>tr:hover>td {background-color: #f6f4d0;}  
   </style>   
-}
 </head>
 
 <body>
