@@ -28,9 +28,9 @@ function Main()
        <div style="margin:7px">
           <div class="col-xs-6">
           <div class="btn-group">
-             <a class="btn btn-default"><span>New</span></a>
-             <a class="btn btn-default"><span>Edit</span></a>
-             <a class="btn btn-default"><span>Delete</span></a>
+             <a class="btn btn-default" style="background-color:#0ed145;"><span>New</span></a>
+             <a class="btn btn-default" style="background-color:#fff200;"><span>Edit</span></a>
+             <a class="btn btn-default" style="background-color:#ec1c24;"><span>Delete</span></a>
           </div>
        </div>
        <div class="col-xs-6 pull-right form-group">
