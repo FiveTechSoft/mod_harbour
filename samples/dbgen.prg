@@ -75,7 +75,7 @@ function Main()
     </div>
     
     <div class="panel-footer">
-       <div class="col-xs-3"><div class="dataTables_info" id="example_info">Showing 51 - 60 of 100 total results</div></div>
+       <div class="col-xs-3"><div class="dataTables_info" id="example_info">Showing <?prg return "1 - " + AllTrim( Str( RecNo() ) ) ?> of <?prg return Str( RecCount() ) ?> total results</div></div>
           <div class="col-xs-6">
              <div class="dataTables_paginate paging_bootstrap">
                 <ul class="pagination pagination-sm" style="margin:0 !important"><li class="prev disabled"><a href="#">? Previous</a></li>
