@@ -8,6 +8,21 @@ function Main()
 
    USE "/var/www/test/customer.dbf"
    
+   if ! Empty( cArgs )
+      if Left( cArgs, 5 ) == "prev:"
+         nRecNo = Val( SubStr( cArgs, 6 ) )
+         if nRecNo > 1
+            GOTO nRecNo - 1
+         endif   
+      endif
+      if Left( cArgs, 5 ) == "next:"
+         nRecNo = Val( SubStr( cArgs, 6 ) )
+         if nRecNo < RecCount()
+            GOTO nRecNo + 1
+         endif   
+      endif
+   endif    
+   
    TEMPLATE
 <html>   
 <head>
@@ -62,8 +77,8 @@ function Main()
     
     <div class="panel-default" style="margin:20px">
        <div class="btn-group">
-          <a class="btn btn-default"><span>Prev</span></a>
-          <a class="btn btn-default"><span>Next</span></a>
+          <a class="btn btn-default" href="dbedit.prg?prev:<?prg return AllTrim( Str( RecNo() ) )?>"><span>Prev</span></a>
+          <a class="btn btn-default" href="dbedit.prg?next:<?prg return AllTrim( Str( RecNo() ) )?>"><span>Next</span></a>
        </div>
     </div>	
   </body>
