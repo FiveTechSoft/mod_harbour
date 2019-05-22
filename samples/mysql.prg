@@ -16,6 +16,6 @@ function Main()
                            HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR,;
                            HB_DYN_CTYPE_LONG, HB_DYN_CTYPE_LONG, HB_DYN_CTYPE_LONG },;
                            hMySQL, "localhost", "root", "passwd", "DataBaseName", 0, 0, 0 ) )
-   AP_RPuts( HB_LibClose( pLib ) )                        
+   AP_RPuts( HB_LibFree( pLib ) )                        
 
 return nil
