@@ -21,6 +21,9 @@ function Main()
             GOTO nRecNo + 1
          endif   
       endif
+      if Left( cArgs, 4 ) == "last"
+         GOTO BOTTOM
+      endif
    endif    
    
    TEMPLATE
@@ -77,8 +80,10 @@ function Main()
     
     <div class="panel-default" style="margin:20px">
        <div class="btn-group">
+          <a class="btn btn-default" href="dbedit.prg?first"><span>Top</span></a>
           <a class="btn btn-default" href="dbedit.prg?prev:<?prg return AllTrim( Str( RecNo() ) )?>"><span>Prev</span></a>
           <a class="btn btn-default" href="dbedit.prg?next:<?prg return AllTrim( Str( RecNo() ) )?>"><span>Next</span></a>
+          <a class="btn btn-default" href="dbedit.prg?last"><span>Bottom</span></a>
        </div>
     </div>	
   </body>
