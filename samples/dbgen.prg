@@ -11,8 +11,6 @@ function Main()
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://fivetechsoft.github.io/xcloud/source/js/xcloud.js"></script>
-  <link rel="stylesheet" href="https://fivetechsoft.github.io/xcloud/source/css/xcloud.css"> 
   <style>
      .table-striped>tbody>tr:nth-of-type(odd) {background-color: #ecf3f7;}  
      .table-striped>tbody>tr:nth-of-type(even) {background-color: #e1ebf2;}  
