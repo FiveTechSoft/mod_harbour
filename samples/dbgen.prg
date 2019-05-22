@@ -24,7 +24,7 @@ function Main()
 <div class="container-fluid">
     <div class="container" style="margin-top:50px">
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" style="background-color:#f5f5f5;">
        <div style="margin:7px">
           <div class="col-xs-6">
           <div class="btn-group">
