@@ -78,12 +78,12 @@ function Main()
        <div class="col-xs-3"><div class="dataTables_info" id="example_info">Showing <?prg return "1 - " + AllTrim( Str( RecNo() - 1 ) ) ?> of <?prg return Str( RecCount() ) ?> total results</div></div>
           <div class="col-xs-6">
              <div class="dataTables_paginate paging_bootstrap">
-                <ul class="pagination pagination-sm" style="margin:0 !important"><li class="prev disabled"><a href="#">? Previous</a></li>
+                <ul class="pagination pagination-sm" style="margin:0 !important"><li class="prev disabled"><a href="#">Previous</a></li>
                    <li class="active"><a href="#">1</a></li>
                    <li><a href="#">1</a></li>
                    <li><a href="#">2</a></li>
                    <li><a href="#">3</a></li>
-                   <li class="next disabled"><a href="#">Next ? </a></li></ul>
+                   <li class="next disabled"><a href="#">Next</a></li></ul>
              </div>
           </div>
           <div class="btn-group">
