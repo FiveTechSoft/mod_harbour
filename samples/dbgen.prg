@@ -5,6 +5,7 @@ function Main()
    USE "/var/www/test/customer.dbf"
    
    TEMPLATE
+<html>   
 <head>
   <title>xcloud</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
