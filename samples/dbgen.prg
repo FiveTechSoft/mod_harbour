@@ -2,7 +2,24 @@
 
 function Main()
 
+   local cArgs := AP_Args(), nRecNo
+
    USE "/var/www/test/customer.dbf"
+   
+   if ! Empty( cArgs )
+      if Left( cArgs, 5 ) == "next:"
+         nRecNo = Val( SubStr( cArgs, 6 ) )
+         if nRecNo < RecCount() - 10
+            GOTO nRecNo
+         endif   
+      endif
+      if Left( cArgs, 5 ) == "prev:"
+         nRecNo = Val( SubStr( cArgs, 6 ) )
+         if nRecNo > 20
+            GOTO nRecNo - 10
+         endif   
+      endif
+   endif   
    
    TEMPLATE
 <html>   
@@ -78,12 +95,13 @@ function Main()
        <div class="col-xs-3"><div class="dataTables_info" id="example_info">Showing <?prg return "1 - " + AllTrim( Str( RecNo() - 1 ) ) ?> of <?prg return Str( RecCount() ) ?> total results</div></div>
           <div class="col-xs-6">
              <div class="dataTables_paginate paging_bootstrap">
-                <ul class="pagination pagination-sm" style="margin:0 !important"><li class="prev disabled"><a href="#">Previous</a></li>
+                <ul class="pagination pagination-sm" style="margin:0 !important">
+                   <li class="prev"><a href="dbgen.prg?prev:<?prg return AllTrim( Str( RecNo() - 10 ) )?>">Previous</a></li>
                    <li class="active"><a href="#">1</a></li>
                    <li><a href="#">2</a></li>
                    <li><a href="#">3</a></li>
                    <li><a href="#">4</a></li>
-                   <li class="next disabled"><a href="#">Next</a></li></ul>
+                   <li class="next"><a href="dbgen.prg?next:<?prg return AllTrim( Str( RecNo() ) )?>">Next</a></li></ul>
              </div>
           </div>
           <div class="btn-group">
