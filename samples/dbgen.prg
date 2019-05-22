@@ -1,8 +1,10 @@
-#xcommand RAWTEXT => #pragma __cstream | AP_RPuts( %s )
+#xcommand TEMPLATE => #pragma __cstream | AP_RPuts( Template( %s ) )
 
 function Main()
 
-   RAWTEXT
+   USE "/var/www/test/customer.dbf"
+   
+   TEMPLATE
 <head>
   <title>xcloud</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -33,42 +35,51 @@ function Main()
     <div class="panel-body" style="padding:0px">
        <table class="table table-striped table-bordered" style="margin:0px">
           <thead>
-    	     <tr>
-                <th>Browser</th>
-                <th>Rendering engine</th>
-                <th>Platform(s)</th>
-                <th>Engine version</th>
-                <th style="width:100px">Actions</th>
+             <tr>
+               <?prg local cCols := ""
+                     for n = 1 to FCount()
+                        cCols += "<th>" + FieldName( n ) + "</n>"
+                     next
+                     return cCols ?>
              </tr>
-	  </thead>
+	       </thead>
           <tbody>
-             <td class="">Internet Explorer 4.0</td>
-             <td class="">Trident</td><td class="">Win 95+</td>
-             <td class="center">4</td>
-             <td>
-                <button type="button" class="btn btn-xs btn-default">
-    	           <span class="glyphicon glyphicon-pencil"></span>
-	        </button>
-	        <button type="button" data-bind="click: $parent.remove" class="remove-news btn btn-xs btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Delete">
-	           <span class="glyphicon glyphicon-trash"></span>
-	        </button>
-	        <button type="button" class="enabledisable-news btn btn-xs btn-default">
-		   <span class="glyphicon glyphicon-ok"></span>
-	        </button></td>   
-	        </tr>
+             <?prg local cRow := "", nRow := 1, n
+                   while nRow < 10 .and. ! Eof()
+                      cRow += '<tr>' 
+                      for n = 1 to FCount()
+                         cRow += '<td class="center">' + ValToChar( FieldGet( n ) ) + "</td>"
+                      next
+                      cRow += "<td>"
+                      cRow += '<button type="button" class="btn btn-xs btn-default">'
+    	                cRow += '   <span class="glyphicon glyphicon-pencil"></span>'
+                      cRow += "</button>"
+	                   cRow += '<button type="button" data-bind="click: $parent.remove" class="remove-news btn btn-xs btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Delete">'
+                      cRow += '   <span class="glyphicon glyphicon-trash"></span>'
+	                   cRow += "</button>"
+	                   cRow += '<button type="button" class="enabledisable-news btn btn-xs btn-default">'
+		                cRow += '   <span class="glyphicon glyphicon-ok"></span>'
+                      cRow += "</button>"
+                      cRow += "</td>"
+                      cRow += "</tr>"
+                      SKIP
+                      nRow++
+                   end   
+                   return cRow ?>
           </tbody> 
        </table>
     </div>
+    
     <div class="panel-footer">
        <div class="col-xs-3"><div class="dataTables_info" id="example_info">Showing 51 - 60 of 100 total results</div></div>
           <div class="col-xs-6">
              <div class="dataTables_paginate paging_bootstrap">
-                <ul class="pagination pagination-sm" style="margin:0 !important"><li class="prev disabled"><a href="#">← Previous</a></li>
+                <ul class="pagination pagination-sm" style="margin:0 !important"><li class="prev disabled"><a href="#">? Previous</a></li>
                    <li class="active"><a href="#">1</a></li>
                    <li><a href="#">1</a></li>
                    <li><a href="#">2</a></li>
                    <li><a href="#">3</a></li>
-                   <li class="next disabled"><a href="#">Next → </a></li></ul>
+                   <li class="next disabled"><a href="#">Next ? </a></li></ul>
              </div>
           </div>
           <div class="btn-group">
@@ -90,3 +101,20 @@ function Main()
    ENDTEXT
 
 return nil
+
+function Template( cText )
+
+   local nStart, nEnd, cCode
+
+   while ( nStart := At( "<?prg", cText ) ) != 0
+      nEnd = At( "?>", SubStr( cText, nStart + 5 ) )
+      cCode = SubStr( cText, nStart + 5, nEnd - 1 )
+      cText = SubStr( cText, 1, nStart - 1 ) + Replace( cCode ) + SubStr( cText, nStart + nEnd + 6 )
+   end 
+   
+return cText
+
+function Replace( cCode )
+
+return Execute( "function __Inline()" + HB_OsNewLine() + cCode )   
+   
