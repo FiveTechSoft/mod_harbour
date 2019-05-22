@@ -5,7 +5,7 @@
 #define NULL                        0x0000000         
 
 function Main()
-   local pLib := hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" )
+   local pLib := hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
    local hMySQL := hb_DynCall( { "mysql_init", pLib, HB_DYN_CALLCONV_CDECL }, NULL )
 
    AP_RPuts( "pLib = " + ValType( pLib ) + '<br>' )
