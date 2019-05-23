@@ -52,7 +52,7 @@ int ap_headers_in_count( void )
 
 char * ap_headers_in_key( int iKey )
 {
-   if( iKey >= 0 && iKey < _r->headers_in->nelts )
+   if( iKey >= 0 && iKey < apr_table_elts( _r->headers_in )->nelts )
       return _r->headers_in->elts[ iKey ].key;
    else
       return "";
@@ -60,7 +60,7 @@ char * ap_headers_in_key( int iKey )
 
 char * ap_headers_in_val( int iKey )
 {
-   if( iKey >= 0 && iKey < _r->headers_in->nelts )
+   if( iKey >= 0 && iKey < apr_table_elts( _r->headers_in )->nelts )
       return _r->headers_in->elts[ iKey ].val;
    else
       return "";
@@ -70,8 +70,8 @@ static int harbour_handler( request_rec * r )
 {
    void * lib_harbour = NULL;
    int ( * _hb_apache )( void * p1, void * p2, char * szFileName, char * szArgs, const char * szMethod, char * szUserIP,
-                         void * pHeadersIn, void * pHeadersOut, void * pHeadersInCount, char * pHeadersInKey,
-                         char * pHeadersInVal ) = NULL;
+                         void * pHeadersIn, void * pHeadersOut, void * pHeadersInCount, void * pHeadersInKey,
+                         void * pHeadersInVal ) = NULL;
    int iResult = OK;
 
    if( strcmp( r->handler, "harbour" ) )
