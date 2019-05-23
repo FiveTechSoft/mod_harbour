@@ -8,9 +8,23 @@ extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL, AP_METHOD, AP_ARGS, 
 
 function Main()
 
+   local cCode
+
    ErrorSys( { | o | AP_RPuts( GetErrorInfo( o ) ) } )
 
    // AP_SetContentType( "text/html" )
+
+   cCode = MemoRead( AP_FileName() )
+   do case
+      case " Main(" $ cCode
+           cCode = StrTran( cCode, " Main(", " __Main(" )
+
+      case " main(" $ cCode
+           cCode = StrTran( cCode, " main(", " __main(" )
+
+      case " MAIN(" $ cCode
+           cCode = StrTran( cCode, " MAIN(", " __MAIN(" )
+   endcase
 
    if File( AP_FileName() )
       Execute( MemoRead( AP_FileName() ), AP_Args() )
