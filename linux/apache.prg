@@ -14,20 +14,20 @@ function Main()
 
    // AP_SetContentType( "text/html" )
 
-   cCode = MemoRead( AP_FileName() )
-   do case
-      case " Main(" $ cCode
-           cCode = StrTran( cCode, " Main(", " __Main(" )
-
-      case " main(" $ cCode
-           cCode = StrTran( cCode, " main(", " __main(" )
-
-      case " MAIN(" $ cCode
-           cCode = StrTran( cCode, " MAIN(", " __MAIN(" )
-   endcase
-
    if File( AP_FileName() )
-      Execute( MemoRead( AP_FileName() ), AP_Args() )
+      cCode = MemoRead( AP_FileName() )
+      do case
+         case " Main(" $ cCode
+              cCode = StrTran( cCode, " Main(", " __Main(" )
+
+         case " main(" $ cCode
+              cCode = StrTran( cCode, " main(", " __main(" )
+
+         case " MAIN(" $ cCode
+              cCode = StrTran( cCode, " MAIN(", " __MAIN(" )
+      endcase
+   
+      Execute( cCode, AP_Args() )
    else
       ? "File not found: " + AP_FileName()
    endif   
