@@ -20,6 +20,8 @@ function Main()
 
    ? hConnection := mysql_real_connect( "localhost", "root", "passw", "DataBaseName" )
 
+   mysql_close( hMySQL )
+   
    ? HB_LibFree( pLib )                        
 
 return nil
@@ -29,6 +31,12 @@ return nil
 function mysql_init()
 
 return hb_DynCall( { "mysql_init", pLib, HB_DYN_CALLCONV_CDECL }, NULL )
+
+//----------------------------------------------------------------//
+
+function mysql_close( hMySQL )
+
+return hb_DynCall( { "mysql_close", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LONG_UNSIGNED }, hMySQL )
 
 //----------------------------------------------------------------//
 
