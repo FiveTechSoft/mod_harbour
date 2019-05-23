@@ -47,7 +47,7 @@ static request_rec * _r;
 
 int ap_headers_in_count( void )
 {
-   return _r->headers_in->nelts;
+   return apr_table_elts( _r->headers_in )->nelts;
 }   
 
 char * ap_headers_in_key( int iKey )
