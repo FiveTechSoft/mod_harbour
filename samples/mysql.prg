@@ -22,7 +22,7 @@ function Main()
       If( hMySQL != 0, " (MySQL library properly initalized)", " (MySQL library failed to initialize)" ) + '<br>'
 
    ? "Connection: "
-   ? hConnection := mysql_real_connect( "127.0.0.1", "root", "1234", "sys" ) // sys => DataBaseName
+   ? hConnection := mysql_real_connect( "127.0.0.1", "root", "1234", "sys", 3306 ) // sys => DataBaseName
    ? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
    ? '<br>'
 
