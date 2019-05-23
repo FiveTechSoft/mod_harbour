@@ -139,16 +139,19 @@ int hb_apache( void * _pRequestRec, void * _pAPRPuts,
 
 HB_FUNC( AP_RPUTS )
 {
-   int ( * ap_rputs )( const char * s, void * r ) = pAPRPuts;
+   // int ( * ap_rputs )( const char * s, void * r ) = pAPRPuts;
+   void ( * ap_rputs )( const char * s, void * r ) = pAPRPuts;
    HB_SIZE nLen;
    HB_BOOL bFreeReq;
    char * buffer = hb_itemString( hb_param( 1, HB_IT_ANY ), &nLen, &bFreeReq );
-   int iBytes = ap_rputs( buffer, pRequestRec );
+   // int iBytes = ap_rputs( buffer, pRequestRec );
+
+   ap_rputs( buffer, pRequestRec );
 
    if( bFreeReq )
       hb_xfree( buffer );
       
-   hb_retnl( iBytes );   
+   // hb_retnl( iBytes );   
 }
 
 HB_FUNC( AP_FILENAME )
