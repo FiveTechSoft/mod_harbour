@@ -18,10 +18,13 @@ function Main()
    ? "pLib = " + ValType( pLib ) + '<br>'
    ? "hMySQL = " + Str( hMySQL ) + '<br>'
 
+   ? "Connection: "
    ? hConnection := mysql_real_connect( "localhost", "root", "passw", "DataBaseName" )
+   ? '<br>'
 
    mysql_close( hMySQL )
    
+   ? "MySQL library properly freed: "
    ? HB_LibFree( pLib )                        
 
 return nil
