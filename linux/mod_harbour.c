@@ -75,7 +75,8 @@ char * ap_headers_in_val( int iKey )
 static int harbour_handler( request_rec * r )
 {
    void * lib_harbour = NULL;
-   int ( * _hb_apache )( void * p1, void * p2, char * szFileName, char * szArgs, const char * szMethod, char * szUserIP,
+   int ( * _hb_apache )( void * pRequestRec, void * pAPRPuts, 
+                         const char * szFileName, const char * szArgs, const char * szMethod, const char * szUserIP,
                          void * pHeadersIn, void * pHeadersOut, void * pHeadersInCount, void * pHeadersInKey,
                          void * pHeadersInVal ) = NULL;
    int iResult = OK;
