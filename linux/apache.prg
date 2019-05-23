@@ -112,10 +112,10 @@ return cResult
 
 static void * pRequestRec, * pAPRPuts;
 static void * pHeadersIn, * pHeadersOut, * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
-static char * szFileName, * szArgs, * szMethod, * szUserIP;
+static const char * szFileName, * szArgs, * szUserIP;
 
 int hb_apache( void * _pRequestRec, void * _pAPRPuts, 
-               char * cFileName, char * cArgs, const char * cMethod, char * cUserIP,
+               const char * cFileName, const char * cArgs, const char * cMethod, const char * cUserIP,
                void * _pHeadersIn, void * _pHeadersOut, 
                void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal )
 {
