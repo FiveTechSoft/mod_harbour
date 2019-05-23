@@ -19,7 +19,7 @@ function Main()
    ? "hMySQL = " + Str( hMySQL ) + '<br>'
 
    ? "Connection: "
-   ? hConnection := mysql_real_connect( "localhost", "root", "passw", "DataBaseName" )
+   ? hConnection := mysql_real_connect( "localhost", "root", "1234", "sys" ) // sys => DataBaseName
    ? '<br>'
 
    mysql_close( hMySQL )
