@@ -50,7 +50,7 @@ return hb_DynCall( { "mysql_close", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LO
 function mysql_real_connect( cServer, cUserName, cPassword, cDataBaseName, nPort )
 
    if nPort == nil
-      nPort = 0
+      nPort = 3306
    endif   
 
 return hb_DynCall( { "mysql_real_connect", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LONG_UNSIGNED,;
