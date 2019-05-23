@@ -4,7 +4,7 @@ function Main()
 
    local cArgs := AP_Args(), nRecNo
 
-   USE "/var/www/test/customer.dbf"
+   USE "/var/www/test/customer.dbf" SHARED
    
    if ! Empty( cArgs )
       if Left( cArgs, 5 ) == "next:"
