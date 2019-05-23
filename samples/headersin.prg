@@ -6,7 +6,7 @@ function Main()
 
    local n
    
-   for n = 1 to AP_HeadersInCount()
+   for n = 0 to AP_HeadersInCount() - 1
       ? AP_HeadersInKey( n ) + " = " + AP_HeadersInVal( n ) + "<br>"
    next
    
