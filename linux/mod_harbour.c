@@ -53,7 +53,7 @@ int ap_headers_in_count( void )
 char * ap_headers_in_key( int iKey )
 {
    if( iKey >= 0 && iKey < apr_table_elts( _r->headers_in )->nelts )
-      return apr_table_elts( _r->headers_in )->elts[ iKey ].key;
+      return ( apr_table_entry_t * ) ( apr_table_elts( _r->headers_in )->elts )[ iKey ].key;
    else
       return "";
 }   
@@ -61,7 +61,7 @@ char * ap_headers_in_key( int iKey )
 char * ap_headers_in_val( int iKey )
 {
    if( iKey >= 0 && iKey < apr_table_elts( _r->headers_in )->nelts )
-      return apr_table_elts( _r->headers_in )->elts[ iKey ].val;
+      return ( apr_table_entry_t * ) ( apr_table_elts( _r->headers_in )->elts )[ iKey ].val;
    else
       return "";
 }   
