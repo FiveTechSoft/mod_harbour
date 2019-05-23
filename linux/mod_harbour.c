@@ -41,7 +41,7 @@
 #include "http_config.h"
 #include "http_protocol.h"
 #include "ap_config.h"
-#include <dlfcn.h>
+#include <dlfcn.h>  
 
 static request_rec * _r;
 
@@ -52,16 +52,22 @@ int ap_headers_in_count( void )
 
 char * ap_headers_in_key( int iKey )
 {
-   if( iKey >= 0 && iKey < apr_table_elts( _r->headers_in )->nelts )
-      return ( apr_table_entry_t * ) ( apr_table_elts( _r->headers_in )->elts )[ iKey ].key;
+   const apr_array_header_t * fields = apr_table_elts( _r->headers_in );
+   apr_table_entry_t * e = ( apr_table_entry_t * ) fields->elts;
+   
+   if( iKey >= 0 && iKey < fields->nelts )
+      return e[ iKey ].key;
    else
       return "";
 }   
 
 char * ap_headers_in_val( int iKey )
 {
-   if( iKey >= 0 && iKey < apr_table_elts( _r->headers_in )->nelts )
-      return ( apr_table_entry_t * ) ( apr_table_elts( _r->headers_in )->elts )[ iKey ].val;
+   const apr_array_header_t * fields = apr_table_elts( _r->headers_in );
+   apr_table_entry_t * e = ( apr_table_entry_t * ) fields->elts;
+   
+   if( iKey >= 0 && iKey < fields->nelts )
+      return e[ iKey ].val;
    else
       return "";
 }   
