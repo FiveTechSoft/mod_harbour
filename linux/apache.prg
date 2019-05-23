@@ -132,11 +132,12 @@ HB_FUNC( AP_RPUTS )
    HB_SIZE nLen;
    HB_BOOL bFreeReq;
    char * buffer = hb_itemString( hb_param( 1, HB_IT_ANY ), &nLen, &bFreeReq );
-
-   ap_rputs( buffer, pRequestRec );
+   int iBytes = ap_rputs( buffer, pRequestRec );
 
    if( bFreeReq )
-      hb_xfree( buffer );   
+      hb_xfree( buffer );
+      
+   hb_retnl( iBytes );   
 }
 
 HB_FUNC( AP_FILENAME )
