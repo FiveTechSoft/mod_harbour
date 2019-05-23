@@ -110,20 +110,26 @@ return cResult
 #include <hbapi.h>
 #include <hbvm.h>
 
-static void * pRequestRec, * pAPRPuts, * pHeadersIn, * pHeadersOut;
+static void * pRequestRec, * pAPRPuts;
+static void * pHeadersIn, * pHeadersOut, * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
 static char * szFileName, * szArgs, * szMethod, * szUserIP;
 
-int hb_apache( void * _pRequestRec, void * _pAPRPuts, char * cFileName, char * cArgs, const char * cMethod, char * cUserIP,
-               void * _pHeadersIn, void * _pHeadersOut )
+int hb_apache( void * _pRequestRec, void * _pAPRPuts, 
+               char * cFileName, char * cArgs, const char * cMethod, char * cUserIP,
+               void * _pHeadersIn, void * _pHeadersOut, 
+               void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal )
 {
-   pRequestRec = _pRequestRec;
-   pAPRPuts    = _pAPRPuts; 
-   szFileName  = cFileName;
-   szArgs      = cArgs;
-   szMethod    = cMethod;
-   szUserIP    = cUserIP;
-   pHeadersIn  = _pHeadersIn;
-   pHeadersOut = _pHeadersOut;
+   pRequestRec     = _pRequestRec;
+   pAPRPuts        = _pAPRPuts; 
+   szFileName      = cFileName;
+   szArgs          = cArgs;
+   szMethod        = cMethod;
+   szUserIP        = cUserIP;
+   pHeadersIn      = _pHeadersIn;
+   pHeadersOut     = _pHeadersOut;
+   pHeadersInCount = _pheadersInCount;
+   pHeadersInKey   = _pHeadersInKey;
+   pHeadersInVal   = _pHeadersInVal;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -162,5 +168,26 @@ HB_FUNC( AP_USERIP )
 {
    hb_retc( szUserIP );
 }
+
+HB_FUNC( AP_HEADERSINCOUNT )
+{
+   int ( * headers_in_count )( void ) = pHeadersInCount;
+   
+   hb_retnl( headers_in_count() );
+}   
+
+HB_FUNC( AP_HEADERSINKEY )
+{
+   char * ( * headers_in_key )( int ) = pHeadersInKey;
+   
+   hb_retc( headers_in_key( hb_parnl( 1 ) ) );
+}   
+
+HB_FUNC( AP_HEADERSINVAL )
+{
+   char * ( * headers_in_val )( int ) = pHeadersInVal;
+   
+   hb_retc( headers_in_val( hb_parnl( 1 ) ) );
+}   
 
 #pragma ENDDUMP
