@@ -127,7 +127,7 @@ int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    szUserIP        = cUserIP;
    pHeadersIn      = _pHeadersIn;
    pHeadersOut     = _pHeadersOut;
-   pHeadersInCount = _pheadersInCount;
+   pHeadersInCount = _pHeadersInCount;
    pHeadersInKey   = _pHeadersInKey;
    pHeadersInVal   = _pHeadersInVal;
  
