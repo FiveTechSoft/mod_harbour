@@ -18,7 +18,8 @@ function Main()
    ? "pLib = " + ValType( pLib ) + ;
       If( ValType( pLib ) == "P", " (MySQL library properly loaded)", " (MySQL library not found)" ) + '<br>'
    
-   ? "hMySQL = " + Str( hMySQL ) + If( hMySQL != 0, " (library properly initalized)", " (library failed to initialize)" ) + '<br>'
+   ? "hMySQL = " + Str( hMySQL ) + ;
+      If( hMySQL != 0, " (MySQL library properly initalized)", " (MySQL library failed to initialize)" ) + '<br>'
 
    ? "Connection: "
    ? hConnection := mysql_real_connect( "localhost", "root", "1234", "sys" ) // sys => DataBaseName
