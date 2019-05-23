@@ -15,7 +15,9 @@ function Main()
    pLib = hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
    hMySQL = mysql_init()
 
-   ? "pLib = " + ValType( pLib ) + If( ValType( pLib ) == "P", " (library properly loaded)", " (library not found)" ) + '<br>'
+   ? "pLib = " + ValType( pLib ) + ;
+      If( ValType( pLib ) == "P", " (MySQL library properly loaded)", " (MySQL library not found)" ) + '<br>'
+   
    ? "hMySQL = " + Str( hMySQL ) + If( hMySQL != 0, " (library properly initalized)", " (library failed to initialize)" ) + '<br>'
 
    ? "Connection: "
