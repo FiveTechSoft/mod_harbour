@@ -43,18 +43,43 @@
 #include "ap_config.h"
 #include <dlfcn.h>
 
+static request_rec * _r;
+
+int ap_headers_in_count( void )
+{
+   return _r->headers_in->nelts;
+}   
+
+char * ap_headers_in_key( int iKey )
+{
+   if( iKey >= 0 && iKey < _r->headers_in->nelts )
+      return _r->headers_in->elts[ iKey ].key;
+   else
+      return "";
+}   
+
+char * ap_headers_in_val( int iKey )
+{
+   if( iKey >= 0 && iKey < _r->headers_in->nelts )
+      return _r->headers_in->elts[ iKey ].val;
+   else
+      return "";
+}   
+
 static int harbour_handler( request_rec * r )
 {
    void * lib_harbour = NULL;
    int ( * _hb_apache )( void * p1, void * p2, char * szFileName, char * szArgs, const char * szMethod, char * szUserIP,
-                         void * pHeadersIn, void * pHeadersOut ) = NULL;
+                         void * pHeadersIn, void * pHeadersOut, void * pHeadersInCount, char * pHeadersInKey,
+                         char * pHeadersInVal ) = NULL;
    int iResult = OK;
 
    if( strcmp( r->handler, "harbour" ) )
       return DECLINED;
 
    r->content_type = "text/html";
-
+   _r = r;
+   
    lib_harbour = dlopen( "/var/www/html/libharbour.so.3.2.0", RTLD_LAZY );
 
    if( lib_harbour == NULL )
@@ -66,7 +91,8 @@ static int harbour_handler( request_rec * r )
       if( _hb_apache == NULL )
          ap_rputs( "failed to load hb_apache()", r );
       else
-         iResult = _hb_apache( r, ap_rputs, r->filename, r->args, r->method, r->useragent_ip, r->headers_in, r->headers_out );
+         iResult = _hb_apache( r, ap_rputs, r->filename, r->args, r->method, r->useragent_ip, r->headers_in, r->headers_out,
+                               ap_headers_in_count, ap_headers_in_key, ap_headers_in_val );
    }
 
    if( lib_harbour != NULL )
