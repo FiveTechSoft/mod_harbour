@@ -20,7 +20,7 @@ function Main()
 
    ? "Connection: "
    ? hConnection := mysql_real_connect( "localhost", "root", "1234", "sys" ) // sys => DataBaseName
-   ? If( nConnection != hMySQL, "Failed connection", "Successfull connection" )
+   ? If( hConnection != hMySQL, "Failed connection", "Successfull connection" )
    ? '<br>'
 
    mysql_close( hMySQL )
