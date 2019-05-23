@@ -96,12 +96,12 @@ function Main()
           <div class="col-xs-6">
              <div class="dataTables_paginate paging_bootstrap">
                 <ul class="pagination pagination-sm" style="margin:0 !important">
-                   <li class="prev"><a href="dbgen.prg?prev:<?prg return AllTrim( Str( RecNo() - 10 ) )?>">Previous</a></li>
+                   <li class="prev"><a href="dbrowse.prg?prev:<?prg return AllTrim( Str( RecNo() - 10 ) )?>">Previous</a></li>
                    <li class="active"><a href="#">1</a></li>
                    <li><a href="#">2</a></li>
                    <li><a href="#">3</a></li>
                    <li><a href="#">4</a></li>
-                   <li class="next"><a href="dbgen.prg?next:<?prg return AllTrim( Str( RecNo() ) )?>">Next</a></li></ul>
+                   <li class="next"><a href="dbrowse.prg?next:<?prg return AllTrim( Str( RecNo() ) )?>">Next</a></li></ul>
              </div>
           </div>
           <div class="btn-group">
