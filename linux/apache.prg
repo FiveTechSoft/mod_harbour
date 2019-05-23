@@ -112,6 +112,9 @@ function ValToChar( u )
            
       case cType == "H"
            cResult = "{=>}"
+           
+      case cType == "U"
+           cResult = "nil"
 
       otherwise
            cResult = "type not supported yet in function ValToChar()"
