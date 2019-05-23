@@ -2,7 +2,7 @@
 
 #define CRLF hb_OsNewLine()
 
-extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
+extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL, AP_METHOD, AP_ARGS, AP_USERIP
 
 //----------------------------------------------------------------//
 
