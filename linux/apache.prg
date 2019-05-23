@@ -110,17 +110,20 @@ return cResult
 #include <hbapi.h>
 #include <hbvm.h>
 
-static void * pRequestRec, * pAPRPuts;
+static void * pRequestRec, * pAPRPuts, * pHeadersIn, * pHeadersOut;
 static char * szFileName, * szArgs, * szMethod, * szUserIP;
 
-int hb_apache( void * p1, void * p2, char * cFileName, char * cArgs, const char * cMethod, char * cUserIP )
+int hb_apache( void * _pRequestRec, void * _pAPRPuts, char * cFileName, char * cArgs, const char * cMethod, char * cUserIP,
+               void * _pHeadersIn, void * _pHeadersOut )
 {
-   pRequestRec = p1;
-   pAPRPuts    = p2; 
+   pRequestRec = _pRequestRec;
+   pAPRPuts    = _pAPRPuts; 
    szFileName  = cFileName;
    szArgs      = cArgs;
    szMethod    = cMethod;
    szUserIP    = cUserIP;
+   pHeadersIn  = _pHeadersIn;
+   pHeadersOut = _pHeadersOut;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
