@@ -12,6 +12,8 @@ static pLib, hMySQL, hConnection
 //----------------------------------------------------------------//
 
 function Main()
+
+   local nRetVal
    
    pLib = hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
    hMySQL = mysql_init()
@@ -28,10 +30,11 @@ function Main()
    ? '<br>'
 
    if hConnection != 0
-      if mysql_query( hConnection, "select * from users" ) == 0
+      if ( nRetVal := mysql_query( hConnection, "select * from users" ) ) == 0
          ? "MySQL query succeded<br>"
       else
          ? "MySQL query failed<br>"
+         ? "error: " + Str( nRetVal ) + "</br>"
       endif
    endif   
 
