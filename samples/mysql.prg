@@ -4,6 +4,7 @@
 #define HB_DYN_CTYPE_LONG_UNSIGNED  0x0000014
 #define HB_DYN_CTYPE_CHAR_PTR       0x0000101
 #define HB_DYN_CTYPE_LONG           0x0000004
+#define HB_DYN_CTYPE_INT            0x0000003
 #define NULL                        0x0000000         
 
 static pLib, hMySQL, hConnection
@@ -22,7 +23,7 @@ function Main()
       If( hMySQL != 0, " (MySQL library properly initalized)", " (MySQL library failed to initialize)" ) + '<br>'
 
    ? "Connection: "
-   ? hConnection := mysql_real_connect( "127.0.0.1", "harbour", "Antonio", "dbHarbour", 3306 )
+   ? hConnection := mysql_real_connect( "127.0.0.1", "harbour", "password", "dbHarbour", 3306 )
    ? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
    ? '<br>'
 
