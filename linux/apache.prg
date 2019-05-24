@@ -8,7 +8,7 @@ extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL, AP_METHOD, AP_ARGS, 
 
 function _AppMain()
 
-   ErrorSys( { | o | AP_RPuts( GetErrorInfo( o ) ) } )
+   ErrorBlock( { | o | AP_RPuts( GetErrorInfo( o ) ) } )
 
    if File( AP_FileName() )
       Execute( MemoRead( AP_FileName() ), AP_Args() )
