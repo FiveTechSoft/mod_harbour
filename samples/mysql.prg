@@ -49,7 +49,7 @@ return nil
 
 function mysql_init()
 
-return hb_DynCall( { "mysql_init", pLib, HB_DYN_CALLCONV_CDECL }, NULL )
+return hb_DynCall( { "mysql_init", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL }, NULL )
 
 //----------------------------------------------------------------//
 
@@ -65,7 +65,8 @@ function mysql_real_connect( cServer, cUserName, cPassword, cDataBaseName, nPort
       nPort = 3306
    endif   
 
-return hb_DynCall( { "mysql_real_connect", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LONG_UNSIGNED,;
+return hb_DynCall( { "mysql_real_connect", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ),;
+                     HB_DYN_CTYPE_LONG_UNSIGNED,;
                      HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR,;
                      HB_DYN_CTYPE_LONG, HB_DYN_CTYPE_LONG, HB_DYN_CTYPE_LONG },;
                      hMySQL, cServer, cUserName, cPassword, cDataBaseName, nPort, 0, 0 )
