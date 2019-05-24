@@ -49,7 +49,7 @@ return nil
 
 function mysql_init()
 
-return hb_DynCall( { "mysql_init", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL }, NULL )
+return hb_DynCall( { "mysql_init", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ) }, NULL )
 
 //----------------------------------------------------------------//
 
