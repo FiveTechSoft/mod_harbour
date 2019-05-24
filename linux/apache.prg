@@ -8,8 +8,6 @@ extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL, AP_METHOD, AP_ARGS, 
 
 function _AppMain()
 
-   local cCode
-
    ErrorSys( { | o | AP_RPuts( GetErrorInfo( o ) ) } )
 
    // AP_SetContentType( "text/html" )
