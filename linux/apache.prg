@@ -112,6 +112,7 @@ return cResult
 
 #include <hbapi.h>
 #include <hbvm.h>
+#include <hbapiitem.h>
 
 static void * pRequestRec, * pAPRPuts;
 static void * pHeadersIn, * pHeadersOut, * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
