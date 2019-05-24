@@ -8,7 +8,7 @@ extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL, AP_METHOD, AP_ARGS, 
 
 function _AppMain()
 
-   ErrorBlock( { | o | AP_RPuts( GetErrorInfo( o ) ), .F. } )
+   ErrorBlock( { | o | DoBreak( o ) } )
 
    if File( AP_FileName() )
       Execute( MemoRead( AP_FileName() ), AP_Args() )
@@ -22,16 +22,12 @@ return nil
 
 function Execute( cCode, ... )
 
-   local oHrb, bOldError, uRet
+   local oHrb, uRet
    local cHBheaders := "~/harbour/include"
 
    oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders )
    if ! Empty( oHrb )
-      BEGIN SEQUENCE
-      bOldError = ErrorBlock( { | o | DoBreak( o ) } )
       uRet = hb_HrbDo( hb_HrbLoad( oHrb ), ... )
-      END SEQUENCE
-      ErrorBlock( bOldError )
    endif
 
 return uRet
