@@ -29,9 +29,9 @@ function Main()
 
    if hConnection != 0
       if mysql_query( hConnection, "select * from users" ) == 0
-         ? "MySQL query succeded"
+         ? "MySQL query succeded<br>"
       else
-         ? "MySQL query failed"
+         ? "MySQL query failed<br>"
       endif
    endif   
 
