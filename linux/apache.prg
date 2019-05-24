@@ -6,7 +6,7 @@ extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL, AP_METHOD, AP_ARGS, 
 
 //----------------------------------------------------------------//
 
-function Main()
+function _AppMain()
 
    local cCode
 
@@ -15,19 +15,7 @@ function Main()
    // AP_SetContentType( "text/html" )
 
    if File( AP_FileName() )
-      cCode = MemoRead( AP_FileName() )
-      do case
-         case " Main(" $ cCode
-              cCode = StrTran( cCode, " Main(", " __Main(" )
-
-         case " main(" $ cCode
-              cCode = StrTran( cCode, " main(", " __main(" )
-
-         case " MAIN(" $ cCode
-              cCode = StrTran( cCode, " MAIN(", " __MAIN(" )
-      endcase
-   
-      Execute( cCode, AP_Args() )
+      Execute( MemoRead( AP_FileName() ), AP_Args() )
    else
       ? "File not found: " + AP_FileName()
    endif   
