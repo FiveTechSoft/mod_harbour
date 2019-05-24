@@ -70,41 +70,7 @@ static procedure DoBreak( oError )
 
 //----------------------------------------------------------------//
 
-function ValToChar( u )
-
-   local cType := ValType( u )
-   local cResult
-   
-   do case
-      case cType == "C"
-           cResult = u
-           
-      case cType == "D"
-           cResult = DToC( u )
-           
-      case cType == "L"
-           cResult = If( u, ".T.", ".F." )
-           
-      case cType == "N"
-           cResult = AllTrim( Str( u ) )
-           
-      case cType == "A"
-           cResult = "{ ... }"
-           
-      case cType == "P"
-           cResult = "(P)" 
-           
-      case cType == "H"
-           cResult = "{=>}"
-           
-      case cType == "U"
-           cResult = "nil"
-
-      otherwise
-           cResult = "type not supported yet in function ValToChar()"
-   endcase
-   
-return cResult   
+function ValToChar( u ) ; return hb_ValToExp( u )
 
 //----------------------------------------------------------------//
 
