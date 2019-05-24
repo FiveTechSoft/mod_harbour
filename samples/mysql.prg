@@ -26,6 +26,14 @@ function Main()
    ? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
    ? '<br>'
 
+   if hConnection != 0
+      if mysql_query( hConnection, "select * from users" ) == 0
+         ? "MySQL query succeded"
+      else
+         ? "MySQL query failed"
+      endif
+   endif   
+
    mysql_close( hMySQL )
    
    ? "MySQL library properly freed: "
@@ -58,4 +66,12 @@ return hb_DynCall( { "mysql_real_connect", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_C
                      HB_DYN_CTYPE_LONG, HB_DYN_CTYPE_LONG, HB_DYN_CTYPE_LONG },;
                      hMySQL, cServer, cUserName, cPassword, cDataBaseName, nPort, 0, 0 )
                      
+//----------------------------------------------------------------//
+
+function mysql_query( hConnect, cQuery )
+
+return hb_DynCall( { "mysql_query", pLib, hb_bitOr( HB_DYN_CTYPE_INT, HB_DYN_CALLCONV_CDECL ),;
+                   HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CTYPE_CHAR_PTR },;
+                   hConnect, cQuery )
+
 //----------------------------------------------------------------//
