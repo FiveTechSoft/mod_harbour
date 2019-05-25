@@ -30,12 +30,16 @@ function Main()
    ? '<br>'
 
    if hConnection != 0
-      if ( nRetVal := mysql_query( hConnection, "select * from users" ) ) == 0
-         ? "MySQL query succeded<br>"
-      else
-         ? "MySQL query failed<br>"
+      nRetVal = mysql_query( hConnection, "select * from users" )
+      ? "MySQL query " + If( nRetVal == 0, "succeeded", "failed" ) + "<br>"
+      if nRetVal != 0
          ? "error: " + Str( nRetVal ) + "</br>"
       endif
+   endif   
+   
+   if hConnection != 0
+      hMyRes = mysql_use_result( hConnection )
+      ? "MySQL use result " + If( hMyRes != 0, "succeeded", "failed" ) + "<br>"
    endif   
 
    mysql_close( hMySQL )
