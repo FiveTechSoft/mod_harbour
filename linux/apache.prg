@@ -195,7 +195,7 @@ HB_FUNC( PTRTOSTR )
 {
    const char * * pStrs = ( const char * * ) hb_parnll( 1 );   
    
-   hb_retc( * ( pStrs ) ); //  + hb_parnl( 2 ) ) );
+   hb_retc( * ( pStrs + hb_parnl( 2 ) ) );
 }
 
 #pragma ENDDUMP
