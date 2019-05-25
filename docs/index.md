@@ -6,19 +6,19 @@ layout: default
 
 mod Harbour is a **extension module** for Apache that provides full support to **execute PRGs and HRBs files from the web**.
 
-There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
+If you are a Windows developer, you can build the web from your Windows 10 bash and then simply copy your PRGs to an Apache web server using the mod Harbour extension.
 
-# Header 1
+# Windows 10 bash support
 
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
+The Windows 10 WSL (Windows SubSystem for Linux) lets you execute Ubuntu 18.04 from your Windows 10 bash, using Ubuntu (about 200 mb) and installing Apache on it. Detailed instructions are provided in the mod harbour repo wiki.
 
-## Header 2
+## OSX support
 
 > This is a blockquote following a header.
 >
 > When something is important enough, you do it even if the odds are not in your favor.
 
-### Header 3
+### Linux support
 
 ```js
 // Javascript code with syntax highlighting.
