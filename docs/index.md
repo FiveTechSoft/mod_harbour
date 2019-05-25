@@ -22,19 +22,15 @@ With an easy to use installer that sets up everything for you.
 mod Harbour versions for Ubuntu and CentOS 7 are already available. Use Ubuntu from your Windows 10 bash, code your PRGs from
 Windows 10 using for favorite source code editor and run the PRGs from Edge or Chrome. Apache server and MySQL server from Ubuntu give you all you need. The perfect environment for creating web applications using Harbour in records time.
 
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
+```c
+// typicall Harbour PRG running on the web
+#xcommand ? <cText> => AP_RPuts( <cText> )
 
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
+function Main()
+
+   ? "Hello world"
+   
+return nil   
 ```
 
 #### Header 4
