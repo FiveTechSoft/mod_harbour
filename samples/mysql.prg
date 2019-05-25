@@ -42,6 +42,7 @@ function Main()
       ? "MySQL use result " + If( hMyRes != 0, "succeeded", "failed" ) + "<br>"
    endif   
 
+   mysql_free_result( hMyRes )
    mysql_close( hMySQL )
    
    ? "MySQL library properly freed: "
@@ -89,5 +90,11 @@ function mysql_use_result( hMySQL )
 
 return hb_DynCall( { "mysql_use_result", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ),;
                      HB_DYN_CTYPE_LONG_UNSIGNED }, hMySQL )
+
+//----------------------------------------------------------------//
+
+function mysql_free_result( hMyRes) 
+
+return hb_DynCall( { "mysql_free_result", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LONG_UNSIGNED }, hMyRes )
 
 //----------------------------------------------------------------//
