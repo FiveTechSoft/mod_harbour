@@ -54,6 +54,7 @@ function Main()
          if hField != 0
             ? PtrToStr( hField, 0 ) + "<br>" 
          endif   
+      next   
    endif   
 
    mysql_free_result( hMyRes )
