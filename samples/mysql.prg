@@ -24,6 +24,7 @@ function Main()
    
    ? "hMySQL = " + Str( hMySQL ) + " (MySQL library " + ;
       If( hMySQL != 0, "initalized)", "failed to initialize)" ) + '<br>'
+   ? If( hMySQL != 0, "MySQL version: " + mysql_get_server_info( hMySQL ), "" ) + '<br>'   
 
    ? "Connection: "
    ? hConnection := mysql_real_connect( "127.0.0.1", "harbour", "password", "dbHarbour", 3306 )
@@ -138,5 +139,12 @@ function mysql_fetch_field( hMyRes )
 
 return hb_DynCall( { "mysql_fetch_field", pLib, hb_bitOr( HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LLONG_UNSIGNED ),;
                      HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
+
+//----------------------------------------------------------------//
+
+function mysql_get_server_info( hMySQL )
+
+return hb_DynCall( { "mysql_get_server_info", pLib, hb_bitOr( HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CALLCONV_CDECL ), ;
+                     HB_DYN_CTYPE_LONG_UNSIGNED }, hMySql )
 
 //----------------------------------------------------------------//
