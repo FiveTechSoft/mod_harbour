@@ -10,7 +10,7 @@ If you are a **Windows developer**, you can build the web **from your Windows 10
 
 ## Windows 10 bash support
 
-The Windows 10 WSL (Windows SubSystem for Linux) lets you use Ubuntu 18.04 (about 200 mb) from your Windows 10 bash and install Apache and MySQL server on it. **Detailed instructions** are provided in the [mod Harbour repo wiki](https://github.com/FiveTechSoft/mod_harbour/wiki).
+The **Windows 10 WSL** (Windows SubSystem for Linux) lets you use Ubuntu 18.04 (about 200 mb) from your Windows 10 bash and install Apache and MySQL server on it. **Detailed instructions** are provided in the [mod Harbour repo wiki](https://github.com/FiveTechSoft/mod_harbour/wiki).
 
 ## OSX support
 
