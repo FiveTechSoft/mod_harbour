@@ -52,10 +52,11 @@ function Main()
       for n = 1 to mysql_num_fields( hMyRes )
          ? "+---------------"
       next   
+      ? "<br>"
       for n = 1 to mysql_num_fields( hMyRes )
          hField = mysql_fetch_field( hMyRes )
          if hField != 0
-            ? PtrToStr( hField, 0 ) + " | " 
+            ? "  " + PtrToStr( hField, 0 ) + "  | " 
          endif   
       next   
    endif   
