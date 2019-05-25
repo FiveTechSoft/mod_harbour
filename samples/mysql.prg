@@ -145,6 +145,6 @@ return hb_DynCall( { "mysql_fetch_field", pLib, hb_bitOr( HB_DYN_CALLCONV_CDECL,
 function mysql_get_server_info( hMySQL )
 
 return hb_DynCall( { "mysql_get_server_info", pLib, hb_bitOr( HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CALLCONV_CDECL ), ;
-                     HB_DYN_CTYPE_LONG_UNSIGNED }, hMySql )
+                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySql )
 
 //----------------------------------------------------------------//
