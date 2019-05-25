@@ -190,4 +190,11 @@ HB_FUNC( AP_HEADERSINVAL )
    hb_retc( headers_in_val( hb_parnl( 1 ) ) );
 }   
 
+HB_FUNC( PTRTOSTR )
+{
+   void * pStruct = hb_parnll( 1 );
+   
+   hb_retc( ( char * ) ( * ( pStruct + hb_parnl( 2 ) ) );
+}
+
 #pragma ENDDUMP
