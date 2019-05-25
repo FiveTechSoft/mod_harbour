@@ -35,7 +35,7 @@ return nil
 
 #### DBFs support
 
-Have your DBFs running on the web in record time. Simply copu them to /var/www/test in the Apache server, set the right permissions for the folder and you are ready to go. Please review samples/dbedit.prg and dbrowse.prg.
+Have your DBFs running on the web in record time. Simply copy them to /var/www/test in the Apache server, set the right permissions for the test folder and you are ready to go. Please read the detailed instructions [here](https://github.com/FiveTechSoft/mod_harbour/wiki/Using-DBFs-from-the-server).Please review samples/dbedit.prg and dbrowse.prg and use them as templates.
 
 ##### MySQL support
 
