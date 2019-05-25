@@ -4,7 +4,7 @@ layout: default
 
 **Harbour for the web is finally here**. It took years to understand what we really need and how to implement it. But the Harbour for the web momentum, the xbase developers web momentum, has finally arrived.
 
-There should be whitespace between paragraphs.
+mod Harbour is a module extension for Apache that provides full support to execute PRGs and HRBs files from the web.
 
 There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
 
