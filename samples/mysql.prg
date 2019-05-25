@@ -41,6 +41,10 @@ function Main()
       ? "MySQL use result " + If( hMyRes != 0, "succeeded", "failed" ) + "<br>"
    endif   
 
+   if hMyRes != 0
+      ? "Number of rows: " + Str( mysql_num_rows( hMyRes ) ) + "<br>"
+   endif   
+
    mysql_free_result( hMyRes )
    mysql_close( hMySQL )
    
@@ -101,5 +105,12 @@ return hb_DynCall( { "mysql_free_result", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CT
 function mysql_fetch_row( hMyRes )
 
 return hb_DynCall( { "mysql_fetch_row", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ) }, hMyRes )
+
+//----------------------------------------------------------------//
+
+function mysql_num_rows( hMyRes )
+
+return hb_DynCall( { "mysql_num_rows", pLib, hb_bitOr( HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LLONG_UNSIGNED ),;
+                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
 
 //----------------------------------------------------------------//
