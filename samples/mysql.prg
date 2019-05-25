@@ -38,8 +38,8 @@ function Main()
    endif   
    
    if hConnection != 0
-      hMyRes = mysql_use_result( hConnection )
-      ? "MySQL use result " + If( hMyRes != 0, "succeeded", "failed" ) + "<br>"
+      hMyRes = mysql_store_result( hConnection )
+      ? "MySQL store result " + If( hMyRes != 0, "succeeded", "failed" ) + "<br>"
    endif   
 
    if hMyRes != 0
@@ -94,6 +94,13 @@ function mysql_use_result( hMySQL )
 
 return hb_DynCall( { "mysql_use_result", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ),;
                      HB_DYN_CTYPE_LONG_UNSIGNED }, hMySQL )
+
+//----------------------------------------------------------------//
+
+function mysql_store_result( hMySQL )
+
+return hb_DynCall( { "mysql_store_result", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ),;
+                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySQL )
 
 //----------------------------------------------------------------//
 
