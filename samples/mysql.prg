@@ -45,6 +45,10 @@ function Main()
    if hMyRes != 0
       ? "Number of rows: " + Str( mysql_num_rows( hMyRes ) ) + "<br>"
    endif   
+   
+   if hMyRes != 0
+      ? "Number of fields: " + Str( mysql_num_fields( hMyRes ) ) + "<br>"
+   endif   
 
    mysql_free_result( hMyRes )
    mysql_close( hMySQL )
@@ -119,6 +123,13 @@ return hb_DynCall( { "mysql_fetch_row", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGN
 function mysql_num_rows( hMyRes )
 
 return hb_DynCall( { "mysql_num_rows", pLib, hb_bitOr( HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LLONG_UNSIGNED ),;
+                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
+
+//----------------------------------------------------------------//
+
+function mysql_num_fields( hMyRes )
+
+return hb_DynCall( { "mysql_num_fields", pLib, hb_bitOr( HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LONG_UNSIGNED ),;
                      HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
 
 //----------------------------------------------------------------//
