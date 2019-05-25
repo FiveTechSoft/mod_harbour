@@ -192,7 +192,7 @@ HB_FUNC( AP_HEADERSINVAL )
 
 HB_FUNC( PTRTOSTR )
 {
-   void * pStruct = hb_parnll( 1 );
+   void * pStruct = ( void * ) hb_parnll( 1 );
    
    hb_retc( ( char * ) ( * ( ( ( char * ) pStruct ) + hb_parnl( 2 ) ) ) );
 }
