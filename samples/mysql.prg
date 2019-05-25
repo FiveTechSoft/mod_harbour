@@ -7,7 +7,7 @@
 #define HB_DYN_CTYPE_INT            0x0000003
 #define NULL                        0x0000000         
 
-static pLib, hMySQL, hConnection
+static pLib, hMySQL, hConnection, hMyRes
 
 //----------------------------------------------------------------//
 
