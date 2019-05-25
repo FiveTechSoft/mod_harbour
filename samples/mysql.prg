@@ -60,7 +60,7 @@ function Main()
       next
       ? "</tr>"
       for n = 1 to mysql_num_rows( hMyRes )
-         if( ( hRow := mysql_fetch_row( hMyRes) ) != 0
+         if ( hRow := mysql_fetch_row( hMyRes) ) != 0
             ? "<tr>"
                for m = 1 to mysql_num_fields( hMyRes )
                   ? "<td>" + PtrToStr( hRow, 1 ) + "</td>"
