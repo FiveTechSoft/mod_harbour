@@ -39,7 +39,7 @@ Have your DBFs running on the web in record time. Simply copy them to /var/www/t
 
 ### MySQL support
 
-If you prefer to use MySQL then mod Harbour has everything you need for it. Please review samples/mysql.exe for a complete example that you can use as a template.
+If you prefer to use **MySQL** then mod Harbour **has everything you need** for it. Please review samples/mysql.prg for a **complete example** that you can use as a template.
 
 ### Apache API support functions
 
