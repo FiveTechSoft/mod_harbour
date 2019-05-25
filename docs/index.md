@@ -10,15 +10,18 @@ If you are a Windows developer, you can build the web from your Windows 10 bash 
 
 # Windows 10 bash support
 
-The Windows 10 WSL (Windows SubSystem for Linux) lets you execute Ubuntu 18.04 from your Windows 10 bash, using Ubuntu (about 200 mb) and installing Apache on it. Detailed instructions are provided in the mod harbour repo wiki.
+The Windows 10 WSL (Windows SubSystem for Linux) lets you use Ubuntu 18.04 (about 200 mb) from your Windows 10 bash and install Apache and MySQL server on it. Detailed instructions are provided in the mod harbour repo wiki.
 
 ## OSX support
 
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
+The mod Harbour is already available for the Macs: https://github.com/FiveTechSoft/mod_harbour/tree/master/osx
+With an easy to use installer that sets up everything for you.
 
 ### Linux support
+
+mod Harbour versions for Ubuntu and CentOS 7 are already available. Run Ubuntu from your Windows 10 bash, code your PRGs from
+Windows 10 and execute them from Edge or Chrome. Apache server and MySQL server from Ubuntu give you all you need. The perfect
+environment for creating web applications using Harbour in records time.
 
 ```js
 // Javascript code with syntax highlighting.
