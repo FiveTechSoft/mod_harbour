@@ -60,12 +60,13 @@ function Main()
       next
       ? "</tr>"
       for n = 1 to mysql_num_rows( hMyRes )
-         hRow = mysql_fetch_row( hMyRes, n )
-         ? "<tr>"
-            for m = 1 to mysql_num_fields( hMyRes )
-               ? "<td>" + PtrToStr( hRow, 0 ) + "</td>"
-            next
-         ? "</tr>"
+         if( ( hRow := mysql_fetch_row( hMyRes) ) != 0
+            ? "<tr>"
+               for m = 1 to mysql_num_fields( hMyRes )
+                  ? "<td>" + PtrToStr( hRow, 0 ) + "</td>"
+               next
+            ? "</tr>"
+         endif   
       next   
       ? "</table>"      
       ? "<br><br>" 
