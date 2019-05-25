@@ -14,7 +14,7 @@ static pLib, hMySQL, hConnection, hMyRes
 
 function Main()
 
-   local nRetVal
+   local nRetVal, n, hField
    
    pLib = hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
    hMySQL = mysql_init()
@@ -49,6 +49,9 @@ function Main()
    
    if hMyRes != 0
       ? "Number of fields: " + Str( mysql_num_fields( hMyRes ) ) + "<br>"
+      for n = 1 to mysql_num_fields( hMyRes )
+         hField = mysql_fetch_field( hMyRes )
+         ? PtrToStr( hField, 0 ) + "<br>" 
    endif   
 
    mysql_free_result( hMyRes )
