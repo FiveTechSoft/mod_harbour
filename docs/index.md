@@ -20,7 +20,7 @@ With an **easy to use installer** that sets up everything for you.
 ### Linux support
 
 **mod Harbour** versions for **Ubuntu** and **CentOS 7** are already available. Use Ubuntu from your Windows 10 bash, code your PRGs from
-Windows 10 using for favorite source code editor and run the PRGs from Edge or Chrome. Apache server and MySQL server from Ubuntu give you all you need. The perfect environment for creating web applications using Harbour in records time.
+Windows 10 **using your favorite source code editor** and run the PRGs from **Edge or Chrome**. Apache server and MySQL server from Ubuntu give you all you need. The **perfect environment** for creating web applications using Harbour in **records time**.
 
 ```c
 // typicall Harbour PRG running on the web
