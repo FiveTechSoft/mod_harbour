@@ -21,13 +21,12 @@ function Main()
    ? "pLib = " + ValType( pLib ) + ;
       If( ValType( pLib ) == "P", " (MySQL library properly loaded)", " (MySQL library not found)" ) + '<br>'
    
-   ? "hMySQL = " + Str( hMySQL ) + ;
-      If( hMySQL != 0, " (MySQL library properly initalized)", " (MySQL library failed to initialize)" ) + '<br>'
+   ? "hMySQL = " + Str( hMySQL ) + "(MySQL library " + ;
+      If( hMySQL != 0, "initalized)", "failed to initialize)" ) + '<br>'
 
    ? "Connection: "
    ? hConnection := mysql_real_connect( "127.0.0.1", "harbour", "password", "dbHarbour", 3306 )
-   ? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
-   ? '<br>'
+   ? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" ) + "<br>"
 
    if hConnection != 0
       nRetVal = mysql_query( hConnection, "select * from users" )
