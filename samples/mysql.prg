@@ -21,7 +21,7 @@ function Main()
    ? "pLib = " + ValType( pLib ) + ;
       If( ValType( pLib ) == "P", " (MySQL library properly loaded)", " (MySQL library not found)" ) + '<br>'
    
-   ? "hMySQL = " + Str( hMySQL ) + "(MySQL library " + ;
+   ? "hMySQL = " + Str( hMySQL ) + " (MySQL library " + ;
       If( hMySQL != 0, "initalized)", "failed to initialize)" ) + '<br>'
 
    ? "Connection: "
