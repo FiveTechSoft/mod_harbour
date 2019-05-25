@@ -63,13 +63,13 @@ return nil
 
 function mysql_init()
 
-return hb_DynCall( { "mysql_init", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ) }, NULL )
+return hb_DynCall( { "mysql_init", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ) }, NULL )
 
 //----------------------------------------------------------------//
 
 function mysql_close( hMySQL )
 
-return hb_DynCall( { "mysql_close", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LONG_UNSIGNED }, hMySQL )
+return hb_DynCall( { "mysql_close", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySQL )
 
 //----------------------------------------------------------------//
 
@@ -79,8 +79,8 @@ function mysql_real_connect( cServer, cUserName, cPassword, cDataBaseName, nPort
       nPort = 3306
    endif   
 
-return hb_DynCall( { "mysql_real_connect", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ),;
-                     HB_DYN_CTYPE_LONG_UNSIGNED,;
+return hb_DynCall( { "mysql_real_connect", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ),;
+                     HB_DYN_CTYPE_LLONG_UNSIGNED,;
                      HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR,;
                      HB_DYN_CTYPE_LONG, HB_DYN_CTYPE_LONG, HB_DYN_CTYPE_LONG },;
                      hMySQL, cServer, cUserName, cPassword, cDataBaseName, nPort, 0, 0 )
@@ -90,15 +90,15 @@ return hb_DynCall( { "mysql_real_connect", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNS
 function mysql_query( hConnect, cQuery )
 
 return hb_DynCall( { "mysql_query", pLib, hb_bitOr( HB_DYN_CTYPE_INT, HB_DYN_CALLCONV_CDECL ),;
-                   HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CTYPE_CHAR_PTR },;
+                   HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CTYPE_CHAR_PTR },;
                    hConnect, cQuery )
 
 //----------------------------------------------------------------//
 
 function mysql_use_result( hMySQL )
 
-return hb_DynCall( { "mysql_use_result", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ),;
-                     HB_DYN_CTYPE_LONG_UNSIGNED }, hMySQL )
+return hb_DynCall( { "mysql_use_result", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ),;
+                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySQL )
 
 //----------------------------------------------------------------//
 
@@ -111,13 +111,13 @@ return hb_DynCall( { "mysql_store_result", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UN
 
 function mysql_free_result( hMyRes) 
 
-return hb_DynCall( { "mysql_free_result", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LONG_UNSIGNED }, hMyRes )
+return hb_DynCall( { "mysql_free_result", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
 
 //----------------------------------------------------------------//
 
 function mysql_fetch_row( hMyRes )
 
-return hb_DynCall( { "mysql_fetch_row", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ) }, hMyRes )
+return hb_DynCall( { "mysql_fetch_row", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ) }, hMyRes )
 
 //----------------------------------------------------------------//
 
