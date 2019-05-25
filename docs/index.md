@@ -8,7 +8,7 @@ mod Harbour is an **extension module** for Apache that provides full support to 
 
 If you are a **Windows developer**, you can build the web **from your Windows 10 bash** and then simply **run your PRGs on Edge or Chrome** powered by **Apache on the bash** using the **mod Harbour extension**.
 
-# Windows 10 bash support
+## Windows 10 bash support
 
 The Windows 10 WSL (Windows SubSystem for Linux) lets you use Ubuntu 18.04 (about 200 mb) from your Windows 10 bash and install Apache and MySQL server on it. **Detailed instructions** are provided in the [mod Harbour repo wiki](https://github.com/FiveTechSoft/mod_harbour/wiki).
 
@@ -17,7 +17,7 @@ The Windows 10 WSL (Windows SubSystem for Linux) lets you use Ubuntu 18.04 (abou
 The mod Harbour is **already available** for the [Macs](https://github.com/FiveTechSoft/mod_harbour/tree/master/osx)
 With an **easy to use installer** that sets up everything for you.
 
-### Linux support
+## Linux support
 
 **mod Harbour** versions for **Ubuntu** and **CentOS 7** are already available. Use Ubuntu from your Windows 10 bash, code your PRGs from
 Windows 10 **using your favorite source code editor** and run the PRGs from **Edge or Chrome**. Apache server and MySQL server from Ubuntu give you all you need. The **perfect environment** for creating web applications using Harbour in **records time**.
@@ -33,15 +33,15 @@ function Main()
 return nil   
 ```
 
-#### DBFs support
+### DBFs support
 
 Have your DBFs running on the web in record time. Simply copy them to /var/www/test in the Apache server, set the right permissions for the test folder and you are ready to go. Please read the detailed instructions [here](https://github.com/FiveTechSoft/mod_harbour/wiki/Using-DBFs-from-the-server).Please review samples/dbedit.prg and dbrowse.prg and use them as templates.
 
-##### MySQL support
+### MySQL support
 
 If you prefer to use MySQL then mod Harbour has everything you need for it. Please review samples/mysql.exe for a complete example that you can use as a template.
 
-##### Apache API support functions
+### Apache API support functions
 
-mod Harbour provides you easy to use function that deliver all the Apache API power to your apps. Check the user IP, check if the user is doing a GET or a POST. Retrieve the provided parameters from the browsers, and more...
+mod Harbour provides you easy to use function that deliver all the Apache API power to your apps. Check the **user IP**, check if the user is doing a **GET or a POST**. Retrieve the **provided parameters** from the browsers, and more... Review the [samples](https://github.com/FiveTechSoft/mod_harbour/tree/master/samples) and start developing your web apps using Harbour **today**!
 
