@@ -5,6 +5,7 @@
 #define HB_DYN_CTYPE_CHAR_PTR       0x0000101
 #define HB_DYN_CTYPE_LONG           0x0000004
 #define HB_DYN_CTYPE_INT            0x0000003
+#define HB_DYN_CTYPE_LLONG_UNSIGNED 0x0000015
 #define NULL                        0x0000000         
 
 static pLib, hMySQL, hConnection, hMyRes
