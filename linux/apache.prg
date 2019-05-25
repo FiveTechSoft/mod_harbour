@@ -194,7 +194,7 @@ HB_FUNC( PTRTOSTR )
 {
    void * pStruct = ( void * ) hb_parnll( 1 );
    
-   hb_retc( * ( ( ( char * ) pStruct ) + hb_parnl( 2 ) ) );
+   hb_retc( * ( ( ( const char * ) pStruct ) + hb_parnl( 2 ) ) );
 }
 
 #pragma ENDDUMP
