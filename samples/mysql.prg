@@ -51,7 +51,9 @@ function Main()
       ? "Number of fields: " + Str( mysql_num_fields( hMyRes ) ) + "<br>"
       for n = 1 to mysql_num_fields( hMyRes )
          hField = mysql_fetch_field( hMyRes )
-         ? PtrToStr( hField, 0 ) + "<br>" 
+         if hField != 0
+            ? PtrToStr( hField, 0 ) + "<br>" 
+         endif   
    endif   
 
    mysql_free_result( hMyRes )
