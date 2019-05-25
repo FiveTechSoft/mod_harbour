@@ -6,7 +6,7 @@ layout: default
 
 **mod Harbour** is an **extension module** for **Apache** that provides full support to **execute PRGs and HRBs files from the web**.
 
-If you are a **Windows developer**, you can build the web **from your Windows 10** and then simply **run your PRGs on Edge or Chrome** powered by **Apache on the Windows 10 bash** using the **mod Harbour extension**. When everything is ready, simply take your PRGs to your **dedicated Linux web server** where you can install the **mod Harbour for Apache**. 
+If you are a **Windows developer**, you can build the web **from your Windows 10** and then simply **run your PRGs on Edge or Chrome** powered by **Apache on the Windows 10 bash** using the **mod Harbour extension**. When everything is ready, simply take **your PRGs** to your **dedicated Linux web server** where you can install the **mod Harbour for Apache**. 
 
 ## Windows 10 bash support
 
