@@ -49,16 +49,16 @@ function Main()
    
    if hMyRes != 0
       ? "Number of fields: " + Str( mysql_num_fields( hMyRes ) ) + "<br>"
-      for n = 1 to mysql_num_fields( hMyRes )
-         ? "+---------------"
-      next   
-      ? "<br>"
+      ? "<table>"
+      ? "<tr>"
       for n = 1 to mysql_num_fields( hMyRes )
          hField = mysql_fetch_field( hMyRes )
          if hField != 0
-            ? "       " + PtrToStr( hField, 0 ) + "       | " 
+            ? "<td>" + PtrToStr( hField, 0 ) + "</td>" 
          endif   
-      next   
+      next
+      ? "</tr>"
+      ? "</table>"      
       ? "<br><br>" 
    endif   
 
