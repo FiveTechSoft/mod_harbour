@@ -2,7 +2,7 @@
 layout: default
 ---
 
-**Harbour for the web is finally here**. It tooks years to understand what we really need and how to implement it. But the Harbour for the web momentum, our xbase developers web momentum, has finally arrived.
+**Harbour for the web is finally here**. It tooks years to understand what we really need and how to implement it. But the Harbour for the web momentum, the xbase developers web momentum, has finally arrived.
 
 There should be whitespace between paragraphs.
 
