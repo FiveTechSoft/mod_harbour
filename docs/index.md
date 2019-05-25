@@ -4,7 +4,7 @@ layout: default
 
 **Harbour for the web is finally here**. It took years to understand what we really need and how to implement it. But the Harbour for the web momentum, the xbase developers web momentum, has **finally arrived**.
 
-**mod Harbour** is an **extension module** for Apache that provides full support to **execute PRGs and HRBs files from the web**.
+**mod Harbour** is an **extension module** for **Apache** that provides full support to **execute PRGs and HRBs files from the web**.
 
 If you are a **Windows developer**, you can build the web **from your Windows 10 bash** and then simply **run your PRGs on Edge or Chrome** powered by **Apache on the bash** using the **mod Harbour extension**.
 
