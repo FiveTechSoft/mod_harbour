@@ -14,12 +14,12 @@ The Windows 10 WSL (Windows SubSystem for Linux) lets you use Ubuntu 18.04 (abou
 
 ## OSX support
 
-The mod Harbour is already available for the [Macs](https://github.com/FiveTechSoft/mod_harbour/tree/master/osx)
-With an easy to use installer that sets up everything for you.
+The mod Harbour is **already available** for the [Macs](https://github.com/FiveTechSoft/mod_harbour/tree/master/osx)
+With an **easy to use installer** that sets up everything for you.
 
 ### Linux support
 
-mod Harbour versions for Ubuntu and CentOS 7 are already available. Use Ubuntu from your Windows 10 bash, code your PRGs from
+**mod Harbour** versions for **Ubuntu** and **CentOS 7** are already available. Use Ubuntu from your Windows 10 bash, code your PRGs from
 Windows 10 using for favorite source code editor and run the PRGs from Edge or Chrome. Apache server and MySQL server from Ubuntu give you all you need. The perfect environment for creating web applications using Harbour in records time.
 
 ```c
@@ -41,7 +41,7 @@ Have your DBFs running on the web in record time. Simply copu them to /var/www/t
 
 If you prefer to use MySQL then mod Harbour has everything you need for it. Please review samples/mysql.exe for a complete example that you can use as a template.
 
-###### Apache API support functions
+##### Apache API support functions
 
 mod Harbour provides you easy to use function that deliver all the Apache API power to your apps. Check the user IP, check if the user is doing a GET or a POST. Retrieve the provided parameters from the browsers, and more...
 
