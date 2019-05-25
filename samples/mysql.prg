@@ -133,3 +133,10 @@ return hb_DynCall( { "mysql_num_fields", pLib, hb_bitOr( HB_DYN_CALLCONV_CDECL, 
                      HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
 
 //----------------------------------------------------------------//
+
+function mysql_fetch_field( hMyRes )
+
+return hb_DynCall( { "mysql_fetch_field", pLib, hb_bitOr( HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LLONG_UNSIGNED ),;
+                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
+
+//----------------------------------------------------------------//
