@@ -20,7 +20,7 @@ sudo apachectl restart
 
 Copy samples/test.prg to /var/www/html and go to localhost/test.prg in your browser
 
-**Instructions to build them (skip this if you just want to test it without built them)**
+**Instructions to build them (skip this if you just want to test it without build them)**
 
 The mod_harbour for Apache on Linux uses a different approach that turns it much much faster and lighter.
 
