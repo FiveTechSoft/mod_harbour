@@ -33,17 +33,13 @@ function Main()
 return nil   
 ```
 
-#### Header 4
+#### DBFs support
 
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
+Have your DBFs running on the web in record time. Simply copu them to /var/www/test in the Apache server, set the right permissions for the folder and you are ready to go. Please review samples/dbedit.prg and dbrowse.prg.
 
-##### Header 5
+##### MySQL support
 
-1.  This is an ordered list following a header.
-2.  This is an ordered list following a header.
-3.  This is an ordered list following a header.
+If you prefer to use MySQL then mod Harbour has everything you need for it. Please review samples/mysql.exe for a complete example that you can use as a template.
 
 ###### Header 6
 
