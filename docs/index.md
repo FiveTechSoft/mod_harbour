@@ -43,5 +43,5 @@ If you prefer to use MySQL then mod Harbour has everything you need for it. Plea
 
 ### Apache API support functions
 
-mod Harbour provides you easy to use function that deliver all the Apache API power to your apps. Check the **user IP**, check if the user is doing a **GET or a POST**. Retrieve the **provided parameters** from the browsers, and more... Review the [samples](https://github.com/FiveTechSoft/mod_harbour/tree/master/samples) and start developing your web apps using Harbour **today**!
+mod Harbour provides you easy to use functions that deliver all the **Apache API power** to your apps. Check the **user IP**, check if the user is doing a **GET or a POST**. Retrieve the **provided parameters** from the browsers, and more... Review the [samples](https://github.com/FiveTechSoft/mod_harbour/tree/master/samples) and start developing your web apps using Harbour **today**!
 
