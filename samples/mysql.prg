@@ -80,3 +80,10 @@ return hb_DynCall( { "mysql_query", pLib, hb_bitOr( HB_DYN_CTYPE_INT, HB_DYN_CAL
                    hConnect, cQuery )
 
 //----------------------------------------------------------------//
+
+function mysql_use_result( hMySQL )
+
+return hb_DynCall( { "mysql_use_result", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ),;
+                     HB_DYN_CTYPE_LONG_UNSIGNED }, hMySQL )
+
+//----------------------------------------------------------------//
