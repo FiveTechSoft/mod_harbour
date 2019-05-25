@@ -97,3 +97,9 @@ function mysql_free_result( hMyRes)
 return hb_DynCall( { "mysql_free_result", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LONG_UNSIGNED }, hMyRes )
 
 //----------------------------------------------------------------//
+
+function mysql_fetch_row( hMyRes )
+
+return hb_DynCall( { "mysql_fetch_row", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ) }, hMyRes )
+
+//----------------------------------------------------------------//
