@@ -36,6 +36,7 @@ function Main()
       if nRetVal != 0
          ? "error: " + Str( nRetVal ) + "</br>"
       endif
+      ? "<br><br>"
    endif   
    
    if hConnection != 0
