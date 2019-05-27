@@ -1,6 +1,6 @@
 mod_harbour for Raspberry pi
 
-sudo apt install apache2-dev
+<b>sudo apt install apache2-dev</b>
 
 mkdir temp
 
