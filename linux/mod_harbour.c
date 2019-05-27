@@ -83,14 +83,14 @@ const char * ap_headers_in_val( int iKey )
 
 const char * ap_post_pairs_key( int iKey )
 {
-   apr_table_entry_t * e;
+   ap_form_pair_t * e;
 
    if( POST_pairs != NULL )
    {
-      e = ( apr_table_entry_t * ) POST_pairs->elts;
+      e = ( ap_form_pair_t * ) POST_pairs->elts;
 
       if( iKey >= 0 && iKey < POST_pairs->nelts )
-         return e[ iKey ].key;
+         return e[ iKey ].name;
       else
          return "";
    }
@@ -100,14 +100,14 @@ const char * ap_post_pairs_key( int iKey )
 
 const char * ap_post_pairs_val( int iKey )
 {
-   apr_table_entry_t * e;
+   ap_form_pair_t * e;
 
    if( POST_pairs != NULL )
    {
-      e = ( apr_table_entry_t * ) POST_pairs->elts;
+      e = ( ap_form_pair_t * ) POST_pairs->elts;
 
       if( iKey >= 0 && iKey < POST_pairs->nelts )
-         return e[ iKey ].val;
+         return e[ iKey ].value;
       else
          return "";
    }
