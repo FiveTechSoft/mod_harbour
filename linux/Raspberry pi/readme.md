@@ -1,6 +1,6 @@
 mod_harbour for Raspberry pi
 
-Instrucciones para crear <br>mod_harbour.so</br>
+<br>Instrucciones para crear mod_harbour.so</br>
 
 sudo apt install apache2-dev
 
