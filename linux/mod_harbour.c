@@ -107,7 +107,19 @@ const char * ap_post_pairs_val( int iKey )
       e = ( ap_form_pair_t * ) POST_pairs->elts;
 
       if( iKey >= 0 && iKey < POST_pairs->nelts )
-         return e[ iKey ].value;
+      {
+         apr_off_t len;
+         apr_size_t size; 
+         char * buffer;
+
+         apr_brigade_length( e[ iKey ].value, 1, &len );
+         size = ( apr_size_t ) len;
+         buffer = apr_palloc( _r->pool, size + 1 );
+         apr_brigade_flatten( e[ iKey ].value, buffer, &size );
+         buffer[ len ] = 0;
+
+         return buffer;
+      }
       else
          return "";
    }
