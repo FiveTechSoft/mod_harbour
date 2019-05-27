@@ -1,16 +1,16 @@
 mod_harbour for Raspberry pi
-
-(Importante, tener cuenta con GIT)
-
-Instrucciones:
 sudo apt install apache2-dev
 mkdir temp
 cd temp
 apxs -g -n harbour
 cd harbour
 make all
-
-Si todo hasta aqui funciona, continuamos
-
-git clone https://github.con/fivetechsoft/mod_harbour
-  
+git clone https://github.com/fivetechsoft/mod_harbour
+Si ya estaba instalado
+entre a mod_harbour 
+y ejecute 
+git pull
+cp  /linux/mod_harbour.c /temp/harbour 
+cd ./temp/harbour
+make all
+( ya tienes el mod_harbour.so para Raspberry pi )
