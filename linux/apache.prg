@@ -2,8 +2,9 @@
 
 #define CRLF hb_OsNewLine()
 
-extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL, AP_METHOD, AP_ARGS, AP_USERIP
-extern PTRTOSTR
+extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR
+extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
+extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL
 
 //----------------------------------------------------------------//
 
@@ -112,13 +113,16 @@ return cResult
 #include <hbapiitm.h>
 
 static void * pRequestRec, * pAPRPuts;
-static void * pHeadersIn, * pHeadersOut, * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
+static void * pHeadersIn, * pHeadersOut;
+static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
+static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
 
 int hb_apache( void * _pRequestRec, void * _pAPRPuts, 
                const char * cFileName, const char * cArgs, const char * cMethod, const char * cUserIP,
                void * _pHeadersIn, void * _pHeadersOut, 
-               void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal )
+               void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
+               void * _pPostPairsCount, void * _pPostPairsKey, void * _pPostPairsVal )
 {
    pRequestRec     = _pRequestRec;
    pAPRPuts        = _pAPRPuts; 
@@ -131,6 +135,9 @@ int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    pHeadersInCount = _pHeadersInCount;
    pHeadersInKey   = _pHeadersInKey;
    pHeadersInVal   = _pHeadersInVal;
+   pPostPairsCount = _pPostPairsCount;
+   pPostPairsKey   = _pPostPairsKey;
+   pPostPairsVal   = _pPostPairsVal;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -179,17 +186,38 @@ HB_FUNC( AP_HEADERSINCOUNT )
 
 HB_FUNC( AP_HEADERSINKEY )
 {
-   char * ( * headers_in_key )( int ) = pHeadersInKey;
+   const char * ( * headers_in_key )( int ) = pHeadersInKey;
    
    hb_retc( headers_in_key( hb_parnl( 1 ) ) );
 }   
 
 HB_FUNC( AP_HEADERSINVAL )
 {
-   char * ( * headers_in_val )( int ) = pHeadersInVal;
+   const char * ( * headers_in_val )( int ) = pHeadersInVal;
    
    hb_retc( headers_in_val( hb_parnl( 1 ) ) );
 }   
+
+HB_FUNC( AP_POSTPAIRSCOUNT )
+{
+   int ( * post_pairs_count )( void ) = pPostPairsCount;
+
+   hb_retnl( post_pairs_count() );
+}
+
+HB_FUNC( AP_POSTPAIRSKEY )
+{
+   const char * ( * post_pairs_key )( int ) = pPostPairsKey;
+
+   hb_retc( post_pairs_key( hb_parnl( 1 ) ) );
+}
+
+HB_FUNC( AP_POSTPAIRSVAL )
+{
+   const char * ( * post_pairs_val )( int ) = pPostPairsVal;
+
+   hb_retc( post_pairs_val( hb_parnl( 1 ) ) );
+}
 
 HB_FUNC( PTRTOSTR )
 {
