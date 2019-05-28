@@ -7,9 +7,13 @@ function Main()
    local hHeadersIn := AP_HeadersIn()
 
    ? "Retrieving the Headers In 'Host': " 
-   ? hHeadersIn[ "Host" ]
+   if hb_HHasKey( hHeadersIn, "Host" )
+      ? hHeadersIn[ "Host" ]
+   endif   
 
    ? "Retrieving the Headers In 'Cookie': "
-   ? hHeadersIn[ "Cookie" ]
+   if hb_HHasKey( hHeadersIn, "Cookie" )
+      ? hHeadersIn[ "Cookie" ]
+   endif   
 
 return nil
