@@ -51,6 +51,11 @@ int ap_headers_in_count( void )
    return apr_table_elts( _r->headers_in )->nelts;
 }
 
+int ap_headers_out_count( void )
+{
+   return apr_table_elts( _r->headers_out )->nelts;
+}
+
 int ap_post_pairs_count( void )
 {
    if( POST_pairs != NULL )
@@ -127,6 +132,11 @@ const char * ap_post_pairs_val( int iKey )
       return "";
 }
 
+void ap_headers_out_set( const char * szKey, const char * szValue )
+{
+   apr_table_set( _r->headers_out, szKey, szValue );
+}
+
 static int harbour_handler( request_rec * r )
 {
    void * lib_harbour = NULL;
@@ -134,7 +144,8 @@ static int harbour_handler( request_rec * r )
                          const char * szFileName, const char * szArgs, const char * szMethod, const char * szUserIP,
                          void * pHeadersIn, void * pHeadersOut, 
                          void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal, 
-                         void * pPostPairsCount, void * pPostPairsKey, void * pPostPairsVal ) = NULL;
+                         void * pPostPairsCount, void * pPostPairsKey, void * pPostPairsVal,
+                         void * pHeadersOutSet ) = NULL;
    int iResult = OK;
 
    if( strcmp( r->handler, "harbour" ) )
@@ -155,9 +166,11 @@ static int harbour_handler( request_rec * r )
       if( _hb_apache == NULL )
          ap_rputs( "failed to load hb_apache()", r );
       else
-         iResult = _hb_apache( r, ap_rputs, r->filename, r->args, r->method, r->useragent_ip, r->headers_in, r->headers_out,
+         iResult = _hb_apache( r, ap_rputs, r->filename, r->args, r->method, r->useragent_ip, 
+                               r->headers_in, r->headers_out,
                                ap_headers_in_count, ap_headers_in_key, ap_headers_in_val,
-                               ap_post_pairs_count, ap_post_pairs_key, ap_post_pairs_val );
+                               ap_post_pairs_count, ap_post_pairs_key, ap_post_pairs_val, 
+                               ap_headers_out_set );
    }
 
    if( lib_harbour != NULL )
