@@ -4,7 +4,7 @@
 
 extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
-extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL
+extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN
 
 static hPP
@@ -35,6 +35,7 @@ function AddPPRules()
 
    __pp_addRule( hPP, "#xcommand ? <u> => AP_RPuts( <u> ); AP_RPuts( '<br>' )" )
    __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
+   __pp_addRule( hPP, "#xcommand TEMPLATE => #pragma __cstream | AP_RPuts( InlinePrg( %s ) )" )
 
 return nil
 
@@ -123,6 +124,27 @@ function ValToChar( u )
    endcase
 
 return cResult   
+
+//----------------------------------------------------------------//
+
+function InlinePRG( cText )
+
+   local nStart, nEnd, cCode
+
+   while ( nStart := At( "<?prg", cText ) ) != 0
+      nEnd  = At( "?>", SubStr( cText, nStart + 5 ) )
+      cCode = SubStr( cText, nStart + 5, nEnd - 1 )
+      cText = SubStr( cText, 1, nStart - 1 ) + ExecInline( cCode ) + ;
+              SubStr( cText, nStart + nEnd + 6 )
+   end 
+   
+return cText
+
+//----------------------------------------------------------------//
+
+function ExecInline( cCode )
+
+return Execute( "function __Inline()" + HB_OsNewLine() + cCode )   
 
 //----------------------------------------------------------------//
 
@@ -291,6 +313,36 @@ HB_FUNC( AP_HEADERSIN )
    }  
    
    hb_itemReturnRelease( hHeadersIn );
+}
+
+HB_FUNC( AP_POSTPAIRS )
+{
+   PHB_ITEM hPostPairs = hb_hashNew( NULL ); 
+   int ( * post_pairs_count )( void ) = pPostPairsCount;
+   int iKeys = post_pairs_count();
+
+   if( iKeys > 0 )
+   {
+      int iKey;
+      PHB_ITEM pKey = hb_itemNew( NULL );
+      PHB_ITEM pValue = hb_itemNew( NULL );   
+      const char * ( * post_pairs_key )( int ) = pPostPairsKey;
+      const char * ( * post_pairs_val )( int ) = pPostPairsVal;
+
+      hb_hashPreallocate( hPostPairs, iKeys );
+   
+      for( iKey = 0; iKey < iKeys; iKey++ )
+      {
+         hb_itemPutCConst( pKey,   post_pairs_key( iKey ) );
+         hb_itemPutCConst( pValue, post_pairs_val( iKey ) );
+         hb_hashAdd( hPostPairs, pKey, pValue );
+      }
+      
+      hb_itemRelease( pKey );
+      hb_itemRelease( pValue );
+   }  
+   
+   hb_itemReturnRelease( hPostPairs );
 }
 
 #pragma ENDDUMP
