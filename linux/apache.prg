@@ -7,11 +7,15 @@ extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN
 
+static hPP
+
 //----------------------------------------------------------------//
 
 function _AppMain()
 
    ErrorBlock( { | o | DoBreak( o ) } )
+
+   AddPPRules()
 
    if File( AP_FileName() )
       Execute( MemoRead( AP_FileName() ), AP_Args() )
@@ -23,10 +27,25 @@ return nil
 
 //----------------------------------------------------------------//
 
+function AddPPRules()
+
+   if hPP == nil
+      hPP = __pp_init()
+   endif
+
+   __pp_addRule( hPP, "#xcommand ? <u> => AP_RPuts( <u> ); AP_RPuts( '<br>' )" )
+   __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
+
+return nil
+
+//----------------------------------------------------------------//
+
 function Execute( cCode, ... )
 
    local oHrb, uRet
    local cHBheaders := "~/harbour/include"
+
+   cCode = __pp_process( hPP, cCode )
 
    oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders )
    if ! Empty( oHrb )
