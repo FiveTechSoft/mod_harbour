@@ -6,12 +6,12 @@ function Main()
 
    local hHeadersIn := AP_HeadersIn()
 
-   ? "Retrieving the Headers In 'Host': " 
+   ? "Retrieving the HeadersIn 'Host': " 
    if hb_HHasKey( hHeadersIn, "Host" )
       ? hHeadersIn[ "Host" ]
    endif   
 
-   ? "Retrieving the Headers In 'Cookie': "
+   ? "Retrieving the HeadersIn 'Cookie': "
    if hb_HHasKey( hHeadersIn, "Cookie" )
       ? hHeadersIn[ "Cookie" ]
    endif   
