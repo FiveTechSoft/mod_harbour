@@ -63,7 +63,7 @@ function Main()
          if ( hRow := mysql_fetch_row( hMyRes) ) != 0
             ? "<tr>"
                for m = 1 to mysql_num_fields( hMyRes )
-                  ? "<td>" + PtrToStr( hRow, m - 1 ) + "</td>"
+                  ? "<td>" + AllTrim( PtrToStr( hRow, m - 1 ) ) + "</td>"
                next
             ? "</tr>"
          endif   
