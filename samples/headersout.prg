@@ -16,5 +16,7 @@ function Main()
    
    ? AP_HeadersOutCount()
    ? "<br>"
+   
+   ErrorLevel( REDIRECTION )
 
-return REDIRECTION
+return nil
