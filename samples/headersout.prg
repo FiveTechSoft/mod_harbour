@@ -1,5 +1,7 @@
 #xcommand ? <cText> => AP_RPuts( <cText> )
 
+#define REDIRECTION  302
+
 function Main()
 
    ? AP_HeadersOutCount() 
@@ -15,4 +17,4 @@ function Main()
    ? AP_HeadersOutCount()
    ? "<br>"
 
-return nil
+return REDIRECTION
