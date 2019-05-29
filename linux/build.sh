@@ -1,12 +1,14 @@
-cd ~/
+cd ~
 if [ ! -d "mod_harbour" ]; then
    git clone https://github.com/fivetechsoft/mod_harbour
 else
+   cd mod_harbour
    git pull
 fi
 if [ ! -d "harbour_for_modharbour" ]; then
    git clone https://github.com/fivetechsoft/harbour_for_modharbour
 else
+   cd harbour_for_modharbour
    git pull
 fi
 cp apache.prg  ~/harbour_for_modharbour/src/rtl
