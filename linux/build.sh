@@ -11,6 +11,7 @@ else
    cd harbour_for_modharbour
    git pull
 fi
+cd ~/mod_harbour
 cp apache.prg  ~/harbour_for_modharbour/src/rtl
 cd ~/harbour_for_modharbour
 export HB_USER_PRGFLAGS=-l-
