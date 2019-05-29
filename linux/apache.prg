@@ -190,18 +190,23 @@ int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    return hb_vmQuit();
 }   
 
+static BOOL bFirstTime = TRUE;
+
 HB_FUNC( AP_RPUTS )
 {
    int ( * ap_rputs )( const char * s, void * r ) = pAPRPuts;
    int iParams = hb_pcount(), iParam;
-
-   ap_rputs( "<br>", pRequestRec );
 
    for( iParam = 1; iParam <= iParams; iParam++ )
    {
       HB_SIZE nLen;
       HB_BOOL bFreeReq;
       char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
+
+      if( bFirstTime )
+         bFirstTime = FALSE;
+      else   
+         ap_rputs( "<br>", pRequestRec );
       
       ap_rputs( buffer, pRequestRec );
 
