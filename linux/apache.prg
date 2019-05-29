@@ -4,14 +4,18 @@
 
 extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
-extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL
-extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN
+extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
+extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
+
+static hPP
 
 //----------------------------------------------------------------//
 
 function _AppMain()
 
    ErrorBlock( { | o | DoBreak( o ) } )
+
+   AddPPRules()
 
    if File( AP_FileName() )
       Execute( MemoRead( AP_FileName() ), AP_Args() )
@@ -23,10 +27,27 @@ return nil
 
 //----------------------------------------------------------------//
 
+function AddPPRules()
+
+   if hPP == nil
+      hPP = __pp_init()
+   endif
+
+   __pp_addRule( hPP, "#xcommand ? [<explist,...>] => AP_RPuts( [<explist>] )" )
+   __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
+   __pp_addRule( hPP, "#xcommand TEMPLATE => #pragma __cstream | AP_RPuts( InlinePrg( %s ) )" )
+   __pp_addRule( hPP, "#command ENDTEMPLATE => #pragma __endtext" )
+
+return nil
+
+//----------------------------------------------------------------//
+
 function Execute( cCode, ... )
 
    local oHrb, uRet
    local cHBheaders := "~/harbour/include"
+
+   cCode = __pp_process( hPP, cCode )
 
    oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders )
    if ! Empty( oHrb )
@@ -107,13 +128,34 @@ return cResult
 
 //----------------------------------------------------------------//
 
+function InlinePRG( cText )
+
+   local nStart, nEnd, cCode
+
+   while ( nStart := At( "<?prg", cText ) ) != 0
+      nEnd  = At( "?>", SubStr( cText, nStart + 5 ) )
+      cCode = SubStr( cText, nStart + 5, nEnd - 1 )
+      cText = SubStr( cText, 1, nStart - 1 ) + ExecInline( cCode ) + ;
+              SubStr( cText, nStart + nEnd + 6 )
+   end 
+   
+return cText
+
+//----------------------------------------------------------------//
+
+function ExecInline( cCode )
+
+return Execute( "function __Inline()" + HB_OsNewLine() + cCode )   
+
+//----------------------------------------------------------------//
+
 #pragma BEGINDUMP
 
 #include <hbapi.h>
 #include <hbvm.h>
 #include <hbapiitm.h>
 
-static void * pRequestRec, * pAPRPuts;
+static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
 static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
 static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
 static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
@@ -124,24 +166,25 @@ int hb_apache( void * _pRequestRec, void * _pAPRPuts,
                void * _pHeadersIn, void * _pHeadersOut, 
                void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
                void * _pPostPairsCount, void * _pPostPairsKey, void * _pPostPairsVal,
-               void * _pHeadersOutCount, void * _pHeadersOutSet )
+               void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType )
 {
-   pRequestRec      = _pRequestRec;
-   pAPRPuts         = _pAPRPuts; 
-   szFileName       = _szFileName;
-   szArgs           = _szArgs;
-   szMethod         = _szMethod;
-   szUserIP         = _szUserIP;
-   pHeadersIn       = _pHeadersIn;
-   pHeadersOut      = _pHeadersOut;
-   pHeadersInCount  = _pHeadersInCount;
-   pHeadersInKey    = _pHeadersInKey;
-   pHeadersInVal    = _pHeadersInVal;
-   pPostPairsCount  = _pPostPairsCount;
-   pPostPairsKey    = _pPostPairsKey;
-   pPostPairsVal    = _pPostPairsVal;
-   pHeadersOutCount = _pHeadersOutCount;
-   pHeadersOutSet   = _pHeadersOutSet;
+   pRequestRec       = _pRequestRec;
+   pAPRPuts          = _pAPRPuts; 
+   szFileName        = _szFileName;
+   szArgs            = _szArgs;
+   szMethod          = _szMethod;
+   szUserIP          = _szUserIP;
+   pHeadersIn        = _pHeadersIn;
+   pHeadersOut       = _pHeadersOut;
+   pHeadersInCount   = _pHeadersInCount;
+   pHeadersInKey     = _pHeadersInKey;
+   pHeadersInVal     = _pHeadersInVal;
+   pPostPairsCount   = _pPostPairsCount;
+   pPostPairsKey     = _pPostPairsKey;
+   pPostPairsVal     = _pPostPairsVal;
+   pHeadersOutCount  = _pHeadersOutCount;
+   pHeadersOutSet    = _pHeadersOutSet;
+   pAPSetContentType = _pAPSetContentType;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -150,15 +193,21 @@ int hb_apache( void * _pRequestRec, void * _pAPRPuts,
 HB_FUNC( AP_RPUTS )
 {
    int ( * ap_rputs )( const char * s, void * r ) = pAPRPuts;
-   HB_SIZE nLen;
-   HB_BOOL bFreeReq;
-   char * buffer = hb_itemString( hb_param( 1, HB_IT_ANY ), &nLen, &bFreeReq );
-   int iBytes = ap_rputs( buffer, pRequestRec );
+   int iParams = hb_pcount(), iParam;
 
-   if( bFreeReq )
-      hb_xfree( buffer );
+   ap_rputs( "<br>", pRequestRec );
+
+   for( iParam = 1; iParam <= iParams; iParam++ )
+   {
+      HB_SIZE nLen;
+      HB_BOOL bFreeReq;
+      char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
       
-   hb_retnl( iBytes );   
+      ap_rputs( buffer, pRequestRec );
+
+      if( bFreeReq )
+         hb_xfree( buffer );
+   }     
 }
 
 HB_FUNC( AP_FILENAME )
@@ -272,6 +321,43 @@ HB_FUNC( AP_HEADERSIN )
    }  
    
    hb_itemReturnRelease( hHeadersIn );
+}
+
+HB_FUNC( AP_POSTPAIRS )
+{
+   PHB_ITEM hPostPairs = hb_hashNew( NULL ); 
+   int ( * post_pairs_count )( void ) = pPostPairsCount;
+   int iKeys = post_pairs_count();
+
+   if( iKeys > 0 )
+   {
+      int iKey;
+      PHB_ITEM pKey = hb_itemNew( NULL );
+      PHB_ITEM pValue = hb_itemNew( NULL );   
+      const char * ( * post_pairs_key )( int ) = pPostPairsKey;
+      const char * ( * post_pairs_val )( int ) = pPostPairsVal;
+
+      hb_hashPreallocate( hPostPairs, iKeys );
+   
+      for( iKey = 0; iKey < iKeys; iKey++ )
+      {
+         hb_itemPutCConst( pKey,   post_pairs_key( iKey ) );
+         hb_itemPutCConst( pValue, post_pairs_val( iKey ) );
+         hb_hashAdd( hPostPairs, pKey, pValue );
+      }
+      
+      hb_itemRelease( pKey );
+      hb_itemRelease( pValue );
+   }  
+   
+   hb_itemReturnRelease( hPostPairs );
+}
+
+HB_FUNC( AP_SETCONTENTTYPE )
+{
+   void ( * ap_set_contenttype )( const char * szContentType ) = pAPSetContentType;
+
+   ap_set_contenttype( hb_parc( 1 ) );
 }
 
 #pragma ENDDUMP

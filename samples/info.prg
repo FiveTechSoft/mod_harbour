@@ -1,7 +1,3 @@
-#xcommand ? <cText> => AP_RPuts( <cText> )
-
-#define CRLF hb_OsNewLine()
-
 //----------------------------------------------------------------------------//
 
 function Info()
