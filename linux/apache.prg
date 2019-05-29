@@ -190,7 +190,7 @@ int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    return hb_vmQuit();
 }   
 
-static BOOL bFirstTime = TRUE;
+static HB_BOOL bFirstTime = HB_TRUE;
 
 HB_FUNC( AP_RPUTS )
 {
@@ -204,7 +204,7 @@ HB_FUNC( AP_RPUTS )
       char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
 
       if( bFirstTime )
-         bFirstTime = FALSE;
+         bFirstTime = HB_FALSE;
       else   
          ap_rputs( "<br>", pRequestRec );
       
