@@ -5,7 +5,7 @@
 extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
-extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN
+extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
 
 static hPP
 
@@ -33,9 +33,10 @@ function AddPPRules()
       hPP = __pp_init()
    endif
 
-   __pp_addRule( hPP, "#xcommand ? <u> => AP_RPuts( <u> ); AP_RPuts( '<br>' )" )
+   __pp_addRule( hPP, "#xcommand ? [<explist,...>] => AP_RPuts( [<explist>] )" )
    __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
    __pp_addRule( hPP, "#xcommand TEMPLATE => #pragma __cstream | AP_RPuts( InlinePrg( %s ) )" )
+   __pp_addRule( hPP, "#command ENDTEMPLATE => #pragma __endtext" )
 
 return nil
 
@@ -154,7 +155,7 @@ return Execute( "function __Inline()" + HB_OsNewLine() + cCode )
 #include <hbvm.h>
 #include <hbapiitm.h>
 
-static void * pRequestRec, * pAPRPuts;
+static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
 static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
 static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
 static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
@@ -165,24 +166,25 @@ int hb_apache( void * _pRequestRec, void * _pAPRPuts,
                void * _pHeadersIn, void * _pHeadersOut, 
                void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
                void * _pPostPairsCount, void * _pPostPairsKey, void * _pPostPairsVal,
-               void * _pHeadersOutCount, void * _pHeadersOutSet )
+               void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType )
 {
-   pRequestRec      = _pRequestRec;
-   pAPRPuts         = _pAPRPuts; 
-   szFileName       = _szFileName;
-   szArgs           = _szArgs;
-   szMethod         = _szMethod;
-   szUserIP         = _szUserIP;
-   pHeadersIn       = _pHeadersIn;
-   pHeadersOut      = _pHeadersOut;
-   pHeadersInCount  = _pHeadersInCount;
-   pHeadersInKey    = _pHeadersInKey;
-   pHeadersInVal    = _pHeadersInVal;
-   pPostPairsCount  = _pPostPairsCount;
-   pPostPairsKey    = _pPostPairsKey;
-   pPostPairsVal    = _pPostPairsVal;
-   pHeadersOutCount = _pHeadersOutCount;
-   pHeadersOutSet   = _pHeadersOutSet;
+   pRequestRec       = _pRequestRec;
+   pAPRPuts          = _pAPRPuts; 
+   szFileName        = _szFileName;
+   szArgs            = _szArgs;
+   szMethod          = _szMethod;
+   szUserIP          = _szUserIP;
+   pHeadersIn        = _pHeadersIn;
+   pHeadersOut       = _pHeadersOut;
+   pHeadersInCount   = _pHeadersInCount;
+   pHeadersInKey     = _pHeadersInKey;
+   pHeadersInVal     = _pHeadersInVal;
+   pPostPairsCount   = _pPostPairsCount;
+   pPostPairsKey     = _pPostPairsKey;
+   pPostPairsVal     = _pPostPairsVal;
+   pHeadersOutCount  = _pHeadersOutCount;
+   pHeadersOutSet    = _pHeadersOutSet;
+   pAPSetContentType = _pAPSetContentType;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -191,15 +193,21 @@ int hb_apache( void * _pRequestRec, void * _pAPRPuts,
 HB_FUNC( AP_RPUTS )
 {
    int ( * ap_rputs )( const char * s, void * r ) = pAPRPuts;
-   HB_SIZE nLen;
-   HB_BOOL bFreeReq;
-   char * buffer = hb_itemString( hb_param( 1, HB_IT_ANY ), &nLen, &bFreeReq );
-   int iBytes = ap_rputs( buffer, pRequestRec );
+   int iParams = hb_pcount(), iParam;
 
-   if( bFreeReq )
-      hb_xfree( buffer );
+   ap_rputs( "<br>", pRequestRec );
+
+   for( iParam = 1; iParam <= iParams; iParam++ )
+   {
+      HB_SIZE nLen;
+      HB_BOOL bFreeReq;
+      char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
       
-   hb_retnl( iBytes );   
+      ap_rputs( buffer, pRequestRec );
+
+      if( bFreeReq )
+         hb_xfree( buffer );
+   }     
 }
 
 HB_FUNC( AP_FILENAME )
@@ -343,6 +351,13 @@ HB_FUNC( AP_POSTPAIRS )
    }  
    
    hb_itemReturnRelease( hPostPairs );
+}
+
+HB_FUNC( AP_SETCONTENTTYPE )
+{
+   void ( * ap_set_contenttype )( const char * szContentType ) = pAPSetContentType;
+
+   ap_set_contenttype( hb_parc( 1 ) );
 }
 
 #pragma ENDDUMP
