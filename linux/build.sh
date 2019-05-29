@@ -11,8 +11,8 @@ else
    cd harbour_for_modharbour
    git pull
 fi
-cd ~/mod_harbour
-cp ./linux/“Ubuntu 18.04”/apache.prg  ~/harbour_for_modharbour/src/rtl
+cd ~/harbour_for_modharbour/src/rtl
+ln -s ~/mod_harbour/linux/apache.prg apache.prg  
 cd ~/harbour_for_modharbour
 export HB_USER_PRGFLAGS=-l-
 export HB_BUILD_CONTRIBS=no
