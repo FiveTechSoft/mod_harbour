@@ -1,7 +1,3 @@
-#command ? [<cText>] => AP_RPuts( '<br>' [ + <cText>] )
-
-#xcommand RAWTEXT => #pragma __cstream | AP_RPuts( %s )
-
 function Main()
 
    local n
