@@ -1,3 +1,14 @@
+cd ~/
+if [ ! -d "mod_harbour" ]; then
+   git clone https://github.com/fivetechsoft/mod_harbour
+else
+   git pull
+fi
+if [ ! -d "harbour_for_modharbour" ]; then
+   git clone https://github.com/fivetechsoft/harbour_for_modharbour
+else
+   git pull
+fi
 cp apache.prg  ~/harbour_for_modharbour/src/rtl
 cd ~/harbour_for_modharbour
 export HB_USER_PRGFLAGS=-l-
