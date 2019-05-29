@@ -137,6 +137,11 @@ void ap_headers_out_set( const char * szKey, const char * szValue )
    apr_table_set( _r->headers_out, szKey, szValue );
 }
 
+void ap_set_contenttype( const char * szContentType )
+{
+   _r->content_type = szContentType;
+}
+
 static int harbour_handler( request_rec * r )
 {
    void * lib_harbour = NULL;
@@ -145,7 +150,7 @@ static int harbour_handler( request_rec * r )
                          void * pHeadersIn, void * pHeadersOut, 
                          void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal, 
                          void * pPostPairsCount, void * pPostPairsKey, void * pPostPairsVal,
-                         void * pHeadersOutCount, void * pHeadersOutSet ) = NULL;
+                         void * pHeadersOutCount, void * pHeadersOutSet, void * pSetContentType ) = NULL;
    int iResult = OK;
 
    if( strcmp( r->handler, "harbour" ) )
@@ -170,7 +175,7 @@ static int harbour_handler( request_rec * r )
                                r->headers_in, r->headers_out,
                                ap_headers_in_count, ap_headers_in_key, ap_headers_in_val,
                                ap_post_pairs_count, ap_post_pairs_key, ap_post_pairs_val, 
-                               ap_headers_out_count, ap_headers_out_set );
+                               ap_headers_out_count, ap_headers_out_set, ap_set_contenttype );
    }
 
    if( lib_harbour != NULL )
