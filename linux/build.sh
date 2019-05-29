@@ -12,7 +12,7 @@ else
    git pull
 fi
 cd ~/mod_harbour
-cp apache.prg  ~/harbour_for_modharbour/src/rtl
+cp ./linux/“Ubuntu 18.04”/apache.prg  ~/harbour_for_modharbour/src/rtl
 cd ~/harbour_for_modharbour
 export HB_USER_PRGFLAGS=-l-
 export HB_BUILD_CONTRIBS=no
