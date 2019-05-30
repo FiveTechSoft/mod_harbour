@@ -55,17 +55,17 @@ function Main()
             ?? "<td>" + PtrToStr( hField, 0 ) + "</td>" 
          endif   
       next
-      ? "</tr>"
+      ?? "</tr>"
       for n = 1 to mysql_num_rows( hMyRes )
          if ( hRow := mysql_fetch_row( hMyRes) ) != 0
-            ? "<tr>"
+            ?? "<tr>"
                for m = 1 to mysql_num_fields( hMyRes )
                   ?? "<td>" + AllTrim( PtrToStr( hRow, m - 1 ) ) + "</td>"
                next
-            ? "</tr>"
+            ?? "</tr>"
          endif   
       next   
-      ? "</table>"      
+      ?? "</table>"      
    endif   
 
    mysql_free_result( hMyRes )
