@@ -47,8 +47,8 @@ function Main()
    
    if hMyRes != 0
       ? "Number of fields: " + Str( mysql_num_fields( hMyRes ) )
-      ? "<table border=1 cellspacing=0>"
-      ? "<tr>"
+      ?? "<table border=1 cellspacing=0>"
+      ?? "<tr>"
       for n = 1 to mysql_num_fields( hMyRes )
          hField = mysql_fetch_field( hMyRes )
          if hField != 0
