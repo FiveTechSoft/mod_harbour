@@ -1,6 +1,6 @@
 mod_harbour for Raspberry pi
 
-Actualizacion Mayo 29 de Mayo 2019 10:00pm Hr de la montana USA
+Actualizacion Mayo 29 del 2019 10:00pm Hr de la montana USA
 
 Inicie todo de nuevo...
 
