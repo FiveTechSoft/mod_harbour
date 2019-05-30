@@ -25,8 +25,8 @@ function Main()
    ? If( hMySQL != 0, "MySQL version: " + mysql_get_server_info( hMySQL ), "" )   
 
    ? "Connection: "
-   ? hConnection := mysql_real_connect( "127.0.0.1", "harbour", "password", "dbHarbour", 3306 )
-   ? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
+   ?? hConnection := mysql_real_connect( "127.0.0.1", "harbour", "password", "dbHarbour", 3306 )
+   ?? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
 
    if hConnection != 0
       nRetVal = mysql_query( hConnection, "select * from users" )
@@ -34,7 +34,6 @@ function Main()
       if nRetVal != 0
          ? "error: " + Str( nRetVal )
       endif
-      ? ""
    endif   
    
    if hConnection != 0
@@ -73,7 +72,7 @@ function Main()
    mysql_close( hMySQL )
    
    ? "MySQL library properly freed: "
-   ? HB_LibFree( pLib )                        
+   ?? HB_LibFree( pLib )                        
 
 return nil
 
