@@ -2,7 +2,7 @@
 
 #define CRLF hb_OsNewLine()
 
-extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR
+extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, AP_RPUTS, AP_RRPUTS
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
@@ -34,6 +34,7 @@ function AddPPRules()
    endif
 
    __pp_addRule( hPP, "#xcommand ? [<explist,...>] => AP_RPuts( [<explist>] )" )
+   __pp_addRule( hPP, "#xcommand ?? [<explist,...>] => AP_RRPuts( [<explist>] )" )
    __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
    __pp_addRule( hPP, "#xcommand TEMPLATE => #pragma __cstream | AP_RPuts( InlinePrg( %s ) )" )
    __pp_addRule( hPP, "#command ENDTEMPLATE => #pragma __endtext" )
@@ -190,9 +191,27 @@ int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    return hb_vmQuit();
 }   
 
-static HB_BOOL bFirstTime = HB_TRUE;
-
 HB_FUNC( AP_RPUTS )
+{
+   int ( * ap_rputs )( const char * s, void * r ) = pAPRPuts;
+   int iParams = hb_pcount(), iParam;
+
+   ap_rputs( "<br>", pRequestRec );
+
+   for( iParam = 1; iParam <= iParams; iParam++ )
+   {
+      HB_SIZE nLen;
+      HB_BOOL bFreeReq;
+      char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
+
+      ap_rputs( buffer, pRequestRec );
+
+      if( bFreeReq )
+         hb_xfree( buffer );
+   }     
+}
+
+HB_FUNC( AP_RRPUTS )
 {
    int ( * ap_rputs )( const char * s, void * r ) = pAPRPuts;
    int iParams = hb_pcount(), iParam;
@@ -203,11 +222,6 @@ HB_FUNC( AP_RPUTS )
       HB_BOOL bFreeReq;
       char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
 
-      if( bFirstTime )
-         bFirstTime = HB_FALSE;
-      else   
-         ap_rputs( "<br>", pRequestRec );
-      
       ap_rputs( buffer, pRequestRec );
 
       if( bFreeReq )
