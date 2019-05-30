@@ -1,7 +1,7 @@
 function Main()
 
-   ? "Harbour power"
-   
+   ?? "Harbour power"
+   ?
    ? Version()
 
 return nil
