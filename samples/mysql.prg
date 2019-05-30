@@ -24,6 +24,7 @@ function Main()
       If( hMySQL != 0, "initalized)", "failed to initialize)" )
    ? If( hMySQL != 0, "MySQL version: " + mysql_get_server_info( hMySQL ), "" )   
 
+   ?
    ? "Connection: "
    ?? hConnection := mysql_real_connect( "127.0.0.1", "harbour", "password", "dbHarbour", 3306 )
    ?? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
