@@ -1,13 +1,8 @@
-#xcommand ? <cText> => AP_RPuts( <cText> )
-#xtranslate text into <v> [<rst:reset>]   => #pragma __text|<v>+=%s;if(<.rst.>,<v>:="",)
-
-#define CRBR "<br />"
-
-function main()
+function Main()
 
     local cHTML := ""
 
-    text into cHTML
+    TEXT INTO cHTML
     <!DOCTYPE html>
     <html lang="pt-br">
       <head>
@@ -151,14 +146,14 @@ function main()
   
         <footer class="mastfoot mt-auto">
           <div class="inner">
-            <p>Welcome to future! <a href="https://www.harbour.com.br/">Harbour</a>.</p>
+            <p>Welcome to future! <a href="https://harbour.github.io">Harbour</a>.</p>
           </div>
         </footer>
         </div>
   
         </body>
     </html>
-    endtext
+    ENDTEXT
 
     ? cHTML
 
