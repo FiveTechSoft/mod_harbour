@@ -40,6 +40,7 @@ function Main()
    if hConnection != 0
       hMyRes = mysql_store_result( hConnection )
       ? "MySQL store result " + If( hMyRes != 0, "succeeded", "failed" )
+      ?
    endif   
 
    if hMyRes != 0
