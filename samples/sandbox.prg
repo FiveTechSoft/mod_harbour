@@ -4,7 +4,7 @@ function Main()
 
    USE "/var/www/test/customer.dbf"
 
-   ? "Alias: " + Alias()
+   ?? "Alias: " + Alias()
    ? "Number of records: " + Str( RecCount() )   
    ? "****************************************"
    ? "Fields names"
