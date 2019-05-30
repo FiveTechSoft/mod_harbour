@@ -1,9 +1,7 @@
 function Main()
 
-    local cHTML := ""
-
-    TEXT INTO cHTML
-    <!DOCTYPE html>
+   TEMPLATE
+   <!DOCTYPE html>
     <html lang="pt-br">
       <head>
         <!-- Meta tags Obrigatórias -->
@@ -154,7 +152,5 @@ function Main()
         </body>
     </html>
     ENDTEXT
-
-    ? cHTML
 
 return nil
