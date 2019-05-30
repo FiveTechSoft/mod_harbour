@@ -1,6 +1,17 @@
 mod_harbour for Raspberry pi
 
+Actulizacion Mayo 29 de Mayo 2019 10:00pm Hr montanosa USA
+
+Como comentario en testa segunda actualizacion despues de tres dias
+
+Borre el folder de temp , el folder de mod_harbour y el folder harbour_for_modharbour
+
+e inicie todo de nuevo
+
+
 <br>Instrucciones para crear mod_harbour.so</br>
+
+Esta instruccion ya no lo hize en la segunda actualizacion, solo la primera vez
 
 sudo apt install apache2-dev
 
