@@ -159,7 +159,7 @@ static int harbour_handler( request_rec * r )
    r->content_type = "text/html";
    _r = r;
 
-   lib_harbour = dlopen( "/var/www/html/libharbour.so.3.2.0", RTLD_LAZY );
+   lib_harbour = dlopen( "/usr/lib64/libharbour.so.3.2.0", RTLD_LAZY );
 
    if( lib_harbour == NULL )
       ap_rputs( dlerror(), r );
