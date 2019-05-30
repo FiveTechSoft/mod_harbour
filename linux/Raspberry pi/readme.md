@@ -1,13 +1,12 @@
 mod_harbour for Raspberry pi
 
-Actulizacion Mayo 29 de Mayo 2019 10:00pm Hr montanosa USA
+Actualizacion Mayo 29 de Mayo 2019 10:00pm Hr de la montana USA
 
-Como comentario en testa segunda actualizacion despues de tres dias
+Inicie todo de nuevo...
 
-Borre el folder de temp , el folder de mod_harbour y el folder harbour_for_modharbour
+Borre tres folders o carpetas: temp ,  mod_harbour y  harbour_for_modharbour
 
-e inicie todo de nuevo
-
+He iniciamos todo de nuevo
 
 <br>Instrucciones para crear mod_harbour.so</br>
 
@@ -39,4 +38,34 @@ cp  /linux/mod_harbour.c /temp/harbour
 cd ./temp/harbour
 
 make all
+
 ( Ya tienes el mod_harbour.so para Raspberry pi !!!)
+
+Luego vamos a hora a clonar 
+
+git clone https://github.com/fivetechsoft/harbour_for_modharbour
+
+Definimos dos variables de ambiente
+
+export HB_BUILD_CONTRIBS=no
+
+export HB_USER_PRGFLAGS=-I-
+
+cd harbour_for_modharbour
+
+make
+
+y lo utimo es subir los archivos al git
+
+Espero que sirva.
+
+Saludos
+
+
+
+
+
+
+
+
+
