@@ -52,7 +52,7 @@ function Main()
       for n = 1 to mysql_num_fields( hMyRes )
          hField = mysql_fetch_field( hMyRes )
          if hField != 0
-            ? "<td>" + PtrToStr( hField, 0 ) + "</td>" 
+            ?? "<td>" + PtrToStr( hField, 0 ) + "</td>" 
          endif   
       next
       ? "</tr>"
@@ -60,7 +60,7 @@ function Main()
          if ( hRow := mysql_fetch_row( hMyRes) ) != 0
             ? "<tr>"
                for m = 1 to mysql_num_fields( hMyRes )
-                  ? "<td>" + AllTrim( PtrToStr( hRow, m - 1 ) ) + "</td>"
+                  ?? "<td>" + AllTrim( PtrToStr( hRow, m - 1 ) ) + "</td>"
                next
             ? "</tr>"
          endif   
