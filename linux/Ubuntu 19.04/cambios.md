@@ -1,9 +1,9 @@
-Estos ficheros son necesarios para hacer funcionar le módulo en Ubuntu 19.04:
+Estos ficheros son necesarios para hacer funcionar el módulo en Ubuntu 19.04:
 
 /etc/apache2/mods-available/mod_harbour.load
 /etc/apache2/mods-available/mod_harbour.conf
 
-Se hará también un enlace simbólico de estoa ficheros a /etc/apache2/mods-enabled
+Se hará también un enlace simbólico de estos ficheros a /etc/apache2/mods-enabled
 
 /etc/apache2/mods-available# ln -s mod_harbour.load ../mods-enabled/mod_harbour.load
 /etc/apache2/mods-available# ln -s mod_harbour.conf ../mods-enabled/mod_harbour.conf
