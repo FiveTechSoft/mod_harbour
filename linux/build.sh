@@ -4,12 +4,21 @@ if [ ! -d "mod_harbour" ]; then
 else
    cd mod_harbour
    git pull
+   cd ..
 fi
 if [ ! -d "harbour_for_modharbour" ]; then
    git clone https://github.com/fivetechsoft/harbour_for_modharbour
 else
    cd harbour_for_modharbour
    git pull
+   cd ..
+fi
+if [ ! -d "temp" ]; then
+   mkdir temp
+   cd temp
+   apxs -g -n harbour
+else
+   cd temp
 fi
 cd ~/harbour_for_modharbour/src/rtl
 ln -sf ~/mod_harbour/linux/apache.prg apache.prg  
