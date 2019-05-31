@@ -19,6 +19,7 @@ export HB_BUILD_CONTRIBS=no
 make
 cd /var/www/html
 ln -s ~/harbour_for_modharbour/lib/linux/gcc/libharbour.so.3.2.0 libharbour.so.3.2.0
+ln -s ~/harbour_for_modharbour/samples mod_harbour_samples
 cd ~/mod_harbour/linux/"Ubuntu 18.04"
 ln -s ~/harbour_for_modharbour/lib/linux/gcc/libharbour.so.3.2.0 libharbour.so.3.2.0
 cp ~/mod_harbour/samples/* /var/www/html
