@@ -22,7 +22,8 @@ ln -s ~/harbour_for_modharbour/lib/linux/gcc/libharbour.so.3.2.0 libharbour.so.3
 ln -s ~/mod_harbour/samples mod_harbour_samples
 cd ~/mod_harbour/linux/"Ubuntu 18.04"
 ln -s ~/harbour_for_modharbour/lib/linux/gcc/libharbour.so.3.2.0 libharbour.so.3.2.0
-cp ~/mod_harbour/samples/* /var/www/html
+cd /usr/lib/apache2/modules
+ln -s ~/mod_harbour/linux/"Ubuntu 18.04"/mod_harbour.so mod_harbour.so
 sudo apachectl restart
 cd ~/mod_harbour
 git pull
