@@ -15,11 +15,14 @@ else
 fi
 if [ ! -d "temp" ]; then
    mkdir temp
-   cd temp
-   apxs -g -n harbour
-else
-   cd temp
 fi
+cd temp
+if [ ! -d "harbour" ] then
+   apxs -g -n harbour
+fi   
+cd harbour
+ln -sf ~/mod_harbour/linux/mod_harbour.c mod_harbour.c
+make all
 cd ~/harbour_for_modharbour/src/rtl
 ln -sf ~/mod_harbour/linux/apache.prg apache.prg  
 cd ~/harbour_for_modharbour
