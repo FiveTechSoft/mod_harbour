@@ -1,6 +1,6 @@
 function Main()
 
-   local oTemplate, n
+   local oTemplate, n, x := "first", y := "second", z := "third" 
    
    TEMPLATE USING oTemplate
    
@@ -24,5 +24,7 @@ function Main()
       ? "result ", n, ": " + oTemplate:aResults[ n ]
       ? 
    next   
+   
+   ? "Params: " + oTemplate:cParams
    
 return nil
