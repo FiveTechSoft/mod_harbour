@@ -20,7 +20,7 @@ function _AppMain()
    if File( AP_FileName() )
       Execute( MemoRead( AP_FileName() ), AP_Args() )
    else
-      ? "File not found: " + AP_FileName()
+      ErrorLevel( 404 )
    endif   
 
 return nil
