@@ -8,6 +8,10 @@ function Main()
    
    <?prg return Time() ?>
    
+   More raw text
+
+   <?prg return DToS( Date() ) ?>
+
    ENDTEXT
    
    ? 
