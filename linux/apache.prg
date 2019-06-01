@@ -1,3 +1,5 @@
+#include "hbclass.ch"
+
 #xcommand ? <cText> => AP_RPuts( <cText> )
 
 #define CRLF hb_OsNewLine()
@@ -130,24 +132,43 @@ return cResult
 
 //----------------------------------------------------------------//
 
-function InlinePRG( cText )
+function InlinePRG( cText, oTemplate, ... )
 
-   local nStart, nEnd, cCode
+   local nStart, nEnd, cCode, cResult
+
+   if PCount() > 1
+      oTemplate = Template()
+   endif   
 
    while ( nStart := At( "<?prg", cText ) ) != 0
       nEnd  = At( "?>", SubStr( cText, nStart + 5 ) )
       cCode = SubStr( cText, nStart + 5, nEnd - 1 )
-      cText = SubStr( cText, 1, nStart - 1 ) + ExecInline( cCode ) + ;
+      if oTemplate != nil
+         AAdd( oTemplate:aSections, cCode )
+      endif   
+      cText = SubStr( cText, 1, nStart - 1 ) + ( cResult := ExecInline( cCode, ... ) ) + ;
               SubStr( cText, nStart + nEnd + 6 )
+      if oTemplate != nil
+         AAdd( oTemplate:aResults, cResult )
+      endif   
    end 
    
 return cText
 
 //----------------------------------------------------------------//
 
-function ExecInline( cCode )
+function ExecInline( cCode, ... )
 
-return Execute( "function __Inline()" + HB_OsNewLine() + cCode )   
+return Execute( "function __Inline()" + HB_OsNewLine() + cCode, ... )   
+
+//----------------------------------------------------------------//
+
+CLASS Template
+
+   DATA aSections INIT {}
+   DATA aResults  INIT {}
+
+ENDCLASS
 
 //----------------------------------------------------------------//
 
