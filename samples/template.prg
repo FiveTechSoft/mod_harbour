@@ -6,11 +6,11 @@ function Main()
    
    Raw text to be delivered to Apache   
    
-   <?prg return Time() ?>
+   <?prg return x ?>
    
    More raw text
 
-   <?prg return DToS( Date() ) ?>
+   <?prg return DToS( Date() ) + y ?>
 
    ENDTEXT
    
