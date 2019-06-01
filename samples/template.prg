@@ -2,7 +2,7 @@ function Main()
 
    local oTemplate, n, x := "first", y := "second", z := "third" 
    
-   TEMPLATE USING oTemplate
+   TEMPLATE USING oTemplate PARAMS x, y, z
    
    Raw text to be delivered to Apache   
    
