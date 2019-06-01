@@ -162,6 +162,10 @@ return cText
 
 function ExecInline( cCode, cParams, ... )
 
+   if cParams == nil
+      cParams = ""
+   endif   
+
 return Execute( "function __Inline( " + cParams + " )" + HB_OsNewLine() + cCode, ... )   
 
 //----------------------------------------------------------------//
