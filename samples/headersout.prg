@@ -1,5 +1,3 @@
-#xcommand ? <cText> => AP_RPuts( <cText> )
-
 #define REDIRECTION  302
 
 function Main()
