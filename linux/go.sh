@@ -7,10 +7,9 @@ sudo ln -sf ~/mod_harbour/linux/"Ubuntu 18.04"/libharbour.so.3.2.0 libharbour.so
 sudo ln -sf ~/mod_harbour/samples modharbour_samples
 cd ..
 sudo mkdir test
-cd test
-sudo cp ~/mod_harbour/samples/customer.dbf .
-sudo chmod 0777 ./customer.dbf
-sudo chown www-data ./customer.dbf
+sudo cp ~/mod_harbour/samples/customer.dbf ./test
+sudo chmod 0777 ./test
+sudo chown www-data:www-data ./test
 cd /usr/lib/apache2/modules
 sudo ln -sf ~/mod_harbour/linux/"Ubuntu 18.04"/mod_harbour.so mod_harbour.so
 cd ~
