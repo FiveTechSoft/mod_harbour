@@ -1,8 +1,10 @@
+#include "hbclass.ch"
+
 #xcommand ? <cText> => AP_RPuts( <cText> )
 
 #define CRLF hb_OsNewLine()
 
-extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR
+extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, AP_RPUTS, AP_RRPUTS
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
@@ -20,7 +22,7 @@ function _AppMain()
    if File( AP_FileName() )
       Execute( MemoRead( AP_FileName() ), AP_Args() )
    else
-      ? "File not found: " + AP_FileName()
+      ErrorLevel( 404 )
    endif   
 
 return nil
@@ -34,8 +36,10 @@ function AddPPRules()
    endif
 
    __pp_addRule( hPP, "#xcommand ? [<explist,...>] => AP_RPuts( [<explist>] )" )
+   __pp_addRule( hPP, "#xcommand ?? [<explist,...>] => AP_RRPuts( [<explist>] )" )
    __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
-   __pp_addRule( hPP, "#xcommand TEMPLATE => #pragma __cstream | AP_RPuts( InlinePrg( %s ) )" )
+   __pp_addRule( hPP, "#xcommand TEMPLATE [ USING <x> ] [ PARAMS [<v1>] [,<vn>] ] => " + ;
+                      "#pragma __cstream | AP_RPuts( InlinePrg( %s, [@<x>] [, @<v1>] [, @<vn>] ) )" )
    __pp_addRule( hPP, "#command ENDTEMPLATE => #pragma __endtext" )
 
 return nil
@@ -128,24 +132,43 @@ return cResult
 
 //----------------------------------------------------------------//
 
-function InlinePRG( cText )
+function InlinePRG( cText, oTemplate, ... )
 
-   local nStart, nEnd, cCode
+   local nStart, nEnd, cCode, cResult
+
+   if PCount() > 1
+      oTemplate = Template()
+   endif   
 
    while ( nStart := At( "<?prg", cText ) ) != 0
       nEnd  = At( "?>", SubStr( cText, nStart + 5 ) )
       cCode = SubStr( cText, nStart + 5, nEnd - 1 )
-      cText = SubStr( cText, 1, nStart - 1 ) + ExecInline( cCode ) + ;
+      if oTemplate != nil
+         AAdd( oTemplate:aSections, cCode )
+      endif   
+      cText = SubStr( cText, 1, nStart - 1 ) + ( cResult := ExecInline( cCode, ... ) ) + ;
               SubStr( cText, nStart + nEnd + 6 )
+      if oTemplate != nil
+         AAdd( oTemplate:aResults, cResult )
+      endif   
    end 
    
 return cText
 
 //----------------------------------------------------------------//
 
-function ExecInline( cCode )
+function ExecInline( cCode, ... )
 
-return Execute( "function __Inline()" + HB_OsNewLine() + cCode )   
+return Execute( "function __Inline()" + HB_OsNewLine() + cCode, ... )   
+
+//----------------------------------------------------------------//
+
+CLASS Template
+
+   DATA aSections INIT {}
+   DATA aResults  INIT {}
+
+ENDCLASS
 
 //----------------------------------------------------------------//
 
@@ -202,7 +225,25 @@ HB_FUNC( AP_RPUTS )
       HB_SIZE nLen;
       HB_BOOL bFreeReq;
       char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
-      
+
+      ap_rputs( buffer, pRequestRec );
+
+      if( bFreeReq )
+         hb_xfree( buffer );
+   }     
+}
+
+HB_FUNC( AP_RRPUTS )
+{
+   int ( * ap_rputs )( const char * s, void * r ) = pAPRPuts;
+   int iParams = hb_pcount(), iParam;
+
+   for( iParam = 1; iParam <= iParams; iParam++ )
+   {
+      HB_SIZE nLen;
+      HB_BOOL bFreeReq;
+      char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
+
       ap_rputs( buffer, pRequestRec );
 
       if( bFreeReq )

@@ -1,5 +1,3 @@
-#xcommand ? <cText> => AP_RPuts( <cText> )
-
 #define HB_DYN_CALLCONV_CDECL       0x0000000  // C default
 #define HB_DYN_CTYPE_LONG_UNSIGNED  0x0000014
 #define HB_DYN_CTYPE_CHAR_PTR       0x0000101
@@ -19,64 +17,64 @@ function Main()
    pLib = hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
    hMySQL = mysql_init()
 
-   ? "pLib = " + ValType( pLib ) + ;
-      If( ValType( pLib ) == "P", " (MySQL library properly loaded)", " (MySQL library not found)" ) + '<br>'
+   ?? "pLib = " + ValType( pLib ) + ;
+      If( ValType( pLib ) == "P", " (MySQL library properly loaded)", " (MySQL library not found)" )
    
    ? "hMySQL = " + Str( hMySQL ) + " (MySQL library " + ;
-      If( hMySQL != 0, "initalized)", "failed to initialize)" ) + '<br>'
-   ? If( hMySQL != 0, "MySQL version: " + mysql_get_server_info( hMySQL ), "" ) + '<br>'   
+      If( hMySQL != 0, "initalized)", "failed to initialize)" )
+   ? If( hMySQL != 0, "MySQL version: " + mysql_get_server_info( hMySQL ), "" )   
 
+   ?
    ? "Connection: "
-   ? hConnection := mysql_real_connect( "127.0.0.1", "harbour", "password", "dbHarbour", 3306 )
-   ? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" ) + "<br>"
+   ?? hConnection := mysql_real_connect( "127.0.0.1", "harbour", "password", "dbHarbour", 3306 )
+   ?? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
 
    if hConnection != 0
       nRetVal = mysql_query( hConnection, "select * from users" )
-      ? "MySQL query " + If( nRetVal == 0, "succeeded", "failed" ) + "<br>"
+      ? "MySQL query " + If( nRetVal == 0, "succeeded", "failed" )
       if nRetVal != 0
-         ? "error: " + Str( nRetVal ) + "</br>"
+         ? "error: " + Str( nRetVal )
       endif
-      ? "<br><br>"
    endif   
    
    if hConnection != 0
       hMyRes = mysql_store_result( hConnection )
-      ? "MySQL store result " + If( hMyRes != 0, "succeeded", "failed" ) + "<br>"
+      ? "MySQL store result " + If( hMyRes != 0, "succeeded", "failed" )
+      ?
    endif   
 
    if hMyRes != 0
-      ? "Number of rows: " + Str( mysql_num_rows( hMyRes ) ) + "<br>"
+      ? "Number of rows: " + Str( mysql_num_rows( hMyRes ) )
    endif   
    
    if hMyRes != 0
-      ? "Number of fields: " + Str( mysql_num_fields( hMyRes ) ) + "<br>"
-      ? "<table border=1 cellspacing=0>"
-      ? "<tr>"
+      ? "Number of fields: " + Str( mysql_num_fields( hMyRes ) )
+      ?? "<table border=1 cellspacing=0>"
+      ?? "<tr>"
       for n = 1 to mysql_num_fields( hMyRes )
          hField = mysql_fetch_field( hMyRes )
          if hField != 0
-            ? "<td>" + PtrToStr( hField, 0 ) + "</td>" 
+            ?? "<td>" + PtrToStr( hField, 0 ) + "</td>" 
          endif   
       next
-      ? "</tr>"
+      ?? "</tr>"
       for n = 1 to mysql_num_rows( hMyRes )
          if ( hRow := mysql_fetch_row( hMyRes) ) != 0
-            ? "<tr>"
+            ?? "<tr>"
                for m = 1 to mysql_num_fields( hMyRes )
-                  ? "<td>" + AllTrim( PtrToStr( hRow, m - 1 ) ) + "</td>"
+                  ?? "<td>" + AllTrim( PtrToStr( hRow, m - 1 ) ) + "</td>"
                next
-            ? "</tr>"
+            ?? "</tr>"
          endif   
       next   
-      ? "</table>"      
-      ? "<br><br>" 
+      ?? "</table>"      
    endif   
 
    mysql_free_result( hMyRes )
    mysql_close( hMySQL )
    
    ? "MySQL library properly freed: "
-   ? HB_LibFree( pLib )                        
+   ?? HB_LibFree( pLib )                        
 
 return nil
 
