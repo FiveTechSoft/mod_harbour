@@ -17,10 +17,12 @@ function Main()
    ? 
    ? oTemplate:ClassName()
    ? "Total sections: ", Len( oTemplate:aSections )
+   ? 
    
    for n = 1 to Len( oTemplate:aSections )
       ? "section", n, ": " + oTemplate:aSections[ n ]
-      ? "result ", n, ": " + oTemplate:aResults[ n ] 
+      ? "result ", n, ": " + oTemplate:aResults[ n ]
+      ? 
    next   
    
 return nil
