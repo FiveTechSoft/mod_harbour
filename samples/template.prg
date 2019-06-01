@@ -10,6 +10,7 @@ function Main()
    
    ENDTEXT
    
+   ? 
    ? oTemplate:ClassName()
    ? "Total sections: ", Len( oTemplate:aSections )
    
