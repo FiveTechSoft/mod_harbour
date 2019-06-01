@@ -4,6 +4,4 @@ function Main()
    ?
    ? Version()
    
-   ? "Hello Eric" 
-
 return nil
