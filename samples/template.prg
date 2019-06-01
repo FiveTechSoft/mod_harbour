@@ -26,5 +26,6 @@ function Main()
    next   
    
    ? "Params: " + oTemplate:cParams
+   ? "Result: " + oTemplate:cResult
    
 return nil
