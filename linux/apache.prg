@@ -132,12 +132,15 @@ return cResult
 
 //----------------------------------------------------------------//
 
-function InlinePRG( cText, oTemplate, ... )
+function InlinePRG( cText, oTemplate, cParams, ... )
 
    local nStart, nEnd, cCode, cResult
 
    if PCount() > 1
       oTemplate = Template()
+      if PCount() > 2
+         oTemplate:cParams = cParams
+      endif   
    endif   
 
    while ( nStart := At( "<?prg", cText ) ) != 0
@@ -146,7 +149,7 @@ function InlinePRG( cText, oTemplate, ... )
       if oTemplate != nil
          AAdd( oTemplate:aSections, cCode )
       endif   
-      cText = SubStr( cText, 1, nStart - 1 ) + ( cResult := ExecInline( cCode, ... ) ) + ;
+      cText = SubStr( cText, 1, nStart - 1 ) + ( cResult := ExecInline( cCode, cParams, ... ) ) + ;
               SubStr( cText, nStart + nEnd + 6 )
       if oTemplate != nil
          AAdd( oTemplate:aResults, cResult )
@@ -157,9 +160,9 @@ return cText
 
 //----------------------------------------------------------------//
 
-function ExecInline( cCode, ... )
+function ExecInline( cCode, cParams, ... )
 
-return Execute( "function __Inline()" + HB_OsNewLine() + cCode, ... )   
+return Execute( "function __Inline( " + cParams + " )" + HB_OsNewLine() + cCode, ... )   
 
 //----------------------------------------------------------------//
 
@@ -167,6 +170,7 @@ CLASS Template
 
    DATA aSections INIT {}
    DATA aResults  INIT {}
+   DATA cParams   
 
 ENDCLASS
 
