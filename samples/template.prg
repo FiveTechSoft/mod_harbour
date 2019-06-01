@@ -19,7 +19,8 @@ function Main()
    ? "Total sections: ", Len( oTemplate:aSections )
    
    for n = 1 to Len( oTemplate:aSections )
-      ? "section " + AllTrim( Str( n ) ) + ": " + oTemplate:aSections[ n ]
+      ? "section", n, ": " + oTemplate:aSections[ n ]
+      ? "result ", n, ": " + oTemplate:aResults[ n ] 
    next   
    
 return nil
