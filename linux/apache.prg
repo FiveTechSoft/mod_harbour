@@ -156,6 +156,10 @@ function InlinePRG( cText, oTemplate, cParams, ... )
       endif   
    end 
    
+   if oTemplate != nil
+      oTemplate:cResult = cText
+   endif   
+   
 return cText
 
 //----------------------------------------------------------------//
@@ -175,6 +179,7 @@ CLASS Template
    DATA aSections INIT {}
    DATA aResults  INIT {}
    DATA cParams   
+   DATA cResult
 
 ENDCLASS
 
