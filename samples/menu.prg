@@ -11,8 +11,7 @@ TEMPLATE
   <link rel="stylesheet" href="https://fivetechsoft.github.io/xcloud/source/css/xcloud.css"> 
 </head>
 
-<body>
-<div class="container-fluid">
+<body><div class="container-fluid">
   
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
