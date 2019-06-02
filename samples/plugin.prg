@@ -12,6 +12,7 @@ function Main()
 
    if ValType( pLib ) == "P"
       hb_init()
+      ? "plugin properly initialized"
    endif   
 
    if ValType( pLib ) == "P"
