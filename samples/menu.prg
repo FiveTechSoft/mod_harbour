@@ -1,9 +1,15 @@
 function Main()
 
-TEMPLATE
+   local cTitle := "MyApp"
+   local aMenuItems := { { "Tables", { "Customers", "Invoices", "Stock" } },;
+                         { "Invoices", { "Browse", "Print" } },;
+                         { "Reports", { "Clients", "Invoices", "Stock" } },;
+                         { "Help", { "Index", "Search", "-", "About" } } }
+
+   TEMPLATE PARAMS cTitle, aMenuItems
 <html lang="en">
 <head>
-  <title>MyApp</title>
+  <title><?prg return cTitle ?></title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -17,7 +23,7 @@ TEMPLATE
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
-      <a class="navbar-brand" onclick="MsgInfo( 'my mod_harbour app', 'Information' )">MyApp</a>
+      <a class="navbar-brand" onclick="MsgInfo( 'my mod_harbour app', 'Information' )"><?prg return cTitle ?></a>
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#"></a>
@@ -25,49 +31,26 @@ TEMPLATE
       <a class="navbar-brand" href="#"></a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">File
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a onclick="MsgInfo( 'New', 'Information' )">New</a></li>
-          <li><a onclick="$('#openfile').modal()">Open</a></li>
-          <li><a onclick="SendFile()">Save</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Close</a></li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a onclick="document.execCommand('cut')">Cut</a></li>
-          <li><a onclick="document.execCommand('copy')">Copy</a></li>
-          <li><a onclick="document.execCommand('paste')">Paste</a></li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Project
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Open</a></li>
-          <li><a href="#">Save</a></li>
-          <li><a href="#">Close</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Add item</a></li>
-          <li><a href="#">Remove item</a></li>
-        </ul>
-      </li>
-      <li class="help">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Help
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Index</a></li>
-          <li><a href="#">Search</a></li>
-          <li class="divider"></li>
-          <li><a href="#">About...</a></li>
-        </ul>
-      </li>
-    </ul>
+       <?prg local n, m, cItems := ""
+       
+             for n = 1 to Len( aMenuItems )
+                cItems += '<li class="dropdown">'
+                cItems += '   <a class="dropdown-toggle" data-toggle="dropdown" href="#">' + aMenuItems[ n ][ 1 ]
+                cItems += '   <span class="caret"></span></a>'
+                cItems += '   <ul class="dropdown-menu">'
+                for m = 1 to Len( aMenuItems[ n ][ 2 ] )
+                   if aMenuItems[ n ][ 2 ][ m ] == "-"
+                      cItems += '      <li class="divider"></li>'
+                   else   
+                      cItems += '      <li><a onclick="MsgInfo()">' + aMenuItems[ n ][ 2 ][ m ] + "</a></li>"
+                   endif   
+                next
+                cItems += '   </ul>'
+                cItems += '</li>'
+             next   
+             
+             return cItems ?>
+    </ul>         
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a onclick="$('#login').modal()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
