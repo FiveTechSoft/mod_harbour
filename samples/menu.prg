@@ -78,11 +78,11 @@ TEMPLATE
 </div>
 
   <div class="row">
-    <div class="col-sm-2" style="background-color:blue">
+    <div class="col-sm-2">
        <nav class="navbar navbar-expand-lg navbar-inverse">
           <a class="navbar-brand" href="#">Dashboard</a>
        </nav> 
-        <ul style="background-color:silver">
+        <ul style="background-color:silver;height:1000px">
          <li>Clients
            <ul>                                
              <li style="color:white;">New</li>
