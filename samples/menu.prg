@@ -1,6 +1,8 @@
 function Main()
 
-TEMPLATE
+   local oTemplate
+
+TEMPLATE USING oTemplate
 <html lang="en">
 <head>
   <title>modHarbour menu</title>
@@ -109,5 +111,7 @@ TEMPLATE
 </html>
 
 ENDTEXT
+
+? oTemplate:cResult
 
 return nil
