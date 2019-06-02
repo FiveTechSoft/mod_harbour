@@ -19,7 +19,7 @@ function Main()
    endif   
 
    if ValType( pLib ) == "P"
-      ? Do( pLib, "Test" )
+      ? Do( "Test" )
    endif   
   
    if ValType( pLib ) == "P"
