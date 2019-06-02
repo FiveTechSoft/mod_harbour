@@ -10,8 +10,8 @@ TEMPLATE
   <script src="https://fivetechsoft.github.io/xcloud/source/js/xcloud.js"></script>
   <link rel="stylesheet" href="https://fivetechsoft.github.io/xcloud/source/css/xcloud.css"> 
 </head>
-<body>
 
+<body>
 <div class="container-fluid">
   
 <nav class="navbar navbar-inverse">
@@ -76,6 +76,15 @@ TEMPLATE
   </div>
 </nav>
 </div>
+
+  <div class="row">
+    <div class="col-sm-8">
+    </div>
+    <div class="col-sm-8">
+    </div>
+  </div>
+
+<body>
 </html>
 
 ENDTEXT
