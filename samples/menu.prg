@@ -78,12 +78,12 @@ TEMPLATE
 </div>
 
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-5">
        <nav class="navbar navbar-expand-lg navbar-inverse">
           <a class="navbar-brand" href="#">Dashboard</a>
        </nav> 
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-5">
        <nav class="navbar navbar-expand-lg navbar-inverse">
           <a class="navbar-brand" href="#">Main</a>
        </nav> 
