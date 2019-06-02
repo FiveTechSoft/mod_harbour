@@ -18,7 +18,7 @@ TEMPLATE
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
-      <a class="navbar-brand" onclick="MsgInfo( 'my mod_harbour app' )">MyApp</a>
+      <a class="navbar-brand" onclick="MsgInfo( 'my mod_harbour app', 'Information' )">MyApp</a>
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#"></a>
@@ -30,7 +30,7 @@ TEMPLATE
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">File
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">New</a></li>
+          <li><a onclick="MsgInfo( 'New', 'Information' )">New</a></li>
           <li><a onclick="$('#openfile').modal()">Open</a></li>
           <li><a onclick="SendFile()">Save</a></li>
           <li class="divider"></li>
