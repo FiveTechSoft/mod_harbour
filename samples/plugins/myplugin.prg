@@ -18,11 +18,11 @@ typedef void ( * HB_VM_EXECUTE )( const HB_BYTE * pCode, PHB_SYMB pSymbols );
 
 static HB_VM_EXECUTE vmExecute = NULL;
 
-void hb_init( void * _vmProcessSymbols, void * _vmExecute )
-{
-   vmProcessSymbols = _vmProcessSymbols;
-   vmExecute = _vmExecute;
-}
+static PHB_SYMB _pSymbols = NULL;
+static HB_USHORT _uiSymbols = 0;
+static const char * _szModuleName = NULL;
+static HB_ULONG _ulID = 0;
+static HB_USHORT _uiPcodeVer = 0;
 
 PHB_SYMB hb_vmProcessSymbols( PHB_SYMB pSymbols, HB_USHORT uiSymbols,
                               const char * szModuleName, HB_ULONG ulID,
@@ -31,7 +31,22 @@ PHB_SYMB hb_vmProcessSymbols( PHB_SYMB pSymbols, HB_USHORT uiSymbols,
    if( vmProcessSymbols != NULL )
       return vmProcessSymbols( pSymbols, uiSymbols, szModuleName, ulID, uiPcodeVer );
    else
-      return NULL;   
+   {
+      _pSymbols     = pSymbols;
+      _uiSymbols    = uiSymbols;
+      _szModuleName = szModuleName;
+      _ulID         = ulID;
+      _uiPcodeVer   = uiPcodeVer;
+      
+      return NULL;  
+   }   
+}
+
+void hb_init( void * _vmProcessSymbols, void * _vmExecute )
+{
+   vmProcessSymbols = _vmProcessSymbols;
+   vmExecute        = _vmExecute;
+   hb_vmProcessSymbols( _pSymbols, _uiSymbols, _szModuleName, _ulID, _uiPcodeVer );
 }
 
 void hb_vmExecute( const HB_BYTE * pCode, PHB_SYMB pSymbols )
