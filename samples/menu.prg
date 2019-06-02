@@ -82,7 +82,7 @@ TEMPLATE
        <nav class="navbar navbar-expand-lg navbar-inverse">
           <a class="navbar-brand" href="#">Dashboard</a>
        </nav> 
-        <ul style="background-color:silver;height:800px">
+        <ul style="background-color:silver;height:820px">
          <li>Clients
            <ul>                                
              <li style="color:white;">New</li>
