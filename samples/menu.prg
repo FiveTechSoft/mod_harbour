@@ -46,18 +46,6 @@ TEMPLATE
           <li><a onclick="document.execCommand('paste')">Paste</a></li>
         </ul>
       </li>
-      <form class="navbar-form navbar-left" action="">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search">
-          <div class="input-group-btn">
-            <button class="btn btn-default" type="submit">
-              <i class="glyphicon glyphicon-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-      <li><button class="btn btn-primary navbar-btn" onclick="editor.findPrevious()"><span class="glyphicon glyphicon-arrow-left"></span></button></li>
-      <li><button class="btn btn-primary navbar-btn" onclick="editor.findNext()"><span class="glyphicon glyphicon-arrow-right"></span></button></li>
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Project
         <span class="caret"></span></a>
@@ -70,6 +58,18 @@ TEMPLATE
           <li><a href="#">Remove item</a></li>
         </ul>
       </li>
+      <form class="navbar-form navbar-left" action="">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+      <li><button class="btn btn-primary navbar-btn" onclick="editor.findPrevious()"><span class="glyphicon glyphicon-arrow-left"></span></button></li>
+      <li><button class="btn btn-primary navbar-btn" onclick="editor.findNext()"><span class="glyphicon glyphicon-arrow-right"></span></button></li>
       <li><button class="btn btn-success navbar-btn" onclick="Run()"><span class="glyphicon glyphicon-flash"></span> Run</button></li>
       <li><a href="#">Help</a></li>
     </ul>
