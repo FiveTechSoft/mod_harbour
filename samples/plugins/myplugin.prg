@@ -14,9 +14,14 @@ typedef PHB_SYMB ( * HB_VM_PROCESS_SYMBOLS )
 
 static HB_VM_PROCESS_SYMBOLS vmProcessSymbols = NULL;
 
-void hb_init( void * _vmProcessSymbols )
+typedef void ( * HB_VM_EXECUTE )( const HB_BYTE * pCode, PHB_SYMB pSymbols );
+
+static HB_VM_EXECUTE vmExecute = NULL;
+
+void hb_init( void * _vmProcessSymbols, void * _vmExecute )
 {
    vmProcessSymbols = _vmProcessSymbols;
+   vmExecute = _vmExecute;
 }
 
 PHB_SYMB hb_vmProcessSymbols( PHB_SYMB pSymbols, HB_USHORT uiSymbols,
@@ -29,4 +34,10 @@ PHB_SYMB hb_vmProcessSymbols( PHB_SYMB pSymbols, HB_USHORT uiSymbols,
       return NULL;   
 }
 
-#pragma ENDDUMP 
+void hb_vmExecute( const HB_BYTE * pCode, PHB_SYMB pSymbols )
+{
+   if( vmExecute != NULL )
+      vmExecute( pCode, pSymbols );   
+}
+
+#pragma ENDDUMP
