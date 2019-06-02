@@ -12,6 +12,8 @@ function Main()
       ? Do( pLib, "Test" )
    endif   
   
-   ? HB_LibFree( pLib )
+   if ValType( pLib ) == "P"
+      ? HB_LibFree( pLib )
+   endif
 
 return nil
