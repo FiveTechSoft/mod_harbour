@@ -6,7 +6,7 @@ function Main()
    local pLib := hb_LibLoad( "/var/www/html/libmyplugin.so" )
 
    ?? "pLib = " + ValType( pLib ) + ;
-      If( ValType( pLib ) == "P", " (library properly loaded)", "(" + hb_LibError() + ")" )
+      If( ValType( pLib ) == "P", " (library properly loaded)", " (" + hb_LibError() + ")" )
 
    if ValType( pLib ) == "P"
       ? Do( pLib, "Test" )
