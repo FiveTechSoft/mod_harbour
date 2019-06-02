@@ -1,6 +1,9 @@
 // To create your plugins for mod_harbour please review:
 // https://github.com/FiveTechSoft/mod_harbour/wiki/Building-plugins-for-mod_harbour
 
+#define HB_DYN_CALLCONV_CDECL       0x0000000
+#define HB_DYN_CTYPE_LLONG_UNSIGNED 0x0000015
+
 static pLib
 
 function Main()
