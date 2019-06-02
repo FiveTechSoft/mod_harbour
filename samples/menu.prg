@@ -78,7 +78,7 @@ TEMPLATE
 </div>
 
   <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-2">
        <nav class="navbar navbar-expand-lg navbar-inverse">
           <a class="navbar-brand" href="#">Dashboard</a>
        </nav> 
