@@ -99,7 +99,7 @@ TEMPLATE
          </li>                                
        </ul>        
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-10">
        <nav class="navbar navbar-expand-lg navbar-inverse">
           <a class="navbar-brand" href="#">Main</a>
        </nav> 
