@@ -18,7 +18,7 @@ TEMPLATE
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
-      <a class="navbar-brand" onclick="$('#about').modal()">modHarbour menu</a>
+      <a class="navbar-brand" onclick="$('#about').modal()">Pulldown</a>
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#"></a>
@@ -58,6 +58,16 @@ TEMPLATE
           <li><a href="#">Remove item</a></li>
         </ul>
       </li>
+      <li class="help">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Project
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Index</a></li>
+          <li><a href="#">Search</a></li>
+          <li class="divider"></li>
+          <li><a href="#">About...</a></li>
+        </ul>
+      </li>
       <form class="navbar-form navbar-left" action="">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search">
@@ -68,10 +78,6 @@ TEMPLATE
           </div>
         </div>
       </form>
-      <li><button class="btn btn-primary navbar-btn" onclick="editor.findPrevious()"><span class="glyphicon glyphicon-arrow-left"></span></button></li>
-      <li><button class="btn btn-primary navbar-btn" onclick="editor.findNext()"><span class="glyphicon glyphicon-arrow-right"></span></button></li>
-      <li><button class="btn btn-success navbar-btn" onclick="Run()"><span class="glyphicon glyphicon-flash"></span> Run</button></li>
-      <li><a href="#">Help</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
