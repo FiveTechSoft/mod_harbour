@@ -18,7 +18,7 @@ TEMPLATE
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
-      <a class="navbar-brand" onclick="$('#about').modal()">xcloud</a>
+      <a class="navbar-brand" onclick="$('#about').modal()">modHarbour menu</a>
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#"></a>
