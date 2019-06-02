@@ -10,6 +10,7 @@ sudo mkdir test
 sudo cp ~/mod_harbour/samples/customer.dbf ./test
 sudo chmod 0777 ./test
 sudo chown www-data:www-data ./test
+rm ~/mod_harbour/samples/customer.dbf
 cd /usr/lib/apache2/modules
 sudo ln -sf ~/mod_harbour/linux/"Ubuntu 18.04"/mod_harbour.so mod_harbour.so
 cd ~
