@@ -6,6 +6,8 @@
 
 static pLib
 
+//----------------------------------------------------------------//
+
 function Main()
 
    pLib = hb_LibLoad( "/var/www/html/libmyplugin.so" )
@@ -28,6 +30,11 @@ function Main()
 
 return nil
 
+//----------------------------------------------------------------//
+
 function hb_init()
 
-return hb_DynCall( { "hb_init", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ) }, hb_vmProcessSymbols() )
+return hb_DynCall( { "hb_init", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CTYPE_LLONG_UNSIGNED },;
+                   hb_vmProcessSymbols(), hb_vmExecute() )
+
+//----------------------------------------------------------------//
