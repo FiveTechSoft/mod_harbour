@@ -24,7 +24,6 @@ Windows 10 **using your favorite source code editor** and run the PRGs from **Ed
 
 ```c
 // typicall Harbour PRG running on the web
-#xcommand ? <cText> => AP_RPuts( <cText> )
 
 function Main()
 
