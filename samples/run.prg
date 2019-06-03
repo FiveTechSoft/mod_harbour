@@ -10,7 +10,8 @@ function Main()
    AP_HeadersOutSet( "Access-Control-Allow-Origin", "*" )
    
    if ! Empty( cCode )
-      Execute( cCode )
+      // Execute( cCode )
+      ? cCode
    endif
    
 return nil
