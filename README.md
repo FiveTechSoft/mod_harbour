@@ -7,7 +7,7 @@ mod_harbour is a module extension for Apache that supports Harbour PRGs same as 
 
 Please visit the [wiki](https://github.com/FiveTechSoft/mod_harbour/wiki) to learn how to install and use it
 
-All examples provided in the samples folder can be tested here: https://harbour.fourtech.es/mod_harbour_examples/
+All examples provided in the samples folder can be tested here: https://harbour.fourtech.es/modharbour_examples/
 
 ***
 

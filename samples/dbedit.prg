@@ -1,7 +1,3 @@
-#xcommand TEMPLATE => #pragma __cstream | AP_RPuts( Template( %s ) )
-
-#define CRLF hb_OsNewLine()
-
 function Main()
 
    local cArgs := AP_Args(), nRecNo
@@ -91,20 +87,3 @@ function Main()
    ENDTEXT
 
 return nil
-
-function Template( cText )
-
-   local nStart, nEnd, cCode
-
-   while ( nStart := At( "<?prg", cText ) ) != 0
-      nEnd = At( "?>", SubStr( cText, nStart + 5 ) )
-      cCode = SubStr( cText, nStart + 5, nEnd - 1 )
-      cText = SubStr( cText, 1, nStart - 1 ) + Replace( cCode ) + SubStr( cText, nStart + nEnd + 6 )
-   end 
-   
-return cText
-
-function Replace( cCode )
-
-return Execute( "function __Inline()" + HB_OsNewLine() + cCode )   
-   

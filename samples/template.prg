@@ -1,16 +1,16 @@
 function Main()
 
-   local oTemplate, n
+   local oTemplate, n, x := "first", y := "second", z := "third" 
    
-   TEMPLATE USING oTemplate
+   TEMPLATE USING oTemplate PARAMS x, y, z
    
    Raw text to be delivered to Apache   
    
-   <?prg return Time() ?>
+   <?prg return x ?>
    
    More raw text
 
-   <?prg return DToS( Date() ) ?>
+   <?prg return DToS( Date() ) + y ?>
 
    ENDTEXT
    
@@ -24,5 +24,8 @@ function Main()
       ? "result ", n, ": " + oTemplate:aResults[ n ]
       ? 
    next   
+   
+   ? "Params: " + oTemplate:cParams
+   ? "Result: " + oTemplate:cResult
    
 return nil

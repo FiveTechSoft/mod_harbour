@@ -1,8 +1,6 @@
-#xcommand RAWTEXT => #pragma __cstream | AP_RPuts( %s )
-
 function Main()
 
-   RAWTEXT
+   TEMPLATE
 <html>
   <head>
     <meta charset="utf-8">
