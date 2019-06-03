@@ -42,7 +42,8 @@ function Main()
                    if aMenuItems[ n ][ 2 ][ m ] == "-"
                       cItems += '      <li class="divider"></li>'
                    else   
-                      cItems += '      <li><a onclick="MsgInfo()">' + aMenuItems[ n ][ 2 ][ m ] + "</a></li>"
+                      cItems += '      <li><a onclick="MsgInfo(' + "'" + aMenuItems[ n ][ 2 ][ m ] + "'" + ;
+                                ')">' + aMenuItems[ n ][ 2 ][ m ] + "</a></li>"
                    endif   
                 next
                 cItems += '   </ul>'
