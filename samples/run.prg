@@ -1,3 +1,5 @@
+// Used from samples/sandbox.prg
+
 function Run()
 
    local hPostPairs := AP_PostPairs()
