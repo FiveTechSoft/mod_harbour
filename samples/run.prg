@@ -1,13 +1,18 @@
-function Main()
+// Used from samples/sandbox.prg
 
-   local n
+function Run()
+
+   local hPostPairs := AP_PostPairs()
+   local cCode
+   
+   if hb_HHasKey( hPostPairs, "source" )
+      cCode = hPostPairs[ "source" ]
+   endif   
    
    AP_HeadersOutSet( "Access-Control-Allow-Origin", "*" )
    
-   for n = 0 to AP_PostPairsCount() - 1
-      ? AP_PostPairsKey( n ) + " = " + AP_PostPairsVal( n )
-   next
+   if ! Empty( cCode )
+      Execute( cCode )
+   endif
    
-   ? "ok"
-
 return nil
