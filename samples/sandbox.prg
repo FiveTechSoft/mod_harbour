@@ -49,7 +49,7 @@ return nil </div>
             editor.session.setMode("ace/mode/c_cpp");
          </script>
  
-         <div class="col-sm">
+         <div class="col-sm" id="result">
          </div>
       </div>
    </body>
