@@ -3,7 +3,7 @@ function Main()
    local hPostPairs := AP_PostPairs()
    local cCode
    
-   if HHasKey( hPostPairs, "source" )
+   if hb_HHasKey( hPostPairs, "source" )
       cCode = hPostPairs[ "source" ]
    endif   
    
