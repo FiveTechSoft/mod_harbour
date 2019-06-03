@@ -7,6 +7,8 @@ function Run()
    
    if hb_HHasKey( hPostPairs, "source" )
       cCode = hPostPairs[ "source" ]
+   else
+      ? "This example is used from samples/sandbox.prg"
    endif   
    
    AP_HeadersOutSet( "Access-Control-Allow-Origin", "*" )

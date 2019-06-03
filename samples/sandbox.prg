@@ -15,7 +15,7 @@ function Main()
          <nav class="navbar navbar-inverse" 
               style="background-color:#159957;background-image:linear-gradient(120deg, #155799, #159957);">
             <div class="navbar-header">
-               <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
+               <a class="navbar-brand" href="https://fivetechsoft.github.io/mod_harbour/"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
                <a class="navbar-brand" onclick="MsgInfo( 'run your tests here' )">mod_harbour sandbox</a>
                <a class="navbar-brand" href="#"></a>
                <a class="navbar-brand" href="#"></a>
