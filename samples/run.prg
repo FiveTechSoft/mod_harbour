@@ -1,4 +1,4 @@
-function Main()
+function Run()
 
    local hPostPairs := AP_PostPairs()
    local cCode
@@ -10,8 +10,7 @@ function Main()
    AP_HeadersOutSet( "Access-Control-Allow-Origin", "*" )
    
    if ! Empty( cCode )
-      // Execute( cCode )
-      ? cCode
+      Execute( cCode )
    endif
    
 return nil
