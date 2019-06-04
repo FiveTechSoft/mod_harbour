@@ -15,6 +15,7 @@ function SayAt( nRow, nCol, cPrompt )
    for n = 1 to nRow
       cGrid += "<table>"
       cGrid += "   <tr>"
+      cGrid += '      <td width="47" style="width:47px;min-width:47px;">' + AllTrim( Str( n ) ) + "</td>"
       cGrid += "   </tr>"
       cGrid += "</table>"
    next
