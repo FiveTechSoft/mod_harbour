@@ -14,6 +14,8 @@ function SayAt( nRow, nCol, cPrompt )
    
    for n = 1 to n
       cGrid += "<table>"
+      cGrid += "   <tr>"
+      cGrid += "   </tr>"
       cGrid += "</table>"
    next
 
