@@ -183,6 +183,7 @@ static int harbour_handler( request_rec * r )
    {
       char * szErrorMessage = GetErrorMessage( GetLastError() );
 
+      ap_rputs( "c:\\Apache24\\htdocs\\libharbour.dll<br>", r ); 
       ap_rputs( szErrorMessage, r );
       LocalFree( ( void * ) szErrorMessage );
    }   
