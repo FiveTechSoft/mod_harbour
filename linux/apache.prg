@@ -241,6 +241,7 @@ HB_FUNC( AP_RPUTS )
       char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
 
       ap_rputs( buffer, pRequestRec );
+      ap_rputs( " ", pRequestRec ); 
 
       if( bFreeReq )
          hb_xfree( buffer );
@@ -259,6 +260,7 @@ HB_FUNC( AP_RRPUTS )
       char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
 
       ap_rputs( buffer, pRequestRec );
+      ap_rputs( " ", pRequestRec ); 
 
       if( bFreeReq )
          hb_xfree( buffer );
