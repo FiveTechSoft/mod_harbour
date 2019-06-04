@@ -9,6 +9,14 @@ return nil
 
 function SayAt( nRow, nCol, cPrompt )
 
+   local cGrid := ""
+   local n
+   
+   for n = 1 to n
+      cGrid += "<table>"
+      cGrid += "</table>"
+   next
 
+   ? cGrid
 
 return nil
