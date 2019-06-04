@@ -17,7 +17,7 @@ if [ ! -d "temp" ]; then
    mkdir temp
 fi
 cd temp
-if [ ! -d "harbour" ] then
+if [ ! -d "harbour" ]; then
    apxs -g -n harbour
 fi   
 cd harbour
