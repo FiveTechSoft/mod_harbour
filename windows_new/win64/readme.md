@@ -1,3 +1,5 @@
+**Quick setup**
+
 copy mod_harbour.so into c:\Apache24\modules\
 
 copy libharbour.dll into c:\Apache24\htdocs\
