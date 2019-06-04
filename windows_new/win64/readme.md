@@ -1,6 +1,6 @@
-copy mod_harbour.so in c:\Apache24\modules\
+copy mod_harbour.so into c:\Apache24\modules\
 
-copy libharbour.dll in c:\Apache24\htdocs\
+copy libharbour.dll into c:\Apache24\htdocs\
 
 Add these into c:\Apache24\conf\httpd.conf
 
