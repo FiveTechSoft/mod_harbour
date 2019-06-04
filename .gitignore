@@ -1,0 +1,6 @@
+*.bak
+*.ppo
+*.tag
+*.history
+*.code-workspace
+Thumbs.db
