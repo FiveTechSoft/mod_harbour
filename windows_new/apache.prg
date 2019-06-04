@@ -198,7 +198,9 @@ static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
 static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
 
-int hb_apache( void * _pRequestRec, void * _pAPRPuts, 
+extern "C" {
+
+HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts, 
                const char * _szFileName, const char * _szArgs, const char * _szMethod, const char * _szUserIP,
                void * _pHeadersIn, void * _pHeadersOut, 
                void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
@@ -226,6 +228,7 @@ int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
 }   
+}
 
 typedef int ( * AP_RPUTS )( const char * s, void * r );
 
