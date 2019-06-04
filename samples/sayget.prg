@@ -20,6 +20,6 @@ function SayAt( nRow, nCol, cPrompt )
       cGrid += "</table>"
    next
 
-   ? cGrid
+   ?? cGrid
 
 return nil
