@@ -12,7 +12,7 @@ function SayAt( nRow, nCol, cPrompt )
    local cGrid := ""
    local n
    
-   for n = 1 to n
+   for n = 1 to nRow
       cGrid += "<table>"
       cGrid += "   <tr>"
       cGrid += "   </tr>"
