@@ -183,7 +183,7 @@ static int harbour_handler( request_rec * r )
    r->content_type = "text/html";
    _r = r;
 
-   if( ( lib_harbour = LoadLibrary( ap_getenv( "LIBHARBOUR" ) ) == NULL ) 
+   if( ( lib_harbour = LoadLibrary( ap_getenv( "LIBHARBOUR" ) ) == NULL ) )
       lib_harbour = LoadLibrary( "c:\\Apache24\\htdocs\\libharbour.dll" );
 
    if( lib_harbour == NULL )
