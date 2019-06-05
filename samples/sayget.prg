@@ -1,5 +1,6 @@
-#xcommand @ <nRow>, <nCol> SAY <cPrompt> GET <uVar> => ;
-             CtrlAt( <nRow>, <nCol>, <cPrompt> ); CtrlAt( <nRow>, <nCol> + 1, "[" + <uVar> + "]" )
+#xcommand @ <nRow>, <nCol> SAY <cPrompt> GET <uVar> [<type: PASSWORD>] => ;
+             CtrlAt( <nRow>, <nCol>, <cPrompt> );;
+             CtrlAt( <nRow>, <nCol> + 1, "[" + <uVar> + "]", [<(type)>] )
 
 #xcommand @ <nRow>, <nCol> SAY <cPrompt> => ;
              CtrlAt( <nRow>, <nCol>, <cPrompt> )
@@ -17,7 +18,7 @@ function Main()
 
    @ 5, 2 SAY "Username:" GET "username"
    
-   @ 6, 2 SAY "Login:" GET "login"
+   @ 6, 2 SAY "Login:" GET "login" PASSWORD
    
    @ 8, 3 BUTTON "Ok" SUBMIT
    
@@ -95,7 +96,8 @@ function GenHtml( cText, cStyle )
 
    do case
       case Left( cText, 1 ) == "["
-           cResult = '<input type="text" style="width:' + AllTrim( Str( ( nColSize * 2 ) - 15 ) ) + 'px"' + ;
+           cResult = '<input type="' + If( ! Empty( cStyle ), cStyle, "text" ) + '"' + ;
+                     ' style="width:' + AllTrim( Str( ( nColSize * 2 ) - 15 ) ) + 'px"' + ;
                      ' name="' + SubStr( cText, 2, Len( cText ) - 2 ) + '">'
            
       case Left( cText, 1 ) == "{"
