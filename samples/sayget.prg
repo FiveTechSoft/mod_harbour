@@ -5,7 +5,7 @@
 #xcommand @ <nRow>, <nCol> SAY <cPrompt> => ;
              CtrlAt( <nRow>, <nCol>, <cPrompt> )
 
-#xcommand @ <nRow>, <nCol> BUTTON <cPrompt> [ <type: SUBMIT> ] => ;
+#xcommand @ <nRow>, <nCol> BUTTON <cPrompt> [ <type: SUBMIT, CANCEL> ] => ;
              CtrlAt( <nRow>, <nCol>, "{" + <cPrompt> + "}", [<(type)>] )
 
 #xcommand READ => Read()             
@@ -22,7 +22,7 @@ function Main()
    
    @ 8, 3 BUTTON "Ok" SUBMIT
    
-   @ 8, 4 BUTTON "Cancel"
+   @ 8, 4 BUTTON "Cancel" CANCEL
    
    @ 10, 3 SAY "Please identify"
    
@@ -101,9 +101,15 @@ function GenHtml( cText, cStyle )
                      ' name="' + SubStr( cText, 2, Len( cText ) - 2 ) + '">'
            
       case Left( cText, 1 ) == "{"
-           cResult = '<button type="' + If( ! Empty( cStyle ), cStyle, "button" ) + ;
-                     '" style="width:' + AllTrim( Str( nColSize - 20 ) ) + 'px">' + ;
-                     SubStr( cText, 2, Len( cText ) - 2 ) + "</button>"
+           if ! Empty( cStyle ) .and. Upper( cStyle ) == "CANCEL"
+              cResult = '<button type="button" onclick="location.reload();"' + ;
+                        ' style="width:' + AllTrim( Str( nColSize - 20 ) ) + 'px">' + ;
+                        SubStr( cText, 2, Len( cText ) - 2 ) + "</button>"
+           else             
+              cResult = '<button type="' + If( ! Empty( cStyle ), cStyle, "button" ) + ;
+                        '" style="width:' + AllTrim( Str( nColSize - 20 ) ) + 'px">' + ;
+                        SubStr( cText, 2, Len( cText ) - 2 ) + "</button>"
+           endif             
    endcase
    
 return cResult   
