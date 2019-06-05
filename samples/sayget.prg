@@ -1,25 +1,28 @@
-#xcommand @ <nRow>, <nCol> SAY <cPrompt> [ GET <uVar> ] => ;
-             CtrlAt( <nRow>, <nCol>, <cPrompt> ) [; CtrlAt( <nRow>, <nCol> + 1, "[" + <uVar> + "]" ) ]
+#xcommand @ <nRow>, <nCol> SAY <cPrompt> GET <uVar> => ;
+             CtrlAt( <nRow>, <nCol>, <cPrompt> ); CtrlAt( <nRow>, <nCol> + 1, "[" + <uVar> + "]" )
+
+#xcommand @ <nRow>, <nCol> SAY <cPrompt> => ;
+             CtrlAt( <nRow>, <nCol>, <cPrompt> )
 
 #xcommand @ <nRow>, <nCol> BUTTON <cPrompt> => CtrlAt( <nRow>, <nCol>, "{" + <cPrompt> + "}" )
 
 #xcommand READ => Read()             
 
-static aScreen := {}
+static aScreen := {}, nColSize := 100
 
 //----------------------------------------------------------------------------//
 
 function Main()
 
-   @ 5, 5 SAY "Username:"
+   @ 5, 2 SAY "Username:" GET "username"
    
-   @ 6, 5 SAY "Login:"
+   @ 6, 2 SAY "Login:" GET "login"
    
-   @ 8, 6 BUTTON "Ok"
+   @ 8, 3 BUTTON "Ok"
    
-   @ 8, 8 BUTTON "Cancel"
+   @ 8, 4 BUTTON "Cancel"
    
-   @ 10, 5 SAY "Please identify"
+   @ 10, 3 SAY "Please identify"
    
    READ
     
@@ -38,7 +41,7 @@ function CtrlAt( nRow, nCol, cPrompt )
 
    for n = 1 to Len( aScreen )
       if Len( aScreen[ n ] ) < nCol
-         aScreen[ n ] = ASize( aScreen[ n ], nCol )
+         aScreen[ n ] = ASize( aScreen[ n ], nCol + 1 )
       endif   
    next
    
@@ -56,7 +59,8 @@ function Read()
       cGrid += "<table>"
       cGrid += "   <tr>"
       for nCol = 1 to Len( aScreen[ nRow ] )
-         cGrid += '      <td width="47" style="width:47px;min-width:47px;">' + ;
+         cGrid += '      <td width="' + AllTrim( Str( nColSize ) ) + '" style="width:' + ;
+                  AllTrim( Str( nColSize ) ) + 'px;min-width:' + AllTrim( Str( nColSize ) ) + 'px;">' + ;
                   If( nCol == 1, AllTrim( Str( nRow ) ), ;
                   If( ! Empty( aScreen[ nRow, nCol ] ), GenHtml( aScreen[ nRow, nCol ] ),;
                   If( nRow == 1, AllTrim( Str( nCol ) ), "" ) ) ) + "</td>"
@@ -77,10 +81,12 @@ function GenHtml( cText )
 
    do case
       case Left( cText, 1 ) == "["
-           cResult = '<input type="text" name="' + SubStr( cText, 2, Len( cText ) - 2 ) + '">'
+           cResult = '<input type="text" style="width:' + AllTrim( Str( ( nColSize * 2 ) - 15 ) ) + 'px"' + ;
+                     ' name="' + SubStr( cText, 2, Len( cText ) - 2 ) + '">'
            
       case Left( cText, 1 ) == "{"
-           cResult = '<button type="button">' + SubStr( cText, 2, Len( cText ) - 2 ) + "</button>"
+           cResult = '<button type="button" style="width:' + AllTrim( Str( nColSize - 20 ) ) + 'px">' + ;
+                     SubStr( cText, 2, Len( cText ) - 2 ) + "</button>"
    endcase
    
 return cResult   
