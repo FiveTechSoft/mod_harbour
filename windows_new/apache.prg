@@ -443,7 +443,7 @@ typedef const char * ( * AP_GET_ENV )( const char * );
 
 HB_FUNC( AP_GETENV )
 {
-   AP_GET_ENV ap_getenv = ( AP_GET_ENV ) ap_getenv;
+   AP_GET_ENV ap_getenv = ( AP_GET_ENV ) pAPGetenv;
    
    hb_retc( ap_getenv( hb_parc( 1 ) ) );
 }   
