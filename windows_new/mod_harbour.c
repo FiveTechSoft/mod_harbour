@@ -103,6 +103,11 @@ const char * ap_post_pairs_key( int iKey )
       return "";
 }
 
+const char * ap_getenv( const char * szVarName )
+{
+   return apr_table_get( _r->subprocess_env, szVarName );
+}   
+
 const char * ap_post_pairs_val( int iKey )
 {
    ap_form_pair_t * e;
@@ -163,7 +168,8 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
                               void * pHeadersIn, void * pHeadersOut, 
                               void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal, 
                               void * pPostPairsCount, void * pPostPairsKey, void * pPostPairsVal,
-                              void * pHeadersOutCount, void * pHeadersOutSet, void * pSetContentType );
+                              void * pHeadersOutCount, void * pHeadersOutSet, void * pSetContentType, 
+                              const char * pApacheGetenv );
 
 static int harbour_handler( request_rec * r )
 {
@@ -199,7 +205,8 @@ static int harbour_handler( request_rec * r )
                                r->headers_in, r->headers_out,
                                ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
                                ( void * ) ap_post_pairs_count, ( void * ) ap_post_pairs_key, ( void * ) ap_post_pairs_val, 
-                               ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype );
+                               ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
+                               ( void * ) ap_getenv );
    }
 
    if( lib_harbour != NULL )
