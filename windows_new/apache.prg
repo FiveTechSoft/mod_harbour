@@ -439,11 +439,11 @@ HB_FUNC( AP_SETCONTENTTYPE )
    ap_set_contenttype( hb_parc( 1 ) );
 }
 
-typedef const char * ( * AP_GETENV )( const char * );
+typedef const char * ( * AP_GET_ENV )( const char * );
 
 HB_FUNC( AP_GETENV )
 {
-   AP_GETENV ap_getenv = ( AP_GETENV ) ap_getenv;
+   AP_GET_ENV ap_getenv = ( AP_GET_ENV ) ap_getenv;
    
    hb_retc( ap_getenv( hb_parc( 1 ) ) );
 }   
