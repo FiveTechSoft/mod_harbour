@@ -169,7 +169,7 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
                               void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal, 
                               void * pPostPairsCount, void * pPostPairsKey, void * pPostPairsVal,
                               void * pHeadersOutCount, void * pHeadersOutSet, void * pSetContentType, 
-                              const char * pApacheGetenv );
+                              void * pApacheGetenv );
 
 static int harbour_handler( request_rec * r )
 {
