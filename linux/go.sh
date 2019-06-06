@@ -16,7 +16,7 @@ cd /usr/lib/apache2/modules
 sudo ln -sf ~/mod_harbour/linux/"Ubuntu 18.04"/mod_harbour.so mod_harbour.so
 cd ~
 echo 'LoadModule harbour_module /usr/lib/apache2/modules/mod_harbour.so' | sudo tee -a /etc/apache2/apache2.conf > /dev/null
-echo '<FilesMatch "\.(prg)$">' | sudo tee -a /etc/apache2/apache2.conf > /dev/null
+echo '<FilesMatch "\.(prg|hrb)$">' | sudo tee -a /etc/apache2/apache2.conf > /dev/null
 echo 'SetHandler harbour' | sudo tee -a /etc/apache2/apache2.conf > /dev/null
 echo '</FilesMatch>' | sudo tee -a /etc/apache2/apache2.conf > /dev/null
 sudo apachectl restart
