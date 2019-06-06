@@ -8,7 +8,7 @@ extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, AP_RPUTS, AP_RRPUTS
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
-extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE
+extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV
 
 static hPP
 
@@ -196,16 +196,15 @@ static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
 static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
 static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
 static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
+static void * pAPGetenv;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
-
-extern "C" {
 
 HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts, 
                const char * _szFileName, const char * _szArgs, const char * _szMethod, const char * _szUserIP,
                void * _pHeadersIn, void * _pHeadersOut, 
                void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
                void * _pPostPairsCount, void * _pPostPairsKey, void * _pPostPairsVal,
-               void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType )
+               void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType, void * _pAPGetenv )
 {
    pRequestRec       = _pRequestRec;
    pAPRPuts          = _pAPRPuts; 
@@ -224,11 +223,11 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    pHeadersOutCount  = _pHeadersOutCount;
    pHeadersOutSet    = _pHeadersOutSet;
    pAPSetContentType = _pAPSetContentType;
+   pAPGetenv         = _pAPGetenv;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
 }   
-}
 
 typedef int ( * AP_RPUTS )( const char * s, void * r );
 
@@ -439,6 +438,15 @@ HB_FUNC( AP_SETCONTENTTYPE )
 
    ap_set_contenttype( hb_parc( 1 ) );
 }
+
+typedef const char * ( * AP_GET_ENV )( const char * );
+
+HB_FUNC( AP_GETENV )
+{
+   AP_GET_ENV ap_getenv = ( AP_GET_ENV ) pAPGetenv;
+   
+   hb_retc( ap_getenv( hb_parc( 1 ) ) );
+}   
 
 HB_FUNC( HB_VMPROCESSSYMBOLS )
 {
