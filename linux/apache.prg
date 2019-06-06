@@ -21,7 +21,11 @@ function _AppMain()
    AddPPRules()
 
    if File( AP_FileName() )
-      Execute( MemoRead( AP_FileName() ), AP_Args() )
+      if Lower( Right( AP_FileName(), 4 ) ) == ".hrb"
+         hb_HrbDo( hb_HrbLoad( AP_FileName() ), AP_Args() )
+      else
+         Execute( MemoRead( AP_FileName() ), AP_Args() )
+      endif
    else
       ErrorLevel( 404 )
    endif   
