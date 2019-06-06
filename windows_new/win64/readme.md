@@ -9,7 +9,7 @@ Add these into c:\Apache24\conf\httpd.conf
 ```
 LoadModule harbour_module modules/mod_harbour.so
 
-<FilesMatch "\.(prg)$">
+<FilesMatch "\.(prg|hrb)$">
     SetHandler harbour
 </FilesMatch>
 ```
