@@ -30,7 +30,7 @@ In both **config/dyn.mk** and **config/lib.mk** HB_DYN_LIBS add hbcplr \
 
 In **src/Makefile** DYNDIRLIST_BASE add src/compiler \
 
-In **src/harbour.def** add HB_FUN_COMPILEFROMBUF
+In **src/harbour.def** add HB_FUN_HB_COMPILEFROMBUF
 
 Copy **apache.prg** to src/rtl and modify Makefile to add it in PRG_SOURCES section
 
