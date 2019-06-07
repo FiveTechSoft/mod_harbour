@@ -1,4 +1,4 @@
-Id you are using Xampp on Windows then use SetEnv like this:
+If you are using Xampp on Windows then use SetEnv like this:
 
 ```
 LoadModule harbour_module modules/mod_harbour.so
