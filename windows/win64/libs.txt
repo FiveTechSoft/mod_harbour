@@ -1,13 +1,4 @@
 -link c:\Apache24\lib\libhttpd.lib
--link c:\harbour\lib\win\msvc64\hbrtl.lib
--link c:\harbour\lib\win\msvc64\hbvm.lib
--link c:\harbour\lib\win\msvc64\hbcommon.lib
--link c:\harbour\lib\win\msvc64\hbrdd.lib
--link c:\harbour\lib\win\msvc64\hbmacro.lib
--link c:\harbour\lib\win\msvc64\hbsix.lib
--link c:\harbour\lib\win\msvc64\rddntx.lib
--link c:\harbour\lib\win\msvc64\rddfpt.lib
--link c:\harbour\lib\win\msvc64\gtwin.lib
--link c:\harbour\lib\win\msvc64\hbcplr.lib
--link c:\harbour\lib\win\msvc64\hbpp.lib
+-link c:\Apache24\lib\libapr-1.lib
+-link c:\Apache24\lib\libaprutil-1.lib
 -link kernel32.lib user32.lib winmm.lib advapi32.lib
