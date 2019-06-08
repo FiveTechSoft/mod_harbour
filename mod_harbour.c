@@ -148,7 +148,12 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
 
 static int harbour_handler( request_rec * r )
 {
-   HMODULE lib_harbour = NULL;
+   #ifdef _MSC_VER
+      HMODULE lib_harbour = NULL;
+   #else
+      void * lib_harbour = NULL;
+   #endif
+   
    PHB_APACHE _hb_apache = NULL;
    int iResult = OK;
 
