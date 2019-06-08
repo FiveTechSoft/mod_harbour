@@ -54,11 +54,12 @@ return nil
 function Execute( cCode, ... )
 
    local oHrb, uRet
-   local cHBheaders := "~/harbour/include"
+   local cHBheaders1 := "~/harbour/include"
+   local cHBheaders2 := "c:\harbour\include"
 
    cCode = __pp_process( hPP, cCode )
 
-   oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders )
+   oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2 )
    if ! Empty( oHrb )
       uRet = hb_HrbDo( hb_HrbLoad( oHrb ), ... )
    endif
