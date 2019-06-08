@@ -16,7 +16,7 @@ function Categories()
    local aCategories, nAt
 
    if File( cPathLinux + "index.html" )
-      aCategories = Directory( cPathLinux + "modharbour_examples/blog/", "D" )
+      aCategories = Directory( cPathLinux + "modharbour_samples/blog/", "D" )
    else
       aCategories = Directory( "c:/Apache24/htdocs/modharbour_samples/blog/*.*", "D" )
    endif
