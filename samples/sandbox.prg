@@ -3,12 +3,14 @@ function Main()
    TEMPLATE
    <html>
    <head>
-      <title>Sandbox</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="https://fivetechsoft.github.io/xcloud/source/js/xcloud.js"></script>
       <link rel="stylesheet" href="https://fivetechsoft.github.io/xcloud/source/css/xcloud.css"> 
+      <title>Sandbox</title>
    </head>
    <body>
       <div class="container-fluid">
@@ -19,23 +21,29 @@ function Main()
                <a class="navbar-brand" onclick="MsgInfo( 'run your tests here' )">mod_harbour sandbox</a>
                <a class="navbar-brand" href="#"></a>
                <a class="navbar-brand" href="#"></a>
-               <a class="navbar-brand" href="#"></a>
-               <a class="navbar-brand" href="#"></a>
-               <a class="navbar-brand" href="#"></a>
             </div>
             <ul class="nav navbar-nav">
                <li><button class="btn btn-success navbar-btn" onclick="Run()"><span class="glyphicon glyphicon-flash"></span> Run</button></li> 
-               <li><button class="btn btn-success navbar-btn" onclick="Clear()"><span class="glyphicon glyphicon-edit"></span> Clear</button></li> 
                <div class="col-sm-2";>
-               <input type="file" class="btn btn-success navbar-btn" name="SelectFile" id="selectfile" onchange="openFile(event)"><br>
+               <button class="btn btn-success navbar-btn" onclick="Clear()"><span class="glyphicon glyphicon-edit"></span> Clear</button>
+               </div>
+               <a class="navbar-brand" href="#"></a>
+               <a class="navbar-brand" href="#"></a>
+               <a class="navbar-brand" href="#"></a>
+               <a class="navbar-brand" href="#"></a>
+               <a class="navbar-brand" href="#"></a>
+               <a class="navbar-brand" href="#"></a>
+               <a class="navbar-brand" href="#"></a>
+               <div class="col-sm-2";>
+               <input type="file" class="btn btn-success navbar-btn" name="SelectFile" id="selectfile" accept=".prg" onchange="openFile(event)"><br>
                </div>
             </ul>
          </nav>
       </div>
       <div class="row">
-         <div class="col-sm-1" style="background-color:silver;width:40px;height:650px;">
+         <div class="col-sm-1" style="background-color:silver;width:2.5%;height:650px;">
          </div>
-         <div class="col-sm-5" style="background-color:silver;width:650px;">
+         <div class="col-sm-2" style="background-color:silver;width:670px;">
             <div id="editor">function Main()
  
    ? "Hello world"
@@ -54,7 +62,10 @@ return nil </div>
             function Clear() {
                var text = '';
                editor.setValue( text );
+               Run();
+               selectfile.value = '';
             }
+
             function openFile(event) {
                var input = event.target;
                var reader = new FileReader();
