@@ -25,5 +25,10 @@ function Categories()
       ADel( aCategories, nAt )
       ASize( aCategories, Len( aCategories ) - 1 )
    end 
+   
+   while ( nAt := AScan( aCategories, { | aCategory | aCategory[ 5 ] != "D" } ) ) != 0
+      ADel( aCategories, nAt )
+      ASize( aCategories, Len( aCategories ) - 1 )
+   end    
 
 return aCategories 
