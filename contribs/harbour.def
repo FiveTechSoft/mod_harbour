@@ -885,6 +885,7 @@ HB_FUN_HB_MINUTE
 HB_FUN_HB_MLEVAL
 HB_FUN_HB_MMIDDLEDOWN
 HB_FUN_HB_MSECTOT
+HB_FUN_HB_MT
 HB_FUN_HB_MTVM
 HB_FUN_HB_MUTEXCREATE
 HB_FUN_HB_MUTEXEVAL
@@ -3533,6 +3534,7 @@ hb_vmIsMt
 hb_vmIsReady
 hb_vmLang
 hb_vmLock
+hb_vmLockForce
 hb_vmProc
 hb_vmProcAddress
 hb_vmProcessDynLibSymbols
@@ -3574,10 +3576,18 @@ hb_vmSetLang
 hb_vmSetLinkedMain
 hb_vmSuspendThreads
 hb_vmSymbolInit_RT
+hb_vmTerminateThreads
+hb_vmThreadInit
 hb_vmThreadIsMain
+hb_vmThreadQuit
+hb_vmThreadQuitRequest
+hb_vmThreadRegister
+hb_vmThreadRelease
 hb_vmThreadStart
+hb_vmThreadState
 hb_vmTryEval
 hb_vmUnlock
+hb_vmWaitForThreads
 hb_vsnprintf
 hb_wcntomb
 hb_wcntombcpy
