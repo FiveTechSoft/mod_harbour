@@ -1,0 +1,8 @@
+msvcrt.lib 
+winmm.lib 
+kernel32.lib 
+user32.lib 
+ws2_32.lib 
+iphlpapi.lib 
+advapi32.lib 
+gdi32.lib
