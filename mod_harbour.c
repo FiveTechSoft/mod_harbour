@@ -162,6 +162,10 @@ static int harbour_handler( request_rec * r )
       return DECLINED;
 
    r->content_type = "text/html";
+
+   ap_add_cgi_vars(r);
+   ap_add_common_vars(r);
+
    _r = r;
 
    #ifdef _MSC_VER
