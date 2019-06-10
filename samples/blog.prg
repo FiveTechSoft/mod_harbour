@@ -3,9 +3,11 @@ function Main()
    local aCategory
 
    ? "<h1>Blog categories</h1>"
+   ? "<hr />"
 
    for each aCategory in Categories()
       ? "<h2>" + aCategory[ 1 ] + "</h2>"
+      ? "<hr />"
    next
 
 return nil
