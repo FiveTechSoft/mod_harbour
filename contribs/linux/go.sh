@@ -1,1 +1,1 @@
-gcc -shared -Wl,-soname,libharbour.so.3.2 -olibharbour.so.3.2.0 -L/home/anto/harbour_for_modharbour/lib/linux/gcc @libs.txt -ldl -lpthread -lm -lrt
+gcc -shared -olibharbour.so.3.2.0 -L/home/anto/harbour_for_modharbour/lib/linux/gcc @libs.txt -Wl,--retain-symbols-file=harbour.def -ldl -lpthread -lm -lrt
