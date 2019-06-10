@@ -2,11 +2,11 @@ function Main()
 
    local aCategory
 
-   ? "<h1>Blog categories</h1>"
+   ? "<h1 align='center'>Blog categories</h1>"
    ? "<hr />"
 
    for each aCategory in Categories()
-      ? "<h2>" + aCategory[ 1 ] + "</h2>"
+      ? "<h2 align='center'>" + aCategory[ 1 ] + "</h2>"
       ? "<hr />"
    next
 
