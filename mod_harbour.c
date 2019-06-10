@@ -187,8 +187,8 @@ static int harbour_handler( request_rec * r )
    else
    {
       ap_parse_form_data( r, NULL, &POST_pairs, -1, HUGE_STRING_LEN );
-      ap_add_common_vars( r );
       ap_add_cgi_vars( r );
+      ap_add_common_vars( r );
    
       #ifdef _MSC_VER
          ( ( FARPROC ) _hb_apache ) = GetProcAddress( lib_harbour, "hb_apache" );
