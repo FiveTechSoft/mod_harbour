@@ -22,7 +22,7 @@ function Main()
 
     FOR n := 1 TO Len( aEnv )
       ? aEnv[ n ] 
-      ? hb_GetEnv( aEnv[ n ] ) 
+      ? AP_GetEnv( aEnv[ n ] ) 
     NEXT
     
 return nil    
