@@ -7,6 +7,7 @@
 #include "http_config.h"
 #include "http_protocol.h"
 #include "ap_config.h"
+#include "util_script.h"
 
 #ifdef _MSC_VER
    #include <windows.h>
