@@ -137,8 +137,12 @@ const char * ap_body( void )
          // apr_bucket * bucket;
          
          ap_get_client_block( _r, rbuf, length + 1 );
+         szBody = ( char * ) apr_palloc( _r->pool, strlen( ap_body() ) + 1 );
+         strcpy( szBody, rbuf );
+         
          // bucket = apr_bucket_transient_create( rbuf, strlen( rbuf ), _r->connection->bucket_alloc );
          // _r->kept_body = brigade;
+
          return rbuf;
       }
       else
@@ -215,8 +219,7 @@ static int harbour_handler( request_rec * r )
    {
       ap_add_cgi_vars( r );
       ap_add_common_vars( r );
-      szBody = ( char * ) apr_palloc( _r->pool, strlen( ap_body() ) + 1 );
-      strcpy( szBody, ap_body() );
+      ap_body();
       ap_parse_form_data( r, NULL, &POST_pairs, -1, HUGE_STRING_LEN );
    
       #ifdef _MSC_VER
