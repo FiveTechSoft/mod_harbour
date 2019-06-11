@@ -8,3 +8,8 @@
   
 * A new function AP_PostPairs() in PRG level replaces the previous low level AP_PostPairs(). This new function can
   be tested from samples/post.prg that makes a call to samples/postpairs.prg
+  
+
+* In the past days:
+  + we unified the source code for both Linux and Windows
+  + We are able to include contribs libs in libharbour.(dll or so) or to include your own libs
