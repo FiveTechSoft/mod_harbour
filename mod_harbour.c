@@ -133,9 +133,12 @@ const char * ap_body( void )
       {
          long length = _r->remaining;
          char * rbuf = ( char * ) apr_pcalloc( _r->pool, length + 1 );
-     
+         apr_bucket_brigade * brigade = apr_brigade_create( _r->pool, _r->connection->bucket_alloc );
+         apr_bucket * bucket;
+         
          ap_get_client_block( _r, rbuf, length + 1 );
-         _r->kept_body = apr_brigade_create( _r->pool, _r->connection->bucket_alloc );
+         bucket = apr_bucket_transient_create( rbuf, strlen( rbuf ), _r->connection->bucket_alloc );
+         _r->kept_body = brigade;
          return rbuf;
       }
       else
