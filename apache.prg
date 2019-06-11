@@ -191,6 +191,19 @@ ENDCLASS
 
 //----------------------------------------------------------------//
 
+function AP_PostPairs()
+
+   local aPairs := hb_aTokens( AP_Body(), "&" )
+   local cPair, hPairs := {=>}
+
+   for each cPair in aPairs
+      hb_HSet( hPairs, SubStr( cPair, 1, At( "=", cPair ) - 1 ), SubStr( cPair, At( "=", cPair ) + 1 ) )
+   next
+
+return hPairs
+
+//----------------------------------------------------------------//
+
 #pragma BEGINDUMP
 
 #include <hbapi.h>
@@ -405,36 +418,6 @@ HB_FUNC( AP_HEADERSIN )
    }  
    
    hb_itemReturnRelease( hHeadersIn );
-}
-
-HB_FUNC( AP_POSTPAIRS )
-{
-   PHB_ITEM hPostPairs = hb_hashNew( NULL ); 
-   POST_PAIRS_COUNT post_pairs_count = ( POST_PAIRS_COUNT ) pPostPairsCount;
-   int iKeys = post_pairs_count();
-
-   if( iKeys > 0 )
-   {
-      int iKey;
-      PHB_ITEM pKey = hb_itemNew( NULL );
-      PHB_ITEM pValue = hb_itemNew( NULL );   
-      POST_PAIRS_KEY post_pairs_key = ( POST_PAIRS_KEY ) pPostPairsKey;
-      POST_PAIRS_VAL post_pairs_val = ( POST_PAIRS_VAL ) pPostPairsVal;
-
-      hb_hashPreallocate( hPostPairs, iKeys );
-   
-      for( iKey = 0; iKey < iKeys; iKey++ )
-      {
-         hb_itemPutCConst( pKey,   post_pairs_key( iKey ) );
-         hb_itemPutCConst( pValue, post_pairs_val( iKey ) );
-         hb_hashAdd( hPostPairs, pKey, pValue );
-      }
-      
-      hb_itemRelease( pKey );
-      hb_itemRelease( pValue );
-   }  
-   
-   hb_itemReturnRelease( hPostPairs );
 }
 
 typedef void ( * AP_SET_CONTENTTYPE )( const char * szContentType );
