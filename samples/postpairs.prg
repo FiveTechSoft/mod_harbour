@@ -2,6 +2,8 @@ function Main()
 
    local n
    
+   ? AP_Body()
+   
    if AP_PostPairsCount() == 0
       ? "This example is used from samples/post.prg"
    endif   
