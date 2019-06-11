@@ -455,13 +455,24 @@ HB_FUNC( AP_GETENV )
    hb_retc( ap_getenv( hb_parc( 1 ) ) );
 }   
 
+static char * szBody = NULL;
+
 typedef const char * ( * AP_BODY )( void );
 
 HB_FUNC( AP_BODY )
 {
    AP_BODY ap_body = ( AP_BODY ) pAPBody;
+   char * _szBody;
    
-   hb_retc( ap_body() );
+   if( szBody )
+      hb_retc( szBody );
+   else
+   {
+      _szBody = ap_body();
+      szBody = ( char * ) hb_xgrab( strlen( _szBody ) + 1 );
+      strcpy( szBody, _szBody );
+      hb_retc( _szBody );
+   }   
 }   
 
 HB_FUNC( HB_VMPROCESSSYMBOLS )
