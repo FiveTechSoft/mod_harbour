@@ -119,6 +119,25 @@ void ap_set_contenttype( const char * szContentType )
    _r->content_type = szContentType;
 }
 
+const char * ap_body( void )
+{
+   if( ap_setup_client_block( _r, REQUEST_CHUNKED_ERROR ) != OK )
+      return “error”;
+
+   if( ap_should_client_block( _r ) ) 
+   {
+      char argsbuffer[ HUGE_STRING_LEN ];
+      int rsize, rpos = 0;
+      long length = _r->remaining;
+      char * rbuf = ( char * ) apr_pcalloc( _r->pool, length + 1 );
+     
+      ap_get_client_block( _r, rbuf, length + 1 );
+      return rbuf;
+   }
+   else
+      return “no block”;
+}
+
 #ifdef _MSC_VER
 
 char * GetErrorMessage( DWORD dwLastError )
@@ -145,7 +164,7 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
                               void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal, 
                               void * pPostPairsCount, void * pPostPairsKey, void * pPostPairsVal,
                               void * pHeadersOutCount, void * pHeadersOutSet, void * pSetContentType, 
-                              void * pApacheGetenv );
+                              void * pApacheGetenv, void * pAPBody );
 
 static int harbour_handler( request_rec * r )
 {
@@ -204,7 +223,7 @@ static int harbour_handler( request_rec * r )
                                ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
                                ( void * ) ap_post_pairs_count, ( void * ) ap_post_pairs_key, ( void * ) ap_post_pairs_val, 
                                ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
-                               ( void * ) ap_getenv );
+                               ( void * ) ap_getenv, ( void * ) ap_body );
    }
 
    if( lib_harbour != NULL )
