@@ -12,6 +12,12 @@ function Main()
       <link rel="stylesheet" href="https://fivetechsoft.github.io/xcloud/source/css/xcloud.css"> 
       <title>Sandbox</title>
 <style>
+
+.container-fluid {
+   color:#2C2828;
+   background-color:#F5F5F5;
+   }
+
 #editor { 
    position: absolute;
    top: 0;
@@ -26,69 +32,187 @@ function Main()
    right: 0;
    bottom: 0;
    left: 0;
+   padding-top: 0px; 
+   padding-bottom: 0px;
+   }
+
+.btn {
+   color:white;
+   background-color:#2C2828;
+   }
+
+.btn:hover {
+   color: #2C2828;
+   background-color: #ffff;
+   }
+
+.btn:focus {
+   color: #2C2828;
+   background-color: #ffff;
    }
 
 .vsplitbar {
 	width: 4px;
-	background: #159957;
+	background: LightGray;
    }
+
+body {
+   background-color: #F5F5F5;
+   }
+
+.nav-tabs > li {
+   margin-left:0px;
+   position:relative;    
+}
+
+.nav-tabs > li > a
+   {
+   padding-top: 5px; 
+   padding-bottom: 5px;
+   padding-right: 25px;
+   display:inline-block;
+   }
+
+.nav-tabs > li > span {
+    display:none;
+    cursor:pointer;
+    position:absolute;
+    right: 10px;
+    top: 6px;
+    color: red;
+}
+
+.nav-tabs > li:hover > span {
+    display: inline-block;
+}
+
+.nav-tabs > li.active > a {
+   color:#2C2828;
+   background-color: white;
+   }
+
+.nav-tabs > li.active > a:focus 
+   {
+   color:white;
+   background-color:gray;
+   }
+
+.nav-tabs > li.active > a:hover {
+   color:white;
+   background-color:lightgray;
+   }
+
 </style>
+
    </head>
    <body>
       <div class="container-fluid">
          <nav class="navbar navbar-inverse" 
-              style="background-color:#159957;background-image:linear-gradient(120deg, #155799, #159957);height:11%;">
-            <div class="navbar-header">
-               <a class="navbar-brand" href="https://fivetechsoft.github.io/mod_harbour/"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
-               <a class="navbar-brand" onclick="MsgInfo( 'Run your tests here!' )">mod_harbour sandbox</a>
+              style="background-color:LightGray;border:0px;height:8%;">
+            <div class="nav navbar-nav">
+               <a class="navbar-brand" href="https://fivetechsoft.github.io/mod_harbour/" style="color: #2C2828;">
+                  <span class="glyphicon glyphicon-menu-hamburger" height="36" aria-hidden="true"></span> SandBox</a>
+               <li><button class="btn navbar-btn btn-sm" onclick="Run()"><span class="glyphicon glyphicon-flash"></span> Run</button></li>
+               <li><button class="btn navbar-btn btn-sm" onclick="Download()"><span class="glyphicon glyphicon-save"></span> Save</button></li>
                <a class="navbar-brand" href="#"></a>
+               <li><button class="btn navbar-btn btn-sm" onclick="Clear()"><span class="glyphicon glyphicon-edit"></span> Clear</button></li>
+               <form class="navbar-form navbar-left" action="">
+                 <div class="input-group">
+                   <input type="text" class="form-control" placeholder="Search" id="find">
+                   <div class="input-group-btn">
+                     <li><button class="btn btn-sm" onclick="Search()">
+                       <span class="glyphicon glyphicon-search"></span> Find</button></li>
+                   </div>
+                 </div>
+               </form>
+               <li><button class="btn navbar-btn btn-sm" onclick="editor.findPrevious()"><span class="glyphicon glyphicon-arrow-left"></span> Prev</button></li>
+               <li><button class="btn navbar-btn btn-sm" onclick="editor.findNext()"><span class="glyphicon glyphicon-arrow-right"></span> Next</button></li>
+               <a class="navbar-brand" href="#"></a>
+               <li><button class="btn navbar-btn btn-sm" onclick="editor.undo()"><span class="glyphicon glyphicon-repeat"></span> Undo</button></li>
+               <li><button class="btn navbar-btn btn-sm" onclick="editor.redo()"><span class="glyphicon glyphicon-refresh"></span> Redo</button></li>
+               <div class="col-sm-1";>
+               <input type="file" class="btn navbar-btn btn-sm" name="SelectFile" id="selectfile" accept=".prg" onchange="openFile(event)"><br>
+               </div>
             </div>
-            <ul class="nav navbar-nav">
-               <li><button class="btn btn-success navbar-btn" onclick="Run()"><span class="glyphicon glyphicon-flash"></span> Run</button></li> 
-               <div class="col-sm-1";>
-               <button class="btn btn-success navbar-btn" onclick="Clear()"><span class="glyphicon glyphicon-edit"></span> Clear</button>
-               </div>
-               <a class="navbar-brand" href="#"></a>
-               <div class="col-sm-1";>
-               <button class="btn btn-success navbar-btn" onclick="Download()"><span class="glyphicon glyphicon-save"></span> Save</button>
-               </div>
-               <a class="navbar-brand" href="#"></a>
-               <a class="navbar-brand" href="#"></a>
-               <a class="navbar-brand" href="#"></a>
-               <a class="navbar-brand" href="#"></a>
-               <a class="navbar-brand" href="#"></a>
-               <a class="navbar-brand" href="#"></a>
-               <a class="navbar-brand" href="#"></a>
-               <a class="navbar-brand" href="#"></a>
-               <div class="col-sm-2";>
-               <input type="file" class="btn btn-success navbar-btn" name="SelectFile" id="selectfile" accept=".prg" onchange="openFile(event)"><br>
-               </div>
-            </ul>
          </nav>
       </div>
-         <ul class="nav nav-tabs" id="tabs" role="tablist" style="background-color:lightgray;">
-            <li class="active" id="tab1"><a href="#row1" role="tab" data-toggle="tab">Noname</a></li>
-         </ul>
-      <div class="row" id="row1" style="background-color:silver;width:101.0%;height:82.5%;">
-         <div class="col-sm-7" style="background-color:silver;height:99.5%;">
+      <ul class="nav nav-tabs" id="tabs" role="tablist" style="background-color:#F5F5F5;">
+         <li class="active" id="tab1"><a href="#row1" role="tab" data-toggle="tab">Noname1.prg</a>
+         <span>x</span></li>
+      </ul>
+      <div class="tab-content">
+      <div class="row" id="row1" style="background-color:#F5F5F5;width:101.0%;height:82.5%;">
+         <div class="col-sm-7" style="background-color:#F5F5F5;height:99.5%;">
          <div id="editor" style="height:100%;">function Main()
 
    ? "Hello world"
 
 return nil</div>
          </div>
-         <div class="col-sm" id="result" style="background-color:LightYellow;width:99.6%;height:99.5%;"></div>
+         <div class="col-sm" id="result" style="background-color:#F5F5F5;width:99.6%;height:99.5%;"></div>
+      </div>
       </div>
       <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
       <script>
+         var textos = [];
          var editor = ace.edit("editor");
          editor.setTheme("ace/theme/pastel_on_dark");
-         editor.setFontSize(16);     
+         editor.setFontSize(16);
          editor.setHighlightActiveLine(true);
          editor.session.setMode("ace/mode/c_cpp");
-         //editor.setShowPrintMargin(false);
+         //editor.session.setShowPrintMargin(true);
+         editor.session.setTabSize(3);
+         editor.session.setUseSoftTabs(true);
+         //var EditSession = require("https://fivetechsoft.github.io/xcloud/lib/ace/edit_session").EditSession;
+         //editor.setAutoScrollEditorIntoView(true);
+         //editor.setOption("maxLines", 26);
+         //editor.setOption("minLines", 26);
+         textos[ $('#tabs a:last').text() ] = editor.getValue();
 
-         function Download(filename) {
+         $(".nav-tabs").on("click", "a", function(e){
+            var ctab = '' ;
+            e.preventDefault();
+            ctab = $(this).text();
+            editor.setValue('',1);
+            Run();
+            editor.setValue( textos[ ctab ], -1 );
+            //window.alert( ctab );
+            $(this).tab('show');
+          })
+          .on("click", "span", function () {
+             var anchor = $(this).siblings('a');
+             var nextTab = $('#tabs').children().length;
+             var ctab   = '';
+             //window.alert( anchor.text() );
+             if ( nextTab > 1 ) {
+                textos.splice( anchor.text(), 1);
+                //$(anchor.attr('href')).remove();
+                $(this).parent().remove();
+                ctab = $(".nav-tabs li").children('a').last().text() ;
+                editor.setValue('',1);
+                Run();
+                editor.setValue( textos[ ctab ], -1 );
+                $(".nav-tabs li").children('a').last().click();
+                $(".nav-tabs li").children('a').last().focus();
+                selectfile.value = ctab;
+                //$('#selectfile').value = ctab;
+             }
+          });
+
+         function Search() {
+            editor.session.find( "o", {
+                         backwards: false,
+                         wrap: true,
+                         caseSensitive: false,
+                         wholeWord: false,
+                         skipCurrent: false,
+                         preventScroll: true,
+                         range: null,
+                         regExp: false
+                         } );
+         }
+
+         function Download() {
             var filename = $('#tabs a:last').text();
             var content = editor.getValue();
             var pom = document.createElement('a');
@@ -107,10 +231,11 @@ return nil</div>
 
          function Clear() {
             var text = '';
+            var nextTab = $('#tabs').children().length;
             editor.setValue( text );
             Run();
             selectfile.value = '';
-            $('#tabs a:last').text( "Noname" );
+            $('#tabs a:last').text( "Noname" + nextTab + ".prg" );
          }
 
          function openFile(event) {
@@ -122,21 +247,21 @@ return nil</div>
             reader.readAsText( input.files[0] );
             reader.onload = function(){
             var text = reader.result;
-            editor.setValue( text );
+            addtab( input.files[0].name );
+            editor.setValue( text, -1 );
+            textos[ $('#tabs a:last').text() ] = text;
           }
-            //addtab();
-            $('#tabs a:last').text( input.files[0].name );
         }
 
-        function addtab() {
-          	var nextTab = $('#tabs li').size()+1;
-          	// create the tab
-          	//$('<li><a href="#tab'+nextTab+'" data-toggle="tab">Tab '+nextTab+'</a></li>').appendTo('#tabs');
-            $('<li><a href="#row1"'+'" data-toggle="tab">Tab '+nextTab+'</a></li>').appendTo('#tabs');
-          	// create the tab content
-          	$('<div class="tab-pane" id="tab'+nextTab+'">tab' +nextTab+' content</div>').appendTo('.tab-content');
-          	// make the new tab active
-          	$('#tabs a:last').tab('show');
+        function addtab( name ) {
+            var nextTab = $('#tabs').children().length+1;
+            //window.alert(nextTab);
+            $('<li class="active" id="tab'+nextTab+'"'+ '><a href="#row1" role="tab" data-toggle="tab">+"Tab"+</a><span>x</span></li>').appendTo('#tabs');
+          	//$('<div class="row" id="row1'+nextTab+'"'+'>'+$('#row1')+'</div>').appendTo('.tab-content');
+            $('<div class="row" id="row1">'+'</div>').appendTo('.tab-content');
+            $('#tabs a:last').text( name );
+          	$('#tabs a:last').show();
+            $('#tabs a:last').focus();
         }
 
       $().ready(function () {
@@ -335,7 +460,7 @@ return nil</div>
                 });
             }
             if (isNaN(initPos))	// King Solomon's algorithm
-                initPos = Math.round(0.59*(splitter[0][opts.pxSplit] - splitter._PBA - bar._DA) );
+                initPos = Math.round(0.55*(splitter[0][opts.pxSplit] - splitter._PBA - bar._DA) );
 
             // Resize event propagation and splitter sizing
             if (opts.anchorToWindow) {
