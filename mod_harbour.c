@@ -17,6 +17,7 @@
 
 static request_rec * _r;
 static apr_array_header_t * POST_pairs = NULL;
+static char * szBody = NULL;
 
 int ap_headers_in_count( void )
 {
@@ -121,6 +122,9 @@ void ap_set_contenttype( const char * szContentType )
 
 const char * ap_body( void )
 {
+   if( szBody =! NULL )
+      return szBody;
+   
    if( ap_setup_client_block( _r, REQUEST_CHUNKED_ERROR ) != OK )
       return "";
 
@@ -130,6 +134,9 @@ const char * ap_body( void )
       char * rbuf = ( char * ) apr_pcalloc( _r->pool, length + 1 );
          
       ap_get_client_block( _r, rbuf, length + 1 );
+      szBody = ( char * ) apr_palloc( _r->pool, strlen( rbuf ) + 1 );
+      strcpy( szBody, rbuf );
+      
       return rbuf;
    }
    else
