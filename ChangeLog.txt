@@ -1,0 +1,14 @@
+2019/June/11
+
+* We start this ChangeLog.txt to comment all changes
+
+* In order to implement AP_Body() the call to ap_parse_form_data() had to be removed as it was emptying the body
+  after the call. AP_Body() also empties the body after reading it, so in order to keep its value, from apache.prg
+  we keep a low level static char * szBody to keep a copy of it. Next calls to AP_Body() returns this copy
+  
+* A new function AP_PostPairs() in PRG level replaces the previous low level AP_PostPairs(). This new function can
+  be tested from samples/post.prg that makes a call to samples/postpairs.prg
+  
+* In the past days:
+  + we unified the source code for both Linux and Windows
+  + We are able to include contribs libs in libharbour.(dll or so) or to include your own libs

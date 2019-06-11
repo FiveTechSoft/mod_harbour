@@ -112,24 +112,13 @@ body {
             <div class="nav navbar-nav">
                <a class="navbar-brand" href="https://fivetechsoft.github.io/mod_harbour/" style="color: #2C2828;">
                   <span class="glyphicon glyphicon-menu-hamburger" height="36" aria-hidden="true"></span> SandBox</a>
-               <li><button class="btn navbar-btn btn-sm" onclick="Run()"><span class="glyphicon glyphicon-flash"></span> Run</button></li>
-               <li><button class="btn navbar-btn btn-sm" onclick="Download()"><span class="glyphicon glyphicon-save"></span> Save</button></li>
+               <li><button class="btn navbar-btn btn-sm" onclick="Run()" title="[ F9 ]"><span class="glyphicon glyphicon-flash"></span> Run</button></li>
+               <li><button class="btn navbar-btn btn-sm" onclick="Download()" title="[ Ctrl + S ]"><span class="glyphicon glyphicon-save"></span> Save</button></li>
                <a class="navbar-brand" href="#"></a>
-               <li><button class="btn navbar-btn btn-sm" onclick="Clear()"><span class="glyphicon glyphicon-edit"></span> Clear</button></li>
-               <form class="navbar-form navbar-left" action="">
-                 <div class="input-group">
-                   <input type="text" class="form-control" placeholder="Search" id="find">
-                   <div class="input-group-btn">
-                     <li><button class="btn btn-sm" onclick="Search()">
-                       <span class="glyphicon glyphicon-search"></span> Find</button></li>
-                   </div>
-                 </div>
-               </form>
-               <li><button class="btn navbar-btn btn-sm" onclick="editor.findPrevious()"><span class="glyphicon glyphicon-arrow-left"></span> Prev</button></li>
-               <li><button class="btn navbar-btn btn-sm" onclick="editor.findNext()"><span class="glyphicon glyphicon-arrow-right"></span> Next</button></li>
+               <li><button class="btn navbar-btn btn-sm" onclick="Clear()" title="[ F5 ]"><span class="glyphicon glyphicon-edit"></span> Clear</button></li>
                <a class="navbar-brand" href="#"></a>
-               <li><button class="btn navbar-btn btn-sm" onclick="editor.undo()"><span class="glyphicon glyphicon-repeat"></span> Undo</button></li>
-               <li><button class="btn navbar-btn btn-sm" onclick="editor.redo()"><span class="glyphicon glyphicon-refresh"></span> Redo</button></li>
+               <li><button class="btn navbar-btn btn-sm" onclick="editor.undo()" title="[ Ctrl + Z ]"><span class="glyphicon glyphicon-repeat"></span> Undo</button></li>
+               <li><button class="btn navbar-btn btn-sm" onclick="editor.redo()" title="[ Ctrl + A ]"><span class="glyphicon glyphicon-refresh"></span> Redo</button></li>
                <div class="col-sm-1";>
                <input type="file" class="btn navbar-btn btn-sm" name="SelectFile" id="selectfile" accept=".prg" onchange="openFile(event)"><br>
                </div>
@@ -137,7 +126,7 @@ body {
          </nav>
       </div>
       <ul class="nav nav-tabs" id="tabs" role="tablist" style="background-color:#F5F5F5;">
-         <li class="active" id="tab1"><a href="#row1" role="tab" data-toggle="tab">Noname1.prg</a>
+         <li class="active" id="tab1"><a href="#row1" role="tab">Noname1.prg</a>
          <span>x</span></li>
       </ul>
       <div class="tab-content">
@@ -154,53 +143,91 @@ return nil</div>
       </div>
       <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
       <script>
+         var ctab = '' ;
          var textos = [];
+         //ace.require("ace/ext/language_tools");
          var editor = ace.edit("editor");
-         editor.setTheme("ace/theme/pastel_on_dark");
+         editor.setTheme("ace/theme/twilight"); //monokai");    //pastel_on_dark
          editor.setFontSize(16);
          editor.setHighlightActiveLine(true);
          editor.session.setMode("ace/mode/c_cpp");
-         //editor.session.setShowPrintMargin(true);
          editor.session.setTabSize(3);
          editor.session.setUseSoftTabs(true);
+         var EditSession1 = ace.require("ace/edit_session").EditSession;
+         editor.commands.addCommand({
+            name: 'Run',
+            bindKey: {win: 'F9',  mac: 'F9'},
+            exec: function(editor) {
+               Run();
+               },
+             readOnly: true // false if this command should not apply in readOnly mode
+          });
+         editor.commands.addCommand({
+            name: 'Clear',
+            bindKey: {win: 'F5',  mac: 'F5'},
+            exec: function(editor) {
+               Clear();
+               },
+             readOnly: true // false if this command should not apply in readOnly mode
+          });
+         editor.commands.addCommand({
+            name: 'Save',
+            bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
+            exec: function(editor) {
+               Download();
+               },
+             readOnly: true // false if this command should not apply in readOnly mode
+          });
+         editor.commands.addCommand({
+            name: 'Undo',
+            bindKey: {win: 'Ctrl-Z',  mac: 'Command-Z'},
+            exec: function(editor) {
+               editor.undo();
+               },
+             readOnly: true // false if this command should not apply in readOnly mode
+          });
+         editor.commands.addCommand({
+            name: 'Redo',
+            bindKey: {win: 'Ctrl-A',  mac: 'Command-A'},
+            exec: function(editor) {
+               editor.redo();
+               },
+             readOnly: true // false if this command should not apply in readOnly mode
+          });
+         editor.commands.addCommand({
+            name: 'Redo',
+            bindKey: {win: 'Ctrl-O',  mac: 'Command-O'},
+            exec: function(editor) {
+               window.alert( "Press CTRL + F: dialog Search and Replace");
+               },
+             readOnly: true // false if this command should not apply in readOnly mode
+          });
+
+         //editor.session.foldStyle( "markbegin" );
+         //editor.session.fadeFoldWidgets( true );
+         //editor.session.showFoldWidgets( true );
+         //editor.showPrintMargin( true );
+         //editor.session.setShowPrintMargin(true);
          //var EditSession = require("https://fivetechsoft.github.io/xcloud/lib/ace/edit_session").EditSession;
          //editor.setAutoScrollEditorIntoView(true);
          //editor.setOption("maxLines", 26);
          //editor.setOption("minLines", 26);
          textos[ $('#tabs a:last').text() ] = editor.getValue();
 
-         $(".nav-tabs").on("click", "a", function(e){
-            var ctab = '' ;
-            e.preventDefault();
-            ctab = $(this).text();
-            editor.setValue('',1);
-            Run();
-            editor.setValue( textos[ ctab ], -1 );
-            //window.alert( ctab );
-            $(this).tab('show');
+         editor.session.on('change', function(delta) {
+            // delta.start, delta.end, delta.lines, delta.action
+            //if ( editor.session.getLength() > 1 ) {
+            //   textos[ ctab ] = editor.getValue();
+            //   }
+            //else {
+            //      if( editor.getLine( 1 ) != '' ) {
+            //         textos[ ctab ] = editor.getValue();
+            //      }
+            //   }
           })
-          .on("click", "span", function () {
-             var anchor = $(this).siblings('a');
-             var nextTab = $('#tabs').children().length;
-             var ctab   = '';
-             //window.alert( anchor.text() );
-             if ( nextTab > 1 ) {
-                textos.splice( anchor.text(), 1);
-                //$(anchor.attr('href')).remove();
-                $(this).parent().remove();
-                ctab = $(".nav-tabs li").children('a').last().text() ;
-                editor.setValue('',1);
-                Run();
-                editor.setValue( textos[ ctab ], -1 );
-                $(".nav-tabs li").children('a').last().click();
-                $(".nav-tabs li").children('a').last().focus();
-                selectfile.value = ctab;
-                //$('#selectfile').value = ctab;
-             }
-          });
 
          function Search() {
-            editor.session.find( "o", {
+            editor.find( "o", {
                          backwards: false,
                          wrap: true,
                          caseSensitive: false,
@@ -231,11 +258,14 @@ return nil</div>
 
          function Clear() {
             var text = '';
-            var nextTab = $('#tabs').children().length;
-            editor.setValue( text );
+            //var nextTab = $('#tabs').children().length;
+            editor.setValue( text,1 );
             Run();
             selectfile.value = '';
-            $('#tabs a:last').text( "Noname" + nextTab + ".prg" );
+            //$(".nav-tabs li").children('a').text( "Noname" + nextTab + ".prg" );
+            //$(".nav-tabs li").children('a').last().focus();
+            //window.alert( ctab );
+            textos[ ctab ] = text;
          }
 
          function openFile(event) {
@@ -256,7 +286,7 @@ return nil</div>
         function addtab( name ) {
             var nextTab = $('#tabs').children().length+1;
             //window.alert(nextTab);
-            $('<li class="active" id="tab'+nextTab+'"'+ '><a href="#row1" role="tab" data-toggle="tab">+"Tab"+</a><span>x</span></li>').appendTo('#tabs');
+            $('<li class="active" id="tab'+nextTab+'"'+ '><a href="#row1" role="tab">+"Tab"+</a><span>x</span></li>').appendTo('#tabs');
           	//$('<div class="row" id="row1'+nextTab+'"'+'>'+$('#row1')+'</div>').appendTo('.tab-content');
             $('<div class="row" id="row1">'+'</div>').appendTo('.tab-content');
             $('#tabs a:last').text( name );
@@ -264,9 +294,53 @@ return nil</div>
             $('#tabs a:last').focus();
         }
 
-      $().ready(function () {
-         $("#row1").splitter();
-      });
+        $(document).ready(function () {
+           $(".nav-tabs").on("click", "a", function(e){
+              //var current_tab = e.target;
+              //var previous_tab = e.relatedTarget;
+              e.preventDefault();
+              ctab = $(this).text();
+              //window.alert( $(this).text() );
+              editor.setValue('',1);
+              Run();
+              editor.setValue( textos[ ctab ], -1 );
+              //window.alert( ctab );
+              $(this).show(); //tab('show');
+              $(this).focus();
+           })
+           .on("click", "span", function () {
+              var anchor = $(this).siblings('a');
+              var nextTab = $('#tabs').children().length;
+              //var ctab   = '';
+              //window.alert( anchor.text() );
+              if ( nextTab > 1 ) {
+                 textos.splice( anchor.text(), 1);
+                 //$(anchor.attr('href')).remove();
+                 $(this).parent().remove();
+                 ctab = $(".nav-tabs li").children('a').last().text() ;
+                 //window.alert( ctab );
+                 editor.setValue('',1);
+                 Run();
+                 editor.setValue( textos[ ctab ], -1 );
+                 $(".nav-tabs li").children('a').last().click();
+                 $(".nav-tabs li").children('a').last().focus();
+                 selectfile.value = ctab;
+                 //$('#selectfile').value = ctab;
+              }
+            });
+
+           //$('.nav-tabs a').on( "shown.bs.tab", function (e) {
+           //    window.alert('Hello from the other siiiiiide!');
+           //    var current_tab = e.target;
+           //    var previous_tab = e.relatedTarget;
+           //    ctab = current_tab.text();
+           //});
+
+           $(".nav-tabs li").children('a').last().click();
+           //$(".nav-tabs li").children('a').last().focus();
+
+           $("#row1").splitter();
+        });
 
 /*
  * jQuery.splitter.js - two-pane splitter window plugin
@@ -278,7 +352,7 @@ return nil</div>
  *   http://www.gnu.org/licenses/gpl.html 
  */
 
-/**
+/*
  * The splitter() plugin implements a two-pane resizable splitter window.
  * The selected elements in the jQuery object are converted to a splitter;
  * each selected element should have two child elements, used for the panes
