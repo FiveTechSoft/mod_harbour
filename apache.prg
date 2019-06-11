@@ -468,7 +468,7 @@ HB_FUNC( AP_BODY )
       hb_retc( szBody );
    else
    {
-      _szBody = ap_body();
+      _szBody = ( char * ) ap_body();
       szBody = ( char * ) hb_xgrab( strlen( _szBody ) + 1 );
       strcpy( szBody, _szBody );
       hb_retc( _szBody );
