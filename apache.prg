@@ -209,6 +209,7 @@ return hPairs
 #include <hbapi.h>
 #include <hbvm.h>
 #include <hbapiitm.h>
+#include <hbapierr.h>
 
 static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
 static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
