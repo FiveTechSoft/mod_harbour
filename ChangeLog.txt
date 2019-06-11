@@ -1,6 +1,6 @@
 2019/June/11
 
-* We start this whatsnew.txt to comment all changes
+* We start this ChangeLog.txt to comment all changes
 
 * In order to implement AP_Body() the call to ap_parse_form_data() had to be removed as it was emptying the body
   after the call. AP_Body() also empties the body after reading it, so in order to keep its value, from apache.prg
