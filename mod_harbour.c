@@ -126,8 +126,6 @@ const char * ap_body( void )
 
    if( ap_should_client_block( _r ) ) 
    {
-      char argsbuffer[ HUGE_STRING_LEN ];
-      int rsize, rpos = 0;
       long length = _r->remaining;
       char * rbuf = ( char * ) apr_pcalloc( _r->pool, length + 1 );
      
@@ -207,7 +205,7 @@ static int harbour_handler( request_rec * r )
    {
       ap_add_cgi_vars( r );
       ap_add_common_vars( r );
-      ap_parse_form_data( r, NULL, &POST_pairs, -1, HUGE_STRING_LEN );
+      // ap_parse_form_data( r, NULL, &POST_pairs, -1, HUGE_STRING_LEN );
    
       #ifdef _MSC_VER
          ( ( FARPROC ) _hb_apache ) = GetProcAddress( lib_harbour, "hb_apache" );
