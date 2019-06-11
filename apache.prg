@@ -257,8 +257,6 @@ HB_FUNC( AP_RPUTS )
    AP_RPUTS ap_rputs = ( AP_RPUTS ) pAPRPuts;
    int iParams = hb_pcount(), iParam;
 
-   ap_rputs( "<br>", pRequestRec );
-
    for( iParam = 1; iParam <= iParams; iParam++ )
    {
       HB_SIZE nLen;
