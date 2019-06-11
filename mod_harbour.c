@@ -122,19 +122,24 @@ void ap_set_contenttype( const char * szContentType )
 
 const char * ap_body( void )
 {
-   if( ap_setup_client_block( _r, REQUEST_CHUNKED_ERROR ) != OK )
-      return "";
-
-   if( ap_should_client_block( _r ) ) 
-   {
-      long length = _r->remaining;
-      char * rbuf = ( char * ) apr_pcalloc( _r->pool, length + 1 );
-     
-      ap_get_client_block( _r, rbuf, length + 1 );
-      return rbuf;
-   }
+   if( szBody != NULL )
+      return szBody;
    else
-      return "";
+   {   
+      if( ap_setup_client_block( _r, REQUEST_CHUNKED_ERROR ) != OK )
+         return "";
+
+      if( ap_should_client_block( _r ) ) 
+      {
+         long length = _r->remaining;
+         char * rbuf = ( char * ) apr_pcalloc( _r->pool, length + 1 );
+     
+         ap_get_client_block( _r, rbuf, length + 1 );
+         return rbuf;
+      }
+      else
+         return "";
+   }   
 }
 
 #ifdef _MSC_VER
