@@ -135,6 +135,7 @@ const char * ap_body( void )
          char * rbuf = ( char * ) apr_pcalloc( _r->pool, length + 1 );
      
          ap_get_client_block( _r, rbuf, length + 1 );
+         _r->kept_body = apr_brigade_create( _r->pool, _r->connection->bucket_alloc );
          return rbuf;
       }
       else
@@ -211,8 +212,8 @@ static int harbour_handler( request_rec * r )
    {
       ap_add_cgi_vars( r );
       ap_add_common_vars( r );
-      // szBody = ap_body();
-      // ap_parse_form_data( r, NULL, &POST_pairs, -1, HUGE_STRING_LEN );
+      szBody = ap_body();
+      ap_parse_form_data( r, NULL, &POST_pairs, -1, HUGE_STRING_LEN );
    
       #ifdef _MSC_VER
          ( ( FARPROC ) _hb_apache ) = GetProcAddress( lib_harbour, "hb_apache" );
