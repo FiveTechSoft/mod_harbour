@@ -9,6 +9,10 @@
 * A new function AP_PostPairs() in PRG level replaces the previous low level AP_PostPairs(). This new function can
   be tested from samples/post.prg that makes a call to samples/postpairs.prg
   
+* Fix: After the new function AP_PostPairs(), the text that we receive (i.e. from samples/run.prg) is url-encoded.
+  So we have implemented a new function hb_UrlDecode() to do the right transformation. hb_UrlDecode() is renamed
+  Giancarlo Nicolai's Tip_UrlDecode()
+  
 * In the past days:
   + we unified the source code for both Linux and Windows
   + We are able to include contribs libs in libharbour.(dll or so) or to include your own libs
