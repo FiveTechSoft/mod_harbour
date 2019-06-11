@@ -8,7 +8,7 @@ extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, AP_RPUTS, AP_RRPUTS
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
-extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY, HB_URLDECODE
+extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY
 
 static hPP
 
@@ -209,7 +209,6 @@ return hPairs
 #include <hbapi.h>
 #include <hbvm.h>
 #include <hbapiitm.h>
-#include <hbapierr.h>
 
 static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
 static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
@@ -256,8 +255,6 @@ HB_FUNC( AP_RPUTS )
 {
    AP_RPUTS ap_rputs = ( AP_RPUTS ) pAPRPuts;
    int iParams = hb_pcount(), iParam;
-
-   ap_rputs( "<br>", pRequestRec );
 
    for( iParam = 1; iParam <= iParams; iParam++ )
    {
@@ -468,55 +465,5 @@ HB_FUNC( HB_VMEXECUTE )
 {
    hb_retnll( ( HB_LONGLONG ) hb_vmExecute );
 }   
-
-HB_FUNC( HB_URLDECODE ) // Giancarlo's TIP_URLDECODE
-{
-   const char * pszData = hb_parc( 1 );
-
-   if( pszData )
-   {
-      HB_ISIZ nLen = hb_parclen( 1 );
-
-      if( nLen )
-      {
-         HB_ISIZ nPos = 0, nPosRet = 0;
-
-         /* maximum possible length */
-         char * pszRet = ( char * ) hb_xgrab( nLen );
-
-         while( nPos < nLen )
-         {
-            char cElem = pszData[ nPos ];
-
-            if( cElem == '%' && HB_ISXDIGIT( pszData[ nPos + 1 ] ) &&
-                                HB_ISXDIGIT( pszData[ nPos + 2 ] ) )
-            {
-               cElem = pszData[ ++nPos ];
-               pszRet[ nPosRet ]  = cElem - ( cElem >= 'a' ? 'a' - 10 :
-                                            ( cElem >= 'A' ? 'A' - 10 : '0' ) );
-               pszRet[ nPosRet ] <<= 4;
-               cElem = pszData[ ++nPos ];
-               pszRet[ nPosRet ] |= cElem - ( cElem >= 'a' ? 'a' - 10 :
-                                            ( cElem >= 'A' ? 'A' - 10 : '0' ) );
-            }
-            else
-               pszRet[ nPosRet ] = cElem == '+' ? ' ' : cElem;
-
-            nPos++;
-            nPosRet++;
-         }
-
-         /* this function also adds a zero */
-         /* hopefully reduce the size of pszRet */
-         hb_retclen_buffer( ( char * ) hb_xrealloc( pszRet, nPosRet + 1 ), nPosRet );
-      }
-      else
-         hb_retc_null();
-   }
-   else
-      hb_errRT_BASE( EG_ARG, 3012, NULL,
-                     HB_ERR_FUNCNAME, 1, hb_paramError( 1 ) );
-}
-
 
 #pragma ENDDUMP
