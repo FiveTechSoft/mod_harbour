@@ -1,5 +1,11 @@
+// Use the postman utility to send different body values
+
 function Main()
 
-   ? AP_Body()
+   if Empty( AP_Body() )
+      ? "Use the postman utility to send different body values"
+   else   
+      ? AP_Body()
+   endif   
    
 return nil   
