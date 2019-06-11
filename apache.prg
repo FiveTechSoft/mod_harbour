@@ -8,7 +8,7 @@ extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, AP_RPUTS, AP_RRPUTS
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
-extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV
+extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY
 
 static hPP
 
@@ -201,7 +201,7 @@ static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
 static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
 static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
 static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
-static void * pAPGetenv;
+static void * pAPGetenv, * pAPBody;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
 
 HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts, 
@@ -209,7 +209,8 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
                void * _pHeadersIn, void * _pHeadersOut, 
                void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
                void * _pPostPairsCount, void * _pPostPairsKey, void * _pPostPairsVal,
-               void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType, void * _pAPGetenv )
+               void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType, void * _pAPGetenv,
+               void * _pAPBody )
 {
    pRequestRec       = _pRequestRec;
    pAPRPuts          = _pAPRPuts; 
@@ -229,6 +230,7 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    pHeadersOutSet    = _pHeadersOutSet;
    pAPSetContentType = _pAPSetContentType;
    pAPGetenv         = _pAPGetenv;
+   pAPBody           = _pAPBody;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -451,6 +453,15 @@ HB_FUNC( AP_GETENV )
    AP_GET_ENV ap_getenv = ( AP_GET_ENV ) pAPGetenv;
    
    hb_retc( ap_getenv( hb_parc( 1 ) ) );
+}   
+
+typedef const char * ( * AP_BODY )( void );
+
+HB_FUNC( AP_BODY )
+{
+   AP_BODY ap_body = ( AP_BODY ) pAPBody;
+   
+   hb_retc( ap_body() );
 }   
 
 HB_FUNC( HB_VMPROCESSSYMBOLS )
