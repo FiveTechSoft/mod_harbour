@@ -122,7 +122,7 @@ void ap_set_contenttype( const char * szContentType )
 
 const char * ap_body( void )
 {
-   if( szBody =! NULL )
+   if( szBody )
       return szBody;
    
    if( ap_setup_client_block( _r, REQUEST_CHUNKED_ERROR ) != OK )
