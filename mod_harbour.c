@@ -17,7 +17,7 @@
 
 static request_rec * _r;
 static apr_array_header_t * POST_pairs = NULL;
-static const char * szBody = NULL;
+static char * szBody = NULL;
 
 int ap_headers_in_count( void )
 {
@@ -122,12 +122,10 @@ void ap_set_contenttype( const char * szContentType )
 
 const char * ap_body( void )
 {
-   /*
    if( szBody != NULL )
       return szBody;
    else
    { 
-   */
       if( ap_setup_client_block( _r, REQUEST_CHUNKED_ERROR ) != OK )
          return "";
 
@@ -145,7 +143,7 @@ const char * ap_body( void )
       }
       else
          return "";
-   // }   
+   }   
 }
 
 #ifdef _MSC_VER
@@ -217,8 +215,9 @@ static int harbour_handler( request_rec * r )
    {
       ap_add_cgi_vars( r );
       ap_add_common_vars( r );
-      // szBody = ap_body();
-      // ap_parse_form_data( r, NULL, &POST_pairs, -1, HUGE_STRING_LEN );
+      szBody = ( char * ) apr_palloc( _r->pool, strlen( ap_body() ) + 1 );
+      strcpy( szBody, ap_body() );
+      ap_parse_form_data( r, NULL, &POST_pairs, -1, HUGE_STRING_LEN );
    
       #ifdef _MSC_VER
          ( ( FARPROC ) _hb_apache ) = GetProcAddress( lib_harbour, "hb_apache" );
