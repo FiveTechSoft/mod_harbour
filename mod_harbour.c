@@ -122,7 +122,7 @@ void ap_set_contenttype( const char * szContentType )
 const char * ap_body( void )
 {
    if( ap_setup_client_block( _r, REQUEST_CHUNKED_ERROR ) != OK )
-      return “error”;
+      return "error";
 
    if( ap_should_client_block( _r ) ) 
    {
@@ -135,7 +135,7 @@ const char * ap_body( void )
       return rbuf;
    }
    else
-      return “no block”;
+      return "no block";
 }
 
 #ifdef _MSC_VER
