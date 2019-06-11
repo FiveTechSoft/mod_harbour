@@ -44,7 +44,7 @@ function AddPPRules()
    __pp_addRule( hPP, "#xcommand ?? [<explist,...>] => AP_RPuts( [<explist>] )" )
    __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
    __pp_addRule( hPP, "#xcommand TEMPLATE [ USING <x> ] [ PARAMS [<v1>] [,<vn>] ] => " + ;
-                      '#pragma __cstream | AP_RRPuts( InlinePrg( %s, [@<x>] [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )
+                      '#pragma __cstream | AP_RPuts( InlinePrg( %s, [@<x>] [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )
    __pp_addRule( hPP, "#command ENDTEMPLATE => #pragma __endtext" )
 
 return nil
