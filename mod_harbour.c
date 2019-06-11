@@ -137,7 +137,7 @@ const char * ap_body( void )
          // apr_bucket * bucket;
          
          ap_get_client_block( _r, rbuf, length + 1 );
-         szBody = ( char * ) apr_palloc( _r->pool, strlen( ap_body() ) + 1 );
+         szBody = ( char * ) apr_palloc( _r->pool, strlen( rbuf ) + 1 );
          strcpy( szBody, rbuf );
          
          // bucket = apr_bucket_transient_create( rbuf, strlen( rbuf ), _r->connection->bucket_alloc );
