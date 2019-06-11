@@ -126,8 +126,6 @@ const char * ap_body( void )
 
    if( ap_should_client_block( _r ) ) 
    {
-      char argsbuffer[ HUGE_STRING_LEN ];
-      int rsize, rpos = 0;
       long length = _r->remaining;
       char * rbuf = ( char * ) apr_pcalloc( _r->pool, length + 1 );
      
