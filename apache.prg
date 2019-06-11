@@ -8,7 +8,7 @@ extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, AP_RPUTS, AP_RRPUTS
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
-extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV
+extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY, HB_URLDECODE
 
 static hPP
 
@@ -191,17 +191,31 @@ ENDCLASS
 
 //----------------------------------------------------------------//
 
+function AP_PostPairs()
+
+   local aPairs := hb_aTokens( AP_Body(), "&" )
+   local cPair, hPairs := {=>}
+
+   for each cPair in aPairs
+      hb_HSet( hPairs, SubStr( cPair, 1, At( "=", cPair ) - 1 ), SubStr( cPair, At( "=", cPair ) + 1 ) )
+   next
+
+return hPairs
+
+//----------------------------------------------------------------//
+
 #pragma BEGINDUMP
 
 #include <hbapi.h>
 #include <hbvm.h>
 #include <hbapiitm.h>
+#include <hbapierr.h>
 
 static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
 static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
 static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
 static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
-static void * pAPGetenv;
+static void * pAPGetenv, * pAPBody;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
 
 HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts, 
@@ -209,7 +223,8 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
                void * _pHeadersIn, void * _pHeadersOut, 
                void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
                void * _pPostPairsCount, void * _pPostPairsKey, void * _pPostPairsVal,
-               void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType, void * _pAPGetenv )
+               void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType, void * _pAPGetenv,
+               void * _pAPBody )
 {
    pRequestRec       = _pRequestRec;
    pAPRPuts          = _pAPRPuts; 
@@ -229,6 +244,7 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    pHeadersOutSet    = _pHeadersOutSet;
    pAPSetContentType = _pAPSetContentType;
    pAPGetenv         = _pAPGetenv;
+   pAPBody           = _pAPBody;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -405,36 +421,6 @@ HB_FUNC( AP_HEADERSIN )
    hb_itemReturnRelease( hHeadersIn );
 }
 
-HB_FUNC( AP_POSTPAIRS )
-{
-   PHB_ITEM hPostPairs = hb_hashNew( NULL ); 
-   POST_PAIRS_COUNT post_pairs_count = ( POST_PAIRS_COUNT ) pPostPairsCount;
-   int iKeys = post_pairs_count();
-
-   if( iKeys > 0 )
-   {
-      int iKey;
-      PHB_ITEM pKey = hb_itemNew( NULL );
-      PHB_ITEM pValue = hb_itemNew( NULL );   
-      POST_PAIRS_KEY post_pairs_key = ( POST_PAIRS_KEY ) pPostPairsKey;
-      POST_PAIRS_VAL post_pairs_val = ( POST_PAIRS_VAL ) pPostPairsVal;
-
-      hb_hashPreallocate( hPostPairs, iKeys );
-   
-      for( iKey = 0; iKey < iKeys; iKey++ )
-      {
-         hb_itemPutCConst( pKey,   post_pairs_key( iKey ) );
-         hb_itemPutCConst( pValue, post_pairs_val( iKey ) );
-         hb_hashAdd( hPostPairs, pKey, pValue );
-      }
-      
-      hb_itemRelease( pKey );
-      hb_itemRelease( pValue );
-   }  
-   
-   hb_itemReturnRelease( hPostPairs );
-}
-
 typedef void ( * AP_SET_CONTENTTYPE )( const char * szContentType );
 
 HB_FUNC( AP_SETCONTENTTYPE )
@@ -453,6 +439,26 @@ HB_FUNC( AP_GETENV )
    hb_retc( ap_getenv( hb_parc( 1 ) ) );
 }   
 
+static char * szBody = NULL;
+
+typedef const char * ( * AP_BODY )( void );
+
+HB_FUNC( AP_BODY )
+{
+   AP_BODY ap_body = ( AP_BODY ) pAPBody;
+   char * _szBody;
+   
+   if( szBody )
+      hb_retc( szBody );
+   else
+   {
+      _szBody = ( char * ) ap_body();
+      szBody = ( char * ) hb_xgrab( strlen( _szBody ) + 1 );
+      strcpy( szBody, _szBody );
+      hb_retc( _szBody );
+   }   
+}   
+
 HB_FUNC( HB_VMPROCESSSYMBOLS )
 {
    hb_retnll( ( HB_LONGLONG ) hb_vmProcessSymbols );
@@ -462,5 +468,55 @@ HB_FUNC( HB_VMEXECUTE )
 {
    hb_retnll( ( HB_LONGLONG ) hb_vmExecute );
 }   
+
+HB_FUNC( HB_URLDECODE ) // Giancarlo's TIP_URLDECODE
+{
+   const char * pszData = hb_parc( 1 );
+
+   if( pszData )
+   {
+      HB_ISIZ nLen = hb_parclen( 1 );
+
+      if( nLen )
+      {
+         HB_ISIZ nPos = 0, nPosRet = 0;
+
+         /* maximum possible length */
+         char * pszRet = ( char * ) hb_xgrab( nLen );
+
+         while( nPos < nLen )
+         {
+            char cElem = pszData[ nPos ];
+
+            if( cElem == '%' && HB_ISXDIGIT( pszData[ nPos + 1 ] ) &&
+                                HB_ISXDIGIT( pszData[ nPos + 2 ] ) )
+            {
+               cElem = pszData[ ++nPos ];
+               pszRet[ nPosRet ]  = cElem - ( cElem >= 'a' ? 'a' - 10 :
+                                            ( cElem >= 'A' ? 'A' - 10 : '0' ) );
+               pszRet[ nPosRet ] <<= 4;
+               cElem = pszData[ ++nPos ];
+               pszRet[ nPosRet ] |= cElem - ( cElem >= 'a' ? 'a' - 10 :
+                                            ( cElem >= 'A' ? 'A' - 10 : '0' ) );
+            }
+            else
+               pszRet[ nPosRet ] = cElem == '+' ? ' ' : cElem;
+
+            nPos++;
+            nPosRet++;
+         }
+
+         /* this function also adds a zero */
+         /* hopefully reduce the size of pszRet */
+         hb_retclen_buffer( ( char * ) hb_xrealloc( pszRet, nPosRet + 1 ), nPosRet );
+      }
+      else
+         hb_retc_null();
+   }
+   else
+      hb_errRT_BASE( EG_ARG, 3012, NULL,
+                     HB_ERR_FUNCNAME, 1, hb_paramError( 1 ) );
+}
+
 
 #pragma ENDDUMP
