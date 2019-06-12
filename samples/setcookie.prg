@@ -1,3 +1,5 @@
+//----------------------------------------------------------------//
+
 function Main()
 	
    ? 'Now is: ', hb_datetime(), '<hr>'
@@ -17,13 +19,13 @@ function SetCookie( cName, cValue, nSecs, cPath, cDomain, lHttps, lOnlyHttp )
 	
    // check parameters
 
-   zb_default( @cName, '' )
-   zb_default( @cValue, '' )
-   zb_default( @nSecs, 3600 )   // Session will expire in Seconds 60 * 60 = 3600
-   zb_default( @cPath, '/' )
-   zb_default( @cDomain	, '' )
-   zb_default( @lHttps, .F. )
-   zb_default( @lOnlyHttp, .F. )	
+   hb_default( @cName, '' )
+   hb_default( @cValue, '' )
+   hb_default( @nSecs, 3600 )   // Session will expire in Seconds 60 * 60 = 3600
+   hb_default( @cPath, '/' )
+   hb_default( @cDomain	, '' )
+   hb_default( @lHttps, .F. )
+   hb_default( @lOnlyHttp, .F. )	
 	
    // we build the cookie
 	
@@ -49,7 +51,7 @@ function CookieExpire( nSecs )
    local tExpire   // TimeStampp 
    local cExpire   // TimeStamp to String
 	
-   zb_default( @nSecs, 60 ) // 60 seconds for this test
+   hb_default( @nSecs, 60 ) // 60 seconds for this test
    
    tExpire = hb_ntot( ( hb_tton( tNow ) * 86400 - hb_utcoffset() + nSecs ) / 86400 )
 
@@ -60,15 +62,5 @@ function CookieExpire( nSecs )
               ':' + AllTrim( Str( hb_Sec( tExpire ) ) )
 
 return cExpire
-
-//----------------------------------------------------------------//
-
-function ZB_Default( pVar, uValue )
-
-   if Valtype( pVar ) == 'U' 
-      pVar := uValue
-   endif
-	
-return nil
 
 //----------------------------------------------------------------//
