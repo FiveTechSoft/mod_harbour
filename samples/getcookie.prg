@@ -1,10 +1,15 @@
-function main()
-   local hHeadersIn := AP_HeadersIn()
-    ? Time(), '[F5] to refresh page...', '<hr>'
+function Main()
    
-    ? 'Value MyCookie: ' , GetCookie( 'MyCookie' );
-retu nil
-//  Incluido en el módulo session.prg
+   local hHeadersIn := AP_HeadersIn()
+
+   ? Time(), '[F5] to refresh page...', '<hr>'
+   
+   ? 'Value MyCookie: ' , GetCookie( 'MyCookie' )
+    
+return nil
+
+// Included in session.prg
+
 function GetCookie( cCookie )
     LOCAL nLen  := AP_HeadersInCount() - 1 
     LOCAl uVal      := ''
