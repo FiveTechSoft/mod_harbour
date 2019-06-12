@@ -17,7 +17,7 @@ Contenido de mod_harbour.conf
 -----------------------------
 ...
 <IfModule mod_harbour.c>
-        <FilesMatch "\.(prg)$">
+        <FilesMatch "\.(prg|hrb)$">
                 SetHandler harbour
         </FilesMatch>
 </IfModule>
