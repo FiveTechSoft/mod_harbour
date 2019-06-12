@@ -5,6 +5,10 @@
 * We have started a how-to guide (readme.md) for mod_harbour on OSX
 
 * mod_harbour.c can also be compiled using MinGW gcc 32 bits from Windows 32
+  ( we advise not to use gcc for Windows as it uses many DLLs)
+  
+* New samples: setcookie.prg and getcookie.prg thanks to Carles Aubia!  
+
 
 2019/June/11
 
