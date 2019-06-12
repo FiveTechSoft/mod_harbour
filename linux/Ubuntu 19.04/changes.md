@@ -15,13 +15,13 @@ LoadModule harbour_module /usr/lib/apache2/modules/mod_harbour.so  // Notice: is
 
 mod_harbour.conf's content
 --------------------------
-
+...
 <IfModule mod_harbour.c>
-        <FilesMatch "\.(prg)$">
+        <FilesMatch "\.(prg|hrb)$">
                 SetHandler harbour
         </FilesMatch>
 </IfModule>
-
+...
 
 We need execute a2enmod mod_harbour to enable module
 
