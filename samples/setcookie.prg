@@ -1,85 +1,68 @@
-function main()
+function Main()
 	
-	? 'Now is: ', hb_datetime(), '<hr>'
+   ? 'Now is: ', hb_datetime(), '<hr>'
 
-	SetCookie( 'MyCookie', 'This Cookie was born ' + time() + ' Only live 60 seconds...', 60 )
+   SetCookie( 'MyCookie', 'This Cookie was born ' + Time() + ' Only live 60 seconds...', 60 )
 	
-	? 'Cookie created !'
+   ? 'Cookie created !'
 
-retu nil
+return nil
 
+// Provided in session.prg
 
-//	Incluido en el módulo session.prg
+function SetCookie( cName, cValue, nSecs, cPath, cDomain, lHttps, lOnlyHttp ) 
 
-FUNCTION SetCookie( cName, cValue, nSecs, cPath, cDomain, lHttps, lOnlyHttp ) 
-
-	LOCAL cCookie := ''
+   local cCookie := ''
 	
-	//	Validacion de parámetros
+   // check parameters
 
-		zb_default( @cName		, '' )
-		zb_default( @cValue		, '' )
-		zb_default( @nSecs		, 3600 )		//	Session Expired in Seconds 60 * 60 = 3600
-		zb_default( @cPath		, '/' )
-		zb_default( @cDomain	, '' )
-		zb_default( @lHttps		, .F. )
-		zb_default( @lOnlyHttp	, .F. )	
+   zb_default( @cName, '' )
+   zb_default( @cValue, '' )
+   zb_default( @nSecs, 3600 )   // Session will expire in Seconds 60 * 60 = 3600
+   zb_default( @cPath, '/' )
+   zb_default( @cDomain	, '' )
+   zb_default( @lHttps, .F. )
+   zb_default( @lOnlyHttp, .F. )	
 	
-	//	Montamos la cookie
+   // we build the cookie
 	
-		cCookie += cName + '=' + cValue + ';'
-		cCookie += 'expires=' + CookieExpire( nSecs ) + ';'
-		cCookie += 'path=' + cPath + ';'
-		cCookie += 'domain=' + cDomain + ';'
+   cCookie += cName + '=' + cValue + ';'
+   cCookie += 'expires=' + CookieExpire( nSecs ) + ';'
+   cCookie += 'path=' + cPath + ';'
+   cCookie += 'domain=' + cDomain + ';'
 		
-	//	Pendiente valores logicos de https y OnlyHttp
-	
+   // pending logical values for https y OnlyHttp
 
-	//	Envio de la Cookie
-	
-		AP_HeadersOutSet( "Set-Cookie", cCookie )
+   // we send the cookie
+   AP_HeadersOutSet( "Set-Cookie", cCookie )
 
-RETU NIL
+return nil
 
-/*	----------------------------------------------------------------
+// CookieExpire( nSecs ) builds the time format for the cookie
+// Using this model: 'Sun, 09 Jun 2019 16:14:00'
 
-	CookieExpire( nSecs ) Creará el formato de tiempo para la cookie
-	
-		Este formato sera: 'Sun, 09 Jun 2019 16:14:00'
-
---------------------------------------------------------------------- 	*/
 function CookieExpire( nSecs )
 
-    LOCAL tNow		:= hb_datetime()	
-	LOCAL tExpire						//	TimeStampp 
-	LOCAL cExpire 					//	TimeStamp to String
+   local tNow := hb_datetime()	
+   local tExpire   // TimeStampp 
+   local cExpire   // TimeStamp to String
 	
-	zb_default( @nSecs, 60 )		//	60 seconds or test
+   zb_default( @nSecs, 60 ) // 60 seconds for this test
    
-    tExpire 	:= hb_ntot( (hb_tton(tNow) * 86400 - hb_utcoffset() + nSecs ) / 86400)
+   tExpire = hb_ntot( ( hb_tton( tNow ) * 86400 - hb_utcoffset() + nSecs ) / 86400 )
 
-    cExpire 	:= cdow( tExpire ) + ', ' 
-	cExpire 	+= alltrim(str(day( hb_TtoD( tExpire )))) + ' ' + cmonth( tExpire ) + ' ' + alltrim(str(year( hb_TtoD( tExpire )))) + ' ' 
-    cExpire 	+= alltrim(str( hb_Hour( tExpire ))) + ':' + alltrim(str(hb_Minute( tExpire ))) + ':' + alltrim(str(hb_Sec( tExpire )))
+   cExpire = cdow( tExpire ) + ', ' 
+	     cExpire += AllTrim( Str( Day( hb_TtoD( tExpire ) ) ) ) + ;
+	     ' ' + cMonth( tExpire ) + ' ' + AllTrim( Str( Year( hb_TtoD( tExpire ) ) ) ) + ' ' 
+   cExpire += AllTrim( Str( hb_Hour( tExpire ) ) ) + ':' + AllTrim( Str( hb_Minute( tExpire ) ) ) + ;
+              ':' + AllTrim( Str( hb_Sec( tExpire ) ) )
 
 return cExpire
 
+function ZB_Default( pVar, uValue )
 
-/*	---------------------------------------------------------------------
-	HB_DEFAULT() no funciona bien. De momento parcheado con zb_Default()
+   if Valtype( pVar ) == 'U' 
+      pVar := uValue
+   endif
 	
-	DEFAULT tampoco funciona
-	
-	#xcommand DEFAULT <uVar1> := <uVal1> ;
-				   [, <uVarN> := <uValN> ] => ;
-					  If( <uVar1> == nil, <uVar1> := <uVal1>, ) ;;
-					[ If( <uVarN> == nil, <uVarN> := <uValN>, ); ]			
-------------------------------------------------------------------------- 	*/
-
-FUNCTION ZB_Default( pVar, uValue )
-
-	IF Valtype( pVar ) == 'U' 
-		pVar := uValue
-	ENDIF
-	
-RETU NIL
+return nil
