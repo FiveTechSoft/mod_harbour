@@ -6,13 +6,13 @@ function Main()
    
    ? Time(), '<hr>'
    
-   ? 'MyCookie value: ', GetCookie( 'MyCookie' )
+   ? 'cookie value: ', GetCookie( 'MyCookieName' )
     
 return nil
 
 //----------------------------------------------------------------//
 
-function GetCookie( cCookie )
+function GetCookie( cCookieName )
 
    local hHeadersIn := AP_HeadersIn()
    
