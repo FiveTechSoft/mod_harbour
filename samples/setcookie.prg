@@ -2,6 +2,8 @@
 
 function Main()
 	
+   ? "<h2>Testing cookies</h2>"
+   ?
    ? 'Current date and time: ', hb_datetime(), '<hr>'
 
    SetCookie( 'MyCookieName', 'This cookie was created at ' + Time() + ;
