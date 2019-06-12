@@ -4,8 +4,8 @@ function Main()
 	
    ? 'Now is: ', hb_datetime(), '<hr>'
 
-   SetCookie( 'MyCookie', 'This cookie was born ' + Time() + ;
-              ' In this example it only lives 60 seconds...', 60 )
+   SetCookie( 'MyCookie', 'This cookie was created at ' + Time() + ;
+              '. In this example it only lives 60 seconds...', 60 )
 	
    ? 'cookie created!'
 
