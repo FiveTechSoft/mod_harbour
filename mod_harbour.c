@@ -9,7 +9,7 @@
 #include "ap_config.h"
 #include "util_script.h"
 
-#ifdef _MSC_VER
+#ifdef _WINDOWS_
    #include <windows.h>
 #else
    #include <dlfcn.h>
@@ -136,7 +136,7 @@ const char * ap_body( void )
       return "";
 }
 
-#ifdef _MSC_VER
+#ifdef _WINDOWS_
 
 char * GetErrorMessage( DWORD dwLastError )
 {
@@ -181,7 +181,7 @@ static int harbour_handler( request_rec * r )
    r->content_type = "text/html";
    _r = r;
 
-   #ifdef _MSC_VER
+   #ifdef _WINDOWS_
       lib_harbour = LoadLibrary( ap_getenv( "LIBHARBOUR" ) ); 
       if( lib_harbour == NULL )
          lib_harbour = LoadLibrary( "c:\\Apache24\\htdocs\\libharbour.dll" );
@@ -191,7 +191,7 @@ static int harbour_handler( request_rec * r )
 
    if( lib_harbour == NULL )
    {
-      #ifdef _MSC_VER
+      #ifdef _WINDOWS_
          char * szErrorMessage = GetErrorMessage( GetLastError() );
 
          ap_rputs( "c:\\Apache24\\htdocs\\libharbour.dll<br>", r ); 
@@ -207,8 +207,12 @@ static int harbour_handler( request_rec * r )
       ap_add_common_vars( r );
       // ap_parse_form_data( r, NULL, &POST_pairs, -1, HUGE_STRING_LEN );
    
-      #ifdef _MSC_VER
-         ( ( FARPROC ) _hb_apache ) = GetProcAddress( lib_harbour, "hb_apache" );
+      #ifdef _WINDOWS_
+         #ifdef __GNUC__
+            _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
+         #else  
+            ( ( FARPROC ) _hb_apache ) = GetProcAddress( lib_harbour, "hb_apache" );
+         #endif 
       #else
          _hb_apache = dlsym( lib_harbour, "hb_apache" );
       #endif
@@ -225,7 +229,7 @@ static int harbour_handler( request_rec * r )
    }
 
    if( lib_harbour != NULL )
-      #ifdef _MSC_VER	
+      #ifdef _WINDOWS_	
          FreeLibrary( lib_harbour );
       #else
          dlclose( lib_harbour );
