@@ -24,6 +24,7 @@ function Main()
    right: 0;
    bottom: 0;
    left: 15;
+   border: 1px solid;
    }
 
 #tabs { 
@@ -145,15 +146,74 @@ return nil</div>
       <script>
          var ctab = '' ;
          var textos = [];
+         /*
          //ace.require("ace/ext/language_tools");
-         var editor = ace.edit("editor");
-         editor.setTheme("ace/theme/twilight"); //monokai");    //pastel_on_dark
-         editor.setFontSize(16);
-         editor.setHighlightActiveLine(true);
-         editor.session.setMode("ace/mode/c_cpp");
-         editor.session.setTabSize(3);
-         editor.session.setUseSoftTabs(true);
+         */
+
+         var editor = ace.edit('editor');
+         // Default value is the first one in comments
+         // All options are set to default value
+         editor.setOptions({
+            // editor options
+            selectionStyle: 'line',// "line"|"text"
+            highlightActiveLine: true, // boolean
+            highlightSelectedWord: true, // boolean
+            readOnly: false, // boolean: true if read only
+            cursorStyle: 'ace', // "ace"|"slim"|"smooth"|"wide"
+            mergeUndoDeltas: true, // false|true|"always"
+            behavioursEnabled: true, // boolean: true if enable custom behaviours
+            wrapBehavioursEnabled: true, // boolean
+            autoScrollEditorIntoView: undefined, // boolean: this is needed if editor is inside scrollable page
+            keyboardHandler: null, // function: handle custom keyboard events
+
+            // renderer options
+            animatedScroll: false, // boolean: true if scroll should be animated
+            displayIndentGuides: false, // boolean: true if the indent should be shown. See 'showInvisibles'
+            showInvisibles: false, // boolean -> displayIndentGuides: true if show the invisible tabs/spaces in indents
+            showPrintMargin: true, // boolean: true if show the vertical print margin
+            printMarginColumn: 80, // number: number of columns for vertical print margin
+            printMargin: undefined, // boolean | number: showPrintMargin | printMarginColumn
+            showGutter: true, // boolean: true if show line gutter
+            fadeFoldWidgets: false, // boolean: true if the fold lines should be faded
+            showFoldWidgets: true, // boolean: true if the fold lines should be shown ?
+            showLineNumbers: true,
+            highlightGutterLine: false, // boolean: true if the gutter line should be highlighted
+            hScrollBarAlwaysVisible: false, // boolean: true if the horizontal scroll bar should be shown regardless
+            vScrollBarAlwaysVisible: false, // boolean: true if the vertical scroll bar should be shown regardless
+            fontSize: 16, // number | string: set the font size to this many pixels
+            fontFamily: "Lucida Console", //undefined, // - string: set the font-family css value
+            maxLines: undefined, // 26 - number: set the maximum lines possible. This will make the editor height changes
+            minLines: undefined, // 26 - number: set the minimum lines possible. This will make the editor height changes
+            maxPixelHeight: 0, // number -> maxLines: set the maximum height in pixel, when 'maxLines' is defined. 
+            scrollPastEnd: 0, // number -> !maxLines: if positive, user can scroll pass the last line and go n * editorHeight more distance 
+            fixedWidthGutter: false, // boolean: true if the gutter should be fixed width
+            theme: 'ace/theme/twilight',  //monokai //pastel_on_dark // theme string from ace/theme or custom?
+
+            // mouseHandler options
+            scrollSpeed: 2, // number: the scroll speed index
+            dragDelay: 0, // number: the drag delay before drag starts. it's 150ms for mac by default 
+            dragEnabled: true, // boolean: enable dragging
+            //focusTimout: 0, // number: the focus delay before focus starts.
+            tooltipFollowsMouse: true, // boolean: true if the gutter tooltip should follow mouse
+
+            // session options
+            firstLineNumber: 1, // number: the line number in first line
+            overwrite: false, // boolean
+            newLineMode: 'auto', // "auto" | "unix" | "windows"
+            useWorker: true, // boolean: true if use web worker for loading scripts
+            useSoftTabs: true, // boolean: true if we want to use spaces than tabs
+            tabSize: 3, // number
+            wrap: false, // boolean | string | number: true/'free' means wrap instead of horizontal scroll, false/'off' means horizontal scroll instead of wrap, and number means number of column before wrap. -1 means wrap at print margin
+            indentedSoftWrap: true, // boolean
+            foldStyle: 'markbegin', // enum: 'manual'/'markbegin'/'markbeginend'.
+            mode: 'ace/mode/c_cpp' // string: path to language mode 
+         });
+
          var EditSession1 = ace.require("ace/edit_session").EditSession;
+
+         //var EditSession = require("https://fivetechsoft.github.io/xcloud/lib/ace/edit_session").EditSession;
+         textos[ $('#tabs a:last').text() ] = editor.getValue();
+
          editor.commands.addCommand({
             name: 'Run',
             bindKey: {win: 'F9',  mac: 'F9'},
@@ -203,17 +263,6 @@ return nil</div>
              readOnly: true // false if this command should not apply in readOnly mode
           });
 
-         //editor.session.foldStyle( "markbegin" );
-         //editor.session.fadeFoldWidgets( true );
-         //editor.session.showFoldWidgets( true );
-         //editor.showPrintMargin( true );
-         //editor.session.setShowPrintMargin(true);
-         //var EditSession = require("https://fivetechsoft.github.io/xcloud/lib/ace/edit_session").EditSession;
-         //editor.setAutoScrollEditorIntoView(true);
-         //editor.setOption("maxLines", 26);
-         //editor.setOption("minLines", 26);
-         textos[ $('#tabs a:last').text() ] = editor.getValue();
-
          editor.session.on('change', function(delta) {
             // delta.start, delta.end, delta.lines, delta.action
             //if ( editor.session.getLength() > 1 ) {
@@ -224,6 +273,11 @@ return nil</div>
             //         textos[ ctab ] = editor.getValue();
             //      }
             //   }
+            
+            if ( editor.getValue() ) {
+               textos[ ctab ] = editor.getValue();
+            }
+            
           })
 
          function Search() {
@@ -240,9 +294,11 @@ return nil</div>
          }
 
          function Download() {
-            var filename = $('#tabs a:last').text();
+            //var filename = $('#tabs a:last').text();
+            var filename = ctab;
             var content = editor.getValue();
             var pom = document.createElement('a');
+            //console.log( ctab );            
             pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
             pom.setAttribute('download', filename);
 
@@ -258,15 +314,23 @@ return nil</div>
 
          function Clear() {
             var text = '';
-            //var nextTab = $('#tabs').children().length;
             editor.setValue( text,1 );
             Run();
             selectfile.value = '';
-            //$(".nav-tabs li").children('a').text( "Noname" + nextTab + ".prg" );
             //$(".nav-tabs li").children('a').last().focus();
-            //window.alert( ctab );
             textos[ ctab ] = text;
          }
+
+        function addtab( name ) {
+            var nextTab = $('#tabs').children().length+1;
+            $('<li class="active" id="tab'+nextTab+'"'+ '><a href="#row1" role="tab">+"Tab"+</a><span>x</span></li>').appendTo('#tabs');
+          	//$('<div class="row" id="row1'+nextTab+'"'+'>'+$('#row1')+'</div>').appendTo('.tab-content');
+            $('<div class="row" id="row1">'+'</div>').appendTo('.tab-content');
+            $('#tabs a:last').text( name );
+            ctab = name;
+          	$('#tabs a:last').show();
+            $('#tabs a:last').focus();
+        }
 
          function openFile(event) {
             var text = '';
@@ -279,53 +343,37 @@ return nil</div>
             var text = reader.result;
             addtab( input.files[0].name );
             editor.setValue( text, -1 );
-            textos[ $('#tabs a:last').text() ] = text;
+            textos[ ctab ] = text;
           }
-        }
-
-        function addtab( name ) {
-            var nextTab = $('#tabs').children().length+1;
-            //window.alert(nextTab);
-            $('<li class="active" id="tab'+nextTab+'"'+ '><a href="#row1" role="tab">+"Tab"+</a><span>x</span></li>').appendTo('#tabs');
-          	//$('<div class="row" id="row1'+nextTab+'"'+'>'+$('#row1')+'</div>').appendTo('.tab-content');
-            $('<div class="row" id="row1">'+'</div>').appendTo('.tab-content');
-            $('#tabs a:last').text( name );
-          	$('#tabs a:last').show();
-            $('#tabs a:last').focus();
         }
 
         $(document).ready(function () {
            $(".nav-tabs").on("click", "a", function(e){
-              //var current_tab = e.target;
+              //var current_tab  = e.target;
               //var previous_tab = e.relatedTarget;
               e.preventDefault();
+              if ( ctab != $(this).text() ) {
               ctab = $(this).text();
-              //window.alert( $(this).text() );
               editor.setValue('',1);
               Run();
               editor.setValue( textos[ ctab ], -1 );
-              //window.alert( ctab );
+              }
               $(this).show(); //tab('show');
               $(this).focus();
            })
            .on("click", "span", function () {
               var anchor = $(this).siblings('a');
               var nextTab = $('#tabs').children().length;
-              //var ctab   = '';
-              //window.alert( anchor.text() );
               if ( nextTab > 1 ) {
                  textos.splice( anchor.text(), 1);
                  //$(anchor.attr('href')).remove();
                  $(this).parent().remove();
-                 ctab = $(".nav-tabs li").children('a').last().text() ;
-                 //window.alert( ctab );
-                 editor.setValue('',1);
+                 ctab = $('#tabs a:last').text();
+                 editor.setValue('',-1);
                  Run();
                  editor.setValue( textos[ ctab ], -1 );
-                 $(".nav-tabs li").children('a').last().click();
-                 $(".nav-tabs li").children('a').last().focus();
-                 selectfile.value = ctab;
-                 //$('#selectfile').value = ctab;
+                 $('#tabs a:last').click();
+                 //$(".nav-tabs li").children('a').last().focus();
               }
             });
 

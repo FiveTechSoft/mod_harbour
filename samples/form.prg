@@ -4,7 +4,7 @@
 	Sample: Simple login
 */
 
-#xtranslate HTML => #pragma __text| AP_RRPuts(%s)
+#xtranslate HTML => #pragma __text| AP_RPuts(%s)
 
 memvar hForm
 

@@ -4,7 +4,7 @@
 
 #define CRLF hb_OsNewLine()
 
-extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, AP_RPUTS, AP_RRPUTS
+extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, AP_RPUTS
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
@@ -40,11 +40,11 @@ function AddPPRules()
       hPP = __pp_init()
    endif
 
-   __pp_addRule( hPP, "#xcommand ? [<explist,...>] => AP_RPuts( [<explist>] )" )
-   __pp_addRule( hPP, "#xcommand ?? [<explist,...>] => AP_RRPuts( [<explist>] )" )
+   __pp_addRule( hPP, "#xcommand ? [<explist,...>] => AP_RPuts( '<br>' ); AP_RPuts( [<explist>] )" )
+   __pp_addRule( hPP, "#xcommand ?? [<explist,...>] => AP_RPuts( [<explist>] )" )
    __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
    __pp_addRule( hPP, "#xcommand TEMPLATE [ USING <x> ] [ PARAMS [<v1>] [,<vn>] ] => " + ;
-                      '#pragma __cstream | AP_RRPuts( InlinePrg( %s, [@<x>] [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )
+                      '#pragma __cstream | AP_RPuts( InlinePrg( %s, [@<x>] [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )
    __pp_addRule( hPP, "#command ENDTEMPLATE => #pragma __endtext" )
 
 return nil
@@ -253,27 +253,6 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
 typedef int ( * AP_RPUTS )( const char * s, void * r );
 
 HB_FUNC( AP_RPUTS )
-{
-   AP_RPUTS ap_rputs = ( AP_RPUTS ) pAPRPuts;
-   int iParams = hb_pcount(), iParam;
-
-   ap_rputs( "<br>", pRequestRec );
-
-   for( iParam = 1; iParam <= iParams; iParam++ )
-   {
-      HB_SIZE nLen;
-      HB_BOOL bFreeReq;
-      char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
-
-      ap_rputs( buffer, pRequestRec );
-      ap_rputs( " ", pRequestRec ); 
-
-      if( bFreeReq )
-         hb_xfree( buffer );
-   }     
-}
-
-HB_FUNC( AP_RRPUTS )
 {
    AP_RPUTS ap_rputs = ( AP_RPUTS ) pAPRPuts;
    int iParams = hb_pcount(), iParam;
