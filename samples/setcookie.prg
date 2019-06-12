@@ -11,14 +11,12 @@ function Main()
 return nil
 
 //----------------------------------------------------------------//
-// Provided in session.prg
 
 function SetCookie( cName, cValue, nSecs, cPath, cDomain, lHttps, lOnlyHttp ) 
 
    local cCookie := ''
 	
    // check parameters
-
    hb_default( @cName, '' )
    hb_default( @cValue, '' )
    hb_default( @nSecs, 3600 )   // Session will expire in Seconds 60 * 60 = 3600
@@ -28,7 +26,6 @@ function SetCookie( cName, cValue, nSecs, cPath, cDomain, lHttps, lOnlyHttp )
    hb_default( @lOnlyHttp, .F. )	
 	
    // we build the cookie
-	
    cCookie += cName + '=' + cValue + ';'
    cCookie += 'expires=' + CookieExpire( nSecs ) + ';'
    cCookie += 'path=' + cPath + ';'
