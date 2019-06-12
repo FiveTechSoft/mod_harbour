@@ -2,7 +2,7 @@
 
 function Main()
 	
-   ? "<h2>Testing cookies</h2>"
+   ? "<h2>Creating a cookie</h2>"
    ?
    ? 'Current date and time: ', hb_datetime(), '<hr>'
 
