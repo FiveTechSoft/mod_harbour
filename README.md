@@ -3,7 +3,7 @@
 # mod_harbour
 Apache mod for Harbour
 
-mod_harbour is a module extension for Apache that supports Harbour PRGs same as Apache supports PHPs
+mod_harbour is a module extension for Apache that supports Harbour PRGs (and HRBs) same as Apache supports PHPs
 
 Please visit the [wiki](https://github.com/FiveTechSoft/mod_harbour/wiki) to learn how to install and use it
 
