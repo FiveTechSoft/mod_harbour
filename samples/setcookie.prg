@@ -2,7 +2,7 @@
 
 function Main()
 	
-   ? 'Now is: ', hb_datetime(), '<hr>'
+   ? 'Current date and time: ', hb_datetime(), '<hr>'
 
    SetCookie( 'MyCookieName', 'This cookie was created at ' + Time() + ;
               '. In this example it only lives 60 seconds...', 60 )
