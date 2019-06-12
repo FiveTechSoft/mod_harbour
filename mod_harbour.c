@@ -166,7 +166,7 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
 
 static int harbour_handler( request_rec * r )
 {
-   #ifdef _MSC_VER
+   #ifdef _WINDOWS_
       HMODULE lib_harbour = NULL;
    #else
       void * lib_harbour = NULL;
@@ -205,7 +205,6 @@ static int harbour_handler( request_rec * r )
    {
       ap_add_cgi_vars( r );
       ap_add_common_vars( r );
-      // ap_parse_form_data( r, NULL, &POST_pairs, -1, HUGE_STRING_LEN );
    
       #ifdef _WINDOWS_
          #ifdef __GNUC__
