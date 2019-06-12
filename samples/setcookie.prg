@@ -8,6 +8,7 @@ function Main()
 
 return nil
 
+//----------------------------------------------------------------//
 // Provided in session.prg
 
 function SetCookie( cName, cValue, nSecs, cPath, cDomain, lHttps, lOnlyHttp ) 
@@ -38,6 +39,7 @@ function SetCookie( cName, cValue, nSecs, cPath, cDomain, lHttps, lOnlyHttp )
 
 return nil
 
+//----------------------------------------------------------------//
 // CookieExpire( nSecs ) builds the time format for the cookie
 // Using this model: 'Sun, 09 Jun 2019 16:14:00'
 
@@ -59,6 +61,8 @@ function CookieExpire( nSecs )
 
 return cExpire
 
+//----------------------------------------------------------------//
+
 function ZB_Default( pVar, uValue )
 
    if Valtype( pVar ) == 'U' 
@@ -66,3 +70,5 @@ function ZB_Default( pVar, uValue )
    endif
 	
 return nil
+
+//----------------------------------------------------------------//
