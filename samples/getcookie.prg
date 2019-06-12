@@ -1,55 +1,48 @@
+//----------------------------------------------------------------//
+
 function Main()
    
    local hHeadersIn := AP_HeadersIn()
 
    ? Time(), '[F5] to refresh page...', '<hr>'
    
-   ? 'Value MyCookie: ' , GetCookie( 'MyCookie' )
+   ? 'Value MyCookie: ', GetCookie( 'MyCookie' )
     
 return nil
 
-// Included in session.prg
+//----------------------------------------------------------------//
 
 function GetCookie( cCookie )
-    LOCAL nLen  := AP_HeadersInCount() - 1 
-    LOCAl uVal      := ''
-    LOCAL n, nJ, cKey, cPart
-    FOR n = 0 to nLen
+
+   local nLen := AP_HeadersInCount() - 1 
+   local uVal := ''
+   local n, nJ, cKey, cPart
     
-        cKey    := AP_HeadersInKey( n )
-        uValue  := AP_HeadersInVal( n )             
+   for n = 0 to nLen
+      cKey = AP_HeadersInKey( n )
+      uValue = AP_HeadersInVal( n )             
         
-        IF ( lower(cKey) == 'cookie' )
+      if Lower( cKey ) == 'cookie'
+         for each cPart IN hb_ATokens( uValue, ";" )                       
+            if ( nJ := At( "=", cPart ) ) > 0
+               if ! Empty( cKey := AllTrim( Left( cPart, nJ - 1 ) ) )
+                  if cKey == cCookie 
+                     uVal = AllTrim( SubStr( cPart, nJ + 1 ) )
+                     EXIT
+                  endif
+               endif
+            else // Empty Cookie
+               if ! Empty( cKey := AllTrim( Left( cPart, nJ - 1 ) ) )  
+                  if cKey == cCookie 
+                     uVal = AllTrim( SubStr( cPart, nJ + 1 ) )
+                     EXIT
+                  endif
+               endif
+            endif
+         next
+      endif
+   next   
         
-            FOR EACH cPart IN hb_ATokens( uValue, ";" )                       
-                IF ( nJ := At( "=", cPart ) ) > 0
-                
-                    IF ( !empty( cKey := Alltrim(Left( cPart, nJ - 1 )) ) )
-                    
-                        IF cKey == cCookie 
-                            uVal := Alltrim(SubStr( cPart, nJ + 1 ))
-                            EXIT
-                        ENDIF
-                        
-                    ENDIF
-                    
-                ELSE    //  Empty Cookie
-            
-                    IF ( !empty( cKey := Alltrim(Left( cPart, nJ - 1 ))) )  
-                    
-                        IF cKey == cCookie 
-                            uVal := Alltrim(SubStr( cPart, nJ + 1 ))
-                            EXIT
-                        ENDIF
-                        
-                    ENDIF
-                    
-                ENDIF
-           
-            NEXT        
-        
-        ENDIF       
-        
-    NEXT
-    
-RETU uVal
+return uVal
+
+//----------------------------------------------------------------//
