@@ -2,7 +2,9 @@
 
 function Main()
    
-   ? Time(), '[F5] to refresh page...', '<hr>'
+   ? '<meta http-equiv="refresh" content="5"/>'
+   
+   ? Time(), '<hr>'
    
    ? 'MyCookie value: ', GetCookie( 'MyCookie' )
     
