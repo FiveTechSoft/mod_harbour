@@ -2,11 +2,9 @@
 
 function Main()
    
-   local hHeadersIn := AP_HeadersIn()
-
    ? Time(), '[F5] to refresh page...', '<hr>'
    
-   ? 'Value MyCookie: ', GetCookie( 'MyCookie' )
+   ? 'MyCookie value: ', GetCookie( 'MyCookie' )
     
 return nil
 
