@@ -2,7 +2,7 @@
 
 function Main()
    
-   ? '<meta http-equiv="refresh" content="5"/>'
+   ? '<meta http-equiv="refresh" content="1"/>'
    
    ? Time(), '<hr>'
    
