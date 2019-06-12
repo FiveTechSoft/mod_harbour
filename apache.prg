@@ -40,7 +40,7 @@ function AddPPRules()
       hPP = __pp_init()
    endif
 
-   __pp_addRule( hPP, "#xcommand ? [<explist,...>] => AP_RPuts( '<br>' ); AP_RPuts( [<explist>] )" )
+   __pp_addRule( hPP, "#xcommand ? [<explist,...>] => AP_RPuts( '<br>' [,<explist>] )" )
    __pp_addRule( hPP, "#xcommand ?? [<explist,...>] => AP_RPuts( [<explist>] )" )
    __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
    __pp_addRule( hPP, "#xcommand TEMPLATE [ USING <x> ] [ PARAMS [<v1>] [,<vn>] ] => " + ;
