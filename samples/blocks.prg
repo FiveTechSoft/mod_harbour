@@ -1,6 +1,6 @@
 function Main()
 
-   ? "Seconds {%Seconds()%} before compilation
+   ? "Seconds {%Seconds()%} before compilation"
 
    BLOCKS
       Seconds in execution {{ Time() }}
