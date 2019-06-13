@@ -23,7 +23,7 @@ function GetCookies()
    local hCookies := {=>}
    
    for each cCookie in aCookies
-      hb_HSet( SubStr( cCookie, 1, At( "=", cCookie ) - 1 ),;
+      hb_HSet( hCookies, SubStr( cCookie, 1, At( "=", cCookie ) - 1 ),;
                SubStr( cCookie, At( "=", cCookie ) + 1 ) )
    next            
    
