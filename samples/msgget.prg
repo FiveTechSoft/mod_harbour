@@ -11,11 +11,6 @@ function Main()
   <link rel="stylesheet" href="https://fivetechsoft.github.io/xcloud/source/css/xcloud.css"> 
 </head>
 
-<style>
-.table-striped>tbody>tr:nth-of-type(odd) {
-    background-color: #c0c0c0;
-</style>
-
 <script>
 function MsgGet( cMsg, cTitle )
 {  
@@ -46,7 +41,7 @@ function MsgGet( cMsg, cTitle )
 
    div5.className = "modal-body";
    div3.appendChild( div5 );
-   div5.innerHTML = '<table class="table table-striped table-bordered" style="background-color:#c0c0c0"><tr><td>' + 
+   div5.innerHTML = '<table class="table table-striped table-bordered"><tr style="background-color:#c0c0c0"><td>' + 
                     '<p align="right">' + cMsg + "</p></td><td><input type='text' id='get'>" + "</td></tr></table>";
 
    div6.className = "modal-footer";
