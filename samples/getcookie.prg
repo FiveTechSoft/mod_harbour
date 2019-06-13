@@ -19,8 +19,7 @@ function GetCookies()
    local hHeadersIn := AP_HeadersIn()
    local cCookies := If( hb_HHasKey( hHeadersIn, "Cookie" ), hb_hGet( hHeadersIn, "Cookie" ), "" )
    local aCookies := hb_aTokens( cCookies, ";" )
-   local cCookie
-   local hCookies := {=>}
+   local cCookie, hCookies := {=>}
    
    for each cCookie in aCookies
       hb_HSet( hCookies, SubStr( cCookie, 1, At( "=", cCookie ) - 1 ),;
