@@ -1,6 +1,6 @@
-// Time was {%Time()%} before compilation
-
 function Main()
+
+   ? "Time was {%Time()%} before compilation
 
    BLOCKS
       Current time in execution {{ Time() }}
