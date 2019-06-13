@@ -52,9 +52,9 @@ function MsgGet( cMsg, cTitle )
    div6.className = "modal-footer";
    div3.appendChild( div6 );
    cAction = "document.getElementById('msgget').remove();";
-   div6.innerHTML = "<button type='button' class='btn btn-default' data-dismiss='modal' " + 
+   div6.innerHTML = "<button type='button' class='btn btn-default' data-dismiss='modal' style='width:90px'" + 
                     "onclick=" + cAction + ">Ok</button>" + 
-                    "<button type='button' class='btn btn-default' data-dismiss='modal' " + 
+                    "<button type='button' class='btn btn-default' data-dismiss='modal' style='width:90px'" + 
                     "onclick=" + cAction + ">Cancel</button>";
 
    document.body.appendChild( div1 );
