@@ -16,15 +16,20 @@ static hPP
 
 function _AppMain()
 
+   local cFileName
+
    ErrorBlock( { | o | DoBreak( o ) } )
 
+   cFileName = AP_FileName()
    AddPPRules()
 
-   if File( AP_FileName() )
-      if Lower( Right( AP_FileName(), 4 ) ) == ".hrb"
-         hb_HrbDo( hb_HrbLoad( AP_FileName() ), AP_Args() )
+   if File( cFileName )
+      if Lower( Right( cFileName, 4 ) ) == ".hrb"
+         hb_HrbDo( hb_HrbLoad( cFileName ), AP_Args() )
       else
-         Execute( MemoRead( AP_FileName() ), AP_Args() )
+         hb_SetEnv( "PRGPATH",;
+                    SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
+         Execute( MemoRead( cFileName ), AP_Args() )
       endif
    else
       ErrorLevel( 404 )
@@ -57,6 +62,7 @@ function Execute( cCode, ... )
    local cHBheaders1 := "~/harbour/include"
    local cHBheaders2 := "c:\harbour\include"
 
+   cCode = ReplaceBlocks( cCode )
    cCode = __pp_process( hPP, cCode )
 
    oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2 )
@@ -201,6 +207,20 @@ function AP_PostPairs()
    next
 
 return hPairs
+
+//----------------------------------------------------------------//
+
+function ReplaceBlocks( cCode )
+
+   local nStart, nEnd, cBlock
+
+   while ( nStart := At( "{{", cCode ) ) != 0 .and. ;
+         ( nEnd := At( "}}", cCode ) ) != 0
+         cBlock = SubStr( cCode, nStart + 2, nEnd - nStart - 2 )
+         cCode = SubStr( cCode, 1, nStart - 1 ) + &( cBlock ) + SubStr( cCode, nEnd + 2 )
+   end
+   
+return cCode
 
 //----------------------------------------------------------------//
 
