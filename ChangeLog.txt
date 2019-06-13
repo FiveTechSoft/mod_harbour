@@ -1,7 +1,7 @@
 2019/June/13
 
 * New function ReplaceBlocks( cCode ) searches for {{ ... }} and if found, it macroexpands its containt
-  before aplying the harbour preprocessor. apache.prg sets an environment variable PRGPATH that you can
+  before calling the harbour preprocessor. apache.prg sets an environment variable PRGPATH that you can
   use before compiling your PRGs, in example: #include '{{hb_GetEnv("PRGPATH")}}/a2.prg' This way we can 
   use relative paths in the includes.
 
