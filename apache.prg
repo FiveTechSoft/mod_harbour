@@ -222,7 +222,8 @@ function ReplaceBlocks( cCode, cStartBlock, cEndBlock )
    while ( nStart := At( cStartBlock, cCode ) ) != 0 .and. ;
          ( nEnd := At( cEndBlock, cCode ) ) != 0
          cBlock = SubStr( cCode, nStart + Len( cStartBlock ), nEnd - nStart - Len( cEndBlock ) )
-         cCode = SubStr( cCode, 1, nStart - 1 ) + &( cBlock ) + SubStr( cCode, nEnd + Len( cEndBlock ) )
+         cCode = SubStr( cCode, 1, nStart - 1 ) + ValToChar( &( cBlock ) ) + ;
+         SubStr( cCode, nEnd + Len( cEndBlock ) )
    end
    
 return cCode
