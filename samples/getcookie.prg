@@ -8,7 +8,7 @@ function Main()
    ?
    ? Time(), '<hr>'
    
-   ? 'cookies: ', GetCookies()
+   ? 'cookies: ', ValToStr( GetCookies() )
     
 return nil
 
@@ -17,7 +17,16 @@ return nil
 function GetCookies()
 
    local hHeadersIn := AP_HeadersIn()
+   local cCookies := If( hb_HHasKey( hHeadersIn, "Cookie" ), hb_hGet( hHeadersIn, "Cookie" ), "" )
+   local aCookies := hb_aTokens( cCookies, ";" )
+   local cCookie
+   local hCookies := {=>}
    
-return If( hb_HHasKey( hHeadersIn, "Cookie" ), hb_hGet( hHeadersIn, "Cookie" ), "" )
+   for each cCookie in aCookies
+      hb_HSet( SubStr( cCookie, 1, At( "=", cCookie ) - 1 ),;
+               SubStr( cCookie, At( "=", cCookie ) + 1 ) )
+   next            
+   
+return hCookies
 
 //----------------------------------------------------------------//
