@@ -54,7 +54,7 @@ function Main()
     </ul>         
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a onclick="$('#login').modal()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a onclick='MsgGet( "username:", "Please identify" );'><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
   </div>
 </nav>
