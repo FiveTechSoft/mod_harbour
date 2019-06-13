@@ -51,7 +51,7 @@ function AddPPRules()
    __pp_addRule( hPP, "#xcommand TEMPLATE [ USING <x> ] [ PARAMS [<v1>] [,<vn>] ] => " + ;
                       '#pragma __cstream | AP_RPuts( InlinePrg( %s, [@<x>] [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )
    __pp_addRule( hPP, "#xcommand BLOCKS => " + ;
-                      '#pragma __cstream | AP_RPuts( ReplaceBlocks( %s, "{%", "%}" ) )' )
+                      '#pragma __cstream | AP_RPuts( ReplaceBlocks( %s, "{{", "}}" ) )' )
    __pp_addRule( hPP, "#command ENDTEMPLATE => #pragma __endtext" )
 
 return nil
@@ -64,7 +64,7 @@ function Execute( cCode, ... )
    local cHBheaders1 := "~/harbour/include"
    local cHBheaders2 := "c:\harbour\include"
 
-   cCode = ReplaceBlocks( cCode )
+   cCode = ReplaceBlocks( cCode, "{%", "%}" )
    cCode = __pp_process( hPP, cCode )
 
    oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2 )
