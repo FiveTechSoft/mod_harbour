@@ -47,7 +47,7 @@ function MsgGet( cMsg, cTitle )
    div5.className = "modal-body";
    div3.appendChild( div5 );
    div5.innerHTML = '<table class="table table-striped table-bordered" style="background-color:#c0c0c0"><tr><td>' + 
-                    '<p align="right">' + cMsg + "</p></td><td><input type='text'>" + "</td></tr></table>";
+                    '<p align="right">' + cMsg + "</p></td><td><input type='text' id='get'>" + "</td></tr></table>";
 
    div6.className = "modal-footer";
    div3.appendChild( div6 );
@@ -59,6 +59,7 @@ function MsgGet( cMsg, cTitle )
 
    document.body.appendChild( div1 );
    $('#msgget').modal('show');  
+   $('#get').focus();
 }
 </script>
 
