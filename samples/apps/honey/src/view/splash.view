@@ -3,12 +3,12 @@
 <head>
   <title>HWeb Demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
 
 <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet'> 
 <link rel="icon" type="image/png" href="<?prg retu url_images() + 'favicon.ico'?>">
-  <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-  <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
 </head>
 <style>
 
