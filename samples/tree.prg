@@ -47,18 +47,18 @@ ul.tree li.open > a:not(:last-child):before {
       local cItems := ""
       
       for nPart = 1 to 2
-         cItems += '<li><a href="#">  Part ' + AllTrim( Str( nPart ) ) + "</a>"
+         cItems += '<li><a href="#">  Part ' + AllTrim( Str( nPart ) ) + "</a>" + CRLF
          for nItem = 1 to 2
-            cItems += '<ul>'
-            cItems += '<li><a href="#"> Item ' + AllTrim( Str( nItem ) ) + "</a>"
+            cItems += '<ul>' + CRLF
+            cItems += '<li><a href="#"> Item ' + AllTrim( Str( nItem ) ) + "</a>" + CRLF
             for nSubItem = 1 to 2
-               cItems += '<ul>'
-               cItems += '<li><a href="#"> SubItem ' + AllTrim( Str( nSubItem ) ) + "</a></li>"
-               cItems += '</ul>'
+               cItems += '<ul>' + CRLF
+               cItems += '<li><a href="#"> SubItem ' + AllTrim( Str( nSubItem ) ) + "</a></li>" + CRLF
+               cItems += '</ul>' + CRLF
             next
-            cItems += '</li></ul>'
+            cItems += '</li></ul>' + CRLF
          next  
-         cItems += '</ul></li>'
+         cItems += '</ul></li>' + CRLF
       next
       
       return cItems ?>
