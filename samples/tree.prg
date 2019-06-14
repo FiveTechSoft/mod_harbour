@@ -57,7 +57,7 @@ ul.tree li.open > a:not(:last-child):before {
             next
             cItems += '</ul>' + CRLF
          next  
-         cItems += '</ul>' + CRLF
+         cItems += '</li>' + CRLF
          cItems += '</ul></li>' + CRLF
       next
       
