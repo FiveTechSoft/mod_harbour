@@ -1,5 +1,5 @@
-#include '{%AP_GetEnv("HONEY_APP")%}/include/hbclass.ch'
-#include '{%AP_GetEnv("HONEY_APP")%}/include/hboo.ch'
+#include '{%hb_GetEnv("HONEY_APP")%}/include/hbclass.ch'
+#include '{%hb_GetEnv("HONEY_APP")%}/include/hboo.ch'
 
 CLASS TUsers
 
