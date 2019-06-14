@@ -23,7 +23,7 @@ METHOD Load( cDpt ) CLASS TUsers
 
    local aRows := {}
    local aReg  := {=>}	
-   local cPath := './photos/'
+   local cPath := Url_Photos()
    local lFind := .T.
 	
    hb_default( @cDpt, '' )
