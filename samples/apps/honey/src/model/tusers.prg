@@ -3,7 +3,7 @@
 
 CLASS TUsers
 
-	DATA cFile     // INLINE 'c:/Apache24/htdocs/modharbour_samples/apps/honey/data/users.dbf'
+	DATA cFile     INLINE '{%hb_GetEnv("HONEY_APP")%}/data/users.dbf'
 	DATA cAlias
 
 	METHOD  New() CONSTRUCTOR
