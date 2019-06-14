@@ -46,13 +46,13 @@ ul.tree li.open > a:not(:last-child):before {
 <?prg local nPart, nItem, nSubItem
       local cItems := ""
       
-      for nPart = 1 to 2
+      for nPart = 1 to 1
          cItems += '<li><a href="#">  Part ' + AllTrim( Str( nPart ) ) + "</a>" + CRLF
          cItems += '<ul>' + CRLF
-         for nItem = 1 to 2
+         for nItem = 1 to 1
             cItems += '<li><a href="#"> Item ' + AllTrim( Str( nItem ) ) + "</a>" + CRLF
             cItems += '<ul>' + CRLF
-            for nSubItem = 1 to 2
+            for nSubItem = 1 to 1
                cItems += '<li><a href="#"> SubItem ' + AllTrim( Str( nSubItem ) ) + "</a></li>" + CRLF
             next
             cItems += '</ul>' + CRLF
