@@ -13,7 +13,7 @@ ENDCLASS
 
 METHOD New() CLASS TUsers
 
-        ::cFile = 'c:/Apache24/htdocs/modharbour_samples/apps/honey/data/users.dbf'
+        ::cFile = '{%hb_GetEnv("HONEY_APP")%}/data/users.dbf'
 
 	USE ( ::cFile ) SHARED NEW VIA "DBFCDX"
 
