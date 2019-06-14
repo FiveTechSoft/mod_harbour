@@ -33,5 +33,5 @@ FUNCTION Default()
 
 RETU NIL
 
-#include '{%hb_GetEnv("HONEY_APP")%}/lib/tbackend.prg'
-#include '{%hb_GetEnv("HONEY_APP")%}/src/model/tusers.prg'
+{% MemoRead( hb_GetEnv("HONEY_APP") + "/lib/tbackend.prg") %}
+{% MemoRead( hb_GetEnv("HONEY_APP") + "/src/model/tusers.prg") %}
