@@ -3,79 +3,60 @@
 
 CLASS TUsers
 
-	DATA cFile     INLINE '{%hb_GetEnv("HONEY_APP")%}/data/users.dbf'
-	DATA cAlias
+   DATA cFile    INIT '{%hb_GetEnv("HONEY_APP")%}/data/users.dbf'
+   DATA cAlias
 
-	METHOD  New() CONSTRUCTOR
-	METHOD  Load()					
+   METHOD  New() CONSTRUCTOR
+   METHOD  Load()					
 
 ENDCLASS
 
 METHOD New() CLASS TUsers
 
-        ::cFile = '{%hb_GetEnv("HONEY_APP")%}/data/users.dbf'
+   USE ( ::cFile ) SHARED NEW VIA "DBFCDX"
+   ::cAlias = Alias()
+   ( ::cAlias )->( OrdSetFocus( 'dpt' ) )	
 
-	USE ( ::cFile ) SHARED NEW VIA "DBFCDX"
-
-	::cAlias 	:= Alias()
-
-	(::cAlias)->( OrdSetFocus( 'dpt' ))	
-
-RETU Self
+return Self
 
 METHOD Load( cDpt ) CLASS TUsers
 
-	LOCAL aRows := {}
-	LOCAL aReg  := {=>}	
-	LOCAL cPath := '{%hb_GetEnv( "HONEY_REPOSITORY" )%}'
-	LOCAL lFind := .T.
+   local aRows := {}
+   local aReg  := {=>}	
+   local cPath := '{%hb_GetEnv( "HONEY_REPOSITORY" )%}'
+   local lFind := .T.
 	
-	hb_default( @cDpt, '' )
+   hb_default( @cDpt, '' )
 	
-	if ( cDpt == 'ALL' )
-		(::cAlias)->( dbGoTop() )
-	ELSE
-		(::cAlias)->( dbSeek( cDpt, .t. ) )
-	ENDIF
+   if ( cDpt == 'ALL' )
+      ( ::cAlias )->( dbGoTop() )
+   else
+      ( ::cAlias )->( dbSeek( cDpt, .t. ) )
+   endif
 
-	WHILE lFind 
-	
-		if ( cDpt == 'ALL' )
+   while lFind 
+      if ( cDpt == 'ALL' )
+         lFind = (  ( ::cAlias )->( !Eof() )  ) 
+      else 
+	 lFind = ( ( ::cAlias )->dpt == cDpt .and. ( ::cAlias )->( !Eof() ) ) 
+      endif
 		
-			lFind := (  (::cAlias)->( !Eof() )  ) 
+      if lFind
+         aReg = {=>}
+	 aReg[ 'id' ] = hb_valtostr( ( ::cAlias )->id )
+	 aReg[ 'name'  ] = ( ::cAlias )->name
+	 aReg[ 'dpt'   ] = ( ::cAlias )->dpt
+	 aReg[ 'phone' ] = hb_valtostr( ( ::cAlias )->phone )
+	 aReg[ 'image' ] = AllTrim( cPath + ( ::cAlias )->image )
+	 
+	 AAdd( aRows, aReg )	
 
-		ELSE 
+	( ::cAlias)->( DbSkip() )
+      endif
+   end 
 
-			lFind := ( (::cAlias)->dpt == cDpt .and. (::cAlias)->( !Eof() ) ) 
-			
-		ENDIF
-		
-		IF lFind
+return aRows
 
-			aReg  := {=>}
-			aReg[ 'id'    ] := hb_valtostr( (::cALias)->id )
-			aReg[ 'name'  ] := (::cALias)->name
-			aReg[ 'dpt'   ] := (::cALias)->dpt
-			aReg[ 'phone' ] := hb_valtostr( (::cALias)->phone )
-			aReg[ 'image' ] := alltrim(cPath + (::cALias)->image)
-			
-			Aadd( aRows, aReg )	
-
-			( ::cAlias)->( DbSkip() )
-		
-		ENDIF
-
-	END 
-	
-	
-
-RETU aRows
-
-//	Para testear... de no dejarse tablas abiertas
-
-EXIT PROCEDURE CloseDb()
-
-	DbCloseAll()
-	
-RETURN 
-
+exit procedure CloseDb()
+   DbCloseAll()
+return 
