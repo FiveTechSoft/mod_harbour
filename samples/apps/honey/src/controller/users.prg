@@ -33,5 +33,5 @@ FUNCTION Default()
 
 RETU NIL
 
-#include '{%AP_GetEnv("HONEY_APP")%}/lib/tbackend.prg'
-#include '{%AP_GetEnv("HONEY_APP")%}/src/model/tusers.prg'
+#include '{%hb_GetEnv("HONEY_APP")%}/lib/tbackend.prg'
+#include '{%hb_GetEnv("HONEY_APP")%}/src/model/tusers.prg'
