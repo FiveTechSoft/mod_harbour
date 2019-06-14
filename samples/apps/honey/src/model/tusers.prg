@@ -23,7 +23,7 @@ METHOD Load( cDpt ) CLASS TUsers
 
    local aRows := {}
    local aReg  := {=>}	
-   local cPath := '{%hb_GetEnv("HONEY_APP")%}/photos/"
+   local cPath := '{%hb_GetEnv("HONEY_APP")%}/photos/'
    local lFind := .T.
 	
    hb_default( @cDpt, '' )
