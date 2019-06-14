@@ -16,7 +16,7 @@ FUNCTION Url_Base() ; 		RETU hb_GetEnv("HONEY_URL")
 FUNCTION Url_Controller() ; 	return AP_GetEnv( "HTTP_REFERER" ) + "/src/controller/"
 FUNCTION Url_Model() ; 		RETU hb_GetEnv("HONEY_URL") + '/src/model/'
 FUNCTION Url_View() ; 		RETU hb_GetEnv("HONEY_URL") + '/src/view/'
-FUNCTION Url_Images() ;         RETU hb_GetEnv("HONEY_URL") + '/images/'
+FUNCTION Url_Images() ;         return AP_GetEnv( "HTTP_REFERER" ) + '/images/'
 
 FUNCTION TGet( cKey, uDefault )
 
