@@ -64,9 +64,6 @@ function Execute( cCode, ... )
    local cHBheaders1 := "~/harbour/include"
    local cHBheaders2 := "c:\harbour\include"
 
-   cCode = ReplaceBlocks( @cCode, "{%", "%}" )
-   cCode = __pp_process( hPP, cCode )
-   
    while lReplaced 
       lReplaced = ReplaceBlocks( @cCode, "{%", "%}" )
       cCode = __pp_process( hPP, cCode )
