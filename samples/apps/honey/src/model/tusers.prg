@@ -3,7 +3,7 @@
 
 CLASS TUsers
 
-	DATA cFile 		INLINE '{%hb_GetEnv("HONEY_APP")%}/data/users.dbf'
+	DATA cFile 	// INLINE '{%hb_GetEnv("HONEY_APP")%}/data/users.dbf'
 	DATA cAlias
 
 	METHOD  New() CONSTRUCTOR
