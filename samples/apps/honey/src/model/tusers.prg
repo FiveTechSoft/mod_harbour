@@ -28,7 +28,7 @@ METHOD Load( cDpt ) CLASS TUsers
 	LOCAL cPath := '{%hb_GetEnv( "HONEY_REPOSITORY" )%}'
 	LOCAL lFind := .T.
 	
-	zb_default( @cDpt, '' )
+	hb_default( @cDpt, '' )
 	
 	if ( cDpt == 'ALL' )
 		(::cAlias)->( dbGoTop() )
