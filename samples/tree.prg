@@ -43,125 +43,26 @@ ul.tree li.open > a:not(:last-child):before {
 }
 </style>
 <ul class="tree">
-  <li><a href="#">Part 1</a>
-    <ul>
-      <li><a href="#">Item A</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Item B</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Item C</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Item D</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Item E</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-
-  <li><a href="#">Part 2</a>
-    <ul>
-      <li><a href="#">Item A</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Item B</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Item C</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Item D</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Item E</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-
-  <li><a href="#">Part 3</a>
-    <ul>
-      <li><a href="#">Item A</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Item B</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Item C</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Item D</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Item E</a>
-        <ul>
-          <li><a href="#">Sub-item 1</a></li>
-          <li><a href="#">Sub-item 2</a></li>
-          <li><a href="#">Sub-item 3</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
+<?prg local nPart, nItem, nSubItem
+      local cItems := ""
+      
+      for nPart = 1 to 5
+         cItems += '<li><a href="#"> Part ' + AllTrim( Str( nPart ) ) + "</a>"
+         cItems += '<ul>'
+         for nItem = 1 to 10
+            cItems += '<ul>'
+            cItems += '<li><a href="#"> Item ' + AllTrim( Str( nItem ) ) + "</a>"
+            for nSubItem = 1 to 5
+               cItems += '<ul>'
+               cItems += '<li><a href="#"> SubItem ' + AllTrim( Str( nSubItem ) ) + "</a></li>"
+               cItems += '</ul>'
+            next
+            cItems += '</li></ul>'
+         next  
+         cItems += '</ul></li>'
+      next
+      
+      return cItems ?>
 </ul>
 
 <script>
