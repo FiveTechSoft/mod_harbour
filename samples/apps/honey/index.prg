@@ -13,7 +13,6 @@
 FUNCTION Main()
 
    View( 'splash.view' )
-   ? "ok"
 
 return nil
 
