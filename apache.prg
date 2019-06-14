@@ -60,12 +60,17 @@ return nil
 
 function Execute( cCode, ... )
 
-   local oHrb, uRet
+   local oHrb, uRet, lReplaced := .T.
    local cHBheaders1 := "~/harbour/include"
    local cHBheaders2 := "c:\harbour\include"
 
-   cCode = ReplaceBlocks( cCode, "{%", "%}" )
+   cCode = ReplaceBlocks( @cCode, "{%", "%}" )
    cCode = __pp_process( hPP, cCode )
+   
+   while lReplaced 
+      lReplaced = ReplaceBlocks( @cCode, "{%", "%}" )
+      cCode = __pp_process( hPP, cCode )
+   end
 
    oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2 )
    if ! Empty( oHrb )
@@ -215,18 +220,20 @@ return hPairs
 function ReplaceBlocks( cCode, cStartBlock, cEndBlock )
 
    local nStart, nEnd, cBlock
+   local lReplaced := .F.
    
    hb_default( @cStartBlock, "{{" )
    hb_default( @cEndBlock, "}}" )
 
    while ( nStart := At( cStartBlock, cCode ) ) != 0 .and. ;
          ( nEnd := At( cEndBlock, cCode ) ) != 0
-         cBlock = SubStr( cCode, nStart + Len( cStartBlock ), nEnd - nStart - Len( cEndBlock ) )
-         cCode = SubStr( cCode, 1, nStart - 1 ) + ValToChar( &( cBlock ) ) + ;
-         SubStr( cCode, nEnd + Len( cEndBlock ) )
+      cBlock = SubStr( cCode, nStart + Len( cStartBlock ), nEnd - nStart - Len( cEndBlock ) )
+      cCode = SubStr( cCode, 1, nStart - 1 ) + ValToChar( &( cBlock ) ) + ;
+      SubStr( cCode, nEnd + Len( cEndBlock ) )
+		lReplaced := .T.
    end
    
-return cCode
+return lReplaced
 
 //----------------------------------------------------------------//
 
