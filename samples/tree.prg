@@ -35,11 +35,11 @@ ul.tree li a:before {
 }
 
 ul.tree li > a:not(:last-child):before {
-    content: '[+]';
+    content: '[ + ] ';
 }
 
 ul.tree li.open > a:not(:last-child):before {
-    content: '[-]';
+    content: '[ - ] ';
 }
 </style>
 <ul class="tree">
