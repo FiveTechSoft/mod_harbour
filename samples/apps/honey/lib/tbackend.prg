@@ -17,6 +17,7 @@ FUNCTION Url_Controller() ; 	return "/modharbour_samples/apps/honey/src/controll
 FUNCTION Url_Model() ; 		return hb_GetEnv( "HONEY_URL" ) + '/src/model/'
 FUNCTION Url_View() ; 		return hb_GetEnv( "HONEY_URL" ) + '/src/view/'
 FUNCTION Url_Images() ;         return "/modharbour_samples/apps/honey/images/"
+FUNCTION Url_Photos() ;         return "/modharbour_samples/apps/honey/photos/"
 
 FUNCTION TGet( cKey, uDefault )
 
