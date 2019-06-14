@@ -13,7 +13,7 @@ FUNCTION View( cPrg, ... )
 RETU NIL
 
 FUNCTION Url_Base() ; 		return hb_GetEnv( "HONEY_URL" )
-FUNCTION Url_Controller() ; 	return AP_GetEnv( "HTTP_REFERER" ) + "src/controller/"
+FUNCTION Url_Controller() ; 	return "/modharbour_samples/apps/honey/src/controller/"
 FUNCTION Url_Model() ; 		return hb_GetEnv( "HONEY_URL" ) + '/src/model/'
 FUNCTION Url_View() ; 		return hb_GetEnv( "HONEY_URL" ) + '/src/view/'
 FUNCTION Url_Images() ;         return "/modharbour_samples/apps/honey/images/"
