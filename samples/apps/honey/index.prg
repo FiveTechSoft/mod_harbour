@@ -6,9 +6,11 @@
 	System: 		HWEB (Harbour for Web)
 -------------------------------------------------------------------	*/
 
-// Settings for the app
-// {%hb_SetEnv( "HONEY_APP", "c:/Apache24/htdocs/modharbour_samples/apps/honey" )%}
-// {%hb_SetEnv( "HONEY_URL", "http://localhost/modharbour_samples/apps/honey" )%}
+/* Settings for the app
+{%hb_SetEnv( "HONEY_APP", If( "Linux" $ OS(), "/var/www/html/modharbour_samples/apps/honey",;
+                              "c:/Apache24/htdocs/modharbour_samples/apps/honey" ) )%}
+{%hb_SetEnv( "HONEY_URL", "http://localhost/modharbour_samples/apps/honey" )%} 
+*/
 
 FUNCTION Main()
 
