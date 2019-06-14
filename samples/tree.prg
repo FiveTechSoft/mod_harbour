@@ -48,10 +48,10 @@ ul.tree li.open > a:not(:last-child):before {
       
       for nPart = 1 to 2
          cItems += '<li><a href="#">  Part ' + AllTrim( Str( nPart ) ) + "</a>"
-         for nItem = 1 to 10
+         for nItem = 1 to 2
             cItems += '<ul>'
             cItems += '<li><a href="#"> Item ' + AllTrim( Str( nItem ) ) + "</a>"
-            for nSubItem = 1 to 5
+            for nSubItem = 1 to 2
                cItems += '<ul>'
                cItems += '<li><a href="#"> SubItem ' + AllTrim( Str( nSubItem ) ) + "</a></li>"
                cItems += '</ul>'
