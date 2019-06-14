@@ -1,9 +1,9 @@
-#include '{{AP_GetEnv("HONEY_APP")}}\include\hbclass.ch'
-#include '{{AP_GetEnv("HONEY_APP")}}\include\hboo.ch'
+#include '{%AP_GetEnv("HONEY_APP")%}/include/hbclass.ch'
+#include '{%AP_GetEnv("HONEY_APP")%}/include/hboo.ch'
 
 CLASS TUsers
 
-	DATA cFile 		INLINE '{{AP_GetEnv("HONEY_DATA")}}\users.dbf'
+	DATA cFile 		INLINE '{%hb_GetEnv( "HONEY_DATA" )%}\users.dbf'
 	DATA cAlias
 
 	METHOD  New() CONSTRUCTOR
@@ -25,7 +25,7 @@ METHOD Load( cDpt ) CLASS TUsers
 
 	LOCAL aRows := {}
 	LOCAL aReg  := {=>}	
-	LOCAL cPath := '{{AP_GetEnv("HONEY_REPOSITORY")}}'
+	LOCAL cPath := '{%hb_GetEnv( "HONEY_REPOSITORY" )%}'
 	LOCAL lFind := .T.
 	
 	zb_default( @cDpt, '' )
