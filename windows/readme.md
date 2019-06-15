@@ -15,7 +15,7 @@ Recommended settings are:
 
 At c:\Apache24\htdocs create a symlink:
 
-mklink /j modharbour_samples c:\mod_harbour\samples
+```mklink /j modharbour_samples c:\mod_harbour\samples```
 
 From the browse go to localhost/modharbour_samples
 
