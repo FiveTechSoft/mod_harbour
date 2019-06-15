@@ -20,4 +20,6 @@
    <div class="title"><h1>mod_harbour blog</h1></div>
 </div>
 
+{{View("content")}}
+
 </body>
