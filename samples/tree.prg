@@ -41,6 +41,7 @@ ul.tree li > a:not(:last-child):before {
 ul.tree li.open > a:not(:last-child):before {
     content: '- ';
 }
+
 </style>
 <ul class="tree">
 <?prg local nPart, nItem, nSubItem
