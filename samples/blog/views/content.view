@@ -1,3 +1,29 @@
-<div>
-Welcome to the mod_harbour blog example
-</div>
+            <div class="col-lg-9 col-md-9 col-sm-12">
+
+                <p class="lead">Bold text contents</p>
+
+                <div class="well ">
+                    <large>boxed content</large>
+                </div>
+
+                <p>Normal text</p>
+
+                <blockquote>
+                   <p>Quoted text</p>
+                   <footer>quoted text footer <cite title="Source Title">Italic</cite></footer>
+                </blockquote>
+
+                <p>Normal text</p>
+                <p>more normal text</p>
+
+                <blockquote>
+                   <p>Another quoted text</p>
+                </blockquote>
+
+                 <div class="image-block">
+                     <img src="https://static.pexels.com/photos/268455/pexels-photo-268455.jpeg" class="img-responsive" >
+                 </div>
+
+                 <p>More normal text</p>
+
+             </div>
