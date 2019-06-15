@@ -1,6 +1,54 @@
-function Main()
+//----------------------------------------------------------------------------//
+//
+// Author : ( c ) Antonio Linares & Cristobal Navarro
+// Date   : 14/06/2019
+// Version: 1.0
+//
+//----------------------------------------------------------------------------//
 
-   TEMPLATE
+#xcommand TEXT INTO <v> => #pragma __cstream|<v>:=%s
+#xcommand TEXT INTO <v> ADDITIVE => #pragma __cstream|<v>+=%s
+#xcommand TEXT TO VAR <var> => #pragma __stream|<var>:=%s
+#xcommand ENDTEXT => #pragma __endtext
+
+function Main( cFile )
+
+   local cText    := ""
+   local cTabFile := "NONAME1.PRG"
+   local cToolTab := AP_GetEnv( "DOCUMENT_ROOT" ) + "\modharbour_examples\" 
+   local oEditor
+   //? AP_GetEnv( "LIBHARBOUR" )
+   TEXT TO VAR cText
+function Main()
+   ? "Hello world"
+return nil
+   ENDTEXT
+
+   if Len( hb_aParams() ) > 0
+      if !Empty( At( "source=", cFile ) )
+         cFile := StrTran( cFile, "source=", "" )
+      endif
+      if Empty( At( "http", cFile ) ) .and. File( cFile )
+         cText    := MemoRead( cFile )
+         cTabFile := HB_FNameNameExt( cFile )
+         cToolTab := HB_FNameDir( cFile )
+         cToolTab := StrTran( cToolTab, "\", "\\" )
+      else
+         if !Empty( hb_aParams()[ 1 ] )
+            cText    := ""
+            cTabFile := HB_FNameNameExt( cFile )
+            cToolTab := cFile
+            cToolTab := StrTran( cToolTab, "\", "\\" )
+         else
+            cToolTab := StrTran( cToolTab, "\", "/" )
+         endif
+      endif
+   endif
+   //if !( hb_ps() == "/" )
+   //   cToolTab := StrTran( cToolTab, "/", hb_ps() )
+   //endif
+
+   TEMPLATE USING oEditor PARAMS cText, cTabFile, cToolTab
    <html>
    <head>
       <meta charset="utf-8">
@@ -10,147 +58,194 @@ function Main()
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="https://fivetechsoft.github.io/xcloud/source/js/xcloud.js"></script>
       <link rel="stylesheet" href="https://fivetechsoft.github.io/xcloud/source/css/xcloud.css"> 
-      <title>Sandbox</title>
-<style>
+      <title>XCloud V.1.0</title>
+      <meta name="author" content="Cristobal Navarro">
 
-.container-fluid {
-   color:#2C2828;
-   background-color:#F5F5F5;
+   <style>
+
+   .container-fluid {
+      color:#2C2828;
+      background-color:Ivory;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
    }
 
-#editor { 
-   position: absolute;
-   top: 0;
-   right: 0;
-   bottom: 0;
-   left: 15;
-   border: 1px solid;
+   #editor { 
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 15;
+      padding-top: 0px;
+      padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px;
    }
 
-#tabs { 
-   position: relative;
-   top: 0;
-   right: 0;
-   bottom: 0;
-   left: 0;
-   padding-top: 0px; 
-   padding-bottom: 0px;
+   #tabs { 
+      position: relative;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding-top: 0px;
+      padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px;
    }
 
-.btn {
-   color:white;
-   background-color:#2C2828;
+   .col-md-6 {
+      padding-top: 0px; 
+      padding-bottom: 0px;
+      padding-left: 4px; 
+      padding-right: 4px;
+      color: #2C2828;
+      background-color: #ffff;
    }
 
-.btn:hover {
-   color: #2C2828;
-   background-color: #ffff;
+   .btn {
+      color:white;
+      background-color:#002240;
    }
 
-.btn:focus {
-   color: #2C2828;
-   background-color: #ffff;
+   .btn:hover {
+      color: #002240;
+      background-color: #FFFF;
    }
 
-.vsplitbar {
-	width: 4px;
-	background: LightGray;
+   .btn:focus {
+      color: #2C2828;
+      background-color: #FFFF;
    }
 
-body {
-   background-color: #F5F5F5;
+   .vsplitbar {
+   	width: 4px;
+   	background: #92A8D1;
    }
 
-.nav-tabs > li {
-   margin-left:0px;
-   position:relative;    
-}
-
-.nav-tabs > li > a
-   {
-   padding-top: 5px; 
-   padding-bottom: 5px;
-   padding-right: 25px;
-   display:inline-block;
+   body {
+      background-color: Ivory;
    }
 
-.nav-tabs > li > span {
-    display:none;
-    cursor:pointer;
-    position:absolute;
-    right: 10px;
-    top: 6px;
-    color: red;
-}
-
-.nav-tabs > li:hover > span {
-    display: inline-block;
-}
-
-.nav-tabs > li.active > a {
-   color:#2C2828;
-   background-color: white;
+   .nav-tabs > li {
+      margin-left:0px;
+      position:relative;
+      font-size: 14px;
+      font-family: "Segoe UI Symbol";
    }
 
-.nav-tabs > li.active > a:focus 
-   {
-   color:white;
-   background-color:gray;
+   .nav-tabs > li > a
+      {
+      padding-top: 5px; 
+      padding-bottom: 5px;
+      padding-right: 25px;
+      display:inline-block;
    }
 
-.nav-tabs > li.active > a:hover {
-   color:white;
-   background-color:lightgray;
+   .nav-tabs > li > span {
+       display:none;
+       cursor:pointer;
+       position:absolute;
+       right: 10px;
+       top: 5px;
+       color: red;
    }
 
-</style>
+   .nav-tabs > li:hover > span {
+       display: inline-block;
+   }
 
+   .nav-tabs > li.active > a {
+      color:#2C2828;
+      background-color: #FFF29D;
+   }
+
+   .nav-tabs > li.active > a:focus {
+      color:white;
+      background-color: #002240;
+   }
+
+   .nav-tabs > li.active > a:hover {
+      color:#2C2828;
+      background-color:lightgray;
+   }
+
+   .close {
+      color: #ffff; 
+      opacity: 1;
+   }
+
+   </style>
    </head>
+
    <body>
-      <div class="container-fluid">
-         <nav class="navbar navbar-inverse" 
-              style="background-color:LightGray;border:0px;height:8%;">
-            <div class="nav navbar-nav">
-               <a class="navbar-brand" href="https://fivetechsoft.github.io/mod_harbour/" style="color: #2C2828;">
-                  <span class="glyphicon glyphicon-menu-hamburger" height="36" aria-hidden="true"></span> SandBox</a>
-               <li><button class="btn navbar-btn btn-sm" onclick="Run()" title="[ F9 ]"><span class="glyphicon glyphicon-flash"></span> Run</button></li>
-               <li><button class="btn navbar-btn btn-sm" onclick="Download()" title="[ Ctrl + S ]"><span class="glyphicon glyphicon-save"></span> Save</button></li>
-               <a class="navbar-brand" href="#"></a>
-               <li><button class="btn navbar-btn btn-sm" onclick="Clear()" title="[ F5 ]"><span class="glyphicon glyphicon-edit"></span> Clear</button></li>
-               <a class="navbar-brand" href="#"></a>
-               <li><button class="btn navbar-btn btn-sm" onclick="editor.undo()" title="[ Ctrl + Z ]"><span class="glyphicon glyphicon-repeat"></span> Undo</button></li>
-               <li><button class="btn navbar-btn btn-sm" onclick="editor.redo()" title="[ Ctrl + A ]"><span class="glyphicon glyphicon-refresh"></span> Redo</button></li>
-               <div class="col-sm-1";>
-               <input type="file" class="btn navbar-btn btn-sm" name="SelectFile" id="selectfile" accept=".prg" onchange="openFile(event)"><br>
-               </div>
+      <nav class="navbar navbar-inverse" style="border:0px;height:7.5%;">
+         <div class="container-fluid"
+            style="background-color:#92A8D1;border:0px;height:100%;">
+            <div class="navbar-header">
+               <a class="navbar-brand" href="https://fivetechsoft.github.io/mod_harbour/"
+                  style="color:#002240;padding-top:4px;padding-left:20px;padding-right:14px;padding-bottom:4px;">
+                  <span class="glyphicon glyphicon-menu-hamburger" height="46" aria-hidden="true"></span>
+                  <b>xcloud v.1.0</b><p><h5><b>Ide for mod_harbour</b></h5></p></a>
             </div>
-         </nav>
-      </div>
-      <ul class="nav nav-tabs" id="tabs" role="tablist" style="background-color:#F5F5F5;">
-         <li class="active" id="tab1"><a href="#row1" role="tab">Noname1.prg</a>
-         <span>x</span></li>
-      </ul>
-      <div class="tab-content">
-      <div class="row" id="row1" style="background-color:#F5F5F5;width:101.0%;height:82.5%;">
-         <div class="col-sm-7" style="background-color:#F5F5F5;height:99.5%;">
-         <div id="editor" style="height:100%;">function Main()
-
-   ? "Hello world"
-
-return nil</div>
+            <div class="nav navbar-nav">
+               <div class="col-sm-1">
+               <input type="file" directory class="btn navbar-btn btn-md btn-sm" name="SelectFile" id="selectfile" accept=".prg" onchange="openFile(event)"><br>
+               </div>
+               <a class="navbar-brand" href="#"></a>
+               <ul class="nav navbar-nav navbar-right">
+                  <li><button class="btn navbar-btn btn-sm" onclick="Run()" title="[ F9 ]"><span class="glyphicon glyphicon-flash"></span> Run</button></li>
+                  <li><button class="btn navbar-btn btn-sm" onclick="Download()" title="[ Ctrl + S ]">
+                      <span class="glyphicon glyphicon-cloud-download"></span> Save</button></li>
+                  <li><button class="btn navbar-btn btn-sm"  onclick="$('#saveas').modal()" title="[ Ctrl + D ]">
+                      <span class="glyphicon glyphicon-save"></span> Save As</button></li>
+                  <a class="navbar-brand" href="#"></a>
+                  <li><button class="btn navbar-btn btn-md btn-sm" onclick="Clear()" title="[ F5 ]"><span class="glyphicon glyphicon-edit"></span> Clear</button></li>
+                  <li><button class="btn navbar-btn btn-md btn-sm" onclick="editor.undo()" title="[ Ctrl + Z ]"><span class="glyphicon glyphicon-repeat"></span> Undo</button></li>
+                  <li><button class="btn navbar-btn btn-md btn-sm" onclick="editor.redo()" title="[ Ctrl + A ]"><span class="glyphicon glyphicon-refresh"></span> Redo</button></li>
+                  <a class="navbar-brand" href="#"></a>
+                  <li><button class="btn navbar-btn btn-md btn-sm" 
+                       onclick='editor.execCommand("showSettingsMenu")' title="[ CTRL + , ]">
+                       <span class="glyphicon glyphicon glyphicon-cog"></span> Setup</button></li>
+                  <li><button class="btn navbar-btn btn-sm" 
+                       onclick='editor.execCommand("showKeyboardShortcuts")' title="[ CTRL + ALT + H ]">
+                       <span class="glyphicon glyphicon-question-sign"></span> Help</button></li>
+                  <li><button class="btn navbar-btn btn-sm" onclick="$('#about').modal()">
+                       <span class="glyphicon glyphicon-info-sign"></span> About</button></li>
+               </ul>
+            </div>
          </div>
-         <div class="col-sm" id="result" style="background-color:#F5F5F5;width:99.6%;height:99.5%;"></div>
-      </div>
+      </nav>
+      <ul class="nav nav-tabs" id="tabs" role="tablist" style="background-color:Ivory;">
+         <li class="active" id="tab1"><a href="#row1" role="tab" title="<?prg return cToolTab ?>">
+            <?prg return cTabFile ?></a><span>x</span></li>
+      </ul>
+      <div class="tab-content" style="background-color:Ivory;width:100%;height:88.0%;">
+         <div class="row" id="row1" style="background-color:Ivory;width:100%;height:100%;">
+            <div class="col-sm-7" style="background-color:Ivory;width:100%;height:100%;">
+               <div id="editor" style="height:100%;"><?prg return cText ?></div>
+            </div>
+            <div class="col-sm" id="result"
+               style="border:0.5px solid;border-color:#92A8D1;background-color:Ivory;height:100%;padding-left:5px;">
+            </div>
+         </div>
       </div>
       <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+      <script src="https://fivetechsoft.github.io/xcloud/demo/kitchen-sink/require.js"></script>
+      <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ext-modelist.js"></script>
       <script>
-         var ctab = '' ;
+         var ctab = "" ;
          var textos = [];
-         /*
-         //ace.require("ace/ext/language_tools");
-         */
-
          var editor = ace.edit('editor');
+         var EditSession1 = ace.require("ace/edit_session").EditSession;
+         ctab = $('#tabs a:last').text().trim().toUpperCase();
+         textos[ ctab ] = editor.getValue();
+
+         editor.commands.removeCommand('jumptomatching');
+
          // Default value is the first one in comments
          // All options are set to default value
          editor.setOptions({
@@ -187,7 +282,7 @@ return nil</div>
             maxPixelHeight: 0, // number -> maxLines: set the maximum height in pixel, when 'maxLines' is defined. 
             scrollPastEnd: 0, // number -> !maxLines: if positive, user can scroll pass the last line and go n * editorHeight more distance 
             fixedWidthGutter: false, // boolean: true if the gutter should be fixed width
-            theme: 'ace/theme/twilight',  //monokai //pastel_on_dark // theme string from ace/theme or custom?
+            theme: 'ace/theme/cobalt', //monokai //twilight //terminal //pastel_on_dark // theme string from ace/theme or custom?
 
             // mouseHandler options
             scrollSpeed: 2, // number: the scroll speed index
@@ -209,76 +304,55 @@ return nil</div>
             mode: 'ace/mode/c_cpp' // string: path to language mode 
          });
 
-         var EditSession1 = ace.require("ace/edit_session").EditSession;
-
-         //var EditSession = require("https://fivetechsoft.github.io/xcloud/lib/ace/edit_session").EditSession;
-         textos[ $('#tabs a:last').text() ] = editor.getValue();
-
          editor.commands.addCommand({
-            name: 'Run',
-            bindKey: {win: 'F9',  mac: 'F9'},
-            exec: function(editor) {
-               Run();
-               },
-             readOnly: true // false if this command should not apply in readOnly mode
-          });
+             name: "showKeyboardShortcuts",
+             bindKey: {win: "Ctrl-Alt-h", mac: "Command-Alt-h"},
+             exec: function(editor) {
+                 ace.config.loadModule("ace/ext/keybinding_menu", function(module) {
+                     module.init(editor);
+                     editor.showKeyboardShortcuts()
+                   })
+               }
+            });
          editor.commands.addCommand({
-            name: 'Clear',
-            bindKey: {win: 'F5',  mac: 'F5'},
-            exec: function(editor) {
-               Clear();
-               },
-             readOnly: true // false if this command should not apply in readOnly mode
-          });
+             name: 'Help',
+             bindKey: {win: 'F1',  mac: 'F1'},
+             exec: function(editor) {
+                $('#about').modal();
+                },
+              readOnly: true // false if this command should not apply in readOnly mode
+            });
          editor.commands.addCommand({
-            name: 'Save',
-            bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
-            exec: function(editor) {
-               Download();
-               },
-             readOnly: true // false if this command should not apply in readOnly mode
-          });
+             name: 'Clear',
+             bindKey: {win: 'F5',  mac: 'F5'},
+             exec: function(editor) {
+                Clear();
+                },
+              readOnly: true // false if this command should not apply in readOnly mode
+            });
          editor.commands.addCommand({
-            name: 'Undo',
-            bindKey: {win: 'Ctrl-Z',  mac: 'Command-Z'},
-            exec: function(editor) {
-               editor.undo();
-               },
-             readOnly: true // false if this command should not apply in readOnly mode
-          });
+             name: 'Run',
+             bindKey: {win: 'F9',  mac: 'F9'},
+             exec: function(editor) {
+                Run();
+                },
+              readOnly: true // false if this command should not apply in readOnly mode
+            });
          editor.commands.addCommand({
-            name: 'Redo',
-            bindKey: {win: 'Ctrl-A',  mac: 'Command-A'},
-            exec: function(editor) {
-               editor.redo();
-               },
-             readOnly: true // false if this command should not apply in readOnly mode
-          });
-         editor.commands.addCommand({
-            name: 'Redo',
-            bindKey: {win: 'Ctrl-O',  mac: 'Command-O'},
-            exec: function(editor) {
-               window.alert( "Press CTRL + F: dialog Search and Replace");
-               },
-             readOnly: true // false if this command should not apply in readOnly mode
-          });
+             name: 'Save',
+             bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
+             exec: function(editor) {
+                Download();
+                },
+              readOnly: true // false if this command should not apply in readOnly mode
+            });
 
          editor.session.on('change', function(delta) {
             // delta.start, delta.end, delta.lines, delta.action
-            //if ( editor.session.getLength() > 1 ) {
-            //   textos[ ctab ] = editor.getValue();
-            //   }
-            //else {
-            //      if( editor.getLine( 1 ) != '' ) {
-            //         textos[ ctab ] = editor.getValue();
-            //      }
-            //   }
-            
             if ( editor.getValue() ) {
-               textos[ ctab ] = editor.getValue();
+               textos[ ctab.toUpperCase() ] = editor.getValue();
             }
-            
-          })
+          } );
 
          function Search() {
             editor.find( "o", {
@@ -293,13 +367,30 @@ return nil</div>
                          } );
          }
 
-         function Download() {
-            //var filename = $('#tabs a:last').text();
-            var filename = ctab;
+         function SaveFileAs() {
+            var fil = document.getElementById("filesave").value;
             var content = editor.getValue();
             var pom = document.createElement('a');
-            //console.log( ctab );            
-            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + 
+                 encodeURIComponent( content.replace( /\\n/g, "\\r\\n" ) ) );
+            pom.setAttribute('download', fil );
+
+            if (document.createEvent) {
+                var event = document.createEvent('MouseEvents');
+                event.initEvent('click', true, true);
+                pom.dispatchEvent(event);
+            }
+            else {
+                pom.click();
+            }
+         }
+
+         function Download() {
+            var filename = ctab.trim();
+            var content = editor.getValue();
+            var pom = document.createElement('a');
+            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + 
+                 encodeURIComponent( content.replace( /\\n/g, "\\r\\n" ) ) );
             pom.setAttribute('download', filename);
 
             if (document.createEvent) {
@@ -318,16 +409,18 @@ return nil</div>
             Run();
             selectfile.value = '';
             //$(".nav-tabs li").children('a').last().focus();
-            textos[ ctab ] = text;
+            textos[ ctab.toUpperCase() ] = text;
+            //editor.focus();
          }
 
         function addtab( name ) {
             var nextTab = $('#tabs').children().length+1;
-            $('<li class="active" id="tab'+nextTab+'"'+ '><a href="#row1" role="tab">+"Tab"+</a><span>x</span></li>').appendTo('#tabs');
+            ctab = name.trim().toUpperCase();
+            $('<li class="active" id="tab'+nextTab+'"'+ '><a href="#row1" role="tab" title=' + 
+               "<?prg return cToolTab ?>" + ">" + '</a><span>x</span></li>').appendTo('#tabs');
           	//$('<div class="row" id="row1'+nextTab+'"'+'>'+$('#row1')+'</div>').appendTo('.tab-content');
             $('<div class="row" id="row1">'+'</div>').appendTo('.tab-content');
-            $('#tabs a:last').text( name );
-            ctab = name;
+            $('#tabs a:last').text( ctab );
           	$('#tabs a:last').show();
             $('#tabs a:last').focus();
         }
@@ -341,25 +434,164 @@ return nil</div>
             reader.readAsText( input.files[0] );
             reader.onload = function(){
             var text = reader.result;
-            addtab( input.files[0].name );
-            editor.setValue( text, -1 );
-            textos[ ctab ] = text;
-          }
-        }
+            if ( input.files[0] ) {
+               if ( ctab.trim().toUpperCase() != "NONAME1.PRG" ) { //& !editor.getValue() &
+                  addtab( input.files[0].name );
+                  $('#tabs a:last').title = $("#selectfile").value ;
+               }
+               else {
+                  ctab = input.files[0].name.trim().toUpperCase();
+                  $('#tabs a:first').text( ctab );
+                  $('#tabs a:first').title = $("#selectfile").value ;
+                  $('#tabs a:first').focus();
+               }
+               //console.log( document.getElementById("selectfile").value );
+               editor.setValue( text, -1 );
+               var mode = autoImplementedMode( ctab.toUpperCase() );
+               //var mode = getModeByFileExtension( ctab );
+               if ( mode ) {
+                  editor.getSession().setMode(mode);
+               }
+               textos[ ctab.toUpperCase() ] = text;
+            }
+           }
+           //editor.focus();
+         }
+
+         function getFile( url ){
+            var request = new XMLHttpRequest();
+            request.open( 'GET', url, true);
+            //request.setRequestHeader( "Access-Control-Allow-Headers", "Origin, Methods, Content-Type, X-Requested-With, Accept" );
+            //request.setRequestHeader("Access-Control-Request-Headers", "*" );
+            request.setRequestHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
+            //request.setRequestHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+            request.setRequestHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, content-type, accept, authorization" );
+            request.setRequestHeader( 'Access-Control-Allow-Origin', 'localhost:80' );
+            //request.setRequestHeader( 'Access-Control-Allow-Methods', 'GET, POST, PUT, HEAD' );
+            request.timeout = 10000;
+            request.onload = function () {
+             //   window.alert("Loading");
+             //   window.alert(request.responseText);
+             };
+            request.onsuccess = function() {
+             //   window.alert("Success!");
+             //   window.alert(request.responseText);
+             };
+            request.onerror = function() {
+             //   window.alert("Error!");
+             //   window.alert(request.responseText);
+             };
+            request.onprogress = function() {
+             //   window.alert("Progress");
+             //   window.alert(request.responseText);
+             };
+            request.send(null);
+            request.onreadystatechange = function () {
+               if ( request.readyState === 4 && request.status === 200 ) {
+                  var type = request.getResponseHeader('Content-Type');
+                  if (type.indexOf("text") !== -1) {
+                     return request.responseText;
+                     }
+                  }
+               }
+         }
+
+         function autoImplementedMode( filename ){
+             var ext = filename.split('.').pop();
+             var prefix = "ace/mode/";
+             if(!ext){
+                 return prefix + "text";
+             }
+             switch (ext) {
+                 case "c":
+                    return prefix + "c_cpp";
+                 case "ccp":
+                    return prefix + "c_cpp";
+                 case "cxx":
+                    return prefix + "c_cpp";
+                 case "h":
+                    return prefix + "c_cpp";
+                 case "prg":
+                    return prefix + "c_cpp";
+                 case "ch":
+                    return prefix + "c_cpp";
+                 case "rc":
+                    return prefix + "c_cpp";
+                 case "htm":
+                    return prefix + "html";
+                 case "html":
+                    return prefix + "html";
+                 case "tpl":
+                    return prefix + "html";
+                 case "js":
+                    return prefix + "javascript";
+                 case "css":
+                    return prefix + "javascript";
+                 case "cs":
+                    return prefix + "csharp";
+                 case "php":
+                    return prefix + "php";
+                 case "rb":
+                    return prefix + "ruby";
+                 case "xml":
+                    return prefix + "xml";
+                 case "json":
+                    return prefix + "json";
+                    //indent for levels
+                    //editor.setValue(JSON.stringify(jsonDoc, null, '\t'));
+             }
+         }
+
+         function getModeByFileExtension(path){
+            var modelist = ace.require("ace/ext/modelist");
+            return modelist.getModeForPath(path).mode;
+         }
+
+         function cFileNoPathLocal( cname ) {
+            var name = cname.split('\').pop();
+         }
+
+        //block.addEventListener("dragstart", function(e) {
+        //    e.dataTransfer.setData("text", "text from drag block");
+        //})
+
+        //editor.container.addEventListener("drop", function(e){ 
+        //   var pos = editor.getCursorPosition() 
+        //   showDialog(e, function(text){ 
+        //       editor.session.insert(pos, text) 
+        //   }) 
+        //   e.stopPropagation() 
+        //   e.preventDefault() 
+        //}, true
 
         $(document).ready(function () {
+           //editor.on( "focus", function(e) {
+           //  console.log( ctab );
+           //} );
            $(".nav-tabs").on("click", "a", function(e){
-              //var current_tab  = e.target;
-              //var previous_tab = e.relatedTarget;
-              e.preventDefault();
-              if ( ctab != $(this).text() ) {
-              ctab = $(this).text();
-              editor.setValue('',1);
-              Run();
-              editor.setValue( textos[ ctab ], -1 );
+              if ( !ctab ) {
+                 ctab = "<?prg return cTabFile ?>"
               }
-              $(this).show(); //tab('show');
+              var curl = "<?prg return cToolTab ?>"
+              if ( ctab.toUpperCase() != "NONAME1.PRG" & !editor.getValue() &
+                   ( curl.indexOf("http://") > -1 | curl.indexOf("https://") > -1 ) ) {
+                 getFile( curl );
+              }
+              e.preventDefault();
+              if ( ctab.toUpperCase() != $(this).text().toUpperCase() ) {
+                 ctab = $(this).text().toUpperCase();
+                 $(this).text( ctab.trim().toUpperCase() );
+                 editor.setValue('',1);
+                 Run();
+                 editor.setValue( textos[ ctab.trim().toUpperCase() ], -1 );
+                 var mode = autoImplementedMode( ctab.trim().toLowerCase() );
+                 if ( mode ) {
+                    editor.getSession().setMode(mode);
+                    }
+                 }
+              $(this).show();
               $(this).focus();
+              //editor.focus();
            })
            .on("click", "span", function () {
               var anchor = $(this).siblings('a');
@@ -368,10 +600,15 @@ return nil</div>
                  textos.splice( anchor.text(), 1);
                  //$(anchor.attr('href')).remove();
                  $(this).parent().remove();
-                 ctab = $('#tabs a:last').text();
+                 ctab = $('#tabs a:last').text().toUpperCase();
                  editor.setValue('',-1);
+                 selectfile.value = '';
                  Run();
-                 editor.setValue( textos[ ctab ], -1 );
+                 editor.setValue( textos[ ctab.trim().toUpperCase() ], -1 );
+                 var mode = autoImplementedMode( ctab.toUpperCase());
+                 if ( mode ) {
+                    editor.getSession().setMode(mode);
+                    }
                  $('#tabs a:last').click();
                  //$(".nav-tabs li").children('a').last().focus();
               }
@@ -381,7 +618,7 @@ return nil</div>
            //    window.alert('Hello from the other siiiiiide!');
            //    var current_tab = e.target;
            //    var previous_tab = e.relatedTarget;
-           //    ctab = current_tab.text();
+           //    ctab = current_tab.text().toUpperCase();
            //});
 
            $(".nav-tabs li").children('a').last().click();
@@ -390,38 +627,39 @@ return nil</div>
            $("#row1").splitter();
         });
 
-/*
- * jQuery.splitter.js - two-pane splitter window plugin
- *
- * version 1.51 (2009/01/09) 
- * 
- * Dual licensed under the MIT and GPL licenses: 
- *   https://www.opensource.org/licenses/mit-license.php 
- *   http://www.gnu.org/licenses/gpl.html 
- */
+//----------------------------------------------------------------------------//
+// jQuery.splitter.js - two-pane splitter window plugin
+// 
+// version 1.51 (2009/01/09) 
+// 
+// Dual licensed under the MIT and GPL licenses: 
+//   https://www.opensource.org/licenses/mit-license.php 
+//   http://www.gnu.org/licenses/gpl.html 
+//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------//
+//
+// The splitter() plugin implements a two-pane resizable splitter window.
+// The selected elements in the jQuery object are converted to a splitter;
+// each selected element should have two child elements, used for the panes
+// of the splitter. The plugin adds a third child element for the splitbar.
+// 
+// For more details see: http://methvin.com/splitter/
+//
+//
+// @example $('#MySplitter').splitter();
+// @desc Create a vertical splitter with default settings 
+//
+// @example $('#MySplitter').splitter({type: 'h', accessKey: 'M'});
+// @desc Create a horizontal splitter resizable via Alt+Shift+M
+//
+// @name splitter
+// @type jQuery
+// @param Object options Options for the splitter (not required)
+// @cat Plugins/Splitter
+// @return jQuery
+// @author Dave Methvin (dave.methvin@gmail.com)
+//----------------------------------------------------------------------------//
 
-/*
- * The splitter() plugin implements a two-pane resizable splitter window.
- * The selected elements in the jQuery object are converted to a splitter;
- * each selected element should have two child elements, used for the panes
- * of the splitter. The plugin adds a third child element for the splitbar.
- * 
- * For more details see: http://methvin.com/splitter/
- *
- *
- * @example $('#MySplitter').splitter();
- * @desc Create a vertical splitter with default settings 
- *
- * @example $('#MySplitter').splitter({type: 'h', accessKey: 'M'});
- * @desc Create a horizontal splitter resizable via Alt+Shift+M
- *
- * @name splitter
- * @type jQuery
- * @param Object options Options for the splitter (not required)
- * @cat Plugins/Splitter
- * @return jQuery
- * @author Dave Methvin (dave.methvin@gmail.com)
- */
       ; (function ($) {
 
       $.fn.splitter = function (args) {
@@ -519,7 +757,7 @@ return nil</div>
             // Focuser element, provides keyboard support; title is shown by Opera accessKeys
             $.extend({
                   browser : {
-                      opera : /opera/.test(navigator.userAgent.toLowerCase())
+                      opera : /opera/.test(navigator.userAgent.toUpperCase())
                 }
             }) 
             //$.browser.mozilla = /firefox/.test(navigator.userAgent.toLowerCase());
@@ -582,7 +820,7 @@ return nil</div>
                 });
             }
             if (isNaN(initPos))	// King Solomon's algorithm
-                initPos = Math.round(0.55*(splitter[0][opts.pxSplit] - splitter._PBA - bar._DA) );
+                initPos = Math.round(0.52*(splitter[0][opts.pxSplit] - splitter._PBA - bar._DA) );
 
             // Resize event propagation and splitter sizing
             if (opts.anchorToWindow) {
@@ -619,8 +857,111 @@ return nil</div>
       })(jQuery);
 
       </script>
+
+      <div class="modal fade" id="saveas" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Save As:</h4>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+              <form role="form">
+                <div class="form-group">
+                  <label for="filesave"><span class="glyphicon glyphicon-download-alt"></span> Name File</label>
+                  <input type="text" class="form-control" id="filesave" placeholder="Enter file">
+                </div>
+                <button class="btn btn-success btn-block" data-dismiss="modal" onclick="SaveFileAs()">
+                   <span class="glyphicon glyphicon-saved"></span> Save</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div> 
+      
+      <div class="modal fade" id="about" role="dialog">
+        <div class="modal-dialog modal-sl">
+          <div class="modal-content">
+            <div class="modal-header" style="color:#2C2828;background-color:silver;padding:4px 4px;">
+              <button type="button" class="close" data-dismiss="modal" style="color:white;padding:4px 4px;">&times;</button>
+              <h4 class="modal-title">xcloud v.1.0  -  Ide & Editor for mod_harbour</h4>
+            </div>
+            <div class="modal-body" style="color:#2C2828;background-color:white;padding:4px 20px 4px;">
+              <h6>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F2  ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F3  ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F4  ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F5  ]</b></p></div><div class="col-md-6" <p> : CLEAN </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F6  ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F7  ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F8  ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F9  ]</b></p></div><div class="col-md-6" <p> : RUN </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F10 ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F11 ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F12 ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + A</b></p></div><div class="col-md-6" <p> : SELECT ALL </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + C</b></p></div><div class="col-md-6" <p> : COPY </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + F</b></p></div><div class="col-md-6" <p> : SEARCH </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + H</b></p></div><div class="col-md-6" <p> : REPLACE </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + S</b></p></div><div class="col-md-6" <p> : SAVE </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + V</b></p></div><div class="col-md-6" <p> : PASTE </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + X</b></p></div><div class="col-md-6" <p> : CUT </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + Z</b></p></div><div class="col-md-6" <p> : UNDO </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL + SHIFT ] + Z</b></p></div><div class="col-md-6" <p> : REDO </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL + ALT   ] + H</b></p></div><div class="col-md-6" <p> : SHOWKEYBOARDSHORTCUTS</p></div></h6>
+              </div>
+            </div>
+            <div class="modal-footer" style="color:white;background-color:#2C2828;padding:4px 4px;">
+            <h5 class="modal-title">(c) Antonio Linares & Cristobal Navarro</h5>
+            </div>
+          </div>
+        </div>
+      </div> 
    </body>
    </html>
    ENDTEXT
 
 return nil
+
+//----------------------------------------------------------------------------//
