@@ -190,7 +190,11 @@ static int harbour_handler( request_rec * r )
       if( lib_harbour == NULL )
          lib_harbour = LoadLibrary( "c:\\Apache24\\htdocs\\libharbour.dll" );
    #else
-      lib_harbour = dlopen( "/var/www/html/libharbour.so.3.2.0", RTLD_LAZY );      
+      #ifdef DARWIN
+         lib_harbour = dlopen( "/var/www/html/libharbour.so.3.2.0.dylib", RTLD_LAZY );
+      #else
+         lib_harbour = dlopen( "/var/www/html/libharbour.so.3.2.0", RTLD_LAZY );
+      #endif
    #endif
 
    if( lib_harbour == NULL )
