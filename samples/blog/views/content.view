@@ -21,7 +21,7 @@
                 </blockquote>
 
                  <div class="image-block">
-                     <img src="https://static.pexels.com/photos/268455/pexels-photo-268455.jpeg" class="img-responsive" >
+                     <img src=url("/modharbour_samples/blog/images/searocks.jpeg") class="img-responsive" >
                  </div>
 
                  <p>More normal text</p>
