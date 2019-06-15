@@ -3,6 +3,11 @@
 * Fixed function AP_SetContentType() (please review samples/json.prg using PostMan utility). When a 
   constant string is to be set from harbour into the mod, we need to create a copy of it using the
   memory API of the mod.
+  
+2019/June/14
+
+* New samples/apps/honey developed by Carles Aubia, its a great example using MVC (model-view-controller)
+  with mod_harbour. Don't miss to review it.
 
 2019/June/13
 
