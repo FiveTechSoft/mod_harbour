@@ -12,7 +12,7 @@
    </div>
    
    <div class="well">
-      <h2>Share love</h2>
+      <h2>Box with list</h2>
       <ul class="list-inline">
          <li><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></li>
          <li><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></li>
