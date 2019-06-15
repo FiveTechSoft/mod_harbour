@@ -13,7 +13,7 @@ Recommended settings are:
 
 ```c:\mod_harbour  (created using git clone https://github.com/fivetechsoft/mod_harbour)```
 
-At c:\Apache24\htdocs create a symlink:
+At c:\Apache24\htdocs create a symlink: (run cmd as administrator)
 
 ```mklink /j modharbour_samples c:\mod_harbour\samples```
 
