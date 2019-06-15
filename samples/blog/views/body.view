@@ -1,0 +1,23 @@
+<style>
+.container {
+  position: absolute;
+  text-align: center;
+  color: white;
+  padding-left: 0px;
+}
+
+.title {
+  position: absolute;
+  top: 40%;
+  left: 70%;
+}
+</style>
+
+<body>
+
+<div class="container">
+   <img src="/modharbour_samples/blog/images/mountains.jpg">
+   <div class="title"><h1>mod_harbour blog</h1></div>
+</div>
+
+</body>
