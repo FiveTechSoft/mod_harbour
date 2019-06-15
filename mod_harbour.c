@@ -116,7 +116,11 @@ void ap_headers_out_set( const char * szKey, const char * szValue )
 
 void ap_set_contenttype( const char * szContentType )
 {
-   _r->content_type = szContentType;
+   char * szType = ( char * ) apr_pcalloc( _r->pool, strlen( szContentType ) + 1 );
+   
+   strcpy( szType, szContentType );
+   
+   _r->content_type = szType;
 }
 
 const char * ap_body( void )
