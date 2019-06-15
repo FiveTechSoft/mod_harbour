@@ -1,3 +1,9 @@
+2019/June/15
+
+* Fixed function AP_SetContentType() (please review samples/json.prg using PostMan utility). When a 
+  constant string is to be set from harbour into the mod, we need to create a copy of it using the
+  memory API of the mod.
+
 2019/June/13
 
 * New function ReplaceBlocks( cCode ) searches for {{ ... }} and if found, it macroexpands its containt
