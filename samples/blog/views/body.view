@@ -15,11 +15,15 @@
 
 <body>
 
+<div class="container-fluid">
+
 <div class="container">
    <img src="/modharbour_samples/blog/images/mountains.jpg">
    <div class="title"><h1>mod_harbour blog</h1></div>
 </div>
 
 {{View("content")}}
+
+</div>
 
 </body>
