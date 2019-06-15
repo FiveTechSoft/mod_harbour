@@ -48,7 +48,7 @@
             </a> 
          </div> 
          <div class="media-body"> 
-            <h4 class="media-heading">Media heading</h4> Cras sit amet nibh libero, in gravida nulla.
+            <h4 class="media-heading">Box with images</h4>First image
          </div> 
       </div>
       
@@ -59,7 +59,7 @@
             </a> 
          </div> 
          <div class="media-body"> 
-            <h4 class="media-heading">Media heading</h4> Cras sit amet nibh libero, in gravida nulla.
+            <h4 class="media-heading">Another image</h4>Second image
          </div> 
       </div>
       
@@ -70,7 +70,7 @@
             </a> 
          </div> 
          <div class="media-body"> 
-            <h4 class="media-heading">Media heading</h4> Cras sit amet nibh libero, in gravida nulla.
+            <h4 class="media-heading">One more image</h4>Third image
          </div> 
       </div>
       
