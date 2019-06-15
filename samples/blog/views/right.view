@@ -1,8 +1,8 @@
 <div class="col-lg-3  col-md-3 col-sm-12">
    
    <div class="well">
-      <h2>Subscription Box</h2>
-      <p>Form Description Goes here</p>
+      <h2>Box with input title</h2>
+      <p>description goes here</p>
       <div class="input-group">
          <input type="text" class="form-control" placeholder="Search for...">
          <span class="input-group-btn">
