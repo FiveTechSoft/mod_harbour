@@ -11,7 +11,7 @@ LoadModule harbour_module modules/mod_harbour.so
 
 Recommended settings are:
 
-c:\mod_harbour  (created using git clone https://github.com/fivetechsoft/mod_harbour)
+```c:\mod_harbour  (created using git clone https://github.com/fivetechsoft/mod_harbour)```
 
 At c:\Apache24\htdocs create a symlink:
 
@@ -19,4 +19,4 @@ mklink /j modharbour_samples c:\mod_harbour\samples
 
 From the browse go to localhost/modharbour_samples
 
-When you want to updete mod_harbour, simply go to mod_harbour and do a git pull
+When you want to update mod_harbour, simply go to mod_harbour and do a git pull
