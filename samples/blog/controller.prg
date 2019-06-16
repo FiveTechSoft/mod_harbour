@@ -2,9 +2,7 @@ function Controller( cRequest )
 
    cContent = cRequest
    
-   // AP_RPuts( View( "main" ) )
-
-   ? GetContent()
+   AP_RPuts( View( "main" ) )
 
 return nil
 
