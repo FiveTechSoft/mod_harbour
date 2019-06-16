@@ -1,6 +1,12 @@
 function Main()
 
-   Controller( "main" )
+   do case
+      case Ap_Args() == "about"
+           Controller( "about" )
+           
+      otherwise     
+           Controller( "main" )
+   endcase        
 
 return nil
 
