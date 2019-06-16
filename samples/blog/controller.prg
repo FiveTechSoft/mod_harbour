@@ -12,7 +12,7 @@ return nil
 
 function GetContent()
 
-return If( Empty( cContent ), "content", cContent )
+return cContent
 
 //----------------------------------------------------------------------------//
 
