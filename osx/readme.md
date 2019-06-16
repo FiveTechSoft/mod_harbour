@@ -8,7 +8,9 @@ top_builddir=/usr/local/lib/httpd
 
 cp mod_harbour.so /usr/local/lib/httpd/modules
 
-cp libharbour.so.3.2.0.dylib /Library/WebServer/Documents
+Create a symlink at /Library/WebServer/Documents pointing to libharbour.so.3.2.0.dylib
+
+sudo ln -sf /Users/$USER/mod_harbour/osx/libharbour.3.2.0.dylib libharbour.3.2.0.dylib
 
 **Apache configuration file:**
 
