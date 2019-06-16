@@ -1,3 +1,13 @@
+Apache configuration folder:
+
+/etc/apache2/
+
+Served files folder: (htdocs)
+
+/Library/WebServer/Documents
+
+<hr>
+
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 brew install httpd
