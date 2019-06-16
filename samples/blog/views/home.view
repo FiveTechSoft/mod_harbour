@@ -11,7 +11,10 @@
 
                 <blockquote>
                    <p>{{( cRdds := "", AEval( rddList(), { | cRdd | cRdds += cRdd } ) )}}</p>
-                   <footer>quoted text footer <cite title="Source Title">Italic</cite></footer>
+                   <footer>
+                      ( cRdds := "", AEval( rddList(), { | cRdd | cRdds += cRdd } ) )
+                      <cite title="Source Title"> . yeah! </cite>
+                   </footer>
                 </blockquote>
 
                 <p>Normal text</p>
