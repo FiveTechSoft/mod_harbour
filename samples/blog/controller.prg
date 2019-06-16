@@ -1,5 +1,3 @@
-static cContent
-
 function Controller( cRequest )
 
    cContent = cRequest
