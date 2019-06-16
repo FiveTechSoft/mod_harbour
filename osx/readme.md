@@ -1,6 +1,14 @@
 **Apache configuration file:**
 
-/etc/apache2/httpd.conf
+/etc/apache2/httpd.conf  or
+
+/usr/local/etc/httpd/httpd.conf
+
+Set the right port: 
+
+Listen 80
+
+ServerName localhost
 
 **Served files folder: (htdocs)**
 
