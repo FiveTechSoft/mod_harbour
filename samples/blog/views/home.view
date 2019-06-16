@@ -24,7 +24,8 @@
                      <img src="/modharbour_samples/blog/images/climbing.jpg" class="img-responsive" >
                  </div>
 
-                 <p><hr></pr>
-                 <p>Could you ever thought that you will reach this high ?</p>
+                 <div class="well">
+                    <p>Could you ever thought that you will reach this high ?</p>
+                 </div> 
 
              </div>
