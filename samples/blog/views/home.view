@@ -10,9 +10,9 @@
                 <p>Harbour code embedded in your web pages</p>
 
                 <blockquote>
-                   <p>{{( cRdds := "", AEval( rddList(), { | cRdd | cRdds += cRdd } ) )}}</p>
+                   <p>{{RddList()}}</p>
                    <footer>
-                      ( cRdds := "", AEval( rddList(), { | cRdd | cRdds += cRdd } ) )
+                      All these RDDs available for you, plus MySQL, or any otuer DataBase engine that you may need
                       <cite title="Source Title"> . yeah! </cite>
                    </footer>
                 </blockquote>
