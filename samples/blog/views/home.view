@@ -7,7 +7,7 @@
                     <large>{{hb_Compiler()}}</large>
                 </div>
 
-                <p>Normal text</p>
+                <p>Harbour code embedded in your web pages</p>
 
                 <blockquote>
                    <p>{{( cRdds := "", AEval( rddList(), { | cRdd | cRdds += cRdd } ) )}}</p>
