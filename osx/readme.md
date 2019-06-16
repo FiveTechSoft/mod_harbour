@@ -12,7 +12,7 @@ cd /usr/local/var/www    # instead of /Library/WebServer/Documents
 
 Create a symlink at /usr/local/var/www pointing to libharbour.so.3.2.0.dylib
 
-sudo ln -sf /Users/$USER/mod_harbour/osx/libharbour.3.2.0.dylib libharbour.3.2.0.dylib
+sudo ln -sf /Users/$USER/mod_harbour/osx/libharbour.so.3.2.0.dylib libharbour.so.3.2.0.dylib
 
 Create a symlink to point to the mod_harbour samples folder:
 
