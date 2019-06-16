@@ -44,7 +44,7 @@
       <div class="media"> 
          <div class="media-left"> 
             <a href="#"> 
-               <img src="/modharbour_samples/blog/images/harbour-project.jpeg" class="media-object" alt="64x64" style="width: 64px; height: 64px;"> 
+               <img src="/modharbour_samples/blog/images/harbour-project.jpeg" style="width:128px; height:64px;"> 
             </a> 
          </div> 
          <div class="media-body"> 
