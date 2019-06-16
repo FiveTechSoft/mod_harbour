@@ -1,3 +1,7 @@
 {{View("head")}}
+{{View("menu")}}
 
-{{View("body")}}
+About this blog
+
+{{View("right")}}
+{{View("footer")}}
