@@ -1,3 +1,5 @@
+static cContent
+
 function Main()
 
    Controller( AP_Args() )
