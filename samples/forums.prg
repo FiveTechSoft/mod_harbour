@@ -4,7 +4,7 @@ function Main()
 
    local aCategory
 
-   ? "<h1 align='center'>Blog categories</h1>"
+   ? "<h1 align='center'>Forums categories</h1>"
    ? "<hr />"
 
    for each aCategory in Categories()
