@@ -17,8 +17,9 @@
                    </footer>
                 </blockquote>
 
-                <p>Normal text</p>
-                <p>more normal text</p>
+                <p>This blog uses the MVC (model-view-controller) technology and it has been
+                   entirely coded using Harbour</p>
+                <p>Review its source code here:</p>
 
                 <blockquote>
                    <p>Another quoted text</p>
