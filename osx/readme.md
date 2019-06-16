@@ -1,3 +1,23 @@
+In order to make the generated apxs project, Makefile has to be edited this way:
+
+top_srcdir=/usr/local/lib/httpd
+
+top_builddir=/usr/local/lib/httpd
+
+**Copy mod_harbour.so to the Apache modules folder**
+
+cp mod_harbour.so /usr/local/lib/httpd/modules
+
+cd /usr/local/var/www    # instead of /Library/WebServer/Documents
+
+Create a symlink at /usr/local/var/www pointing to libharbour.so.3.2.0.dylib
+
+sudo ln -sf /Users/$USER/mod_harbour/osx/libharbour.so.3.2.0.dylib libharbour.so.3.2.0.dylib
+
+Create a symlink to point to the mod_harbour samples folder:
+
+ln -sf /Users/anto/mod_harbour/samples modharbour_samples
+
 **Apache configuration file:**
 
 /etc/apache2/httpd.conf  or
@@ -9,6 +29,20 @@ Set the right port:
 Listen 80
 
 ServerName localhost
+
+**Copy the mod_harbour settings into httpd.conf**
+
+```
+LoadModule harbour_module lib/httpd/modules/mod_harbour.so
+
+<FilesMatch "\.(prg|hrb)$">
+    SetHandler harbour
+</FilesMatch>
+```
+
+sudo apachectl restart
+
+**From the browser go localhost**
 
 **Served files folder: (htdocs)**
 
