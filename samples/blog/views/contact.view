@@ -1,5 +1,11 @@
 <div class="col-lg-9 col-md-9 col-sm-12">
 
    mod_harbour is available from GitHub:
+   
+   <div class="well ">
+      <large>git clone https://github.com/fivetechsoft/mod_harbour</large>
+   </div>
+   
+   mod_harbour wiki is available from <a href="https://github.com/fivetechsoft/mod_harbour.wiki"></a>
 
 </div>
