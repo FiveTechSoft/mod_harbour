@@ -1,3 +1,5 @@
+//----------------------------------------------------------------------------//
+
 function Controller( cRequest )
 
    cContent = cRequest
@@ -6,16 +8,24 @@ function Controller( cRequest )
 
 return nil
 
+//----------------------------------------------------------------------------//
+
 function GetContent()
 
 return If( Empty( cContent ), "content", cContent )
+
+//----------------------------------------------------------------------------//
 
 function BlogName()
 
 return "My blog"
 
-function ItemStatus()
+//----------------------------------------------------------------------------//
 
-return If( Empty( cContent ), "class='active'", "" ) 
+function ItemStatus( cItem )
+
+return If( cContent == cItem, "class='active'", "" ) 
+
+//----------------------------------------------------------------------------//
 
 {% MemoRead( hb_GetEnv( "PRGPATH" ) + "/view.prg" ) %}
