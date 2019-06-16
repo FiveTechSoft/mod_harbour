@@ -3,10 +3,10 @@
    <p class="lead">About this blog</p>
 
    <div class="well ">
-      <large>This blog has been developed using mod_harbour</large>
+      <large>This blog has been developed using mod_harbour<br>
+             mod_harbour is a module extension for Apache that supports Harbour PRGs (and HRBs) same as Apache supports PHPs
+      </large>
    </div>
-
-   <p>mod_harbour is a module extension for Apache that supports Harbour PRGs (and HRBs) same as Apache supports PHPs</p>
 
    <div class="image-block">
       <img src="/modharbour_samples/blog/images/buda.jpg" class="img-responsive" >
