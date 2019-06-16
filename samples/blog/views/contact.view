@@ -23,5 +23,9 @@
    <div class="well">
       <a href="https://harbour.fourtech.es/modharbour_samples/">click here to test all the mod_harbour live demos!</a>
    </div>
+   
+   <div class="image-block">
+      <img src="/modharbour_samples/blog/images/righttime.png" class="img-responsive" >
+   </div>
 
 </div>
