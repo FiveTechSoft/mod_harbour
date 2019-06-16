@@ -31,8 +31,8 @@
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
-               <li><a href="">english</a></li>
-               <li class="active"><a href="">spanish</a></li>
+               <li class="active"><a href="">english</a></li>
+               <li><a href="">spanish</a></li>
             </ul>
          </div>
          
