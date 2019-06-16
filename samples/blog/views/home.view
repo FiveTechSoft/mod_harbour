@@ -10,7 +10,7 @@
                 <p>Normal text</p>
 
                 <blockquote>
-                   <p>Quoted text</p>
+                   <p>{{AEval( rddList(), {| X | cI += iif( Empty( cI ), '', ', ' ) + X } )}}</p>
                    <footer>quoted text footer <cite title="Source Title">Italic</cite></footer>
                 </blockquote>
 
