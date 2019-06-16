@@ -1,3 +1,9 @@
+In order to make the generated apxs project, Makefile has to be edited this way:
+
+top_srcdir=/usr/local/lib/httpd
+
+top_builddir=/usr/local/lib/httpd
+
 **Apache configuration file:**
 
 /etc/apache2/httpd.conf  or
