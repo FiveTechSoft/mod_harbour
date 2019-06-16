@@ -8,6 +8,6 @@ return nil
 
 function GetContent()
 
-return If( Empty( cContent ), "main", cContent )
+return If( Empty( cContent ), "content", cContent )
 
 {% MemoRead( hb_GetEnv( "PRGPATH" ) + "/view.prg" ) %}
