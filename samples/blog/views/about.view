@@ -3,7 +3,7 @@
    <p class="lead">About this blog</p>
 
    <div class="well ">
-      <large>This blog has been developed using mod_harbour<br>
+      <large>This blog has been developed using mod_harbour<br><br>
              mod_harbour is a module extension for Apache that supports Harbour PRGs (and HRBs) same as Apache supports PHPs
       </large>
    </div>
