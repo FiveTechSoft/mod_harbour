@@ -4,6 +4,10 @@ top_srcdir=/usr/local/lib/httpd
 
 top_builddir=/usr/local/lib/httpd
 
+**Copy mod_harbour.so to the Apache modules folder**
+
+cp mod_harbour.so /usr/local/lib/httpd/modules
+
 **Apache configuration file:**
 
 /etc/apache2/httpd.conf  or
