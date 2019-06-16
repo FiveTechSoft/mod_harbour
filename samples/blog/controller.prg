@@ -2,9 +2,9 @@
 
 function Controller( cRequest )
 
-   cContent = cRequest
+   cContent = If( Empty( cRequest ), "home", cRequest )
    
-   AP_RPuts( View( "main" ) )
+   AP_RPuts( View( "default" ) )
 
 return nil
 
