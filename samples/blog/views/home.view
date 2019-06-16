@@ -22,7 +22,7 @@
                 <p>Review its source code here:</p>
 
                 <blockquote>
-                   <p>Another quoted text</p>
+                   <a href="https://github.com/FiveTechSoft/mod_harbour/tree/master/samples/blog">This blog full Harbour source code</a>
                 </blockquote>
 
                  <div class="image-block">
