@@ -1,14 +1,15 @@
+static cContent
+
 function Controller( cRequest )
 
-   do case
-      case cRequest == "main"
-           AP_RPuts( View( "main" ) )
-           
-      case cRequest == "about"
-           AP_RPuts( View( "about" ) ) 
-
-   endcase
+   cContent = cRequest
+   
+   AP_RPuts( View( "main" ) )
 
 return nil
+
+function GetContent()
+
+return If( Empty( cContent ), "main", cContent )
 
 {% MemoRead( hb_GetEnv( "PRGPATH" ) + "/view.prg" ) %}
