@@ -4,7 +4,11 @@
 
 **Served files folder: (htdocs)**
 
-/Library/WebServer/Documents
+cd /Library/WebServer/Documents
+
+**We place a symlink pointing to mod_harbour examples:**
+
+ln -sf /Users/anto/mod_harbour/samples modharbour_samples
 
 **To start Apache:**
 
