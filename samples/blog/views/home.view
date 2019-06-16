@@ -12,7 +12,7 @@
                 <blockquote>
                    <p>{{RddList()}}</p>
                    <footer>
-                      All these RDDs available for you, plus MySQL, or any otuer DataBase engine that you may need
+                      All these RDDs available for you, plus MySQL, or any other DataBase engine that you may need
                       <cite title="Source Title"> . yeah! </cite>
                    </footer>
                 </blockquote>
