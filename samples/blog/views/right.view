@@ -54,8 +54,8 @@
       
       <div class="media"> 
          <div class="media-left"> 
-            <a href="#"> 
-               <img src="" class="media-object" alt="64x64" style="width: 64px; height: 64px;"> 
+            <a href="https://www.apache.org/"> 
+               <img src="/modharbour_samples/blog/images/apache.jpeg" class="media-object" alt="64x64" style="width: 64px; height: 64px;"> 
             </a> 
          </div> 
          <div class="media-body"> 
@@ -65,7 +65,7 @@
       
       <div class="media"> 
          <div class="media-left"> 
-            <a href="#"> 
+            <a href="https://fivetechsoft.github.io"> 
                <img src="" class="media-object" alt="64x64" style="width: 64px; height: 64px;"> 
             </a> 
          </div> 
