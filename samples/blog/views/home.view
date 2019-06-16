@@ -1,6 +1,6 @@
             <div class="col-lg-9 col-md-9 col-sm-12">
 
-                <p class="lead">Using Harbour to build your web sites finally!</p>
+                <p class="lead">Using Harbour to build your websites finally!</p>
 
                 <div class="well ">
                     <large>{{hb_Version()}}<br><br></large>
