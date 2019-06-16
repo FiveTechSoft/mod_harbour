@@ -3,7 +3,7 @@
                 <p class="lead">Bold text contents</p>
 
                 <div class="well ">
-                    <large>{{hb_Version()}}</large>
+                    <large>{{hb_Version()}}<br><br></large>
                     <large>{{hb_Compiler()}}</large>
                 </div>
 
