@@ -20,6 +20,20 @@ Listen 80
 
 ServerName localhost
 
+**Copy the mod_harbour settings into httpd.conf**
+
+```
+LoadModule harbour_module lib/httpd/modules/mod_harbour.so
+
+<FilesMatch "\.(prg|hrb)$">
+    SetHandler harbour
+</FilesMatch>
+```
+
+sudo apachectl restart
+
+**From the browser go localhost**
+
 **Served files folder: (htdocs)**
 
 cd /Library/WebServer/Documents
