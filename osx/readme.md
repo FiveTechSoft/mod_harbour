@@ -1,10 +1,14 @@
-Apache configuration folder:
+**Apache configuration file:**
 
-/etc/apache2/
+/etc/apache2/httpd.conf
 
-Served files folder: (htdocs)
+**Served files folder: (htdocs)**
 
 /Library/WebServer/Documents
+
+**To start Apache:**
+
+sudo apachectl restart
 
 <hr>
 
