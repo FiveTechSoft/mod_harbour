@@ -8,6 +8,8 @@ top_builddir=/usr/local/lib/httpd
 
 cp mod_harbour.so /usr/local/lib/httpd/modules
 
+cp libharbour.so.3.2.0.dylib /Library/WebServer/Documents
+
 **Apache configuration file:**
 
 /etc/apache2/httpd.conf  or
