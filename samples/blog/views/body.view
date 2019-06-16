@@ -16,7 +16,7 @@
                 </ul>
             </div>
 
-            {{View( "content" )}}
+            {{View( GetContent() )}}
 
             {{View( "right" )}}
        </div>  
