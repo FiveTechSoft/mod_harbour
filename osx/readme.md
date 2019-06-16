@@ -8,7 +8,7 @@ top_builddir=/usr/local/lib/httpd
 
 cp mod_harbour.so /usr/local/lib/httpd/modules
 
-cd /usr/local/var/www     // instead of /Library/WebServer/Documents
+cd /usr/local/var/www    # instead of /Library/WebServer/Documents
 
 Create a symlink at /usr/local/var/www pointing to libharbour.so.3.2.0.dylib
 
