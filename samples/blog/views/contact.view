@@ -4,14 +4,16 @@
    
    <hr/>
    
-   <div class="well ">
+   <div class="well">
       <large>git clone https://github.com/fivetechsoft/mod_harbour</large>
    </div>
    
-   mod_harbour wiki is available from 
+   mod_harbour wiki is available from: 
    
    <hr/>
    
-   <a href="https://github.com/FiveTechSoft/mod_harbour/wiki">https://github.com/FiveTechSoft/mod_harbour/wiki</a>
+   <div class="well">
+      <a href="https://github.com/FiveTechSoft/mod_harbour/wiki">https://github.com/FiveTechSoft/mod_harbour/wiki</a>
+   </div>
 
 </div>
