@@ -11,19 +11,26 @@
 #xcommand TEXT TO VAR <var> => #pragma __stream|<var>:=%s
 #xcommand ENDTEXT => #pragma __endtext
 
+Static cText        := ""
+Static cIni         := ""
+Static hIni         := ""
+
 function Main( cFile )
 
-   local cText    := ""
-   local cTabFile := "NONAME1.PRG"
-   local cToolTab := AP_GetEnv( "DOCUMENT_ROOT" ) + "\modharbour_examples\" 
+   local cDateBuild := "Jun 17 2019 20:06:00"
+   local cTabFile   := "NONAME1.PRG"
+   local cToolTab   := AP_GetEnv( "DOCUMENT_ROOT" ) + "\modharbour_examples\" 
    local oEditor
-   //? AP_GetEnv( "LIBHARBOUR" )
+   cIni   := AP_GetEnv( "DOCUMENT_ROOT" ) + "\modharbour_examples\" + "xcloud.ini"
+   cIni   := StrTran( cIni, "\", "\\" )
+   cIni   := StrTran( cIni, "/", "\\" )
+   cIni   := StrTran( cIni, "\", "/" )
+   hIni   := ConfigRead( cIni )
    TEXT TO VAR cText
 function Main()
-   ? "Hello world"
+   ? "<h1>" + "Hello world" + "</h1>"
 return nil
    ENDTEXT
-
    if Len( hb_aParams() ) > 0
       if !Empty( At( "source=", cFile ) )
          cFile := StrTran( cFile, "source=", "" )
@@ -44,11 +51,11 @@ return nil
          endif
       endif
    endif
-   //if !( hb_ps() == "/" )
-   //   cToolTab := StrTran( cToolTab, "/", hb_ps() )
-   //endif
 
-   TEMPLATE USING oEditor PARAMS cText, cTabFile, cToolTab
+   cText  := FHtmlEncode( cText )
+
+   TEMPLATE USING oEditor PARAMS cText, cTabFile, cToolTab, cIni, cDateBuild
+   <html lang="en">
    <html>
    <head>
       <meta charset="utf-8">
@@ -58,7 +65,7 @@ return nil
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="https://fivetechsoft.github.io/xcloud/source/js/xcloud.js"></script>
       <link rel="stylesheet" href="https://fivetechsoft.github.io/xcloud/source/css/xcloud.css"> 
-      <title>XCloud V.1.0</title>
+      <title>XCloud V.1.1</title>
       <meta name="author" content="Cristobal Navarro">
 
    <style>
@@ -128,6 +135,7 @@ return nil
 
    body {
       background-color: Ivory;
+      font-family: "Helvetica";
    }
 
    .nav-tabs > li {
@@ -142,6 +150,8 @@ return nil
       padding-top: 5px; 
       padding-bottom: 5px;
       padding-right: 25px;
+      color:#2C2828;
+      background-color: lightgray;
       display:inline-block;
    }
 
@@ -160,7 +170,7 @@ return nil
 
    .nav-tabs > li.active > a {
       color:#2C2828;
-      background-color: #FFF29D;
+      background-color:#FFF29D;
    }
 
    .nav-tabs > li.active > a:focus {
@@ -169,8 +179,8 @@ return nil
    }
 
    .nav-tabs > li.active > a:hover {
-      color:#2C2828;
-      background-color:lightgray;
+      color:white;
+      background-color:gray;
    }
 
    .close {
@@ -189,21 +199,27 @@ return nil
                <a class="navbar-brand" href="https://fivetechsoft.github.io/mod_harbour/"
                   style="color:#002240;padding-top:4px;padding-left:20px;padding-right:14px;padding-bottom:4px;">
                   <span class="glyphicon glyphicon-menu-hamburger" height="46" aria-hidden="true"></span>
-                  <b>xcloud v.1.0</b><p><h5><b>Ide for mod_harbour</b></h5></p></a>
+                  <b>xcloud v.1.1</b><p><h5><b>Ide for mod_harbour</b></h5></p></a>
             </div>
             <div class="nav navbar-nav">
                <div class="col-sm-1">
-               <input type="file" directory class="btn navbar-btn btn-md btn-sm" name="SelectFile" id="selectfile" accept=".prg" onchange="openFile(event)"><br>
+               <input type="file" directory class="btn navbar-btn btn-md btn-sm" name="SelectFile" id="selectfile"
+                  accept=".prg,.ch,.h,.c,.cpp,.view,.html,.htm,.php*,.tpl,.js,.css"
+                  onchange="openFile(event)"><br>
                </div>
                <a class="navbar-brand" href="#"></a>
                <ul class="nav navbar-nav navbar-right">
-                  <li><button class="btn navbar-btn btn-sm" onclick="Run()" title="[ F9 ]"><span class="glyphicon glyphicon-flash"></span> Run</button></li>
+                  <li><button class="btn navbar-btn btn-sm" onclick="editor_run()" title="[ F9 ]"><span class="glyphicon glyphicon-flash"></span> Run</button></li>
                   <li><button class="btn navbar-btn btn-sm" onclick="Download()" title="[ Ctrl + S ]">
                       <span class="glyphicon glyphicon-cloud-download"></span> Save</button></li>
-                  <li><button class="btn navbar-btn btn-sm"  onclick="$('#saveas').modal()" title="[ Ctrl + D ]">
+                  <li><button class="btn navbar-btn btn-sm"  onclick="$('#saveas').modal()" title="[ Ctrl + Q ]">
                       <span class="glyphicon glyphicon-save"></span> Save As</button></li>
                   <a class="navbar-brand" href="#"></a>
-                  <li><button class="btn navbar-btn btn-md btn-sm" onclick="Clear()" title="[ F5 ]"><span class="glyphicon glyphicon-edit"></span> Clear</button></li>
+                  <li><button class="btn navbar-btn btn-md btn-sm" onclick="Clear()" title="[ F5 ]"><span class="glyphicon glyphicon-edit"></span> Clear All</button></li>
+                  <li><button class="btn navbar-btn btn-md btn-sm" onclick="Clear( true )" title="[ F7 ]"><span class="glyphicon glyphicon-inbox"></span> Clear Result</button></li>
+                  <a class="navbar-brand" href="#"></a>
+                  <li><button class="btn navbar-btn btn-md btn-sm" onclick="$('#gotoline').modal()" title="[ F6 ]"><span class="glyphicon glyphicon-edit"></span> Go to</button></li>
+                  <a class="navbar-brand" href="#"></a>
                   <li><button class="btn navbar-btn btn-md btn-sm" onclick="editor.undo()" title="[ Ctrl + Z ]"><span class="glyphicon glyphicon-repeat"></span> Undo</button></li>
                   <li><button class="btn navbar-btn btn-md btn-sm" onclick="editor.redo()" title="[ Ctrl + A ]"><span class="glyphicon glyphicon-refresh"></span> Redo</button></li>
                   <a class="navbar-brand" href="#"></a>
@@ -215,12 +231,14 @@ return nil
                        <span class="glyphicon glyphicon-question-sign"></span> Help</button></li>
                   <li><button class="btn navbar-btn btn-sm" onclick="$('#about').modal()">
                        <span class="glyphicon glyphicon-info-sign"></span> About</button></li>
+                  <a class="navbar-brand" href="#"></a>
+                  <li><button class="btn navbar-btn btn-md btn-sm" onclick="ToggleResult()" title="[      +   ]"><span class="glyphicon glyphicon-off"></span> Hide/Show</button></li>
                </ul>
             </div>
          </div>
       </nav>
       <ul class="nav nav-tabs" id="tabs" role="tablist" style="background-color:Ivory;">
-         <li class="active" id="tab1"><a href="#row1" role="tab" title="<?prg return cToolTab ?>">
+         <li class="active" id="tab1"><a data-toggle="tab" href="#row1" role="tab" title="<?prg return cToolTab ?>">
             <?prg return cTabFile ?></a><span>x</span></li>
       </ul>
       <div class="tab-content" style="background-color:Ivory;width:100%;height:88.0%;">
@@ -236,11 +254,12 @@ return nil
       <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
       <script src="https://fivetechsoft.github.io/xcloud/demo/kitchen-sink/require.js"></script>
       <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ext-modelist.js"></script>
+      <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ext-emmet.js"></script>
+      <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ext-language_tools.js"></script>
       <script>
          var ctab = "" ;
          var textos = [];
          var editor = ace.edit('editor');
-         var EditSession1 = ace.require("ace/edit_session").EditSession;
          ctab = $('#tabs a:last').text().trim().toUpperCase();
          textos[ ctab ] = editor.getValue();
 
@@ -250,58 +269,66 @@ return nil
          // All options are set to default value
          editor.setOptions({
             // editor options
-            selectionStyle: 'line',// "line"|"text"
-            highlightActiveLine: true, // boolean
-            highlightSelectedWord: true, // boolean
-            readOnly: false, // boolean: true if read only
-            cursorStyle: 'ace', // "ace"|"slim"|"smooth"|"wide"
-            mergeUndoDeltas: true, // false|true|"always"
-            behavioursEnabled: true, // boolean: true if enable custom behaviours
-            wrapBehavioursEnabled: true, // boolean
-            autoScrollEditorIntoView: undefined, // boolean: this is needed if editor is inside scrollable page
-            keyboardHandler: null, // function: handle custom keyboard events
+            selectionStyle: <?prg return GetKeyIni( , "selectionStyle" ) ?>,// "line"|"text"  <?prg return GetKeyIni( , "selectionStyle" ) ?>
+            highlightActiveLine: <?prg return GetKeyIni( , "highlightActiveLine" ) ?>, // boolean
+            highlightSelectedWord: <?prg return GetKeyIni( , "highlightSelectedWord" ) ?>, // boolean
+            readOnly: <?prg return GetKeyIni( , "readOnly" ) ?>, // boolean: true if read only
+            cursorStyle: <?prg return GetKeyIni( , "cursorStyle" ) ?>, // "ace"|"slim"|"smooth"|"wide"
+            mergeUndoDeltas: <?prg return GetKeyIni( , "mergeUndoDeltas" ) ?>, // false|true|"always"
+            behavioursEnabled: <?prg return GetKeyIni( , "behavioursEnabled" ) ?>, // boolean: true if enable custom behaviours
+            wrapBehavioursEnabled: <?prg return GetKeyIni( , "wrapBehavioursEnabled" ) ?>, // boolean
+            autoScrollEditorIntoView: <?prg return GetKeyIni( , "autoScrollEditorIntoView" ) ?>, // boolean: this is needed if editor is inside scrollable page
+            keyboardHandler: <?prg return GetKeyIni( , "keyboardHandler" ) ?>, // function: handle custom keyboard events
 
             // renderer options
-            animatedScroll: false, // boolean: true if scroll should be animated
-            displayIndentGuides: false, // boolean: true if the indent should be shown. See 'showInvisibles'
-            showInvisibles: false, // boolean -> displayIndentGuides: true if show the invisible tabs/spaces in indents
-            showPrintMargin: true, // boolean: true if show the vertical print margin
-            printMarginColumn: 80, // number: number of columns for vertical print margin
-            printMargin: undefined, // boolean | number: showPrintMargin | printMarginColumn
-            showGutter: true, // boolean: true if show line gutter
-            fadeFoldWidgets: false, // boolean: true if the fold lines should be faded
-            showFoldWidgets: true, // boolean: true if the fold lines should be shown ?
-            showLineNumbers: true,
-            highlightGutterLine: false, // boolean: true if the gutter line should be highlighted
-            hScrollBarAlwaysVisible: false, // boolean: true if the horizontal scroll bar should be shown regardless
-            vScrollBarAlwaysVisible: false, // boolean: true if the vertical scroll bar should be shown regardless
-            fontSize: 16, // number | string: set the font size to this many pixels
-            fontFamily: "Lucida Console", //undefined, // - string: set the font-family css value
-            maxLines: undefined, // 26 - number: set the maximum lines possible. This will make the editor height changes
-            minLines: undefined, // 26 - number: set the minimum lines possible. This will make the editor height changes
-            maxPixelHeight: 0, // number -> maxLines: set the maximum height in pixel, when 'maxLines' is defined. 
-            scrollPastEnd: 0, // number -> !maxLines: if positive, user can scroll pass the last line and go n * editorHeight more distance 
-            fixedWidthGutter: false, // boolean: true if the gutter should be fixed width
-            theme: 'ace/theme/cobalt', //monokai //twilight //terminal //pastel_on_dark // theme string from ace/theme or custom?
+            animatedScroll: <?prg return GetKeyIni( , "animatedScroll" ) ?>, // boolean: true if scroll should be animated
+            displayIndentGuides: <?prg return GetKeyIni( , "displayIndentGuides" ) ?>, // boolean: true if the indent should be shown. See 'showInvisibles'
+            showInvisibles: <?prg return GetKeyIni( , "showInvisibles" ) ?>, // boolean -> displayIndentGuides: true if show the invisible tabs/spaces in indents
+            showPrintMargin: <?prg return GetKeyIni( , "showPrintMargin" ) ?>, // boolean: true if show the vertical print margin
+            printMarginColumn: <?prg return GetKeyIni( , "printMarginColumn" ) ?>, // number: number of columns for vertical print margin
+            printMargin: <?prg return GetKeyIni( , "printMargin" ) ?>, // boolean | number: showPrintMargin | printMarginColumn
+            showGutter: <?prg return GetKeyIni( , "showGutter" ) ?>, // boolean: true if show line gutter
+            fadeFoldWidgets: <?prg return GetKeyIni( , "fadeFoldWidgets" ) ?>, // boolean: true if the fold lines should be faded
+            showFoldWidgets: <?prg return GetKeyIni( , "showFoldWidgets" ) ?>, // boolean: true if the fold lines should be shown ?
+            showLineNumbers: <?prg return GetKeyIni( , "showLineNumbers" ) ?>,
+            highlightGutterLine: <?prg return GetKeyIni( , "highlightGutterLine" ) ?>, // boolean: true if the gutter line should be highlighted
+            hScrollBarAlwaysVisible: <?prg return GetKeyIni( , "hScrollBarAlwaysVisible" ) ?>, // boolean: true if the horizontal scroll bar should be shown regardless
+            vScrollBarAlwaysVisible: <?prg return GetKeyIni( , "vScrollBarAlwaysVisible" ) ?>, // boolean: true if the vertical scroll bar should be shown regardless
+            fontSize: <?prg return GetKeyIni( , "fontSize" ) ?>, // number | string: set the font size to this many pixels
+            fontFamily: <?prg return GetKeyIni( , "fontFamily" ) ?>, //"Lucida Console", //undefined, // - string: set the font-family css value
+            maxLines: <?prg return GetKeyIni( , "maxLines" ) ?>, // 26 - number: set the maximum lines possible. This will make the editor height changes
+            minLines: <?prg return GetKeyIni( , "minLines" ) ?>, // 26 - number: set the minimum lines possible. This will make the editor height changes
+            maxPixelHeight: <?prg return GetKeyIni( , "maxPixelHeight" ) ?>, // number -> maxLines: set the maximum height in pixel, when 'maxLines' is defined. 
+            scrollPastEnd: <?prg return GetKeyIni( , "scrollPastEnd" ) ?>, // number -> !maxLines: if positive, user can scroll pass the last line and go n * editorHeight more distance 
+            fixedWidthGutter: <?prg return GetKeyIni( , "fixedWidthGutter" ) ?>, // boolean: true if the gutter should be fixed width
+            theme: <?prg return GetKeyIni( , "theme" ) ?>,   // theme string from ace/theme or custom?
 
             // mouseHandler options
-            scrollSpeed: 2, // number: the scroll speed index
-            dragDelay: 0, // number: the drag delay before drag starts. it's 150ms for mac by default 
-            dragEnabled: true, // boolean: enable dragging
-            //focusTimout: 0, // number: the focus delay before focus starts.
-            tooltipFollowsMouse: true, // boolean: true if the gutter tooltip should follow mouse
+            scrollSpeed: <?prg return GetKeyIni( , "scrollSpeed" ) ?>, // number: the scroll speed index
+            dragDelay: <?prg return GetKeyIni( , "dragDelay" ) ?>, // number: the drag delay before drag starts. it's 150ms for mac by default 
+            dragEnabled: <?prg return GetKeyIni( , "dragEnabled" ) ?>, // boolean: enable dragging
+            //focusTimout: <?prg return GetKeyIni( , "focusTimout" ) ?>, // number: the focus delay before focus starts.
+            tooltipFollowsMouse: <?prg return GetKeyIni( , "tooltipFollowsMouse" ) ?>, // boolean: true if the gutter tooltip should follow mouse
 
             // session options
-            firstLineNumber: 1, // number: the line number in first line
-            overwrite: false, // boolean
-            newLineMode: 'auto', // "auto" | "unix" | "windows"
-            useWorker: true, // boolean: true if use web worker for loading scripts
-            useSoftTabs: true, // boolean: true if we want to use spaces than tabs
-            tabSize: 3, // number
-            wrap: false, // boolean | string | number: true/'free' means wrap instead of horizontal scroll, false/'off' means horizontal scroll instead of wrap, and number means number of column before wrap. -1 means wrap at print margin
-            indentedSoftWrap: true, // boolean
-            foldStyle: 'markbegin', // enum: 'manual'/'markbegin'/'markbeginend'.
-            mode: 'ace/mode/c_cpp' // string: path to language mode 
+            firstLineNumber: <?prg return GetKeyIni( , "firstLineNumber" ) ?>, // number: the line number in first line
+            overwrite: <?prg return GetKeyIni( , "overwrite" ) ?>, // boolean
+            newLineMode: <?prg return GetKeyIni( , "newLineMode" ) ?>, // "auto" | "unix" | "windows"
+            useWorker: <?prg return GetKeyIni( , "useWorker" ) ?>, // boolean: true if use web worker for loading scripts
+            useSoftTabs: <?prg return GetKeyIni( , "useSoftTabs" ) ?>, // boolean: true if we want to use spaces than tabs
+            tabSize: <?prg return GetKeyIni( , "tabSize" ) ?>, // number
+            wrap: <?prg return GetKeyIni( , "wrap" ) ?>, // boolean | string | number: true/'free' means wrap instead of horizontal scroll, false/'off' means horizontal scroll instead of wrap, and number means number of column before wrap. -1 means wrap at print margin
+            indentedSoftWrap: <?prg return GetKeyIni( , "indentedSoftWrap" ) ?>, // boolean
+            foldStyle: <?prg return GetKeyIni( , "foldStyle" ) ?>, // enum: 'manual'/'markbegin'/'markbeginend'.
+            mode: <?prg return GetKeyIni( , "mode" ) ?>, // string: path to language mode 
+            enableMultiselect: <?prg return GetKeyIni( , "enableMultiselect" ) ?>,
+            // Others
+            enableEmmet: <?prg return GetKeyIni( , "enableEmmet" ) ?>,
+            enableBasicAutocompletion: <?prg return GetKeyIni( , "enableBasicAutocompletion" ) ?>,
+            enableLiveAutocompletion: <?prg return GetKeyIni( , "enableLiveAutocompletion" ) ?>,
+            enableSnippets: <?prg return GetKeyIni( , "enableSnippets" ) ?>,
+            //spellcheck: <?prg return GetKeyIni( , "spellcheck" ) ?>,
+            //useElasticTabstops: <?prg return GetKeyIni( , "useElasticTabstops" ) ?> 
          });
 
          editor.commands.addCommand({
@@ -328,7 +355,23 @@ return nil
              exec: function(editor) {
                 Clear();
                 },
+              readOnly: false // false if this command should not apply in readOnly mode
+            });
+         editor.commands.addCommand({
+             name: 'GoTo',
+             bindKey: {win: 'F6',  mac: 'F6'},
+             exec: function(editor) {
+                 $('#gotoline').modal();
+                },
               readOnly: true // false if this command should not apply in readOnly mode
+            });
+         editor.commands.addCommand({
+             name: 'ClearResult',
+             bindKey: {win: 'F7',  mac: 'F7'},
+             exec: function(editor) {
+                Clear( true );
+                },
+              readOnly: false // false if this command should not apply in readOnly mode
             });
          editor.commands.addCommand({
              name: 'Run',
@@ -346,9 +389,16 @@ return nil
                 },
               readOnly: true // false if this command should not apply in readOnly mode
             });
+         editor.commands.addCommand({
+             name: 'SaveAs',
+             bindKey: {win: 'Ctrl-Q',  mac: 'Command-Q'},
+             exec: function(editor) {
+                $('#saveas').modal();
+                },
+              readOnly: true // false if this command should not apply in readOnly mode
+            });
 
-         editor.session.on('change', function(delta) {
-            // delta.start, delta.end, delta.lines, delta.action
+         editor.session.on('change', function( e ) {
             if ( editor.getValue() ) {
                textos[ ctab.toUpperCase() ] = editor.getValue();
             }
@@ -365,6 +415,18 @@ return nil
                          range: null,
                          regExp: false
                          } );
+         }
+
+         function GotoLine() {
+            var nline = document.getElementById("goline").value;
+            var ncol  = document.getElementById("gocol").value;
+            if ( nline ) {
+               if ( !ncol ) {
+                  ncol = 1;
+               }
+               editor.scrollToLine( nline, true, true, function () {});
+               editor.gotoLine( nline, ncol, true);
+            }
          }
 
          function SaveFileAs() {
@@ -403,26 +465,31 @@ return nil
             }
          }
 
-         function Clear() {
+         function Clear( onlyresult ) {
             var text = '';
             editor.setValue( text,1 );
             Run();
             selectfile.value = '';
             //$(".nav-tabs li").children('a').last().focus();
-            textos[ ctab.toUpperCase() ] = text;
+            if ( !onlyresult ) {
+               textos[ ctab.toUpperCase() ] = text;
+            }
+            else {
+               editor.setValue( textos[ ctab.toUpperCase() ], 1 );
+            }
             //editor.focus();
          }
 
         function addtab( name ) {
             var nextTab = $('#tabs').children().length+1;
+            // He quitado el class="active"
             ctab = name.trim().toUpperCase();
-            $('<li class="active" id="tab'+nextTab+'"'+ '><a href="#row1" role="tab" title=' + 
+            $('<li id="tab'+nextTab+'"'+ '><a data-toggle="tab" href="#row1" role="tab" title=' + 
                "<?prg return cToolTab ?>" + ">" + '</a><span>x</span></li>').appendTo('#tabs');
           	//$('<div class="row" id="row1'+nextTab+'"'+'>'+$('#row1')+'</div>').appendTo('.tab-content');
             $('<div class="row" id="row1">'+'</div>').appendTo('.tab-content');
             $('#tabs a:last').text( ctab );
-          	$('#tabs a:last').show();
-            $('#tabs a:last').focus();
+            $('#tabs a:last').click();
         }
 
          function openFile(event) {
@@ -447,7 +514,7 @@ return nil
                }
                //console.log( document.getElementById("selectfile").value );
                editor.setValue( text, -1 );
-               var mode = autoImplementedMode( ctab.toUpperCase() );
+               var mode = autoImplementedMode( ctab.toLowerCase() );
                //var mode = getModeByFileExtension( ctab );
                if ( mode ) {
                   editor.getSession().setMode(mode);
@@ -460,13 +527,14 @@ return nil
 
          function getFile( url ){
             var request = new XMLHttpRequest();
+            console.log( url );
             request.open( 'GET', url, true);
             //request.setRequestHeader( "Access-Control-Allow-Headers", "Origin, Methods, Content-Type, X-Requested-With, Accept" );
             //request.setRequestHeader("Access-Control-Request-Headers", "*" );
             request.setRequestHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
             //request.setRequestHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
             request.setRequestHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, content-type, accept, authorization" );
-            request.setRequestHeader( 'Access-Control-Allow-Origin', 'localhost:80' );
+            request.setRequestHeader( 'Access-Control-Allow-Origin', 'localhost' );
             //request.setRequestHeader( 'Access-Control-Allow-Methods', 'GET, POST, PUT, HEAD' );
             request.timeout = 10000;
             request.onload = function () {
@@ -486,6 +554,8 @@ return nil
              //   window.alert(request.responseText);
              };
             request.send(null);
+            console.log( request.readyState );
+            console.log( request.responseText );
             request.onreadystatechange = function () {
                if ( request.readyState === 4 && request.status === 200 ) {
                   var type = request.getResponseHeader('Content-Type');
@@ -497,7 +567,7 @@ return nil
          }
 
          function autoImplementedMode( filename ){
-             var ext = filename.split('.').pop();
+             var ext = filename.split('.').pop().toLowerCase();
              var prefix = "ace/mode/";
              if(!ext){
                  return prefix + "text";
@@ -523,22 +593,52 @@ return nil
                     return prefix + "html";
                  case "tpl":
                     return prefix + "html";
+                 case "view":
+                    return prefix + "html";
                  case "js":
                     return prefix + "javascript";
                  case "css":
-                    return prefix + "javascript";
+                    return prefix + "css";
                  case "cs":
                     return prefix + "csharp";
                  case "php":
                     return prefix + "php";
                  case "rb":
                     return prefix + "ruby";
+                 case "ini":
+                    return prefix + "ini";
+                 case "mysql":
+                    return prefix + "mysql";
+                 case "sql":
+                    return prefix + "sql";
+                 case "sqlserver":
+                    return prefix + "sqlserver";
+                 case "pgsql":
+                    return prefix + "pgsql";
                  case "xml":
                     return prefix + "xml";
                  case "json":
                     return prefix + "json";
                     //indent for levels
                     //editor.setValue(JSON.stringify(jsonDoc, null, '\t'));
+                 case "php":
+                    return prefix + "php";
+                 case "inc":
+                    return prefix + "inc";
+                 case "php3":
+                    return prefix + "php";
+                 case "php4":
+                    return prefix + "php";
+                 case "php5":
+                    return prefix + "php";
+                 case "phps":
+                    return prefix + "php";
+                 case "blade.php":
+                    return prefix + "php_laravel_blade";
+                 case "py":
+                    return prefix + "python";
+                 case "txt":
+                    return prefix + "text";
              }
          }
 
@@ -551,24 +651,13 @@ return nil
             var name = cname.split('\').pop();
          }
 
-        //block.addEventListener("dragstart", function(e) {
-        //    e.dataTransfer.setData("text", "text from drag block");
-        //})
-
-        //editor.container.addEventListener("drop", function(e){ 
-        //   var pos = editor.getCursorPosition() 
-        //   showDialog(e, function(text){ 
-        //       editor.session.insert(pos, text) 
-        //   }) 
-        //   e.stopPropagation() 
-        //   e.preventDefault() 
-        //}, true
-
         $(document).ready(function () {
-           //editor.on( "focus", function(e) {
-           //  console.log( ctab );
-           //} );
-           $(".nav-tabs").on("click", "a", function(e){
+           //editor.addEventListener( aEventName, aCallback);
+           //editor.resize();
+
+           $( ".nav-tabs" ).on( "click", "a", function(e){
+              //var current = document.getElementsByClassName(".nav-tabs")
+              //console.log( current );
               if ( !ctab ) {
                  ctab = "<?prg return cTabFile ?>"
               }
@@ -605,7 +694,7 @@ return nil
                  selectfile.value = '';
                  Run();
                  editor.setValue( textos[ ctab.trim().toUpperCase() ], -1 );
-                 var mode = autoImplementedMode( ctab.toUpperCase());
+                 var mode = autoImplementedMode( ctab.toLowerCase());
                  if ( mode ) {
                     editor.getSession().setMode(mode);
                     }
@@ -614,18 +703,42 @@ return nil
               }
             });
 
-           //$('.nav-tabs a').on( "shown.bs.tab", function (e) {
-           //    window.alert('Hello from the other siiiiiide!');
-           //    var current_tab = e.target;
-           //    var previous_tab = e.relatedTarget;
-           //    ctab = current_tab.text().toUpperCase();
-           //});
-
            $(".nav-tabs li").children('a').last().click();
            //$(".nav-tabs li").children('a').last().focus();
 
            $("#row1").splitter();
         });
+
+        function init_window() {
+           //if ( confirm("Close Window?") )  {
+              window.open(location,'_self').close();
+           //}
+        }
+
+        function editor_run() {
+          var ext = ctab.split('.').pop().toLowerCase();
+          console.log( ext );
+          if ( ext == 'prg' | ext == 'hrb' ) {
+             Run();
+            }
+          else {
+             if ( ext == "html" | ext == "htm" | ext == "view" | ext == "tpl" ) {
+                document.getElementById("result").innerHTML = editor.getValue();
+               }
+          }
+        }
+
+        function ToggleResult() {
+          var x = document.getElementById( "result" );
+          if ( x.style.display === "none" ) {
+             x.style.display = "block";
+           } else {
+             x.style.display = "none";
+             //$("#row1").splitter().Resize();
+             var y = document.getElementById( "vsplitbar" );
+             console.log( y );
+           }
+        }
 
 //----------------------------------------------------------------------------//
 // jQuery.splitter.js - two-pane splitter window plugin
@@ -858,6 +971,31 @@ return nil
 
       </script>
 
+      <div class="modal fade" id="gotoline" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Goto Line / Column:</h4>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+              <form role="form">
+                <div class="form-group">
+                  <label for="goline"><span class="glyphicon glyphicon glyphicon-arrow-down"></span> Number Line</label>
+                  <input type="text" class="form-control" id="goline" placeholder="Enter Line">
+                </div>
+                <div class="form-group">
+                  <label for="gocol"><span class="glyphicon glyphicon glyphicon-arrow-right"></span> Number Column</label>
+                  <input type="text" class="form-control" id="gocol" placeholder="Enter Column">
+                </div>
+                <button class="btn btn-success btn-block" data-dismiss="modal" onclick="GotoLine()">
+                   <span class="glyphicon glyphicon-saved"></span> Go To</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div> 
+
       <div class="modal fade" id="saveas" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -884,7 +1022,7 @@ return nil
           <div class="modal-content">
             <div class="modal-header" style="color:#2C2828;background-color:silver;padding:4px 4px;">
               <button type="button" class="close" data-dismiss="modal" style="color:white;padding:4px 4px;">&times;</button>
-              <h4 class="modal-title">xcloud v.1.0  -  Ide & Editor for mod_harbour</h4>
+              <h4 class="modal-title"><b>xcloud v.1.1 - Ide & Editor for mod_harbour</b> [ <?prg return cDateBuild ?> ]</h4>
             </div>
             <div class="modal-body" style="color:#2C2828;background-color:white;padding:4px 20px 4px;">
               <h6>
@@ -898,13 +1036,13 @@ return nil
               <div class="col-md-6" <p><b>[ F4  ]</b></p></div><div class="col-md-6" <p> : </p></div>
               </div>
               <div class="row">
-              <div class="col-md-6" <p><b>[ F5  ]</b></p></div><div class="col-md-6" <p> : CLEAN </p></div>
+              <div class="col-md-6" <p><b>[ F5  ]</b></p></div><div class="col-md-6" <p> : CLEAN ALL </p></div>
               </div>
               <div class="row">
               <div class="col-md-6" <p><b>[ F6  ]</b></p></div><div class="col-md-6" <p> : </p></div>
               </div>
               <div class="row">
-              <div class="col-md-6" <p><b>[ F7  ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              <div class="col-md-6" <p><b>[ F7  ]</b></p></div><div class="col-md-6" <p> : CLEAN ONLY RESULTS</p></div>
               </div>
               <div class="row">
               <div class="col-md-6" <p><b>[ F8  ]</b></p></div><div class="col-md-6" <p> : </p></div>
@@ -953,7 +1091,7 @@ return nil
               </div>
             </div>
             <div class="modal-footer" style="color:white;background-color:#2C2828;padding:4px 4px;">
-            <h5 class="modal-title">(c) Antonio Linares & Cristobal Navarro</h5>
+            <h5 class="modal-title"><b>(c) Antonio Linares & Cristobal Navarro</b></h5>
             </div>
           </div>
         </div>
@@ -963,5 +1101,175 @@ return nil
    ENDTEXT
 
 return nil
+
+//----------------------------------------------------------------------------//
+
+Function GetText()
+return cText
+
+//----------------------------------------------------------------------------//
+
+Function GetFileIni()
+return cIni
+
+//----------------------------------------------------------------------------//
+
+Function GethIni()
+return hIni
+
+//----------------------------------------------------------------------------//
+
+Function GetKeyIni( cSect, cKey )
+
+   local uVal   := ""
+   hb_defaultValue( cSect, "EDITOR" )    // At moment not used
+   if !Empty( hIni ) .and. !Empty( cKey )
+      if hb_hHaskey( hIni, cKey )
+         uVal   := hIni[ cKey ]
+      endif
+   endif
+
+Return uVal
+
+//----------------------------------------------------------------------------//
+
+Function ReadConfig( cFileIni )
+
+   Local hIniFile
+   Local hSection
+   Local aText    := {}
+   Local x
+   Local cEntry   := ""
+   Local nPos
+   Local cText    := Memoread( cFileIni )
+
+   if !Empty( cText )
+      aText     := hb_aTokens( cText, Chr( 10 ) )
+      hIniFile  := hb_Hash()
+
+      For x := 1 TO Len( aText )
+         cEntry := if( Left( aText[ x ], 1 ) == ' ', Ltrim( aText[ x ] ), aText[ x ] )
+         if !( Left( cEntry, 1 ) $ ";#" )
+            cEntry := Trim( if( Right( cEntry, 1 ) == Chr( 13 ), ;
+                                Left( cEntry, Len( cEntry ) - 1 ), cEntry ) )
+            if !Empty( cEntry )
+               if Left( cEntry, 1 ) == '[' .and. Right( cEntry, 1 ) == ']'
+                  //hSection := hb_Hash( cEntry, hIniFile[ Substr( cEntry, 2, Len( cEntry ) - 2 ) ] )
+               else
+                  if ( nPos := At( '=', cEntry ) ) > 0
+                     hIniFile[ Trim( Left( cEntry, nPos - 1 ) ) ] := LTrim( Substr( cEntry, nPos + 1 ) )
+                  endif
+               endif
+            endif
+         endif
+      Next x
+   endif
+
+Return hIniFile
+
+//----------------------------------------------------------------------------//
+
+Function ConfigRead( cFileIni )
+
+   local cText    := "[EDITOR]" + CRLF
+   local cPath    := AP_GetEnv( "DOCUMENT_ROOT" ) + "\modharbour_examples\" 
+   local hIniFile
+   if Empty( At( "\", cFileIni ) ) .and. Empty( At( "/", cFileIni ) )
+      if ( hb_ps() == "/" )
+         cPath := StrTran( cPath, "\", hb_ps() )
+      endif
+   else
+      cPath    := ""
+   endif
+   hb_defaultValue( cFileIni, "xcloud.ini" )
+//#ifdef __PLATFORM__UNIX
+   //cFileIni := '/' + Curdir() + '/' + cFileIni
+   //__Run( "chmod a+x ...." )
+//#else
+   //cFileIni := hb_curDrive() + ":\" + Curdir() + '\' + cFileIni
+//#endif
+   cFileIni    := cPath + cFileIni
+   if !File( cFileIni )
+      cText    += "selectionStyle='line'" + CRLF
+      cText    += "highlightActiveLine=true" + CRLF
+      cText    += "highlightSelectedWord=true" + CRLF
+      cText    += "readOnly=false" + CRLF
+      cText    += "cursorStyle='ace'" + CRLF
+      cText    += "mergeUndoDeltas=true" + CRLF
+      cText    += "behavioursEnabled=true" + CRLF
+      cText    += "wrapBehavioursEnabled=true" + CRLF
+      cText    += "autoScrollEditorIntoView=undefined" + CRLF
+      cText    += "keyboardHandler=null" + CRLF
+      cText    += "animatedScroll=false" + CRLF
+      cText    += "displayIndentGuides=false" + CRLF
+      cText    += "showInvisibles=false" + CRLF
+      cText    += "showPrintMargin=true" + CRLF
+      cText    += "printMarginColumn=80" + CRLF
+      cText    += "printMargin=undefined" + CRLF
+      cText    += "showGutter=true" + CRLF
+      cText    += "fadeFoldWidgets=false" + CRLF
+      cText    += "showFoldWidgets=true" + CRLF
+      cText    += "showLineNumbers=true" + CRLF
+      cText    += "highlightGutterLine=false" + CRLF
+      cText    += "hScrollBarAlwaysVisible=false" + CRLF
+      cText    += "vScrollBarAlwaysVisible=false" + CRLF
+      cText    += "fontSize=16" + CRLF
+      cText    += "fontFamily='Liberation Mono'" + CRLF
+      cText    += "maxLines=undefined" + CRLF
+      cText    += "minLines=undefined" + CRLF
+      cText    += "maxPixelHeight=0" + CRLF
+      cText    += "scrollPastEnd=0" + CRLF
+      cText    += "fixedWidthGutter=false" + CRLF
+      cText    += "theme='ace/theme/cobalt'" + CRLF
+      cText    += "scrollSpeed=2" + CRLF
+      cText    += "dragDelay=0" + CRLF
+      cText    += "dragEnabled=true" + CRLF
+      cText    += "tooltipFollowsMouse=true" + CRLF
+      cText    += "firstLineNumber=1" + CRLF
+      cText    += "overwrite=false" + CRLF
+      cText    += "newLineMode='auto'" + CRLF
+      cText    += "useWorker=true" + CRLF
+      cText    += "useSoftTabs=true" + CRLF
+      cText    += "tabSize=3" + CRLF
+      cText    += "wrap=false" + CRLF
+      cText    += "indentedSoftWrap=true" + CRLF
+      cText    += "foldStyle='markbegin'" + CRLF
+      cText    += "mode='ace/mode/c_cpp'" + CRLF
+      cText    += "enableMultiselect=true" + CRLF
+      cText    += "enableEmmet=true" + CRLF
+      cText    += "enableBasicAutocompletion=false" + CRLF
+      cText    += "enableLiveAutocompletion=false" + CRLF
+      cText    += "enableSnippets=false" + CRLF
+      cText    += "spellcheck=true" + CRLF
+      cText    += "useElasticTabstops=false"
+
+      MemoWrit( cFileIni, cText )
+   endif
+   hIniFile   := ReadConfig( cFileIni )
+
+Return hIniFile
+
+//----------------------------------------------------------------------------//
+
+function FHtmlEncode( cString )
+
+  local nI, cI, cRet := ""
+
+  for nI := 1 to Len( cString )
+     cI := SubStr( cString, nI, 1 )
+     if cI == "<"
+        cRet += "&lt;"
+     elseif cI == ">"
+        cRet += "&gt;"
+     elseif cI == "&"
+        cRet += "&amp;"
+     elseif cI == '"'
+        cRet += "&quot;"
+     else
+        cRet += cI
+     endif
+  next nI
+
+return cRet
 
 //----------------------------------------------------------------------------//
