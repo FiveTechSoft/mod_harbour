@@ -1,3 +1,17 @@
+**Included by default Apache in OSX is uncomplete, so first this to do is to properly install it:**
+
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+brew install httpd
+
+**execute go.sh to install the mod_harbour for OSX**
+
+chmod +x go.sh
+
+./go.sh
+
+**If you want to build the mod_harbour yourself**
+
 In order to make the generated apxs project, Makefile has to be edited this way:
 
 top_srcdir=/usr/local/lib/httpd
