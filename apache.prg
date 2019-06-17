@@ -66,8 +66,13 @@ function Execute( cCode, ... )
 
    cCode = __pp_process( hPP, cCode )
 
-   while ( lReplaced := ReplaceBlocks( @cCode, "{%", "%}" ) )  
-      cCode = __pp_process( hPP, cCode )
+   while lReplaced
+      lReplaced = ReplaceBlocks( @cCode, "{%", "%}" )
+      if lReplaced
+         cCode = __pp_process( hPP, cCode )
+      else
+         exit
+      endif
    end
 
    oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2,;
