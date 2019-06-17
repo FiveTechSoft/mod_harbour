@@ -60,16 +60,13 @@ return nil
 
 function Execute( cCode, ... )
 
-   local oHrb, uRet, lReplaced := ReplaceBlocks( @cCode, "{%", "%}" )
+   local oHrb, uRet, lReplaced := .T.
    local cHBheaders1 := "~/harbour/include"
    local cHBheaders2 := "c:\harbour\include"
 
-   cCode = __pp_process( hPP, cCode )
-
-   while lReplaced
-      if lReplaced := ReplaceBlocks( @cCode, "{%", "%}" )
-         cCode = __pp_process( hPP, cCode )
-      endif
+   while lReplaced 
+      lReplaced = ReplaceBlocks( @cCode, "{%", "%}" )
+      cCode = __pp_process( hPP, cCode )
    end
 
    oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2,;
