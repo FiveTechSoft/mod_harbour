@@ -67,8 +67,7 @@ function Execute( cCode, ... )
    cCode = __pp_process( hPP, cCode )
 
    while lReplaced
-      lReplaced = ReplaceBlocks( @cCode, "{%", "%}" )
-      if lReplaced
+      if lReplaced := ReplaceBlocks( @cCode, "{%", "%}" )
          cCode = __pp_process( hPP, cCode )
       else
          exit
