@@ -1,3 +1,17 @@
+**Included by default Apache in OSX is uncomplete, so first this to do is to properly install it:**
+
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+brew install httpd
+
+**execute go.sh to install the mod_harbour for OSX**
+
+chmod +x go.sh
+
+./go.sh
+
+**If you want to build the mod_harbour yourself**
+
 In order to make the generated apxs project, Makefile has to be edited this way:
 
 top_srcdir=/usr/local/lib/httpd
@@ -10,11 +24,11 @@ cp mod_harbour.so /usr/local/lib/httpd/modules
 
 cd /usr/local/var/www    # instead of /Library/WebServer/Documents
 
-Create a symlink at /usr/local/var/www pointing to libharbour.so.3.2.0.dylib
+**Create a symlink at /usr/local/var/www pointing to libharbour.3.2.0.dylib**
 
-sudo ln -sf /Users/$USER/mod_harbour/osx/libharbour.so.3.2.0.dylib libharbour.so.3.2.0.dylib
+sudo ln -sf /Users/$USER/mod_harbour/osx/libharbour.3.2.0.dylib libharbour.3.2.0.dylib
 
-Create a symlink to point to the mod_harbour samples folder:
+**Create a symlink to point to the mod_harbour samples folder:**
 
 ln -sf /Users/anto/mod_harbour/samples modharbour_samples
 
