@@ -17,20 +17,18 @@ Static hIni         := ""
 
 function Main( cFile )
 
-   local cDateBuild := "Jun 17 2019 20:06:00"
+   local cDateBuild := "Jun 18 2019 11:06:00"
    local cTabFile   := "NONAME1.PRG"
-   local cToolTab   := AP_GetEnv( "DOCUMENT_ROOT" ) + "\modharbour_examples\" 
+   local cToolTab   := AP_GetEnv( "DOCUMENT_ROOT" ) + "\modharbour_samples\" 
    local oEditor
-   cIni   := AP_GetEnv( "DOCUMENT_ROOT" ) + "\modharbour_examples\" + "xcloud.ini"
+   cIni   := AP_GetEnv( "DOCUMENT_ROOT" ) + "\modharbour_samples\" + "xcloud.ini"
    cIni   := StrTran( cIni, "\", "\\" )
    cIni   := StrTran( cIni, "/", "\\" )
    cIni   := StrTran( cIni, "\", "/" )
    hIni   := ConfigRead( cIni )
-   TEXT TO VAR cText
-function Main()
-   ? "<h1>" + "Hello world" + "</h1>"
-return nil
-   ENDTEXT
+
+   cText  := GetTextInitial()
+
    if Len( hb_aParams() ) > 0
       if !Empty( At( "source=", cFile ) )
          cFile := StrTran( cFile, "source=", "" )
@@ -69,7 +67,6 @@ return nil
       <meta name="author" content="Cristobal Navarro">
 
    <style>
-
    .container-fluid {
       color:#2C2828;
       background-color:Ivory;
@@ -187,7 +184,6 @@ return nil
       color: #ffff; 
       opacity: 1;
    }
-
    </style>
    </head>
 
@@ -232,7 +228,7 @@ return nil
                   <li><button class="btn navbar-btn btn-sm" onclick="$('#about').modal()">
                        <span class="glyphicon glyphicon-info-sign"></span> About</button></li>
                   <a class="navbar-brand" href="#"></a>
-                  <li><button class="btn navbar-btn btn-md btn-sm" onclick="ToggleResult()" title="[      +   ]"><span class="glyphicon glyphicon-off"></span> Hide/Show</button></li>
+                  <li><button class="btn navbar-btn btn-md btn-sm" onclick="openfileconfig()" title="[      +   ]"><span class="glyphicon glyphicon-exclamation-sign"></span> Config</button></li>
                </ul>
             </div>
          </div>
@@ -251,6 +247,133 @@ return nil
             </div>
          </div>
       </div>
+
+      <div class="modal fade" id="gotoline" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Goto Line / Column:</h4>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+              <form role="form">
+                <div class="form-group">
+                  <label for="goline"><span class="glyphicon glyphicon glyphicon-arrow-down"></span> Number Line</label>
+                  <input type="text" class="form-control" id="goline" placeholder="Enter Line">
+                </div>
+                <div class="form-group">
+                  <label for="gocol"><span class="glyphicon glyphicon glyphicon-arrow-right"></span> Number Column</label>
+                  <input type="text" class="form-control" id="gocol" placeholder="Enter Column">
+                </div>
+                <button class="btn btn-success btn-block" data-dismiss="modal" onclick="GotoLine()">
+                   <span class="glyphicon glyphicon-saved"></span> Go To</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div> 
+
+      <div class="modal fade" id="saveas" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Save As:</h4>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+              <form role="form">
+                <div class="form-group">
+                  <label for="filesave"><span class="glyphicon glyphicon-download-alt"></span> Name File</label>
+                  <input type="text" class="form-control" id="filesave" placeholder="Enter file">
+                </div>
+                <button class="btn btn-success btn-block" data-dismiss="modal" onclick="SaveFileAs()">
+                   <span class="glyphicon glyphicon-saved"></span> Save</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div> 
+      
+      <div class="modal fade" id="about" role="dialog">
+        <div class="modal-dialog modal-sl">
+          <div class="modal-content">
+            <div class="modal-header" style="color:#2C2828;background-color:silver;padding:4px 4px;">
+              <button type="button" class="close" data-dismiss="modal" style="color:white;padding:4px 4px;">&times;</button>
+              <h4 class="modal-title"><b>xcloud v.1.1 - Ide & Editor for mod_harbour</b> [ <?prg return cDateBuild ?> ]</h4>
+            </div>
+            <div class="modal-body" style="color:#2C2828;background-color:white;padding:4px 20px 4px;">
+              <h6>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F2  ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F3  ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F4  ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F5  ]</b></p></div><div class="col-md-6" <p> : CLEAN ALL </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F6  ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F7  ]</b></p></div><div class="col-md-6" <p> : CLEAN ONLY RESULTS</p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F8  ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F9  ]</b></p></div><div class="col-md-6" <p> : RUN </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F10 ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F11 ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ F12 ]</b></p></div><div class="col-md-6" <p> : </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + A</b></p></div><div class="col-md-6" <p> : SELECT ALL </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + C</b></p></div><div class="col-md-6" <p> : COPY </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + F</b></p></div><div class="col-md-6" <p> : SEARCH </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + H</b></p></div><div class="col-md-6" <p> : REPLACE </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + S</b></p></div><div class="col-md-6" <p> : SAVE </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + V</b></p></div><div class="col-md-6" <p> : PASTE </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + X</b></p></div><div class="col-md-6" <p> : CUT </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL         ] + Z</b></p></div><div class="col-md-6" <p> : UNDO </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL + SHIFT ] + Z</b></p></div><div class="col-md-6" <p> : REDO </p></div>
+              </div>
+              <div class="row">
+              <div class="col-md-6" <p><b>[ CTRL + ALT   ] + H</b></p></div><div class="col-md-6" <p> : SHOWKEYBOARDSHORTCUTS</p></div></h6>
+              </div>
+            </div>
+            <div class="modal-footer" style="color:white;background-color:#2C2828;padding:4px 4px;">
+            <h5 class="modal-title"><b>(c) Antonio Linares & Cristobal Navarro</b></h5>
+            </div>
+          </div>
+        </div>
+      </div> 
+
       <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
       <script src="https://fivetechsoft.github.io/xcloud/demo/kitchen-sink/require.js"></script>
       <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ext-modelist.js"></script>
@@ -259,6 +382,7 @@ return nil
       <script>
          var ctab = "" ;
          var textos = [];
+         var npossplitter = <?prg return GetKeyIni( , "possplitter" ) ?>;
          var editor = ace.edit('editor');
          ctab = $('#tabs a:last').text().trim().toUpperCase();
          textos[ ctab ] = editor.getValue();
@@ -377,7 +501,8 @@ return nil
              name: 'Run',
              bindKey: {win: 'F9',  mac: 'F9'},
              exec: function(editor) {
-                Run();
+                //Run();
+                editor_run();
                 },
               readOnly: true // false if this command should not apply in readOnly mode
             });
@@ -468,7 +593,8 @@ return nil
          function Clear( onlyresult ) {
             var text = '';
             editor.setValue( text,1 );
-            Run();
+            //Run();
+            editor_run();
             selectfile.value = '';
             //$(".nav-tabs li").children('a').last().focus();
             if ( !onlyresult ) {
@@ -495,7 +621,8 @@ return nil
          function openFile(event) {
             var text = '';
             editor.setValue( text );
-            Run();
+            //Run();
+            editor_run();
             var input = event.target;
             var reader = new FileReader();
             reader.readAsText( input.files[0] );
@@ -671,7 +798,8 @@ return nil
                  ctab = $(this).text().toUpperCase();
                  $(this).text( ctab.trim().toUpperCase() );
                  editor.setValue('',1);
-                 Run();
+                 //Run();
+                 editor_run();
                  editor.setValue( textos[ ctab.trim().toUpperCase() ], -1 );
                  var mode = autoImplementedMode( ctab.trim().toLowerCase() );
                  if ( mode ) {
@@ -685,28 +813,36 @@ return nil
            .on("click", "span", function () {
               var anchor = $(this).siblings('a');
               var nextTab = $('#tabs').children().length;
+              textos.splice( anchor.text(), 1);
+              editor.setValue( '', -1 );
+              selectfile.value = '';
               if ( nextTab > 1 ) {
-                 textos.splice( anchor.text(), 1);
                  //$(anchor.attr('href')).remove();
                  $(this).parent().remove();
                  ctab = $('#tabs a:last').text().toUpperCase();
-                 editor.setValue('',-1);
-                 selectfile.value = '';
-                 Run();
+                 //Run();
+                 editor_run();
                  editor.setValue( textos[ ctab.trim().toUpperCase() ], -1 );
-                 var mode = autoImplementedMode( ctab.toLowerCase());
-                 if ( mode ) {
-                    editor.getSession().setMode(mode);
-                    }
-                 $('#tabs a:last').click();
-                 //$(".nav-tabs li").children('a').last().focus();
-              }
+                }
+              else {
+                 ctab = "NONAME1.PRG";
+                 $('#tabs a:last').text( ctab );
+                 //Run();
+                 editor_run();
+                 textos[ ctab.trim().toUpperCase() ] = editor.getValue();
+                }
+                var mode = autoImplementedMode( ctab.toLowerCase());
+                if ( mode ) {
+                   editor.getSession().setMode(mode);
+                   }
+                $('#tabs a:last').click();
+                //$(".nav-tabs li").children('a').last().focus();
             });
 
            $(".nav-tabs li").children('a').last().click();
            //$(".nav-tabs li").children('a').last().focus();
 
-           $("#row1").splitter();
+           $("#row1").splitter( null, npossplitter );  //0.8
         });
 
         function init_window() {
@@ -717,7 +853,7 @@ return nil
 
         function editor_run() {
           var ext = ctab.split('.').pop().toLowerCase();
-          console.log( ext );
+          //console.log( ext );
           if ( ext == 'prg' | ext == 'hrb' ) {
              Run();
             }
@@ -726,6 +862,15 @@ return nil
                 document.getElementById("result").innerHTML = editor.getValue();
                }
           }
+          editor.focus();
+        }
+
+        function openfileconfig() {
+            addtab( "XCLOUD.INI" );
+            textos[ ctab.trim().toUpperCase() ] = <?prg return GetTextIni( cIni ) ?>;
+            textos[ ctab.trim().toUpperCase() ] = textos[ ctab.trim().toUpperCase() ].replace( /\\|/g, "\\r\\n" );
+            editor.setValue( textos[ ctab.trim().toUpperCase() ], -1 );
+            editor.focus();
         }
 
         function ToggleResult() {
@@ -736,7 +881,7 @@ return nil
              x.style.display = "none";
              //$("#row1").splitter().Resize();
              var y = document.getElementById( "vsplitbar" );
-             console.log( y );
+             //console.log( y );
            }
         }
 
@@ -775,8 +920,9 @@ return nil
 
       ; (function ($) {
 
-      $.fn.splitter = function (args) {
+      $.fn.splitter = function (args,npos) {
          args = args || {};
+         npos = npos || 0.52 ;
         
          return this.each(function () {
             var zombie;		// left-behind splitbar for outline resizes
@@ -933,7 +1079,7 @@ return nil
                 });
             }
             if (isNaN(initPos))	// King Solomon's algorithm
-                initPos = Math.round(0.52*(splitter[0][opts.pxSplit] - splitter._PBA - bar._DA) );
+                initPos = Math.round(npos*(splitter[0][opts.pxSplit] - splitter._PBA - bar._DA) );
 
             // Resize event propagation and splitter sizing
             if (opts.anchorToWindow) {
@@ -971,136 +1117,25 @@ return nil
 
       </script>
 
-      <div class="modal fade" id="gotoline" role="dialog">
-        <div class="modal-dialog modal-sm" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Goto Line / Column:</h4>
-            </div>
-            <div class="modal-body" style="padding:40px 50px;">
-              <form role="form">
-                <div class="form-group">
-                  <label for="goline"><span class="glyphicon glyphicon glyphicon-arrow-down"></span> Number Line</label>
-                  <input type="text" class="form-control" id="goline" placeholder="Enter Line">
-                </div>
-                <div class="form-group">
-                  <label for="gocol"><span class="glyphicon glyphicon glyphicon-arrow-right"></span> Number Column</label>
-                  <input type="text" class="form-control" id="gocol" placeholder="Enter Column">
-                </div>
-                <button class="btn btn-success btn-block" data-dismiss="modal" onclick="GotoLine()">
-                   <span class="glyphicon glyphicon-saved"></span> Go To</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div> 
-
-      <div class="modal fade" id="saveas" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Save As:</h4>
-            </div>
-            <div class="modal-body" style="padding:40px 50px;">
-              <form role="form">
-                <div class="form-group">
-                  <label for="filesave"><span class="glyphicon glyphicon-download-alt"></span> Name File</label>
-                  <input type="text" class="form-control" id="filesave" placeholder="Enter file">
-                </div>
-                <button class="btn btn-success btn-block" data-dismiss="modal" onclick="SaveFileAs()">
-                   <span class="glyphicon glyphicon-saved"></span> Save</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div> 
-      
-      <div class="modal fade" id="about" role="dialog">
-        <div class="modal-dialog modal-sl">
-          <div class="modal-content">
-            <div class="modal-header" style="color:#2C2828;background-color:silver;padding:4px 4px;">
-              <button type="button" class="close" data-dismiss="modal" style="color:white;padding:4px 4px;">&times;</button>
-              <h4 class="modal-title"><b>xcloud v.1.1 - Ide & Editor for mod_harbour</b> [ <?prg return cDateBuild ?> ]</h4>
-            </div>
-            <div class="modal-body" style="color:#2C2828;background-color:white;padding:4px 20px 4px;">
-              <h6>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ F2  ]</b></p></div><div class="col-md-6" <p> : </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ F3  ]</b></p></div><div class="col-md-6" <p> : </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ F4  ]</b></p></div><div class="col-md-6" <p> : </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ F5  ]</b></p></div><div class="col-md-6" <p> : CLEAN ALL </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ F6  ]</b></p></div><div class="col-md-6" <p> : </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ F7  ]</b></p></div><div class="col-md-6" <p> : CLEAN ONLY RESULTS</p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ F8  ]</b></p></div><div class="col-md-6" <p> : </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ F9  ]</b></p></div><div class="col-md-6" <p> : RUN </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ F10 ]</b></p></div><div class="col-md-6" <p> : </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ F11 ]</b></p></div><div class="col-md-6" <p> : </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ F12 ]</b></p></div><div class="col-md-6" <p> : </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ CTRL         ] + A</b></p></div><div class="col-md-6" <p> : SELECT ALL </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ CTRL         ] + C</b></p></div><div class="col-md-6" <p> : COPY </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ CTRL         ] + F</b></p></div><div class="col-md-6" <p> : SEARCH </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ CTRL         ] + H</b></p></div><div class="col-md-6" <p> : REPLACE </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ CTRL         ] + S</b></p></div><div class="col-md-6" <p> : SAVE </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ CTRL         ] + V</b></p></div><div class="col-md-6" <p> : PASTE </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ CTRL         ] + X</b></p></div><div class="col-md-6" <p> : CUT </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ CTRL         ] + Z</b></p></div><div class="col-md-6" <p> : UNDO </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ CTRL + SHIFT ] + Z</b></p></div><div class="col-md-6" <p> : REDO </p></div>
-              </div>
-              <div class="row">
-              <div class="col-md-6" <p><b>[ CTRL + ALT   ] + H</b></p></div><div class="col-md-6" <p> : SHOWKEYBOARDSHORTCUTS</p></div></h6>
-              </div>
-            </div>
-            <div class="modal-footer" style="color:white;background-color:#2C2828;padding:4px 4px;">
-            <h5 class="modal-title"><b>(c) Antonio Linares & Cristobal Navarro</b></h5>
-            </div>
-          </div>
-        </div>
-      </div> 
    </body>
    </html>
    ENDTEXT
 
 return nil
+
+//----------------------------------------------------------------------------//
+
+Function GetTextInitial()
+
+   local cTextIni
+
+   TEXT TO VAR cTextIni
+function Main()
+   ? "<h1>" + "Hello world" + "</h1>"
+return nil
+   ENDTEXT
+
+return cTextIni
 
 //----------------------------------------------------------------------------//
 
@@ -1111,6 +1146,20 @@ return cText
 
 Function GetFileIni()
 return cIni
+
+//----------------------------------------------------------------------------//
+
+Function GetTextIni( cFileIni )
+
+   local cText    := hb_Memoread( cFileIni )
+   local nLines   := Len( hb_aTokens( cText, chr( 10 ) ) )
+   local cResult  := ""
+   local x
+   For x = 1 to nLines
+       cResult    += '"' + AllTrim( MemoLine( cText, 120, x ) ) + ;
+                     if( x < nLines, '|" + ', '"' )
+   Next x
+return cResult
 
 //----------------------------------------------------------------------------//
 
@@ -1135,13 +1184,13 @@ Return uVal
 
 Function ReadConfig( cFileIni )
 
-   Local hIniFile
-   Local hSection
-   Local aText    := {}
-   Local x
-   Local cEntry   := ""
-   Local nPos
-   Local cText    := Memoread( cFileIni )
+   local hIniFile
+   local hSection
+   local aText    := {}
+   local x
+   local cEntry   := ""
+   local nPos
+   local cText    := Memoread( cFileIni )
 
    if !Empty( cText )
       aText     := hb_aTokens( cText, Chr( 10 ) )
