@@ -24,6 +24,15 @@ Copy samples/test.prg to /var/www/html and go to localhost/test.prg in your brow
 
 The mod_harbour for Apache on Linux uses a different approach that turns it much much faster and lighter.
 
+This is the required structure of folders to create mod_harbour:
+```
+ + /home/username
+   + mod_harbour
+   + harbour_for_modharbour
+   + temp
+      + harbour  (created using apxs -g -n harbour from temp folder)
+```
+
 **0. Changes to build Harbour:**
 
 In both **config/dyn.mk** and **config/lib.mk** HB_DYN_LIBS add hbcplr \
