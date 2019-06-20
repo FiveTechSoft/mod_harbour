@@ -30,7 +30,7 @@ This is the required structure of folders to create mod_harbour:
    + mod_harbour
    + harbour_for_modharbour
    + temp
-      + harbour  (created using apxs -g .n harbour from temp folder)
+      + harbour  (created using apxs -g -n harbour from temp folder)
 ```
 
 **0. Changes to build Harbour:**
