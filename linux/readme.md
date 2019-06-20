@@ -26,8 +26,6 @@ The mod_harbour for Apache on Linux uses a different approach that turns it much
 
 This is the required structure of folders to create mod_harbour:
 ```
- The required structure of folders is this one:
-
  + /home/username
    + mod_harbour
    + harbour_for_modharbour
