@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HWeb - MVC</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+</head>
+<style>
+
+	.table .thead-dark th { 
+		color: #fff; 
+		background-color: #620000; 
+		border-color: #FF8888; 
+	}
+ 
+</style>
+<body>
+
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Harbour Web</a>
+    </div>
+</nav>
+
+	<div class="container">
+	
+		<h1>Usuarios...</h1>
+
+		<table class="table table-hover table-condensed table-striped">			
+			
+			<?prg
+			
+				LOCAL aDat 	:= hb_PValue(1)
+				LOCAL nLen 	:= len ( aDat )
+				LOCAL aReg
+				LOCAL cHtml := ''
+				LOCAL nI, nJ
+				LOCAL nFields := Len( aDat[1] )				
+				
+				//	Headers...
+				
+					cHtml := '<thead class="thead-dark">'								
+					
+					cHtml += '<tr>'				
+					
+						FOR nJ := 1 TO nFields	
+							cField := HB_HPairAt( aDat[1], nJ )[1]	
+							cHtml += '<th>' + cField + '</th>'							
+						NEXT																
+						
+					cHtml += '</tr>'
+					cHtml += '</thead>'				
+				
+				//	Data...
+				
+					cHtml += '<tbody>'																
+					
+					FOR nI := 1 TO Len( aDat )
+					
+						aReg := aDat[ nI ]
+						
+						cHtml += '<tr>'
+						
+						FOR nJ := 1 TO 4	
+							cValue := HB_HPairAt( aReg, nJ )[2]	
+							cHtml += '<td>' + cValue + '</td>'							
+						NEXT
+						
+						cHtml += '</tr>'
+						
+					NEXT
+					
+					cHtml += '</tbody>'
+					
+				RETU cHtml				
+			?>
+
+			
+		</table>
+
+	</div>
+</body>
+</html>
+
+
+</html>
