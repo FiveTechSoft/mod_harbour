@@ -11,11 +11,13 @@
                      </div> 
                      <div class="col-sm-9">
                         <div class="horizontal-menu" style="background-color:#2f2f2f;height:70px;">
-                           <a href="" align="middle"><img src="/modharbour_samples/eshop/images/home.png"> Home</a>
-                           <a href="" align="middle"><img src="/modharbour_samples/eshop/images/star.png"> Wish List (0)</a>
+                           <a href="" style="width:106px;"><img src="/modharbour_samples/eshop/images/home.png"> Home</a>
+                           <a href=""><img src="/modharbour_samples/eshop/images/star.png"> Wish List (0)</a>
                            <a href=""><img src="/modharbour_samples/eshop/images/user.png"> My Account</a>
-                           <a href=""><img src="/modharbour_samples/eshop/images/cart.png"> Shopping Cart</a>
-                           <a href=""><img src="/modharbour_samples/eshop/images/check.png"> Checkout</a>
+                           <a href="" style="width:154px;"><img src="/modharbour_samples/eshop/images/cart.png"> Shopping Cart</a>
+                           <a href="""><img src="/modharbour_samples/eshop/images/check.png"> Checkout</a>
+                           <a href="" style="background-color:#19caaf;" onMouseOver="this.style.color='#2f2f2f'" onMouseOut="this.style.color='white'">
+                              <img src="/modharbour_samples/eshop/images/cart-black.png"> (0) items</a>
                         </div>
                      </div> 
                   </div>
@@ -25,12 +27,16 @@
 <style>
 
 .horizontal-menu a {
-  width: 160px;
+  width: 142px;
+  height:70px;
   background-color: #2f2f2f;
   color: white;
   display: inline-block;
   text-decoration: none;
-  padding:25px;
+  padding:22px;
+  padding-bottom: 0px;
+  margin-left:0px;
+  margin-right:0px;
 }
 
 .horizontal-menu a:hover {
