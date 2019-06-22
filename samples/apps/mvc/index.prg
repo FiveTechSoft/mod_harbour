@@ -32,4 +32,4 @@ FUNCTION Main()
 	
 RETURN NIL
 
-{% MemoRead( ap_GetEnv("PATH_APP") + "/lib/tmvc.prg") %}
+{% MemoRead( hb_GetEnv("PRGPATH") + "/lib/tmvc.prg") %}
