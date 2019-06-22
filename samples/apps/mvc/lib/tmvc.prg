@@ -1,5 +1,5 @@
-{% MemoRead( ap_GetEnv("PATH_APP") + "\include\hbclass.ch") %}
-{% MemoRead( ap_GetEnv("PATH_APP") + "\include\hboo.ch") %}
+{% MemoRead( hb_GetEnv( "PRGPATH" ) + "\include\hbclass.ch") %}
+{% MemoRead( hb_GetEnv( "PRGPATH" ) + "\include\hboo.ch") %}
 
 //#define __LOG__
 
@@ -319,7 +319,7 @@ METHOD Execute( cController, hParam ) CLASS TRoute
 
 	//	Por defecto la carpeta de los controladores estara en srv/controller
 	
-	LOCAL cPath := '{% ap_GetEnv("PATH_APP")%}' + '\src\controller\' 
+	LOCAL cPath := '{% hb_GetEnv( "PRGPATH" ) %}' + '\src\controller\' 
 
 	local cProg, cCode, cFile
 	local cAction := ''
@@ -414,7 +414,7 @@ METHOD Exec( cFile, ... ) CLASS TView
 
 	//	Por defecto la carpeta de los views estaran en src/view
 
-	LOCAL cPath 		:= '{% ap_GetEnv("PATH_APP")%}' + '\src\view\' 	
+	LOCAL cPath 		:= '{% hb_GetEnv( "PRGPATH" )%}' + '\src\view\' 	
 	LOCAL cCode, cProg
 	LOCAL o 			:= ''	
 
@@ -693,7 +693,7 @@ RETU NIL
 
 METHOD OpenDbf( ) CLASS THDO
 
-	LOCAL cPath 	:= '{% ap_GetEnv("PATH_APP")%}' + '\data\' 	
+	LOCAL cPath 	:= '{%hb_GetEnv( "PRGPATH" )%}' + '\data\' 	
 	LOCAL cFile 	:= cPath + ::cTable
 	LOCAL bError   	:= Errorblock({ |o| ErrorHandler(o) })
 	LOCAL cError 	:= ''
