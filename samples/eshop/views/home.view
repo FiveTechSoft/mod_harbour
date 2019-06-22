@@ -17,7 +17,7 @@
                            <a href="" style="width:154px;"><img src="/modharbour_samples/eshop/images/cart.png"> Shopping Cart</a>
                            <a href="""><img src="/modharbour_samples/eshop/images/check.png"> Checkout</a>
                            <a href="" style="background-color:#19caaf;" onMouseOver="this.style.color='#2f2f2f'" onMouseOut="this.style.color='white'">
-                              <img src="/modharbour_samples/eshop/images/cart-black.png"> (0) items</a>
+                              <img src="/modharbour_samples/eshop/images/cartwhite.png"> (0) items</a>
                         </div>
                      </div> 
                   </div>
