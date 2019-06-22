@@ -84,6 +84,16 @@
                   <div class="col-sm-9">
                      <div style="background-color:#f2f2f2;height:400px;margin-top:30px;">
                      </div>
+                     <div class="container" style="padding-left:0px;">
+                     <div class="row">
+                        <div class="col-xs-6" style="margin-top:30px;margin-left:15px;border-style:solid;border-width:1px;border-color:#d0d0d0;width:408px;height:150px;"
+                             onMouseOver="this.style.background='#19caaf';this.style.cursor='pointer';" onMouseOut="this.style.background='white';">
+                        </div>
+                        <div class="col-xs-6" style="margin-top:30px;margin-left:30px;border-style:solid;border-width:1px;border-color:#d0d0d0;width:408px;height:150px;"
+                             onMouseOver="this.style.background='#19caaf';this.style.cursor='pointer';" onMouseOut="this.style.background='white';">
+                        </div>
+                     </div>
+                     </div>
                   </div> 
                </div>
             </div>
