@@ -32,4 +32,4 @@ FUNCTION Listado( o )
 
 RETU NIL
 
-{% MemoRead( ap_GetEnv("PATH_APP") + "/src/model/tusers.prg") %}
+{% MemoRead( hb_GetEnv( "PRGPATH" ) + "/src/model/tusers.prg") %}
