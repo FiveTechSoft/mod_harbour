@@ -1,0 +1,12 @@
+<html>
+	<head>
+	  <meta charset="UTF-8">
+	</head>
+	
+	<h2>Error: Parametro no soportado</h2>
+	
+	<p>Parámetros permitidos: 
+	<p>../mvc/vista/lista
+	<p>../mvc/vista/pos
+
+</html>
