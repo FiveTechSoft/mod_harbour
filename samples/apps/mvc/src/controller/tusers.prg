@@ -1,5 +1,5 @@
-{% MemoRead( hb_GetEnv( "PRGPATH" ) + "\include\hbclass.ch") %}
-{% MemoRead( hb_GetEnv( "PRGPATH" ) + "\include\hboo.ch") %}
+{% MemoRead( hb_GetEnv( "PRGPATH" ) + "/include/hbclass.ch") %}
+{% MemoRead( hb_GetEnv( "PRGPATH" ) + "/include/hboo.ch") %}
 
 CLASS TUsers FROM THDO
 
