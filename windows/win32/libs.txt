@@ -1,4 +1,4 @@
--link c:\Apache24_32\lib\libhttpd.lib
--link c:\Apache24_32\lib\libapr-1.lib
--link c:\Apache24_32\lib\libaprutil-1.lib
+-link c:\Apache24\lib\libhttpd.lib
+-link c:\Apache24\lib\libapr-1.lib
+-link c:\Apache24\lib\libaprutil-1.lib
 -link kernel32.lib user32.lib winmm.lib advapi32.lib
