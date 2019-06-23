@@ -1,3 +1,10 @@
+2019/June/23
+
+* New functions:
+   + PathBase( [cPathFileName] ) --> returns the computer folder where the app is located, or where a folder is located
+   + PathUrl() --> returns the url of the app 
+   + Include( cPathFileName ) --> includes a file from the computer relative to where the app is located
+   
 2019/June/15
 
 * Fixed function AP_SetContentType() (please review samples/json.prg using PostMan utility). When a 
