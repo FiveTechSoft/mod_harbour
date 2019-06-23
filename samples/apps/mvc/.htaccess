@@ -24,3 +24,5 @@ DirectoryIndex main.prg index.prg
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^(.*)$ index.prg/$1 [L]
 </IfModule>
+
+#RewriteRule . /index.prg [L]
