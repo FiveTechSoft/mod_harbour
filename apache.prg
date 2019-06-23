@@ -260,6 +260,18 @@ return cPath
 
 //----------------------------------------------------------------//
 
+function Include( cDirFile )
+
+   local cFile := PathBase( cDirFile ) 
+    
+   if File( cFile )
+      return MemoRead( cFile )
+   endif
+    
+return ""
+
+//----------------------------------------------------------------//
+
 #pragma BEGINDUMP
 
 #include <hbapi.h>
