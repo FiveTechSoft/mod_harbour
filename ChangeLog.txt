@@ -1,7 +1,7 @@
 2019/June/23
 
 * New functions:
-   + PathBase( [cPathFileName] ) --> returns the computer folder where the app is located, or where a folder is located
+   + PathBase( [cPathFileName] ) --> returns the computer folder where the app is located, or where a file is located
    + PathUrl() --> returns the url of the app 
    + Include( cPathFileName ) --> includes a file from the computer relative to where the app is located
    
