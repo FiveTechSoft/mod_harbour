@@ -5,6 +5,12 @@
                   </div> 
                   <div class="col-sm-9">
                      <h2>Shopping cart</h2>
+                     <h5 style="color:#a0a0a0">Your shopping cart is empty</h5>
+                     <div class="pull-right">
+                        <a href="index.prg" class="btn btn-primary" 
+                           style="color:white;background-color:#19caaf;border:none"
+                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='#19caaf'">Continue</a>
+                     </div>
                   </div>
                </div>
             </div>  
