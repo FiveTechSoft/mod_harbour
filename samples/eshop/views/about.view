@@ -1,0 +1,22 @@
+<div class="col-lg-9 col-md-9 col-sm-12">
+
+   <p class="lead">About this blog</p>
+
+   <div class="well ">
+      <large>This blog has been developed using mod_harbour<br><br>
+             mod_harbour is a module extension for Apache that supports Harbour PRGs (and HRBs) same as Apache supports PHPs
+      </large>
+   </div>
+
+   Would you ever thought that your next blog or web app was going to be developed using Harbour ?
+   <hr>
+   
+   <blockquote>
+      <p>Reuse all your Clipper and Harbour expertise using mod_harbour and follow your inner intuition...</p>
+   </blockquote>
+   
+   <div class="image-block">
+      <img src="/modharbour_samples/blog/images/buda.jpg" class="img-responsive" >
+   </div>
+
+</div>

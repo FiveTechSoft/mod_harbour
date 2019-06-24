@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HWeb - MVC</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+</head>
+
+<style>
+
+	.table .thead-dark th { 
+		color: #fff; 
+		background-color: #620000; 
+		border-color: #FF8888; 
+	}
+ 
+</style>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Harbour Web</a>
+    </div>
+</nav>
+
+	<div class="container">
+
+		<h1>Informacion...</h1>
+
+		<table class="table table-striped table-bordered">
+		
+			<thead class="thead-dark">
+				<tr>
+					<th>Field</th>
+					<th>Value</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+			
+				<?prg
+				
+					LOCAL pDat 	:= hb_PValue(1)
+					LOCAL cHtml := ''
+					
+					cHtml += '<tr><td>Id</td><td>' + ValToChar(pDat[ 'id' ]) + '</td></tr>'
+					cHtml += '<tr><td>Name</td><td>' + pDat[ 'name' ] + '</td></tr>'
+					cHtml += '<tr><td>Dpt</td><td>' + pDat[ 'dpt' ] + '</td></tr>'
+					cHtml += '<tr><td>Phone</td><td>' + ValToChar(pDat[ 'phone' ]) + '</td></tr>'
+
+					RETU cHtml
+					
+				?>
+
+			</tbody>
+		</table>
+
+	</div>
+</body>
+</html>
+
+
+</html>

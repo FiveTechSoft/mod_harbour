@@ -1,0 +1,28 @@
+# --------------------------------------------------------------------------
+# CONFIGURACION RUTAS PROGRAMA
+# --------------------------------------------------------------------------
+SetEnv APP_TITLE           "MVC"
+SetEnv PATH_URL            "http://localhost/hweb/apps/mvc"
+SetEnv PATH_APP            "c:\xampp\htdocs\hweb\apps\mvc"
+SetEnv PATH_DATA           "c:\xampp\htdocs\hweb\apps\mvc\data"
+
+
+# --------------------------------------------------------------------------
+# Impedir que lean los ficheros del directorio
+# --------------------------------------------------------------------------
+Options All -Indexes
+
+
+# --------------------------------------------------------------------------
+# Pagina por defectos
+# --------------------------------------------------------------------------
+DirectoryIndex main.prg index.prg
+
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ index.prg/$1 [L]
+</IfModule>
+
+#RewriteRule . /index.prg [L]
