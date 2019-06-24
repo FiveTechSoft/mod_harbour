@@ -13,7 +13,7 @@
                      <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search for...">
                         <span class="input-group-btn">
-                           <button class="btn btn-default" type="button" style="color:white;background-color:#19caaf">Search</button>
+                           <button class="btn btn-default" type="button" style="color:white;background-color:{{GetColor()}}">Search</button>
                         </span>
                      </div>
                   </div>
@@ -31,7 +31,7 @@
                            <a href="index.prg?login"><img src="/modharbour_samples/eshop/images/user.png"> My Account</a>
                            <a href="index.prg?cart" style="width:154px;"><img src="/modharbour_samples/eshop/images/cart.png"> Shopping Cart</a>
                            <a href="index.prg?checkout"><img src="/modharbour_samples/eshop/images/check.png"> Checkout</a>
-                           <a href="" style="background-color:#19caaf;" onMouseOver="this.style.color='#2f2f2f'" onMouseOut="this.style.color='white'">
+                           <a href="" style="background-color:{{GetColor()}};" onMouseOver="this.style.color='#2f2f2f'" onMouseOut="this.style.color='white'">
                               <img src="/modharbour_samples/eshop/images/cartwhite.png"> (0) items</a>
                         </div>
                      </div> 

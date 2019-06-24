@@ -11,11 +11,11 @@
                      </div>
                      <div class="pull-right">
                         <a href="index.prg" class="btn btn-primary" 
-                           style="color:white;background-color:#19caaf;border:none"
-                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='#19caaf'">Forgot password</a>
+                           style="color:white;background-color:{{GetColor()}};border:none"
+                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Forgot password</a>
                         <a href="index.prg" class="btn btn-primary" 
-                           style="color:white;background-color:#19caaf;border:none;margin-left:15px;"
-                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='#19caaf'">Continue</a>
+                           style="color:white;background-color:{{GetColor()}};border:none;margin-left:15px;"
+                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Continue</a>
                      </div>
                      <br><br><hr>
                      <h2>New account</h2>
@@ -26,11 +26,11 @@
                         <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="Phone number...">
                         <div class="pull-right">
                            <a href="index.prg" class="btn btn-primary" 
-                              style="color:white;background-color:#19caaf;border:none;width:80px;"
-                              onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='#19caaf'">Ok</a>
+                              style="color:white;background-color:{{GetColor()}};border:none;width:80px;"
+                              onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Ok</a>
                            <a href="index.prg" class="btn btn-primary" 
-                              style="color:white;background-color:#19caaf;border:none;margin-left:15px;width:80px;"
-                              onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='#19caaf'">Cancel</a>
+                              style="color:white;background-color:{{GetColor()}};border:none;margin-left:15px;width:80px;"
+                              onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Cancel</a>
                         </div>
                      </div>
                   </div>

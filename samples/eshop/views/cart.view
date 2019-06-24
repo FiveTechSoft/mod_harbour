@@ -8,8 +8,8 @@
                      <h5 style="color:#a0a0a0">Your shopping cart is empty</h5>
                      <div class="pull-right">
                         <a href="index.prg" class="btn btn-primary" 
-                           style="color:white;background-color:#19caaf;border:none"
-                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='#19caaf'">Continue</a>
+                           style="color:white;background-color:{{GetColor()}};border:none"
+                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Continue</a>
                      </div>
                   </div>
                </div>

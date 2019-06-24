@@ -23,7 +23,7 @@
 }
 
 .horizontal-menu a:hover {
-  color: #19caaf;
+  color: {{GetColor()}};
 }
 
 .vertical-menu a {
@@ -38,7 +38,7 @@
 }
 
 .vertical-menu a:hover {
-  color: #19caaf;
+  color: {{GetColor()}};
 }
 
 .vertical-menu a.active {
