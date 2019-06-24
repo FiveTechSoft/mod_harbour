@@ -3,6 +3,16 @@
                </div>
 
                <div class="container" style="height:70px;">
+                  <div class="col-sm-4 col-xs-6"></div>
+                  <div class="col-sm-5 col-xs-6">
+                     <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                           <button class="btn btn-default" type="button" style="color:white;background-color:#19caaf">Search</button>
+                        </span>
+                     </div>
+                  </div>
+                  <div class="col-sm-3"></div>
                </div>
 
                <div class="container" style="height:70px;">
