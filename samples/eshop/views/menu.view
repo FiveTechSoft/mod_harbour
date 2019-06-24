@@ -1,9 +1,14 @@
              <header class="header" style="background-color:#f2f2f2;height:210px;">
                <div class="container" style="height:70px;">
+                  <div class="col-sm-4 col-xs-6">
+                     <h2><br>My eshop</h2>
+                     <h5 style="color:#a0a0a0">Online store</h5>
+                  </div>
                </div>
 
                <div class="container" style="height:70px;">
-                  <div class="col-sm-4 col-xs-6"></div>
+                  <div class="col-sm-4 col-xs-6">
+                  </div>
                   <div class="col-sm-5 col-xs-6">
                      <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search for...">
