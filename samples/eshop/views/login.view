@@ -7,7 +7,7 @@
                      <h2>Please identify</h2>
                      <div class="input-group">
                         <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="email or phone number...">
-                        <input type="text" class="form-control" placeholder="password">
+                        <input type="password" class="form-control" placeholder="password">
                      </div>
                      <div class="pull-right">
                         <a href="index.prg" class="btn btn-primary" 
