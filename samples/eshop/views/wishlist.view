@@ -1,0 +1,10 @@
+            <div class="container">
+               <div class="row" style="height:600px;">
+                  <div class="col-sm-3" style="height:570px;">
+                     {{View("leftmenu")}}
+                  </div> 
+                  <div class="col-sm-9">
+                     <h2>WishList</h2>
+                  </div>
+               </div>
+            </div>  

@@ -2,7 +2,8 @@
 
 function Controller( cRequest )
 
-   cContent = If( Empty( cRequest ), "home", If( cRequest $ "about,contact", cRequest, "home" ) )
+   cContent = If( Empty( cRequest ), "home",;
+                  If( cRequest $ "wishlist,login,cart,checkout,about,contact", cRequest, "home" ) )
    
    AP_RPuts( View( "default" ) )
 

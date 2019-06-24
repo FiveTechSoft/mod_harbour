@@ -1,3 +1,7 @@
 {{View("head")}}
 
-{{View("body")}}
+{{View("menu")}}
+
+{{View(GetContent())}}
+
+{{View("footer")}}

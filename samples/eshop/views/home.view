@@ -1,95 +1,17 @@
-            <header class="header" style="background-color:#f2f2f2;height:210px;">
-               <div class="container" style="height:70px;">
-               </div>
-
-               <div class="container" style="height:70px;">
-               </div>
-
-               <div class="container" style="height:70px;">
-                  <div class="row">
-                     <div class="col-sm-3">
-                     </div> 
-                     <div class="col-sm-9">
-                        <div class="horizontal-menu" style="background-color:#2f2f2f;height:70px;">
-                           <a href="" style="width:106px;"><img src="/modharbour_samples/eshop/images/home.png"> Home</a>
-                           <a href=""><img src="/modharbour_samples/eshop/images/star.png"> Wish List (0)</a>
-                           <a href=""><img src="/modharbour_samples/eshop/images/user.png"> My Account</a>
-                           <a href="" style="width:154px;"><img src="/modharbour_samples/eshop/images/cart.png"> Shopping Cart</a>
-                           <a href="""><img src="/modharbour_samples/eshop/images/check.png"> Checkout</a>
-                           <a href="" style="background-color:#19caaf;" onMouseOver="this.style.color='#2f2f2f'" onMouseOut="this.style.color='white'">
-                              <img src="/modharbour_samples/eshop/images/cartwhite.png"> (0) items</a>
-                        </div>
-                     </div> 
-                  </div>
-               </div>
-            </header>
-
-<style>
-
-.horizontal-menu a {
-  width: 142px;
-  height:70px;
-  background-color: #2f2f2f;
-  color: white;
-  display: inline-block;
-  text-decoration: none;
-  padding:22px;
-  padding-bottom: 0px;
-  margin-left:0px;
-  margin-right:0px;
-}
-
-.horizontal-menu a:hover {
-  color: #19caaf;
-}
-
-.vertical-menu a {
-  background-color: #f2f2f2;
-  color: #2f2f2f;
-  display: block;
-  padding: 20px;
-  text-decoration: none;
-  border-style: solid;
-  border-width:1px;
-  border-color: #d0d0d0 white #f2f2f2 white;
-}
-
-.vertical-menu a:hover {
-  color: #19caaf;
-}
-
-.vertical-menu a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-</style>
-
             <div class="container">
-               <div class="row" style="height:800px;">
+               <div class="row" style="height:600px;">
                   <div class="col-sm-3" style="height:570px;">
-                     <div class="menu header" style="background-color:#19caaf;height:70px;margin-top:-90px;" >
-                        <h3 align="center" style="color:white"><br><img src="/modharbour_samples/eshop/images/menu.png"> Categories </h3>
-                     </div>
-                     <div class="vertical-menu" style="background-color:#f2f2f2;height:500px;">
-                        <a href="">First</a>
-                        <a href="">Second</a>
-                        <a href="">Third</a>
-                        <a href="">Fourth</a>
-                        <a href="">Fifth</a>
-                        <a href="">Sixth</a>
-                        <a href="">Seventh</a>
-                        <a href="">Eigth</a>
-                     </div>
+                     {{View("leftmenu")}}
                   </div> 
                   <div class="col-sm-9">
-                     <div style="background-color:#f2f2f2;height:400px;margin-top:30px;">
+                     <div style="background-color:#f2f2f2;height:300px;margin-top:30px;">
                      </div>
                      <div class="container" style="padding-left:0px;">
                      <div class="row">
-                        <div class="col-xs-6" style="margin-top:30px;margin-left:15px;border-style:solid;border-width:1px;border-color:#d0d0d0;width:408px;height:150px;"
+                        <div class="col-xs-6" style="margin-top:30px;margin-left:15px;border-style:solid;border-width:1px;border-color:#d0d0d0;width:408px;height:140px;"
                              onMouseOver="this.style.background='#19caaf';this.style.cursor='pointer';" onMouseOut="this.style.background='white';">
                         </div>
-                        <div class="col-xs-6" style="margin-top:30px;margin-left:30px;border-style:solid;border-width:1px;border-color:#d0d0d0;width:408px;height:150px;"
+                        <div class="col-xs-6" style="margin-top:30px;margin-left:30px;border-style:solid;border-width:1px;border-color:#d0d0d0;width:408px;height:140px;"
                              onMouseOver="this.style.background='#19caaf';this.style.cursor='pointer';" onMouseOut="this.style.background='white';">
                         </div>
                      </div>
