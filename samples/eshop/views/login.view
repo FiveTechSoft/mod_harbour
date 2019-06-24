@@ -5,6 +5,34 @@
                   </div> 
                   <div class="col-sm-9">
                      <h2>Please identify</h2>
+                     <div class="input-group">
+                        <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="email or phone number...">
+                        <input type="text" class="form-control" placeholder="password">
+                     </div>
+                     <div class="pull-right">
+                        <a href="index.prg" class="btn btn-primary" 
+                           style="color:white;background-color:#19caaf;border:none"
+                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='#19caaf'">Forgot password</a>
+                        <a href="index.prg" class="btn btn-primary" 
+                           style="color:white;background-color:#19caaf;border:none;margin-left:15px;"
+                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='#19caaf'">Continue</a>
+                     </div>
+                     <br><br><hr>
+                     <h2>New account</h2>
+                     <div class="input-group">
+                        <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="First name...">
+                        <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="Last name...">
+                        <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="E-mail...">
+                        <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="Phone number...">
+                        <div class="pull-right">
+                           <a href="index.prg" class="btn btn-primary" 
+                              style="color:white;background-color:#19caaf;border:none;width:80px;"
+                              onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='#19caaf'">Ok</a>
+                           <a href="index.prg" class="btn btn-primary" 
+                              style="color:white;background-color:#19caaf;border:none;margin-left:15px;width:80px;"
+                              onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='#19caaf'">Cancel</a>
+                        </div>
+                     </div>
                   </div>
                </div>
             </div>  
