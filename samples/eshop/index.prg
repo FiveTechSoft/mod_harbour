@@ -12,10 +12,8 @@ return nil
 
 function Controller( cRequest )
 
-   local hPairs
-
    cContent = If( Empty( cRequest ), "home",;
-                  If( cRequest $ "wishlist,login,cart,checkout,about,contact", cRequest, "home" ) )
+                  If( cRequest $ "wishlist,login,cart,checkout", cRequest, "home" ) )
 
    do case   
       case AP_Method() == "GET"
@@ -24,23 +22,32 @@ function Controller( cRequest )
       case AP_Method() == "POST"
          do case
             case cRequest == "login"
-                 hPairs = Ap_PostPairs()
-                 if hb_HHasKey( hPairs, "forgot" )
-                    AP_RPuts( View( "default" ) )
-                    if ! Empty( hPairs[ "username" ] ) 
-                       AP_RPuts( "<script>MsgInfo( 'An email has been sent to you to reset your password' )</script>" )
-                    else   
-                       AP_RPuts( "<script>MsgInfo( 'Please write your email or phone number' )</script>" )
-                    endif    
-                 else
-                    if Identify( hPairs[ "username" ], hPairs[ "passw" ] )
-                    else
-                       AP_RPuts( View( "default" ) )
-                       AP_RPuts( "<script>MsgInfo( 'wrong username or password', 'Please try it again' )</script>" )
-                    endif 
-                 endif 
+                 Login() 
          endcase 
    endcase   
+
+return nil
+
+//----------------------------------------------------------------------------//
+
+function Login()
+
+   local hPairs := AP_PostPairs()
+                 
+   if hb_HHasKey( hPairs, "forgot" )
+      AP_RPuts( View( "default" ) )
+      if ! Empty( hPairs[ "username" ] ) 
+         AP_RPuts( "<script>MsgInfo( 'An email has been sent to you to reset your password' )</script>" )
+      else   
+         AP_RPuts( "<script>MsgInfo( 'Please write your email or phone number' )</script>" )
+      endif    
+   else
+      if Identify( hPairs[ "username" ], hPairs[ "passw" ] )
+      else
+         AP_RPuts( View( "default" ) )
+         AP_RPuts( "<script>MsgInfo( 'wrong username or password', 'Please try it again' )</script>" )
+      endif 
+   endif 
 
 return nil
 
