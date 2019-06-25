@@ -33,21 +33,27 @@ return nil
 function Login()
 
    local hPairs := AP_PostPairs()
-                 
-   if hb_HHasKey( hPairs, "forgot" )
-      AP_RPuts( View( "default" ) )
-      if ! Empty( hPairs[ "username" ] ) 
-         AP_RPuts( "<script>MsgInfo( 'An email has been sent to you to reset your password' )</script>" )
-      else   
-         AP_RPuts( "<script>MsgInfo( 'Please write your email or phone number' )</script>" )
-      endif    
-   else
-      if Identify( hPairs[ "username" ], hPairs[ "passw" ] )
-      else
+    
+   do case
+      case hb_HHasKey( hPairs, "forgot" )
          AP_RPuts( View( "default" ) )
-         AP_RPuts( "<script>MsgInfo( 'wrong username or password', 'Please try it again' )</script>" )
-      endif 
-   endif 
+         if ! Empty( hPairs[ "username" ] ) 
+            AP_RPuts( "<script>MsgInfo( 'An email has been sent to you to reset your password' )</script>" )
+         else   
+            AP_RPuts( "<script>MsgInfo( 'Please write your email or phone number' )</script>" )
+         endif 
+         
+      case hb_HHasKey( hPairs, "continue" )     
+           if Identify( hPairs[ "username" ], hPairs[ "passw" ] )
+           else
+              AP_RPuts( View( "default" ) )
+              AP_RPuts( "<script>MsgInfo( 'wrong username or password', 'Please try it again' )</script>" )
+           endif 
+           
+      case hb_HHasKey( hPairs, "ok" )
+           AP_RPuts( View( "default" ) )
+           AP_RPuts( "<script>MsgInfo( 'Please identify and press continue' )</script>" )
+   endcase 
 
 return nil
 
