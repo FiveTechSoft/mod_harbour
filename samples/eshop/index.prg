@@ -87,7 +87,7 @@ function Identify( _cUserName, _cPassword )
 
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/users" ) SHARED
 
-   LOCATE FOR ( field->email = _cUserName .or. field->phone = _cUserName ) .and. ;
+   LOCATE FOR ( field->email = _cUserName .or. field->phone = hb_UrlDecode( _cUserName ) ) .and. ;
                 field->password = hb_Md5( cPassword )
    
    lFound = Found()
