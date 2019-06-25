@@ -8,7 +8,7 @@
                      <form action="index.prg?login" method="post">
                         <div class="input-group">
                            <input type="text" class="form-control" name="username" style="margin-bottom:15px;" placeholder="email or phone number..." required>
-                           <input type="password" class="form-control" name="passw" placeholder="password" required>
+                           <input type="password" class="form-control" name="password" placeholder="password" required>
                         </div>
                         <div class="pull-right">
                            <button type="submit" class="btn btn-primary" name="forgot" 

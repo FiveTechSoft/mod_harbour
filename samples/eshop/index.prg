@@ -1,4 +1,4 @@
-static cContent
+static cContent, cUserName, cPassword, cMd5, cDbf
 
 //----------------------------------------------------------------------------//
 
@@ -13,7 +13,7 @@ return nil
 function Controller( cRequest )
 
    cContent = If( Empty( cRequest ), "home",;
-                  If( cRequest $ "wishlist,login,cart,checkout", cRequest, "home" ) )
+                  If( cRequest $ "wishlist,login,welcome,cart,checkout", cRequest, "home" ) )
 
    do case   
       case AP_Method() == "GET"
@@ -44,13 +44,16 @@ function Login()
          endif 
          
       case hb_HHasKey( hPairs, "continue" )     
-           if Identify( hPairs[ "username" ], hPairs[ "passw" ] )
+           if Identify( hPairs[ "username" ], hPairs[ "password" ] )
+              cContent = "welcome"
+              AP_RPuts( View( "default" ) )
            else
               AP_RPuts( View( "default" ) )
               AP_RPuts( "<script>MsgInfo( 'wrong username or password', 'Please try it again' )</script>" )
            endif 
            
       case hb_HHasKey( hPairs, "ok" )
+           AddUser( hPairs )
            AP_RPuts( View( "default" ) )
            AP_RPuts( "<script>MsgInfo( 'Please identify and press continue' )</script>" )
    endcase 
@@ -59,9 +62,42 @@ return nil
 
 //----------------------------------------------------------------------------//
 
-function Identify( cUserName, cPassword )
+function AddUser( hPairs )
 
-return .F.
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/users" ) SHARED
+   
+   APPEND BLANK
+   if RLock()
+      field->first    := hb_HGet( hPairs, "first" )
+      field->last     := hb_HGet( hPairs, "last" )
+      field->email    := hb_UrlDecode( hb_HGet( hPairs, "email" ) )
+      field->phone    := hb_HGet( hPairs, "phone" )
+      field->password := hb_Md5( hb_HGet( hPairs, "password" ) )
+      DbUnLock()
+   endif   
+   USE
+   
+return nil   
+
+//----------------------------------------------------------------------------//
+
+function Identify( _cUserName, _cPassword )
+
+   local lFound
+
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/users" ) SHARED
+
+   LOCATE FOR field->first = _cUserName .and. field->password = hb_Md5( cPassword )
+   
+   lFound = Found()
+   
+   if lFound
+      cUserName = _cUserName
+   endif   
+
+   USE
+
+return lFound
 
 //----------------------------------------------------------------------------//
 
@@ -71,9 +107,15 @@ return cContent
 
 //----------------------------------------------------------------------------//
 
-function BlogName()
+function UserName()
 
-return "My blog"
+return cUserName
+
+//----------------------------------------------------------------------------//
+
+function MyEShopName()
+
+return "My eshop"
 
 //----------------------------------------------------------------------------//
 
