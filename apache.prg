@@ -260,14 +260,21 @@ return cPath
 
 //----------------------------------------------------------------//
 
-function Include( cDirFile )
+function Include( cFile )
 
-   local cFile := PathBase( cDirFile ) 
+   local cPath := AP_GetEnv( "DOCUMENT_ROOT" ) 
+
+   hb_default( @cFile, '' )
+   cFile = cPath + cFile   
+   
+   if "Linux" $ OS()
+      cFile = StrTran( cFile, '\', '/' )     
+   endif   
     
    if File( cFile )
       return MemoRead( cFile )
    endif
-    
+   
 return ""
 
 //----------------------------------------------------------------//
