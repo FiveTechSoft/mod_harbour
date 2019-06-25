@@ -1,3 +1,4 @@
+sudo apt-get install apache2-dev
 cd ~
 if [ ! -d "mod_harbour" ]; then
    git clone https://github.com/fivetechsoft/mod_harbour
