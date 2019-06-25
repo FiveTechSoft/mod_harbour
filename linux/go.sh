@@ -8,9 +8,9 @@ sudo ln -sf ~/mod_harbour/samples modharbour_samples
 cd ..
 sudo mkdir test
 sudo cp ~/mod_harbour/samples/customer.dbf ./test
-sudo chmod 0777 ./test
-sudo chown www-data:www-data ./test
-sudo chmod 0777 ./test/customer.dbf
+sudo chown www-data:www-data test
+cd test
+sudo chown www-data:www-data customer.dbf
 rm ~/mod_harbour/samples/customer.dbf
 cd /usr/lib/apache2/modules
 sudo ln -sf ~/mod_harbour/linux/"Ubuntu 18.04"/mod_harbour.so mod_harbour.so
