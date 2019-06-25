@@ -5,18 +5,20 @@
                   </div> 
                   <div class="col-sm-9">
                      <h2>Please identify</h2>
+                     <form action="index.prg?login" method="post">
                      <div class="input-group">
-                        <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="email or phone number...">
-                        <input type="password" class="form-control" placeholder="password">
+                        <input type="text" class="form-control" name="username" style="margin-bottom:15px;" placeholder="email or phone number...">
+                        <input type="password" class="form-control" name="passw" placeholder="password">
                      </div>
                      <div class="pull-right">
-                        <a href="index.prg" class="btn btn-primary" 
+                        <button type="submit" class="btn btn-primary" name="forgot" 
                            style="color:white;background-color:{{GetColor()}};border:none"
-                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Forgot password</a>
-                        <a href="index.prg" class="btn btn-primary" 
+                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Forgot password</button>
+                        <button type="submit" class="btn btn-primary" name="continue"
                            style="color:white;background-color:{{GetColor()}};border:none;margin-left:15px;"
-                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Continue</a>
+                           onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Continue</button>
                      </div>
+                     </form>
                      <br><br><hr>
                      <h2>New account</h2>
                      <div class="input-group">
