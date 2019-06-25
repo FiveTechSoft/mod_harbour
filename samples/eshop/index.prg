@@ -1,4 +1,4 @@
-static cContent, cUserName, cPassword, cMd5, cDbf
+static cContent, cUserName
 
 //----------------------------------------------------------------------------//
 
