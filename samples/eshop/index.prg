@@ -13,7 +13,7 @@ return nil
 function Controller( cRequest )
 
    cContent = If( Empty( cRequest ), "home",;
-                  If( cRequest $ "wishlist,login,welcome,cart,checkout", cRequest, "home" ) )
+                  If( cRequest $ "wishlist,login,cart,checkout", cRequest, "home" ) )
 
    do case   
       case AP_Method() == "GET"
@@ -88,7 +88,7 @@ function Identify( _cUserName, _cPassword )
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/users" ) SHARED
 
    LOCATE FOR ( field->email = hb_UrlDecode( _cUserName ) .or. field->phone = _cUserName ) .and. ;
-                field->password = hb_Md5( cPassword )
+                field->password = hb_Md5( _cPassword )
    
    lFound = Found()
    
