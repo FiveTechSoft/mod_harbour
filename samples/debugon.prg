@@ -4,7 +4,7 @@ function Main()
 
    ? hb_GetEnv( "HB_USER_PRGFLAGS" )
 
-   AltD( 1 )   // Enables the debugger. Press F5 to go
+   AltD( 1 )   // Enables the debugger
 
    ? "debugger enabled"
 
