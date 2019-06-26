@@ -1,8 +1,8 @@
-// {% HB_SetEnv( "HB_USER_PRGFLAGS", "-B" ) %}
+// {% hb_SetEnv( "HB_USER_PRGFLAGS", "-B" ) %}
 
 function Main()
 
-   ? HB_GetEnv( "HB_USER_PRGFLAGS" )
+   ? hb_GetEnv( "HB_USER_PRGFLAGS" )
 
    AltD( 1 )   // Enables the debugger. Press F5 to go
 
