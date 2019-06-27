@@ -5,7 +5,7 @@ function Main()
    ShowConsole()  
 
    SetMode( 40, 120 )
-   
+ 
    QOut( "Hello from the Apache console" )
    
    ? "This output goes to the browser"

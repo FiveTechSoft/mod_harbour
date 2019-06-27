@@ -294,7 +294,7 @@ static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
 static void * pAPGetenv, * pAPBody;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
 
-#ifdef _WINDOWS_
+#ifdef _MSC_VER
    #include <windows.h>
 
 HB_FUNC( SHOWCONSOLE )     // to use the debugger locally on Windows
