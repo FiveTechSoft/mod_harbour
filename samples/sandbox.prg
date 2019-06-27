@@ -1246,11 +1246,13 @@ Function GetTextInitial()
 
    TEXT TO VAR cTextIni
 function Main()
+
    ? "<h1>" + "Hello world" + "</h1>"
+
 return nil
    ENDTEXT
 
-return cTextIni
+return Left( cTextIni, Len( cTextIni ) - 1 )
 
 //----------------------------------------------------------------------------//
 
@@ -1378,7 +1380,7 @@ Function ConfigRead( cFileIni )
       cText    += "hScrollBarAlwaysVisible=false" + CRLF
       cText    += "vScrollBarAlwaysVisible=false" + CRLF
       cText    += "fontSize=16" + CRLF
-      cText    += "fontFamily='Liberation Mono'" + CRLF
+      cText    += "fontFamily='Consolas'" + CRLF
       cText    += "maxLines=undefined" + CRLF
       cText    += "minLines=undefined" + CRLF
       cText    += "maxPixelHeight=0" + CRLF
