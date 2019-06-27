@@ -9,6 +9,7 @@ extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
 extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY, HB_URLDECODE
+extern SHOWCONSOLE
 
 static hPP
 
@@ -292,6 +293,23 @@ static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
 static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
 static void * pAPGetenv, * pAPBody;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
+
+#ifdef _WINDOWS_
+   #include <windows.h>
+
+HB_FUNC( SHOWCONSOLE )     // to use the debugger locally on Windows
+{
+   ShowWindow( GetConsoleWindow(),  3 );
+   ShowWindow( GetConsoleWindow(), 10 );
+}
+
+#else
+
+HB_FUNC( SHOWCONSOLE )
+{
+}
+
+#endif
 
 HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts, 
                const char * _szFileName, const char * _szArgs, const char * _szMethod, const char * _szUserIP,
