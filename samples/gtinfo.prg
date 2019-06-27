@@ -1,4 +1,4 @@
-// checking the General Terminal
+// checking the Graphical Terminal
 
 function Main()
 
