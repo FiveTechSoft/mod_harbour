@@ -2,14 +2,16 @@
 
 function Main()
 
-   ? hb_GetEnv( "HB_USER_PRGFLAGS" )
+   ShowConsole()
 
-   AltD( 1 )   // Enables the debugger
+   SetMode( 40, 120 )
+
+   AltD()
 
    ? "debugger enabled"
 
-   AltD()      // Invokes the debugger
+   AltD( 1 )
 
-   ? "debugger invoked"   
+   ? "debugger visible"
 
 return nil
