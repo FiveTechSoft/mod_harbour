@@ -14,6 +14,9 @@ function Main()
                overflow: auto;
                height: 300px;
                padding: 0px;
+               border: 1px;
+               border-color: gainsboro;
+               border-style: solid;
             }
 
             .header {
