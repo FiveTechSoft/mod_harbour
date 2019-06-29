@@ -37,7 +37,7 @@ function Main()
                </div>
             </div>
             <div class="row">
-               <div class="col-sm-6 panel-resizable" style="background-color:lightsteelblue;height:400px;">
+               <div class="col-sm-6 panel-resizable" style="resize:both;background-color:lightsteelblue;height:400px;">
                   <div class="header">CODE</div>    
                </div>
             </div>
