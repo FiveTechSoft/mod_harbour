@@ -1,0 +1,18 @@
+<nav class="navbar navbar-default">	
+	<div class="navbar-header">
+		<a href="https://harbourproject.slack.com/messages/CJUHF8SBX/"><img class="logo" src="{{ App_Url() + '/images/hfw.png'}}"></a>		
+		<a class="navbar-brand" href="{{ App_Url() + '/' }}">Harbour Web</a>
+		<ul class="nav navbar-nav">
+			<li><a href="{{ App_Url() + '/list'}}">List</a></li>
+		</ul>		
+	</div>
+</nav>
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+
+	<p class="views" >Views&nbsp;<span class="badge badge-light badge_app">{{ GetLogView() }}</span></p>	
+	
+	<a href="https://github.com/carles9000/mvc_notes">
+		<p class="forweb">HWEB CRUD example</p>
+	</a>
+</nav>

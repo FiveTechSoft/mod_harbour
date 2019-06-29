@@ -1,0 +1,10 @@
+{{ View( 'notes_header.view' ) }}
+
+<body>
+
+	{{ View( 'notes_nav.view' ) }}	
+	
+	<div  align="center"><img id='home' src="{{ App_Url() + '/images/notes.gif' }}"></div>   
+    
+</body>
+</html>
