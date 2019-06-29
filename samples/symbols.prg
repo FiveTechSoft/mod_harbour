@@ -2,7 +2,7 @@ function Main()
 
   local n
 
-  for n = 1 to __DYNSCOUNT()
+  for n = __DYNSCOUNT() to 1 step -1
      ? __DYNSGETNAME( n )
   next
 
