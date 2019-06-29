@@ -13,10 +13,12 @@ function Main()
                resize: horizontal;
                overflow: auto;
                height: 300px;
+               padding: 0px;
             }
 
             .header {
                background-color:gainsboro;
+               padding: 7px;
             }
          </style>
       </head>
