@@ -4,7 +4,7 @@ function Main()
 
   ?? '<body bgcolor="dodgerblue";>'
 
-  ?? '<h2 style="color:white">Harbour > The Virtual machine > The Global Symbol Table</h2>'
+  ?? '<h2 style="color:white">Harbour > The Virtual Machine > The Global Symbol Table</h2>'
 
   for n = __DynsCount() to 1 step -1
      if __DynsIsFun( n )
