@@ -4,13 +4,13 @@ function Main()
 
   ?? '<body bgcolor="dodgerblue";>'
 
-  ?? '<h2 style="color:white">Global Symbol table</h2>'
+  ?? '<h2 style="color:white">The Global Symbol Table</h2>'
 
-  for n = __DYNSCOUNT() to 1 step -1
-     if __DYNSISFUN( n )
-        ?? '<p style="color:springgreen;">' + __DYNSGETNAME( n ) + "</p>" + CRLF
+  for n = __DynsCount() to 1 step -1
+     if __DynsIsFun( n )
+        ?? '<p style="color:springgreen;">' + __DynsGetName( n ) + "</p>" + CRLF
      else
-        ?? '<p style="color:yellow;">' + __DYNSGETNAME( n ) + "</p>" + CRLF
+        ?? '<p style="color:yellow;">' + __DynsGetName( n ) + "</p>" + CRLF
      endif
   next
 
