@@ -1,6 +1,6 @@
 function Main()
 
-  local lAll     := ( AP_Args() == "all" .or. Empty( AP_Args() ) )
+  local lAll     := ( AP_Args() == "all" .or. Empty( AP_Args() ) .or. ! AP_Args() $ "code;noncode" )
   local lCode    := ( AP_Args() == "code" )
   local lNonCode := ( AP_Args() == "noncode" )
   local n
