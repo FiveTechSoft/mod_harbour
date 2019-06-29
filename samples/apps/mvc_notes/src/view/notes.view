@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Harbour Web - Ejemplo MVC Simple</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
+</head>
+
+<style>
+	.mt40{
+		margin-top: 40px;
+	}
+</style>
+
+<body>
+
+	<nav class="navbar navbar-inverse navbar-static-top">
+	
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">Harbour Web</a>
+		</div>
+	</nav>
+   
+<div class="container">
+   
+	<div class="row mt40">
+	
+	   <div class="col-md-10">
+			<h2>Bloc de Notas</h2>
+	   </div>
+	   
+		<div class="col-md-2">
+			<a href="{{ route('notes.create') }}" class="btn btn-danger">Add Note</a>
+		</div>	   
+
+		<table class="table table-bordered" id="laravel_crud">
+		   <thead>
+			  <tr>
+				 <th>Id</th>
+				 <th>Title</th>
+				 <th>Description</th>
+				 <th>Created at</th>
+				 <td colspan="2">Action</td>
+			  </tr>
+		   </thead>
+		   <tbody>
+			 
+			  <tr>
+				 <td>{{ $note->id }}</td>
+				 <td>{{ $note->title }}</td>
+				 <td>{{ $note->description }}</td>
+				 <td>{{ date('d m Y', strtotime($note->created_at)) }}</td>
+				 <td><a href="{{ route('notes.edit',$note->id)}}" class="btn btn- 
+					  primary">Edit</a></td>
+					 <td>
+					<form action="{{ route('notes.destroy', $note->id)}}" method="post">
+					  {{ csrf_field() }}
+					  @method('DELETE')
+					  <button class="btn btn-danger" type="submit">Delete</button>
+					</form>
+				</td>
+			  </tr>
+			
+		   </tbody>
+		</table>
+		
+	</div>
+</div>
+    
+</body>
+</html>

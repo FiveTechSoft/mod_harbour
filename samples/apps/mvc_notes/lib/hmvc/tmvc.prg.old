@@ -1,0 +1,1226 @@
+/*	----------------------------------------------------------------------------
+	Name:			LIB HMVC - Libreria Harbour MVC (Model/View/Controller)
+	Description: 	Primera libreria para poder emular sistema MVC
+	Autor:			Carles Aubia
+	Date: 			19/06/19	
+-------------------------------------------------------------------------------- */
+
+{% include( AP_GETENV( 'PATH_APP' ) + "/include/hbclass.ch" ) %}
+{% include( AP_GETENV( 'PATH_APP' ) + "/include/hboo.ch" ) %}
+
+
+//	-----------------------------------------------------------	//
+
+CLASS TController
+
+	DATA oRequest	
+	DATA oView
+	DATA cAction 				INIT ''
+	DATA hParam					INIT {=>}
+	DATA aRouteSelect			INIT {=>}
+	DATA hValidate				INIT {=>}
+	DATA aErrorMessages			INIT {}
+	
+	CLASSDATA cargo					
+	
+	METHOD New( cAction, hPar ) CONSTRUCTOR
+	METHOD View( cFile, ... ) 					
+	METHOD ListController()
+	METHOD ListRoute()								INLINE ::cargo:ListRoute()
+	
+	METHOD GetValue( cKey, cDefault, cType )		INLINE ::oRequest:Get( cKey, cDefault, cType )
+	METHOD PostValue( cKey, cDefault, cType )		INLINE ::oRequest:Post( cKey, cDefault, cType )
+	
+	METHOD Validate( hValidate )				
+	METHOD EvalValue( cKey, cValue )				
+	METHOD ErrorMessages()							INLINE ::aErrorMessages
+	METHOD Response( uData )		
+	
+ENDCLASS 
+
+METHOD New( cAction, hPar  ) CLASS TController
+		
+	::cAction 	:= cAction
+	::hParam 	:= hPar	
+	
+	::oView 		:= TView():New()
+	::oView:oRoute 	:= ::cargo
+
+RETU Self
+
+METHOD View( cFile, ... ) CLASS TController
+
+	::oView:Exec( cFile, ... )
+
+RETU ''
+
+METHOD Validate( hValidate ) CLASS TController
+
+	LOCAL a, n, aH, cKey, cValue
+	LOCAL lValidate := .T.	
+
+	::hValidate := hValidate		
+	
+	FOR n := 1 to len( ::hValidate )
+	
+		aH := hb_HPairAt( ::hValidate, n )
+		
+		cKey 	:= aH[1]
+		cValue 	:= aH[2]
+		
+		hMsg := ::EvalValue( cKey, cValue )
+		
+		IF hMsg[ 'success' ] == .F.
+			
+			Aadd( ::aErrorMessages, hMsg )
+			
+		ENDIF
+	
+	NEXT
+
+	lValidate := len( ::aErrorMessages ) == 0
+
+	//	xec ->getmessages()
+	//	xec ->fails()	
+
+RETU lValidate
+
+
+METHOD EvalValue( cKey, cValue ) CLASS TController
+
+	LOCAL oReq 		:= ::cargo:oTRequest
+	LOCAL aRoles, n, nRoles, cRole
+	LOCAL uValue :=  oReq:Get( cKey )
+	LOCAL cargo
+	LOCAL cMethod 	:= oReq:Method()
+	
+	__defaultNIL( @cValue, '' )
+
+	
+	DO CASE
+		CASE cMethod == 'GET'	;	uValue := oReq:Get( cKey )
+		CASE cMethod == 'POST'	;	uValue := oReq:Post( cKey )
+	ENDCASE
+	
+	
+	aRoles := HB_ATokens( cValue, '|' )
+	nRoles := len( aRoles )	
+
+	//? '<hr>Chequear: ' , cKey, 'Value: ', uValue, 'con ==> ', cValue
+	
+	//	Se han de chequear todos los roles...
+	
+	FOR n = 1 to nRoles
+	
+		cRole := alltrim(lower(aRoles[n]))
+		
+		DO CASE
+			CASE cRole == 'required'
+			
+				IF empty( uValue )
+					RETU { 'success' => .F., 'field' => cKey,  'msg' => 'Paràmetro requerido: ' + cKey, 'value' => uValue }
+					EXIT
+				ENDIF
+				
+			CASE cRole == 'numeric'
+	
+				IF ! ISDIGIT( uValue )
+					RETU { 'success' => .F., 'field' => cKey,   'msg' => 'Valor no nomérico: ' + cKey , 'value' => uValue }
+					EXIT
+				ENDIF
+
+			CASE cRole == 'string'
+	
+				IF ! ISALPHA( uValue )
+					RETU { 'success' => .F., 'field' => cKey,   'msg' => 'Valor no string: ' + cKey, 'value' => uValue  }
+					EXIT
+				ENDIF
+
+			CASE substr(cRole,1,4) == 'len:'
+
+				cargo := Val(substr(cRole, 5 ))
+
+				IF len( uValue ) > cargo	
+					RETU { 'success' => .F., 'field' => cKey,   'msg' => 'Maxima logintud de ' + ltrim(str(cargo)), 'value' => uValue  }
+					EXIT
+				ENDIF
+				
+		ENDCASE		
+		
+	NEXT								
+
+RETU { 'success' => .T. }
+ 
+METHOD Response( uData ) CLASS TController
+
+	LOCAL n 
+	
+	//	Pendiente de diseñar...
+	
+RETU NIL
+
+METHOD ListController() CLASS TController
+
+	LOCAL oThis := SELF		
+	
+	TEMPLATE PARAMS oThis
+	
+		<b>ListController</b><hr><pre>
+		
+		<table border="1" style="font-weight:bold;">
+		
+			<thead>
+				<tr>
+					<th>Description</th>
+					<th>Parameter</th>
+					<th>Value</th>							
+				</tr>									
+			</thead>
+			
+			<tbody>
+			
+				<tr>
+					<td>ClassName Name</td>
+					<td>ClassName()</td>
+					<td><?prg retu oThis:ClassName() ?></td>
+				</tr>
+				
+				<tr>
+					<td>Action</td>
+					<td>cAction</td>
+					<td><?prg retu oThis:cAction ?></td>
+				</tr>				
+			
+				<tr>
+					<td>Parameters</td>
+					<td>hParam</td>
+					<td><?prg retu ValToChar( oThis:hParam ) ?></td>
+				</tr>				
+				
+				<tr>
+					<td>Method</td>
+					<td>oRequest:method()</td>
+					<td><?prg retu oThis:oRequest:method() ?></td>
+				</tr>
+				
+				<tr>
+					<td>Query</td>
+					<td>oRequest:GetQuery()</td>
+					<td><?prg retu oThis:oRequest:getquery() ?></td>
+				</tr>				
+
+				<tr>
+					<td>Parameters GET</td>
+					<td>oRequest:CountGet()</td>
+					<td><?prg retu ValToChar(oThis:oRequest:countget()) ?></td>
+				</tr>	
+
+				<tr>
+					<td>Value GET</td>
+					<td>oRequest:Get( cKey )</td>
+					<td><?prg retu ValToChar(oThis:oRequest:getall()) ?></td>
+				</tr>
+
+				<tr>
+					<td>Parameters POST</td>
+					<td>oRequest:CountPost()</td>
+					<td><?prg retu ValToChar(oThis:oRequest:countpost()) ?></td>
+				</tr>	
+
+				<tr>
+					<td>Value POST</td>
+					<td>oRequest:Post( cKey )</td>
+					<td><?prg retu ValToChar(oThis:oRequest:postall()) ?></td>
+				</tr>	
+
+				<tr>
+					<td>Route Select</td>
+					<td>aRouteSelect</td>
+					<td><?prg retu ValToChar(oThis:aRouteSelect) ?></td>
+				</tr>				
+				
+			
+			</tbody>		
+			
+		</table>
+
+		</pre>
+		
+   
+   ENDTEXT
+
+RETU 
+
+
+
+
+//	-----------------------------------------------------------	//
+//	-----------------------------------------------------------	//
+
+CLASS THDO
+
+   DATA cType    					INIT 'DBF'
+   DATA cTable    					INIT ''
+   DATA cAlias						INIT ''
+   DATA cFocus						INIT ''
+   DATA lOpen 						INIT .F.
+   DATA aFields 						INIT {=>}
+
+   METHOD  New() CONSTRUCTOR
+   
+   METHOD  AddField( cField ) 		INLINE ::aFields[ cField ] := {}
+   METHOD  Open()					
+   METHOD  OpenDbf()					
+   METHOD  Focus( cFocus )
+   METHOD  Seek( cKey )
+   METHOD  Load()
+
+
+ENDCLASS
+
+METHOD New() CLASS THDO
+
+RETU Self
+
+METHOD Open() CLASS THDO
+
+	LOCAL oError, bError, cError
+	LOCAL cPath
+	
+	IF ::lOpen	
+		RETU NIL
+	ENDIF	
+
+	DO CASE 
+		CASE ::cType == 'DBF' ; ::OpenDbf()				
+	ENDCASE			   
+
+RETU NIL
+
+METHOD OpenDbf( ) CLASS THDO
+
+	LOCAL cPath 	:= AP_GETENV( 'DOCUMENT_ROOT' ) + AP_GETENV( 'PATH_APP' ) + '/data/'
+	LOCAL cFile 	:= cPath + ::cTable
+	LOCAL bError   	:= Errorblock({ |o| ErrorHandler(o) })
+	LOCAL cError 	:= ''
+
+	BEGIN SEQUENCE
+
+	   USE ( cFile ) SHARED NEW VIA "DBFCDX"
+	   
+		::cAlias 	:= Alias()
+		::lOpen 	:= .T.
+		
+		IF ( !empty( ::cFocus  ) )		
+			( ::cAlias )->( OrdSetFocus( ::cFocus ) )
+		ENDIF
+	
+	RECOVER USING oError
+
+	  cError := 'File: ' + cFile + '<br>'
+		
+	  cError += 'Error Description: '
+		
+	  cError += if( ValType( oError:SubSystem   ) == "C", oError:SubSystem(), "???" )
+	  cError += if( ValType( oError:SubCode     ) == "N", "/" + ltrim(str(( oError:SubCode ))), "/???" )
+	  cError += if( ValType( oError:Description ) == "C", "  " + oError:Description, "" )
+  
+	  ? cError
+	  
+	  QUIT		//	Ya veremos como tratamos errores...
+
+	END SEQUENCE	
+	
+RETU .T.
+
+
+METHOD Focus( cFocus ) CLASS THDO
+
+	::Open()
+
+	IF ::lOpen	
+		( ::cAlias )->( OrdSetFocus( cFocus ) )				
+	ENDIF
+	
+RETU NIL 
+
+METHOD Seek( n ) CLASS THDO
+
+	LOCAL hReg 		:= {=>}
+	LOCAL cField, nI
+	LOCAl lFound 	:= .F.
+
+	::Open()
+		
+	IF !::lOpen	
+		RETU hReg
+	ENDIF
+
+	lFound 	:= (::cAlias)->( DbSeek( n ) )		
+
+	hReg 	:= ::Load()
+
+RETU hReg
+
+METHOD Load() CLASS THDO
+
+	LOCAL nI, cField 
+	LOCAL hReg := {=>}
+
+	FOR nI := 1 TO Len( ::aFields )
+	
+		cField := HB_HPairAt( ::aFields, nI )[1]				
+		hReg[ cField ] :=  ValToChar((::cAlias)->( FieldGet( FieldPos( cField ) ) ))
+		
+	NEXT
+
+RETU hReg
+
+*-----------------------------------
+STATIC FUNCTION ErrorHandler(oError)
+*-----------------------------------
+
+    BREAK oError
+
+RETU NIL
+
+//	-----------------------------------------------------------	//
+
+
+CLASS TRequest
+
+   DATA hGet					INIT {=>}
+   DATA hPost					INIT {=>}
+   DATA hCgi					INIT {=>}
+
+   METHOD New() CONSTRUCTOR
+   METHOD Method()						INLINE AP_GetEnv( 'REQUEST_METHOD' )
+   METHOD Get( cKey, uDefault, cType )
+   METHOD GetAll()						INLINE ::hGet
+   METHOD Post( cKey, uDefault, cType )
+   METHOD PostAll()						INLINE ::hPost
+   METHOD Cgi ( cKey )
+   METHOD CountGet()						INLINE len( ::hGet )
+   METHOD CountPost()						INLINE len( ::hPost )
+   METHOD LoadGet()
+   METHOD LoadPost()
+   METHOD GetQuery()
+
+ENDCLASS
+
+METHOD New() CLASS TRequest
+
+	LOG 'QUERY: ' + ::GetQuery()
+	LOG 'METHOD: ' + ::Method()
+		
+	::LoadGet()	
+	::LoadPost()	
+
+return Self
+
+METHOD Get( cKey, uDefault, cType ) CLASS TRequest
+
+	LOCAL nType 
+	LOCAL uValue	:= ''
+
+	__defaultNIL( @cKey, '' )
+	__defaultNIL( @uDefault, '' )
+	__defaultNIL( @cType, '' )		
+	
+	IF !empty(cKey) .AND. hb_HHasKey( ::hGet, cKey )
+		uValue := hb_UrlDecode(::hGet[ cKey ])
+	ELSE
+		uValue := uDefault
+	ENDIF
+
+	DO CASE
+		CASE cType == 'C'
+		CASE cType == 'N'		
+			uValue := Val( uValue )
+	ENDCASE		
+
+RETU uValue
+
+METHOD Post( cKey, uDefault, cType ) CLASS TRequest
+
+	LOCAL nType 
+	LOCAL uValue 	:= ''
+	
+	__defaultNIL( @cKey, '' )
+	__defaultNIL( @uDefault, '' )	
+	__defaultNIL( @cType, '' )			
+
+	IF hb_HHasKey( ::hPost, cKey )
+		uValue := hb_UrlDecode(::hPost[ cKey ])
+	ELSE
+		uValue := uDefault
+	ENDIF
+	
+	DO CASE
+		CASE cType == 'C'
+		CASE cType == 'N'		
+			uValue := Val( uValue )
+	ENDCASE
+
+RETU uValue
+
+
+METHOD LoadGet() CLASS TRequest
+
+	LOCAL cArgs := AP_Args()
+	LOCAL cPart	
+	
+	FOR EACH cPart IN hb_ATokens( cArgs, "&" )
+	
+		IF ( nI := At( "=", cPart ) ) > 0
+			::hGet[ lower(Left( cPart, nI - 1 )) ] := Alltrim(SubStr( cPart, nI + 1 ))
+		ELSE
+			::hGet[ lower(cPart) ] :=  ''
+		ENDIF
+	   
+	NEXT							
+
+
+RETU NIL
+
+METHOD LoadPost() CLASS TRequest
+
+	::hPost := AP_PostPairs()
+	
+	//	Bug AP_PostPairs, si esta vacio devuelve un hash de 1 posicion sin key ni value
+	
+	IF Len( ::hPost ) == 1 .AND. empty( HB_HKeyAt( ::hPost, 1 ) )
+		::hPost := {=>}
+	ENDIF 
+
+RETU NIL
+
+METHOD Cgi( cKey ) CLASS TRequest
+
+	LOCAL uValue := ''
+	
+	__defaultNIL( @cKey, '' )		
+	
+	uValue := AP_GetEnv( cKey )
+
+RETU uValue
+
+METHOD GetQuery() CLASS TRequest
+
+	LOCAL cPath, n, cQuery
+
+	cPath := _cFilePath( ::Cgi( 'SCRIPT_NAME' ) )
+	
+	LOG 'GetQuery() Path: ' + cPath
+	
+	n := At( cPath, ::Cgi( 'REQUEST_URI' ) )
+	
+	cQuery := Substr( ::Cgi( 'REQUEST_URI' ), n + len( cPath ) ) 
+	
+	IF ( len(cQuery ) == 0 )
+		cQuery := '/'
+	ENDIF
+
+RETU cQuery
+
+static function _cFilePath( cFile )   // returns path of a filename
+
+   //local lLinux := If( "Linux" $ OS(), .T., .F. )
+   //local cSep := If( lLinux, "\", "/" )
+   LOCAL cSep := '/'
+   local n := RAt( cSep, cFile )
+
+RETU Substr( cFile, 1, n )
+
+//	-----------------------------------------------------------	//
+
+CLASS TRoute
+
+	DATA oTRequest
+	CLASSDATA aMap						INIT {}	
+
+	METHOD New() CONSTRUCTOR
+	
+	METHOD Map( cMethod, cRoute, pController ) 
+	METHOD ListRoute()
+	METHOD Listen()
+	METHOD Execute()
+
+ENDCLASS
+
+METHOD New( oApp ) CLASS TRoute
+
+	::oTRequest := TRequest():New()	
+
+RETU Self
+
+
+METHOD Map( cMethod, cId, cRoute, pController ) CLASS TRoute
+
+	Aadd( ::aMap, { cMethod, cId, cRoute, pController, '', '' } )
+
+RETU NIL
+
+METHOD ListRoute() CLASS TRoute
+
+	LOCAL n, nLen := len( ::aMap )
+	LOCAl cHtml
+	
+	? '<b>Mapping Route</b><hr><pre>'
+	
+	cHtml := '<table border="1" style="font-weight:bold;">'
+	cHtml += '<thead ><tr ><td>Metodo</td><td>Id</td><td>Map</td><td>Route</td></tr></thead><tbody>'
+	
+	FOR n := 1 TO nLen 
+		cHtml += '<tr><td>' + ::aMap[n][1] + '</td><td>' + ::aMap[n][2] + '</td><td>' + ::aMap[n][3] + '</td><td>'+ ::aMap[n][4] + '</td></tr>'
+	NEXT		
+	
+	cHtml += '</tbody></table>'
+	
+	?? cHtml
+	
+	?? '</pre><hr>'
+
+RETU ''
+
+METHOD Listen() CLASS TRoute
+
+	LOCAL n, nLen 	:= len( ::aMap )
+	LOCAL cMethod 	:= ::oTRequest:Method()
+	LOCAL cRoute, aRoute
+	LOCAL cURLQuery := ::oTRequest:GetQuery()
+	LOCAL nMask, nOptional, nPosParam, nPosMapingQuery
+	LOCAL cParamsMap, aParamsMap, aParamsQuery, cParamURL, aParamsURL
+	LOCAL uController := ''
+	LOCAL nJ, nPar
+	LOCAL hParameters := {=>}
+	LOCAL cParamName
+	LOCAL aMapSelect := {}
+	LOCAL aRouteSelect := {}
+
+	//	Buscamos en la lista de Maps, cualquier RUTA que coincida
+	//	con la Query que nos han pasado. Tambien ha de coincidir
+	//	con el method llamado, que en principio sera GET/POST 
+	
+	LOG 'Query URL: ' + cUrlQuery		
+	
+	//	Recolectamos todos los maps en un array de los que tengan el metodo igual. Los 
+	//	otros no hace falta procesarlos: Si tenemos un map DELETE o POST y nos llega un 
+	//	de tipo GET, solo procesamos los de tipos GET
+	
+	LOG '<hr>Recolectamos mapping...'
+	
+	FOR n := 1 TO nLen 
+	
+		aRoute := ::aMap[n]
+		
+		IF aRoute[1] == cMethod		
+	
+			cRoute := aRoute[3]
+			
+			LOG 'Check: ' + Valtochar(aRoute) +  '==>' + cRoute									
+			
+			nMask 		:= At( '(', cRoute )
+			nOptional 	:= At( '[', cRoute )
+			nPosParam	:= Min( nMask, nOptional )
+			
+			IF ( nMask > 0 .AND. nOptional > 0 )
+				nPosParam := Min( nMask, nOptional )
+			ELSE
+				nPosParam := Max( nMask, nOptional )			
+			ENDIF
+			
+			IF nPosParam > 0 		
+				cMap 		:= Substr( cRoute, 1, nPosParam-2 )
+				cParamsMap 	:= Substr( cRoute, nPosParam )
+			ELSE				
+				cMap 		:= cRoute
+				cParamsMap 	:= ''					
+			ENDIF								
+				
+			Aadd( aMapSelect , { aRoute[1], aRoute[2], alltrim(cMap), cParamsMap, aRoute[4] } )		
+		
+		ENDIF
+		
+	NEXT
+	
+	//	Ordenamos primero las URLS largas por si coinciden parte de ellas
+	//	con cortas..
+	//	Si tenemos estos 2 maps:
+	//	compras/customer/
+	//	compras/customer/view/(id?)
+	//
+	//	y en la url ponemos -> http://localhost/hweb/apps/shop/compras/customer/view 
+	//	coincidiria el primer map, por esos chequearemos primero las mas largas
+
+	bSort := {| x, y | lower(x[3]) >= lower(y[3]) }
+	
+	ASort( aMapSelect,nil,nil, bSort )
+	
+	LOG '<hr>Mapping reordenado...'
+	
+	FOR n := 1 TO len( aMapSelect )
+
+		LOG ValToChar( aMapSelect[n][3] )
+		
+	NEXT
+	
+	LOG '<hr>'
+	
+	nLen := len( aMapSelect )
+	
+	FOR n := 1 TO nLen 
+	
+		
+		//	Tratamos elemento Map
+		
+			aRoute 		:= aMapSelect[n]
+
+			cMap 		:= aRoute[3]	
+			
+			LOG 'Map Route: ' + cMap
+		
+		//	Buscaremos que el map exista en la query, p.e.
+		//	Si tenemos oRoute:Map( 'GET', 'compras/customer/(999)', 'edit@compras.prg' )	
+		//	buscaremos 'compras/customer' si se encuentra en la URL .
+		//	Si se encuentra será a partir de la posicion 1
+		
+			nPosMapingQuery := At( cMap, cUrlQuery )
+			
+			IF nPosMapingQuery == 1 	//	Existe
+			
+				LOG '<b>MAPPING MATCHING ==> ' + cMap + '</b>' 
+			
+				DO CASE
+				
+					CASE cMethod == 'GET'
+			
+						cParamsMap 	:= aRoute[4]				
+
+						LOG 'Map Params: ' + cParamsMap						
+						
+						//	Trataremos los parámetros a ver si cumplen el formato...
+						
+							IF !empty( cParamsMap )
+								aParamsMap  := HB_ATokens( cParamsMap, '/' )	
+								nParamsMap	:= len( aParamsMap )
+							ELSE
+								aParamsMap  := {}
+								nParamsMap	:= 0								
+							ENDIF
+						
+							LOG 'Total Param Maps: ' + str(nParamsMap)
+							LOG 'Param Map: ' + ValtoChar( aParamsMap )
+							
+							//	Se habria de validar estos parámetros que si hay algun opcional, 
+							//	despues no puede haber uno obligatorio
+							//	(999)/[(a-z)]/(aa)   -> NO (El 2 es opcional y hay un 3 param
+							
+							
+							//	---------------------------
+							
+						//	Parámetros de la URL
+						
+							cParamsInQuery 	:= Substr( cUrlQuery, len(cMap)+2 )
+							
+							IF !empty( cParamsInQuery )							
+								aParamsQuery	:= HB_ATokens( cParamsInQuery, '/' )
+								nParamsQuery	:= len( aParamsQuery )
+							ELSE
+								aParamsQuery	:= {}
+								nParamsQuery	:= 0					
+							ENDIF
+							
+							LOG 'Param URL: ' + cParamsInQuery
+							LOG 'aParam URL: ' + ValToChar( aParamsQuery )											
+						
+						
+						
+						//	Se habra de mirar si matching parmaetros URL con parametros Mapping
+						//	Condiciones
+						//	Si hay definidos en el Mapping 3 parámetros, se habran de cumplir los 3.
+						//	Si uno de ellos es opcional, los que le preceden han de ser opcionales...
+						//	p.e.:
+						//	(999)/(a-z)/[(u)]
+						//	Como minimo ha de haber los mismos parametros en la url que el map. (puede
+						//	haber algun param del map que sea opcional
+						//	---------------------------------------------------------------------------
+						
+							IF nParamsQuery == nParamsMap
+							
+								//	
+									hParameters := {=>}
+								
+									FOR nJ := 1 TO nParamsMap
+									
+										//	Extraer valor de los ( ...) o [(...)]
+										
+										nIni := At( '(', aParamsMap[nJ] )
+										nFin := At( ')', aParamsMap[nJ] )
+										
+										IF ( nIni > 0 .and. ( nFin > nIni ) )
+										
+											cParamName := Alltrim(Substr( aParamsMap[nJ] , nIni + 1, nFin - nIni - 1 ))
+									
+											hParameters[ cParamName ] := aParamsQuery[ nJ ]
+										
+										ENDIF
+										
+										//	Al final del proceso de recogida de parámeros, los pondremos dentro
+										//	del objeto oTRequest:hGet. Asi si se desea se podran recuperar desde
+										//	otro punto del programa
+										
+											::oTRequest:hGet := hParameters
+										
+									NEXT
+
+									
+							
+								//	Si tenemos formateos se habrian de validar
+								//	Si el parámetro cumple la condicion de formateo..., p.e.
+								//	Si (999) el parametro solo ha de tener numeros y no mas 3
+								
+								//	...
+							
+								//	Si tenemos todos los parametros correctos y cumplen el mapeo, 
+								//	gestionamos el controlador a ejecutar...
+								
+								//	Cojeremos el 5 parámetro del mapeo. Podrá ser un puntero a 
+								//	función o un controlador. El formato del controlador será
+								// at the moment "metodo@fichero" p.e. -> edit@compras_controller.prg
+								
+									uController 	:= aRoute[5]								
+									aRouteSelect 	:= aRoute								
+								
+								//	En este punto ya no habria de mirar ningun posible Map mas...
+								
+								EXIT
+								
+							ELSE 
+							
+								LOG 'Parámetros URL <> Mapp'
+							
+							ENDIF
+							
+					CASE cMethod == 'POST'
+
+						hParameters := ::oTRequest:PostAll()
+
+						uController := aRoute[5]
+
+						aRouteSelect := aRoute
+						
+						//	En este punto ya no habria de mirar ningun posible Map mas...
+						
+						EXIT
+					
+					ENDCASE
+				
+			ELSE
+			
+			
+			ENDIF									
+		
+	NEXT
+	
+	//	Si existe un controlador lo ejecutaremos
+	
+	IF !empty( uController )
+	
+		LOG 'Se habrá de cargar el controlador y ejecutarlo pasandole lso parámetros...'
+		LOG '<b>Controlador</b>: '	+ valtochar( uController )	
+		LOG '<b>Parameters</b>: ' 	+ valtochar( hParameters )		
+	
+		::Execute( uController, hParameters, aRouteSelect )
+	
+	ENDIF
+	
+	
+
+
+RETU NIL
+
+//	En principio TRouter se ejecuta desde la raiz del programa...
+//	En lugar de cojer ap_getenv( path prog), podemos cojer el path del cgi script_filename
+
+METHOD Execute( cController, hParam, aRouteSelect ) CLASS TRoute
+
+	//	Por defecto la carpeta de los controladores estara en srv/controller
+	
+	LOCAL cPath := AP_GETENV( 'DOCUMENT_ROOT' ) + AP_GETENV( 'PATH_APP' ) + '/src/controller/' 
+
+	local cProg, cCode, cFile
+	local cAction := ''
+	LOCAL nPos
+	
+	LOG '<hr><b>Execute()</b>'
+	LOG 'Exec: ' + cController
+	
+	nPos := At( '@', cController )
+	
+	IF ( nPos >  0 )
+		
+		cAction := alltrim( Substr( cController, 1, nPos-1) )
+		cFile 	:= alltrim( Substr( cController, nPos+1 ) )
+	
+	ELSE
+	
+		cFile 	:= cController
+	
+	ENDIF
+
+	cProg := cPath + cFile
+	
+	LOG 'Programa--: ' + cProg
+	
+	LOG 'Action: ' + cAction
+	
+	LOG 'Existe fichero? : ' + ValToChar(file( cProg ))
+	
+	IF File ( cProg )
+	
+		cCode := memoread( cProg )
+		
+		LOG '<b>Code</b>' + cCode
+		
+		oTController 				:= TController():New( cAction, hParam )
+		oTController:cargo  		:= SELF
+		oTController:oRequest  		:= ::oTRequest
+		oTController:aRouteSelect  	:= aRouteSelect
+		
+		
+		LOG '<h3>Ejecutamos Controller() ==> ' + cController + '</h3>'
+		
+		Execute( cCode, oTController )
+	
+	ELSE
+	
+		LOG 'Error: No existe Controller: ' + cFile 
+	
+	ENDIF
+
+RETU 
+
+function App_Url(); retu AP_GETENV( 'PATH_URL' )
+
+function GetRoute( cRoute ) 
+
+	LOCAL aRoute
+
+	FOR EACH aRoute IN TRoute():New():aMap
+		IF aRoute[2] == cRoute
+			RETU App_Url() + aRoute[4]
+			exit
+		ENDIF
+	NEXT
+
+RETU ''
+
+
+//	-----------------------------------------------------------	//
+
+CLASS TView
+
+	DATA oRoute				INIT ''	
+	
+	METHOD New() CONSTRUCTOR	
+
+	METHOD Load( cFile ) 
+	METHOD Exec( cFile, ... ) 
+	
+ENDCLASS 
+
+METHOD New() CLASS TView
+		
+RETU Self
+
+
+METHOD Load( cFile ) CLASS TView
+
+	//	Por defecto la carpeta de los views estaran en src/view
+
+	LOCAL cPath 		:= AP_GETENV( 'DOCUMENT_ROOT' ) + AP_GETENV( 'PATH_APP' ) + '/src/view/'
+	LOCAL cCode 		:= ''
+	LOCAL cProg
+
+	__defaultNIL( @cFile, '' )
+	
+	cProg 				:= cPath + cFile
+	
+	LOG 'View: ' + cProg
+	LOG 'Existe fichero? : ' + ValToChar(file( cProg ))
+	
+	IF File ( cProg )
+	
+		cCode := MemoRead( cProg )	
+	
+	ENDIF				
+
+RETU cCode
+
+METHOD Exec( cFile, ... ) CLASS TView
+
+	LOCAL o 		:= ''		
+	LOCAL cCode  	:= ::Load( cFile )
+	
+	IF !empty( cCode )
+
+		//ReplaceBlocks( @cCode, "{{", "}}" )
+		zReplaceBlocks( @cCode, '{{', '}}', cFile, ... )
+		
+		LOG '<b>CODE Replaced</b><br>'		
+
+		AP_RPuts( InlinePrg( cCode, o, nil, ... ) )				
+	
+	ELSE
+	
+		LOG 'Error: No existe Vista: ' + cFile 
+		? '<h2>Error: No existe Vista: ', cFile , '</h2>'
+	
+	ENDIF				
+
+RETU ''
+
+FUNCTION zReplaceBlocks( cCode, cStartBlock, cEndBlock, cFile, ... )
+
+	LOCAL nStart, nEnd, cBlock
+	LOCAL lReplaced 		:= .F.
+	LOCAL uValue, bBloc 
+	LOCAL cCodeA, cCodeB
+	LOCAL oInfo     		:= {=>}
+    LOCAL bErrorHandler 	:= { |oError | MyErrorHandler(oError, oInfo ) }
+	LOCAL bLastHandler 	:= ErrorBlock(bErrorHandler)
+	LOCAL hPP
+   
+	hb_default( @cStartBlock, "{{" )
+	hb_default( @cEndBlock, "}}" )
+
+	oInfo[ 'file' ] := cFile
+	oInfo[ 'block' ] := 0    
+   
+	//Posar hPP com a data
+	
+    hPP := __pp_init()
+	__pp_addRule( hPP, "#xcommand PARAM <nParam> => _get( pvalue(<nParam>) )" )
+	__pp_addRule( hPP, "#xcommand PARAM <nParam>,<uIndex> => _get( hb_pvalue(<nParam>),<uIndex> )" )
+
+	while ( nStart := At( cStartBlock, cCode ) ) != 0 .and. ;
+         ( nEnd := At( cEndBlock, cCode ) ) != 0		 
+		 
+		 oInfo[ 'block' ]++		 
+		 
+		cCodeA := SubStr( cCode, 1, nStart - 1 ) 
+		cCodeB := SubStr( cCode, nEnd + Len( cEndBlock ) )
+
+		cBlock := SubStr( cCode, nStart + Len( cStartBlock ), nEnd - nStart - Len( cEndBlock ) )
+		cBlock := alltrim(cBlock)
+		uValue := ''
+		
+		oInfo[ 'code' ] := '{{ ' + cBlock + ' }}'
+		
+	    IF !empty( cBlock )
+		  
+			cBlock := __pp_process( hPP, cBlock )
+
+			bBloc  := &( '{|...| '  + cBlock + ' }' )
+			uValue := Eval( bBloc, ... )
+
+			IF Valtype( uValue ) <> 	'C'
+
+				uValue := ValToChar( uValue )
+
+			ENDIF	 
+
+	    ENDIF
+	  
+		cCode  := cCodeA + uValue + cCodeB
+	  
+		lReplaced := .T.
+    end
+   
+    ErrorBlock(bLastHandler) // Restore handler    
+   
+RETU lReplaced
+
+FUNCTION _get( uValue, uInd )
+
+	LOCAL cTypeValue	:= Valtype( uValue )
+	LOCAL cType 		:= ValType( uInd )
+
+	DO CASE
+	
+		CASE cTypeValue == 'C'
+			
+		CASE cTypeValue == 'A'
+		
+			IF cType == 'N'
+				uValue := uValue[ uInd ]
+			ELSE
+				uValue := ValToChar( uValue )
+			ENDIF
+		
+		CASE cTypeValue == 'H'
+	
+			IF cType == 'C' .AND. hb_HHasKey( uValue, uInd )
+				uValue := uValue[ uInd ]	
+			ELSE
+				uValue := VTC( uValue )
+			ENDIF
+			
+		OTHERWISE
+
+			uValue := ValToChar( uValue )
+		
+	ENDCASE		
+
+RETU uValue
+
+FUNCTION VTC( u )
+	IF Valtype( u ) == 'H'
+		RETU 'HASSSSH' 
+	ELSE
+		RETU ValToChar( u )
+	ENDIF
+	
+RETU NIL
+
+FUNCTION ExecInline2( cCode, cParams, ... )		
+
+    IF cParams == nil
+       cParams = ""
+    ENDIF 
+
+RETU Execute2( "FUNCTION __Inline( " + cParams + " )" + HB_OsNewLine() + "RETU " + cCode, ... )
+
+FUNCTION Execute2( cCode, ... )
+
+   LOCAL oHrb, uRet
+   LOCAL cHBheaders := "~/harbour/include"
+   
+	        hPP = __pp_init()
+			__pp_addRule( hPP, "#xcommand PVALUE <cKey> => HB_PValue(1)\[ <cKey> \]" )
+			__pp_addRule( hPP, "#xcommand PVALUE <cKey>,<cInd> => HB_PValue(1)\[ <cKey> \]\[<cInd>\]" )
+			   
+
+   cCode = __pp_process( hPP, cCode )
+
+   oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders )
+
+   IF ! Empty( oHrb )
+      uRet = hb_HrbDo( hb_HrbLoad( oHrb ), ... )
+   ENDIF
+   
+RETU uRet
+
+
+FUNCTION MyErrorHandler( oError, oInfo )	
+
+	LOCAL cInfo 		:= ''
+	LOCAL cCallStack 	:= ''
+	LOCAL cHtml 		:= ''
+	LOCAL cContent 	:= ''
+	LOCAL cArgs 		:= ''
+	LOCAL n
+
+	 cContent +=  'File: ' + oInfo[ 'file' ] + '<br>'
+	 cContent +=  'Error: ' + oError:description + '<br>'
+	 cContent +=  'Block: ' + ltrim(str(oInfo[ 'block' ])) + '<br>'
+	 cContent +=  'Code: ' + oInfo[ 'code' ] + '<br>'
+	  
+   
+    IF ValType( oError:Args ) == "A"
+      cArgs += "   Args:" + CRLF
+      for n = 1 to Len( oError:Args )
+         cArgs += "[" + Str( n, 4 ) + "] = " + ValType( oError:Args[ n ] ) + ;
+                   "   " + ValToChar( oError:Args[ n ] ) + hb_OsNewLine()
+      next
+    ENDIF
+	
+    IF !empty( cArgs )
+		cContent +=  'Args: ' + cArgs + '<br>'
+	ENDIF
+
+	? cContent
+
+    BREAK oError      // RETU error object to RECOVER	  
+
+RETU NIL
+
+
+
+//	-----------------------------------------------------------	//
+
+FUNCTION View( cFile, ... )
+
+	LOCAL cCode := ''
+	LOCAL oView := TView():New()
+	
+	cCode := oView:Load( cFile )
+	
+	zReplaceBlocks( @cCode, '{{', '}}', cFile, ... )	
+
+retu cCode
+//#define __LOG__
+
+#ifdef __LOG__
+	#xcommand log <cText> => TLog( <cText> )	//	Tracear el sistema
+ #else
+	#xcommand log <cText> =>
+#endif
+
+#define FILELOG   AP_GETENV( 'DOCUMENT_ROOT' ) + AP_GETENV( 'PATH_APP' ) + '/data/logview.txt'
+
+FUNCTION SetLogView()
+
+	LOCAL n := GetLogView()
+	
+	n++
+
+	MemoWrit( FILELOG, ltrim(str(n)) )	
+	
+RETU NIL
+
+FUNCTION GetLogView() ; RETU Val(MemoRead( FILELOG ))
+
+//	--------------------------------------------------------------------------------------
+
+FUNCTION TLog( uValue, cTab ) 
+
+	LOCAL cType 	:= ValType( uValue )
+	LOCAL cLine 	:= ltrim(str(procline( 1 )))
+	LOCAL cPart, aKeys, cKey
+	
+	__defaultNIL( @cTab , '' )
+
+	? cTab, 'Line: ' + cLine, cType	
+	
+	DO CASE
+		CASE cType == 'C'			
+			?? uValue
+		CASE cType == 'H'
+		
+			?? 'Hash'
+			
+			aKeys := hb_HKeys( uValue )
+			
+			FOR EACH cKey IN aKeys
+			
+				cType := Valtype( uValue[ cKey ] )
+				
+				DO CASE
+					CASE cType == 'H'
+						? cTab, cKey, '=>', 'Hash'
+						cTab := '--->'
+						TLog( uValue[ cKey ], cTab )
+					OTHERWISE
+						? cTab, cKey, '=>', ValToChar(uValue[ cKey ])
+				ENDCASE
+			
+			NEXT
+										
+		OTHERWISE
+			?? ValToChar( uValue )
+	ENDCASE			
+
+RETU
+

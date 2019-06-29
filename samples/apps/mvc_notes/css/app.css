@@ -1,0 +1,53 @@
+.table > tbody > tr > td {
+	vertical-align: middle;
+}
+
+.forweb{
+	font-family: 'Architects Daughter';
+	font-size: 20px;
+	color: #b9d2fe;
+	margin-right: 10px !important;
+	margin-top: 10px;
+	width: auto;
+	float: right;
+}
+
+.views {
+	font-family: 'Architects Daughter';
+	font-size: 12px;
+	font-weight: normal;
+	float:left;
+	color: white;
+	margin-top: 15px;
+	margin-left: 10px;
+}
+
+.badge_app {
+	font-family: 'Arial';
+	font-size: 10px;
+	font-weight: normal;
+	padding-top: 2px;
+	margin-top: -2px;
+}
+	
+.logo {
+	height: 45px;
+	margin-left: 10px;
+	float: left;			
+}
+	
+#home {
+	width: 580px;
+	height: 250px;
+	margin-top: -100px;
+	margin-left: -290px;
+	left: 50%;
+	top: 50%;
+	position: absolute;
+}	
+
+.btn_center {
+	display: block;
+    margin: auto;
+	width: 90px;
+}

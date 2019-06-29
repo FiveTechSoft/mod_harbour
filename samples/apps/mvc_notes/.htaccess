@@ -1,0 +1,26 @@
+# --------------------------------------------------------------------------
+# CONFIGURACION RUTAS PROGRAMA  (DIRECTORY_ROOT)
+# --------------------------------------------------------------------------
+SetEnv APP_TITLE           "Notes v1.0"
+SetEnv PATH_URL            "/modharbour_samples/apps/mvc_notes"
+SetEnv PATH_APP            "/modharbour_samples/apps/mvc_notes"
+SetEnv PATH_DATA           "/modharbour_samples/apps/mvc_notes/data"
+
+
+# --------------------------------------------------------------------------
+# Impedir que lean los ficheros del directorio
+# --------------------------------------------------------------------------
+Options All -Indexes
+
+
+# --------------------------------------------------------------------------
+# Pagina por defectos
+# --------------------------------------------------------------------------
+DirectoryIndex index.prg main.prg
+
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ index.prg/$1 [L]
+</IfModule>
