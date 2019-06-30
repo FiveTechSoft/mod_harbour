@@ -127,9 +127,12 @@ return ErrorNew()
 
 function Hash()
 
-return {=>}
+return __HBHash()
 
 function Pointer()
 
-return @Pointer()
+return __HBPointer()
 
+function ScalarObject()
+
+return HBScalar()
