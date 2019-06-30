@@ -60,14 +60,17 @@ function Main()
             
             .classes {
                padding: 10px;
+               cursor: pointer;
             }  
 
             .datas {
                padding: 10px;
+               cursor: pointer;
             }  
 
             .methods {
                padding: 10px;
+               cursor: pointer;
             }  
          </style>
       </head>
