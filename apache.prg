@@ -44,6 +44,11 @@ function AddPPRules()
 
    if hPP == nil
       hPP = __pp_init()
+      __pp_path( hPP, "~/harbour/include" )
+      __pp_path( hPP, "c:\harbour\include" )
+      if ! Empty( hb_GetEnv( "HB_INCLUDE" ) )
+         __pp_path( hPP, hb_GetEnv( "HB_INCLUDE" ) )
+      endif 	 
    endif
 
    __pp_addRule( hPP, "#xcommand ? [<explist,...>] => AP_RPuts( '<br>' [,<explist>] )" )
