@@ -1,17 +1,20 @@
 function Main()
 
-   local oInstance, cArgs := AP_Args(), cDatas := "", aDatas, n
+   local oInstance, cArgs := AP_Args(), cInfo := "", aInfo, n
 
    if ! Empty( cArgs )
-      if Left( cArgs, 6 ) == "datas:"
-         oInstance = &( SubStr( cArgs, 7 ) + "()" )
-         aDatas = __objGetMsgList( oInstance, .T. )
-         for n = 1 to Len( aDatas )
-            cDatas += "<a>" + aDatas[ n ] + "</a><br>" + CRLF
-         next   
-         ?? cDatas
-         return nil
-      endif
+      oInstance = &( cArgs + "()" )
+      aInfo = __objGetMsgList( oInstance, .T. )
+      for n = 1 to Len( aInfo )
+         cInfo += '<a class="datas">' + aInfo[ n ] + "</a><br>" + CRLF
+      next
+      cInfo += ";"
+      aInfo = __objGetMsgList( oInstance, .F. )
+      for n = 1 to Len( aInfo )
+         cInfo += '<a class="methods">' + aInfo[ n ] + "</a><br>" + CRLF
+      next   
+      ?? cInfo
+      return nil
    endif   
 
    TEMPLATE
@@ -41,6 +44,14 @@ function Main()
             .classes {
                padding: 10px;
             }  
+
+            .datas {
+               padding: 10px;
+            }  
+
+            .methods {
+               padding: 10px;
+            }  
          </style>
       </head>
       
@@ -49,21 +60,24 @@ function Main()
             <div class="row">
                <div class="col-sm-2 panel-resizable" style="background-color:lavender;">
                   <div class="header">CLASSES</div>
+                  <div>
                   <?prg local n := 1
                         local cClasses := ""
                         
                         while ! Empty( __ClassName( n ) )
-                           cClasses += '<a class="classes" onclick="GetDatas(' + "'" + __ClassName( n ) + "'" + ');">' + __ClassName( n++ ) + "</a><br>" + CRLF
+                           cClasses += '<a class="classes" onclick="GetInfo(' + "'" + __ClassName( n ) + "'" + ');">' + __ClassName( n++ ) + "</a><br>" + CRLF
                         end   
                         
                         return cClasses?>
+                  </div>      
                </div>
                <div class="col-sm-2 panel-resizable" style="background-color:lavenderblush;">
                   <div class="header">DATAS</div>
                   <div id="datas"></div>
                </div>
                <div class="col-sm-2 panel-resizable" style="background-color:lavender;">
-                  <div class="header">METHODS</div>    
+                  <div class="header">METHODS</div> 
+                  <div id="methods"></div>
                </div>
             </div>
             <div class="row">
@@ -74,9 +88,12 @@ function Main()
          </div>
 
          <script>
-            function GetDatas( cClassName )
+            function GetInfo( cClassName )
             {
-               $.post( "classes.prg?datas:" + cClassName ).done( function( data ) { $( '#datas' ).html( data ); } )
+               $.post( "classes.prg?" + cClassName ).done( function( data ) { 
+                  $( '#datas' ).html( data.substring( 0, data.indexOf( ";" ) - 1 ) ); 
+                  $( '#methods' ).html( data.substring( data.indexOf( ";" ) + 1 ) );                   
+               } )
             }
          </script>
 
@@ -98,3 +115,4 @@ return {=>}
 function Pointer()
 
 return @Pointer()
+
