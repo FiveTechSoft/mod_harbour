@@ -2,7 +2,7 @@ function Main()
 
    local oInstance, cArgs := AP_Args(), cInfo := "", aInfo, n
 
-   if ! Empty( cArgs )
+   if ! Empty( cArgs ) .and. Len( cArgs ) < 15
       oInstance = &( cArgs + "()" )
       aInfo = __objGetMsgList( oInstance, .T. )
       for n = 1 to Len( aInfo )
