@@ -59,9 +59,23 @@ function Main()
             }
             
             .classes {
-               padding: 10px;
                cursor: pointer;
+               display: block;
+               padding-left: 10px;
             }  
+
+            .classes:hover {
+               color: blue;
+            }  
+
+           .active {
+               color: white;
+               background-color: blue;
+            }
+
+           .active:hover {
+               color: yellow;
+            }
 
             .datas {
                padding: 10px;
@@ -85,7 +99,8 @@ function Main()
                         local cClasses := ""
                         
                         while ! Empty( __ClassName( n ) )
-                           cClasses += '<a class="classes" onclick="GetInfo(' + "'" + __ClassName( n ) + "'" + ');">' + __ClassName( n++ ) + "</a><br>" + CRLF
+                           cClasses += '<a class="classes" onclick="toggleColor( this );' + ;
+                                       'GetInfo(' + "'" + __ClassName( n ) + "'" + ');">' + __ClassName( n++ ) + "</a>" + CRLF
                         end   
                         
                         return cClasses?>
@@ -115,6 +130,12 @@ function Main()
                   $( '#methods' ).html( data.substring( data.indexOf( ";" ) + 1 ) );                   
                } )
             }
+            
+            function toggleColor( o )
+            {
+               $( o ).addClass( "active" );
+               $( o ).siblings().removeClass( "active" );
+            }   
          </script>
 
          </body>
