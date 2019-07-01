@@ -137,8 +137,6 @@ function Main()
             {
                $( o ).addClass( "active" );
                $( o ).siblings().removeClass( "active" );
-               // o.style.color='white';
-               // o.style.background='blue';
             }   
          </script>
 
