@@ -20,6 +20,12 @@
   padding-bottom: 0px;
   margin-left:0px;
   margin-right:0px;
+  cursor: pointer;
+}
+
+.horizontal-menu a.active {
+  color: {{GetColor()}};
+  background-color: gainsboro;
 }
 
 .horizontal-menu a:hover {
@@ -49,6 +55,12 @@
 </style>
 
 <script>
+   function SelectTopItem( o )
+   {
+      $( o ).addClass( "active" );
+      $( o ).siblings().removeClass( "active" );
+   }   
+
    function SelectCategory( o, cName )
    {
       $( o ).addClass( "active" );

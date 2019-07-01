@@ -26,12 +26,22 @@
                      </div> 
                      <div class="col-sm-9">
                         <div class="horizontal-menu" style="background-color:#2f2f2f;height:70px;">
-                           <a href="index.prg" style="width:106px;"><img src="/modharbour_samples/eshop/images/home.png"> Home</a>
-                           <a href="index.prg?wishlist"><img src="/modharbour_samples/eshop/images/star.png"> Wish List (0)</a>
-                           <a href="index.prg?login"><img src="/modharbour_samples/eshop/images/user.png"> My Account</a>
-                           <a href="index.prg?cart" style="width:154px;"><img src="/modharbour_samples/eshop/images/cart.png"> Shopping Cart</a>
-                           <a href="index.prg?checkout"><img src="/modharbour_samples/eshop/images/check.png"> Checkout</a>
-                           <a href="" style="background-color:{{GetColor()}};" onMouseOver="this.style.color='#2f2f2f'" onMouseOut="this.style.color='white'">
+                           <a {{If( GetContent() == "home", 'class="active"', "" )}} onclick="SelectTopItem( this ); javascript:location.href='index.prg'" style="width:106px;">
+                              <img src="/modharbour_samples/eshop/images/home.png"> Home</a>
+                              
+                           <a {{If( GetContent() == "wishlist", 'class="active"', "" )}} onclick="SelectTopItem( this ); javascript:location.href='index.prg?wishlist'">
+                              <img src="/modharbour_samples/eshop/images/star.png"> Wishlist (0)</a>
+                              
+                           <a {{If( GetContent() == "login", 'class="active"', "" )}} onclick="SelectTopItem( this ); javascript:location.href='index.prg?login'">
+                              <img src="/modharbour_samples/eshop/images/user.png"> My Account</a>
+                              
+                           <a {{If( GetContent() == "cart", 'class="active"', "" )}} onclick="SelectTopItem( this ); javascript:location.href='index.prg?cart'" style="width:154px;">
+                              <img src="/modharbour_samples/eshop/images/cart.png"> Shopping Cart</a>
+                              
+                           <a {{If( GetContent() == "checkout", 'class="active"', "" )}} onclick="SelectTopItem( this ); javascript:location.href='index.prg?checkout'">
+                              <img src="/modharbour_samples/eshop/images/check.png"> Checkout</a>
+                           
+                           <a style="background-color:{{GetColor()}};" onMouseOver="this.style.color='#2f2f2f'" onMouseOut="this.style.color='white'">
                               <img src="/modharbour_samples/eshop/images/cartwhite.png"> (0) items</a>
                         </div>
                      </div> 
