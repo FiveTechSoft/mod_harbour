@@ -56,14 +56,6 @@ function Main()
             .header {
                background-color:gainsboro;
                padding: 7px;
-               width: 100%;
-               max-width: 301px;
-            }
-
-            .code {
-               background-color:gainsboro;
-               padding: 7px;
-               max-width: 1000px;
             }
 
             .classes {
@@ -100,9 +92,9 @@ function Main()
       <body>
          <div class="container-fluid">
             <div class="row">
-               <div class="col-sm-2 panel-resizable" style="background-color:lavender;">
-                  <div class="header" style="position: fixed;">CLASSES</div>
-                  <div style="margin-top:38px;">
+               <div class="col-sm-2 panel-resizable" style="overflow:hidden;background-color:lavender;">
+                  <div class="header">CLASSES</div>
+                  <div style="overflow-y: scroll;height:85%">
                   <?prg local n := 1
                         local cClasses := ""
                         
@@ -114,18 +106,18 @@ function Main()
                         return cClasses?>
                   </div>      
                </div>
-               <div class="col-sm-2 panel-resizable" style="background-color:lavenderblush;">
-                  <div class="header" style="position: fixed;">DATAS</div>
-                  <div id="datas" style="margin-top:38px;"></div>
+               <div class="col-sm-2 panel-resizable" style="overflow:hidden;background-color:lavenderblush;">
+                  <div class="header">DATAS</div>
+                  <div id="datas" style="overflow-y: scroll;height:85%"></div>
                </div>
-               <div class="col-sm-2 panel-resizable" style="background-color:lavender;">
-                  <div class="header" style="position: fixed;">METHODS</div> 
-                  <div id="methods" style="margin-top:38px;"></div>
+               <div class="col-sm-2 panel-resizable" style="overflow:hidden;background-color:lavender;">
+                  <div class="header">METHODS</div> 
+                  <div id="methods" scrolling="auto" style="overflow-y: scroll;height:85%"></div>
                </div>
             </div>
             <div class="row">
                <div class="col-sm-6 panel-resizable" style="resize:both;background-color:lightsteelblue;height:400px;">
-                  <div class="header code">CODE</div>    
+                  <div class="header">CODE</div>    
                </div>
             </div>
          </div>
