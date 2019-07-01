@@ -234,10 +234,10 @@ function ReplaceBlocks( cCode, cStartBlock, cEndBlock )
       cBlock = SubStr( cCode, nStart + Len( cStartBlock ), nEnd - nStart - Len( cEndBlock ) )
       cCode = SubStr( cCode, 1, nStart - 1 ) + ValToChar( &( cBlock ) ) + ;
       SubStr( cCode, nEnd + Len( cEndBlock ) )
-		lReplaced := .T.
+		  lReplaced = .T.
    end
    
-return lReplaced
+return If( HB_PIsByRef( 1 ), lReplaced, cCode )
 
 //----------------------------------------------------------------//
 

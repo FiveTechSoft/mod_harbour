@@ -1,9 +1,9 @@
 function Main()
 
-   ? "Seconds {%Seconds()%} before compilation"
+   ? "Seconds {%Seconds()%} before compilation<br><br>"
 
    BLOCKS
-      Seconds in execution {{Seconds()}}
+      Seconds in execution {{Seconds()}}<br><br>
 
       Current date is {{Date()}}
 
