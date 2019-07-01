@@ -1,6 +1,6 @@
 // ; Donated to the public domain by
 //   Viktor Szakats (vszakats.net/harbour)
-// {% hb_SetEnv( "HB_INCLUDE", "/home/~/harbour/include" ) %}
+// {% hb_SetEnv( "HB_INCLUDE", "/home/anto/harbour/include" ) %} For mod_harbour demo server
 
 #include "hbmemory.ch"
 
