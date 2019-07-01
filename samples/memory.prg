@@ -1,5 +1,6 @@
 // ; Donated to the public domain by
 //   Viktor Szakats (vszakats.net/harbour)
+// {% hb_SetEnv( "HB_INCLUDE", "/home/$USER/harbour/include" ) %}
 
 #include "hbmemory.ch"
 
