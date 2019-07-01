@@ -59,7 +59,13 @@ function Main()
                width: 100%;
                max-width: 301px;
             }
-            
+
+            .code {
+               background-color:gainsboro;
+               padding: 7px;
+               max-width: 1000px;
+            }
+
             .classes {
                cursor: pointer;
                display: block;
@@ -119,7 +125,7 @@ function Main()
             </div>
             <div class="row">
                <div class="col-sm-6 panel-resizable" style="resize:both;background-color:lightsteelblue;height:400px;">
-                  <div class="header">CODE</div>    
+                  <div class="header code">CODE</div>    
                </div>
             </div>
          </div>
