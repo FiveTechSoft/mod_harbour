@@ -56,6 +56,8 @@ function Main()
             .header {
                background-color:gainsboro;
                padding: 7px;
+               width: 100%;
+               max-width: 301px;
             }
             
             .classes {
@@ -93,8 +95,8 @@ function Main()
          <div class="container-fluid">
             <div class="row">
                <div class="col-sm-2 panel-resizable" style="background-color:lavender;">
-                  <div class="header">CLASSES</div>
-                  <div>
+                  <div class="header" style="position: fixed;">CLASSES</div>
+                  <div style="margin-top:38px;">
                   <?prg local n := 1
                         local cClasses := ""
                         
@@ -135,6 +137,8 @@ function Main()
             {
                $( o ).addClass( "active" );
                $( o ).siblings().removeClass( "active" );
+               // o.style.color='white';
+               // o.style.background='blue';
             }   
          </script>
 
