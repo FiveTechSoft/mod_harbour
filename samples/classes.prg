@@ -109,12 +109,12 @@ function Main()
                   </div>      
                </div>
                <div class="col-sm-2 panel-resizable" style="background-color:lavenderblush;">
-                  <div class="header">DATAS</div>
-                  <div id="datas"></div>
+                  <div class="header" style="position: fixed;">DATAS</div>
+                  <div id="datas" style="margin-top:38px;"></div>
                </div>
                <div class="col-sm-2 panel-resizable" style="background-color:lavender;">
-                  <div class="header">METHODS</div> 
-                  <div id="methods"></div>
+                  <div class="header" style="position: fixed;">METHODS</div> 
+                  <div id="methods" style="margin-top:38px;"></div>
                </div>
             </div>
             <div class="row">
