@@ -26,6 +26,10 @@ LoadModule harbour_module /usr/local/httpd/modules/mod_harbour.so
 </FilesMatch>
 ```
 
+Modify this also this way:
+
+Options Indexes FollowSymLinks Multiviews
+
 **7.** sudo apachectl restart
 
 **8.** Go to /Users/$USER/mod_harbour and change the owner of the samples folder:
