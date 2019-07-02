@@ -1,3 +1,10 @@
+2019/July/1
+
+* Fix: Header files were not applied to the preprocessor. Now they are ok. Please notice that you may set HB_INCLUDE
+  to specify your headers files path. 
+  
+  // {% hb_SetEnv( "HB_INCLUDE", "/home/user/harbour/include" ) %}  Place this at the top of your PRG
+
 2019/June/23
 
 * New functions:
