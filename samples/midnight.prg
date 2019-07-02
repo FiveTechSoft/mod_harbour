@@ -8,6 +8,12 @@ function Main()
       return nil
    endif   
 
+   if Left( cArgs, Len( "left:" ) ) == "left:"
+      cName = SubStr( cArgs, At( ":", cArgs ) + 1 ) + "/"
+      ? GetLeft( cName )
+      return nil
+   endif   
+
    TEMPLATE
      <html lang="en">
      <head>
@@ -26,6 +32,12 @@ function Main()
      </style>
      
      <script>
+     function GetLeft( cName )
+     {
+        $.post( "midnight.prg?left:" + cName ).done( function( data ) { 
+                  $( '#left' ).html( data ); } )
+     }
+
      function GetRight( cName )
      {
         $.post( "midnight.prg?right:" + cName ).done( function( data ) { 
@@ -39,16 +51,9 @@ function Main()
               <div class="col-sm-6 panel-resizable" style="overflow:hidden;background-color:lavender;">
                  <div class="header">/</div>
                  <div id="left" style="overflow-y: scroll;height:85%">
-                 <?prg local aFiles := Directory( "/*", "DH" )
-                       local cFiles := ""
-
-                       for n = 1 to Len( aFiles )
-                          cFiles += "<a>" + aFiles[ n ][ 1 ] + "</a><br>"
-                       next
-
-                       return cFiles?>
+                    <?prg return GetLeft( "" ) ?>
                  </div>
-              </div>
+              </div>   
               <div class="col-sm-6 panel-resizable" style="overflow:hidden;background-color:lavender;">
                  <div class="header">"/"</div>
                  <div id="right" style="overflow-y: scroll;height:85%">
@@ -66,6 +71,17 @@ function Main()
   ENDTEXT
 
 return nil
+
+function GetLeft( cName )
+
+   local aFiles := Directory( "/" + cName + "*", "DH" )
+   local cFiles := "", n
+   
+   for n = 1 to Len( aFiles )
+      cFiles += '<a onclick="GetLeft( ' + "'" + aFiles[ n ][ 1 ] + "'" + ');" >' + aFiles[ n ][ 1 ] + "</a><br>"
+   next
+   
+return cFiles
 
 function GetRight( cName )
 
