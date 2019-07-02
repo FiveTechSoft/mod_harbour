@@ -1,20 +1,30 @@
+// {% hb_SetEnv( "HB_USER_PRGFLAGS", "-B" ) %}
+
 function Main()
 
    local cArgs := AP_Args(), cLeftPath := "/", cRightPath := "/", cName
-   
-   if Left( cArgs, Len( "right:" ) ) == "right:"
-      cName = SubStr( cArgs, At( ":", cArgs ) + 1 ) + "/"
-      cRightPath = "/" + cName
-      ? GetRight( cName )
-      return nil
-   endif   
+
+   // ShowConsole()
+   // AltD()
+   // AltD( 1 )
 
    if Left( cArgs, Len( "left:" ) ) == "left:"
-      cName = SubStr( cArgs, At( ":", cArgs ) + 1 ) + "/"
-      cLeftPath = "/" + cName
-      ? GetLeft( cName )
+      cName = SubStr( cArgs, At( ":", cArgs ) + 1 )
+      cLeftPath = cName
+      if ! File( cName )
+         ? GetLeft( cName )
+      endif   
       return nil
-   endif   
+   endif  
+
+   if Left( cArgs, Len( "right:" ) ) == "right:"
+      cName = SubStr( cArgs, At( ":", cArgs ) + 1 )
+      cRightPath = cName
+      if ! File( cName )
+         ? GetRight( cName )
+      endif   
+      return nil
+   endif    
 
    TEMPLATE PARAMS cLeftPath, cRightPath
      <html lang="en">
@@ -34,15 +44,37 @@ function Main()
      </style>
      
      <script>
-     function GetLeft( cName )
+     function GetFiles( cName, lLeft )
      {
-        $.post( "midnight.prg?left:" + cName ).done( function( data ) { 
+        var cId;
+        
+        if( lLeft )
+           cId = "#leftpath";
+        else
+           cId= "#rightpath";
+     
+        if( cName == ".." )
+        {
+           cName = $( cId ).html();
+           cName = cName.substr( 0, cName.lastIndexOf( "/" ) );
+           if( cName.length == 0 )
+              cName = "/";
+        }
+        else
+        {
+           if( $( cId ).html().length == 1 )
+              cName = $( cId ).html() + cName;
+           else
+              cName = $( cId ).html() + "/" + cName;
+        }      
+           
+        $( cId ).html( cName );        
+        
+        if( lLeft )
+           $.post( "midnight.prg?left:" + cName ).done( function( data ) { 
                   $( '#left' ).html( data ); } )
-     }
-
-     function GetRight( cName )
-     {
-        $.post( "midnight.prg?right:" + cName ).done( function( data ) { 
+        else          
+           $.post( "midnight.prg?right:" + cName ).done( function( data ) { 
                   $( '#right' ).html( data ); } )
      }
      </script>
@@ -51,13 +83,13 @@ function Main()
         <div class="container-fluid">
            <div class="row">
               <div class="col-sm-6 panel-resizable" style="overflow:hidden;background-color:lavender;">
-                 <div class="header"><?prg return cLeftPath ?></div>
+                 <div id="leftpath" class="header"><?prg return cLeftPath ?></div>
                  <div id="left" style="overflow-y: scroll;height:85%">
                     <?prg return GetLeft( "" ) ?>
                  </div>
               </div>   
               <div class="col-sm-6 panel-resizable" style="overflow:hidden;background-color:lavender;">
-                 <div class="header"><?prg return cRightPath ?></div>
+                 <div id="rightpath" class="header"><?prg return cRightPath ?></div>
                  <div id="right" style="overflow-y: scroll;height:85%">
                     <?prg return GetRight( "" ) ?>
                  </div>
@@ -76,22 +108,26 @@ return nil
 
 function GetLeft( cName )
 
-   local aFiles := Directory( "/" + cName + "*", "DH" )
+   local aFiles := Directory( cName + If( Right( cName, 1 ) == "/", "*", "/*" ), "DH" )
    local cFiles := "", n
    
    for n = 1 to Len( aFiles )
-      cFiles += '<a onclick="GetLeft( ' + "'" + aFiles[ n ][ 1 ] + "'" + ');" >' + aFiles[ n ][ 1 ] + "</a><br>"
+      if ! aFiles[ n ][ 1 ] == "."
+         cFiles += '<a onclick="GetFiles( ' + "'" + aFiles[ n ][ 1 ] + "'" + ', true );" >' + aFiles[ n ][ 1 ] + "</a><br>"
+      endif   
    next
    
 return cFiles
 
 function GetRight( cName )
 
-   local aFiles := Directory( "/" + cName + "*", "DH" )
+   local aFiles := Directory( cName + If( Right( cName, 1 ) == "/", "*", "/*" ), "DH" )
    local cFiles := "", n
    
    for n = 1 to Len( aFiles )
-      cFiles += '<a onclick="GetRight( ' + "'" + aFiles[ n ][ 1 ] + "'" + ');" >' + aFiles[ n ][ 1 ] + "</a><br>"
+      if ! aFiles[ n ][ 1 ] == "."
+         cFiles += '<a onclick="GetFiles( ' + "'" + aFiles[ n ][ 1 ] + "'" + ', false );" >' + aFiles[ n ][ 1 ] + "</a><br>"
+      endif
    next
    
 return cFiles
