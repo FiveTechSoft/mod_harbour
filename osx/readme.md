@@ -34,6 +34,10 @@ sudo chown -R _www:_www samples
 
 **9.** From your browser go to localhost/modharbour_samples
 
+**10.** If you get a "don't have permission to access" error please review the logs at:
+
+cd /var/log/apache2
+
 **Included by default Apache in OSX is uncomplete, so first this to do is to properly install it:**
 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
