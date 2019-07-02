@@ -16,8 +16,13 @@ sudo ln -sf /Users/anto/mod_harbour/osx/mod_harbour.so mod_harbour.so
 
 **6.** Edit httpd.conf at /private/etc/apache2 and add these lines:
 
+```
 LoadModule harbour_module /usr/local/httpd/modules/mod_harbour.so
 
+<FilesMatch "\.(prg|hrb)$">
+    SetHandler harbour
+</FilesMatch>
+```
 
 **Included by default Apache in OSX is uncomplete, so first this to do is to properly install it:**
 
