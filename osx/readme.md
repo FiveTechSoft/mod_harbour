@@ -24,6 +24,10 @@ LoadModule harbour_module /usr/local/httpd/modules/mod_harbour.so
 </FilesMatch>
 ```
 
+**7.** sudo apachectl restart
+
+**8.** From your browser go to localhost/modharbour_samples
+
 **Included by default Apache in OSX is uncomplete, so first this to do is to properly install it:**
 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
