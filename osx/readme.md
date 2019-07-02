@@ -1,3 +1,9 @@
+**1.** sudo apachectl start
+
+**2.** From the browser go to localhost and check that Apache is running
+
+
+
 **Included by default Apache in OSX is uncomplete, so first this to do is to properly install it:**
 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
