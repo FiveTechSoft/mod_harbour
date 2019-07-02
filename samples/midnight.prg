@@ -12,7 +12,7 @@ function Main()
       cName = SubStr( cArgs, At( ":", cArgs ) + 1 )
       cLeftPath = cName
       if ! File( cName )
-         ? GetLeft( cName )
+         ? GetFiles( cName, "true" )
       endif   
       return nil
    endif  
@@ -21,7 +21,7 @@ function Main()
       cName = SubStr( cArgs, At( ":", cArgs ) + 1 )
       cRightPath = cName
       if ! File( cName )
-         ? GetRight( cName )
+         ? GetFiles( cName, "false" )
       endif   
       return nil
    endif    
@@ -85,13 +85,13 @@ function Main()
               <div class="col-sm-6 panel-resizable" style="overflow:hidden;background-color:lavender;">
                  <div id="leftpath" class="header"><?prg return cLeftPath ?></div>
                  <div id="left" style="overflow-y: scroll;height:85%">
-                    <?prg return GetLeft( "" ) ?>
+                    <?prg return GetFiles( "", "true" ) ?>
                  </div>
               </div>   
               <div class="col-sm-6 panel-resizable" style="overflow:hidden;background-color:lavender;">
                  <div id="rightpath" class="header"><?prg return cRightPath ?></div>
                  <div id="right" style="overflow-y: scroll;height:85%">
-                    <?prg return GetRight( "" ) ?>
+                    <?prg return GetFiles( "", "false" ) ?>
                  </div>
               </div>
            </div>
@@ -106,28 +106,17 @@ function Main()
 
 return nil
 
-function GetLeft( cName )
+function GetFiles( cName, cLeftOrRight )
 
    local aFiles := Directory( cName + If( Right( cName, 1 ) == "/", "*", "/*" ), "DH" )
    local cFiles := "", n
    
+   ASort( aFiles, nil, nil, { | x, y | Upper( x[ 1 ] ) < Upper( y[ 1 ] ) } )
+   
    for n = 1 to Len( aFiles )
       if ! aFiles[ n ][ 1 ] == "."
-         cFiles += '<a onclick="GetFiles( ' + "'" + aFiles[ n ][ 1 ] + "'" + ', true );" >' + aFiles[ n ][ 1 ] + "</a><br>"
+         cFiles += '<a onclick="GetFiles( ' + "'" + aFiles[ n ][ 1 ] + "'" + ', ' + cLeftOrRight + ' );" >' + aFiles[ n ][ 1 ] + "</a><br>"
       endif   
-   next
-   
-return cFiles
-
-function GetRight( cName )
-
-   local aFiles := Directory( cName + If( Right( cName, 1 ) == "/", "*", "/*" ), "DH" )
-   local cFiles := "", n
-   
-   for n = 1 to Len( aFiles )
-      if ! aFiles[ n ][ 1 ] == "."
-         cFiles += '<a onclick="GetFiles( ' + "'" + aFiles[ n ][ 1 ] + "'" + ', false );" >' + aFiles[ n ][ 1 ] + "</a><br>"
-      endif
    next
    
 return cFiles
