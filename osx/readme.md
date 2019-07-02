@@ -6,7 +6,13 @@
 
 sudo ln -sf /Users/anto/mod_harbour/osx/libharbour.3.2.0.dylib libharbour.3.2.0.dylib
 
-**4.** Go to 
+**4.** Create this folder:
+
+sudo mkdir -p /usr/local/httpd/modules
+
+
+
+
 
 
 
