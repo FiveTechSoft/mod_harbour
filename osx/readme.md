@@ -2,6 +2,12 @@
 
 **2.** From the browser go to localhost and check that Apache is running
 
+**3.** Go to /Library/WebServer/Documents and create this symlink:
+
+sudo ln -sf /Users/anto/mod_harbour/osx/libharbour.3.2.0.dylib libharbour.3.2.0.dylib
+
+**4.** Go to 
+
 
 
 **Included by default Apache in OSX is uncomplete, so first this to do is to properly install it:**
