@@ -2,9 +2,11 @@
 
 **2.** From the browser go to localhost and check that Apache is running
 
-**3.** Go to /Library/WebServer/Documents and create this symlink:
+**3.** Go to /Library/WebServer/Documents and create these symlinks:
 
-sudo ln -sf /Users/anto/mod_harbour/osx/libharbour.3.2.0.dylib libharbour.3.2.0.dylib
+sudo ln -sf /Users/$USER/mod_harbour/osx/libharbour.3.2.0.dylib libharbour.3.2.0.dylib
+
+sudo ln -sf /Users/$USER/mod_harbour/samples modharbour_samples
 
 **4.** Create this folder:
 
@@ -12,7 +14,7 @@ sudo mkdir -p /usr/local/httpd/modules
 
 **5.** Go to /usr/local/httpd/modules and create this symlink:
 
-sudo ln -sf /Users/anto/mod_harbour/osx/mod_harbour.so mod_harbour.so
+sudo ln -sf /Users/$USER/mod_harbour/osx/mod_harbour.so mod_harbour.so
 
 **6.** Edit httpd.conf at /private/etc/apache2 and add these lines:
 
