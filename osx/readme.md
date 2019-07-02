@@ -10,10 +10,9 @@ sudo ln -sf /Users/anto/mod_harbour/osx/libharbour.3.2.0.dylib libharbour.3.2.0.
 
 sudo mkdir -p /usr/local/httpd/modules
 
+**5.** Go to /usr/local/httpd/modules and create this symlink:
 
-
-
-
+ln -sf /Users/anto/mod_harbour/osx/mod_harbour.so mod_harbour.so
 
 
 **Included by default Apache in OSX is uncomplete, so first this to do is to properly install it:**
