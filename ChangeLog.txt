@@ -1,3 +1,9 @@
+2019/July/2
+
+* Fix: BLOCKS ... ENDTEXT was not properly working as ReplaceBlocks() was returning a logical value. ReplaceBlocks()
+  now detects if the first parameter is supplied by reference and if not, the text value is returned instead of a
+  logical value. samples/blocks.prg is properly working.
+
 2019/July/1
 
 * Fix: Header files were not applied to the preprocessor. Now they are ok. Please notice that you may set HB_INCLUDE
