@@ -28,7 +28,11 @@ LoadModule harbour_module /usr/local/httpd/modules/mod_harbour.so
 
 **7.** sudo apachectl restart
 
-**8.** From your browser go to localhost/modharbour_samples
+**8.** Go to /Users/$USER/mod_harbour and change the owner of the samples folder:
+
+sudo chown -R _www:_www samples
+
+**9.** From your browser go to localhost/modharbour_samples
 
 **Included by default Apache in OSX is uncomplete, so first this to do is to properly install it:**
 
