@@ -17,21 +17,22 @@ function Main()
   <link rel="stylesheet" href="https://fivetechsoft.github.io/xcloud/source/css/xcloud.css"> 
 </head>
 
-<body><div class="container-fluid">
+<body>
+
+<div class="container-fluid" style="overflow:hidden;">
   
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
-      <a class="navbar-brand" onclick="MsgInfo( 'my mod_harbour app', 'Information' )"><?prg return cTitle ?></a>
-      <a class="navbar-brand" href="#"></a>
-      <a class="navbar-brand" href="#"></a>
-      <a class="navbar-brand" href="#"></a>
-      <a class="navbar-brand" href="#"></a>
-      <a class="navbar-brand" href="#"></a>
-    </div>
-    <ul class="nav navbar-nav">
-       <?prg local n, m, cItems := ""
+   <nav class="navbar navbar-inverse">
+      <div class="navbar-header">
+         <a class="navbar-brand"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
+         <a class="navbar-brand" onclick="MsgInfo( 'my mod_harbour app', 'Information' )"><?prg return cTitle ?></a>
+         <a class="navbar-brand"></a>
+         <a class="navbar-brand"></a>
+         <a class="navbar-brand"></a>
+         <a class="navbar-brand"></a>
+         <a class="navbar-brand"></a>
+      </div>
+      <ul class="nav navbar-nav">
+         <?prg local n, m, cItems := ""
        
              for n = 1 to Len( aMenuItems )
                 cItems += '<li class="dropdown">'
@@ -49,47 +50,47 @@ function Main()
                 cItems += '   </ul>'
                 cItems += '</li>'
              next   
-             
              return cItems ?>
-    </ul>         
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a onclick='MsgGet( "username:", "Please identify" );'><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    </ul>
-  </div>
-</nav>
+      </ul>         
+      <ul class="nav navbar-nav navbar-right">
+         <li><a><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+         <li><a onclick='MsgGet( "username:", "Please identify" );'><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+   </nav>
+
+   <div class="row" style="margin-right:0px">
+      <div class="col-sm-2">
+         <nav class="navbar navbar-expand-lg navbar-inverse">
+            <a class="navbar-brand">Dashboard</a>
+         </nav> 
+         <ul style="background-color:silver;height:89%;margin-bottom:0px;">
+            <li>Clients
+               <ul>                                
+                  <li style="color:white;">New</li>
+                  <li style="color:white;">Edit</li>
+                  <li style="color:white;">Delete</li>
+               </ul>
+            </li>
+            <li>Invoices
+               <ul>                                
+                  <li style="color:white;">New</li>
+                  <li style="color:white;">Edit</li>
+                  <li style="color:white;">Delete</li>
+               </ul>
+            </li>                                
+         </ul>        
+      </div>
+      <div class="col-sm-10">
+         <nav class="navbar navbar-expand-lg navbar-inverse">
+            <a class="navbar-brand">Main</a>
+         </nav> 
+      </div>
+   </div>
 </div>
 
-  <div class="row">
-    <div class="col-sm-2">
-       <nav class="navbar navbar-expand-lg navbar-inverse">
-          <a class="navbar-brand" href="#">Dashboard</a>
-       </nav> 
-        <ul style="background-color:silver;height:820px">
-         <li>Clients
-           <ul>                                
-             <li style="color:white;">New</li>
-             <li style="color:white;">Edit</li>
-             <li style="color:white;">Delete</li>
-           </ul>
-         </li>
-         <li>Invoices
-           <ul>                                
-             <li style="color:white;">New</li>
-             <li style="color:white;">Edit</li>
-             <li style="color:white;">Delete</li>
-           </ul>
-         </li>                                
-       </ul>        
-    </div>
-    <div class="col-sm-10">
-       <nav class="navbar navbar-expand-lg navbar-inverse">
-          <a class="navbar-brand" href="#">Main</a>
-       </nav> 
-    </div>
-  </div>
-
 <body>
+</body>
+
 </html>
 
 ENDTEXT
