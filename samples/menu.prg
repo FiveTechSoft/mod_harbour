@@ -24,7 +24,7 @@ function Main()
    <nav class="navbar navbar-inverse">
       <div class="navbar-header">
          <a class="navbar-brand"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
-         <a class="navbar-brand" onclick="MsgInfo( 'my mod_harbour app', 'Information' )"><?prg return cTitle ?></a>
+         <a class="navbar-brand" onclick="MsgInfo( 'my mod_harbour app', 'Information' )" style="cursor:pointer;"><?prg return cTitle ?></a>
          <a class="navbar-brand"></a>
          <a class="navbar-brand"></a>
          <a class="navbar-brand"></a>
@@ -36,7 +36,7 @@ function Main()
        
              for n = 1 to Len( aMenuItems )
                 cItems += '<li class="dropdown">'
-                cItems += '   <a class="dropdown-toggle" data-toggle="dropdown" href="#">' + aMenuItems[ n ][ 1 ]
+                cItems += '   <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;">' + aMenuItems[ n ][ 1 ]
                 cItems += '   <span class="caret"></span></a>'
                 cItems += '   <ul class="dropdown-menu">'
                 for m = 1 to Len( aMenuItems[ n ][ 2 ] )
@@ -44,7 +44,7 @@ function Main()
                       cItems += '      <li class="divider"></li>'
                    else   
                       cItems += '      <li><a onclick="MsgInfo(' + "'" + aMenuItems[ n ][ 2 ][ m ] + "'" + ;
-                                ')">' + aMenuItems[ n ][ 2 ][ m ] + "</a></li>"
+                                ')" style="cursor:pointer;">' + aMenuItems[ n ][ 2 ][ m ] + "</a></li>"
                    endif   
                 next
                 cItems += '   </ul>'
@@ -54,7 +54,7 @@ function Main()
       </ul>         
       <ul class="nav navbar-nav navbar-right">
          <li><a><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-         <li><a onclick='MsgGet( "username:", "Please identify" );'><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+         <li><a onclick='MsgGet( "username:", "Please identify" );' style="cursor:pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
    </nav>
 
