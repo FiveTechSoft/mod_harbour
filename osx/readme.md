@@ -26,7 +26,7 @@ LoadModule harbour_module /usr/local/httpd/modules/mod_harbour.so
 </FilesMatch>
 ```
 
-**Modify this also this way:**
+**Add Indexes here:**
 
 Options **Indexes** FollowSymLinks Multiviews
 
