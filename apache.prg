@@ -210,12 +210,13 @@ ENDCLASS
 
 function AP_PostPairs()
 
-   local aPairs := hb_aTokens( AP_Body(), "&" )
-   local cPair, hPairs := {=>}
+   local cPair, uPair, hPairs := {=>}
 
-   for each cPair in aPairs
-      hb_HSet( hPairs, SubStr( cPair, 1, At( "=", cPair ) - 1 ), SubStr( cPair, At( "=", cPair ) + 1 ) )
-   next
+   for each cPair in hb_ATokens( AP_Body(), "&" )
+      if ( uPair := At( "=", cPair ) ) > 0
+            hb_HSet( hPairs, Left( cPair, uPair - 1 ), SubStr( cPair, uPair + 1 ) )
+      endif
+    next
 
 return hPairs
 

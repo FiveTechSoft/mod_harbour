@@ -100,20 +100,8 @@ function reload()
 return nil
 
 function loadForm()
-
-	local nNum, nForm
-
-	public hForm := {=>}
-
-	if ( nForm := AP_PostPairsCount() ) > 0
-
-		for nNum := 0 to nForm - 1
-			hb_hset( hForm, AP_PostPairsKey( nNum ), AP_PostPairsVal( nNum ) )
-		next
-
-	endif
-
-return nForm > 0
+	public hForm := AP_PostPairs()
+return len( hForm ) > 0
 
 function getForm( cKey )
 
