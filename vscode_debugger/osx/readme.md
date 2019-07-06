@@ -1,7 +1,7 @@
 ```
    hb_inetSend( t_oDebugInfo['socket'],;
 		"/System/Library/CoreServices/Dock.app/Contents/MacOS/Dock" + CRLF + ;
-		Str( PID( "/System/Library/CoreServices/Dock.app/Contents/MacOS/Dock" ) ) + CRLF )
+Str( PID( "Str( PID( "ps -A | grep -m1 /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock | awk '{print $1}'" ) )" ) ) + CRLF )
 ```
 
 ```
