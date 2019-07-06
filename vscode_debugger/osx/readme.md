@@ -1,3 +1,9 @@
+This is working fine too:
+```
+hb_inetSend( t_oDebugInfo['socket'],;
+				"/System/Library/CoreServices/Dock.app/Contents/MacOS/Dock" + CRLF + "0" + CRLF )
+				
+
 ```
    hb_inetSend( t_oDebugInfo['socket'],;
 		"/System/Library/CoreServices/Dock.app/Contents/MacOS/Dock" + CRLF + ;
