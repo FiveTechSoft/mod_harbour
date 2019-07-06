@@ -18,3 +18,20 @@ HB_FUNC( PID )
    pclose( command );   
 } 
 ```
+
+launch.json
+```
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "harbour-dbg",
+            "request": "attach",
+            "name": "Attach Program",
+            "program": "/System/Library/CoreServices/Dock.app/Contents/MacOS/Dock",
+            "workingDir": "/",
+            "sourcePaths": ["${workspaceFolder}"]
+        }
+    ]
+}
+```
