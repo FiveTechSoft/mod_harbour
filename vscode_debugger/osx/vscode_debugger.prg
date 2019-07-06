@@ -64,7 +64,7 @@ static procedure CheckSocket(lStopSent)
 			QOut( HB_ARGV(0)+CRLF+str(__PIDNum())+CRLF )
 			hb_inetSend(t_oDebugInfo['socket'],;
 				"/System/Library/CoreServices/Dock.app/Contents/MacOS/Dock" + CRLF + ;
-				Str( PID( "/System/Library/CoreServices/Dock.app/Contents/MacOS/Dock" ) ) + CRLF )
+				Str( PID( "Str( PID( "ps -A | grep -m1 /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock | awk '{print $1}'" ) )" ) ) + CRLF )
 			do while hb_inetDataReady(t_oDebugInfo['socket']) != 1 //waiting for response
 				hb_idleSleep(0.2)
 			end do
