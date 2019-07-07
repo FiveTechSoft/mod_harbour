@@ -83,8 +83,11 @@ function Main()
                </ul>
             </nav> 
             <div style="background-color:#ecf0f5;height:calc( 100% - 50px );padding-top:50px;">
-               <div style="background-color:white;margin:30px;padding:10px;border:1px;border-style:line;border-color:red;">
-               <table class="table table-striped table-hover">
+               <div style="background-color:white;margin:30px;padding:10px;padding-top:10px;padding-bottom:100px;border:1px;border-style:line;border-color:red;">
+               <button type="button" class="btn btn-primary" style="background-color:rgb(96, 92, 170);">
+                  <span class="glyphicon glyphicon-plus" style="color:silver;padding-right:10px;">
+                  </span>Add</button><hr>
+               <table class="table table-striped table-hover;">
                <thead>
                   <tr>
                      <th scope="col">#</th>
@@ -112,8 +115,14 @@ function Main()
                      <td>the Bird</td>
                      <td>@twitter</td>
                   </tr>
+                  <tr>
+                     <th scope="row">4</th>
+                     <td>One</td>
+                     <td>More</td>
+                     <td>@yes</td>
+                  </tr>
                </tbody>
-               </table>
+               </table><hr>
                </div>
             </div>
          </div>
