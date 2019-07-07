@@ -50,16 +50,18 @@ function Main()
                <div class="vertical-menu" style="background-color:rgb(34, 45, 50);height:500px;">
                   <a onclick="SelectCategory( this, 'home' );">
                      <span class="glyphicon glyphicon-home" style="color: silver; padding-right: 15px;"></span>Home</a>
-                  <a onclick="SelectCategory( this, 'users' );">
-                     <span class="glyphicon glyphicon-user" style="color: silver; padding-right: 15px;"></span>Users</a>
                   <a onclick="SelectCategory( this, 'router' );">
                      <span class="glyphicon glyphicon-random" style="color: silver; padding-right: 15px;"></span>Router</a>
+                     <a onclick="SelectCategory( this, 'menu' );">
+                     <span class="glyphicon glyphicon-th-list" style="color: silver; padding-right: 15px;"></span>Menu</a>
                   <a onclick="SelectCategory( this, 'views' );">
                      <span class="glyphicon glyphicon-eye-open" style="color: silver; padding-right: 15px;"></span>Views</a>
-                  <a onclick="SelectCategory( this, 'settings' );">
-                     <span class="glyphicon glyphicon-cog" style="color: silver; padding-right: 15px;"></span>Settings</a>
                   <a onclick="SelectCategory( this, 'controller' );">
                      <span class="glyphicon glyphicon-list-alt" style="color: silver; padding-right: 15px;"></span>Controllers</a>
+                  <a onclick="SelectCategory( this, 'users' );">
+                     <span class="glyphicon glyphicon-user" style="color: silver; padding-right: 15px;"></span>Users</a>
+                  <a onclick="SelectCategory( this, 'settings' );">
+                     <span class="glyphicon glyphicon-cog" style="color: silver; padding-right: 15px;"></span>Settings</a>
                </div>
             </div>
          </div>
