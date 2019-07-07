@@ -46,7 +46,7 @@ function Main()
             <nav class="navbar navbar-expand-lg navbar-inverse" style="background-color:rgb(96, 82, 140);border:0px;">
                <a class="navbar-brand" style="color:white;cursor:pointer;padding-left:50px;">Gen<font color="silver">esis</font></a>
             </nav> 
-            <div style="background-color:rgb(34, 45, 50);height:94%;">
+            <div style="background-color:rgb(34, 45, 50);height:calc(100% - 50px);">
                <div class="vertical-menu" style="background-color:rgb(34, 45, 50);height:500px;">
                   <a onclick="SelectCategory( this, 'home' );">
                      <span class="glyphicon glyphicon-home" style="color: silver; padding-right: 15px;"></span>Home</a>
