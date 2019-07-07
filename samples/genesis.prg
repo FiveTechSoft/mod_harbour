@@ -94,6 +94,7 @@ function Main()
                      <th scope="col">First</th>
                      <th scope="col">Last</th>
                      <th scope="col">Handle</th>
+                     <th scope="col">Actions</th>
                   </tr>
                </thead>
                <tbody>
@@ -102,30 +103,80 @@ function Main()
                      <td>Mark</td>
                      <td>Otto</td>
                      <td>@mdo</td>
+                     <td>
+                        <button type="button" class="btn btn-primary" 
+                           style="border-color:gray;color:gray;background-color:#f9f9f9;">
+                           <span class="glyphicon glyphicon-edit" style="color:gray;padding-right:10px;">
+                           </span>Edit</button>
+                        <button type="button" class="btn btn-primary" 
+                           style="border-color:gray;color:gray;background-color:#f9f9f9;">
+                           <span class="glyphicon glyphicon-trash" style="color:gray;padding-right:10px;">
+                           </span>Delete</button>
+                     </td>
                   </tr>
                   <tr>
                      <th scope="row">2</th>
                      <td>Jacob</td>
                      <td>Thornton</td>
                      <td>@fat</td>
+                     <td>
+                        <button type="button" class="btn btn-primary" 
+                           style="border-color:gray;color:gray;background-color:#f9f9f9;">
+                           <span class="glyphicon glyphicon-edit" style="color:gray;padding-right:10px;">
+                           </span>Edit</button>
+                        <button type="button" class="btn btn-primary" 
+                           style="border-color:gray;color:gray;background-color:#f9f9f9;">
+                           <span class="glyphicon glyphicon-trash" style="color:gray;padding-right:10px;">
+                           </span>Delete</button>
+                     </td>
                   </tr>
                   <tr>
                      <th scope="row">3</th>
                      <td>Larry</td>
                      <td>the Bird</td>
                      <td>@twitter</td>
+                     <td>
+                        <button type="button" class="btn btn-primary" 
+                           style="border-color:gray;color:gray;background-color:#f9f9f9;">
+                           <span class="glyphicon glyphicon-edit" style="color:gray;padding-right:10px;">
+                           </span>Edit</button>
+                        <button type="button" class="btn btn-primary" 
+                           style="border-color:gray;color:gray;background-color:#f9f9f9;">
+                           <span class="glyphicon glyphicon-trash" style="color:gray;padding-right:10px;">
+                           </span>Delete</button>
+                     </td>
                   </tr>
                   <tr>
                      <th scope="row">4</th>
                      <td>One</td>
                      <td>More</td>
                      <td>@yes</td>
+                     <td>
+                        <button type="button" class="btn btn-primary" 
+                           style="border-color:gray;color:gray;background-color:#f9f9f9;">
+                           <span class="glyphicon glyphicon-edit" style="color:gray;padding-right:10px;">
+                           </span>Edit</button>
+                        <button type="button" class="btn btn-primary" 
+                           style="border-color:gray;color:gray;background-color:#f9f9f9;">
+                           <span class="glyphicon glyphicon-trash" style="color:gray;padding-right:10px;">
+                           </span>Delete</button>
+                     </td>
                   </tr>
                   <tr>
                      <th scope="row">5</th>
                      <td>Extra</td>
                      <td>One</td>
                      <td>@wecan</td>
+                     <td>
+                        <button type="button" class="btn btn-primary" 
+                           style="border-color:gray;color:gray;background-color:#f9f9f9;">
+                           <span class="glyphicon glyphicon-edit" style="color:gray;padding-right:10px;">
+                           </span>Edit</button>
+                        <button type="button" class="btn btn-primary" 
+                           style="border-color:gray;color:gray;background-color:#f9f9f9;">
+                           <span class="glyphicon glyphicon-trash" style="color:gray;padding-right:10px;">
+                           </span>Delete</button>
+                     </td>
                   </tr>
                </tbody>
                </table><hr>
