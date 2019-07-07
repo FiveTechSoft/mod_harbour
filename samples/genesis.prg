@@ -69,10 +69,20 @@ function Main()
          </div>
          <div class="col-sm-10">
             <nav class="navbar navbar-expand-lg navbar-inverse" style="background-color:rgb(96, 92, 170);border:0px;">
-               <a style="cursor:pointer;" onclick="$( '#leftmenu' ).width( 75 );" class="navbar-brand"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
+               <a style="cursor:pointer;" onclick="$( '#leftmenu' ).width( 75 );" class="navbar-brand">
+                  <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true" style="color: silver;">
+                  </span></a>
                <a class="navbar-brand" style="color:white;">Main</a>
+               <ul class="nav navbar-nav navbar-right">
+                  <li><a style="cursor:pointer;">
+                     <span class="glyphicon glyphicon-user" style="color: silver;">
+                     </span> Sign Up</a></li>
+                  <li><a onclick='MsgGet( "username:", "Please identify" );' style="cursor:pointer;">
+                     <span class="glyphicon glyphicon-log-in" style="color: silver;"
+                     ></span> Login</a></li>
+               </ul>
             </nav> 
-            <div style="background-color:#ecf0f5;height:94%;">
+            <div style="background-color:#ecf0f5;height:calc( 100% - 50px )">
             </div>
          </div>
       </div>
