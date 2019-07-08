@@ -203,7 +203,7 @@ function Main()
                </tbody>
                </table><hr>
                <div class="row" style="padding-left:15px">
-                  <div class="col-sm-3"><br>Showing 1-25 records</div> 
+                  <div class="col-sm-3"><br>Showing 1-5 records</div> 
                   <div class="col-sm-7"></div>
                   <div class="col-sm-2">  
                      <div class="dataTables_paginate paging_bootstrap" style="padding-left:35px;">
