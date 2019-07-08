@@ -1,3 +1,4 @@
+//{% hb_SetEnv( "HB_INCLUDE", "/home/anto/harbour/include" ) %}
 #include "hbclass.ch"
 #include "hboo.ch"
 
@@ -10,7 +11,6 @@ Static cFileRun
 
 Function Main( cParam )
 
-
    if Len( hb_aParams() ) > 0
       if Empty( cParam )
          InstanceClass( HB_GETENV( 'PRGPATH' ) + '/classes.ini' )
@@ -22,8 +22,6 @@ Function Main( cParam )
       else
          ? cParam
       endif
-   else
-   
    endif
 
 Return nil
