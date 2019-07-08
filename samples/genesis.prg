@@ -83,10 +83,32 @@ function Main()
                </ul>
             </nav> 
             <div style="background-color:#ecf0f5;height:calc( 100% - 50px );padding-top:50px;">
-               <div style="background-color:white;margin:30px;padding:10px;padding-top:10px;padding-bottom:100px;border:1px;border-style:line;border-color:red;">
+               <div style="background-color:white;margin:30px;padding:10px;padding-top:10px;border:1px;border-style:line;border-color:red;">
                <button type="button" class="btn btn-primary" style="background-color:rgb(96, 92, 170);">
                   <span class="glyphicon glyphicon-plus" style="color:silver;padding-right:10px;">
                   </span>Add</button><hr>
+               <div class="row" style="padding-left:15px;"> 
+                  <div class="col-sm-3">  
+                     <select class="selectpicker show-tick" style="height:30px;margin-bottom:10px;margin-right:10px">
+                        <option>20</option>
+                        <option>25</option>
+                        <option>30</option>
+                     </select>   
+                     records per page
+                  </div>   
+                  <div class="col-sm-7"></div>
+                  <div class="col-sm-2" style="padding-right:15px;">  
+                     <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                           <span class="input-group-btn">
+                           <button class="btn btn-default" 
+                              type="button" style="width:40px;height:35px;color:white;background-color:rgb(96, 92, 170)">
+                              <span class="glyphicon glyphicon-search" style="color:silver;padding-right:10px;">
+                              </span></button>
+                           </span>
+                     </div>
+                  </div>
+               </div>      
                <table class="table table-striped table-hover;">
                <thead>
                   <tr>
@@ -180,6 +202,20 @@ function Main()
                   </tr>
                </tbody>
                </table><hr>
+               <div class="row" style="padding-left:15px">
+                  <div class="col-sm-3"><br>Showing 1-25 records</div> 
+                  <div class="col-sm-7"></div>
+                  <div class="col-sm-2">  
+                     <div class="dataTables_paginate paging_bootstrap" style="padding-left:35px;">
+                     <ul class="pagination pagination-sm">
+                        <li class="prev" style="color:rgb(96, 92, 170);"><a href="">Previous</a></li>
+                        <li class="active"><a href="#" style="background-color:rgb(96, 92, 170);">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li class="next"><a href="">Next</a></li></ul>
+                     </div>
+                  </div>   
                </div>
             </div>
          </div>
