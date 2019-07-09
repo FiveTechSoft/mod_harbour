@@ -24,7 +24,7 @@
                      </div>
                   </div>
                </div>
-               {{BuildBrowse("users")}}      
+               {{BuildBrowse( GetContent() )}}     
                <hr>
                <div class="row" style="padding-left:15px">
                   <div class="col-sm-3"><br>Showing 1-5 records</div> 

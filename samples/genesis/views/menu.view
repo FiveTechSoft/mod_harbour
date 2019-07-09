@@ -4,13 +4,15 @@
                      <span class="glyphicon glyphicon-home" style="color: silver; padding-right: 15px;"></span>Home</a>
                   <a onclick="SelectCategory( this, 'Router' );">
                      <span class="glyphicon glyphicon-random" style="color: silver; padding-right: 15px;"></span>Router</a>
-                     <a onclick="SelectCategory( this, 'Menu' );">
-                     <span class="glyphicon glyphicon-th-list" style="color: silver; padding-right: 15px;"></span>Menu</a>
+                     <a {{If( GetContent() == "menus", 'class="active"', "" )}} 
+                     onclick="SelectCategory( this );javascript:location.href='index.prg?menus'">
+                     <span class="glyphicon glyphicon-th-list" style="color: silver; padding-right: 15px;"></span>Menus</a>
                   <a onclick="SelectCategory( this, 'Views' );">
                      <span class="glyphicon glyphicon-eye-open" style="color: silver; padding-right: 15px;"></span>Views</a>
                   <a onclick="SelectCategory( this, 'Controller' );">
                      <span class="glyphicon glyphicon-list-alt" style="color: silver; padding-right: 15px;"></span>Controllers</a>
-                  <a class="active" onclick="SelectCategory( this, 'Users' );">
+                  <a {{If( GetContent() == "users", 'class="active"', "" )}} 
+                     onclick="SelectCategory( this, 'Users' );javascript:location.href='index.prg?users'">
                      <span class="glyphicon glyphicon-user" style="color: silver; padding-right: 15px;"></span>Users</a>
                   <a onclick="SelectCategory( this, 'Database' );">
                      <span class="glyphicon glyphicon-cloud" style="color: silver; padding-right: 15px;"></span>Database</a>

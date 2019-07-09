@@ -12,7 +12,7 @@
                <a style="cursor:pointer;" onclick="$( '#leftmenu' ).width( 75 );" class="navbar-brand">
                   <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true" style="color: silver;">
                   </span></a>
-               <a id="title" class="navbar-brand" style="color:white;">Users</a>
+               <a id="title" class="navbar-brand" style="color:white;">{{hb_CapFirst(GetContent())}}</a>
                <ul class="nav navbar-nav navbar-right">
                   <li><a style="cursor:pointer;">
                      <span class="glyphicon glyphicon-user" style="color: silver;">
@@ -23,7 +23,7 @@
                </ul>
             </nav> 
             <div style="background-color:#ecf0f5;height:calc( 100% - 50px );padding-top:50px;">
-               {{View(GetContent())}}
+               {{View("browse")}}
             </div> 
          </div>
       </div>

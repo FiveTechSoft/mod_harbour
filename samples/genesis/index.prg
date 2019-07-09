@@ -13,7 +13,7 @@ return nil
 function Controller( cRequest )
 
    cContent = If( Empty( cRequest ), "users",;
-                  If( cRequest $ "wishlist,login,cart,checkout", cRequest, "users" ) )
+                  If( cRequest $ "menus,login,cart,checkout", cRequest, "users" ) )
 
    do case   
       case AP_Method() == "GET"
@@ -200,5 +200,11 @@ function BuildBrowse( cTableName )
    USE
 
 return cHtml   
+
+//----------------------------------------------------------------------------//
+
+function hb_CapFirst( cText )
+
+return Upper( Left( cText, 1 ) ) + SubStr( cText, 2 )   
 
 //----------------------------------------------------------------------------//

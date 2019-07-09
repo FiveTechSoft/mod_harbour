@@ -35,11 +35,10 @@
    </style>
 
    <script>
-      function SelectCategory( o, cName )
+      function SelectCategory( oMenuItem )
       {
-         $( o ).addClass( "active" );
-         $( o ).siblings().removeClass( "active" );
-         $( "#title" ).html( cName );
+         $( oMenuItem ).addClass( "active" );
+         $( oMenuItem ).siblings().removeClass( "active" );
       }
    </script>  
 </head>
