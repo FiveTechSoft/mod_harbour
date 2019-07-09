@@ -1,20 +1,20 @@
             <div style="background-color:{{GetColor3()}};height:calc(100% - 50px);">
                <div class="vertical-menu" style="background-color:{{GetColor3()}};height:500px;">
-                  <a onclick="SelectCategory( this, 'home' );">
+                  <a onclick="SelectCategory( this, 'Home' );">
                      <span class="glyphicon glyphicon-home" style="color: silver; padding-right: 15px;"></span>Home</a>
-                  <a onclick="SelectCategory( this, 'router' );">
+                  <a onclick="SelectCategory( this, 'Router' );">
                      <span class="glyphicon glyphicon-random" style="color: silver; padding-right: 15px;"></span>Router</a>
-                     <a onclick="SelectCategory( this, 'menu' );">
+                     <a onclick="SelectCategory( this, 'Menu' );">
                      <span class="glyphicon glyphicon-th-list" style="color: silver; padding-right: 15px;"></span>Menu</a>
-                  <a onclick="SelectCategory( this, 'views' );">
+                  <a onclick="SelectCategory( this, 'Views' );">
                      <span class="glyphicon glyphicon-eye-open" style="color: silver; padding-right: 15px;"></span>Views</a>
-                  <a onclick="SelectCategory( this, 'controller' );">
+                  <a onclick="SelectCategory( this, 'Controller' );">
                      <span class="glyphicon glyphicon-list-alt" style="color: silver; padding-right: 15px;"></span>Controllers</a>
-                  <a class="active" onclick="SelectCategory( this, 'users' );">
+                  <a class="active" onclick="SelectCategory( this, 'Users' );">
                      <span class="glyphicon glyphicon-user" style="color: silver; padding-right: 15px;"></span>Users</a>
-                  <a onclick="SelectCategory( this, 'database' );">
+                  <a onclick="SelectCategory( this, 'Database' );">
                      <span class="glyphicon glyphicon-cloud" style="color: silver; padding-right: 15px;"></span>Database</a>
-                  <a onclick="SelectCategory( this, 'settings' );">
+                  <a onclick="SelectCategory( this, 'Settings' );">
                      <span class="glyphicon glyphicon-cog" style="color: silver; padding-right: 15px;"></span>Settings</a>
                </div>
             </div>

@@ -39,6 +39,7 @@
       {
          $( o ).addClass( "active" );
          $( o ).siblings().removeClass( "active" );
+         $( "#title" ).html( cName );
       }
    </script>  
 </head>
