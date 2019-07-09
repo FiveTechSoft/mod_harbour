@@ -23,7 +23,7 @@
       }
 
       .vertical-menu a.active {
-      background-color: gainsboro;
+      background-color: dimgray;
       color: {{GetColor3()}};
       }   
 
@@ -33,4 +33,12 @@
       }
 
    </style>
+
+   <script>
+      function SelectCategory( o, cName )
+      {
+         $( o ).addClass( "active" );
+         $( o ).siblings().removeClass( "active" );
+      }
+   </script>  
 </head>

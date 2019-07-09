@@ -12,7 +12,7 @@
                <a style="cursor:pointer;" onclick="$( '#leftmenu' ).width( 75 );" class="navbar-brand">
                   <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true" style="color: silver;">
                   </span></a>
-               <a class="navbar-brand" style="color:white;">Main</a>
+               <a id="title" class="navbar-brand" style="color:white;">Users</a>
                <ul class="nav navbar-nav navbar-right">
                   <li><a style="cursor:pointer;">
                      <span class="glyphicon glyphicon-user" style="color: silver;">

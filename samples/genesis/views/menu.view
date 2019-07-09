@@ -10,7 +10,7 @@
                      <span class="glyphicon glyphicon-eye-open" style="color: silver; padding-right: 15px;"></span>Views</a>
                   <a onclick="SelectCategory( this, 'controller' );">
                      <span class="glyphicon glyphicon-list-alt" style="color: silver; padding-right: 15px;"></span>Controllers</a>
-                  <a onclick="SelectCategory( this, 'users' );">
+                  <a class="active" onclick="SelectCategory( this, 'users' );">
                      <span class="glyphicon glyphicon-user" style="color: silver; padding-right: 15px;"></span>Users</a>
                   <a onclick="SelectCategory( this, 'database' );">
                      <span class="glyphicon glyphicon-cloud" style="color: silver; padding-right: 15px;"></span>Database</a>
