@@ -56,8 +56,8 @@ function AddPPRules()
    __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
    __pp_addRule( hPP, "#xcommand TEMPLATE [ USING <x> ] [ PARAMS [<v1>] [,<vn>] ] => " + ;
                       '#pragma __cstream | AP_RPuts( InlinePrg( %s, [@<x>] [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )
-   __pp_addRule( hPP, "#xcommand BLOCKS => " + ;
-                      '#pragma __cstream | AP_RPuts( ReplaceBlocks( %s, "{{", "}}" ) )' )
+   __pp_addRule( hPP, "#xcommand BLOCKS [ PARAMS [<v1>] [,<vn>] ] => " + ;
+                      '#pragma __cstream | AP_RPuts( ReplaceBlocks( %s, "{{", "}}" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )   
    __pp_addRule( hPP, "#command ENDTEMPLATE => #pragma __endtext" )
 
 return nil
@@ -222,20 +222,22 @@ return hPairs
 
 //----------------------------------------------------------------//
 
-function ReplaceBlocks( cCode, cStartBlock, cEndBlock )
+function ReplaceBlocks( cCode, cStartBlock, cEndBlock, cParams, ... )
 
    local nStart, nEnd, cBlock
    local lReplaced := .F.
    
    hb_default( @cStartBlock, "{{" )
    hb_default( @cEndBlock, "}}" )
+   hb_default( @cParams, "" )
 
    while ( nStart := At( cStartBlock, cCode ) ) != 0 .and. ;
          ( nEnd := At( cEndBlock, cCode ) ) != 0
       cBlock = SubStr( cCode, nStart + Len( cStartBlock ), nEnd - nStart - Len( cEndBlock ) )
-      cCode = SubStr( cCode, 1, nStart - 1 ) + ValToChar( &( cBlock ) ) + ;
+      cCode = SubStr( cCode, 1, nStart - 1 ) + ;
+              ValToChar( Eval( &( "{ |" + cParams + "| " + cBlock + " }" ), ... ) ) + ;
       SubStr( cCode, nEnd + Len( cEndBlock ) )
-		  lReplaced = .T.
+          lReplaced = .T.
    end
    
 return If( HB_PIsByRef( 1 ), lReplaced, cCode )
