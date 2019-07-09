@@ -62,14 +62,14 @@ static procedure CheckSocket(lStopSent)
 		else
 			QOut("connected") //serverve found, send my exeName and my processId
 			QOut( HB_ARGV(0)+CRLF+str(__PIDNum())+CRLF )
-			hb_inetSend(t_oDebugInfo['socket'],;
+			hb_inetSend( t_oDebugInfo['socket'],;
 				"/System/Library/CoreServices/Dock.app/Contents/MacOS/Dock" + CRLF + ;
-				Str( PID( "Str( PID( "ps -A | grep -m1 /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock | awk '{print $1}'" ) )" ) ) + CRLF )
+				Str( PID( "ps -A | grep -m1 /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock | awk '{print $1}'" ) ) + CRLF )
 			do while hb_inetDataReady(t_oDebugInfo['socket']) != 1 //waiting for response
 				hb_idleSleep(0.2)
 			end do
 			tmp := hb_inetRecvLine(t_oDebugInfo['socket']) // if the server does not respond "NO" it is ok
-			AP_RPuts( "returned ", tmp )
+			QOut( "returned ", tmp )
 			// End of handshake
 		endif
 		if tmp="NO" //server not found or handshake failed 
