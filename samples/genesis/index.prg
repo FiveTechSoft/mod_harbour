@@ -150,3 +150,55 @@ function View( cView )
 return cData
 
 //----------------------------------------------------------------------------//
+
+function BuildBrowse( cTableName )
+
+   local cHtml := "", n
+
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
+
+   cHtml += '<table class="table table-striped table-hover;">' + CRLF
+   cHtml += '<thead>' + CRLF
+   cHtml += '<tr>' + CRLF
+   cHtml += '<th scope="col">#</th>' + CRLF
+
+   for n = 1 to FCount() 
+      cHtml += '<th scope="col">' + FieldName( n ) + '</th>' + CRLF
+   next
+
+   cHtml += '<th scope="col">ACTIONS</th>' + CRLF
+
+   cHtml += '</tr>' + CRLF
+   cHtml += '</thead>' + CRLF
+   cHtml += '<tbody>' + CRLF
+
+   while ! Eof()
+      cHtml += "<tr>" + CRLF
+      cHtml += '<th scope="row">' + AllTrim( Str( RecNo() ) ) + "</th>" + CRLF
+      
+      for n = 1 to FCount()
+         cHtml += '<td>' + ValToChar( FieldGet( n ) ) + "</td>" + CRLF
+      next
+
+      cHtml += '<td>' + CRLF
+      cHtml += '<button type="button" class="btn btn-primary"' + CRLF 
+      cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
+      cHtml += '   <span class="glyphicon glyphicon-edit" style="color:gray;padding-right:10px;">' + CRLF
+      cHtml += '   </span>Edit</button>' + CRLF
+      cHtml += '<button type="button" class="btn btn-primary"' + CRLF 
+      cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
+      cHtml += '   <span class="glyphicon glyphicon-trash" style="color:gray;padding-right:10px;">' + CRLF
+      cHtml += '   </span>Delete</button>' + CRLF
+      cHtml += '</td>' + CRLF
+
+      SKIP
+   end 
+
+   cHtml += '</tbody>' + CRLF
+   cHtml += '</table>' + CRLF
+
+   USE
+
+return cHtml   
+
+//----------------------------------------------------------------------------//
