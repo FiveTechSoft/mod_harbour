@@ -1,0 +1,36 @@
+<html>
+
+<head>
+  <title>Genesis</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://fivetechsoft.github.io/xcloud/source/js/xcloud.js"></script>
+  <link rel="stylesheet" href="https://fivetechsoft.github.io/xcloud/source/css/xcloud.css"> 
+
+  <style>
+      .vertical-menu a {
+      background-color: {{GetColor3()}};
+      color: gray;
+      display: block;
+      padding: 20px;
+      padding-left: 30px;
+      text-decoration: none;
+      border-style: solid;
+      border-width:1px;
+      border-color: gray black black black;
+      cursor: pointer;
+      }
+
+      .vertical-menu a.active {
+      background-color: gainsboro;
+      color: {{GetColor3()}};
+      }   
+
+      .vertical-menu a:hover {
+         background-color: black;
+         color: white;
+      }
+
+   </style>
+</head>
