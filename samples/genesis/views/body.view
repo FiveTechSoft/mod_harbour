@@ -1,5 +1,4 @@
 <body>
-
    <div class="container-fluid" style="overflow:hidden;">
       <div class="row" style="margin-right:0px">
          <div id="leftmenu" class="col-sm-2">
@@ -30,3 +29,5 @@
       </div>
    </div>
 </body>
+
+</html>
