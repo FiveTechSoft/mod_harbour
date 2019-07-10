@@ -179,7 +179,9 @@ function BuildBrowse( cTableName )
       for n = 1 to FCount()
          if ValType( FieldGet( n ) ) == "M"
             cHtml += '<td>' + SubStr( FieldGet( n ), 1, 20 ) + CRLF
-            cHtml += '<button type="button" class="btn btn-primary"' + CRLF 
+            cHtml += '<button onclick="MsgInfo(' + "'" + FieldGet( n ) + "', '" + ;
+                     FieldName( n ) + "');" + '"' + ;
+                     'type="button" class="btn btn-primary"' + CRLF 
             cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
             cHtml += '   <span class="glyphicon glyphicon-eye-open" style="color:gray;padding-right:10px;">' + CRLF
             cHtml += '   </span>View</button>' +  "</td>" + CRLF            
