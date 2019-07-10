@@ -1,4 +1,4 @@
-static cContent, cUserName
+static cContent, cAction, nId, cUserName
 
 //----------------------------------------------------------------------------//
 
@@ -11,6 +11,15 @@ return nil
 //----------------------------------------------------------------------------//
 
 function Controller( cRequest )
+
+   local aRequest
+
+   if ":" $ cRequest
+      aRequest = hb_aTokens( cRequest, ":" )
+      cRequest = aRequest[ 1 ]
+      cAction  = aRequest[ 2 ]
+      nId      = Val( aRequest[ 3 ] )
+   endif    
 
    cContent = If( Empty( cRequest ), "users",;
        If( cRequest $ "menus,routes,database,settings,controllers,login", cRequest, "users" ) )
@@ -108,6 +117,18 @@ return cContent
 
 //----------------------------------------------------------------------------//
 
+function GetAction()
+
+return cAction   
+
+//----------------------------------------------------------------------------//
+
+function GetId()
+
+return nId   
+
+//----------------------------------------------------------------------------//
+
 function UserName()
 
 return cUserName
@@ -191,7 +212,8 @@ function BuildBrowse( cTableName )
       next
 
       cHtml += '<td>' + CRLF
-      cHtml += '<button type="button" class="btn btn-primary"' + CRLF 
+      cHtml += '<button onclick="Edit(' + AllTrim( Str( RecNo() ) ) + ');"' + ;
+               ' type="button" class="btn btn-primary"' + CRLF 
       cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
       cHtml += '   <span class="glyphicon glyphicon-edit" style="color:gray;padding-right:10px;">' + CRLF
       cHtml += '   </span>Edit</button>' + CRLF
@@ -210,6 +232,34 @@ function BuildBrowse( cTableName )
    USE
 
 return cHtml   
+
+//----------------------------------------------------------------------------//
+
+function BuildEdit( cTableName )
+
+   local cHtml := "", n
+
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
+
+   DbGoTo( GetId() )
+
+   cHtml += '<table id="browse" class="table table-striped table-hover;">' + CRLF
+   cHtml += '<thead>' + CRLF
+   cHtml += '</thead>' + CRLF
+ 
+   for n = 1 to FCount()
+      cHtml += '<tr>'
+      cHtml += '   <td class="center">' + FieldName( n ) + "</td>"
+      cHtml += '   <td class="center"><input type="text" class="form-control" style="border-radius:0px"' + ;
+                   " value='" + ValToChar( FieldGet( n ) ) + "'></td>"
+      cHtml += '</tr>'
+   next
+
+   cHtml += '</table>' + CRLF
+
+   USE
+
+return cHtml
 
 //----------------------------------------------------------------------------//
 

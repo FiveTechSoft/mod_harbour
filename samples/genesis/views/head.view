@@ -41,5 +41,15 @@
          $( oMenuItem ).siblings().removeClass( "active" );
          location.href='index.prg?' + cAction;
       }
+
+      function Edit( cId )
+      {
+         location.href='index.prg?{{GetContent()}}:edit:' + cId;
+      }
+
+      function Cancel()
+      {
+         location.href='index.prg?{{GetContent()}}';
+      }
    </script>  
 </head>

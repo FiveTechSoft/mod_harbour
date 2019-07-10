@@ -23,7 +23,7 @@
                </ul>
             </nav> 
             <div style="background-color:#ecf0f5;height:calc( 100% - 50px );padding-top:50px;">
-               {{View("browse")}}
+               {{If( GetAction() == "edit", View( "edit"), View("browse") )}}
             </div> 
          </div>
       </div>
