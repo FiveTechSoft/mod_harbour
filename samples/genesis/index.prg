@@ -183,6 +183,17 @@ function BuildBrowse( cTableName )
       GO TOP
    endif   
 
+   if ! Empty( GetAction() ) .and. GetAction() == "del"
+      USE
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) NEW
+      DbGoTo( GetId() )
+      DELETE 
+      PACK
+      USE
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
+      GO TOP
+   endif
+
    cHtml += '<table id="browse" class="table table-striped table-hover;">' + CRLF
    cHtml += '<thead>' + CRLF
    cHtml += '<tr>' + CRLF
@@ -222,7 +233,8 @@ function BuildBrowse( cTableName )
       cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
       cHtml += '   <span class="glyphicon glyphicon-edit" style="color:gray;padding-right:10px;">' + CRLF
       cHtml += '   </span>Edit</button>' + CRLF
-      cHtml += '<button type="button" class="btn btn-primary"' + CRLF 
+      cHtml += '<button onclick="Delete(' + AllTrim( Str( RecNo() ) ) + ');"' + ;
+               ' type="button" class="btn btn-primary"' + CRLF 
       cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
       cHtml += '   <span class="glyphicon glyphicon-trash" style="color:gray;padding-right:10px;">' + CRLF
       cHtml += '   </span>Delete</button>' + CRLF
