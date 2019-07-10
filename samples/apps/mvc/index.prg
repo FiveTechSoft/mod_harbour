@@ -14,22 +14,22 @@ FUNCTION Main()
 	LOCAL oRequest	:= TRequest():New()
 	LOCAL oRoute		:= TRoute():New( oRequest )
 		
-		oRoute:Map( 'GET'	, '?'							, 'help.prg' )
-		oRoute:Map( 'GET'	, '/'							, 'default.prg' )
-		oRoute:Map( 'GET'	, 'users'						, 'menu@users.prg' )	
-		oRoute:Map( 'GET'	, 'users/(id)'					, 'info@users.prg' )	
-		oRoute:Map( 'GET'	, 'users/listado'				, 'listado@users.prg' )	
-		oRoute:Map( 'GET'	, 'compras/customer/(id)'		, 'edit@dummy.prg' )	
-		oRoute:Map( 'GET'	, 'compras/customer/(id)/(age)'	, 'update@dummy.prg' )	
-		oRoute:Map( 'GET'	, 'compras/customer/view/(id)'	, 'view@dummy.prg' )	
-		oRoute:Map( 'GET'	, 'vista'						, 'vista.prg' )	
-		oRoute:Map( 'GET'	, 'vista/(peticion)'			, 'controlvista.prg' )	
-		oRoute:Map( 'GET'	, 'list'						, 'list.prg' )
-		oRoute:Map( 'POST'	, 'list'						, 'list.prg' )	
+		oRoute:Map( 'GET'	, 'help'			, '?'							, 'help.prg' )
+		oRoute:Map( 'GET'	, 'home'			, '/'							, 'default.prg' )
+		oRoute:Map( 'GET'	, 'users'			, 'users'						, 'menu@users.prg' )	
+		oRoute:Map( 'GET'	, 'users.info'		, 'users/(id)'					, 'info@users.prg' )	
+		oRoute:Map( 'GET'	, 'users.list'		, 'users/listado'				, 'listado@users.prg' )	
+		oRoute:Map( 'GET'	, 'compras.test1'	, 'compras/customer/(id)'		, 'edit@dummy.prg' )	
+		oRoute:Map( 'GET'	, 'compras.test2'	, 'compras/customer/(id)/(age)'	, 'update@dummy.prg' )	
+		oRoute:Map( 'GET'	, 'compras.test3'	, 'compras/customer/view/(id)'	, 'view@dummy.prg' )	
+		oRoute:Map( 'GET'	, 'view'			, 'vista'						, 'vista.prg' )	
+		oRoute:Map( 'GET'	, 'view.param'		, 'vista/(peticion)'			, 'controlvista.prg' )	
+		oRoute:Map( 'GET'	, 'list'			, 'list'						, 'list.prg' )
+		oRoute:Map( 'POST'	, 'list'			, 'list'						, 'list.prg' )	
 	
 	oRoute:Listen()	//	Escucha entrada !
-	
+
 RETURN NIL
 
 //	Loading system MVC...
-{% include( "/lib/hmvc/tmvc.prg" ) %}
+{% include( AP_GETENV( 'PATH_APP' ) + "/lib/hmvc/tmvc.prg" ) %}
