@@ -1,4 +1,4 @@
-user=www-data
+user="www-data"
 if [ "$1" != "off" ]; then
    user=$USER
 fi   
