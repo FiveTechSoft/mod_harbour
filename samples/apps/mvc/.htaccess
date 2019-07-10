@@ -2,9 +2,9 @@
 # CONFIGURACION RUTAS PROGRAMA
 # --------------------------------------------------------------------------
 SetEnv APP_TITLE           "MVC"
-SetEnv PATH_URL            "http://localhost/hweb/apps/mvc"
-SetEnv PATH_APP            "c:\xampp\htdocs\hweb\apps\mvc"
-SetEnv PATH_DATA           "c:\xampp\htdocs\hweb\apps\mvc\data"
+SetEnv PATH_URL            "/modharbour_samples/apps/mvc"
+SetEnv PATH_APP            "/modharbour_samples/apps/mvc"
+SetEnv PATH_DATA           "/modharbour_samples/apps/data"
 
 
 # --------------------------------------------------------------------------
