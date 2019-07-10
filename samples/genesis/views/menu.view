@@ -14,9 +14,11 @@
                   <a {{If( GetContent() == "users", 'class="active"', "" )}} 
                      onclick="SelectCategory( this, 'users' );">
                      <span class="glyphicon glyphicon-user" style="color: silver; padding-right: 15px;"></span>Users</a>
-                  <a onclick="SelectCategory( this, 'Database' );">
+                  <a {{If( GetContent() == "database", 'class="active"', "" )}} 
+                     onclick="SelectCategory( this, 'database' );">
                      <span class="glyphicon glyphicon-cloud" style="color: silver; padding-right: 15px;"></span>Database</a>
-                  <a onclick="SelectCategory( this, 'Settings' );">
+                  <a {{If( GetContent() == "settings", 'class="active"', "" )}}
+                     onclick="SelectCategory( this, 'settings' );">
                      <span class="glyphicon glyphicon-cog" style="color: silver; padding-right: 15px;"></span>Settings</a>
                </div>
             </div>

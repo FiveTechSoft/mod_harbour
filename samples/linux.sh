@@ -1,17 +1,21 @@
-sudo chown -R www-data:www-data data
+user="www-data"
+if [ "$1" != "off" ]; then
+   user=$USER
+fi   
+sudo chown -R $user:$user data
 cd apps/honey
-sudo chown -R www-data:www-data data
+sudo chown -R $user:$user data
 cd ../..
 cd apps/mvc
-sudo chown -R www-data:www-data data
+sudo chown -R $user:$user data
 cd ../..
 cd apps/mvc_notes
-sudo chown -R www-data:www-data data
+sudo chown -R $user:$user data
 cd ../..
 cd eshop
-sudo chown -R www-data:www-data data
+sudo chown -R $user:$user data
 cd ..
 cd genesis
-sudo chown -R www-data:www-data data
+sudo chown -R $user:$user data
 cd ..
-sudo chown -R www-data:www-data machine
+sudo chown -R $user:$user machine
