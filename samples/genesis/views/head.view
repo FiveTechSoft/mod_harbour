@@ -35,10 +35,11 @@
    </style>
 
    <script>
-      function SelectCategory( oMenuItem )
+      function SelectCategory( oMenuItem, cAction )
       {
          $( oMenuItem ).addClass( "active" );
          $( oMenuItem ).siblings().removeClass( "active" );
+         location.href='index.prg?' + cAction;
       }
    </script>  
 </head>
