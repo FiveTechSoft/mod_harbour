@@ -1,7 +1,10 @@
                <div style="background-color:white;margin:30px;padding:10px;padding-top:10px;border:1px;border-style:line;border-color:red;">
                <button type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
                   <span class="glyphicon glyphicon-plus" style="color:silver;padding-right:10px;">
-                  </span>Add</button><hr>
+                  </span>Add</button>
+               <button onclick="window.print();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
+                  <span class="glyphicon glyphicon-print" style="color:silver;padding-right:10px;">
+                  </span>Print</button><hr>
                <div class="row" style="padding-left:15px;"> 
                   <div class="col-sm-3">  
                      <select class="selectpicker show-tick" style="height:30px;margin-bottom:10px;margin-right:10px">

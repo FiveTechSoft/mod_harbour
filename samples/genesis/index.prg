@@ -157,7 +157,7 @@ function BuildBrowse( cTableName )
 
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
 
-   cHtml += '<table class="table table-striped table-hover;">' + CRLF
+   cHtml += '<table id="browse" class="table table-striped table-hover;">' + CRLF
    cHtml += '<thead>' + CRLF
    cHtml += '<tr>' + CRLF
    cHtml += '<th scope="col">#</th>' + CRLF
