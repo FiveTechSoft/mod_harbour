@@ -249,7 +249,7 @@ function BuildEdit( cTableName )
  
    for n = 1 to FCount()
       cHtml += '<tr>'
-      cHtml += '   <td class="center">' + FieldName( n ) + "</td>"
+      cHtml += '   <td class="text-right">' + FieldName( n ) + "</td>"
       cHtml += '   <td class="center"><input type="text" class="form-control" style="border-radius:0px"' + ;
                    " value='" + ValToChar( FieldGet( n ) ) + "'></td>"
       cHtml += '</tr>'
