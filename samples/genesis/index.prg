@@ -178,6 +178,11 @@ function BuildBrowse( cTableName )
 
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
 
+   if ! Empty( GetAction() ) .and. GetAction() == "add"
+      APPEND BLANK
+      GO TOP
+   endif   
+
    cHtml += '<table id="browse" class="table table-striped table-hover;">' + CRLF
    cHtml += '<thead>' + CRLF
    cHtml += '<tr>' + CRLF

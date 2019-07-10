@@ -1,5 +1,5 @@
                <div style="background-color:white;margin:30px;padding:10px;padding-top:10px;border:1px;border-style:line;border-color:red;">
-               <button type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
+               <button onclick="Add();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
                   <span class="glyphicon glyphicon-plus" style="color:silver;padding-right:10px;">
                   </span>Add</button>
                <button onclick="window.print();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">

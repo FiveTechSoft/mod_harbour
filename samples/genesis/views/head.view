@@ -42,6 +42,11 @@
          location.href='index.prg?' + cAction;
       }
 
+      function Add()
+      {
+         location.href='index.prg?{{GetContent()}}:add:0';
+      }
+
       function Edit( cId )
       {
          location.href='index.prg?{{GetContent()}}:edit:' + cId;
