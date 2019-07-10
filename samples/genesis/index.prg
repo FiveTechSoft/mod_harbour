@@ -13,7 +13,7 @@ return nil
 function Controller( cRequest )
 
    cContent = If( Empty( cRequest ), "users",;
-                  If( cRequest $ "menus,routes,login,cart,checkout", cRequest, "users" ) )
+       If( cRequest $ "menus,routes,database,login,cart,checkout", cRequest, "users" ) )
 
    do case   
       case AP_Method() == "GET"
