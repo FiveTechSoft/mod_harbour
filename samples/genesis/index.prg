@@ -177,7 +177,11 @@ function BuildBrowse( cTableName )
       cHtml += '<th scope="row">' + AllTrim( Str( RecNo() ) ) + "</th>" + CRLF
       
       for n = 1 to FCount()
-         cHtml += '<td>' + ValToChar( FieldGet( n ) ) + "</td>" + CRLF
+         if ValType( FieldGet( n ) ) == "M"
+            cHtml += '<td>' + SubStr( FieldGet( n ), 1, 20 ) + "</td>" + CRLF
+         else   
+            cHtml += '<td>' + ValToChar( FieldGet( n ) ) + "</td>" + CRLF
+         endif   
       next
 
       cHtml += '<td>' + CRLF
