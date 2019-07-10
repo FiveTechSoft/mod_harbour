@@ -9,7 +9,7 @@
                      <span class="glyphicon glyphicon-th-list" style="color: silver; padding-right: 15px;"></span>Menus</a>
                   <a onclick="SelectCategory( this, 'Views' );">
                      <span class="glyphicon glyphicon-eye-open" style="color: silver; padding-right: 15px;"></span>Views</a>
-                  <a onclick="SelectCategory( this, 'Controller' );">
+                  <a onclick="SelectCategory( this, 'controllers' );">
                      <span class="glyphicon glyphicon-list-alt" style="color: silver; padding-right: 15px;"></span>Controllers</a>
                   <a {{If( GetContent() == "users", 'class="active"', "" )}} 
                      onclick="SelectCategory( this, 'users' );">
