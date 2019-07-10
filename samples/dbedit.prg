@@ -2,7 +2,7 @@ function Main()
 
    local cArgs := AP_Args(), nRecNo
 
-   USE "/var/www/html/data/customer.dbf" SHARED
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/customer.dbf" ) SHARED
    
    if ! Empty( cArgs )
       if Left( cArgs, 5 ) == "prev:"
