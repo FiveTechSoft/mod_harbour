@@ -3,6 +3,9 @@
                   <a {{If( GetContent() == "home", 'class="active"', "" )}}
                      onclick="SelectCategory( this, 'Home' );">
                      <span class="glyphicon glyphicon-home" style="color: silver; padding-right: 15px;"></span>Home</a>
+                  <a {{If( GetContent() == "logs", 'class="active"', "" )}}
+                     onclick="SelectCategory( this, 'logs' );">
+                     <span class="glyphicon glyphicon-list-alt" style="color: silver; padding-right: 15px;"></span>Logs</a>
                   <a {{If( GetContent() == "routes", 'class="active"', "" )}} 
                      onclick="SelectCategory( this, 'routes' );">
                      <span class="glyphicon glyphicon-random" style="color: silver; padding-right: 15px;"></span>Routes</a>
