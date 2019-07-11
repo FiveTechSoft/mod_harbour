@@ -138,12 +138,6 @@ return cUserName
 
 //----------------------------------------------------------------------------//
 
-function MyEShopName()
-
-return "My eshop"
-
-//----------------------------------------------------------------------------//
-
 function ItemStatus( cItem )
 
 return If( cContent == cItem, "class='active'", "" ) 
@@ -219,7 +213,7 @@ function BuildBrowse( cTableName )
       for n = 1 to FCount()
          if ValType( FieldGet( n ) ) == "M"
             cHtml += '<td>' + SubStr( FieldGet( n ), 1, 20 ) + CRLF
-            cHtml += '<button onclick="MsgInfo(' + "'" + FieldGet( n ) + "', '" + ;
+            cHtml += '<button onclick="MsgInfo(' + "'" + StrTran( FieldGet( n ), CRLF, "<br>" ) + "', '" + ;
                      FieldName( n ) + "');" + '"' + ;
                      'type="button" class="btn btn-primary"' + CRLF 
             cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
@@ -272,9 +266,15 @@ function BuildEdit( cTableName )
    for n = 1 to FCount()
       cHtml += '<tr>'
       cHtml += '   <td class="text-right">' + FieldName( n ) + "</td>"
-      cHtml += '   <td class="center"><input type="text" name="' + FieldName( n ) + ;
-               '" class="form-control" style="border-radius:0px"' + ;
-                   " value='" + ValToChar( FieldGet( n ) ) + "'></td>"
+      cHtml += '   <td class="center">'
+      if FieldType( n ) == "M"
+         cHtml += '<textarea class="form-control" rows="5" name="' + ;
+                  FieldName( n ) + '">' + FieldGet( n ) + '</textarea>' + CRLF
+      else   
+         cHtml += '<input type="text" name="' + FieldName( n ) + ;
+                  '" class="form-control" style="border-radius:0px"' + ;
+                  " value='" + ValToChar( FieldGet( n ) ) + "'></td>"
+      endif            
       cHtml += '</tr>'
    next
 
