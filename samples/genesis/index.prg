@@ -30,6 +30,9 @@ function Controller( cRequest )
 
       case AP_Method() == "POST"
          do case
+            case cAction == "save"
+                 Save()
+
             case cRequest == "login"
                  Login() 
          endcase 
@@ -260,6 +263,8 @@ function BuildEdit( cTableName )
 
    DbGoTo( GetId() )
 
+   cHtml += '<form action="index.prg?' + GetContent() + ":save:" + AllTrim( Str( nId ) ) + '" ' + ;
+            'method="post">' + CRLF
    cHtml += '<table id="browse" class="table table-striped table-hover;">' + CRLF
    cHtml += '<thead>' + CRLF
    cHtml += '</thead>' + CRLF
@@ -267,7 +272,8 @@ function BuildEdit( cTableName )
    for n = 1 to FCount()
       cHtml += '<tr>'
       cHtml += '   <td class="text-right">' + FieldName( n ) + "</td>"
-      cHtml += '   <td class="center"><input type="text" class="form-control" style="border-radius:0px"' + ;
+      cHtml += '   <td class="center"><input type="text" name="' + FieldName( n ) + ;
+               '" class="form-control" style="border-radius:0px"' + ;
                    " value='" + ValToChar( FieldGet( n ) ) + "'></td>"
       cHtml += '</tr>'
    next
@@ -277,6 +283,27 @@ function BuildEdit( cTableName )
    USE
 
 return cHtml
+
+//----------------------------------------------------------------------------//
+
+function Save()
+
+   local hPost := AP_PostPairs(), n
+
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + GetContent() ) SHARED NEW
+
+   DbGoTo( nId )
+   
+   if RLock()
+      hb_HEval( hPost, { | k, v, n | FieldPut( FieldPos( k ), hb_UrlDecode( v ) ) } )  
+      DbUnLock()
+   endif   
+
+   USE
+
+   AP_RPuts( View( "default" ) )
+
+return nil
 
 //----------------------------------------------------------------------------//
 
