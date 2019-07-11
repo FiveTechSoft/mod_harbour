@@ -339,7 +339,7 @@ function BuildBrowse( cTableName )
       
       for n = 1 to FCount()
          do case
-            case ValType( FieldGet( n ) ) == "M"
+            case FieldType( n ) == "M"
                cHtml += '<td>' + SubStr( FieldGet( n ), 1, 20 ) + CRLF
                cHtml += '<button onclick="MsgInfo(' + "'" + ;
                         StrTran( FieldGet( n ), Chr( 13 ) + Chr( 10 ), "<br>" ) + "', '" + ;
@@ -349,8 +349,9 @@ function BuildBrowse( cTableName )
                cHtml += '   <span class="glyphicon glyphicon-eye-open" style="color:gray;padding-right:10px;">' + CRLF
                cHtml += '   </span>View</button>' +  "</td>" + CRLF            
          
-            case ValType( FieldGet( n ) ) == "L"
-               cHtml += '<td><input type="checkbox"' + If( FieldGet( n ), "checked", "" ) + "></td>" + CRLF
+            case FieldType( n ) == "L"
+               cHtml += '<td><input type="checkbox" onclick="return false;"' + ;
+                        If( FieldGet( n ), "checked", "" ) + "></td>" + CRLF
 
             otherwise
                cHtml += '<td>' + ValToChar( FieldGet( n ) ) + "</td>" + CRLF   
@@ -436,8 +437,8 @@ function Save()
    
    if RLock()
       hb_HEval( hPost, { | k, v, n | FieldPut( FieldPos( k ),;
-         If( FieldType( n ) == "D", CToD( hb_UrlDecode( v ) ),;
-         If( FieldType( n ) == "L", hb_UrlDecode( v ) == "on",;
+         If( FieldType( FieldPos( k ) ) == "D", CToD( hb_UrlDecode( v ) ),;
+         If( FieldType( FieldPos( k ) ) == "L", "on" $ hb_UrlDecode( v ),;
          hb_UrlDecode( v ) ) ) ) } )  
       DbUnLock()
    endif   
