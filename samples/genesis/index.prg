@@ -1,3 +1,5 @@
+// {% hb_SetEnv( "HB_USER_PRGFLAGS", "-B" ) %}
+
 #xcommand TEXT INTO <v> => #pragma __cstream|<v>:=%s
 #xcommand TEXT INTO <v> ADDITIVE => #pragma __cstream|<v>+=%s
 
@@ -6,6 +8,9 @@ static cContent, cAction, nId, cUserName
 //----------------------------------------------------------------------------//
 
 function Main()
+
+   AltD()
+   AltD( 1 )
 
    CheckDataBase()
 
@@ -436,10 +441,24 @@ function Save()
    DbGoTo( nId )
    
    if RLock()
-      hb_HEval( hPost, { | k, v, n | FieldPut( FieldPos( k ),;
-         If( FieldType( FieldPos( k ) ) == "D", CToD( hb_UrlDecode( v ) ),;
-         If( FieldType( FieldPos( k ) ) == "L", "on" $ hb_UrlDecode( v ),;
-         hb_UrlDecode( v ) ) ) ) } )  
+      for n = 1 to FCount()
+         if hb_HHasKey( hPost, FieldName( n ) )
+            do case
+               case FieldType( n ) == "D"
+                    FieldPut( n, CToD( hb_UrlDecode( hb_HGet( hPost, FieldName( n ) ) ) ) )
+
+               case FieldType( n ) == "L"
+                    FieldPut( n, "on" $ hb_UrlDecode( hb_HGet( hPost, FieldName( n ) ) ) )     
+            
+               otherwise   
+                    FieldPut( n, hb_UrlDecode( hb_HGet( hPost, FieldName( n ) ) ) )
+            endcase   
+         else
+            if FieldType( n ) == "L"
+               FieldPut( n, .F. )
+            endif      
+         endif 
+      next  
       DbUnLock()
    endif   
 
