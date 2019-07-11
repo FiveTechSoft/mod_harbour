@@ -1,15 +1,19 @@
             <div style="background-color:{{GetColor3()}};height:calc(100% - 50px);">
                <div class="vertical-menu" style="background-color:{{GetColor3()}};height:500px;">
-                  <a onclick="SelectCategory( this, 'Home' );">
+                  <a {{If( GetContent() == "home", 'class="active"', "" )}}
+                     onclick="SelectCategory( this, 'Home' );">
                      <span class="glyphicon glyphicon-home" style="color: silver; padding-right: 15px;"></span>Home</a>
-                  <a onclick="SelectCategory( this, 'routes' );">
+                  <a {{If( GetContent() == "routes", 'class="active"', "" )}} 
+                     onclick="SelectCategory( this, 'routes' );">
                      <span class="glyphicon glyphicon-random" style="color: silver; padding-right: 15px;"></span>Routes</a>
-                     <a {{If( GetContent() == "menus", 'class="active"', "" )}} 
+                  <a {{If( GetContent() == "menus", 'class="active"', "" )}} 
                      onclick="SelectCategory( this, 'menus' );">
                      <span class="glyphicon glyphicon-th-list" style="color: silver; padding-right: 15px;"></span>Menus</a>
-                  <a onclick="SelectCategory( this, 'Views' );">
+                  <a {{If( GetContent() == "views", 'class="active"', "" )}}
+                     onclick="SelectCategory( this, 'views' );">
                      <span class="glyphicon glyphicon-eye-open" style="color: silver; padding-right: 15px;"></span>Views</a>
-                  <a onclick="SelectCategory( this, 'Controller' );">
+                  <a {{If( GetContent() == "controllers", 'class="active"', "" )}}
+                     onclick="SelectCategory( this, 'controllers' );">
                      <span class="glyphicon glyphicon-list-alt" style="color: silver; padding-right: 15px;"></span>Controllers</a>
                   <a {{If( GetContent() == "users", 'class="active"', "" )}} 
                      onclick="SelectCategory( this, 'users' );">

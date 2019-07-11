@@ -1,5 +1,5 @@
 user="www-data"
-if [ "$1" != "off" ]; then
+if [ "$1" == "off" ]; then
    user=$USER
 fi   
 sudo chown -R $user:$user data

@@ -1,4 +1,4 @@
-static cContent, cUserName
+static cContent, cAction, nId, cUserName
 
 //----------------------------------------------------------------------------//
 
@@ -12,8 +12,17 @@ return nil
 
 function Controller( cRequest )
 
+   local aRequest
+
+   if ":" $ cRequest
+      aRequest = hb_aTokens( cRequest, ":" )
+      cRequest = aRequest[ 1 ]
+      cAction  = aRequest[ 2 ]
+      nId      = Val( aRequest[ 3 ] )
+   endif    
+
    cContent = If( Empty( cRequest ), "users",;
-       If( cRequest $ "menus,routes,database,login,cart,checkout", cRequest, "users" ) )
+       If( cRequest $ "menus,routes,database,settings,controllers,login", cRequest, "users" ) )
 
    do case   
       case AP_Method() == "GET"
@@ -21,6 +30,9 @@ function Controller( cRequest )
 
       case AP_Method() == "POST"
          do case
+            case cAction == "save"
+                 Save()
+
             case cRequest == "login"
                  Login() 
          endcase 
@@ -108,6 +120,18 @@ return cContent
 
 //----------------------------------------------------------------------------//
 
+function GetAction()
+
+return cAction   
+
+//----------------------------------------------------------------------------//
+
+function GetId()
+
+return nId   
+
+//----------------------------------------------------------------------------//
+
 function UserName()
 
 return cUserName
@@ -157,7 +181,23 @@ function BuildBrowse( cTableName )
 
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
 
-   cHtml += '<table class="table table-striped table-hover;">' + CRLF
+   if ! Empty( GetAction() ) .and. GetAction() == "add"
+      APPEND BLANK
+      GO TOP
+   endif   
+
+   if ! Empty( GetAction() ) .and. GetAction() == "del"
+      USE
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) NEW
+      DbGoTo( GetId() )
+      DELETE 
+      PACK
+      USE
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
+      GO TOP
+   endif
+
+   cHtml += '<table id="browse" class="table table-striped table-hover;">' + CRLF
    cHtml += '<thead>' + CRLF
    cHtml += '<tr>' + CRLF
    cHtml += '<th scope="col">#</th>' + CRLF
@@ -177,15 +217,27 @@ function BuildBrowse( cTableName )
       cHtml += '<th scope="row">' + AllTrim( Str( RecNo() ) ) + "</th>" + CRLF
       
       for n = 1 to FCount()
-         cHtml += '<td>' + ValToChar( FieldGet( n ) ) + "</td>" + CRLF
+         if ValType( FieldGet( n ) ) == "M"
+            cHtml += '<td>' + SubStr( FieldGet( n ), 1, 20 ) + CRLF
+            cHtml += '<button onclick="MsgInfo(' + "'" + FieldGet( n ) + "', '" + ;
+                     FieldName( n ) + "');" + '"' + ;
+                     'type="button" class="btn btn-primary"' + CRLF 
+            cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
+            cHtml += '   <span class="glyphicon glyphicon-eye-open" style="color:gray;padding-right:10px;">' + CRLF
+            cHtml += '   </span>View</button>' +  "</td>" + CRLF            
+         else   
+            cHtml += '<td>' + ValToChar( FieldGet( n ) ) + "</td>" + CRLF
+         endif   
       next
 
       cHtml += '<td>' + CRLF
-      cHtml += '<button type="button" class="btn btn-primary"' + CRLF 
+      cHtml += '<button onclick="Edit(' + AllTrim( Str( RecNo() ) ) + ');"' + ;
+               ' type="button" class="btn btn-primary"' + CRLF 
       cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
       cHtml += '   <span class="glyphicon glyphicon-edit" style="color:gray;padding-right:10px;">' + CRLF
       cHtml += '   </span>Edit</button>' + CRLF
-      cHtml += '<button type="button" class="btn btn-primary"' + CRLF 
+      cHtml += '<button onclick="Delete(' + AllTrim( Str( RecNo() ) ) + ');"' + ;
+               ' type="button" class="btn btn-primary"' + CRLF 
       cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
       cHtml += '   <span class="glyphicon glyphicon-trash" style="color:gray;padding-right:10px;">' + CRLF
       cHtml += '   </span>Delete</button>' + CRLF
@@ -200,6 +252,58 @@ function BuildBrowse( cTableName )
    USE
 
 return cHtml   
+
+//----------------------------------------------------------------------------//
+
+function BuildEdit( cTableName )
+
+   local cHtml := "", n
+
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
+
+   DbGoTo( GetId() )
+
+   cHtml += '<form action="index.prg?' + GetContent() + ":save:" + AllTrim( Str( nId ) ) + '" ' + ;
+            'method="post">' + CRLF
+   cHtml += '<table id="browse" class="table table-striped table-hover;">' + CRLF
+   cHtml += '<thead>' + CRLF
+   cHtml += '</thead>' + CRLF
+ 
+   for n = 1 to FCount()
+      cHtml += '<tr>'
+      cHtml += '   <td class="text-right">' + FieldName( n ) + "</td>"
+      cHtml += '   <td class="center"><input type="text" name="' + FieldName( n ) + ;
+               '" class="form-control" style="border-radius:0px"' + ;
+                   " value='" + ValToChar( FieldGet( n ) ) + "'></td>"
+      cHtml += '</tr>'
+   next
+
+   cHtml += '</table>' + CRLF
+
+   USE
+
+return cHtml
+
+//----------------------------------------------------------------------------//
+
+function Save()
+
+   local hPost := AP_PostPairs(), n
+
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + GetContent() ) SHARED NEW
+
+   DbGoTo( nId )
+   
+   if RLock()
+      hb_HEval( hPost, { | k, v, n | FieldPut( FieldPos( k ), hb_UrlDecode( v ) ) } )  
+      DbUnLock()
+   endif   
+
+   USE
+
+   AP_RPuts( View( "default" ) )
+
+return nil
 
 //----------------------------------------------------------------------------//
 
