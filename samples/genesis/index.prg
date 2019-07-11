@@ -77,6 +77,18 @@ function CheckDataBase()
                   { "ACTION",  "C", 10, 0 },;
                   { "ID",      "N", 8, 0 } } )
    endif
+
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/users.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/users.dbf",;
+                { { "DATE",    "D",  8, 0 },;
+                  { "FIRST",   "C", 20, 0 },;
+                  { "LAST",    "C", 20, 0 },;
+                  { "ACTIVE",  "L",  1, 0 },;
+                  { "EMAIL",   "C", 20, 0 },;
+                  { "PHONE",   "C", 20, 0 },;
+                  { "PASSMD5", "C", 20, 0 },;
+                  { "NOTES",   "M", 10, 0 } } )
+   endif
    
 return nil   
 
@@ -326,18 +338,23 @@ function BuildBrowse( cTableName )
       cHtml += '<th scope="row">' + AllTrim( Str( RecNo() ) ) + "</th>" + CRLF
       
       for n = 1 to FCount()
-         if ValType( FieldGet( n ) ) == "M"
-            cHtml += '<td>' + SubStr( FieldGet( n ), 1, 20 ) + CRLF
-            cHtml += '<button onclick="MsgInfo(' + "'" + ;
-                     StrTran( FieldGet( n ), Chr( 13 ) + Chr( 10 ), "<br>" ) + "', '" + ;
-                     FieldName( n ) + "');" + '"' + ;
-                     ' type="button" class="btn btn-primary"' + CRLF 
-            cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
-            cHtml += '   <span class="glyphicon glyphicon-eye-open" style="color:gray;padding-right:10px;">' + CRLF
-            cHtml += '   </span>View</button>' +  "</td>" + CRLF            
-         else   
-            cHtml += '<td>' + ValToChar( FieldGet( n ) ) + "</td>" + CRLF
-         endif   
+         do case
+            case ValType( FieldGet( n ) ) == "M"
+               cHtml += '<td>' + SubStr( FieldGet( n ), 1, 20 ) + CRLF
+               cHtml += '<button onclick="MsgInfo(' + "'" + ;
+                        StrTran( FieldGet( n ), Chr( 13 ) + Chr( 10 ), "<br>" ) + "', '" + ;
+                        FieldName( n ) + "');" + '"' + ;
+                        ' type="button" class="btn btn-primary"' + CRLF 
+               cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
+               cHtml += '   <span class="glyphicon glyphicon-eye-open" style="color:gray;padding-right:10px;">' + CRLF
+               cHtml += '   </span>View</button>' +  "</td>" + CRLF            
+         
+            case ValType( FieldGet( n ) ) == "L"
+               cHtml += '<td><input type="checkbox"' + If( FieldGet( n ), "checked", "" ) + "></td>" + CRLF
+
+            otherwise
+               cHtml += '<td>' + ValToChar( FieldGet( n ) ) + "</td>" + CRLF   
+         endcase   
       next
 
       cHtml += '<td>' + CRLF
@@ -383,14 +400,21 @@ function BuildEdit( cTableName )
       cHtml += '<tr>'
       cHtml += '   <td class="text-right">' + FieldName( n ) + "</td>"
       cHtml += '   <td class="center">'
-      if FieldType( n ) == "M"
-         cHtml += '<textarea class="form-control" rows="5" name="' + ;
-                  FieldName( n ) + '">' + FieldGet( n ) + '</textarea>' + CRLF
-      else   
-         cHtml += '<input type="text" name="' + FieldName( n ) + ;
-                  '" class="form-control" style="border-radius:0px"' + ;
-                  " value='" + ValToChar( FieldGet( n ) ) + "'></td>"
-      endif            
+      do case
+         case FieldType( n ) == "M"
+              cHtml += '<textarea class="form-control" rows="5" name="' + ;
+              FieldName( n ) + '">' + FieldGet( n ) + '</textarea>' + CRLF
+
+         case FieldType( n ) == "L"     
+              cHtml += '<input type="checkbox" name="' + FieldName( n ) + ;
+              '" class="form-control" style="border-radius:0px" ' + ;
+              If( FieldGet( n ), "checked", "" ) + "></td>"
+
+         otherwise   
+              cHtml += '<input type="text" name="' + FieldName( n ) + ;
+              '" class="form-control" style="border-radius:0px"' + ;
+              " value='" + ValToChar( FieldGet( n ) ) + "'></td>"
+      endcase            
       cHtml += '</tr>'
    next
 
@@ -411,7 +435,10 @@ function Save()
    DbGoTo( nId )
    
    if RLock()
-      hb_HEval( hPost, { | k, v, n | FieldPut( FieldPos( k ), hb_UrlDecode( v ) ) } )  
+      hb_HEval( hPost, { | k, v, n | FieldPut( FieldPos( k ),;
+         If( FieldType( n ) == "D", CToD( hb_UrlDecode( v ) ),;
+         If( FieldType( n ) == "L", hb_UrlDecode( v ) == "on",;
+         hb_UrlDecode( v ) ) ) ) } )  
       DbUnLock()
    endif   
 
