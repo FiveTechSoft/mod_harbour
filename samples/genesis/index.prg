@@ -215,7 +215,7 @@ function BuildBrowse( cTableName )
             cHtml += '<td>' + SubStr( FieldGet( n ), 1, 20 ) + CRLF
             cHtml += '<button onclick="MsgInfo(' + "'" + StrTran( FieldGet( n ), CRLF, "<br>" ) + "', '" + ;
                      FieldName( n ) + "');" + '"' + ;
-                     'type="button" class="btn btn-primary"' + CRLF 
+                     ' type="button" class="btn btn-primary"' + CRLF 
             cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
             cHtml += '   <span class="glyphicon glyphicon-eye-open" style="color:gray;padding-right:10px;">' + CRLF
             cHtml += '   </span>View</button>' +  "</td>" + CRLF            
