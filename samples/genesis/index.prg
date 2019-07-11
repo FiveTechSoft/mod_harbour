@@ -4,7 +4,11 @@ static cContent, cAction, nId, cUserName
 
 function Main()
 
+   CheckDataBase()
+
    Controller( AP_Args() )
+
+   AddLog()
 
 return nil
 
@@ -22,7 +26,7 @@ function Controller( cRequest )
    endif    
 
    cContent = If( Empty( cRequest ), "users",;
-       If( cRequest $ "menus,routes,database,settings,controllers,login", cRequest, "users" ) )
+       If( cRequest $ "logs,menus,routes,database,settings,controllers,login", cRequest, "users" ) )
 
    do case   
       case AP_Method() == "GET"
@@ -39,6 +43,46 @@ function Controller( cRequest )
    endcase   
 
 return nil
+
+//----------------------------------------------------------------------------//
+
+function CheckDataBase()
+
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/logs.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/logs.dbf",;
+                { { "DATE",    "D", 8, 0 },;
+                  { "TIME",    "C", 8, 0 },;
+                  { "USERIP",  "C", 20, 0 },;
+                  { "METHOD",  "C", 10, 0 },;
+                  { "CONTENT", "C", 15, 0 },;
+                  { "ACTION",  "C", 10, 0 },;
+                  { "ID",      "N", 8, 0 } } )
+   endif
+   
+return nil   
+
+//----------------------------------------------------------------------------//
+
+function AddLog()
+
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/logs" ) SHARED NEW
+
+   APPEND BLANK
+
+   if RLock()
+      field->date    := Date()
+      field->time    := Time()
+      field->userip  := AP_UserIP()
+      field->method  := AP_Method()
+      field->content := If( ! Empty( GetContent() ), GetContent(), "" )
+      field->action  := If( ! Empty( GetAction() ), GetAction(), "" )
+      field->id      := If( ! Empty( GetId() ), GetId(), 0 )
+      DbUnLock()
+   endif
+
+   USE
+   
+return nil   
 
 //----------------------------------------------------------------------------//
 
