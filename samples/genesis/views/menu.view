@@ -1,7 +1,7 @@
             <div style="background-color:{{GetColor3()}};height:calc(100% - 50px);">
                <div class="vertical-menu" style="background-color:{{GetColor3()}};height:500px;">
                   <a {{If( GetContent() == "home", 'class="active"', "" )}}
-                     onclick="SelectCategory( this, 'Home' );">
+                     onclick="SelectCategory( this, 'home' );">
                      <span class="glyphicon glyphicon-home" style="color: silver; padding-right: 15px;"></span>Home</a>
                   <a {{If( GetContent() == "logs", 'class="active"', "" )}}
                      onclick="SelectCategory( this, 'logs' );">
