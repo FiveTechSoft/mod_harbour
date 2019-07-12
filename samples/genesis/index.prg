@@ -34,7 +34,8 @@ function Controller( cRequest )
    endif    
 
    cContent = If( Empty( cRequest ), "home",;
-       If( cRequest $ "home,logs,menus,routes,database,users,settings,controllers", cRequest, "home" ) )
+       If( cRequest $ "home,logs,menus,routes,database,users,settings,tasks,controllers",;
+           cRequest, "home" ) )
 
    do case   
       case AP_Method() == "GET"
@@ -93,6 +94,13 @@ function CheckDataBase()
                   { "PHONE",   "C", 20, 0 },;
                   { "PASSMD5", "C", 20, 0 },;
                   { "NOTES",   "M", 10, 0 } } )
+   endif
+
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/tasks.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/tasks.dbf",;
+                { { "NAME",       "C", 20, 0 },;
+                  { "DESCRIPTIO", "C", 40, 0 },;
+                  { "CODE",       "M", 10, 0 } } )
    endif
    
 return nil   
@@ -351,8 +359,11 @@ function BuildBrowse( cTableName )
                         FieldName( n ) + "');" + '"' + ;
                         ' type="button" class="btn btn-primary"' + CRLF 
                cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
-               cHtml += '   <span class="glyphicon glyphicon-eye-open" style="color:gray;padding-right:10px;">' + CRLF
-               cHtml += '   </span>View</button>' +  "</td>" + CRLF            
+               cHtml += '   <span class="glyphicon glyphicon-' + ;
+                        If( FieldName( n ) == "CODE", "flash", "eye-open" ) + ;
+                        '" style="color:gray;padding-right:10px;">' + CRLF
+               cHtml += '   </span>' + If( FieldName( n ) == "CODE", "Exec", "View" ) + ;
+                        '</button>' +  "</td>" + CRLF            
          
             case FieldType( n ) == "L"
                cHtml += '<td><input type="checkbox" onclick="return false;"' + ;

@@ -15,6 +15,9 @@
                   <a {{If( GetContent() == "views", 'class="active"', "" )}}
                      onclick="SelectCategory( this, 'views' );">
                      <span class="glyphicon glyphicon-eye-open" style="color: silver; padding-right: 15px;"></span>Views</a>
+                  <a {{If( GetContent() == "tasks", 'class="active"', "" )}} 
+                     onclick="SelectCategory( this, 'tasks' );">
+                     <span class="glyphicon glyphicon-flash" style="color: silver; padding-right: 15px;"></span>Tasks</a>
                   <a {{If( GetContent() == "controllers", 'class="active"', "" )}}
                      onclick="SelectCategory( this, 'controllers' );">
                      <span class="glyphicon glyphicon-list-alt" style="color: silver; padding-right: 15px;"></span>Controllers</a>
