@@ -76,6 +76,7 @@ function CheckDataBase()
                   { "DESCRIPTIO",  "C", 30, 0 },;
                   { "FIELDS",      "M", 10, 0 },;
                   { "INDEXES",     "M", 10, 0 },;
+                  { "ONNEW",       "M", 10, 0 },;      
                   { "ONPOSTEDIT",  "M", 10, 0 } } )
    endif
 
