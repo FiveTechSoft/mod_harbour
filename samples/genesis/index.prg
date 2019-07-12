@@ -1,16 +1,11 @@
-// {% hb_SetEnv( "HB_USER_PRGFLAGS", "-B" ) %}
-
 #xcommand TEXT INTO <v> => #pragma __cstream|<v>:=%s
 #xcommand TEXT INTO <v> ADDITIVE => #pragma __cstream|<v>+=%s
 
-static cContent, cAction, nId, cUserName
+static cContent, cAction, nId, cUserName, cCode
 
 //----------------------------------------------------------------------------//
 
 function Main()
-
-   AltD()
-   AltD( 1 )
 
    CheckDataBase()
 
@@ -62,12 +57,14 @@ function Router()
    if GetContent() != "home"
       if GetAction() == "edit"
          cRoute = "edit"
-      else   
+      elseif GetAction() == "exec"
+         cRoute = "exec"
+      else      
          cRoute = "browse"
       endif
    endif      
 
-return View( cRoute )      
+return View( cRoute )    
 
 //----------------------------------------------------------------------------//
 
@@ -278,6 +275,12 @@ return cUserName
 
 //----------------------------------------------------------------------------//
 
+function GetCode()
+
+return cCode   
+
+//----------------------------------------------------------------------------//
+
 function ItemStatus( cItem )
 
 return If( cContent == cItem, "class='active'", "" ) 
@@ -359,12 +362,21 @@ function BuildBrowse( cTableName )
                         FieldName( n ) + "');" + '"' + ;
                         ' type="button" class="btn btn-primary"' + CRLF 
                cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
-               cHtml += '   <span class="glyphicon glyphicon-' + ;
-                        If( FieldName( n ) == "CODE", "flash", "eye-open" ) + ;
+               cHtml += '   <span class="glyphicon glyphicon-eye-open' + ;
                         '" style="color:gray;padding-right:10px;">' + CRLF
-               cHtml += '   </span>' + If( FieldName( n ) == "CODE", "Exec", "View" ) + ;
-                        '</button>' +  "</td>" + CRLF            
-         
+               cHtml += '   </span>View</button>' + CRLF            
+               if FieldName( n ) == "CODE"
+                  cHtml += '<button onclick="location.href=' + "'index.prg?tasks:exec:" + ;
+                           AllTrim( Str( RecNo() ) ) + "';" + ;
+                           '" type="button" class="btn btn-primary"' + CRLF 
+                           cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
+                           cHtml += '   <span class="glyphicon glyphicon-flash' + ;
+                                    '" style="color:gray;padding-right:10px;">' + CRLF
+                  cHtml += '</span>Exec</button>' +  "</td>" + CRLF
+               else
+                  cHtml += "</td>" + CRLF                
+               endif   
+                        
             case FieldType( n ) == "L"
                cHtml += '<td><input type="checkbox" onclick="return false;"' + ;
                         If( FieldGet( n ), "checked", "" ) + "></td>" + CRLF
@@ -476,6 +488,21 @@ function Save()
    USE
 
    AP_RPuts( View( "default" ) )
+
+return nil
+
+//----------------------------------------------------------------------------//
+
+function Task()
+
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + GetContent() ) SHARED NEW
+
+   DbGoTo( GetId() )
+
+   cCode = field->code
+   cCode = StrTran( cCode, "Main", "__Main" ) 
+
+   USE
 
 return nil
 
