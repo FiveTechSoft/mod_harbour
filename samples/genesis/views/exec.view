@@ -7,7 +7,7 @@
                   <div class="col-sm-2" style="padding-right:15px;">  
                   </div>
                </div>
-               {{Task(),Execute( GetCode() )}}     
+               {{Task()}}     
                <hr>
                <div class="row" style="padding-left:15px">
                   <div class="col-sm-3"></div> 
