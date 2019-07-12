@@ -10,14 +10,15 @@
 <style>
 
 .horizontal-menu a {
-  width: 142px;
+  width: 133px;
   height:70px;
   background-color: #2f2f2f;
   color: white;
   display: inline-block;
   text-decoration: none;
-  padding:22px;
-  padding-bottom: 0px;
+  padding:18px;
+  padding-left:19px;
+  padding-top:24px;
   margin-left:0px;
   margin-right:0px;
   cursor: pointer;
