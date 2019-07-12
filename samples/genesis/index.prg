@@ -29,7 +29,7 @@ function Controller( cRequest )
    endif    
 
    cContent = If( Empty( cRequest ), "home",;
-       If( cRequest $ "home,logs,menus,routes,database,users,settings,tasks,controllers",;
+       If( cRequest $ "home,controllers,logs,menus,routes,database,users,settings,tasks,views",;
            cRequest, "home" ) )
 
    do case   
@@ -70,6 +70,15 @@ return View( cRoute )
 
 function CheckDataBase()
 
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/database.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/database.dbf",;
+                { { "TABLE",       "C", 20, 0 },;
+                  { "DESCRIPTIO",  "C", 30, 0 },;
+                  { "FIELDS",      "M", 10, 0 },;
+                  { "INDEXES",     "M", 10, 0 },;
+                  { "ONPOSTEDIT",  "M", 10, 0 } } )
+   endif
+
    if ! File( hb_GetEnv( "PRGPATH" ) + "/data/logs.dbf" )
       DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/logs.dbf",;
                 { { "DATE",    "D", 8, 0 },;
@@ -98,6 +107,14 @@ function CheckDataBase()
                 { { "NAME",       "C", 20, 0 },;
                   { "DESCRIPTIO", "C", 40, 0 },;
                   { "CODE",       "M", 10, 0 } } )
+   endif
+
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/views.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/views.dbf",;
+                { { "NAME",       "C", 20, 0, 0 },;
+                  { "DESCRIPTIO", "C", 40, 0, 0 },;
+                  { "FILE",       "C", 50, 0, 0 },;
+                  { "CODE",       "M", 10, 0, 0 } } )
    endif
    
 return nil   
@@ -495,6 +512,8 @@ return nil
 
 function Task()
 
+   local cResult := ""
+
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + GetContent() ) SHARED NEW
 
    DbGoTo( GetId() )
@@ -504,7 +523,11 @@ function Task()
 
    USE
 
-return nil
+   if ! Empty( cCode )
+      cResult = Execute( cCode )
+   endif   
+
+return cResult
 
 //----------------------------------------------------------------------------//
 
