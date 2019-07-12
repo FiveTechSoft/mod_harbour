@@ -1,0 +1,21 @@
+               <div style="background-color:white;margin:30px;padding:10px;padding-top:10px;border:1px;border-style:line;border-color:red;">
+               <button onclick="window.print();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
+                  <span class="glyphicon glyphicon-print" style="color:silver;padding-right:10px;">
+                  </span>Print</button><hr>
+               <div class="row" style="padding-left:15px;"> 
+                  <div class="col-sm-7"></div>
+                  <div class="col-sm-2" style="padding-right:15px;">  
+                  </div>
+               </div>
+               {{Task(),Execute( GetCode() )}}     
+               <hr>
+               <div class="row" style="padding-left:15px">
+                  <div class="col-sm-3"></div> 
+                  <div class="col-sm-7"></div>
+                  <div class="col-sm-2">
+                     <button onclick="location.href='index.prg?tasks';" class="btn btn-primary" style="background-color:{{GetColor1()}};">
+                        <span class="glyphicon glyphicon-ok" style="color:silver;padding-right:10px;">
+                        </span>continue</button>
+                  </div>   
+               </div>
+               </form>
