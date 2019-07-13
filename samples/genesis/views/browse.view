@@ -28,19 +28,3 @@
                   </div>
                </div>
                {{BuildBrowse( GetContent() )}}     
-               <hr>
-               <div class="row" style="padding-left:15px">
-                  <div class="col-sm-3"><br>Showing 1-5 records</div> 
-                  <div class="col-sm-7"></div>
-                  <div class="col-sm-2">  
-                     <div class="dataTables_paginate paging_bootstrap" style="padding-left:15px;">
-                     <ul class="pagination pagination-sm">
-                        <li class="prev" style="color:rgb(96, 92, 170);"><a href="">Previous</a></li>
-                        <li class="active"><a href="#" style="background-color:{{GetColor1()}};">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li class="next"><a href="">Next</a></li></ul>
-                     </div>
-                  </div>   
-               </div>

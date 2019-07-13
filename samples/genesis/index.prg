@@ -1,7 +1,7 @@
 #xcommand TEXT INTO <v> => #pragma __cstream|<v>:=%s
 #xcommand TEXT INTO <v> ADDITIVE => #pragma __cstream|<v>+=%s
 
-static cContent, cAction, nId, cUserName, cCode
+static cContent, cAction, nVal1 := 0, nVal2 := 0, cUserName, cCode
 
 //----------------------------------------------------------------------------//
 
@@ -24,9 +24,18 @@ function Controller( cRequest )
    if ":" $ cRequest
       aRequest = hb_aTokens( cRequest, ":" )
       cRequest = aRequest[ 1 ]
-      cAction  = aRequest[ 2 ]
-      nId      = Val( aRequest[ 3 ] )
+      cAction  = If( Len( aRequest ) > 1, aRequest[ 2 ], "browse" )
+      nVal1    = If( Len( aRequest ) > 2, Val( aRequest[ 3 ] ), 0 )
+      nVal2    = If( Len( aRequest ) > 3, Val( aRequest[ 4 ] ), 0 )
    endif    
+
+   hb_default( @cAction, "browse" )
+
+   if cAction $ "add,browse" 
+      if nVal1 == 0
+         nVal1 = 30
+      endif  
+   endif   
 
    cContent = If( Empty( cRequest ), "home",;
        If( cRequest $ "home,controllers,logs,menus,routes,database,users,settings,tasks,views",;
@@ -135,7 +144,7 @@ function AddLog()
       field->method  := AP_Method()
       field->content := If( ! Empty( GetContent() ), GetContent(), "" )
       field->action  := If( ! Empty( GetAction() ), GetAction(), "" )
-      field->id      := If( ! Empty( GetId() ), GetId(), 0 )
+      field->id      := If( ! Empty( GetVal1() ), GetVal1(), 0 )
       DbUnLock()
    endif
 
@@ -281,9 +290,15 @@ return cAction
 
 //----------------------------------------------------------------------------//
 
-function GetId()
+function GetVal1()
 
-return nId   
+return nVal1   
+
+//----------------------------------------------------------------------------//
+
+function GetVal2()
+
+return nVal2   
 
 //----------------------------------------------------------------------------//
 
@@ -332,7 +347,7 @@ return cData
 
 function BuildBrowse( cTableName )
 
-   local cHtml := "", n
+   local cHtml := "", n, nRow := 0
 
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
 
@@ -344,7 +359,7 @@ function BuildBrowse( cTableName )
    if ! Empty( GetAction() ) .and. GetAction() == "del"
       USE
       USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) NEW
-      DbGoTo( GetId() )
+      DbGoTo( GetVal1() )
       DELETE 
       PACK
       USE
@@ -352,7 +367,11 @@ function BuildBrowse( cTableName )
       GO TOP
    endif
 
-   cHtml += '<table id="browse" class="table table-striped table-hover;">' + CRLF
+   if GetVal2() != 0
+      DbSkip( GetVal2() )
+   endif   
+
+   cHtml += '<table id="browse" class="table table-striped table-hover;" style="overflow:auto;">' + CRLF
    cHtml += '<thead>' + CRLF
    cHtml += '<tr>' + CRLF
    cHtml += '<th scope="col">#</th>' + CRLF
@@ -367,7 +386,7 @@ function BuildBrowse( cTableName )
    cHtml += '</thead>' + CRLF
    cHtml += '<tbody>' + CRLF
 
-   while ! Eof()
+   while ! Eof() .and. nRow < GetVal1()
       cHtml += "<tr>" + CRLF
       cHtml += '<th scope="row">' + AllTrim( Str( RecNo() ) ) + "</th>" + CRLF
       
@@ -418,10 +437,37 @@ function BuildBrowse( cTableName )
       cHtml += '</td>' + CRLF
 
       SKIP
+      nRow++
    end 
 
    cHtml += '</tbody>' + CRLF
    cHtml += '</table>' + CRLF
+
+   cHtml += "<hr>" + CRLF
+   cHtml += '<div class="row" style="padding-left:15px">' + CRLF
+   cHtml += '<div class="col-sm-3"><br>' + CRLF
+   cHtml += "Showing records " + AllTrim( Str( GetVal2() + 1 ) ) + " - " + ;
+            AllTrim( Str( GetVal2() + nRow ) ) + "</div>" + CRLF
+
+   if RecCount() > nRow         
+      cHtml += '<div class="col-sm-1"></div>' + CRLF
+      cHtml += '<div class="col-sm-7">' + CRLF  
+      cHtml += '<div class="dataTables_paginate paging_bootstrap" style="padding-left:15px;">' + CRLF
+      cHtml += '<ul class="pagination pagination-sm">' + CRLF
+      cHtml += '<li class="prev" style="color:rgb(96, 92, 170);"><a href="">Previous</a></li>' + CRLF
+
+      for n = 1 to RecCount() / GetVal1()
+         if n * GetVal1() == GetVal2()
+            cHtml += '<li class="active"><a href="#" style="background-color:{{GetColor1()}};">' + ;
+                     AllTrim( Str( n ) ) + '</a></li>' + CRLF
+         else   
+            cHtml += '<li><a href="#">' + AllTrim( Str( n ) ) + '</a></li>' + CRLF
+         endif 
+      next
+   
+      cHtml += '<li class="next"><a href="">Next</a></li></ul>' + CRLF
+      cHtml += "</div>" + CRLF + "</div>" + CRLF + "</div>" + CRLF 
+   endif
 
    USE
 
@@ -435,9 +481,9 @@ function BuildEdit( cTableName )
 
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
 
-   DbGoTo( GetId() )
+   DbGoTo( GetVal1() )
 
-   cHtml += '<form action="index.prg?' + GetContent() + ":save:" + AllTrim( Str( nId ) ) + '" ' + ;
+   cHtml += '<form action="index.prg?' + GetContent() + ":save:" + AllTrim( Str( GetVal1() ) ) + '" ' + ;
             'method="post">' + CRLF
    cHtml += '<table id="browse" class="table table-striped table-hover;">' + CRLF
    cHtml += '<thead>' + CRLF
@@ -479,7 +525,7 @@ function Save()
 
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + GetContent() ) SHARED NEW
 
-   DbGoTo( nId )
+   DbGoTo( nVal1 )
    
    if RLock()
       for n = 1 to FCount()
@@ -517,7 +563,7 @@ function Task()
 
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + GetContent() ) SHARED NEW
 
-   DbGoTo( GetId() )
+   DbGoTo( GetVal1() )
 
    cCode = field->code
    cCode = StrTran( cCode, "Main", "__Main" ) 
