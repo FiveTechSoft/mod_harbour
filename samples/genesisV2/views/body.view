@@ -1,0 +1,23 @@
+<body>
+   <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow" style="background-color: {{GetColor2()}};">
+   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" style="background-color: {{GetColor1()}};">Gen<font color="silver">esis</font></a>
+   <ul class="navbar-nav px-3" style="display: inline-block;">
+      <li class="nav-item" style="display: inline-block;">
+         <a class="nav-link" href="#"><span class="fa fa-user-plus"></span>Sign Up</a>
+      </li>
+      <li class="nav-item" style="display: inline-block; padding-left:5px; padding-right:5px;">
+         <a class="nav-link" href="#" onclick='MsgGet( "username:", "Please identify" );'><span class="fa fa-sign-in"></span>Login</a>
+      </li>
+   </ul>
+   </nav>
+   <div class="container-fluid">
+   <div class="row">
+      {{View("menu")}}
+   </div>
+   </div>
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      {{Router()}}
+   </main> 
+</body>
+
+</html>
