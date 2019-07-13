@@ -398,18 +398,18 @@ function BuildBrowse( cTableName )
                         StrTran( FieldGet( n ), Chr( 13 ) + Chr( 10 ), "<br>" ) + "', '" + ;
                         FieldName( n ) + "');" + '"' + ;
                         ' type="button" class="btn btn-primary"' + CRLF 
-               cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
-               cHtml += '   <span class="glyphicon glyphicon-eye-open' + ;
-                        '" style="color:gray;padding-right:10px;">' + CRLF
-               cHtml += '   </span>View</button>' + CRLF            
+               cHtml += ' style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
+               cHtml += '<i class="fas fa-eye"' + ;
+                        ' style="color:gray;padding-right:15px;font-size:16px;">' + CRLF
+               cHtml += '</i>View</button>' + CRLF            
                if FieldName( n ) == "CODE"
                   cHtml += '<button onclick="location.href=' + "'index.prg?tasks:exec:" + ;
                            AllTrim( Str( RecNo() ) ) + "';" + ;
                            '" type="button" class="btn btn-primary"' + CRLF 
-                           cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
-                           cHtml += '   <span class="glyphicon glyphicon-flash' + ;
-                                    '" style="color:gray;padding-right:10px;">' + CRLF
-                  cHtml += '</span>Exec</button>' +  "</td>" + CRLF
+                           cHtml += ' style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
+                           cHtml += '<i class="fas fa-flash"' + ;
+                                    'style="color:gray;padding-right:15px;font-size:16px;">' + CRLF
+                  cHtml += '</i>Exec</button>' +  "</td>" + CRLF
                else
                   cHtml += "</td>" + CRLF                
                endif   
@@ -426,14 +426,14 @@ function BuildBrowse( cTableName )
       cHtml += '<td>' + CRLF
       cHtml += '<button onclick="Edit(' + AllTrim( Str( RecNo() ) ) + ');"' + ;
                ' type="button" class="btn btn-primary"' + CRLF 
-      cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
-      cHtml += '   <span class="glyphicon glyphicon-edit" style="color:gray;padding-right:10px;">' + CRLF
-      cHtml += '   </span>Edit</button>' + CRLF
+      cHtml += ' style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
+      cHtml += '<i class="fas fa-edit" style="color:gray;padding-right:15px;font-size:16px;">' + CRLF
+      cHtml += '</i>Edit</button>' + CRLF
       cHtml += '<button onclick="Delete(' + AllTrim( Str( RecNo() ) ) + ');"' + ;
                ' type="button" class="btn btn-primary"' + CRLF 
-      cHtml += '   style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
-      cHtml += '   <span class="glyphicon glyphicon-trash" style="color:gray;padding-right:10px;">' + CRLF
-      cHtml += '   </span>Delete</button>' + CRLF
+      cHtml += ' style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
+      cHtml += '<i class="fas fa-trash" style="color:gray;padding-right:15px;font-size:16px;">' + CRLF
+      cHtml += '</i>Delete</button>' + CRLF
       cHtml += '</td>' + CRLF
 
       SKIP
