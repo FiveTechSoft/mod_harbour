@@ -371,7 +371,7 @@ function BuildBrowse( cTableName )
       DbSkip( GetVal2() )
    endif   
 
-   cHtml += '<table id="browse" class="table table-striped table-hover;" style="overflow:auto;">' + CRLF
+   cHtml += '<table id="browse" class="table table-striped table-hover;"">' + CRLF
    cHtml += '<thead>' + CRLF
    cHtml += '<tr>' + CRLF
    cHtml += '<th scope="col">#</th>' + CRLF

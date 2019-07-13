@@ -1,4 +1,4 @@
-               <div style="height:90%;background-color:white;margin:30px;padding:10px;padding-top:10px;border:1px;border-style:line;border-color:red;">
+               <div style="max-height:90%;background-color:white;margin:30px;padding:10px;padding-top:10px;overflow-x:hidden;overflow-y:auto;">
                   <button onclick="Add();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
                      <span class="glyphicon glyphicon-plus" style="color:silver;padding-right:10px;">
                      </span>Add</button>
