@@ -10,15 +10,10 @@
          <div class="col-sm-10" style="padding-left:0px;padding-right:0px">
             <nav class="navbar navbar-expand-lg navbar-inverse" style="background-color:{{GetColor2()}};border:0px;">
                <a id="title" class="navbar-brand mr-auto" style="color:white;padding-left:30px;">{{hb_CapFirst(GetContent())}}</a>
-               <div class="nav-item" style="color:white;display:inline-block;">
-                  <a class="nav-link" style="color:white;" href="#">
-                  <i class="fa fa-user-plus" style="padding-right:10px;"></i>Sign Up</a>
+               <div class="nav-item" style="color:white;display:inline-block;cursor:pointer;" onclick="Logout();">
+                  <a class="nav-link" style="color:white;" style="cursor:pointer;">{{GetUserName()}}
+                  <i class="fa fa-sign-out" style="padding-left:15px;"></i></a>
                </div>
-               <div class="nav-item" style="display:inline-block; padding-left:5px; padding-right:5px;">
-                  <a class="nav-link" style="color:white;" href="#" 
-                     onclick='MsgGet( "username:", "Please identify" );'>
-                  <i class="fa fa-sign-in" style="padding-right:10px;"></i>Login</a>
-               </div> 
             </nav> 
             <div style="background-color:#ecf0f5;height:calc( 100% - 50px );padding-top:50px;">
                {{Router()}}

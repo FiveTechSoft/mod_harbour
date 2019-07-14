@@ -29,9 +29,23 @@ function Controller( cRequest )
       nVal2    = If( Len( aRequest ) > 3, Val( aRequest[ 4 ] ), 0 )
    endif    
 
-   if ! hb_HhasKey( GetCookies(), "genesis" )
+   if cRequest == "logout"
+      AP_HeadersOutSet( "Set-Cookie", "genesis=" )
       cRequest = "login"
-   endif   
+   else   
+      if ! hb_HhasKey( GetCookies(), "genesis" )
+         cRequest = "login"
+      else
+         if ! Empty( GetCookies()[ "genesis" ] )
+            cUserName = GetCookies()[ "genesis" ]
+            if cRequest == "login"
+               cRequest = "home"
+            endif 
+         else
+            cRequest = "login"
+         endif
+      endif              
+   endif      
 
    hb_default( @cAction, "browse" )
 
@@ -42,7 +56,7 @@ function Controller( cRequest )
    endif   
 
    cContent = If( Empty( cRequest ), "home",;
-       If( cRequest $ "login,home,controllers,logs,menus,routes,database,users,settings,tasks,views",;
+       If( cRequest $ "login,logout,home,controllers,logs,menus,routes,database,users,settings,tasks,views",;
            cRequest, "home" ) )
 
    do case   
@@ -69,7 +83,7 @@ function Router()
 
    if GetContent() != "home"
       if GetContent() == "login"
-         cRoute= "login"
+         cRoute = "login"
       else         
          if GetAction() == "edit"
             cRoute = "edit"
@@ -236,7 +250,8 @@ function Login()
          
       case hb_HHasKey( hPairs, "continue" )     
            if Identify( hPairs[ "username" ], hPairs[ "password" ] )
-              cContent = "welcome"
+              cContent = "home"
+              AP_HeadersOutSet( "Set-Cookie", "genesis=" + cUserName )
               AP_RPuts( View( "default" ) )
            else
               AP_RPuts( View( "default" ) )
@@ -317,9 +332,9 @@ return nVal2
 
 //----------------------------------------------------------------------------//
 
-function UserName()
+function GetUserName()
 
-return cUserName
+return If( Empt( cUserName ), "login", "Welcome " + cUserName )
 
 //----------------------------------------------------------------------------//
 
