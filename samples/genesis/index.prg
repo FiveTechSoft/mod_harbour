@@ -468,7 +468,7 @@ function BuildBrowse( cTableName )
             cHtml += '<li class="active"><a href="#" style="background-color:{{GetColor1()}};">' + ;
                      AllTrim( Str( n ) ) + '</a></li>' + CRLF
          else   
-            cHtml += '<li><a href="#">[ ' + AllTrim( Str( n ) ) + ' ]</a></li>' + CRLF
+            cHtml += '<li><a href="#">' + AllTrim( Str( n ) ) + '.</a></li>' + CRLF
          endif 
       next
    
