@@ -17,13 +17,13 @@
                            <br>
                            <div class="pull-right">
                               <button type="submit" class="btn btn-primary" name="forgot" 
-                                 style="color:white;background-color:{{GetColor1()}};border:none"
-                                 onMouseOver="this.style.background='#2f2f2f'" 
-                                 onMouseOut="this.style.background='{{GetColor1()}}'">Forgot password</button>
+                                 style="color:white;background-color:{{GetColor1()}};border:none">
+                                 <i class="fas fa-key" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                                 Forgot password</button>
                               <button type="submit" class="btn btn-primary" name="continue"
-                                 style="color:white;background-color:{{GetColor1()}};border:none;margin-left:15px;"
-                                 onMouseOver="this.style.background='#2f2f2f'" 
-                                 onMouseOut="this.style.background='{{GetColor1()}}'">Continue</button>
+                                 style="color:white;background-color:{{GetColor1()}};border:none;margin-left:15px;">
+                                 <i class="fas fa-check" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                                 Continue</button>
                            </div>
                            <br><br><hr>
                         </form>
@@ -52,13 +52,13 @@
                            </div>      
                            <div class="pull-right">
                               <button type="submit" class="btn btn-primary" name="ok" 
-                                 style="color:white;background-color:{{GetColor1()}};border:none;width:80px;"
-                                 onMouseOver="this.style.background='#2f2f2f'" 
-                                 onMouseOut="this.style.background='{{GetColor1()}}'">Ok</button>
+                                 style="color:white;background-color:{{GetColor1()}};border:none;">
+                                 <i class="fas fa-check" style="color:lightgray;padding-right:10px;font-size:18px"></i>                                 
+                                 Ok</button>
                               <button class="btn btn-primary" name="cancel" onclick="javascript:location.href='index.prg'"
-                                 style="color:white;background-color:{{GetColor1()}};border:none;margin-left:15px;width:80px;"
-                                 onMouseOver="this.style.background='#2f2f2f'" 
-                                 onMouseOut="this.style.background='{{GetColor1()}}'">Cancel</button>
+                                 style="color:white;background-color:{{GetColor1()}};border:none;margin-left:15px;">
+                                 <i class="fas fa-remove" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                                 Cancel</button>
                            </div>
                         </form>
                      </div>
