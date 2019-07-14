@@ -1,6 +1,0 @@
-Options All -Indexes
-
-<Files ./*.dbf>
-   Order Allow,Deny
-   Deny from all
-</Files>
