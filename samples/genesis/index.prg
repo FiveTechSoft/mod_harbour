@@ -476,28 +476,25 @@ function BuildBrowse( cTableName )
 
    cHtml += "<hr>" + CRLF
    cHtml += '<div class="row" style="padding-left:15px">' + CRLF
-   cHtml += '<div class="col-sm-3"><br>' + CRLF
+   cHtml += '<div class="col-sm-3">' + CRLF
    cHtml += "Showing records " + AllTrim( Str( GetVal2() + 1 ) ) + " - " + ;
             AllTrim( Str( GetVal2() + nRow ) ) + "</div>" + CRLF
+   cHtml += '<div class="col-sm-1"></div>' + CRLF         
 
-   if RecCount() > nRow         
-      cHtml += '<div class="col-sm-8">' + CRLF  
-      cHtml += '<div class="dataTables_paginate paging_bootstrap">' + CRLF
-      cHtml += '<ul class="pagination pagination-sm">' + CRLF
-      cHtml += '<li class="prev" style="color:rgb(96, 92, 170);"><a href="">Previous </a></li>' + CRLF
+   if RecCount() > nRow 
+      cHtml += '<div class="col-sm-3 btn-group" style="height:40px;">' + CRLF
+      cHtml += '   <button type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">' + ;
+               '<i class="fas fa-angle-double-left" style="color:white;padding-right:15px;font-size:18px;"></i>First</button>' + CRLF
+      cHtml += '   <button type="button" class="btn btn-primary" style="background-color:{{GetColor2()}};">' + ;
+               '<i class="fas fa-angle-left" style="color:white;padding-right:15px;font-size:18px;"></i>Prev</button>' + CRLF
+      cHtml += '   <button type="button" class="btn btn-primary" style="background-color:{{GetColor2()}};">Next' + ;
+               '<i class="fas fa-angle-right" style="color:white;padding-left:15px;font-size:18px;"></i></button>' + CRLF
+      cHtml += '   <button type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">Last' + ;
+               '<i class="fas fa-angle-double-right" style="color:white;padding-left:15px;font-size:18px;"></i></button>' + CRLF
+      cHtml += '</div>' + CRLF
+   endif              
 
-      for n = 1 to RecCount() / GetVal1()
-         if n * GetVal1() == GetVal2()
-            cHtml += '<li class="active"><a href="#" style="background-color:{{GetColor1()}};">' + ;
-                     AllTrim( Str( n ) ) + '</a></li>' + CRLF
-         else   
-            cHtml += '<li><a href="#">' + AllTrim( Str( n ) ) + '.</a></li>' + CRLF
-         endif 
-      next
-   
-      cHtml += '<li class="next"><a href=""> Next</a></li></ul>' + CRLF
-      cHtml += "</div>" + CRLF + "</div>" + CRLF + "</div>" + CRLF 
-   endif
+   cHtml += "</div>" + CRLF + "</div>" + CRLF + "</div>" + CRLF 
 
    USE
 
