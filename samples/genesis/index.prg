@@ -459,7 +459,7 @@ function BuildBrowse( cTableName )
    if RecCount() > nRow         
       cHtml += '<div class="col-sm-1"></div>' + CRLF
       cHtml += '<div class="col-sm-8">' + CRLF  
-      cHtml += '<div class="dataTables_paginate paging_bootstrap" style="padding-left:15px;">' + CRLF
+      cHtml += '<div class="dataTables_paginate paging_bootstrap">' + CRLF
       cHtml += '<ul class="pagination pagination-sm">' + CRLF
       cHtml += '<li class="prev" style="color:rgb(96, 92, 170);"><a href="">Previous </a></li>' + CRLF
 
