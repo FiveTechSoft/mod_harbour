@@ -29,6 +29,10 @@ function Controller( cRequest )
       nVal2    = If( Len( aRequest ) > 3, Val( aRequest[ 4 ] ), 0 )
    endif    
 
+   if ! hb_HhasKey( GetCookies(), "genesis" )
+      cRequest = "login"
+   endif   
+
    hb_default( @cAction, "browse" )
 
    if cAction $ "add,browse" 
@@ -38,7 +42,7 @@ function Controller( cRequest )
    endif   
 
    cContent = If( Empty( cRequest ), "home",;
-       If( cRequest $ "home,controllers,logs,menus,routes,database,users,settings,tasks,views",;
+       If( cRequest $ "login,home,controllers,logs,menus,routes,database,users,settings,tasks,views",;
            cRequest, "home" ) )
 
    do case   
@@ -64,13 +68,17 @@ function Router()
    local cRoute := "home"
 
    if GetContent() != "home"
-      if GetAction() == "edit"
-         cRoute = "edit"
-      elseif GetAction() == "exec"
-         cRoute = "exec"
-      else      
-         cRoute = "browse"
-      endif
+      if GetContent() == "login"
+         cRoute= "login"
+      else         
+         if GetAction() == "edit"
+            cRoute = "edit"
+         elseif GetAction() == "exec"
+            cRoute = "exec"
+         else      
+            cRoute = "browse"
+         endif
+      endif   
    endif      
 
 return View( cRoute )    
@@ -583,6 +591,22 @@ function Task()
 return cResult
 
 //----------------------------------------------------------------------------//
+
+function GetCookies()
+
+   local hHeadersIn := AP_HeadersIn()
+   local cCookies := If( hb_HHasKey( hHeadersIn, "Cookie" ), hb_hGet( hHeadersIn, "Cookie" ), "" )
+   local aCookies := hb_aTokens( cCookies, ";" )
+   local cCookie, hCookies := {=>}
+   
+   for each cCookie in aCookies
+      hb_HSet( hCookies, SubStr( cCookie, 1, At( "=", cCookie ) - 1 ),;
+               SubStr( cCookie, At( "=", cCookie ) + 1 ) )
+   next            
+   
+return hCookies
+
+//----------------------------------------------------------------//
 
 function hb_CapFirst( cText )
 
