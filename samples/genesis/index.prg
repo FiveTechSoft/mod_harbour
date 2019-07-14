@@ -100,6 +100,20 @@ function CheckDataBase()
                   { "ID",      "N", 8, 0 } } )
    endif
 
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/menus.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/menus.dbf",;
+                { { "GLYPH",   "C", 20, 0 },;
+                  { "PROMPT",  "C", 20, 0 },;
+                  { "ACTION",  "C", 30, 0 } } )
+   endif
+
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/tasks.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/tasks.dbf",;
+                { { "NAME",       "C", 20, 0 },;
+                  { "DESCRIPTIO", "C", 40, 0 },;
+                  { "CODE",       "M", 10, 0 } } )
+   endif
+
    if ! File( hb_GetEnv( "PRGPATH" ) + "/data/users.dbf" )
       DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/users.dbf",;
                 { { "DATE",    "D",  8, 0 },;
@@ -110,13 +124,6 @@ function CheckDataBase()
                   { "PHONE",   "C", 20, 0 },;
                   { "PASSMD5", "C", 20, 0 },;
                   { "NOTES",   "M", 10, 0 } } )
-   endif
-
-   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/tasks.dbf" )
-      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/tasks.dbf",;
-                { { "NAME",       "C", 20, 0 },;
-                  { "DESCRIPTIO", "C", 40, 0 },;
-                  { "CODE",       "M", 10, 0 } } )
    endif
 
    if ! File( hb_GetEnv( "PRGPATH" ) + "/data/views.dbf" )
