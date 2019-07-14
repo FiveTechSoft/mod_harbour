@@ -274,11 +274,11 @@ function AddUser( hPairs )
    
    APPEND BLANK
    if RLock()
-      field->first    := hb_HGet( hPairs, "first" )
-      field->last     := hb_HGet( hPairs, "last" )
-      field->email    := hb_UrlDecode( hb_HGet( hPairs, "email" ) )
-      field->phone    := hb_HGet( hPairs, "phone" )
-      field->password := hb_Md5( hb_HGet( hPairs, "password" ) )
+      field->first   := hb_HGet( hPairs, "first" )
+      field->last    := hb_HGet( hPairs, "last" )
+      field->email   := hb_UrlDecode( hb_HGet( hPairs, "email" ) )
+      field->phone   := hb_HGet( hPairs, "phone" )
+      field->passmd5 := hb_Md5( hb_HGet( hPairs, "password" ) )
       DbUnLock()
    endif   
    USE
@@ -294,7 +294,7 @@ function Identify( _cUserName, _cPassword )
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/users" ) SHARED
 
    LOCATE FOR ( field->email = hb_UrlDecode( _cUserName ) .or. field->phone = _cUserName ) .and. ;
-                field->password = hb_Md5( _cPassword )
+                field->passmd5 = hb_Md5( _cPassword )
    
    lFound = Found()
    
