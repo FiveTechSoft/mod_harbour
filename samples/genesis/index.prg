@@ -144,7 +144,7 @@ function CheckDataBase()
                   { "ACTIVE",  "L",  1, 0 },;
                   { "EMAIL",   "C", 20, 0 },;
                   { "PHONE",   "C", 20, 0 },;
-                  { "PASSMD5", "C", 20, 0 },;
+                  { "PASSMD5", "C", 32, 0 },;
                   { "NOTES",   "M", 10, 0 } } )
    endif
 
@@ -274,6 +274,7 @@ function AddUser( hPairs )
    
    APPEND BLANK
    if RLock()
+      field->date    := Date()
       field->first   := hb_HGet( hPairs, "first" )
       field->last    := hb_HGet( hPairs, "last" )
       field->email   := hb_UrlDecode( hb_HGet( hPairs, "email" ) )
