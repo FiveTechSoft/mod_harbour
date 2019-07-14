@@ -457,7 +457,6 @@ function BuildBrowse( cTableName )
             AllTrim( Str( GetVal2() + nRow ) ) + "</div>" + CRLF
 
    if RecCount() > nRow         
-      cHtml += '<div class="col-sm-1"></div>' + CRLF
       cHtml += '<div class="col-sm-8">' + CRLF  
       cHtml += '<div class="dataTables_paginate paging_bootstrap">' + CRLF
       cHtml += '<ul class="pagination pagination-sm">' + CRLF
