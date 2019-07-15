@@ -1,7 +1,7 @@
-               <div style="background-color:white;margin:30px;padding:10px;padding-top:10px;border:1px;border-style:line;border-color:red;">
+               <div style="background-color:white;margin:30px;padding:10px;padding-top:10px;overflow-x:hidden;overflow-y:auto;">
                <button onclick="window.print();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
-                  <span class="glyphicon glyphicon-print" style="color:silver;padding-right:10px;">
-                  </span>Print</button><hr>
+                  <i class="fas fa-print" style="color:lightgray;padding-right:15px;font-size:16px"></i>
+                  Print</button><hr>
                <div class="row" style="padding-left:15px;"> 
                   <div class="col-sm-7"></div>
                   <div class="col-sm-2" style="padding-right:15px;">  
@@ -14,11 +14,11 @@
                   <div class="col-sm-7"></div>
                   <div class="col-sm-2">
                      <button type="submit" class="btn btn-primary" style="background-color:{{GetColor1()}};">
-                        <span class="glyphicon glyphicon-ok" style="color:silver;padding-right:10px;">
-                        </span>Save</button>
+                        <i class="fas fa-check" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Save</button>
                      <button onclick="Cancel();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
-                        <span class="glyphicon glyphicon-remove" style="color:silver;padding-right:10px;">
-                        </span>Cancel</button>
+                        <i class="fa fa-remove" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Cancel</button>
                   </div>   
                </div>
                </form>

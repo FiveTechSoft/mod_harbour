@@ -1,34 +1,34 @@
             <div style="background-color:{{GetColor3()}};height:calc(100% - 50px);">
-               <div class="vertical-menu" style="background-color:{{GetColor3()}};height:500px;">
-                  <a {{If( GetContent() == "home", 'class="active"', "" )}}
+               <div class="vertical-menu" style="background-color:{{GetColor3()}};">
+                  <a {{If( GetContent() == "home", 'class="active"', 'class="text-secondary"' )}}
                      onclick="SelectCategory( this, 'home' );">
-                     <span class="glyphicon glyphicon-home" style="color: silver; padding-right: 15px;"></span>Home</a>
-                  <a {{If( GetContent() == "logs", 'class="active"', "" )}}
+                     <i class="fa fa-home" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Home</a>
+                  <a {{If( GetContent() == "logs", 'class="active"', 'class="text-secondary"' )}}
                      onclick="SelectCategory( this, 'logs' );">
-                     <span class="glyphicon glyphicon-list-alt" style="color: silver; padding-right: 15px;"></span>Logs</a>
-                  <a {{If( GetContent() == "routes", 'class="active"', "" )}} 
+                     <i class="fa fa-list-alt" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Logs</a>
+                  <a {{If( GetContent() == "routes", 'class="active"', 'class="text-secondary"' )}} 
                      onclick="SelectCategory( this, 'routes' );">
-                     <span class="glyphicon glyphicon-random" style="color: silver; padding-right: 15px;"></span>Routes</a>
-                  <a {{If( GetContent() == "menus", 'class="active"', "" )}} 
+                     <i class="fa fa-random" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Routes</a>
+                  <a {{If( GetContent() == "menus", 'class="active"', 'class="text-secondary"' )}} 
                      onclick="SelectCategory( this, 'menus' );">
-                     <span class="glyphicon glyphicon-th-list" style="color: silver; padding-right: 15px;"></span>Menus</a>
-                  <a {{If( GetContent() == "views", 'class="active"', "" )}}
+                     <i class="fa fa-list" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Menus</a>
+                  <a {{If( GetContent() == "views", 'class="active"', 'class="text-secondary"' )}}
                      onclick="SelectCategory( this, 'views' );">
-                     <span class="glyphicon glyphicon-eye-open" style="color: silver; padding-right: 15px;"></span>Views</a>
-                  <a {{If( GetContent() == "tasks", 'class="active"', "" )}} 
+                     <i class="fa fa-eye" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Views</a>
+                  <a {{If( GetContent() == "tasks", 'class="active"', 'class="text-secondary"' )}} 
                      onclick="SelectCategory( this, 'tasks' );">
-                     <span class="glyphicon glyphicon-flash" style="color: silver; padding-right: 15px;"></span>Tasks</a>
-                  <a {{If( GetContent() == "controllers", 'class="active"', "" )}}
+                     <i class="fa fa-flash" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Tasks</a>
+                  <a {{If( GetContent() == "controllers", 'class="active"', 'class="text-secondary"' )}}
                      onclick="SelectCategory( this, 'controllers' );">
-                     <span class="glyphicon glyphicon-list-alt" style="color: silver; padding-right: 15px;"></span>Controllers</a>
-                  <a {{If( GetContent() == "users", 'class="active"', "" )}} 
+                     <i class="fas fa-project-diagram" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Controllers</a>
+                  <a {{If( GetContent() == "users", 'class="active"', 'class="text-secondary"' )}} 
                      onclick="SelectCategory( this, 'users' );">
-                     <span class="glyphicon glyphicon-user" style="color: silver; padding-right: 15px;"></span>Users</a>
-                  <a {{If( GetContent() == "database", 'class="active"', "" )}} 
+                     <i class="fa fa-users" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Users</a>
+                  <a {{If( GetContent() == "database", 'class="active"', 'class="text-secondary"' )}} 
                      onclick="SelectCategory( this, 'database' );">
-                     <span class="glyphicon glyphicon-cloud" style="color: silver; padding-right: 15px;"></span>Database</a>
-                  <a {{If( GetContent() == "settings", 'class="active"', "" )}}
+                     <i class="fa fa-cloud" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Database</a>
+                  <a {{If( GetContent() == "settings", 'class="active"', 'class="text-secondary"' )}}
                      onclick="SelectCategory( this, 'settings' );">
-                     <span class="glyphicon glyphicon-cog" style="color: silver; padding-right: 15px;"></span>Settings</a>
+                     <i class="fa fa-cog" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Settings</a>
                </div>
             </div>
