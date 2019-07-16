@@ -24,6 +24,7 @@ function Main()
    SELECT "*" FROM "users" INTO oTable
 
    ? oTable:Count()
+   ? oTable:Name
 
 return nil
 
