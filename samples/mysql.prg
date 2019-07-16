@@ -16,7 +16,7 @@ function Main()
    if ! "Windows" $ OS()
       pLib = hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
    else   
-      pLib = hb_LibLoad( "c:/Apache24/htdocs/libmysql.dll" ) 
+      pLib = hb_LibLoad( "c:/Apache24/htdocs/libmysql64.dll" ) 
    endif
 
    ?? "pLib = " + ValType( pLib ) + ;
@@ -32,8 +32,9 @@ function Main()
 
    if hMySQL != 0
       ? "Connection = "
-      ?? hConnection := mysql_real_connect( "127.0.0.1", "harbour", "password", "dbHarbour", 3306 )
+      ?? hConnection := mysql_real_connect( "localhost", "harbour", "password", "dbHarbour", 3306 )
       ?? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
+      ?  "Error: " + mysql_error( hMySQL )
    endif
 
    if hConnection != 0
@@ -182,6 +183,14 @@ return hb_DynCall( { "mysql_fetch_field", pLib, hb_bitOr( HB_DYN_CALLCONV_CDECL,
 function mysql_get_server_info( hMySQL )
 
 return hb_DynCall( { "mysql_get_server_info", pLib, hb_bitOr( HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CALLCONV_CDECL ), ;
+                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySql )
+
+//----------------------------------------------------------------//
+
+function mysql_error( hMySQL )
+
+return hb_DynCall( { "mysql_error", pLib, hb_bitOr( HB_DYN_CTYPE_CHAR_PTR,;
+                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ), ;
                      HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySql )
 
 //----------------------------------------------------------------//
