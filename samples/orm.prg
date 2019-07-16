@@ -13,7 +13,7 @@ static pLib, hMySQL
 
 function Main()
 
-   local oOrm, oTable
+   local oOrm, oTable, n
 
    // ShowConsole() 
    // SetMode( 60, 120 )
@@ -23,8 +23,12 @@ function Main()
 
    SELECT "*" FROM "users" INTO oTable
 
-   ? oTable:Count()
-   ? oTable:Name
+   ? "Name of the table: ", oTable:Name
+   ? "Number of records: ", oTable:Count()
+
+   for n = 1 to oTable:FCount()
+      ? "Field name", n, ":", oTable:FieldName( n )
+   next   
 
 return nil
 
@@ -119,8 +123,9 @@ return oTable
 
 CLASS OrmTable
 
-   DATA  Name
-   DATA  Orm
+   DATA   Name
+   DATA   Orm
+   DATA   aFields
 
    METHOD New( cTableName, oOrm, ... )
 
@@ -144,7 +149,10 @@ CLASS DbfTable FROM OrmTable
    DATA   cAlias
 
    METHOD New( cTableName, oOrm, ... )
-   METHOD Count() INLINE RecCount()
+
+   METHOD Count()  INLINE RecCount()
+   METHOD FCount() INLINE FCount()
+   METHOD FieldName( n ) INLINE FieldName( n )
 
 ENDCLASS      
 
@@ -168,11 +176,17 @@ CLASS MySQLTable FROM OrmTable
 
    METHOD Count() INLINE mysql_num_rows( ::hMyRes )   
 
+   METHOD FieldName( n ) INLINE ::aFields[ n ][ 1 ]
+
+   METHOD FCount() INLINE Len( ::aFields )
+
 ENDCLASS   
 
 //----------------------------------------------------------------------------//
 
 METHOD New( cTableName, oOrm, ... ) CLASS MySQLTable
+
+   local n, hField
 
    ::Super:New( cTableName, oOrm, ... )
 
@@ -180,6 +194,16 @@ METHOD New( cTableName, oOrm, ... ) CLASS MySQLTable
 
    if ::hMyRes == 0
       ? "mysql_store_results() failed"
+   else
+      ::aFields = Array( mysql_num_fields( ::hMyRes ) )
+      
+      for n = 1 to Len( ::aFields )
+         hField = mysql_fetch_field( ::hMyRes )
+         if hField != 0
+            ::aFields[ n ] = Array( 4 )
+            ::aFields[ n ][ 1 ] = PtrToStr( hField, 0 )
+         endif   
+      next   
    endif
    
 return Self   
