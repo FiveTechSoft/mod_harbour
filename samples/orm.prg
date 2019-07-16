@@ -19,7 +19,7 @@ function Main()
    // SetMode( 60, 120 )
 
    oOrm = OrmConnect( "MYSQL", "localhost", "harbour", "password", "dbHarbour", 3306 )
-   // OrmConnect()
+   // oOrm = OrmConnect( "DBFNTX", hb_GetEnv( "PRGPATH" ) + "/data/" )
 
    SELECT "*" FROM "users" INTO oTable
 
@@ -102,7 +102,7 @@ METHOD Table( cTableName, ... ) CLASS Orm
    endif   
 
    if ! ::cRdbms $ "MYSQL,MARIADB"
-      USE ( cTableName ) VIA ::cRdbms SHARED
+      USE ( ::cServer + cTableName ) VIA ::cRdbms SHARED
       oTable = DbfTable():New( cTableName, Self )
       AAdd( ::Tables, oTable )
    else
