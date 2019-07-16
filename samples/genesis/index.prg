@@ -142,7 +142,7 @@ function CheckDataBase()
                   { "FIRST",   "C", 20, 0 },;
                   { "LAST",    "C", 20, 0 },;
                   { "ACTIVE",  "L",  1, 0 },;
-                  { "EMAIL",   "C", 20, 0 },;
+                  { "EMAIL",   "C", 30, 0 },;
                   { "PHONE",   "C", 20, 0 },;
                   { "PASSMD5", "C", 32, 0 },;
                   { "NOTES",   "M", 10, 0 } } )
