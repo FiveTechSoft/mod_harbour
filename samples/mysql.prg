@@ -34,7 +34,7 @@ function Main()
       ? "Connection = "
       ?? hConnection := mysql_real_connect( "localhost", "harbour", "password", "dbHarbour", 3306 )
       ?? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
-      ?  "Error: " + mysql_error( hMySQL )
+      ?  If( hConnection != hMySQL, "Error: " + mysql_error( hMySQL ), "" )
    endif
 
    if hConnection != 0
