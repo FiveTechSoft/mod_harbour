@@ -1,5 +1,8 @@
 #include "hbdyn.ch"
 
+// #xcommand ? [<x,...>] => QOut( [<x>] )
+// #xcommand ?? [<x,...>] => QQOut( [<x>] )
+
 #define NULL 0         
 
 static pLib, hMySQL := 0, hConnection := 0, hMyRes := 0
@@ -25,10 +28,10 @@ function Main()
    if ValType( pLib ) == "P"
       hMySQL = mysql_init()
       ? "hMySQL = " + Str( hMySQL ) + " (MySQL library " + ;
-      If( hMySQL != 0, "initalized)", "failed to initialize)" )
+      If( hMySQL != 0, "properly initalized)", "failed to initialize)" )
    endif      
          
-   // ? If( hMySQL != 0, "MySQL version: " + mysql_get_server_info( hMySQL ), "" )   
+   ? If( hMySQL != 0, "MySQL version: " + mysql_get_server_info( hMySQL ), "" )   
 
    if hMySQL != 0
       ? "Connection = "
@@ -36,7 +39,7 @@ function Main()
       ?? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
       ?  If( hConnection != hMySQL, "Error: " + mysql_error( hMySQL ), "" )
    endif
-
+   
    if hConnection != 0
       nRetVal = mysql_query( hConnection, "select * from users" )
       ? "MySQL query " + If( nRetVal == 0, "succeeded", "failed" )
@@ -50,14 +53,14 @@ function Main()
       ? "MySQL store result " + If( hMyRes != 0, "succeeded", "failed" )
       ?
    endif   
-
+   
    if hMyRes != 0
       ? "Number of rows: " + Str( mysql_num_rows( hMyRes ) )
    endif   
    
    if hMyRes != 0
       ? "Number of fields: " + Str( mysql_num_fields( hMyRes ) )
-      ?? "<table border=1 cellspacing=0>"
+      ? "<table border=1 cellspacing=0>"
       ?? "<tr>"
       for n = 1 to mysql_num_fields( hMyRes )
          hField = mysql_fetch_field( hMyRes )
@@ -67,13 +70,13 @@ function Main()
       next
       ?? "</tr>"
       for n = 1 to mysql_num_rows( hMyRes )
-         if ( hRow := mysql_fetch_row( hMyRes) ) != 0
+         if ( hRow := mysql_fetch_row( hMyRes ) ) != 0
             ?? "<tr>"
                for m = 1 to mysql_num_fields( hMyRes )
-                  ?? "<td>" + AllTrim( PtrToStr( hRow, m - 1 ) ) + "</td>"
+                  ?? "<td>" + PtrToStr( hRow, m - 1 ) + "</td>"
                next
             ?? "</tr>"
-         endif   
+         endif 
       next   
       ?? "</table>"      
    endif   
@@ -127,7 +130,8 @@ return hb_DynCall( { "mysql_real_connect", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UN
 
 function mysql_query( hConnect, cQuery )
 
-return hb_DynCall( { "mysql_query", pLib, hb_bitOr( HB_DYN_CTYPE_INT, HB_DYN_CALLCONV_CDECL ),;
+return hb_DynCall( { "mysql_query", pLib, hb_bitOr( HB_DYN_CTYPE_INT,;
+                   If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
                    HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CTYPE_CHAR_PTR },;
                    hConnect, cQuery )
 
@@ -135,54 +139,64 @@ return hb_DynCall( { "mysql_query", pLib, hb_bitOr( HB_DYN_CTYPE_INT, HB_DYN_CAL
 
 function mysql_use_result( hMySQL )
 
-return hb_DynCall( { "mysql_use_result", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ),;
+return hb_DynCall( { "mysql_use_result", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
+                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
                      HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySQL )
 
 //----------------------------------------------------------------//
 
 function mysql_store_result( hMySQL )
 
-return hb_DynCall( { "mysql_store_result", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ),;
+return hb_DynCall( { "mysql_store_result", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
+                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
                      HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySQL )
 
 //----------------------------------------------------------------//
 
 function mysql_free_result( hMyRes) 
 
-return hb_DynCall( { "mysql_free_result", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
+return hb_DynCall( { "mysql_free_result", pLib,;
+                   If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ),;
+                   HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
 
 //----------------------------------------------------------------//
 
 function mysql_fetch_row( hMyRes )
 
-return hb_DynCall( { "mysql_fetch_row", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ) }, hMyRes )
+return hb_DynCall( { "mysql_fetch_row", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
+                   If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
+                   HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
 
 //----------------------------------------------------------------//
 
 function mysql_num_rows( hMyRes )
 
-return hb_DynCall( { "mysql_num_rows", pLib, hb_bitOr( HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LLONG_UNSIGNED ),;
+return hb_DynCall( { "mysql_num_rows", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
+                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
                      HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
 
 //----------------------------------------------------------------//
 
 function mysql_num_fields( hMyRes )
 
-return hb_DynCall( { "mysql_num_fields", pLib, hb_bitOr( HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LONG_UNSIGNED ),;
+return hb_DynCall( { "mysql_num_fields", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED,;
+                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
                      HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
 
 //----------------------------------------------------------------//
 
 function mysql_fetch_field( hMyRes )
 
-return hb_DynCall( { "mysql_fetch_field", pLib, hb_bitOr( HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LLONG_UNSIGNED ),;
+return hb_DynCall( { "mysql_fetch_field", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
+                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
                      HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
 
 //----------------------------------------------------------------//
 
 function mysql_get_server_info( hMySQL )
 
-return hb_DynCall( { "mysql_get_server_info", pLib, hb_bitOr( HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CALLCONV_CDECL ), ;
+return hb_DynCall( { "mysql_get_server_info", pLib, hb_bitOr( HB_DYN_CTYPE_CHAR_PTR,;
+                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ), ;
                      HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySql )
 
 //----------------------------------------------------------------//
