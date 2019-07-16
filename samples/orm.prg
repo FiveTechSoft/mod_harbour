@@ -13,7 +13,7 @@ static pLib, hMySQL
 
 function Main()
 
-   local oOrm, oTable, n
+   local oOrm, oTable, n, m
 
    // ShowConsole() 
    // SetMode( 60, 120 )
@@ -29,6 +29,13 @@ function Main()
    for n = 1 to oTable:FCount()
       ? "Field name", n, ":", oTable:FieldName( n )
    next   
+
+   for n = 1 to oTable:Count()
+      for m = 1 to oTable:FCount()
+         ? oTable:FieldGet( m )
+      next
+      oTable:Next()
+   next    
 
 return nil
 
@@ -129,7 +136,11 @@ CLASS OrmTable
 
    METHOD New( cTableName, oOrm, ... )
 
-   METHOD Count() VIRTUAL   
+   METHOD Count() VIRTUAL 
+   METHOD FCount() VIRTUAL   
+   METHOD FieldName( n ) VIRTUAL
+   METHOD FieldGet( n ) VIRTUAL
+   METHOD Next() VIRTUAL      
 
 ENDCLASS 
 
@@ -153,6 +164,8 @@ CLASS DbfTable FROM OrmTable
    METHOD Count()  INLINE RecCount()
    METHOD FCount() INLINE FCount()
    METHOD FieldName( n ) INLINE FieldName( n )
+   METHOD FieldGet( n ) INLINE FieldGet( n )
+   METHOD Next() INLINE DbSkip()
 
 ENDCLASS      
 
@@ -170,15 +183,17 @@ return Self
 
 CLASS MySQLTable FROM OrmTable
 
-   DATA  hMyRes
+   DATA   hMyRes
+   DATA   aRows
+   DATA   nRow   INIT 1
 
    METHOD New( cTableName, oOrm, ... )
 
    METHOD Count() INLINE mysql_num_rows( ::hMyRes )   
-
-   METHOD FieldName( n ) INLINE ::aFields[ n ][ 1 ]
-
    METHOD FCount() INLINE Len( ::aFields )
+   METHOD FieldName( n ) INLINE ::aFields[ n ][ 1 ]
+   METHOD FieldGet( n ) INLINE ::aRows[ ::nRow ][ n ]
+   METHOD Next() INLINE ::nRow++   
 
 ENDCLASS   
 
@@ -186,7 +201,7 @@ ENDCLASS
 
 METHOD New( cTableName, oOrm, ... ) CLASS MySQLTable
 
-   local n, hField
+   local n, m, hField, hRow
 
    ::Super:New( cTableName, oOrm, ... )
 
@@ -204,6 +219,17 @@ METHOD New( cTableName, oOrm, ... ) CLASS MySQLTable
             ::aFields[ n ][ 1 ] = PtrToStr( hField, 0 )
          endif   
       next   
+
+      ::aRows = Array( mysql_num_rows( ::hMyRes ), ::FCount() )
+
+      for n = 1 to Len( ::aRows )
+         if ( hRow := mysql_fetch_row( ::hMyRes ) ) != 0
+            for m = 1 to ::FCount()
+               ::aRows[ n, m ] = PtrToStr( hRow, m - 1 )
+            next
+         endif
+      next         
+
    endif
    
 return Self   
