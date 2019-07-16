@@ -1,101 +1,189 @@
+#include "hbclass.ch"
+#include "set.ch"
 #include "hbdyn.ch"
 
-// #xcommand ? [<x,...>] => QOut( [<x>] )
-// #xcommand ?? [<x,...>] => QQOut( [<x>] )
+#define NULL  0  
 
-#define NULL 0         
+#command SELECT <fields,...> [ FROM <cTableName> ] [ INTO <oTable> ]=> ;
+            [ <oTable> := ] oOrm:Table( <cTableName>, <fields> ) 
 
-static pLib, hMySQL := 0, hConnection := 0, hMyRes := 0
+static pLib, hMySQL
 
-//----------------------------------------------------------------//
+//----------------------------------------------------------------------------//
 
 function Main()
 
-   local nRetVal, n, m, hField, hRow
+   local oOrm, oTable
 
-   // ShowConsole()
-   // SetMode( 40, 120 )
-   
-   if ! "Windows" $ OS()
-      pLib = hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
-   else   
-      pLib = hb_LibLoad( "c:/Apache24/htdocs/libmysql64.dll" ) 
-   endif
+   // ShowConsole() 
+   // SetMode( 60, 120 )
 
-   ?? "pLib = " + ValType( pLib ) + ;
-      If( ValType( pLib ) == "P", " (MySQL library properly loaded)", " (MySQL library not found)" )
+   oOrm = OrmConnect( "MYSQL", "localhost", "harbour", "password", "dbHarbour", 3306 )
+   // OrmConnect()
 
-   if ValType( pLib ) == "P"
-      hMySQL = mysql_init()
-      ? "hMySQL = " + Str( hMySQL ) + " (MySQL library " + ;
-      If( hMySQL != 0, "properly initalized)", "failed to initialize)" )
-   endif      
-         
-   ? If( hMySQL != 0, "MySQL version: " + mysql_get_server_info( hMySQL ), "" )   
+   SELECT "*" FROM "users" INTO oTable
 
-   if hMySQL != 0
-      ? "Connection = "
-      ?? hConnection := mysql_real_connect( "localhost", "harbour", "password", "dbHarbour", 3306 )
-      ?? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
-      ?  If( hConnection != hMySQL, "Error: " + mysql_error( hMySQL ), "" )
-   endif
-   
-   if hConnection != 0
-      nRetVal = mysql_query( hConnection, "select * from users" )
-      ? "MySQL query " + If( nRetVal == 0, "succeeded", "failed" )
-      if nRetVal != 0
-         ? "error: " + Str( nRetVal )
-      endif
-   endif   
-   
-   if hConnection != 0
-      hMyRes = mysql_store_result( hConnection )
-      ? "MySQL store result " + If( hMyRes != 0, "succeeded", "failed" )
-      ?
-   endif   
-   
-   if hMyRes != 0
-      ? "Number of rows: " + Str( mysql_num_rows( hMyRes ) )
-   endif   
-   
-   if hMyRes != 0
-      ? "Number of fields: " + Str( mysql_num_fields( hMyRes ) )
-      ? "<table border=1 cellspacing=0>"
-      ?? "<tr>"
-      for n = 1 to mysql_num_fields( hMyRes )
-         hField = mysql_fetch_field( hMyRes )
-         if hField != 0
-            ?? "<td>" + PtrToStr( hField, 0 ) + "</td>" 
-         endif   
-      next
-      ?? "</tr>"
-      for n = 1 to mysql_num_rows( hMyRes )
-         if ( hRow := mysql_fetch_row( hMyRes ) ) != 0
-            ?? "<tr>"
-               for m = 1 to mysql_num_fields( hMyRes )
-                  ?? "<td>" + PtrToStr( hRow, m - 1 ) + "</td>"
-               next
-            ?? "</tr>"
-         endif 
-      next   
-      ?? "</table>"      
-   endif   
-
-   if hMyRes != 0
-      mysql_free_result( hMyRes )
-   endif
-
-   if hMySQL != 0 
-      mysql_close( hMySQL )
-   endif   
-   
-   if ValType( pLib ) == "P"
-      ? "MySQL library properly freed: ", HB_LibFree( pLib )
-   endif                           
+   ? oTable:Count()
 
 return nil
 
-//----------------------------------------------------------------//
+//----------------------------------------------------------------------------//
+
+function OrmConnect( cRdbms, cServer, cUsername, cPassword, cDatabase, nPort )
+
+return Orm():New( cRdbms, cServer, cUsername, cPassword, cDatabase, nPort )
+
+//----------------------------------------------------------------------------//
+
+CLASS Orm
+
+   DATA  cRdbms
+   DATA  cServer
+   DATA  cUsername
+   DATA  cDatabase
+   DATA  nPort
+   DATA  hConnection 
+   DATA  Tables   INIT {}
+
+   METHOD New( cRdbms, cServer, cUsername, cPassword, cDatabase, nPort )
+
+   METHOD Table( cTableName, ... )
+
+ENDCLASS
+
+//----------------------------------------------------------------------------//
+
+METHOD New( cRdbms, cServer, cUsername, cPassword, cDatabase, nPort ) CLASS Orm
+
+   hb_default( @cRdbms, RddSetDefault() )
+   hb_default( @cServer, Set( _SET_PATH ) )
+
+   ::cRdbms    = cRdbms
+   ::cServer   = cServer
+   ::cUsername = cUsername
+   ::cDatabase = cDatabase
+   ::nPort     = nPort
+
+   do case
+      case cRdbms == "MYSQL"
+         if ! "Windows" $ OS()
+            pLib = hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
+         else
+            pLib = hb_LibLoad( "c:/Apache24/htdocs/libmysql64.dll" )
+         endif  
+         if ! Empty( pLib )
+            hMySQL = mysql_init()
+            if hMySQL != 0
+               ::hConnection = mysql_real_connect( cServer, cUsername, cPassword, cDatabase, nPort )
+               if ::hConnection != hMySQL
+                  ? "Error on connection to server " + cServer
+               endif   
+            endif 
+         else
+            ? "c:/Apache24/htdocs/libmysql64.dll not available"     
+         endif   
+   endcase
+
+return Self
+
+//----------------------------------------------------------------------------//
+
+METHOD Table( cTableName, ... ) CLASS Orm
+
+   local oTable, cFields := "", n, nRetVal
+
+   if Empty( ::cRdbms )
+      ::New()
+   endif   
+
+   if ! ::cRdbms $ "MYSQL,MARIADB"
+      USE ( cTableName ) VIA ::cRdbms SHARED
+      oTable = DbfTable():New( cTableName, Self )
+      AAdd( ::Tables, oTable )
+   else
+      for n = 2 to PCount()
+         cFields += If( n > 2, ",", "" ) + PValue( n )
+      next   
+      nRetVal = mysql_query( ::hConnection, "select " + cFields + " from " + cTableName )
+      if nRetVal != 0
+         ? "error selecting table " + cTableName, mysql_error( hMySQL )
+      else
+         oTable = MySqlTable():New( cTableName, Self, ... )   
+      endif   
+   endif
+
+return oTable
+
+//----------------------------------------------------------------------------//
+
+CLASS OrmTable
+
+   DATA  Name
+   DATA  Orm
+
+   METHOD New( cTableName, oOrm, ... )
+
+   METHOD Count() VIRTUAL   
+
+ENDCLASS 
+
+//----------------------------------------------------------------------------//
+
+METHOD New( cTableName, oOrm, ... ) CLASS OrmTable
+
+   ::Name = cTableName
+   ::Orm  = oOrm
+
+return Self   
+
+//----------------------------------------------------------------------------//
+
+CLASS DbfTable FROM OrmTable
+
+   DATA   cAlias
+
+   METHOD New( cTableName, oOrm, ... )
+   METHOD Count() INLINE RecCount()
+
+ENDCLASS      
+
+//----------------------------------------------------------------------------//
+
+METHOD New( cTableName, oOrm, ... ) CLASS DbfTable
+
+   ::Super:New( cTableName, oOrm, ... )
+   
+   ::cAlias = Alias()
+
+return Self   
+
+//----------------------------------------------------------------------------//
+
+CLASS MySQLTable FROM OrmTable
+
+   DATA  hMyRes
+
+   METHOD New( cTableName, oOrm, ... )
+
+   METHOD Count() INLINE mysql_num_rows( ::hMyRes )   
+
+ENDCLASS   
+
+//----------------------------------------------------------------------------//
+
+METHOD New( cTableName, oOrm, ... ) CLASS MySQLTable
+
+   ::Super:New( cTableName, oOrm, ... )
+
+   ::hMyRes = mysql_store_result( oOrm:hConnection )
+
+   if ::hMyRes == 0
+      ? "mysql_store_results() failed"
+   endif
+   
+return Self   
+
+//----------------------------------------------------------------------------//
 
 function mysql_init()
 
