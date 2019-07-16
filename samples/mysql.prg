@@ -1,33 +1,40 @@
-#define HB_DYN_CALLCONV_CDECL       0x0000000  // C default
-#define HB_DYN_CTYPE_LONG_UNSIGNED  0x0000014
-#define HB_DYN_CTYPE_CHAR_PTR       0x0000101
-#define HB_DYN_CTYPE_LONG           0x0000004
-#define HB_DYN_CTYPE_INT            0x0000003
-#define HB_DYN_CTYPE_LLONG_UNSIGNED 0x0000015
-#define NULL                        0x0000000         
+#include "hbdyn.ch"
 
-static pLib, hMySQL, hConnection, hMyRes
+#define NULL 0         
+
+static pLib, hMySQL := 0, hConnection := 0, hMyRes := 0
 
 //----------------------------------------------------------------//
 
 function Main()
 
    local nRetVal, n, m, hField, hRow
+
+   // ShowConsole()
+   // SetMode( 40, 120 )
    
-   pLib = hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
-   hMySQL = mysql_init()
+   if ! "Windows" $ OS()
+      pLib = hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
+   else   
+      pLib = hb_LibLoad( "c:/Apache24/htdocs/libmysql.dll" ) 
+   endif
 
    ?? "pLib = " + ValType( pLib ) + ;
       If( ValType( pLib ) == "P", " (MySQL library properly loaded)", " (MySQL library not found)" )
-   
-   ? "hMySQL = " + Str( hMySQL ) + " (MySQL library " + ;
-      If( hMySQL != 0, "initalized)", "failed to initialize)" )
-   ? If( hMySQL != 0, "MySQL version: " + mysql_get_server_info( hMySQL ), "" )   
 
-   ?
-   ? "Connection: "
-   ?? hConnection := mysql_real_connect( "127.0.0.1", "harbour", "password", "dbHarbour", 3306 )
-   ?? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
+   if ValType( pLib ) == "P"
+      hMySQL = mysql_init()
+      ? "hMySQL = " + Str( hMySQL ) + " (MySQL library " + ;
+      If( hMySQL != 0, "initalized)", "failed to initialize)" )
+   endif      
+         
+   // ? If( hMySQL != 0, "MySQL version: " + mysql_get_server_info( hMySQL ), "" )   
+
+   if hMySQL != 0
+      ? "Connection = "
+      ?? hConnection := mysql_real_connect( "127.0.0.1", "harbour", "password", "dbHarbour", 3306 )
+      ?? If( hConnection != hMySQL, " (Failed connection)", " (Successfull connection)" )
+   endif
 
    if hConnection != 0
       nRetVal = mysql_query( hConnection, "select * from users" )
@@ -70,11 +77,18 @@ function Main()
       ?? "</table>"      
    endif   
 
-   mysql_free_result( hMyRes )
-   mysql_close( hMySQL )
+   if hMyRes != 0
+      mysql_free_result( hMyRes )
+   endif
+
+   if hMySQL != 0 
+      mysql_close( hMySQL )
+   endif   
    
    ? "MySQL library properly freed: "
-   ?? HB_LibFree( pLib )                        
+   if ValType( pLib ) == "P"
+      ?? HB_LibFree( pLib )
+   endif                           
 
 return nil
 
@@ -82,13 +96,16 @@ return nil
 
 function mysql_init()
 
-return hb_DynCall( { "mysql_init", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ) }, NULL )
+return hb_DynCall( { "mysql_init", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
+                   If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ) }, NULL )
 
 //----------------------------------------------------------------//
 
 function mysql_close( hMySQL )
 
-return hb_DynCall( { "mysql_close", pLib, HB_DYN_CALLCONV_CDECL, HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySQL )
+return hb_DynCall( { "mysql_close", pLib,;
+                   If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ),;
+                   HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySQL )
 
 //----------------------------------------------------------------//
 
@@ -98,7 +115,8 @@ function mysql_real_connect( cServer, cUserName, cPassword, cDataBaseName, nPort
       nPort = 3306
    endif   
 
-return hb_DynCall( { "mysql_real_connect", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CALLCONV_CDECL ),;
+return hb_DynCall( { "mysql_real_connect", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
+                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
                      HB_DYN_CTYPE_LLONG_UNSIGNED,;
                      HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR,;
                      HB_DYN_CTYPE_LONG, HB_DYN_CTYPE_LONG, HB_DYN_CTYPE_LONG },;
