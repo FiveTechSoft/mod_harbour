@@ -90,7 +90,7 @@ METHOD New( cRdbms, cServer, cUsername, cPassword, cDatabase, nPort ) CLASS Orm
                endif   
             endif 
          else
-            ? "c:/Apache24/htdocs/libmysql64.dll not available"     
+            ? hb_SysMySQL() + " not available"     
          endif   
    endcase
 
