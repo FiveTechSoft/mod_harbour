@@ -4,6 +4,7 @@
 #include "set.ch"
 #include "hbdyn.ch"
 
+#define HB_VERSION_BITWIDTH  17
 #define NULL  0  
 
 #command SELECT <fields,...> [ FROM <cTableName> ] [ INTO <oTable> ]=> ;
@@ -401,12 +402,12 @@ function hb_SysMySQL()
       if "Darwin" $ OS()
          cLibName = "/usr/local/Cellar/mysql/8.0.16/lib/libmysqlclient.dylib"
       else   
-         cLibName = If( hb_OSIS64BIT(),;
+         cLibName = If( hb_version( HB_VERSION_BITWIDTH ) == 64,;
                         "/usr/lib/x86_64-linux-gnu/libmysqlclient.so",; // libmysqlclient.so.20 for mariaDB
                         "/usr/lib/x86-linux-gnu/libmysqlclient.so" )
       endif                  
    else
-      cLibName = If( hb_OSIS64BIT(),;
+      cLibName = If( hb_version( HB_VERSION_BITWIDTH ) == 64,;
                      "c:/Apache24/htdocs/libmysql64.dll",;
                      "c:/Apache24/htdocs/libmysql.dll" )
    endif
