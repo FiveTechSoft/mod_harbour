@@ -1,3 +1,5 @@
+// {% hb_SetEnv( "HB_INCLUDE", "/home/anto/harbour/include" ) %}
+
 #include "hbclass.ch"
 #include "set.ch"
 #include "hbdyn.ch"
@@ -13,18 +15,29 @@ static pLib, hMySQL
 
 function Main()
 
-   local oOrm, oTable
+   local oOrm, oTable, n, m
 
    // ShowConsole() 
    // SetMode( 60, 120 )
 
    oOrm = OrmConnect( "MYSQL", "localhost", "harbour", "password", "dbHarbour", 3306 )
-   // OrmConnect()
+   // oOrm = OrmConnect( "DBFNTX", hb_GetEnv( "PRGPATH" ) + "/data/" )
 
    SELECT "*" FROM "users" INTO oTable
 
-   ? oTable:Count()
-   ? oTable:Name
+   ? "Name of the table: ", oTable:Name
+   ? "Number of records: ", oTable:Count()
+
+   for n = 1 to oTable:FCount()
+      ? "Field name", n, ":", oTable:FieldName( n )
+   next   
+
+   for n = 1 to oTable:Count()
+      for m = 1 to oTable:FCount()
+         ? oTable:FieldGet( m )
+      next
+      oTable:Next()
+   next    
 
 return nil
 
@@ -67,11 +80,7 @@ METHOD New( cRdbms, cServer, cUsername, cPassword, cDatabase, nPort ) CLASS Orm
 
    do case
       case cRdbms == "MYSQL"
-         if ! "Windows" $ OS()
-            pLib = hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
-         else
-            pLib = hb_LibLoad( "c:/Apache24/htdocs/libmysql64.dll" )
-         endif  
+         pLib = hb_LibLoad( hb_SysMySQL() )
          if ! Empty( pLib )
             hMySQL = mysql_init()
             if hMySQL != 0
@@ -81,7 +90,7 @@ METHOD New( cRdbms, cServer, cUsername, cPassword, cDatabase, nPort ) CLASS Orm
                endif   
             endif 
          else
-            ? "c:/Apache24/htdocs/libmysql64.dll not available"     
+            ? hb_SysMySQL() + " not available"     
          endif   
    endcase
 
@@ -98,7 +107,7 @@ METHOD Table( cTableName, ... ) CLASS Orm
    endif   
 
    if ! ::cRdbms $ "MYSQL,MARIADB"
-      USE ( cTableName ) VIA ::cRdbms SHARED
+      USE ( ::cServer + cTableName ) VIA ::cRdbms SHARED
       oTable = DbfTable():New( cTableName, Self )
       AAdd( ::Tables, oTable )
    else
@@ -119,12 +128,17 @@ return oTable
 
 CLASS OrmTable
 
-   DATA  Name
-   DATA  Orm
+   DATA   Name
+   DATA   Orm
+   DATA   aFields
 
    METHOD New( cTableName, oOrm, ... )
 
-   METHOD Count() VIRTUAL   
+   METHOD Count() VIRTUAL 
+   METHOD FCount() VIRTUAL   
+   METHOD FieldName( n ) VIRTUAL
+   METHOD FieldGet( n ) VIRTUAL
+   METHOD Next() VIRTUAL      
 
 ENDCLASS 
 
@@ -144,7 +158,12 @@ CLASS DbfTable FROM OrmTable
    DATA   cAlias
 
    METHOD New( cTableName, oOrm, ... )
-   METHOD Count() INLINE RecCount()
+
+   METHOD Count()  INLINE RecCount()
+   METHOD FCount() INLINE FCount()
+   METHOD FieldName( n ) INLINE FieldName( n )
+   METHOD FieldGet( n ) INLINE FieldGet( n )
+   METHOD Next() INLINE DbSkip()
 
 ENDCLASS      
 
@@ -162,11 +181,17 @@ return Self
 
 CLASS MySQLTable FROM OrmTable
 
-   DATA  hMyRes
+   DATA   hMyRes
+   DATA   aRows
+   DATA   nRow   INIT 1
 
    METHOD New( cTableName, oOrm, ... )
 
    METHOD Count() INLINE mysql_num_rows( ::hMyRes )   
+   METHOD FCount() INLINE Len( ::aFields )
+   METHOD FieldName( n ) INLINE ::aFields[ n ][ 1 ]
+   METHOD FieldGet( n ) INLINE ::aRows[ ::nRow ][ n ]
+   METHOD Next() INLINE ::nRow++   
 
 ENDCLASS   
 
@@ -174,12 +199,35 @@ ENDCLASS
 
 METHOD New( cTableName, oOrm, ... ) CLASS MySQLTable
 
+   local n, m, hField, hRow
+
    ::Super:New( cTableName, oOrm, ... )
 
    ::hMyRes = mysql_store_result( oOrm:hConnection )
 
    if ::hMyRes == 0
       ? "mysql_store_results() failed"
+   else
+      ::aFields = Array( mysql_num_fields( ::hMyRes ) )
+      
+      for n = 1 to Len( ::aFields )
+         hField = mysql_fetch_field( ::hMyRes )
+         if hField != 0
+            ::aFields[ n ] = Array( 4 )
+            ::aFields[ n ][ 1 ] = PtrToStr( hField, 0 )
+         endif   
+      next   
+
+      ::aRows = Array( mysql_num_rows( ::hMyRes ), ::FCount() )
+
+      for n = 1 to Len( ::aRows )
+         if ( hRow := mysql_fetch_row( ::hMyRes ) ) != 0
+            for m = 1 to ::FCount()
+               ::aRows[ n, m ] = PtrToStr( hRow, m - 1 )
+            next
+         endif
+      next         
+
    endif
    
 return Self   
@@ -188,16 +236,15 @@ return Self
 
 function mysql_init()
 
-return hb_DynCall( { "mysql_init", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
-                   If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ) }, NULL )
+return hb_DynCall( { "mysql_init", pLib, hb_bitOr( hb_SysLong(),;
+                   hb_SysCallConv() ) }, NULL )
 
 //----------------------------------------------------------------//
 
 function mysql_close( hMySQL )
 
 return hb_DynCall( { "mysql_close", pLib,;
-                   If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ),;
-                   HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySQL )
+                   hb_SysCallConv(), hb_SysLong() }, hMySQL )
 
 //----------------------------------------------------------------//
 
@@ -207,9 +254,8 @@ function mysql_real_connect( cServer, cUserName, cPassword, cDataBaseName, nPort
       nPort = 3306
    endif   
 
-return hb_DynCall( { "mysql_real_connect", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
-                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
-                     HB_DYN_CTYPE_LLONG_UNSIGNED,;
+return hb_DynCall( { "mysql_real_connect", pLib, hb_bitOr( hb_SysLong(),;
+                     hb_SysCallConv() ), hb_SysLong(),;
                      HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR, HB_DYN_CTYPE_CHAR_PTR,;
                      HB_DYN_CTYPE_LONG, HB_DYN_CTYPE_LONG, HB_DYN_CTYPE_LONG },;
                      hMySQL, cServer, cUserName, cPassword, cDataBaseName, nPort, 0, 0 )
@@ -219,80 +265,100 @@ return hb_DynCall( { "mysql_real_connect", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UN
 function mysql_query( hConnect, cQuery )
 
 return hb_DynCall( { "mysql_query", pLib, hb_bitOr( HB_DYN_CTYPE_INT,;
-                   If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
-                   HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CTYPE_CHAR_PTR },;
+                   hb_SysCallConv() ), hb_SysLong(), HB_DYN_CTYPE_CHAR_PTR },;
                    hConnect, cQuery )
 
 //----------------------------------------------------------------//
 
 function mysql_use_result( hMySQL )
 
-return hb_DynCall( { "mysql_use_result", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
-                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
-                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySQL )
+return hb_DynCall( { "mysql_use_result", pLib, hb_bitOr( hb_SysLong(),;
+                   hb_SysCallConv() ), hb_SysLong() }, hMySQL )
 
 //----------------------------------------------------------------//
 
 function mysql_store_result( hMySQL )
 
-return hb_DynCall( { "mysql_store_result", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
-                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
-                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySQL )
+return hb_DynCall( { "mysql_store_result", pLib, hb_bitOr( hb_SysLong(),;
+                   hb_SysCallConv() ), hb_SysLong() }, hMySQL )
 
 //----------------------------------------------------------------//
 
 function mysql_free_result( hMyRes) 
 
 return hb_DynCall( { "mysql_free_result", pLib,;
-                   If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ),;
-                   HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
+                   hb_SysCallConv(), hb_SysLong() }, hMyRes )
 
 //----------------------------------------------------------------//
 
 function mysql_fetch_row( hMyRes )
 
-return hb_DynCall( { "mysql_fetch_row", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
-                   If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
-                   HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
+return hb_DynCall( { "mysql_fetch_row", pLib, hb_bitOr( hb_SysLong(),;
+                   hb_SysCallConv() ), hb_SysLong() }, hMyRes )
 
 //----------------------------------------------------------------//
 
 function mysql_num_rows( hMyRes )
 
-return hb_DynCall( { "mysql_num_rows", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
-                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
-                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
+return hb_DynCall( { "mysql_num_rows", pLib, hb_bitOr( hb_SysLong(),;
+                  hb_SysCallConv() ), hb_SysLong() }, hMyRes )
 
 //----------------------------------------------------------------//
 
 function mysql_num_fields( hMyRes )
 
 return hb_DynCall( { "mysql_num_fields", pLib, hb_bitOr( HB_DYN_CTYPE_LONG_UNSIGNED,;
-                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
-                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
+                   hb_SysCallConv() ), hb_SysLong() }, hMyRes )
 
 //----------------------------------------------------------------//
 
 function mysql_fetch_field( hMyRes )
 
-return hb_DynCall( { "mysql_fetch_field", pLib, hb_bitOr( HB_DYN_CTYPE_LLONG_UNSIGNED,;
-                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ),;
-                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMyRes )
+return hb_DynCall( { "mysql_fetch_field", pLib, hb_bitOr( hb_SysLong(),;
+                   hb_SysCallConv() ), hb_SysLong() }, hMyRes )
 
 //----------------------------------------------------------------//
 
 function mysql_get_server_info( hMySQL )
 
 return hb_DynCall( { "mysql_get_server_info", pLib, hb_bitOr( HB_DYN_CTYPE_CHAR_PTR,;
-                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ), ;
-                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySql )
+                   hb_SysCallConv() ), hb_SysLong() }, hMySql )
 
 //----------------------------------------------------------------//
 
 function mysql_error( hMySQL )
 
 return hb_DynCall( { "mysql_error", pLib, hb_bitOr( HB_DYN_CTYPE_CHAR_PTR,;
-                     If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL ) ), ;
-                     HB_DYN_CTYPE_LLONG_UNSIGNED }, hMySql )
+                   hb_SysCallConv() ), hb_SysLong() }, hMySql )
+
+//----------------------------------------------------------------//
+
+function hb_SysLong()
+
+return If( hb_OSIS64BIT(), HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CTYPE_LONG_UNSIGNED )   
+
+//----------------------------------------------------------------//
+
+function hb_SysCallConv()
+
+return If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL )
+
+//----------------------------------------------------------------//
+
+function hb_SysMySQL()
+
+   local cLibName
+
+   if ! "Windows" $ OS()
+      cLibName = If( hb_OSIS64BIT(),;
+                     "/usr/lib/x86_64-linux-gnu/libmysqlclient.so",; // libmysqlclient.so.20 for mariaDB
+                     "/usr/lib/x86-linux-gnu/libmysqlclient.so" )
+   else
+      cLibName = If( hb_OSIS64BIT(),;
+                     "c:/Apache24/htdocs/libmysql64.dll",;
+                     "c:/Apache24/htdocs/libmysql.dll" )
+   endif
+
+return cLibName    
 
 //----------------------------------------------------------------//
