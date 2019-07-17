@@ -1,4 +1,4 @@
-// {% hb_SetEnv( "HB_INCLUDE", "/home/anto/harbour/include" ) %}
+// {% hb_SetEnv( "HB_INCLUDE", If( "Windows" $ OS(), "c:/", If( "Darwin" $ OS(), "/Users/anto", "/home/anto" ) ) + "/harbour/include" ) %}
 
 #include "hbclass.ch"
 #include "set.ch"
