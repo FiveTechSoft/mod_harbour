@@ -7,7 +7,10 @@
 #define NULL  0  
 
 #command SELECT <fields,...> [ FROM <cTableName> ] [ INTO <oTable> ]=> ;
-            [ <oTable> := ] oOrm:Table( <cTableName>, <fields> ) 
+            [ <oTable> := ] oOrm:Table( <cTableName>, <fields> )
+            
+#command CREATE TABLE <cTableName> FIELDS <aFields> => ;
+            oOrm:CreateTable( <cTableName>, <aFields> )            
 
 static pLib, hMySQL
 
@@ -22,6 +25,15 @@ function Main()
 
    oOrm = OrmConnect( "MYSQL", "localhost", "harbour", "password", "dbHarbour", 3306 )
    // oOrm = OrmConnect( "DBFNTX", hb_GetEnv( "PRGPATH" ) + "/data/" )
+
+   CREATE TABLE "menus" FIELDS { { "GLYPH",  "C", 20, 0 },;
+                                 { "PROMPT", "C", 30, 0 },;
+                                 { "ACTION", "C", 50, 0 } }
+
+   SELECT "*" FROM "menus" INTO oTable
+
+   ? oTable:Name
+   ? oTable:Count()
 
    SELECT "*" FROM "users" INTO oTable
 
@@ -58,10 +70,15 @@ CLASS Orm
    DATA  nPort
    DATA  hConnection 
    DATA  Tables   INIT {}
+   DATA  nRetVal
 
    METHOD New( cRdbms, cServer, cUsername, cPassword, cDatabase, nPort )
 
    METHOD Table( cTableName, ... )
+
+   METHOD CreateTable( cTableName, aFields )
+
+   METHOD Exec( cSQL ) INLINE ::nRetVal := mysql_query( ::hConnection, cSQL ) 
 
 ENDCLASS
 
@@ -123,6 +140,31 @@ METHOD Table( cTableName, ... ) CLASS Orm
    endif
 
 return oTable
+
+//----------------------------------------------------------------------------//
+
+METHOD CreateTable( cTableName, aFields ) CLASS Orm
+
+   local cSQL, n, hTypes 
+
+   if ::cRdbms $ "MYSQL,MARIADB"
+      cSQL = "CREATE TABLE " + cTableName + " ("
+      hTypes = {=>}
+      hTypes[ "C" ] = "varchar"
+      for n = 1 to Len( aFields )
+         if n > 1
+            cSQL += ","
+         endif   
+         cSQL += aFields[ n ][ 1 ] + " " + hTypes[ aFields[ n ][ 2 ] ] + "(" + ;
+                 AllTrim( Str( aFields[ n ][ 3 ] ) ) + ")"
+      next          
+      cSQL += ")"
+      ::Exec( cSQL )
+   else
+      DbCreate( cTableName, aFields, ::cRdbms )   
+   endif
+   
+return nil   
 
 //----------------------------------------------------------------------------//
 
