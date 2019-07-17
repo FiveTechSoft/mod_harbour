@@ -139,7 +139,8 @@ METHOD Table( cTableName, ... ) CLASS Orm
       if nRetVal != 0
          ? "error selecting table " + cTableName, mysql_error( hMySQL )
       else
-         oTable = MySqlTable():New( cTableName, Self, ... )   
+         oTable = MySqlTable():New( cTableName, Self, ... )
+         AAdd( ::Tables, oTable )   
       endif   
    endif
 
