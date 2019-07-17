@@ -30,6 +30,8 @@ function Main()
                                  { "PROMPT", "C", 30, 0 },;
                                  { "ACTION", "C", 50, 0 } }
 
+   ? oOrm:cSQL                              
+
    SELECT "*" FROM "menus" INTO oTable
 
    ? oTable:Name
@@ -71,6 +73,7 @@ CLASS Orm
    DATA  hConnection 
    DATA  Tables   INIT {}
    DATA  nRetVal
+   DATA  cSQL
 
    METHOD New( cRdbms, cServer, cUsername, cPassword, cDatabase, nPort )
 
@@ -78,7 +81,7 @@ CLASS Orm
 
    METHOD CreateTable( cTableName, aFields )
 
-   METHOD Exec( cSQL ) INLINE ::nRetVal := mysql_query( ::hConnection, cSQL ) 
+   METHOD Exec( cSQL ) INLINE ::nRetVal := mysql_query( ::hConnection, ::cSQL := cSQL ) 
 
 ENDCLASS
 
@@ -160,6 +163,9 @@ METHOD CreateTable( cTableName, aFields ) CLASS Orm
       next          
       cSQL += ")"
       ::Exec( cSQL )
+      if ::nRetVal != 0
+         ? mysql_error( hMySQL )
+      endif   
    else
       DbCreate( cTableName, aFields, ::cRdbms )   
    endif
