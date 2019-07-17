@@ -80,11 +80,7 @@ METHOD New( cRdbms, cServer, cUsername, cPassword, cDatabase, nPort ) CLASS Orm
 
    do case
       case cRdbms == "MYSQL"
-         if ! "Windows" $ OS()
-            pLib = hb_LibLoad( "/usr/lib/x86_64-linux-gnu/libmysqlclient.so" ) // libmysqlclient.so.20 for mariaDB
-         else
-            pLib = hb_LibLoad( "c:/Apache24/htdocs/libmysql64.dll" )
-         endif  
+         pLib = hb_LibLoad( hb_SysMySQL() )
          if ! Empty( pLib )
             hMySQL = mysql_init()
             if hMySQL != 0
@@ -346,5 +342,23 @@ return If( hb_OSIS64BIT(), HB_DYN_CTYPE_LLONG_UNSIGNED, HB_DYN_CTYPE_LONG_UNSIGN
 function hb_SysCallConv()
 
 return If( ! "Windows" $ OS(), HB_DYN_CALLCONV_CDECL, HB_DYN_CALLCONV_STDCALL )
+
+//----------------------------------------------------------------//
+
+function hb_SysMySQL()
+
+   local cLibName
+
+   if ! "Windows" $ OS()
+      cLibName = If( hb_OSIS64BIT(),;
+                     "/usr/lib/x86_64-linux-gnu/libmysqlclient.so",; // libmysqlclient.so.20 for mariaDB
+                     "/usr/lib/x86-linux-gnu/libmysqlclient.so" )
+   else
+      cLibName = If( hb_OSIS64BIT(),;
+                     "c:/Apache24/htdocs/libmysql64.dll",;
+                     "c:/Apache24/htdocs/libmysql.dll" )
+   endif
+
+return cLibName    
 
 //----------------------------------------------------------------//
