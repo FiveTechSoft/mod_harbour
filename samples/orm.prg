@@ -1,3 +1,5 @@
+// {% hb_SetEnv( "HB_INCLUDE", "/home/anto/harbour/include" ) %}
+
 #include "hbclass.ch"
 #include "set.ch"
 #include "hbdyn.ch"
