@@ -1,13 +1,17 @@
-// {% hb_SetEnv( "HB_INCLUDE", "/home/anto/harbour/include" ) %}
+// {% hb_SetEnv( "HB_INCLUDE", If( "Windows" $ OS(), "c:", If( "Darwin" $ OS(), "/Users/anto", "/home/anto" ) ) + "/harbour/include" ) %}
 
 #include "hbclass.ch"
 #include "set.ch"
 #include "hbdyn.ch"
 
+#define HB_VERSION_BITWIDTH  17
 #define NULL  0  
 
 #command SELECT <fields,...> [ FROM <cTableName> ] [ INTO <oTable> ]=> ;
-            [ <oTable> := ] oOrm:Table( <cTableName>, <fields> ) 
+            [ <oTable> := ] oOrm:Table( <cTableName>, <fields> )
+            
+#command CREATE TABLE <cTableName> FIELDS <aFields> => ;
+            oOrm:CreateTable( <cTableName>, <aFields> )            
 
 static pLib, hMySQL
 
@@ -22,6 +26,17 @@ function Main()
 
    oOrm = OrmConnect( "MYSQL", "localhost", "harbour", "password", "dbHarbour", 3306 )
    // oOrm = OrmConnect( "DBFNTX", hb_GetEnv( "PRGPATH" ) + "/data/" )
+
+   CREATE TABLE "menus" FIELDS { { "GLYPH",  "C", 20, 0 },;
+                                 { "PROMPT", "C", 30, 0 },;
+                                 { "ACTION", "C", 50, 0 } }
+
+   ? oOrm:cSQL                              
+
+   SELECT "*" FROM "menus" INTO oTable
+
+   ? oTable:Name
+   ? oTable:Count()
 
    SELECT "*" FROM "users" INTO oTable
 
@@ -58,10 +73,16 @@ CLASS Orm
    DATA  nPort
    DATA  hConnection 
    DATA  Tables   INIT {}
+   DATA  nRetVal
+   DATA  cSQL
 
    METHOD New( cRdbms, cServer, cUsername, cPassword, cDatabase, nPort )
 
    METHOD Table( cTableName, ... )
+
+   METHOD CreateTable( cTableName, aFields )
+
+   METHOD Exec( cSQL ) INLINE ::nRetVal := mysql_query( ::hConnection, ::cSQL := cSQL ) 
 
 ENDCLASS
 
@@ -118,11 +139,40 @@ METHOD Table( cTableName, ... ) CLASS Orm
       if nRetVal != 0
          ? "error selecting table " + cTableName, mysql_error( hMySQL )
       else
-         oTable = MySqlTable():New( cTableName, Self, ... )   
+         oTable = MySqlTable():New( cTableName, Self, ... )
+         AAdd( ::Tables, oTable )   
       endif   
    endif
 
 return oTable
+
+//----------------------------------------------------------------------------//
+
+METHOD CreateTable( cTableName, aFields ) CLASS Orm
+
+   local cSQL, n, hTypes 
+
+   if ::cRdbms $ "MYSQL,MARIADB"
+      cSQL = "CREATE TABLE " + cTableName + " ("
+      hTypes = {=>}
+      hTypes[ "C" ] = "varchar"
+      for n = 1 to Len( aFields )
+         if n > 1
+            cSQL += ","
+         endif   
+         cSQL += aFields[ n ][ 1 ] + " " + hTypes[ aFields[ n ][ 2 ] ] + "(" + ;
+                 AllTrim( Str( aFields[ n ][ 3 ] ) ) + ")"
+      next          
+      cSQL += ")"
+      ::Exec( cSQL )
+      if ::nRetVal != 0
+         ? mysql_error( hMySQL )
+      endif   
+   else
+      DbCreate( cTableName, aFields, ::cRdbms )   
+   endif
+   
+return nil   
 
 //----------------------------------------------------------------------------//
 
@@ -350,11 +400,15 @@ function hb_SysMySQL()
    local cLibName
 
    if ! "Windows" $ OS()
-      cLibName = If( hb_OSIS64BIT(),;
-                     "/usr/lib/x86_64-linux-gnu/libmysqlclient.so",; // libmysqlclient.so.20 for mariaDB
-                     "/usr/lib/x86-linux-gnu/libmysqlclient.so" )
+      if "Darwin" $ OS()
+         cLibName = "/usr/local/Cellar/mysql/8.0.16/lib/libmysqlclient.dylib"
+      else   
+         cLibName = If( hb_version( HB_VERSION_BITWIDTH ) == 64,;
+                        "/usr/lib/x86_64-linux-gnu/libmysqlclient.so",; // libmysqlclient.so.20 for mariaDB
+                        "/usr/lib/x86-linux-gnu/libmysqlclient.so" )
+      endif                  
    else
-      cLibName = If( hb_OSIS64BIT(),;
+      cLibName = If( hb_version( HB_VERSION_BITWIDTH ) == 64,;
                      "c:/Apache24/htdocs/libmysql64.dll",;
                      "c:/Apache24/htdocs/libmysql.dll" )
    endif
