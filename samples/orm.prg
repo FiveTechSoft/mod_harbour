@@ -189,8 +189,8 @@ CLASS OrmTable
    METHOD Count() VIRTUAL 
    METHOD FCount() VIRTUAL   
    METHOD FieldName( n ) VIRTUAL
-   METHOD FieldGet( n ) VIRTUAL
-   METHOD FieldPut( n, uValue ) VIRTUAL   
+   METHOD FieldGet( ncField ) VIRTUAL
+   METHOD FieldPut( ncField, uValue ) VIRTUAL   
    METHOD FieldPos( cFieldName )   
    METHOD Next() VIRTUAL  
    METHOD Prev() VIRTUAL       
@@ -225,9 +225,14 @@ CLASS DbfTable FROM OrmTable
    METHOD Count()  INLINE RecCount()
    METHOD FCount() INLINE FCount()
    METHOD FieldName( n ) INLINE FieldName( n )
-   METHOD FieldGet( n ) INLINE FieldGet( n )
-   METHOD FieldPut( n, uValue ) INLINE ;
-                    If( RLock(), ( FieldPut( n, uValue ), DbUnLock() ),)   
+
+   METHOD FieldGet( ncField ) ;
+      INLINE FieldGet( If( ValType( ncField ) == "C", ::FieldPos( ncField ), ncField ) )
+
+   METHOD FieldPut( ncField, uValue ) INLINE ;
+                    If( RLock(), ( FieldPut( If( ValType( ncField ) == "C",;
+                        ::FieldPos( ncField ), ncField ), uValue ), DbUnLock() ),)   
+
    METHOD Next()  INLINE DbSkip()
    METHOD Prev()  INLINE DbSkip( -1 )   
    METHOD First() INLINE DbGoTop()
@@ -259,8 +264,13 @@ CLASS MySQLTable FROM OrmTable
    METHOD Count()  INLINE mysql_num_rows( ::hMyRes )   
    METHOD FCount() INLINE Len( ::aFields )
    METHOD FieldName( n ) INLINE ::aFields[ n ][ 1 ]
-   METHOD FieldGet( n )  INLINE ::aRows[ ::nRow ][ n ]
-   METHOD FieldPut( n, uValue ) INLINE ::aRows[ ::nRow ][ n ] := uValue   
+
+   METHOD FieldGet( ncField )  INLINE ;
+      ::aRows[ ::nRow ][ If( ValType( ncField ) == "C", ::FieldPos( ncField ), ncField ) ]
+
+   METHOD FieldPut( ncField, uValue ) INLINE ;
+      ::aRows[ ::nRow ][ If( ValType( ncField ) == "C", ::FieldPos( ncField ), ncField ) ] := uValue   
+
    METHOD Next()   INLINE ::nRow++   
    METHOD Prev()   INLINE If( ::nRow > 1, ::nRow--,)   
    METHOD First()  INLINE ::nRow := 1
