@@ -32,7 +32,7 @@ function Main()
                                  { "ACTION", "C", 50, 0 } }
 
    ? oOrm:cSQL 
- 
+
    SELECT "*" FROM "menus" INTO oTable
 
    ? oTable:Name
@@ -46,6 +46,8 @@ function Main()
    for n = 1 to oTable:FCount()
       ? "Field name", n, ":", oTable:FieldName( n )
    next   
+
+   ? oTable:FieldPos( "name" )
 
    for n = 1 to oTable:Count()
       for m = 1 to oTable:FCount()
@@ -188,6 +190,8 @@ CLASS OrmTable
    METHOD FCount() VIRTUAL   
    METHOD FieldName( n ) VIRTUAL
    METHOD FieldGet( n ) VIRTUAL
+   METHOD FieldPut( n, uValue ) VIRTUAL   
+   METHOD FieldPos( cFieldName )   
    METHOD Next() VIRTUAL  
    METHOD Prev() VIRTUAL       
 
@@ -204,6 +208,14 @@ return Self
 
 //----------------------------------------------------------------------------//
 
+METHOD FieldPos( cFieldName ) CLASS OrmTable
+
+   cFieldName = Upper( cFieldName )
+
+return AScan( ::aFields, { | aField | Upper( aField[ 1 ] ) == cFieldName } )   
+
+//----------------------------------------------------------------------------//
+
 CLASS DbfTable FROM OrmTable
 
    DATA   cAlias
@@ -214,6 +226,8 @@ CLASS DbfTable FROM OrmTable
    METHOD FCount() INLINE FCount()
    METHOD FieldName( n ) INLINE FieldName( n )
    METHOD FieldGet( n ) INLINE FieldGet( n )
+   METHOD FieldPut( n, uValue ) INLINE ;
+                    If( RLock(), ( FieldPut( n, uValue ), DbUnLock() ),)   
    METHOD Next()  INLINE DbSkip()
    METHOD Prev()  INLINE DbSkip( -1 )   
    METHOD First() INLINE DbGoTop()
@@ -246,6 +260,7 @@ CLASS MySQLTable FROM OrmTable
    METHOD FCount() INLINE Len( ::aFields )
    METHOD FieldName( n ) INLINE ::aFields[ n ][ 1 ]
    METHOD FieldGet( n )  INLINE ::aRows[ ::nRow ][ n ]
+   METHOD FieldPut( n, uValue ) INLINE ::aRows[ ::nRow ][ n ] := uValue   
    METHOD Next()   INLINE ::nRow++   
    METHOD Prev()   INLINE If( ::nRow > 1, ::nRow--,)   
    METHOD First()  INLINE ::nRow := 1
