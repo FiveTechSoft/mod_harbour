@@ -31,8 +31,8 @@ function Main()
                                  { "PROMPT", "C", 30, 0 },;
                                  { "ACTION", "C", 50, 0 } }
 
-   ? oOrm:cSQL                              
-
+   ? oOrm:cSQL 
+ 
    SELECT "*" FROM "menus" INTO oTable
 
    ? oTable:Name
@@ -188,7 +188,8 @@ CLASS OrmTable
    METHOD FCount() VIRTUAL   
    METHOD FieldName( n ) VIRTUAL
    METHOD FieldGet( n ) VIRTUAL
-   METHOD Next() VIRTUAL      
+   METHOD Next() VIRTUAL  
+   METHOD Prev() VIRTUAL       
 
 ENDCLASS 
 
@@ -213,7 +214,10 @@ CLASS DbfTable FROM OrmTable
    METHOD FCount() INLINE FCount()
    METHOD FieldName( n ) INLINE FieldName( n )
    METHOD FieldGet( n ) INLINE FieldGet( n )
-   METHOD Next() INLINE DbSkip()
+   METHOD Next()  INLINE DbSkip()
+   METHOD Prev()  INLINE DbSkip( -1 )   
+   METHOD First() INLINE DbGoTop()
+   METHOD Last()  INLINE DbGoBottom()   
 
 ENDCLASS      
 
@@ -223,7 +227,8 @@ METHOD New( cTableName, oOrm, ... ) CLASS DbfTable
 
    ::Super:New( cTableName, oOrm, ... )
    
-   ::cAlias = Alias()
+   ::cAlias  = Alias()
+   ::aFields = DbStruct()
 
 return Self   
 
@@ -237,11 +242,14 @@ CLASS MySQLTable FROM OrmTable
 
    METHOD New( cTableName, oOrm, ... )
 
-   METHOD Count() INLINE mysql_num_rows( ::hMyRes )   
+   METHOD Count()  INLINE mysql_num_rows( ::hMyRes )   
    METHOD FCount() INLINE Len( ::aFields )
    METHOD FieldName( n ) INLINE ::aFields[ n ][ 1 ]
-   METHOD FieldGet( n ) INLINE ::aRows[ ::nRow ][ n ]
-   METHOD Next() INLINE ::nRow++   
+   METHOD FieldGet( n )  INLINE ::aRows[ ::nRow ][ n ]
+   METHOD Next()   INLINE ::nRow++   
+   METHOD Prev()   INLINE If( ::nRow > 1, ::nRow--,)   
+   METHOD First()  INLINE ::nRow := 1
+   METHOD Last()   INLINE ::nRow := Len( ::aRows )
 
 ENDCLASS   
 
