@@ -320,7 +320,7 @@ METHOD New( cTableName, oOrm, ... ) CLASS MySQLTable
 
                case AScan( { 250, 252 }, PtrToUI( hField, hb_SysMyTypePos() ) ) != 0
                     ::aFields[ n ][ 2 ] = "M"
-            endcase            
+            endcase 
          endif   
       next   
 
@@ -475,6 +475,7 @@ return cLibName
 
 function hb_SysMyTypePos()
 
-return If( hb_version( HB_VERSION_BITWIDTH ) == 64, 26, 19 )   
+return If( hb_version( HB_VERSION_BITWIDTH ) == 64,;
+       If( "Windows" $ OS(), 26, 28 ), 19 )   
 
 //----------------------------------------------------------------//
