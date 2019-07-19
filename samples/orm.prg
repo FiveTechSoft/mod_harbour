@@ -45,6 +45,7 @@ function Main()
 
    for n = 1 to oTable:FCount()
       ? "Field name", n, ":", oTable:FieldName( n )
+      ? "Field type", n, ":", oTable:FieldType( n )
    next   
 
    ? oTable:FieldPos( "name" )
@@ -186,14 +187,17 @@ CLASS OrmTable
 
    METHOD New( cTableName, oOrm, ... )
 
-   METHOD Count() VIRTUAL 
+   METHOD Count()  VIRTUAL 
    METHOD FCount() VIRTUAL   
    METHOD FieldName( n ) VIRTUAL
    METHOD FieldGet( ncField ) VIRTUAL
    METHOD FieldPut( ncField, uValue ) VIRTUAL   
-   METHOD FieldPos( cFieldName )   
-   METHOD Next() VIRTUAL  
-   METHOD Prev() VIRTUAL       
+   METHOD FieldPos( cFieldName )
+   METHOD FieldType( cnField ) VIRTUAL   
+   METHOD First() VIRTUAL
+   METHOD Last()  VIRTUAL         
+   METHOD Next()  VIRTUAL  
+   METHOD Prev()  VIRTUAL       
 
 ENDCLASS 
 
@@ -233,6 +237,9 @@ CLASS DbfTable FROM OrmTable
                     If( RLock(), ( FieldPut( If( ValType( ncField ) == "C",;
                         ::FieldPos( ncField ), ncField ), uValue ), DbUnLock() ),)   
 
+   METHOD FieldType( ncField ) INLINE ;
+            FieldType( If( ValType( ncField ) == "C", ::FieldPos( ncField ), ncField ) )
+
    METHOD Next()  INLINE DbSkip()
    METHOD Prev()  INLINE DbSkip( -1 )   
    METHOD First() INLINE DbGoTop()
@@ -271,6 +278,9 @@ CLASS MySQLTable FROM OrmTable
    METHOD FieldPut( ncField, uValue ) INLINE ;
       ::aRows[ ::nRow ][ If( ValType( ncField ) == "C", ::FieldPos( ncField ), ncField ) ] := uValue   
 
+   METHOD FieldType( ncField ) INLINE ;
+      ::aFields[ If( ValType( ncField ) == "C", ::FieldPos( ncField ), ncField ) ][ 2 ]  
+
    METHOD Next()   INLINE ::nRow++   
    METHOD Prev()   INLINE If( ::nRow > 1, ::nRow--,)   
    METHOD First()  INLINE ::nRow := 1
@@ -298,6 +308,19 @@ METHOD New( cTableName, oOrm, ... ) CLASS MySQLTable
          if hField != 0
             ::aFields[ n ] = Array( 4 )
             ::aFields[ n ][ 1 ] = PtrToStr( hField, 0 )
+            do case
+               case AScan( { 253, 254, 12 }, PtrToUI( hField, 26 ) ) != 0
+                    ::aFields[ n ][ 2 ] = "C"
+
+               case AScan( { 1, 3, 4, 5, 8, 9, 246 }, PtrToUI( hField, 26 ) ) != 0
+                    ::aFields[ n ][ 2 ] = "N"
+
+               case AScan( { 10 }, PtrToUI( hField, 26 ) ) != 0
+                    ::aFields[ n ][ 2 ] = "D"
+
+               case AScan( { 250, 252 }, PtrToUI( hField, 26 ) ) != 0
+                    ::aFields[ n ][ 2 ] = "M"
+            endcase            
          endif   
       next   
 
