@@ -309,16 +309,16 @@ METHOD New( cTableName, oOrm, ... ) CLASS MySQLTable
             ::aFields[ n ] = Array( 4 )
             ::aFields[ n ][ 1 ] = PtrToStr( hField, 0 )
             do case
-               case AScan( { 253, 254, 12 }, PtrToUI( hField, 26 ) ) != 0
+               case AScan( { 253, 254, 12 }, PtrToUI( hField, hb_SysMyTypePos() ) ) != 0
                     ::aFields[ n ][ 2 ] = "C"
 
-               case AScan( { 1, 3, 4, 5, 8, 9, 246 }, PtrToUI( hField, 26 ) ) != 0
+               case AScan( { 1, 3, 4, 5, 8, 9, 246 }, PtrToUI( hField, hb_SysMyTypePos() ) ) != 0
                     ::aFields[ n ][ 2 ] = "N"
 
-               case AScan( { 10 }, PtrToUI( hField, 26 ) ) != 0
+               case AScan( { 10 }, PtrToUI( hField, hb_SysMyTypePos() ) ) != 0
                     ::aFields[ n ][ 2 ] = "D"
 
-               case AScan( { 250, 252 }, PtrToUI( hField, 26 ) ) != 0
+               case AScan( { 250, 252 }, PtrToUI( hField, hb_SysMyTypePos() ) ) != 0
                     ::aFields[ n ][ 2 ] = "M"
             endcase            
          endif   
@@ -470,5 +470,11 @@ function hb_SysMySQL()
    endif
 
 return cLibName    
+
+//----------------------------------------------------------------//
+
+function hb_SysMyTypePos()
+
+return If( hb_version( HB_VERSION_BITWIDTH ) == 64, 26, 19 )   
 
 //----------------------------------------------------------------//
