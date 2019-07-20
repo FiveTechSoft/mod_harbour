@@ -563,6 +563,10 @@ function Save()
 
    local hPost := AP_PostPairs(), n
 
+   if GetContent() != "database" 
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/database" ) SHARED NEW
+   endif
+
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + GetContent() ) SHARED NEW
 
    DbGoTo( nVal1 )
@@ -585,7 +589,18 @@ function Save()
                FieldPut( n, .F. )
             endif      
          endif 
-      next  
+      next 
+
+      if GetContent() != "database"
+         SELECT "database"
+         LOCATE FOR RTrim( database->table ) == GetContent()
+         if Found() .and. ! Empty( database->OnPostEdit )
+            Execute( database->OnPostEdit )
+         endif
+         USE
+         SELECT ( GetContent() )
+      endif
+
       DbUnLock()
    endif   
 
