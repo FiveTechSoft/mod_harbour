@@ -1,10 +1,11 @@
 #include "hbclass.ch"
+#include "hbhrb.ch"
 
 #xcommand ? <cText> => AP_RPuts( <cText> )
 
 #define CRLF hb_OsNewLine()
 
-extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, AP_RPUTS
+extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, PTRTOUI, AP_RPUTS
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
@@ -15,7 +16,7 @@ static hPP
 
 //----------------------------------------------------------------//
 
-function _AppMain()
+function Main()
 
    local cFileName
 
@@ -26,7 +27,7 @@ function _AppMain()
 
    if File( cFileName )
       if Lower( Right( cFileName, 4 ) ) == ".hrb"
-         hb_HrbDo( hb_HrbLoad( cFileName ), AP_Args() )
+         hb_HrbDo( HB_HRB_BIND_LOCAL, hb_HrbLoad( cFileName ), AP_Args() )
       else
          hb_SetEnv( "PRGPATH",;
                     SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
@@ -54,6 +55,8 @@ function AddPPRules()
    __pp_addRule( hPP, "#xcommand ? [<explist,...>] => AP_RPuts( '<br>' [,<explist>] )" )
    __pp_addRule( hPP, "#xcommand ?? [<explist,...>] => AP_RPuts( [<explist>] )" )
    __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
+   __pp_addRule( hPP, "#xcommand TEXT <into:TO,INTO> <v> => #pragma __cstream|<v>:=%s" )
+   __pp_addRule( hPP, "#xcommand TEXT <into:TO,INTO> <v> ADDITIVE => #pragma __cstream|<v>+=%s" )
    __pp_addRule( hPP, "#xcommand TEMPLATE [ USING <x> ] [ PARAMS [<v1>] [,<vn>] ] => " + ;
                       '#pragma __cstream | AP_RPuts( InlinePrg( %s, [@<x>] [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )
    __pp_addRule( hPP, "#xcommand BLOCKS [ PARAMS [<v1>] [,<vn>] ] => " + ;
@@ -78,7 +81,7 @@ function Execute( cCode, ... )
    oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2,;
                              "-I" + hb_GetEnv( "HB_INCLUDE" ), hb_GetEnv( "HB_USER_PRGFLAGS" ) )
    if ! Empty( oHrb )
-      uRet = hb_HrbDo( hb_HrbLoad( oHrb ), ... )
+      uRet = hb_HrbDo( hb_HrbLoad( HB_HRB_BIND_LOCAL, oHrb ), ... )
    endif
 
 return uRet
@@ -469,6 +472,13 @@ HB_FUNC( PTRTOSTR )
    const char * * pStrs = ( const char * * ) hb_parnll( 1 );   
    
    hb_retc( * ( pStrs + hb_parnl( 2 ) ) );
+}
+
+HB_FUNC( PTRTOUI )
+{
+   unsigned int * pNums = ( unsigned int * ) hb_parnll( 1 );   
+   
+   hb_retnl( * ( pNums + hb_parnl( 2 ) ) );
 }
 
 HB_FUNC( AP_HEADERSIN )
