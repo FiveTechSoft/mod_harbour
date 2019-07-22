@@ -162,22 +162,24 @@ return nil
 
 function AddLog()
 
-   USE ( hb_GetEnv( "PRGPATH" ) + "/data/logs" ) SHARED NEW
+   if GetContent() != "logs" 
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/logs" ) SHARED NEW
 
-   APPEND BLANK
+      APPEND BLANK
 
-   if RLock()
-      field->date    := Date()
-      field->time    := Time()
-      field->userip  := AP_UserIP()
-      field->method  := AP_Method()
-      field->content := If( ! Empty( GetContent() ), GetContent(), "" )
-      field->action  := If( ! Empty( GetAction() ), GetAction(), "" )
-      field->id      := If( ! Empty( GetVal1() ), GetVal1(), 0 )
-      DbUnLock()
-   endif
+      if RLock()
+         field->date    := Date()
+         field->time    := Time()
+         field->userip  := AP_UserIP()
+         field->method  := AP_Method()
+         field->content := If( ! Empty( GetContent() ), GetContent(), "" )
+         field->action  := If( ! Empty( GetAction() ), GetAction(), "" )
+         field->id      := If( ! Empty( GetVal1() ), GetVal1(), 0 )
+         DbUnLock()
+      endif
 
-   USE
+      USE
+   endif   
    
 return nil   
 
