@@ -498,9 +498,11 @@ function BuildBrowse( cTableName )
       cHtml += '<div class="col-sm-3 btn-group" style="height:40px;">' + CRLF
       cHtml += '   <button type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">' + ;
                '<i class="fas fa-angle-double-left" style="color:white;padding-right:15px;font-size:18px;"></i>First</button>' + CRLF
-      cHtml += '   <button type="button" class="btn btn-primary" style="background-color:{{GetColor2()}};">' + ;
+      cHtml += '   <button onclick="' + "location.href='index.prg?" + GetContent() + ":browse:" + AllTrim( Str( 20 ) ) + ;
+               ":" + AllTrim( Str( RecNo() - 41 ) ) + "'" + '" type="button" class="btn btn-primary" style="background-color:{{GetColor2()}};">' + ;
                '<i class="fas fa-angle-left" style="color:white;padding-right:15px;font-size:18px;"></i>Prev</button>' + CRLF
-      cHtml += '   <button type="button" class="btn btn-primary" style="background-color:{{GetColor2()}};">Next' + ;
+      cHtml += '   <button onclick="' + "location.href='index.prg?" + GetContent() + ":browse:" + AllTrim( Str( 20 ) ) + ;
+               ":" + AllTrim( Str( RecNo() - 1 ) ) + "'" + '" type="button" class="btn btn-primary" style="background-color:{{GetColor2()}};">Next' + ;
                '<i class="fas fa-angle-right" style="color:white;padding-left:15px;font-size:18px;"></i></button>' + CRLF
       cHtml += '   <button type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">Last' + ;
                '<i class="fas fa-angle-double-right" style="color:white;padding-left:15px;font-size:18px;"></i></button>' + CRLF
