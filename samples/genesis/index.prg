@@ -51,7 +51,7 @@ function Controller( cRequest )
 
    if cAction $ "add,browse" 
       if nVal1 == 0
-         nVal1 = 30
+         nVal1 = 20
       endif  
    endif   
 
@@ -496,7 +496,8 @@ function BuildBrowse( cTableName )
 
    if RecCount() > nRow 
       cHtml += '<div class="col-sm-3 btn-group" style="height:40px;">' + CRLF
-      cHtml += '   <button type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">' + ;
+      cHtml += '   <button onclick="' + "location.href='index.prg?" + GetContent() + ":browse:" + AllTrim( Str( 20 ) ) + ;
+               ":" + AllTrim( Str( 0 ) ) + "'" + '" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">' + ;
                '<i class="fas fa-angle-double-left" style="color:white;padding-right:15px;font-size:18px;"></i>First</button>' + CRLF
       cHtml += '   <button onclick="' + "location.href='index.prg?" + GetContent() + ":browse:" + AllTrim( Str( 20 ) ) + ;
                ":" + AllTrim( Str( RecNo() - 41 ) ) + "'" + '" type="button" class="btn btn-primary" style="background-color:{{GetColor2()}};">' + ;
@@ -504,7 +505,8 @@ function BuildBrowse( cTableName )
       cHtml += '   <button onclick="' + "location.href='index.prg?" + GetContent() + ":browse:" + AllTrim( Str( 20 ) ) + ;
                ":" + AllTrim( Str( RecNo() - 1 ) ) + "'" + '" type="button" class="btn btn-primary" style="background-color:{{GetColor2()}};">Next' + ;
                '<i class="fas fa-angle-right" style="color:white;padding-left:15px;font-size:18px;"></i></button>' + CRLF
-      cHtml += '   <button type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">Last' + ;
+      cHtml += '   <button onclick="' + "location.href='index.prg?" + GetContent() + ":browse:" + AllTrim( Str( 20 ) ) + ;
+               ":" + AllTrim( Str( RecCount() - 20 ) ) + "'" + '" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">Last' + ;
                '<i class="fas fa-angle-double-right" style="color:white;padding-left:15px;font-size:18px;"></i></button>' + CRLF
       cHtml += '</div>' + CRLF
    endif              
