@@ -5,10 +5,10 @@
                      <i class="fas fa-print" style="color:lightgray;padding-right:15px;font-size:16px"></i>Print</button><hr>
                   <div class="row" style="padding-left:15px;"> 
                      <div class="col-sm-3">  
-                        <select class="selectpicker show-tick" style="height:30px;margin-bottom:10px;margin-right:10px">
-                           <option>20</option>
-                           <option>25</option>
-                           <option>30</option>
+                        <select id="rowsperpage" class="selectpicker show-tick" style="height:30px;margin-bottom:10px;margin-right:10px">
+                           <option {{If(GetVal1()==20,"selected","")}}>20</option>
+                           <option {{If(GetVal1()==25,"selected","")}}>25</option>
+                           <option {{If(GetVal1()==30,"selected","")}}>30</option>
                         </select>   
                         records per page
                      </div>   

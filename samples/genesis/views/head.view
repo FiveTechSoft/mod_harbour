@@ -67,6 +67,13 @@
                    "location.href='index.prg?{{GetContent()}}:del:" + cId + "'" );
       }
 
+      function GetRowsPerPage()
+      {
+         var o = $( "#rowsperpage" );
+
+         return o["0"].options[ o["0"].options.selectedIndex ].value;
+      }
+
       function Logout()
       {
          MsgYesNo( "Do you want to logout ?", "Please select",
