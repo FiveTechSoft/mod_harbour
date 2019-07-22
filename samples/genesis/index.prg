@@ -490,8 +490,8 @@ function BuildBrowse( cTableName )
    cHtml += "<hr>" + CRLF
    cHtml += '<div class="row" style="padding-left:15px">' + CRLF
    cHtml += '<div class="col-sm-3">' + CRLF
-   cHtml += "Showing records " + AllTrim( Str( GetVal2() + 1 ) ) + " - " + ;
-            AllTrim( Str( GetVal2() + nRow ) ) + "</div>" + CRLF
+   cHtml += "Showing records " + AllTrim( Str( Max( GetVal2() + 1, 1 ) ) ) + " - " + ;
+            AllTrim( Str( RecNo() - 1 ) ) + "</div>" + CRLF
    cHtml += '<div class="col-sm-1"></div>' + CRLF         
 
    if RecCount() > nRow 
