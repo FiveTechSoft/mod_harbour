@@ -363,8 +363,19 @@ function View( cView )
    local lFound := File( cViewName )
    local cData
 
+   if ! lFound
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/views" ) SHARED NEW
+      LOCATE FOR AllTrim( field->name ) = AllTrim( cView )
+       if lFound := Found()
+         cData = field->code
+      endif
+      USE
+   endif      
+
    if lFound
-      cData = MemoRead( cViewName )
+      if Empty( cData )
+         cData = MemoRead( cViewName )
+      endif   
     
       while ReplaceBlocks( @cData, "{{", "}}" )
       end
@@ -424,17 +435,19 @@ function BuildBrowse( cTableName )
       for n = 1 to FCount()
          do case
             case FieldType( n ) == "M"
-               cHtml += '<td>' + SubStr( FieldGet( n ), 1, 20 ) + CRLF
-               cHtml += '<button onclick="MsgInfo(' + "'" + ;
-                        StrTran( FieldGet( n ), Chr( 13 ) + Chr( 10 ), "<br>" ) + "', '" + ;
-                        FieldName( n ) + "');" + '"' + ;
-                        ' type="button" class="btn btn-primary"' + CRLF 
-               cHtml += ' style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
-               cHtml += '<i class="fas fa-eye"' + ;
-                        ' style="color:gray;padding-right:15px;font-size:16px;">' + CRLF
-               cHtml += '</i>View</button>' + CRLF            
+               cHtml += '<td>' + If( "</" $ FieldGet( n ), "...", SubStr( FieldGet( n ), 1, 20 ) ) + CRLF
+               if ! "</" $ FieldGet( n )
+                  cHtml += '<button onclick="MsgInfo(' + "'" + ;
+                           StrTran( FieldGet( n ), Chr( 13 ) + Chr( 10 ), "<br>" ) + "', '" + ;
+                           FieldName( n ) + "');" + '"' + ;
+                           ' type="button" class="btn btn-primary"' + CRLF 
+                  cHtml += ' style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
+                  cHtml += '<i class="fas fa-eye"' + ;
+                           ' style="color:gray;padding-right:15px;font-size:16px;">' + CRLF
+                  cHtml += '</i>View</button>' + CRLF
+               endif   
                if FieldName( n ) == "CODE"
-                  cHtml += '<button onclick="location.href=' + "'index.prg?tasks:exec:" + ;
+                  cHtml += '<button onclick="location.href=' + "'index.prg?" + Lower( Alias() ) + ":exec:" + ;
                            AllTrim( Str( RecNo() ) ) + "';" + ;
                            '" type="button" class="btn btn-primary"' + CRLF 
                            cHtml += ' style="border-color:gray;color:gray;background-color:#f9f9f9;">' + CRLF
@@ -550,6 +563,10 @@ function Save()
 
    local hPost := AP_PostPairs(), n
 
+   if GetContent() != "database" 
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/database" ) SHARED NEW
+   endif
+
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + GetContent() ) SHARED NEW
 
    DbGoTo( nVal1 )
@@ -572,7 +589,18 @@ function Save()
                FieldPut( n, .F. )
             endif      
          endif 
-      next  
+      next 
+
+      if GetContent() != "database"
+         SELECT "database"
+         LOCATE FOR RTrim( database->table ) == GetContent()
+         if Found() .and. ! Empty( database->OnPostEdit )
+            Execute( database->OnPostEdit )
+         endif
+         USE
+         SELECT ( GetContent() )
+      endif
+
       DbUnLock()
    endif   
 
@@ -598,7 +626,11 @@ function Task()
    USE
 
    if ! Empty( cCode )
-      cResult = Execute( cCode )
+      if "func" $ cCode .or. "proc" $ cCode 
+         cResult = Execute( cCode )
+      else
+         cResult = cCode
+      endif      
    endif   
 
 return cResult
