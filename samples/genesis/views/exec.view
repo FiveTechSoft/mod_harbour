@@ -1,4 +1,4 @@
-               <div style="background-color:white;margin:30px;padding:10px;padding-top:10px;border:1px;border-style:line;border-color:red;">
+               <div style="max-height:90%;background-color:white;margin:30px;padding:10px;padding-top:10px;overflow-x:hidden;overflow-y:auto;">
                <button onclick="window.print();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
                   <i class="fas fa-print" style="color:lightgray;padding-right:15px;font-size:16px"></i>
                   Print</button><hr>
