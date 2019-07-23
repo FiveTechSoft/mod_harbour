@@ -113,13 +113,14 @@ function CheckDataBase()
 
    if ! File( hb_GetEnv( "PRGPATH" ) + "/data/logs.dbf" )
       DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/logs.dbf",;
-                { { "DATE",    "D", 8, 0 },;
-                  { "TIME",    "C", 8, 0 },;
+                { { "DATE",    "D",  8, 0 },;
+                  { "TIME",    "C",  8, 0 },;
                   { "USERIP",  "C", 20, 0 },;
                   { "METHOD",  "C", 10, 0 },;
                   { "CONTENT", "C", 15, 0 },;
                   { "ACTION",  "C", 10, 0 },;
-                  { "ID",      "N", 8, 0 } } )
+                  { "PARAM1",  "N",  8, 0 },;
+                  { "PARAM2",  "N",  8, 0 } } )
    endif
 
    if ! File( hb_GetEnv( "PRGPATH" ) + "/data/menus.dbf" )
@@ -174,7 +175,8 @@ function AddLog()
          field->method  := AP_Method()
          field->content := If( ! Empty( GetContent() ), GetContent(), "" )
          field->action  := If( ! Empty( GetAction() ), GetAction(), "" )
-         field->id      := If( ! Empty( GetVal1() ), GetVal1(), 0 )
+         field->param1  := If( ! Empty( GetVal1() ), GetVal1(), 0 )
+         field->param2  := If( ! Empty( GetVal2() ), GetVal2(), 0 )
          DbUnLock()
       endif
 
