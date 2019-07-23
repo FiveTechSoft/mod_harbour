@@ -15,10 +15,12 @@
                      <div class="col-sm-6"></div>
                      <div class="col-sm-3" style="padding-right:15px;">  
                         <div class="input-group">
-                           <input type="text" class="form-control" placeholder="Search for...">
+                           <input id="searchfor" type="text" class="form-control" 
+                              placeholder={{If( Empty( GetParam1() ), "Search for...", GetParam1())}}>
                               <span class="input-group-btn">
                                  <button class="btn btn-default" 
-                                 type="button" style="width:40px;height:38px;color:white;background-color:{{GetColor1()}}">
+                                 type="button" onclick="location.href='index.prg?{{GetContent()}}:search:' + SearchFor()"
+                                 style="width:40px;height:38px;color:white;background-color:{{GetColor1()}}">
                                  <i class="fas fa-search" style="color:lightgray;padding-right:15px;font-size:16px"></i>
                                  </button>
                               </span>

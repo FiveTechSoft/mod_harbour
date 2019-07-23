@@ -1,7 +1,4 @@
-#xcommand TEXT INTO <v> => #pragma __cstream|<v>:=%s
-#xcommand TEXT INTO <v> ADDITIVE => #pragma __cstream|<v>+=%s
-
-static cContent, cAction, nVal1 := 0, nVal2 := 0, cUserName, cCode
+static cContent, cAction, cParam1 := 0, cParam2 := "", nVal1 := 0, nVal2 := 0, cUserName, cCode
 
 //----------------------------------------------------------------------------//
 
@@ -25,8 +22,10 @@ function Controller( cRequest )
       aRequest = hb_aTokens( cRequest, ":" )
       cRequest = aRequest[ 1 ]
       cAction  = If( Len( aRequest ) > 1, aRequest[ 2 ], "browse" )
-      nVal1    = If( Len( aRequest ) > 2, Val( aRequest[ 3 ] ), 0 )
-      nVal2    = If( Len( aRequest ) > 3, Val( aRequest[ 4 ] ), 0 )
+      cParam1  = If( Len( aRequest ) > 2, aRequest[ 3 ], "" )
+      cParam2  = If( Len( aRequest ) > 3, aRequest[ 4 ], "" )
+      nVal1    = Val( cParam1 )
+      nVal2    = Val( cParam2 )
    endif    
 
    if cRequest == "logout"
@@ -325,6 +324,18 @@ return cAction
 
 //----------------------------------------------------------------------------//
 
+function GetParam1()
+
+return cParam1   
+
+//----------------------------------------------------------------------------//
+
+function GetParam2()
+
+return cParam2   
+
+//----------------------------------------------------------------------------//
+
 function GetVal1()
 
 return nVal1   
@@ -412,6 +423,12 @@ function BuildBrowse( cTableName )
       USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
       GO TOP
    endif
+
+   if ! Empty( GetAction() ) .and. GetAction() == "search"
+      SET FILTER TO GetParam1() $ DBRECORDINFO( 7 )
+      GO TOP
+      nVal1 = 20
+   endif   
 
    if GetVal2() != 0
       DbSkip( GetVal2() )

@@ -79,5 +79,12 @@
          MsgYesNo( "Do you want to logout ?", "Please select",
                    "location.href='index.prg?logout'" );
       }
+
+      function SearchFor()
+      {
+         var o = $( "#searchfor" );
+
+         return o["0"].value;
+      }
    </script>  
 </head>
