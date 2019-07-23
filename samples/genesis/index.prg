@@ -426,7 +426,7 @@ function BuildBrowse( cTableName )
    endif
 
    if ! Empty( GetAction() ) .and. GetAction() == "search"
-      SET FILTER TO GetParam1() $ DBRECORDINFO( 7 )
+      SET FILTER TO Upper( GetParam1() ) $ Upper( DBRECORDINFO( 7 ) )
       GO TOP
       nVal1 = 20
    endif   
