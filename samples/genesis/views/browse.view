@@ -13,7 +13,7 @@
                         records per page
                      </div>   
                      <div class="col-sm-6"></div>
-                     <div class="col-sm-3" style="padding-right:15px;">  
+                     <div class="col-sm-3" style="padding-right:15px;padding-bottom:5px;margin-top:-5px;">  
                         <div class="input-group">
                            <input id="searchfor" type="text" class="form-control" 
                               placeholder={{If( Empty( GetParam1() ), "Search for...", GetParam1())}}>
