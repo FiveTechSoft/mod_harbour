@@ -5,6 +5,8 @@ static cUserName, cCode
 
 function Main()
 
+   SET CENTURY ON
+
    CheckDataBase()
 
    Controller( AP_Args() )
