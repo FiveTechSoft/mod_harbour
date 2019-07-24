@@ -27,7 +27,7 @@ function Main()
 
    if File( cFileName )
       if Lower( Right( cFileName, 4 ) ) == ".hrb"
-         hb_HrbDo( HB_HRB_BIND_LOCAL, hb_HrbLoad( cFileName ), AP_Args() )
+         hb_HrbDo( hb_HrbLoad( cFileName ), AP_Args() )
       else
          hb_SetEnv( "PRGPATH",;
                     SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
