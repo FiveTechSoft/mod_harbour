@@ -517,7 +517,7 @@ function BuildBrowse( cTableName )
    cHtml += '<div class="col-sm-1"></div>' + CRLF         
 
    if RecCount() > nRow 
-      cHtml += '<div class="col-sm-3 btn-group" style="height:40px;">' + CRLF
+      cHtml += '<div class="col-sm-3 btn-group" style="height:50px;">' + CRLF
       cHtml += '   <button onclick="' + "location.href='index.prg?" + GetContent() + ":browse:' + GetRowsPerPage() + ':" + ;
                AllTrim( Str( 0 ) ) + "'" + '" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">' + ;
                '<i class="fas fa-angle-double-left" style="color:white;padding-right:15px;font-size:18px;"></i>First</button>' + CRLF
@@ -566,8 +566,16 @@ function BuildEdit( cTableName )
 
          case FieldType( n ) == "L"     
               cHtml += '<input type="checkbox" name="' + FieldName( n ) + ;
-              '" class="form-control" style="border-radius:0px" ' + ;
+              '" class="form-control" style="border-radius:0px;" ' + ;
               If( FieldGet( n ), "checked", "" ) + "></td>"
+
+         case FieldType( n ) == "D"
+            cHtml += '<input id=datepicker' + AllTrim( Str( n ) ) + ;
+            ' type="text" autocomplete="off" name="' + FieldName( n ) + ;
+            '" class="form-control" style="border-radius:0px;width:100px;"' + ;
+            " value=" + DtoC( FieldGet( n ) ) + '></td>' + CRLF + ;
+            "<script>$('#datepicker" + AllTrim( Str( n ) ) + ;
+            "').datepicker({uiLibrary: 'bootstrap4'});</script>"
 
          otherwise   
               cHtml += '<input type="text" name="' + FieldName( n ) + ;
