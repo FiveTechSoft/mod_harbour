@@ -557,7 +557,7 @@ function BuildEdit( cTableName )
  
    for n = 1 to FCount()
       cHtml += '<tr>'
-      cHtml += '   <td class="text-right">' + FieldName( n ) + "</td>"
+      cHtml += '   <td class="text-right" style="padding-top:22px;">' + FieldName( n ) + "</td>"
       cHtml += '   <td class="center">'
       do case
          case FieldType( n ) == "M"
