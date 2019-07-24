@@ -120,6 +120,27 @@ static procedure DoBreak( oError )
 
 //----------------------------------------------------------------//
 
+function LoadHRB( cHrbFile_or_oHRB )
+
+   local lResult := .F.
+
+   if ValType( cHrbFile_or_oHRB ) == "C"
+      if File( hb_GetEnv( "PRGPATH" ) + "/" + cHrbFile_or_oHRB )
+         AAdd( M->getList,;
+            hb_HrbLoad( 1, hb_GetEnv( "PRGPATH" ) + "/" + cHrbFile_or_oHRB ) )
+         lResult = .T.   
+      endif      
+   endif
+   
+   if ValType( cHrbFile_or_oHRB ) == "P"
+      AAdd( M->getList, hb_HrbLoad( 1, cHrbFile_or_oHRB ) )
+      lResult = .T.
+   endif
+   
+return lResult   
+
+//----------------------------------------------------------------//
+
 function ValToChar( u )
 
    local cType := ValType( u )
