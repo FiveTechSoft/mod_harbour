@@ -487,7 +487,14 @@ function BuildBrowse( cTableName )
                         If( FieldGet( n ), "checked", "" ) + "></td>" + CRLF
 
             otherwise
-               cHtml += '<td>' + ValToChar( FieldGet( n ) ) + "</td>" + CRLF   
+               cHtml += '<td>' + ValToChar( FieldGet( n ) ) + "</td>" + CRLF  
+               if FieldType( n ) == "C" .and. "." $ FieldGet( n ) 
+                  // if File( hb_GetEnv( "PRGPATH" ) + FieldGet( n ) )
+                     cHtml += '<td><img src="' + hb_GetEnv( "DOCUMENT_ROOT" ) + ;
+                              AllTrim( FieldGet( n ) ) + ;
+                              '" style="width:50px;border-radius:50%;"></td>' + CRLF
+                  // endif
+               endif      
          endcase   
       next
 
