@@ -5,9 +5,9 @@ var nRows = 1;
 function AddGroup()
 {
    $( "#colcenter" ).append( 
-   '<div class="form-group row">' +
-         '<h5 style="padding-left:15px;padding-top:10px;">Group' + ++nGroups + ' Header</h5>' + 
-   '</div>' );
+   '<div class="form-group row">\r\n' +
+         '<h5 style="padding-left:15px;padding-top:10px;">Group' + ++nGroups + ' Header</h5>\r\n' + 
+   '</div>\r\n' );
 }
 
 function AddRow()
@@ -15,17 +15,17 @@ function AddRow()
    var cRow1 = "#row" + ( ++nRows ) + "-1";
    var cRow2 = "#row" + nRows + "-2";
 
-   $( "#colcenter" ).append( '<div id="group' + ( nRows + 1 ) + '" class="form-group row">' + 
-                             '   <label for="text" class="col-1 col-form-label">Label' + ( ( nRows * 2 ) + 1 ) + "</label>" + 
-                             '   <div id="row' + nRows + '-1" class="col-3">' +
-                             '      <input id="get' + ( nGroups * 2 ) + '" name="fieldname" type="text" class="form-control" value="" placeholder="">' +
-                             '   </div>' +
-                             '   <label for="text" class="col-1 col-form-label">Label' + ( ( nRows * 2 ) + 2 ) + '</label>' + 
-                             '   <div id="row' + nRows + "-2" + '" class="col-3">' +
+   $( "#colcenter" ).append( '<div id="group' + ( nRows + 1 ) + '" class="form-group row">\r\n' + 
+                             '   <label for="text" class="col-1 col-form-label">Label' + ( ( nRows * 2 ) + 1 ) + "</label>\r\n" + 
+                             '   <div id="row' + nRows + '-1" class="col-3">\r\n' +
+                             '      <input id="get' + ( nGroups * 2 ) + '" name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
+                             '   </div>\r\n' +
+                             '   <label for="text" class="col-1 col-form-label">Label' + ( ( nRows * 2 ) + 2 ) + '</label>\r\n' + 
+                             '   <div id="row' + nRows + "-2" + '" class="col-3">\r\n' +
                              '      <input id="get' + ( ( nGroups * 2 ) + 1 ) + 
-                             '"     name="fieldname" type="text" class="form-control" value="" placeholder="">' +
-                             '   </div>' + 
-                             '</div>' );
+                             '"     name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
+                             '   </div>\r\n' + 
+                             '</div>\r\n' );
 
    $( cRow1 ).bind( "focusout", function(){ oFocus = this; } );                               
    $( cRow2 ).bind( "focusout", function(){ oFocus = this; } );                               
