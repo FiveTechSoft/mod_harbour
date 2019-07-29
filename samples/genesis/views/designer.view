@@ -1,5 +1,7 @@
 <script>
 var nGroups = 1;   
+var nRows = 1;
+
 function AddGroup()
 {
    $( "#colcenter" ).append( 
@@ -10,8 +12,23 @@ function AddGroup()
 
 function AddRow()
 {
-   $( "#colcenter" ).append( '<div id="group1" class="form-group row">' + 
-                             $( "#group1" ).html() + '</div>' );
+   var cRow1 = "#row" + ( ++nRows ) + "-1";
+   var cRow2 = "#row" + nRows + "-2";
+
+   $( "#colcenter" ).append( '<div id="group' + ( nRows + 1 ) + '" class="form-group row">' + 
+                             '   <label for="text" class="col-1 col-form-label">Label' + ( ( nRows * 2 ) + 1 ) + "</label>" + 
+                             '   <div id="row' + nRows + '-1" class="col-3">' +
+                             '      <input id="get' + ( nGroups * 2 ) + '" name="fieldname" type="text" class="form-control" value="" placeholder="">' +
+                             '   </div>' +
+                             '   <label for="text" class="col-1 col-form-label">Label' + ( ( nRows * 2 ) + 2 ) + '</label>' + 
+                             '   <div id="row' + nRows + "-2" + '" class="col-3">' +
+                             '      <input id="get' + ( ( nGroups * 2 ) + 1 ) + 
+                             '"     name="fieldname" type="text" class="form-control" value="" placeholder="">' +
+                             '   </div>' + 
+                             '</div>' );
+
+   $( cRow1 ).bind( "focusout", function(){ oFocus = this; } );                               
+   $( cRow2 ).bind( "focusout", function(){ oFocus = this; } );                               
 }
 
 function ShowHTML()

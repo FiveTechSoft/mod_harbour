@@ -13,11 +13,11 @@
       <div id="group1" class="form-group row">
          <label for="text" class="col-1 col-form-label">Label1</label> 
          <div id="row1-1" class="col-3">
-            <input id="get1" name="fieldname" type="text" class="form-control" value="" placeholder="use {Value('fieldname')}">
+            <input id="get1" name="fieldname" type="text" class="form-control" value="" placeholder="">
          </div>
          <label for="text" class="col-1 col-form-label">Label2</label> 
          <div id="row1-2" class="col-3">
-            <input id="get2" name="fieldname" type="text" class="form-control" value="" placeholder="use {Value('fieldname')}">
+            <input id="get2" name="fieldname" type="text" class="form-control" value="" placeholder="">
          </div>
       </div>
    </div>
