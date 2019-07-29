@@ -16,9 +16,8 @@ function AddRow()
 
 function ShowHTML()
 {
-   MsgMemo( '<div id="form" class="row">' +
-            '<div id="form" class="row">' + 
-            $( "#form" ).html(), "HTML" );
+   MsgMemo( "", "HTML" );
+   $( "#memo" ).html( '<div id="form" class="row">' + $( "#form" ).html() + "</div>" );
 }
 
 </script>
