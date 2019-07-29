@@ -12,13 +12,22 @@
       </div> 
       <div id="group1" class="form-group row">
          <label for="text" class="col-1 col-form-label">Label1</label> 
-         <div class="col-3">
+         <div id="row1-1" class="col-3">
             <input id="get1" name="fieldname" type="text" class="form-control" value="" placeholder="use {Value('fieldname')}">
          </div>
          <label for="text" class="col-1 col-form-label">Label2</label> 
-         <div class="col-3">
+         <div id="row1-2" class="col-3">
             <input id="get2" name="fieldname" type="text" class="form-control" value="" placeholder="use {Value('fieldname')}">
          </div>
       </div>
    </div>
 </div>
+<script>
+   var oFocus; 
+   $("#row1-1").focusout(function(){
+      oFocus = this;
+   });
+   $("#row1-2").focusout(function(){
+      oFocus = this;
+   });
+</script>   

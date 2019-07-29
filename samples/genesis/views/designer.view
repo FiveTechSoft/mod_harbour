@@ -9,15 +9,80 @@ function AddGroup()
 
 function AddRow()
 {
-   $( "#colcenter" ).html( $( "#colcenter" ).html() + 
-   '<div id="group1" class="form-group row">' + 
-   $( "#group1" ).html() + '</div>' );
+   $( "#colcenter" ).append( '<div id="group1" class="form-group row">' + 
+                             $( "#group1" ).html() + '</div>' );
 }
 
 function ShowHTML()
 {
    MsgMemo( "", "HTML" );
    $( "#memo" ).html( '<div id="form" class="row">' + $( "#form" ).html() + "</div>" );
+}
+
+function Larger()
+{
+   if( $(oFocus).hasClass( "col-5" ) )
+   {
+      $(oFocus).removeClass( "col-5" )
+      $(oFocus).addClass( "col-6" );
+   }
+   else   
+   {
+      if( $(oFocus).hasClass( "col-4" ) )
+      {
+         $(oFocus).removeClass( "col-4" )
+         $(oFocus).addClass( "col-5" );
+      }
+      else
+      {
+         if( $(oFocus).hasClass( "col-3" ) )
+         {
+            $(oFocus).removeClass( "col-3" )
+            $(oFocus).addClass( "col-4" );
+         }
+         else
+         {
+            if( $(oFocus).hasClass( "col-2" ) )
+            {
+               $(oFocus).removeClass( "col-2" )
+               $(oFocus).addClass( "col-3" );
+            }
+         }
+      }
+   }   
+}
+
+function Smaller()
+{
+   if( $(oFocus).hasClass( "col-6" ) )
+   {
+      $(oFocus).removeClass( "col-6" );
+      $(oFocus).addClass( "col-5" );
+   }   
+   else
+   {
+      if( $(oFocus).hasClass( "col-5" ) )
+      {
+         $(oFocus).removeClass( "col-5" );
+         $(oFocus).addClass( "col-4" );
+      }   
+      else
+      {
+         if( $(oFocus).hasClass( "col-4" ) )
+         {
+            $(oFocus).removeClass( "col-4" );
+            $(oFocus).addClass( "col-3" );
+         }
+         else
+         {
+            if( $(oFocus).hasClass( "col-3") )
+            {
+               $(oFocus).removeClass( "col-3" );
+               $(oFocus).addClass( "col-2" );
+            }   
+         }
+      }
+   }         
 }
 
 </script>
@@ -32,12 +97,12 @@ function ShowHTML()
                {{View([form])}}     
                <div class="row" style="padding-left:15px">
                   <div class="col-sm-12">
-                     <button onclick="AddRow();" class="btn btn-primary" 
+                     <button onclick="Smaller();" class="btn btn-primary" 
                         style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
                         <i class="fas fa-angle-double-left" style="color:lightgray;padding-right:10px;font-size:18px"></i>
-                        Previous</button>
-                     <button onclick="location.href='builder.prg?next:{{AllTrim(Str(RecNo()+1))}}';" class="btn btn-primary" 
-                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">Next
+                        Smaller</button>
+                     <button onclick="Larger();" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">Larger
                         <i class="fas fa-angle-double-right" style="color:lightgray;padding-right:10px;font-size:18px;padding-left:20px;"></i>
                         </button>
                      <button onclick="AddGroup();" class="btn btn-primary" 
