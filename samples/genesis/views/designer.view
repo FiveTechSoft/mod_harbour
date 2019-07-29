@@ -1,9 +1,10 @@
 <script>
+var nGroups = 1;   
 function AddGroup()
 {
    $( "#colcenter" ).append( 
    '<div class="form-group row">' +
-         '<h5 style="padding-left:15px;padding-top:10px;">Group Header</h5>' + 
+         '<h5 style="padding-left:15px;padding-top:10px;">Group' + ++nGroups + ' Header</h5>' + 
    '</div>' );
 }
 
