@@ -1,0 +1,24 @@
+<style>
+    .form-group {
+       margin: 4px;
+}
+</style>
+<div id="form" class="row">
+   <div class="col-md-2">
+   </div>  
+   <div id="colcenter" class="col-md-8">
+      <div class="form-group row">
+         <h5 style="padding-left:15px;padding-top:10px;">Group Header</h5>
+      </div> 
+      <div id="group1" class="form-group row">
+         <label for="text" class="col-1 col-form-label">Label1</label> 
+         <div class="col-3">
+            <input id="get1" name="fieldname" type="text" class="form-control" value="" placeholder="use {Value('fieldname')}">
+         </div>
+         <label for="text" class="col-1 col-form-label">Label2</label> 
+         <div class="col-3">
+            <input id="get2" name="fieldname" type="text" class="form-control" value="" placeholder="use {Value('fieldname')}">
+         </div>
+      </div>
+   </div>
+</div>

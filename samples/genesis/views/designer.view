@@ -1,0 +1,78 @@
+<script>
+function AddGroup()
+{
+   $( "#colcenter" ).html( $( "#colcenter" ).html() + 
+   '<div class="form-group row">' +
+         '<h5 style="padding-left:15px;padding-top:10px;">Group Header</h5>' + 
+   '</div>' );
+}
+
+function AddRow()
+{
+   $( "#colcenter" ).html( $( "#colcenter" ).html() + 
+   '<div id="group1" class="form-group row">' + 
+   $( "#group1" ).html() + '</div>' );
+}
+
+function ShowHTML()
+{
+   MsgMemo( '<div id="form" class="row">' +
+            '<div id="form" class="row">' + 
+            $( "#form" ).html(), "HTML" );
+}
+
+</script>
+
+
+            <div style="max-height:98%;background-color:white;margin:30px;margin-top:-18px;padding:10px;padding-top:10px;overflow-x:hidden;overflow-y:auto;">
+               <div class="row" style="padding-left:15px;"> 
+                  <div class="col-sm-7"></div>
+                  <div class="col-sm-2" style="padding-right:15px;">  
+                  </div>
+               </div>
+               {{View([form])}}     
+               <div class="row" style="padding-left:15px">
+                  <div class="col-sm-12">
+                     <button onclick="AddRow();" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fas fa-angle-double-left" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Previous</button>
+                     <button onclick="location.href='builder.prg?next:{{AllTrim(Str(RecNo()+1))}}';" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">Next
+                        <i class="fas fa-angle-double-right" style="color:lightgray;padding-right:10px;font-size:18px;padding-left:20px;"></i>
+                        </button>
+                     <button onclick="AddGroup();" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fas fa-plus" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Group</button>                     
+                     <button onclick="AddRow();" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fas fa-plus" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Row</button>
+                     <button onclick="ShowHTML();" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fas fa-edit" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Edit</button>
+                     <button onclick="location.href='index.prg?{{GetContent()}}';" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fas fa-search" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Search</button>
+                     <button onclick="location.href='index.prg?{{GetContent()}}';" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fa fa-list" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Menu</button>
+                     <button onclick="location.href='index.prg?{{GetContent()}}';" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fa fa-eye" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        View</button>
+                     <button onclick="location.href='index.prg?{{GetContent()}}';" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fa fa-remove" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Un/Delete</button>
+                     <button onclick="location.href='index.prg?{{GetContent()}}';" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fas fa-sign-out-alt" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Exit</button>
+                  </div>   
+               </div>
+               </form>
