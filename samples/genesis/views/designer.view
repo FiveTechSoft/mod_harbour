@@ -1,7 +1,7 @@
 <script>
 function AddGroup()
 {
-   $( "#colcenter" ).html( $( "#colcenter" ).html() + 
+   $( "#colcenter" ).append( 
    '<div class="form-group row">' +
          '<h5 style="padding-left:15px;padding-top:10px;">Group Header</h5>' + 
    '</div>' );
