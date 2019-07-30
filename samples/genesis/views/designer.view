@@ -2,6 +2,7 @@
 var nGroups = 1;   
 var nRows = 1;
 var nLabels = 2;
+var nGets = 2;
 
 function AddGroup()
 {
@@ -19,12 +20,11 @@ function AddRow()
    $( "#colcenter" ).append( '<div id="group' + nRows + '" class="form-group row">\r\n' + 
                              '   <label for="text" class="col-1 col-form-label">Label' + ++nLabels + "</label>\r\n" + 
                              '   <div id="row' + nRows + '-1" class="col-3">\r\n' +
-                             '      <input id="get' + ( nGroups * 2 ) + '" name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
+                             '      <input id="get' + ++nGets + '" name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
                              '   </div>\r\n' +
                              '   <label for="text" class="col-1 col-form-label">Label' + ++nLabels + '</label>\r\n' + 
                              '   <div id="row' + nRows + "-2" + '" class="col-3">\r\n' +
-                             '      <input id="get' + ( ( nGroups * 2 ) + 1 ) + 
-                             '"     name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
+                             '      <input id="get' + ++nGets + ' name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
                              '   </div>\r\n' + 
                              '</div>\r\n' );
 
@@ -34,12 +34,12 @@ function AddRow()
 
 function AddGet()
 {
-   var cGroup = "#group" + nRows;
    var cRow = "#row" + ( nRows ) + "-3";
+   var cGroup = "#" + oFocus.parentElement.id;
 
    $( cGroup ).append( '<label for="text" class="col-1 col-form-label">Label' + ++nLabels + "</label>\r\n" + 
                        '<div id="row' + nRows + '-3" class="col-3">\r\n' +
-                       '   <input id="get' + ( nGroups * 2 ) + '" name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
+                       '   <input id="get' + ++nGets + '" name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
                        '</div>\r\n' );
 
    $( cRow ).bind( "focusout", function(){ oFocus = this; } );                               
