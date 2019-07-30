@@ -1,6 +1,7 @@
 <script>
 var nGroups = 1;   
 var nRows = 1;
+var nLabels = 2;
 
 function AddGroup()
 {
@@ -16,11 +17,11 @@ function AddRow()
    var cRow2 = "#row" + nRows + "-2";
 
    $( "#colcenter" ).append( '<div id="group' + nRows + '" class="form-group row">\r\n' + 
-                             '   <label for="text" class="col-1 col-form-label">Label' + ( ( ( nRows - 1 ) * 2 ) + 1 ) + "</label>\r\n" + 
+                             '   <label for="text" class="col-1 col-form-label">Label' + ++nLabels + "</label>\r\n" + 
                              '   <div id="row' + nRows + '-1" class="col-3">\r\n' +
                              '      <input id="get' + ( nGroups * 2 ) + '" name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
                              '   </div>\r\n' +
-                             '   <label for="text" class="col-1 col-form-label">Label' + ( ( ( nRows - 1 ) * 2 ) + 2 ) + '</label>\r\n' + 
+                             '   <label for="text" class="col-1 col-form-label">Label' + ++nLabels + '</label>\r\n' + 
                              '   <div id="row' + nRows + "-2" + '" class="col-3">\r\n' +
                              '      <input id="get' + ( ( nGroups * 2 ) + 1 ) + 
                              '"     name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
@@ -29,6 +30,19 @@ function AddRow()
 
    $( cRow1 ).bind( "focusout", function(){ oFocus = this; } );                               
    $( cRow2 ).bind( "focusout", function(){ oFocus = this; } );                               
+}
+
+function AddGet()
+{
+   var cGroup = "#group" + nRows;
+   var cRow = "#row" + ( nRows ) + "-3";
+
+   $( cGroup ).append( '<label for="text" class="col-1 col-form-label">Label' + ++nLabels + "</label>\r\n" + 
+                       '<div id="row' + nRows + '-3" class="col-3">\r\n' +
+                       '   <input id="get' + ( nGroups * 2 ) + '" name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
+                       '</div>\r\n' );
+
+   $( cRow ).bind( "focusout", function(){ oFocus = this; } );                               
 }
 
 function ShowHTML()
@@ -131,6 +145,10 @@ function Smaller()
                         style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
                         <i class="fas fa-plus" style="color:lightgray;padding-right:10px;font-size:18px"></i>
                         Row</button>
+                     <button onclick="AddGet();" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fas fa-plus" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Get</button>
                      <button onclick="ShowHTML();" class="btn btn-primary" 
                         style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
                         <i class="fas fa-edit" style="color:lightgray;padding-right:10px;font-size:18px"></i>

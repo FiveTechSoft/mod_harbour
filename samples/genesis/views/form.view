@@ -4,9 +4,9 @@
 }
 </style>
 <div id="form" class="row">
-   <div class="col-md-2">
+   <div class="col-md-1">
    </div>  
-   <div id="colcenter" class="col-md-8">
+   <div id="colcenter" class="col-md-11">
       <div class="form-group row">
          <h5 style="padding-left:15px;padding-top:10px;">Group1 Header</h5>
       </div> 
