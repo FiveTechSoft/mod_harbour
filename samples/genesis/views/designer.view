@@ -15,12 +15,12 @@ function AddRow()
    var cRow1 = "#row" + ( ++nRows ) + "-1";
    var cRow2 = "#row" + nRows + "-2";
 
-   $( "#colcenter" ).append( '<div id="group' + ( nRows + 1 ) + '" class="form-group row">\r\n' + 
-                             '   <label for="text" class="col-1 col-form-label">Label' + ( ( nRows * 2 ) + 1 ) + "</label>\r\n" + 
+   $( "#colcenter" ).append( '<div id="group' + nRows + '" class="form-group row">\r\n' + 
+                             '   <label for="text" class="col-1 col-form-label">Label' + ( ( ( nRows - 1 ) * 2 ) + 1 ) + "</label>\r\n" + 
                              '   <div id="row' + nRows + '-1" class="col-3">\r\n' +
                              '      <input id="get' + ( nGroups * 2 ) + '" name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
                              '   </div>\r\n' +
-                             '   <label for="text" class="col-1 col-form-label">Label' + ( ( nRows * 2 ) + 2 ) + '</label>\r\n' + 
+                             '   <label for="text" class="col-1 col-form-label">Label' + ( ( ( nRows - 1 ) * 2 ) + 2 ) + '</label>\r\n' + 
                              '   <div id="row' + nRows + "-2" + '" class="col-3">\r\n' +
                              '      <input id="get' + ( ( nGroups * 2 ) + 1 ) + 
                              '"     name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
