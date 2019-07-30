@@ -11,6 +11,12 @@ All examples provided in the samples folder can be tested online: https://harbou
 
 ***
 
+mod_harbour users forums:
+
+http://forums.fivetechsupport.com/viewforum.php?f=45&start=0
+
+***
+
 live chat of mod_harbour users:
 
 https://harbourproject.slack.com/messages/CJUHF8SBX/
