@@ -1,5 +1,7 @@
 rddads.lib
 ace64.lib
+xhb.lib
+hbwin.lib
 hbcommon.lib
 hbrtl.lib
 png.lib
