@@ -95,7 +95,7 @@ function Main()
      }
  
      // Read in the image file as a binary string.
-     reader.readAsBinaryString(evt.target.files[0]);
+     reader.readAsDataURL(evt.target.files[0]);
    }
  
    document.getElementById('files').addEventListener('change', handleFileSelect, false);
