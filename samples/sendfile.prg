@@ -90,7 +90,7 @@ function Main()
             alert( "sent" ); // this.responseText );
         } 
        };
-       xhr.open( "POST", 'postpairs.prg' );
+       xhr.open( "POST", 'upload.prg' );
        xhr.send( formData );
      }
  
