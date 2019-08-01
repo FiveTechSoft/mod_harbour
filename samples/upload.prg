@@ -1,7 +1,7 @@
 function Main()
 
    local hPairs := AP_PostPairs()
-   local cData, cFileName, nStart, nEnd 
+   local cData, cFileName, nStart 
 
    if Len( hPairs ) == 0
       ? "This example is used from samples/sendfile.prg"
