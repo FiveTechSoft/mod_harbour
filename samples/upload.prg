@@ -1,17 +1,16 @@
 function Main()
 
    local hPairs := AP_PostPairs()
+   local cData, cFileName, nStart, nEnd 
 
    if Len( hPairs ) == 0
       ? "This example is used from samples/sendfile.prg"
    else
-      if HB_HHasKey( hPairs, "filename" )
-         MemoWrit( hb_GetEnv( "PRGPATH" ) + "/data/" + hPairs[ "filename" ],;
-                   hb_UrlDecode( hPairs[ "data" ] ) )
-         MemoWrit( hb_GetEnv( "PRGPATH" ) + "/data/received.txt",;
-                   MemoRead( hb_GetEnv( "PRGPATH" ) + "/data/received.txt" ) + CRLF + ;
-                   hPairs[ "filename" ] )
-      endif                        
+      cData = HB_HValueAt( hPairs, 1 )
+      cFileName = SubStr( cData, 2, At( ";", cData ) - 3 )
+      hb_MemoWrit( hb_GetEnv( "PRGPATH" ) + "/data/" + cFileName,;
+                   HB_BASE64DECODE( SubStr( cData, nStart := At( "base64,", cData ) + 7,;
+                   At( "------", cData ) - nStart ) ) )
    endif
 
 return nil

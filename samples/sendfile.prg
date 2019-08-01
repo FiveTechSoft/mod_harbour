@@ -84,8 +84,7 @@ function Main()
        var formData = new FormData();
        var xhr = new XMLHttpRequest();
        var blob = new Blob( [e.target.result], {type: "application/octet-stream"} );
-       formData.append( "filename", e.target.fileName );
-       formData.append( "data", blob );
+       formData.append( evt.target.files[0].name, blob );
        xhr.onreadystatechange = function() { 
          if( this.readyState == XMLHttpRequest.DONE && this.status == 200 ) {
             alert( "sent" ); // this.responseText );
