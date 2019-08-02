@@ -27,7 +27,11 @@ function Main()
       endif
    endif   
 
-   ?? View( "default" )
+   if AP_Method() != "POST"
+      ?? View( "default" )
+   else
+      ?? Field->Id 
+   endif      
 
    USE
 
