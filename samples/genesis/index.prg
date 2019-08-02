@@ -7,6 +7,7 @@ function Main()
 
    SET CENTURY ON
 
+   CheckUser()
    CheckDataBase()
 
    Controller( AP_Args() )
@@ -14,6 +15,41 @@ function Main()
    AddLog()
 
 return nil
+
+//----------------------------------------------------------------------------//
+
+function CheckUser()
+
+   if ! Empty( GetCookies()[ "genesis" ] )
+      cUserName = GetCookies()[ "genesis" ]
+   else
+      cUserName = "guest"   
+   endif
+
+   if ! File( hb_vfDirExists( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName ) )
+      hb_vfDirMake( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName )
+      hb_vfDirMake( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data" )
+      hb_vfDirMake( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/images" )
+      hb_vfDirMake( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views" )
+      hb_vfCopyFile( hb_GetEnv( "PRGPATH" ) + "/views/default.view",;
+                     hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views/default.view" )
+      hb_vfCopyFile( hb_GetEnv( "PRGPATH" ) + "/views/head.view",;
+                     hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views/head.view" )
+      hb_vfCopyFile( hb_GetEnv( "PRGPATH" ) + "/views/body.view",;
+                     hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views/body.view" )
+      hb_vfCopyFile( hb_GetEnv( "PRGPATH" ) + "/views/browse.view",;
+                     hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views/browse.view" )
+      hb_vfCopyFile( hb_GetEnv( "PRGPATH" ) + "/views/edit.view",;
+                     hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views/edit.view" )
+      hb_vfCopyFile( hb_GetEnv( "PRGPATH" ) + "/views/menu.view",;
+                     hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views/menu.view" )
+      hb_vfCopyFile( hb_GetEnv( "PRGPATH" ) + "/views/home.view",;
+                     hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views/home.view" )
+      hb_vfCopyFile( hb_GetEnv( "PRGPATH" ) + "/views/login.view",;
+                     hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views/login.view" )
+   endif
+
+return nil   
 
 //----------------------------------------------------------------------------//
 
@@ -90,8 +126,7 @@ function Controller( cRequest )
       if ! hb_HhasKey( GetCookies(), "genesis" )
          cRequest = "login"
       else
-         if ! Empty( GetCookies()[ "genesis" ] )
-            cUserName = GetCookies()[ "genesis" ]
+         if cUserName != "guest"
             if cRequest == "login"
                cRequest = "home"
             endif 
@@ -100,10 +135,6 @@ function Controller( cRequest )
          endif
       endif              
    endif      
-
-   if ! File( hb_vfDirExists( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName ) )
-      hb_vfDirMake( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName )
-   endif
 
    hb_default( @cAction, "browse" )
 
@@ -159,43 +190,7 @@ return View( cRoute )
 
 function CheckDataBase()
 
-   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/database.dbf" )
-      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/database.dbf",;
-                { { "TABLE",       "C", 20, 0 },;
-                  { "DESCRIPTIO",  "C", 30, 0 },;
-                  { "FIELDS",      "M", 10, 0 },;
-                  { "INDEXES",     "M", 10, 0 },;
-                  { "ONNEW",       "M", 10, 0 },;      
-                  { "ONPOSTEDIT",  "M", 10, 0 } } )
-   endif
-
-   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/logs.dbf" )
-      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/logs.dbf",;
-                { { "DATE",    "D",  8, 0 },;
-                  { "TIME",    "C",  8, 0 },;
-                  { "USERIP",  "C", 20, 0 },;
-                  { "METHOD",  "C", 10, 0 },;
-                  { "CONTENT", "C", 15, 0 },;
-                  { "ACTION",  "C", 10, 0 },;
-                  { "PARAM1",  "N",  8, 0 },;
-                  { "PARAM2",  "N",  8, 0 } } )
-   endif
-
-   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/menus.dbf" )
-      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/menus.dbf",;
-                { { "GLYPH",   "C", 20, 0 },;
-                  { "PROMPT",  "C", 20, 0 },;
-                  { "ACTION",  "C", 30, 0 } } )
-   endif
-
-   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/tasks.dbf" )
-      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/tasks.dbf",;
-                { { "NAME",       "C", 20, 0 },;
-                  { "DESCRIPTIO", "C", 40, 0 },;
-                  { "CODE",       "M", 10, 0 } } )
-   endif
-
-   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/users.dbf" )
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/users.dbf" )  // for ALL users of Genesis
       DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/users.dbf",;
                 { { "DATE",    "D",  8, 0 },;
                   { "FIRST",   "C", 20, 0 },;
@@ -207,12 +202,67 @@ function CheckDataBase()
                   { "NOTES",   "M", 10, 0 } } )
    endif
 
-   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/views.dbf" )
-      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/views.dbf",;
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/database.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/database.dbf",;
+                { { "TABLE",       "C", 20, 0 },;
+                  { "DESCRIPTIO",  "C", 30, 0 },;
+                  { "FIELDS",      "M", 10, 0 },;
+                  { "INDEXES",     "M", 10, 0 },;
+                  { "ONNEW",       "M", 10, 0 },;      
+                  { "ONPOSTEDIT",  "M", 10, 0 } } )
+   endif
+
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/logs.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/logs.dbf",;
+                { { "DATE",    "D",  8, 0 },;
+                  { "TIME",    "C",  8, 0 },;
+                  { "USERIP",  "C", 20, 0 },;
+                  { "METHOD",  "C", 10, 0 },;
+                  { "CONTENT", "C", 15, 0 },;
+                  { "ACTION",  "C", 10, 0 },;
+                  { "PARAM1",  "N",  8, 0 },;
+                  { "PARAM2",  "N",  8, 0 } } )
+   endif
+
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/menus.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/menus.dbf",;
+                { { "GLYPH",   "C", 20, 0 },;
+                  { "PROMPT",  "C", 20, 0 },;
+                  { "ACTION",  "C", 30, 0 } } )
+   endif
+
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/tasks.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/tasks.dbf",;
+                { { "NAME",       "C", 20, 0 },;
+                  { "DESCRIPTIO", "C", 40, 0 },;
+                  { "CODE",       "M", 10, 0 } } )
+   endif
+
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/users.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/users.dbf",;
+                { { "DATE",    "D",  8, 0 },;
+                  { "FIRST",   "C", 20, 0 },;
+                  { "LAST",    "C", 20, 0 },;
+                  { "ACTIVE",  "L",  1, 0 },;
+                  { "EMAIL",   "C", 30, 0 },;
+                  { "PHONE",   "C", 20, 0 },;
+                  { "PASSMD5", "C", 32, 0 },;
+                  { "NOTES",   "M", 10, 0 } } )
+   endif
+
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/views.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/views.dbf",;
                 { { "NAME",       "C", 20, 0, 0 },;
                   { "DESCRIPTIO", "C", 40, 0, 0 },;
                   { "FILE",       "C", 50, 0, 0 },;
                   { "CODE",       "M", 10, 0, 0 } } )
+   endif
+
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/settings.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/settings.dbf",;
+                { { "USERID",     "C", 20, 0, 0 },;
+                  { "THEME",      "C", 40, 0, 0 },;
+                  { "PERMITS",    "M", 150, 0, 0 } } )
    endif
    
 return nil   
@@ -222,7 +272,11 @@ return nil
 function AddLog()
 
    if GetContent() != "logs" 
-      USE ( hb_GetEnv( "PRGPATH" ) + "/data/logs" ) SHARED NEW
+      if cUserName == "guest"
+         USE ( hb_GetEnv( "PRGPATH" ) + "/data/logs" ) SHARED NEW
+      else
+         USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/logs" ) SHARED NEW
+      endif
 
       APPEND BLANK
 
@@ -280,8 +334,12 @@ return nil
 
 function AddUser( hPairs )
 
-   USE ( hb_GetEnv( "PRGPATH" ) + "/data/users" ) SHARED
-   
+   if cUserName == "guest"
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/users" ) SHARED
+   else
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/users" ) SHARED
+   endif
+
    APPEND BLANK
    if RLock()
       field->date    := Date()
@@ -302,7 +360,11 @@ function Identify( _cUserName, _cPassword )
 
    local lFound
 
-   USE ( hb_GetEnv( "PRGPATH" ) + "/data/users" ) SHARED
+   if cUserName == "guest"
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/users" ) SHARED
+   else   
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/users" ) SHARED
+   endif
 
    LOCATE FOR ( field->email = hb_UrlDecode( _cUserName ) .or. field->phone = _cUserName ) .and. ;
                 field->passmd5 = hb_Md5( _cPassword )
@@ -357,7 +419,7 @@ return nVal2
 
 function GetUserName()
 
-return If( Empt( cUserName ), "login", "Welcome " + cUserName )
+return cUserName
 
 //----------------------------------------------------------------------------//
 
@@ -381,12 +443,22 @@ function GetColor3() ; return "rgb(34, 45, 50)"
 
 function View( cView )
 
-   local cViewName := hb_GetEnv( "PRGPATH" ) + "/views/" + cView + ".view" 
-   local lFound := File( cViewName )
-   local cData
+   local cViewName, lFound, cData 
+
+   if cUserName == "guest"
+      cViewName = hb_GetEnv( "PRGPATH" ) + "/views/" + cView + ".view"
+   else   
+      cViewName = hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views/" + cView + ".view"
+   endif
+
+   lFound = File( cViewName )
 
    if ! lFound
-      USE ( hb_GetEnv( "PRGPATH" ) + "/data/views" ) SHARED NEW
+      if cUserName == "guest"
+         USE ( hb_GetEnv( "PRGPATH" ) + "/data/views" ) SHARED NEW
+      else   
+         USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/views" ) SHARED NEW
+      endif   
       LOCATE FOR AllTrim( field->name ) = AllTrim( cView )
        if lFound := Found()
          cData = field->code
@@ -413,7 +485,11 @@ function BuildBrowse( cTableName )
 
    local cHtml := "", n, nRow := 0
 
-   USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
+   if cUserName == "guest"
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
+   else
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/" + cTableName ) SHARED NEW
+   endif
 
    if ! Empty( GetAction() ) .and. GetAction() == "add"
       APPEND BLANK
@@ -422,12 +498,21 @@ function BuildBrowse( cTableName )
 
    if ! Empty( GetAction() ) .and. GetAction() == "del"
       USE
-      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) NEW
+      if cUserName == "guest"
+         USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) NEW
+      else
+         USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/" + cTableName ) NEW
+      endif
+
       DbGoTo( GetVal1() )
       DELETE 
       PACK
       USE
-      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
+      if cUserName == "guest"
+         USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
+      else   
+         USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/" + cTableName ) SHARED NEW
+      endif 
       GO TOP
    endif
 
@@ -558,7 +643,11 @@ function BuildEdit( cTableName )
 
    local cHtml := "", n
 
-   USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
+   if cUserName == "guest"
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cTableName ) SHARED NEW
+   else
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/" + cTableName ) SHARED NEW
+   endif
 
    DbGoTo( GetVal1() )
 
@@ -611,10 +700,18 @@ function Save()
    local hPost := AP_PostPairs(), n
 
    if GetContent() != "database" 
-      USE ( hb_GetEnv( "PRGPATH" ) + "/data/database" ) SHARED NEW
+      if cUserName == "guest"
+         USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + database ) SHARED NEW
+      else
+         USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/" + database ) SHARED NEW
+      endif
    endif
 
-   USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + GetContent() ) SHARED NEW
+   if cUserName == "guest"
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + GetContent() ) SHARED NEW
+   else
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/" + GetContent() ) SHARED NEW
+   endif
 
    DbGoTo( nVal1 )
    
@@ -663,8 +760,12 @@ function Task()
 
    local cResult := ""
 
-   USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + GetContent() ) SHARED NEW
-
+   if cUserName == "guest"
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + GetContent() ) SHARED NEW
+   else
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/" + GetContent() ) SHARED NEW 
+   endif
+       
    DbGoTo( GetVal1() )
 
    cCode = field->code

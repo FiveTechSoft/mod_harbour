@@ -6,9 +6,6 @@
                   <a {{If( GetContent() == "logs", 'class="active"', 'class="text-secondary"' )}}
                      onclick="SelectCategory( this, 'logs' );">
                      <i class="fa fa-list-alt" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Logs</a>
-                  <a {{If( GetContent() == "routes", 'class="active"', 'class="text-secondary"' )}} 
-                     onclick="SelectCategory( this, 'routes' );">
-                     <i class="fa fa-random" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Routes</a>
                   <a {{If( GetContent() == "menus", 'class="active"', 'class="text-secondary"' )}} 
                      onclick="SelectCategory( this, 'menus' );">
                      <i class="fa fa-list" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Menus</a>
@@ -18,9 +15,6 @@
                   <a {{If( GetContent() == "tasks", 'class="active"', 'class="text-secondary"' )}} 
                      onclick="SelectCategory( this, 'tasks' );">
                      <i class="fa fa-flash" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Tasks</a>
-                  <a {{If( GetContent() == "controllers", 'class="active"', 'class="text-secondary"' )}}
-                     onclick="SelectCategory( this, 'controllers' );">
-                     <i class="fas fa-project-diagram" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Controllers</a>
                   <a {{If( GetContent() == "users", 'class="active"', 'class="text-secondary"' )}} 
                      onclick="SelectCategory( this, 'users' );">
                      <i class="fa fa-users" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Users</a>
