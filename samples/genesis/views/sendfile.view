@@ -9,9 +9,9 @@
 			<input id="filepicker" type='file' style="display:none;"/>
 			<h3 id="picker" style="cursor:pointer;">
 				Please select a file to send
-			</h3>
+			</h3><br>
 			<h4 id="filename"></h4> 
-            <br><br>
+            <br>
 			<div class="progress">
 				<div class="progress-bar w-0">
 				</div>
@@ -29,7 +29,10 @@
 	</div>
 </div>
 <script>
-   $( '#picker' ).bind( "click" , function () {
-        $( '#filepicker' ).click();
-    });
+   $( "#picker" ).bind( "click" , function() {
+        $( "#filepicker" ).click();
+      });
+   $( "#filepicker" ).bind( "change", function( evt ) {
+	   $( "#filename" ).html( evt.target.files[0].name )
+	  }); 
 </script>
