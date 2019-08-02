@@ -701,9 +701,9 @@ function Save()
 
    if GetContent() != "database" 
       if cUserName == "guest"
-         USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + database ) SHARED NEW
+         USE ( hb_GetEnv( "PRGPATH" ) + "/data/database" ) SHARED NEW
       else
-         USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/" + database ) SHARED NEW
+         USE ( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/data/database" ) SHARED NEW
       endif
    endif
 
