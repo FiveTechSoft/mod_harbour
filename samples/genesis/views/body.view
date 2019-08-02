@@ -5,7 +5,7 @@
             <nav class="navbar navbar-expand-lg navbar-inverse" style="background-color:{{GetColor1()}};border:0px;">
                <a class="navbar-brand" style="color:white;cursor:pointer;padding-left:65px;">Gen<font color="silver">esis</font></a>
             </nav> 
-            {{View("menu")}}
+            {{If( GetUserName() == "guest", "<script>$('#leftmenu').css('display','none');</script>", View("menu"))}}
          </div>
          <div class="col-sm-10" style="padding-left:0px;padding-right:0px">
             <nav class="navbar navbar-expand-lg navbar-inverse" style="background-color:{{GetColor2()}};border:0px;">
