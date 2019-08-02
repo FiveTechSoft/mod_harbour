@@ -101,6 +101,10 @@ function Controller( cRequest )
       endif              
    endif      
 
+   if ! File( hb_vfDirExists( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName ) )
+      hb_vfDirMake( hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName )
+   endif
+
    hb_default( @cAction, "browse" )
 
    if cAction $ "add,browse" 
