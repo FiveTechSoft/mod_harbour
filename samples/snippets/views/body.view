@@ -45,5 +45,12 @@
 			</nav>
 		</div>
 	</div>
-	{{View("code")}}
+	<div class="row">
+		<div class="col-md-7" style="height:950px;padding:0px;"> 
+	       {{View("code")}}
+		</div>
+	    <div id="result" class="col-md-5" style="background-color: aquamarine;padding:0px;height:900px;">
+			Hello world
+	    </div>  
+	</div>
 </div>
