@@ -47,6 +47,8 @@ function CheckUser()
                      hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views/home.view" )
       hb_vfCopyFile( hb_GetEnv( "PRGPATH" ) + "/views/login.view",;
                      hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views/login.view" )
+      hb_vfCopyFile( hb_GetEnv( "PRGPATH" ) + "/views/exec.view",;
+                     hb_GetEnv( "PRGPATH" ) + "/data/" + cUserName + "/views/exec.view" )
    endif
 
 return nil   
