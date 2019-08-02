@@ -16,6 +16,17 @@ function Main()
 
    LOCATE FOR cArgs $ Field->ID
 
+   if ! Found()
+      if AP_Method() == "POST"
+         APPEND BLANK
+         if RLock()
+            Field->Id = DToS( Date() ) + StrTran( Time(), ":", "" )
+            Field->Code = hb_UrlDecode( AP_PostPairs()[ "source" ] )
+            DbUnLock()
+         endif   
+      endif
+   endif   
+
    ?? View( "default" )
 
    USE

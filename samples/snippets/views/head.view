@@ -18,5 +18,16 @@
    </style>
 
    <script>
+      function Save()
+      {
+          var o = new Object();
+      
+          o[ 'source' ] = editor.getValue();
+          console.log( 'PARAM', o );
+                
+          $.post( "id.prg", o )
+            .done( function( data ) { console.log( 'DONE', data ); $('#result').html( data ); } )
+            .fail( function( data ) { console.log( 'ERROR', data ); } ); 
+      }
    </script>  
 </head>
