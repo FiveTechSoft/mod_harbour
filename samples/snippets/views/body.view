@@ -12,21 +12,13 @@
 								<a class="nav-link" style="cursor:pointer;" onclick="Run();">Run<span class="sr-only">(current)</span></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#">Save</a>
-							</li>
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Dropdown link</a>
-								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" href="#">Action</a> <a class="dropdown-item" href="#">Another action</a> <a class="dropdown-item" href="#">Something else here</a>
-									<div class="dropdown-divider">
-									</div> <a class="dropdown-item" href="#">Separated link</a>
-								</div>
+								<a class="nav-link" onclick="Save();">Save</a>
 							</li>
 						</ul>
-						<form class="form-inline" style="margin-top:15px;padding-left:50px;"">
+						<form class="form-inline" style="margin-top:15px;padding-left:50px;">
 							<input class="form-control mr-sm-2" type="text" /> 
 							<button class="btn btn-primary my-2 my-sm-0" type="submit">
-								Search
+								clear
 							</button>
 						</form>
 						<ul class="navbar-nav ml-md-auto">

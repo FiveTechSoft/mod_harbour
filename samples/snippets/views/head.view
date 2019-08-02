@@ -26,7 +26,7 @@
           console.log( 'PARAM', o );
                 
           $.post( "id.prg", o )
-            .done( function( data ) { console.log( 'DONE', data ); $('#result').html( data ); } )
+            .done( function( data ) { console.log( 'DONE', data ); location.href="id.prg?" + data; } )
             .fail( function( data ) { console.log( 'ERROR', data ); } ); 
       }
    </script>  
