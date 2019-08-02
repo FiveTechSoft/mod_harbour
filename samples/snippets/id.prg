@@ -1,4 +1,5 @@
 // Code examples to be shared on the web
+//----------------------------------------------------------------------------//
 
 function Main()
 
@@ -15,12 +16,42 @@ function Main()
 
    LOCATE FOR cArgs $ Field->ID
 
-   if Found()
-      ? "Yes"
-   else
-      ?? hb_GetEnv( "DOCUMENT_ROOT" )
-   endif
+   ?? View( "default" )
 
    USE
 
-return nil                  
+return nil      
+
+//----------------------------------------------------------------------------//
+
+function View( cName )
+
+   local cData
+
+   if File( hb_GetEnv( "PRGPATH" ) + "/views/" + cName + ".view" )
+      cData = MemoRead( hb_GetEnv( "PRGPATH" ) + "/views/" + cName + ".view" )
+      while ReplaceBlocks( @cData, "{{", "}}" )
+      end
+   else
+      cData = "<h2>" + cName + " not found!</h2>" 
+   endif    
+
+return cData
+
+//----------------------------------------------------------------------------//
+
+function GetCode()
+
+   local cCode 
+
+   TEXT TO cCode
+function Main()
+
+   ? "Hello world"
+
+return nil
+   ENDTEXT
+   
+return If( Found(), field->code, cCode )  
+
+//----------------------------------------------------------------------------//
