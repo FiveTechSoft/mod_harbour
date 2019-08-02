@@ -50,7 +50,6 @@
 	       {{View("code")}}
 		</div>
 	    <div id="result" class="col-md-5" style="background-color: aquamarine;padding:0px;height:900px;">
-			Hello world
 	    </div>  
 	</div>
 </div>
