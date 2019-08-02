@@ -1,4 +1,4 @@
-<div class="container-fluid" style="padding:0px;">
+<div class="container-fluid" style="padding:0px;overflow:hidden;">
 	<div class="row">
 		<div class="col-md-12">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark" style="height:50px;">
