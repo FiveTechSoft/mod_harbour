@@ -47,7 +47,7 @@
                                     placeholder="Phone number..." name="phone" required>
                            </div>
                            <div class="input-group">
-                              <input type="text" class="form-control" style="margin-bottom:15px;" 
+                              <input type="password" class="form-control" style="margin-bottom:15px;" 
                                  placeholder="Password..." name="password" required>
                            </div>      
                            <div class="pull-right">
