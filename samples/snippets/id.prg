@@ -30,7 +30,11 @@ function Main()
    endif   
 
    if AP_Method() != "POST"
-      ?? View( "default" )
+      if SubStr( AP_Args(), 1, 3 ) == "src"
+         ?? Field->Code
+      else   
+         ?? View( "default" )
+      endif   
    else
       ?? Field->Id 
    endif      
