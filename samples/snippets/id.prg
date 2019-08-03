@@ -16,7 +16,11 @@ function Main()
 
    USE ( hb_GetEnv( "PRGPATH" ) + "/snippets" ) SHARED NEW
 
-   LOCATE FOR cArgs $ Field->ID
+   if Lower( Left( cArgs, 3 ) ) == "src"
+      LOCATE FOR SubStr( cArgs, 5 ) $ Field->ID
+   else   
+      LOCATE FOR cArgs $ Field->ID
+   endif
 
    if ! Found()
       if AP_Method() == "POST"
@@ -30,7 +34,7 @@ function Main()
    endif   
 
    if AP_Method() != "POST"
-      if SubStr( AP_Args(), 1, 3 ) == "src"
+      if Left( cArgs, 3 ) == "src"
          ?? Field->Code
       else   
          ?? View( "default" )
