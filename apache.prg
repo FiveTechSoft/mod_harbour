@@ -719,25 +719,32 @@ return uRet
 
 function GetErrorInfo( oError )
 
-   local cInfo := oError:operation, n
-   local cCallStack := ""
+   local n, cInfo := "Error: " + oError:description + "<br>"
 
-   if ValType( oError:Args ) == "A"
-      cInfo += "   Args:" + CRLF
-      for n = 1 to Len( oError:Args )
-         cInfo += "[" + Str( n, 4 ) + "] = " + ValType( oError:Args[ n ] ) + ;
-                   "   " + ValToChar( oError:Args[ n ] ) + hb_OsNewLine()
-      next
-   endif
+   if ! Empty( oError:operation )
+      cInfo += "operation: " + oError:operation + "<br>"
+   endif   
+
+   if ! Empty( oError:filename )
+      cInfo += "filename: " + oError:filename + "<br>"
+   endif   
    
-   n = 0
-   while ! Empty( ProcName( n ) )
-      cCallStack += "called from: " + ProcName( n ) + ", line: " + AllTrim( Str( ProcLine( n ) ) ) + "<br>" + CRLF
+   if ValType( oError:Args ) == "A"
+      for n = 1 to Len( oError:Args )
+          cInfo += "[" + Str( n, 4 ) + "] = " + ValType( oError:Args[ n ] ) + ;
+                   "   " + ValToChar( oError:Args[ n ] ) + "<br>"
+      next
+   endif	
+	
+   n = 2
+   while ! Empty( ProcName( n ) )  
+      cInfo += "called from: " + If( ! Empty( ProcFile( n ) ), ProcFile( n ) + ", ", "" ) + ;
+               ProcName( n ) + ", line: " + ;
+               AllTrim( Str( ProcLine( n ) ) ) + "<br>"
       n++
-   end   
+   end
 
-return "error: " + oError:Description + hb_OsNewLine() + cInfo + "<br><br>" + CRLF + ;
-       cCallStack
+return cInfo
 
 //----------------------------------------------------------------//
 
