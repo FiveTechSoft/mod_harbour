@@ -38,8 +38,8 @@ function Main()
          if Found()
             ?? Field->Code
          else
-            ?? "function Main()" + "<br><br>" + ;
-               '  ? "Hello world" + "<br><br>"' + ;
+            ?? "function Main()" + hb_OsNewLine() + hb_OsNewLine() + ;
+               '  ? "Hello world"' + hb_OSNewLine() + hb_OsNewLine() + ;
                "return nil"
          endif         
       else   
