@@ -6,6 +6,8 @@
              editor.setTheme("ace/theme/tomorrow_night_blue");
              editor.setFontSize(18);     
              editor.setHighlightActiveLine(true);
+             editor.setOptions({ enableBasicAutocompletion: true,
+                                 enableLiveAutocompletion: true });
              editor.session.setMode("ace/mode/c_cpp");
           </script>
 
