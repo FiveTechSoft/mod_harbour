@@ -35,7 +35,13 @@ function Main()
 
    if AP_Method() != "POST"
       if Left( cArgs, 3 ) == "src"
-         ?? Field->Code
+         if Found()
+            ?? Field->Code
+         else
+            ?? "function Main()" + "<br><br>" + ;
+               '  ? "Hello world" + "<br><br>"' + ;
+               "return nil"
+         endif         
       else   
          ?? View( "default" )
       endif   
