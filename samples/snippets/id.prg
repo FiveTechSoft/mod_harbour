@@ -5,6 +5,8 @@ function Main()
 
    local cArgs := AP_Args()
 
+   AP_HeadersOutSet( "Access-Control-Allow-Origin", "*" )
+
    if ! File( hb_GetEnv( "PRGPATH" ) + "/snippets.dbf" )
       DbCreate( hb_GetEnv( "PRGPATH" ) + "/snippets.dbf",;
                 { { "ID",          "C", 20, 0 },;
