@@ -1,2 +1,1 @@
-clang -dynamiclib -flat_namespace -L$HOME/harbour_for_modharbour/lib/darwin/clang -L/usr/local/lib -install_name "libharbour.dylib" -compatibility_version 3.2 -current_version 3.2.0 -lslang -lpcre -lm
-
+clang -dynamiclib -flat_namespace -L$HOME/harbour_for_modharbour/lib/darwin/clang -L/usr/local/lib -install_name "libharbour.dylib" -compatibility_version 3.2 -current_version 3.2.0 -lhbhpdf -llibhpdf -lgttrm -lhbcommon -lhbcpage -lhbcplr -lhbdebug -lhbextern -lhbhsx -lhblang -lhbmacro -lhbpcre -lhbpp -lhbrdd -lhbrtl -lhbsix -lhbusrrdd -lhbvm -lrddcdx -lrddfpt -lrddnsx -lrddntx -lslang -lpcre -lm
