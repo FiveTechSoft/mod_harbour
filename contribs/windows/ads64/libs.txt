@@ -1,3 +1,5 @@
+hbhpdf.lib
+libhpdf.lib
 rddads.lib
 ace64.lib
 xhb.lib
