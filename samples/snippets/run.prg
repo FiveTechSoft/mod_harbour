@@ -1,6 +1,6 @@
 // Used from samples/sandbox.prg
 
-function Run()
+function Main()
 
    local hPostPairs := AP_PostPairs()
    local cCode

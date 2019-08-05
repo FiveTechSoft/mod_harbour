@@ -16,14 +16,14 @@
                            </div>
                            <br>
                            <div class="pull-right">
-                              <button type="submit" class="btn btn-primary" name="forgot" 
-                                 style="color:white;background-color:{{GetColor1()}};border:none">
-                                 <i class="fas fa-key" style="color:lightgray;padding-right:10px;font-size:18px"></i>
-                                 Forgot password</button>
                               <button type="submit" class="btn btn-primary" name="continue"
                                  style="color:white;background-color:{{GetColor1()}};border:none;margin-left:15px;">
                                  <i class="fas fa-check" style="color:lightgray;padding-right:10px;font-size:18px"></i>
                                  Continue</button>
+                              <button type="submit" class="btn btn-primary" name="forgot" 
+                                 style="color:white;background-color:{{GetColor1()}};border:none">
+                                 <i class="fas fa-key" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                                 Forgot password</button>
                            </div>
                            <br><br><hr>
                         </form>
@@ -47,7 +47,7 @@
                                     placeholder="Phone number..." name="phone" required>
                            </div>
                            <div class="input-group">
-                              <input type="text" class="form-control" style="margin-bottom:15px;" 
+                              <input type="password" class="form-control" style="margin-bottom:15px;" 
                                  placeholder="Password..." name="password" required>
                            </div>      
                            <div class="pull-right">

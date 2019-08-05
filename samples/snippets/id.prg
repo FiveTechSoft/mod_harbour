@@ -5,6 +5,8 @@ function Main()
 
    local cArgs := AP_Args()
 
+   AP_HeadersOutSet( "Access-Control-Allow-Origin", "*" )
+
    if ! File( hb_GetEnv( "PRGPATH" ) + "/snippets.dbf" )
       DbCreate( hb_GetEnv( "PRGPATH" ) + "/snippets.dbf",;
                 { { "ID",          "C", 20, 0 },;
@@ -14,9 +16,38 @@ function Main()
 
    USE ( hb_GetEnv( "PRGPATH" ) + "/snippets" ) SHARED NEW
 
-   LOCATE FOR cArgs $ Field->ID
+   if Lower( Left( cArgs, 3 ) ) == "src"
+      LOCATE FOR SubStr( cArgs, 5 ) $ Field->ID
+   else   
+      LOCATE FOR cArgs $ Field->ID
+   endif
 
-   ?? View( "default" )
+   if ! Found()
+      if AP_Method() == "POST"
+         APPEND BLANK
+         if RLock()
+            Field->Id = DToS( Date() ) + StrTran( Time(), ":", "" )
+            Field->Code = hb_UrlDecode( AP_PostPairs()[ "source" ] )
+            DbUnLock()
+         endif   
+      endif
+   endif   
+
+   if AP_Method() != "POST"
+      if Left( cArgs, 3 ) == "src"
+         if Found()
+            ?? Field->Code
+         else
+            ?? "function Main()" + hb_OsNewLine() + hb_OsNewLine() + ;
+               '  ? "Hello world"' + hb_OSNewLine() + hb_OsNewLine() + ;
+               "return nil"
+         endif         
+      else   
+         ?? View( "default" )
+      endif   
+   else
+      ?? Field->Id 
+   endif      
 
    USE
 
