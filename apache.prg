@@ -12,14 +12,17 @@ extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
 extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY, HB_URLDECODE
 extern SHOWCONSOLE, HB_VFDIREXISTS
 
-#define __HBEXTREQ__
-#include "..\..\..\..\..\contrib\hbhpdf\hbhpdf.hbx"
-#ifdef __ADS__
-   #include "..\..\..\..\..\contrib\rddads\rddads.hbx"
-#endif
-#ifdef __XHB__
-   #include "..\..\..\..\..\contrib\xhb\xhb.hbx"
-#endif
+// Haru PDFs
+#define __HBEXTERN__HBHPDF__REQUEST
+#include "..\..\..\..\..\contrib/hbhpdf/hbhpdf.hbx"
+// #ifdef __ADS__
+#define __HBEXTERN__RDDADS__REQUEST
+#include "..\..\..\..\..\contrib\rddads\rddads.hbx"
+// #endif
+// #ifdef __XHB__
+#define __HBEXTERN__XHB__REQUEST
+#include "..\..\..\..\..\contrib\xhb\xhb.hbx"
+// #endif
 
 static hPP
 
