@@ -1,4 +1,4 @@
-// {% hb_SetEnv( "HB_INCLUDE", "/Users/anto/harbour/include" ) %}
+// {% hb_SetEnv( "HB_INCLUDE", If( "Linux" $ OS(), "/home/anto", If( "Windows" $ OS(), "c:\harbour\include", "/Users/anto/harbour/include" ) ) ) %}
 
 STATIC aTtfFontList:= NIL
 STATIC cFontDir
