@@ -47,6 +47,6 @@ function Main()
    HPDF_SaveToFile( pdf, hb_GetEnv( "PRGPATH" ) + "/data/test.pdf" )
    HPDF_Free( pdf )   
    
-   ?? "<" + "iframe src='/data/test.pdf' style='width:calc( 100% + 16px );height:100%;border:0px;margin:-8px;'><" + "/iframe>"
+   ?? "<" + "iframe src='./data/test.pdf' style='width:calc( 100% + 16px );height:100%;border:0px;margin:-8px;'><" + "/iframe>"
 
 return nil
