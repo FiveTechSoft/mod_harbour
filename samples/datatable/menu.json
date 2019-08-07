@@ -13,10 +13,16 @@
 		  "<a href=test2.prg>Test 2</a>"
 		],
 		[
+		  "Test3.prg",
+		  "Data3.prg",
+		  "Ejemplo de paginación <br><em>Server-side processing</em>",
+		  "<a href=test3.prg>Test 3</a>"
+		],
+		[
 			"dbstruct.prg",
 			"datastruct.prg",
 			"DBF structure table<br><em>reviewing a DBF structure as a table</em>",
-			"<a href=dbstruct.prg>Test 3</a>"
-		  ]		  
+			"<a href=dbstruct.prg>Test 4</a>"
+		]		 
 	]
 }
