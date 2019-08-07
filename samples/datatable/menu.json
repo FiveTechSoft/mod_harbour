@@ -11,6 +11,12 @@
 		  "Data2.prg",
 		  "Ejemplo con columnas generadas dinámicamente <br><em>Example with dynamically generated columns</em>",
 		  "<a href=test2.prg>Test 2</a>"
-		]
+		],
+		[
+			"dbstruct.prg",
+			"datastruct.prg",
+			"DBF structure table<br><em>reviewing a DBF structure as a table</em>",
+			"<a href=dbstruct.prg>Test 3</a>"
+		  ]		  
 	]
 }
