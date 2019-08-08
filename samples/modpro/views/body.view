@@ -1,0 +1,126 @@
+<body>
+	<div class="container-fluid" style="padding:0px;overflow:hidden;">
+		<div class="row">
+			<div class="col-md-12">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark" style="height:50px;">
+					<a class="navbar-brand" style="cursor:pointer;color:aquamarine;" 
+					   onclick="location.href='https://fivetechsoft.github.io/mod_harbour/'"><i class="fas fa-bars fa-1x"></i></a>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				        <ul class="navbar-nav">
+				           <li class="nav-item active dropdown">
+							  <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+							     data-toggle="dropdown">File</a>
+				              <div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+				                 <a class="dropdown-item" style="color:white;">Open...</a> 
+				                 <a class="dropdown-item" >Save</a> 
+				                 <a class="dropdown-item" >Save as...</a>
+				                 <div class="dropdown-divider"></div>
+				                 <a class="dropdown-item" >The Harbour Project</a>
+				              </div>
+			               </li>
+			            </ul>					
+				        <ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">Edit</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;">Open...</a> 
+									<a class="dropdown-item" >Save</a> 
+									<a class="dropdown-item" >Save as...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >The Harbour Project</a>
+								</div>
+							</li>
+						</ul>					
+				        <ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">DataBase</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;">Open...</a> 
+									<a class="dropdown-item" >Save</a> 
+									<a class="dropdown-item" >Save as...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >The Harbour Project</a>
+								</div>
+							</li>
+						</ul>					
+						<ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">Record</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;">Open...</a> 
+									<a class="dropdown-item" >Save</a> 
+									<a class="dropdown-item" >Save as...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >The Harbour Project</a>
+								</div>
+							</li>
+						</ul>					
+						<ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">Program</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;">Open...</a> 
+									<a class="dropdown-item" >Save</a> 
+									<a class="dropdown-item" >Save as...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >The Harbour Project</a>
+								</div>
+							</li>
+						</ul>					
+						<ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">Run</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;">Open...</a> 
+									<a class="dropdown-item" >Save</a> 
+									<a class="dropdown-item" >Save as...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >The Harbour Project</a>
+								</div>
+							</li>
+						</ul>					
+						<ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">Window</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;">Open...</a> 
+									<a class="dropdown-item" >Save</a> 
+									<a class="dropdown-item" >Save as...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >The Harbour Project</a>
+								</div>
+							</li>
+						</ul>					
+						<ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">Help</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;">Open...</a> 
+									<a class="dropdown-item" >Save</a> 
+									<a class="dropdown-item" >Save as...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >The Harbour Project</a>
+								</div>
+							</li>
+						</ul>					
+					</div>
+				</nav>
+			</div>
+		</div>
+		<div class="row" style="height:calc( 100% - 50px );">
+			<div class="col-md-7" style="padding:0px;height:110%;"> 
+			   {{View("code")}}
+			</div>
+			<div id="result" class="col-md-5" style="background-color: aquamarine;padding:0px;height:100%;">
+			</div>  
+		</div>
+	</div>
+</body>
+</html>
