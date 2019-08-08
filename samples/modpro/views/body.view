@@ -24,11 +24,14 @@
 								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
 									data-toggle="dropdown">Edit</a>
 								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" style="color:white;">Open...</a> 
-									<a class="dropdown-item" >Save</a> 
-									<a class="dropdown-item" >Save as...</a>
+									<a class="dropdown-item" style="color:white;">Cut</a> 
+									<a class="dropdown-item" >Copy</a> 
+									<a class="dropdown-item" >Paste</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" >The Harbour Project</a>
+									<a class="dropdown-item" >Go to Line...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Prev</a>
+									<a class="dropdown-item" >Next</a>
 								</div>
 							</li>
 						</ul>					
@@ -52,6 +55,7 @@
 								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
 									<a class="dropdown-item" style="color:white;">Copy</a> 
 									<a class="dropdown-item" >Paste</a> 
+									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" >Delete</a>
 									<a class="dropdown-item" >Recover</a>
 								</div>
