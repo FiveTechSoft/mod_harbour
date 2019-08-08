@@ -37,11 +37,11 @@
 								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
 									data-toggle="dropdown">DataBase</a>
 								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" style="color:white;">Open...</a> 
-									<a class="dropdown-item" >Save</a> 
-									<a class="dropdown-item" >Save as...</a>
+									<a class="dropdown-item" style="color:white;">New...</a> 
+									<a class="dropdown-item" >Open...</a> 
+									<a class="dropdown-item" >Workareas...</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" >The Harbour Project</a>
+									<a class="dropdown-item" >Close All</a>
 								</div>
 							</li>
 						</ul>					
