@@ -54,7 +54,9 @@
 								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
 									data-toggle="dropdown">Record</a>
 								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" style="color:white;">Copy</a> 
+									<a class="dropdown-item" style="color:white;">Edit...</a> 
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Copy</a> 
 									<a class="dropdown-item" >Paste</a> 
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" >Delete</a>
@@ -70,8 +72,6 @@
 									<a class="dropdown-item" style="color:white;">Open...</a> 
 									<a class="dropdown-item" >Save</a> 
 									<a class="dropdown-item" >Save as...</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" >The Harbour Project</a>
 								</div>
 							</li>
 						</ul>					
