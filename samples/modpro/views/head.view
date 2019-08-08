@@ -36,7 +36,7 @@
       }
       .dropdown-menu.dropdown-menu-left.bg-dark.show{
          margin-left:-16px;
-         box-shadow: 10px 10px 10px #404040;
+         box-shadow: 5px 5px 5px #606060;
       }
    </style>
 
