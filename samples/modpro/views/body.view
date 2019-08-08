@@ -101,7 +101,7 @@
 							<li class="nav-item active dropdown">
 								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
 									data-toggle="dropdown">Help</a>
-								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+								<div id="popup8" class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
 									<a class="dropdown-item" style="color:white;">Open...</a> 
 									<a class="dropdown-item" >Save</a> 
 									<a class="dropdown-item" >Save as...</a>
@@ -122,5 +122,12 @@
 			</div>  
 		</div>
 	</div>
+	<script>
+		$('.navbar-nav').hover( 
+			function(){ $( this ).find( "div" ).addClass( 'show' ) },
+			function(){ $( this ).find( "div" ).removeClass('show') } );
+		$('.navbar-nav').mousedown(
+			function(){ $( this ).find( "div" ).removeClass('show') } );	
+    </script>
 </body>
 </html>
