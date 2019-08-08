@@ -128,7 +128,8 @@
 			function(){ $( this ).find( "div" ).addClass( 'show' ) },
 			function(){ $( this ).find( "div" ).removeClass('show') } );
 		$('.navbar-nav').mousedown(
-			function(){ $( this ).find( "div" ).removeClass('show') } );	
+		 	function(){  $( this ).find( "div" ).removeClass('show'); } );
+		$('.dropdown-item').bind( 'mousedown', false );	 	
     </script>
 </body>
 </html>
