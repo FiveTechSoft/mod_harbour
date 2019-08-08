@@ -103,7 +103,7 @@
 								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
 									data-toggle="dropdown">Help</a>
 								<div id="popup8" class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" style="color:white;" href="https://github.com/FiveTechSoft/mod_harbour">mod_harbour wiki...</a> 
+									<a class="dropdown-item" style="color:white;" href="https://github.com/FiveTechSoft/mod_harbour/wiki">mod_harbour wiki...</a> 
 									<a class="dropdown-item" style="color:white;" href="https://app.slack.com/client/TJH5YU202/CJUHF8SBX">mod_harbour live chat...</a> 
 									<a class="dropdown-item" style="color:white;" href="http://forums.fivetechsupport.com/viewforum.php?f=45&start=0">mod_harbour forums...</a>
 									<div class="dropdown-divider"></div>
