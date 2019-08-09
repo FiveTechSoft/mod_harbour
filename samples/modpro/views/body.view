@@ -92,9 +92,9 @@
 								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
 									data-toggle="dropdown">Window</a>
 								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" style="color:white;" onclick="Command();">Command...</a> 
+									<a class="dropdown-item" style="color:white;" onclick="Command()">Command...</a> 
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" >Close all</a>
+									<a class="dropdown-item" onclick="CloseAllForms()">Close all</a>
 								</div>
 							</li>
 						</ul>					

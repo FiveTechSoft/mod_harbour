@@ -74,7 +74,8 @@
          var cId = "command" + nWnd++;
 
          $( '<div class="form" id="' + cId + '" style="position: absolute;width: 700px;height: 400px;' + 
-            'top: 375px;left: 1016px;background-color:silver;box-shadow:5px 5px 5px 0, 0px 0px 5px 0;border-radius:5px;"></div>' ).appendTo( "#main" );
+            'top: 375px;left: 1016px;background-color:silver;box-shadow:5px 5px 5px 0, 0px 0px 5px 0;' + 
+            'border-radius:5px;"></div>' ).appendTo( "#main" );
          
          $( "#" + cId ).draggable().click(function(){
             if( $(this).is('.ui-draggable-dragging') ) {
@@ -83,6 +84,12 @@
             $(".form").css( "z-index", 1 );
             $(this).css( "z-index", nWnd - 1 );
          });
+      }
+
+      function CloseAllForms()
+      {
+         nWnd = 1; 
+         $(".form").remove();
       }
    </script>  
 </head>
