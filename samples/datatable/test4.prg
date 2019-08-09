@@ -1,10 +1,10 @@
-*
-**************************
+/*
+****************************************************************************
 *   Aplicacion: Test jQuery DataTable con Ajax para mod_harbour            *
-*       Fuente: datatable.prg                                              *
+*       Fuente: test4.prg                             		               *
 *        Autor: Joaquim Ferrer Godoy                                       *
-*       Inicio: 06-08-2019                                                 *
-**************************
+*       Inicio: 08-08-2019                                                 *
+****************************************************************************
 */
 function Main()
 
@@ -13,7 +13,7 @@ function Main()
 		<html lang="en">
 		<head>
 			<meta charset="UTF-8">
-			<title>Test Datatable</title>
+			<title>Individual column searching</title>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 			<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 			<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
@@ -23,7 +23,7 @@ function Main()
 		<body>
 		<div class="container">
   			<div class="row">
-  			   <h1>Test DataTable</h1>
+  			   <h1>Individual column searching</h1>
     			<div class="col-sm-12">
 					<table id="example" class="table table-striped table-bordered" style="width:100%">
 						<thead>
@@ -31,13 +31,6 @@ function Main()
 						       <th>ID</th>
 						       <th>First</th>
 						       <th>Last</th>
-						       <th>Street</th>
-						       <th>City</th>
-						       <th>State</th>
-						       <th>Zip</th>
-						       <th>Hiredate</th>
-						       <th>Married</th>
-						       <th>Age</th>
 						       <th>Salary</th>
 						   </tr>
 						</thead>
@@ -49,25 +42,29 @@ function Main()
 				
 				$(document).ready( function () {
 
-		    		$('#example').DataTable({
-
-						"ajax": "datajson.prg",
-						"scrollCollapse": true,
-						"paging":         true,
-						"columns": [
-			            { "data": "id" },
-			            { "data": "first" },
-			            { "data": "last" },
-			            { "data": "street" },
-			            { "data": "city" },
-			            { "data": "state" },
-			            { "data": "zip" },
-			            { "data": "hiredate" },
-			            { "data": "married" },
-			            { "data": "age" },
-			            { "data": "salary" }
-        				]
+		    		var table = $('#example').DataTable({
+						ajax: {
+							url: "data4.prg",
+							type: "POST"
+						},
+						processing: true,
+						serverSide: true,
+						searching: true,
+						lengthChange: false,
+						paging: false,
+						columnDefs: [{
+							orderable: false,
+							targets: [0,1,2,3]
+						}],
+						language: {
+							search: "Search for First :"
+						}
 		    		});
+		    		// debug, controlando eventos :))
+		    		// (e,s,j)=> event, settings, json
+		    		table.on( 'xhr', function(e,s,j) {
+		    			console.log( 'Returned data: ', j );
+	    			});
 				});
 
 			</script>
