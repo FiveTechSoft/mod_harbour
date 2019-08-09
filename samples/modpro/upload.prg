@@ -13,7 +13,8 @@ function Main()
                    HB_BASE64DECODE( SubStr( cData, nStart := At( "base64,", cData ) + 7,;
                    At( "------", cData ) - nStart ) ) )
       */
-      hb_MemoWrit( hb_GetEnv( "PRGPATH" ) + "/data/test.txt", ValToChar( hPairs ) )             
+      hb_MemoWrit( hb_GetEnv( "PRGPATH" ) + "/data/test.txt", ValToChar( hPairs ) ) 
+      ?? ValToChar( hPairs )            
    endif
 
 return nil

@@ -119,6 +119,9 @@
             var xhr = new XMLHttpRequest();
             var formData = new FormData();
             formData.append( oFile.name, oFile );
+            xhr.onreadystatechange = function() { 
+               if( this.readyState == XMLHttpRequest.DONE && this.status == 200 ) {
+                  alert( this.responseText ); } };
             xhr.open( "POST", 'upload.prg' );
             xhr.send( formData );
            }
