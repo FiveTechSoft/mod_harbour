@@ -106,11 +106,24 @@
 
       function OpenDbf()
       { 
+        var oFile; 
         oFPicker = document.createElement( "input" );
         oFPicker.type = "file";
         oFPicker.accept = ".dbf";
         oFPicker.style.visibility = "hidden";
-        oFPicker.onchange = function( evt ){ alert( evt.target.files[0].name ); };
+        oFPicker.onchange = function( evt ){ 
+           var reader = new FileReader();
+           oFile = evt.target.files[0];
+           reader.readAsBinaryString( oFile ); 
+           reader.onload = function(){
+            var xhr = new XMLHttpRequest();
+            var formData = new FormData();
+            formData.append( oFile.name, oFile );
+            xhr.open( "POST", 'upload.prg' );
+            xhr.send( formData );
+           }
+         };
+
         oFPicker.click(); 
       } 
    </script>  
