@@ -1,5 +1,5 @@
 <body>
-	<div class="container-fluid" style="padding:0px;overflow:hidden;">
+	<div id="main" class="container-fluid" style="padding:0px;overflow:hidden;">
 		<div class="row">
 			<div class="col-md-12">
 				<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark" style="height:50px;">
@@ -80,7 +80,7 @@
 								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
 									data-toggle="dropdown">Run</a>
 								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" >Execute</a> 
+									<a class="dropdown-item" onclick="Run()">Execute</a> 
 									<a class="dropdown-item" >Debug...</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" >Build HRB...</a>
@@ -92,7 +92,7 @@
 								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
 									data-toggle="dropdown">Window</a>
 								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" style="color:white;">Command...</a> 
+									<a class="dropdown-item" style="color:white;" onclick="Command();">Command...</a> 
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" >Close all</a>
 								</div>

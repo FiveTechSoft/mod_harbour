@@ -45,6 +45,12 @@
          padding-top:0px;
          padding-bottom:0px;
       }
+      .modal-backdrop{
+        display:none;
+      }
+      .modal-dialog{
+         display:none;
+      }
 
    </style>
 
@@ -59,6 +65,17 @@
           $.post( "id.prg", o )
             .done( function( data ) { console.log( 'DONE', data ); location.href="id.prg?" + data; } )
             .fail( function( data ) { console.log( 'ERROR', data ); } ); 
+      }
+
+      var nWnd = 1;
+
+      function Command( cMsg, cTitle )
+      {  
+         var cId = "command" + nWnd++;
+
+         $( '<div id="' + cId + '" style="position: absolute;width: 700px;height: 400px;' + 
+            'top: 375px;left: 1016px;background-color:silver;box-shadow:5px 5px 5px 0;border-radius:5px;"></div>' ).appendTo( "#main" );
+         $( "#" + cId ).draggable();
       }
    </script>  
 </head>
