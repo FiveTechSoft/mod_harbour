@@ -100,7 +100,7 @@
         oFPicker.type = "file";
         oFPicker.accept = ".prg,.ch,.view";
         oFPicker.style.visibility = "hidden";
-        oFPicker.onchange = { function( evt ){ alert( this.files[0] ) } };
+        oFPicker.onchange = function( evt ){ alert( evt.target.files[0].name ); };
         oFPicker.click(); 
       } 
 
@@ -110,7 +110,7 @@
         oFPicker.type = "file";
         oFPicker.accept = ".dbf";
         oFPicker.style.visibility = "hidden";
-        oFPicker.onchange = { function( evt ){ alert( this.files[0] ) } };
+        oFPicker.onchange = function( evt ){ alert( evt.target.files[0].name ); };
         oFPicker.click(); 
       } 
    </script>  
