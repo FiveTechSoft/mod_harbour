@@ -91,5 +91,27 @@
          nWnd = 1; 
          $(".form").remove();
       }
+
+      var oFPicker;
+
+      function OpenPrg()
+      { 
+        oFPicker = document.createElement( "input" );
+        oFPicker.type = "file";
+        oFPicker.accept = ".prg,.ch,.view";
+        oFPicker.style.visibility = "hidden";
+        oFPicker.onchange = { function( evt ){ alert( this.files[0] ) } };
+        oFPicker.click(); 
+      } 
+
+      function OpenDbf()
+      { 
+        oFPicker = document.createElement( "input" );
+        oFPicker.type = "file";
+        oFPicker.accept = ".dbf";
+        oFPicker.style.visibility = "hidden";
+        oFPicker.onchange = { function( evt ){ alert( this.files[0] ) } };
+        oFPicker.click(); 
+      } 
    </script>  
 </head>
