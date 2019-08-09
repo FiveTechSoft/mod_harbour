@@ -114,14 +114,15 @@
         oFPicker.onchange = function( evt ){ 
            var reader = new FileReader();
            oFile = evt.target.files[0];
-           reader.readAsBinaryString( oFile ); 
-           reader.onload = function(){
-            var xhr = new XMLHttpRequest();
-            var formData = new FormData();
-            formData.append( oFile.name, oFile );
-            xhr.onreadystatechange = function() { 
-               if( this.readyState == XMLHttpRequest.DONE && this.status == 200 ) {
-                  alert( this.responseText ); } };
+           reader.readAsDataURL( oFile ); 
+           reader.onload = function( e ) {
+               var formData = new FormData();
+               var xhr = new XMLHttpRequest();
+               var blob = new Blob( [e.target.result], {type: "application/octet-stream"} );
+               formData.append( oFile.name, blob );
+               xhr.onreadystatechange = function() { 
+                  if( this.readyState == XMLHttpRequest.DONE && this.status == 200 ) {
+                  $( "#result" ).html( this.responseText ); } };
             xhr.open( "POST", 'upload.prg' );
             xhr.send( formData );
            }
