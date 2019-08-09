@@ -6,6 +6,9 @@
 *       Inicio: 08-08-2019                                                 *
 ****************************************************************************
 */
+
+// {% hb_SetEnv( "HB_INCLUDE", "/home/anto/harbour/include" ) %}
+         
 #include "hbsix.ch"
 
 REQUEST DBFCDX
