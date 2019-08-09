@@ -38,7 +38,9 @@ function main()
 	hData['recordsTotal'] 		:= 10
 	hData['recordsFiltered'] 	:= reccount()
 	hData['searchValue']    	:= upper( _POST_['search[value]'] )
-	hData['data'] 					:= {}
+	hData['body']                   := AP_Body()
+	hData['post']                   := _POST_
+	hData['data'] 			:= {}
 
    if rlock()
 
