@@ -113,7 +113,7 @@
         var oFile; 
         oFPicker = document.createElement( "input" );
         oFPicker.type = "file";
-        oFPicker.accept = ".dbf";
+        oFPicker.accept = ".dbf,.dbt,.fpt,.cdx,.ntx";
         oFPicker.style.visibility = "hidden";
         oFPicker.onchange = function( evt ){ 
            var reader = new FileReader();
