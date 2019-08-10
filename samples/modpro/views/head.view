@@ -100,11 +100,19 @@
 
       function OpenPrg()
       { 
-        oFPicker = document.createElement( "input" );
-        oFPicker.type = "file";
-        oFPicker.accept = ".prg,.ch,.view";
-        oFPicker.style.visibility = "hidden";
-        oFPicker.onchange = function( evt ){ alert( evt.target.files[0].name ); };
+         var oFile; 
+         oFPicker = document.createElement( "input" );
+         oFPicker.type = "file";
+         oFPicker.accept = ".prg,.ch,.txt,.h,.c";
+         oFPicker.style.visibility = "hidden";
+         oFPicker.onchange = function( evt ){ 
+           var reader = new FileReader();
+           oFile = evt.target.files[0];
+           reader.onload = function( e ) {
+              editor.session.setValue( e.target.result ) };
+           reader.readAsText( oFile ); 
+           }
+
         oFPicker.click(); 
       } 
 
