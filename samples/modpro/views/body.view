@@ -2,7 +2,7 @@
 	<div id="main" class="container-fluid" style="padding:0px;overflow:hidden;">
 		<div class="row">
 			<div class="col-md-12">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark" style="height:50px;">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark" style="height:40px;">
 					<a class="navbar-brand" style="cursor:pointer;color:aquamarine;" 
 					   onclick="location.href='https://fivetechsoft.github.io/mod_harbour/'"><i class="fas fa-bars fa-1x"></i></a>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -28,8 +28,15 @@
 									<a class="dropdown-item" style="color:white;">Cut</a> 
 									<a class="dropdown-item" >Copy</a> 
 									<a class="dropdown-item" >Paste</a>
+									<a class="dropdown-item" >Clear</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Select all</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" >Go to Line...</a>
+									<a class="dropdown-item" >Find...</a>
+									<a class="dropdown-item" >Find again</a>
+									<a class="dropdown-item" >Replace and find again</a>
+									<a class="dropdown-item" >Replace all</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" >Prev</a>
 									<a class="dropdown-item" >Next</a>
@@ -45,6 +52,21 @@
 									<a class="dropdown-item" onclick="OpenDbf()">Open...</a> 
 									<a class="dropdown-item" >Workareas...</a>
 									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Append from...</a>
+									<a class="dropdown-item" >Copy to...</a>
+									<a class="dropdown-item" >Sort...</a>
+									<a class="dropdown-item" >Total...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Average...</a>
+									<a class="dropdown-item" >Count...</a>
+									<a class="dropdown-item" >Sum...</a>
+									<a class="dropdown-item" >Calculate...</a>
+									<a class="dropdown-item" >Print report...</a>
+									<a class="dropdown-item" >Print label...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Pack</a>
+									<a class="dropdown-item" >Reindex</a>
+									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" >Close All</a>
 								</div>
 							</li>
@@ -54,13 +76,17 @@
 								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
 									data-toggle="dropdown">Record</a>
 								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" style="color:white;">Edit...</a> 
+									<a class="dropdown-item" style="color:white;">Append</a> 
+									<a class="dropdown-item" style="color:white;">Change</a> 
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" >Copy</a> 
-									<a class="dropdown-item" >Paste</a> 
+									<a class="dropdown-item" >Goto...</a> 
+									<a class="dropdown-item" >Locate...</a> 
+									<a class="dropdown-item" >Continue</a> 
+									<a class="dropdown-item" >Seek...</a> 
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" >Delete</a>
-									<a class="dropdown-item" >Recover</a>
+									<a class="dropdown-item" >Replace</a> 
+									<a class="dropdown-item" >Delete</a> 
+									<a class="dropdown-item" >Recall</a> 
 								</div>
 							</li>
 						</ul>					

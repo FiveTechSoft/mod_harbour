@@ -35,7 +35,7 @@
          border-top:0px;
       }
       .dropdown-menu.dropdown-menu-left.bg-dark.show{
-         margin-top:-1px;
+         margin-top:-6px;
          margin-left:-16px;
          box-shadow: 5px 5px 5px #606060;
       }
