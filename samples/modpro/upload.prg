@@ -14,7 +14,7 @@ function Main()
       if File( hb_GetEnv( "PRGPATH" ) + "/data/" + cFileName )
          ?? BuildBrowse( hb_GetEnv( "PRGPATH" ) + "/data/" + cFileName, cFileName )
       else
-         ? "File " + File( hb_GetEnv( "PRGPATH" ) + "/data/" + cFileName ) + " did not arrived"
+         ? "File " + hb_GetEnv( "PRGPATH" ) + "/data/" + cFileName + " did not arrived"
          ? "Please check the folder modpro/data permissions"
          ? "Rmember to do: sudo chown www-data:www-data data from modpro folder"
       endif   
