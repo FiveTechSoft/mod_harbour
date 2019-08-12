@@ -158,12 +158,8 @@
 
       function AddButton()
       {
-         $( "#command1" ).append( "<button id='button1'>button</button>" );
-         $( "#button1").draggable().resizable().click(function(){
-            if ( $(this).is('.ui-draggable-dragging') ) {
-                  return;
-            }
-      });;
+         $( "#command1" ).append( "<div id='btnwrap' style='width:100px'><button id='button1'>button</button></div>" );
+         $( "#btnwrap").draggable( {cancel:false} ).resizable( {cancel:false} );
       }
 
    </script>  
