@@ -203,7 +203,8 @@ return View( cRoute )
 
 function CheckDataBase()
 
-   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/users.dbf" )  // for ALL users of Genesis
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/users.dbf" ) .or. ; // for ALL users of Genesis
+      ! File( hb_GetEnv( "PRGPATH" ) + "/data/users.dbt" )
       DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/users.dbf",;
                 { { "DATE",    "D",  8, 0 },;
                   { "FIRST",   "C", 20, 0 },;
