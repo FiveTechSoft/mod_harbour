@@ -66,12 +66,16 @@
 
       var nWnd = 1;
 
-      function Command( cMsg, cTitle )
+      function Command( cMsg, lScroll )
       {  
          var cId = "command" + nWnd++;
 
+         if( lScroll == null )
+            lScroll = false;
+
          $( '<div class="form" id="' + cId + 
-            '" style="overflow:auto;position: absolute;width: 700px;height: 400px;' + 
+            '" style="overflow:' + ( lScroll ? 'auto': 'none' ) + 
+            ';position: absolute;width: 700px;height: 400px;' + 
             'top: 375px;left: 1016px;background-color:silver;box-shadow:5px 5px 5px 0, 0px 0px 5px 0;' + 
             'border-radius:5px;"></div>' ).appendTo( "#main" );
          
@@ -131,7 +135,7 @@
                formData.append( oFile.name, blob );
                xhr.onreadystatechange = function() { 
                   if( this.readyState == XMLHttpRequest.DONE && this.status == 200 ) {
-                     Command( this.responseText ); } };
+                     Command( this.responseText, true ); } };
             xhr.open( "POST", 'upload.prg' );
             xhr.send( formData );
            }
