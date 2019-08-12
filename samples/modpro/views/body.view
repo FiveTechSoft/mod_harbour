@@ -120,6 +120,10 @@
 								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
 									<a class="dropdown-item" style="color:white;" onclick="Command()">Command...</a> 
 									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" onclick="AddLabel()">Add Say</a>
+									<a class="dropdown-item" onclick="AddInput()">Add Get</a>
+									<a class="dropdown-item" onclick="AddButton()">Add Button</a>
+									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" onclick="CloseAllForms()">Close all</a>
 								</div>
 							</li>

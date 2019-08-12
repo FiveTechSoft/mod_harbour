@@ -143,5 +143,28 @@
 
         oFPicker.click(); 
       } 
+
+      function AddLabel()
+      {
+         $( "#command1" ).append( "<label id='label1'>Label</label>" );
+         $( "#label1").draggable().resizable();
+      }
+
+      function AddInput()
+      {
+         $( "#command1" ).append( "<input type='text' id='input1'></input>" );
+         $( "#input1").draggable().resizable();
+      }
+
+      function AddButton()
+      {
+         $( "#command1" ).append( "<button id='button1'>button</button>" );
+         $( "#button1").draggable().resizable().click(function(){
+            if ( $(this).is('.ui-draggable-dragging') ) {
+                  return;
+            }
+      });;
+      }
+
    </script>  
 </head>
