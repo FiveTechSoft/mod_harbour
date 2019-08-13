@@ -10,6 +10,9 @@
 3) Recupera el objeto codificado JSON en aData
 4) Devuelve elemento 1 de la lista 
 ****************************************************************************
+// Necesario -de momento- para que encuentre el fichero include en servidor
+{% hb_SetEnv( "HB_INCLUDE", If( "Linux" $ OS(), "/home/anto/harbour/include", If( "Windows" $ OS(), "c:\harbour\include", "/Users/anto/harbour/include" ) ) ) %}
+//
 */
 #include "hbcurl.ch"
 
