@@ -29,14 +29,28 @@ function Main()
 			<script type="text/javascript" src="jsonform/lib/jsonform.js"></script>
 			<link rel="stylesheet" style="text/css" href="jsonform/deps/opt/bootstrap.css" />
 
+			<style>
+				.jsonform-required > label:after {
+				  content: ' *';
+				  color: red;
+				}
+
+				.jsonform-hasrequired:after {
+				  content: '* Required field';
+				  display: block;
+				  color: red;
+				  padding-top: 1em;
+				}
+			</style>
+
 		</head>
 		<body>
 		<div class="container">
 			<h1>Basic sample with JSON Form</h1>
 			<p class="lead">Ejemplo básico con JSON Form</p>
   			<div class="row">
-    			<div class="col-sm-12">
-					<form id="form" class="form"></form>
+    			<div class="col-md-6 col-md-offset-3">
+					<form id="form"></form>
 					<div id="res" class="alert"></div>
 				<div>
 			</div>
