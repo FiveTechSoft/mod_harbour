@@ -12,17 +12,32 @@ extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
 extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY, HB_URLDECODE
 extern SHOWCONSOLE, HB_VFDIREXISTS
 
-// Haru PDFs
-#define __HBEXTERN__HBHPDF__REQUEST
-#include "..\..\..\..\..\contrib/hbhpdf/hbhpdf.hbx"
-// #ifdef __ADS__
-#define __HBEXTERN__RDDADS__REQUEST
-#include "..\..\..\..\..\contrib\rddads\rddads.hbx"
-// #endif
-// #ifdef __XHB__
-#define __HBEXTERN__XHB__REQUEST
-#include "..\..\..\..\..\contrib\xhb\xhb.hbx"
-// #endif
+#ifdef __PLATFORM__WINDOWS
+   #define __HBEXTERN__HBHPDF__REQUEST
+   #include "..\..\..\..\..\contrib\hbhpdf\hbhpdf.hbx"
+   #define __HBEXTERN__XHB__REQUEST
+   #include "..\..\..\..\..\contrib\xhb\xhb.hbx"
+   #define __HBEXTERN__HBCT__REQUEST
+   #include "..\..\..\..\..\contrib\hbct\hbct.hbx"
+   #define __HBEXTERN__HBWIN__REQUEST
+   #include "..\..\..\..\..\contrib\hbwin\hbwin.hbx"
+   #define __HBEXTERN__HBCURL__REQUEST
+   #include "..\..\..\..\..\contrib\hbcurl\hbcurl.hbx"
+#else
+   #define __HBEXTERN__HBHPDF__REQUEST
+   #include "../../../../../contrib/hbhpdf/hbhpdf.hbx"
+   #define __HBEXTERN__XHB__REQUEST
+   #include "../../../../../contrib/xhb/xhb.hbx"
+   #define __HBEXTERN__HBCT__REQUEST
+   #include "../../../../../contrib/hbct/hbct.hbx"
+   #define __HBEXTERN__HBCURL__REQUEST  
+   #include "../../../../../contrib/hbcurl/hbcurl.hbx"
+#endif
+
+#ifdef HB_WITH_ADS
+   #define __HBEXTERN__RDDADS__REQUEST
+   #include "..\..\..\..\..\contrib\rddads\rddads.hbx"
+#endif
 
 static hPP
 
