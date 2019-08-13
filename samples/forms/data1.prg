@@ -36,7 +36,7 @@ function main()
 		aRow := {}
 		nLen := data->( fcount() )
 
-		for n:= 8 to 15 //nLen
+		for n:= 7 to 15 //nLen
 			CreateField( n )
 		next
 
@@ -67,19 +67,29 @@ static function CreateField( nPos )
 	switch cType
 	
 		case "C"
+		case "M"
 			hHash['type'] 		:= "string"
-			hHash['required'] := .T.
+			hHash['required'] := "jsonform-required"
+			hHash['maxLength'] := 20
+			
+			if len(uValue) > 20
+				hHash['readOnly'] := .T.
+				hHash['required'] := .F.
+			endif
 			EXIT
+
 		case "N"
 			hHash['type'] 		:= "number"
-			hHash['required'] := .F.
 			EXIT
+
 		case "D"
 			hHash['type'] 		:= "date"
 			EXIT
+
 		case "L"
 			hHash['type'] 		:= "boolean"
 			EXIT
+
 		otherwise
 			hHash['type'] 		:= "string"
 	end
