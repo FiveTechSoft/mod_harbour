@@ -172,5 +172,12 @@
          $( ".ui-wrapper" ).draggable( {cancel:false} );
       }
 
+      function ShowHtml()
+      {
+         alert( "top: " + oForm["0"].style.top + "\n" + 
+                "left: " + oForm["0"].style.left + "\n" +
+                "width: " + oForm["0"].style.width + "\n" +
+                "height: " + oForm["0"].style.height );
+      }
    </script>  
 </head>
