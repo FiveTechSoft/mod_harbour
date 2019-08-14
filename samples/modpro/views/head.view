@@ -64,7 +64,7 @@
       }
 
       var nWnd = 1;
-      var oForm;
+      var oForm, oFormNew = Command();
 
       function Command( cMsg, lScroll )
       {  
@@ -179,7 +179,7 @@
                 "width: " + oForm["0"].style.width + "\n" +
                 "height: " + oForm["0"].style.height );
 
-         alert( JSON.stringify( diff( document.createElement( "div" ), oForm ) ) );       
+         alert( JSON.stringify( diff( oFormNew, oForm ) ) );       
       }
 
       function isEmptyObject( obj ) 
