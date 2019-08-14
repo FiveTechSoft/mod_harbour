@@ -1,3 +1,17 @@
+**IMPORTANT** In order to build mod_harbour.so for OSX do this:
+
+**1.** brew install apache2
+
+**2.** mkdir temp, cd temp, apxs -g -n harbour
+
+**3.** modify Makefile this line:
+
+top_builddir=/usr/local/opt/httpd/lib/httpd
+
+**4.** copy mod_harbour.c to the created harbour folder and do "make"
+
+*******************************************************************************
+
 **1.** sudo apachectl start
 
 **2.** From the browser go to localhost and check that Apache is running
