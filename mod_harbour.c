@@ -140,6 +140,11 @@ const char * ap_body( void )
       return "";
 }
 
+long ap_remaining( void )
+{
+   return _r->remaining;
+}   
+
 #ifdef _WINDOWS_
 
 char * GetErrorMessage( DWORD dwLastError )
@@ -166,7 +171,7 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
                               void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal, 
                               void * pPostPairsCount, void * pPostPairsKey, void * pPostPairsVal,
                               void * pHeadersOutCount, void * pHeadersOutSet, void * pSetContentType, 
-                              void * pApacheGetenv, void * pAPBody );
+                              void * pApacheGetenv, void * pAPBody, void * pAPRemaining );
 
 static int harbour_handler( request_rec * r )
 {
@@ -232,7 +237,7 @@ static int harbour_handler( request_rec * r )
                                ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
                                ( void * ) ap_post_pairs_count, ( void * ) ap_post_pairs_key, ( void * ) ap_post_pairs_val, 
                                ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
-                               ( void * ) ap_getenv, ( void * ) ap_body );
+                               ( void * ) ap_getenv, ( void * ) ap_body, ( void * ) ap_remaining );
    }
 
    if( lib_harbour != NULL )
