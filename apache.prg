@@ -362,8 +362,9 @@ static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
 static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
 static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
 static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
-static void * pAPGetenv, * pAPBody, * pAPRemaining;
+static void * pAPGetenv, * pAPBody;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
+static long lAPRemaining;
 
 #ifdef _MSC_VER
    #include <windows.h>
@@ -388,7 +389,7 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
                void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
                void * _pPostPairsCount, void * _pPostPairsKey, void * _pPostPairsVal,
                void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType, void * _pAPGetenv,
-               void * _pAPBody, void * _pAPRemaining )
+               void * _pAPBody, long _lAPRemaining )
 {
    pRequestRec       = _pRequestRec;
    pAPRPuts          = _pAPRPuts; 
@@ -409,7 +410,7 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    pAPSetContentType = _pAPSetContentType;
    pAPGetenv         = _pAPGetenv;
    pAPBody           = _pAPBody;
-   pAPRemaining      = _pAPRemaining;
+   lAPRemaining      = _lAPRemaining;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -528,13 +529,9 @@ HB_FUNC( AP_POSTPAIRSVAL )
    hb_retc( post_pairs_val( hb_parnl( 1 ) ) );
 }
 
-typedef long ( * AP_REMAINING )( void );
-
 HB_FUNC( AP_REMAINING )
 {
-   AP_REMAINING ap_remaining = ( AP_REMAINING ) pAPRemaining;
-
-   hb_retnl( ap_remaining() );
+   hb_retnl( lAPRemaining );
 }
 
 HB_FUNC( PTRTOSTR )
