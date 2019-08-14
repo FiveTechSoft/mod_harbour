@@ -152,7 +152,7 @@
       {
          var cId = "Label" + ( oForm["0"].children.length - 2 );
          
-         oForm.append( "<label id='" + cId + "'>" + cId + "</label>" );
+         oForm.append( "<label class='label control' id='" + cId + "'>" + cId + "</label>" );
          $( "#" + cId ).draggable().resizable();
       }
 
@@ -160,7 +160,7 @@
       {
          var cId = "input" + ( oForm["0"].children.length - 2 );
 
-         oForm.append( "<input type='text' id='" + cId + "' style='width:300px;height:50px;'></input>" );
+         oForm.append( "<input type='text' class='input control' id='" + cId + "' style='width:300px;height:50px;'></input>" );
          $( "#" + cId ).resizable();
          $( ".ui-wrapper" ).draggable( {cancel:false} );      
       }
@@ -169,7 +169,7 @@
       {
          var cId = "Button" + ( oForm["0"].children.length - 2 );
 
-         oForm.append( "<button class='button' id='" + cId + "' style='width:120px;height:60px;'>" + cId + "</button>" );
+         oForm.append( "<button class='button control' id='" + cId + "' style='width:120px;height:60px;'>" + cId + "</button>" );
          $( "#" + cId ).resizable();
          $( ".ui-wrapper" ).draggable( {cancel:false} );
       }
@@ -185,10 +185,24 @@
          form.backgroundColor = oForm["0"].style.backgroundColor;
          form.controls = []; 
 
-         $( ".button" ).each( function( n ) {
-            form.controls.push( $( this ).attr('id') ); } );
+         $( ".control" ).each( function( n ) {
+            form.controls.push( CtrlObj( $( this ) ) ); } );
          
          alert( JSON.stringify( form ) );
+      }
+
+      function CtrlObj( oCtrl )
+      {
+         var control = {};
+
+         control.type   = oCtrl.attr( 'id' );
+         control.top    = oCtrl["0"].style.top;
+         control.left   = oCtrl["0"].style.left;
+         control.width  = oCtrl["0"].style.width;
+         control.height = oCtrl["0"].style.height;
+         control.backgroundColor = oCtrl["0"].style.backgroundColor;
+         
+         return control;
       }
    </script>  
 </head>
