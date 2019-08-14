@@ -64,7 +64,7 @@
       }
 
       var nWnd = 1;
-      var oForm, oFormNew = Command();
+      var oForm;
 
       function Command( cMsg, lScroll )
       {  
@@ -91,6 +91,8 @@
             $( "#" + cId ).html( cMsg );
    
          oForm = $( "#" + cId );
+
+         return $( "#" + cId );
       }
 
       function CloseAllForms()
@@ -167,48 +169,26 @@
       {
          var cId = "Button" + ( oForm["0"].children.length - 2 );
 
-         oForm.append( "<button id='" + cId + "' style='width:120px;height:60px;'>" + cId + "</button>" );
+         oForm.append( "<button class='button' id='" + cId + "' style='width:120px;height:60px;'>" + cId + "</button>" );
          $( "#" + cId ).resizable();
          $( ".ui-wrapper" ).draggable( {cancel:false} );
       }
 
       function ShowHtml()
       {
-         alert( "top: " + oForm["0"].style.top + "\n" + 
-                "left: " + oForm["0"].style.left + "\n" +
-                "width: " + oForm["0"].style.width + "\n" +
-                "height: " + oForm["0"].style.height );
+         var form = {}; 
 
-         alert( JSON.stringify( diff( oFormNew, oForm ) ) );       
-      }
+         form.top    = oForm["0"].style.top;
+         form.left   = oForm["0"].style.left;
+         form.width  = oForm["0"].style.width;
+         form.height = oForm["0"].style.height;
+         form.backgroundColor = oForm["0"].style.backgroundColor;
+         form.controls = []; 
 
-      function isEmptyObject( obj ) 
-      {
-         var name;
-
-         for( name in obj ) 
-            return false;
-
-         return true;
-      }
-
-      function diff( obj1, obj2 ) 
-      {
-         var result = {};
-         var change;
+         $( ".button" ).each( function( n ) {
+            form.controls.push( $( this ).attr('id') ); } );
          
-         for( var key in obj1 ) 
-         {
-            if( typeof obj1[ key ] == 'object' && typeof obj2[ key ] == 'object' ) 
-            {
-               change = diff( obj1[ key ], obj2[ key ] );
-               if( ! isEmptyObject( change ) ) 
-                  result[ key ] = change;
-            }
-            else if( obj1[ key ] != obj2[ key ] ) 
-               result[ key ] = obj2[ key ]; 
-         }
-         return result;
-      }   
+         alert( JSON.stringify( form ) );
+      }
    </script>  
 </head>
