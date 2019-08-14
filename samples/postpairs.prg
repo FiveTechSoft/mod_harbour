@@ -8,4 +8,6 @@ function Main()
       ? ValToChar( hPairs )
    endif
 
+   ? AP_Remaining()
+
 return nil

@@ -17,6 +17,7 @@
 
 static request_rec * _r;
 static apr_array_header_t * POST_pairs = NULL;
+long   lAPRemaining = 0;
 
 int ap_headers_in_count( void )
 {
@@ -132,7 +133,9 @@ const char * ap_body( void )
    {
       long length = _r->remaining;
       char * rbuf = ( char * ) apr_pcalloc( _r->pool, length + 1 );
-         
+
+      lAPRemaining = length; 
+
       ap_get_client_block( _r, rbuf, length + 1 );
       return rbuf;
    }
@@ -232,7 +235,7 @@ static int harbour_handler( request_rec * r )
                                ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
                                ( void * ) ap_post_pairs_count, ( void * ) ap_post_pairs_key, ( void * ) ap_post_pairs_val, 
                                ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
-                               ( void * ) ap_getenv, ( void * ) ap_body, _r->remaining );
+                               ( void * ) ap_getenv, ( void * ) ap_body, lAPRemaining );
    }
 
    if( lib_harbour != NULL )
