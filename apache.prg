@@ -362,7 +362,7 @@ static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
 static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
 static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
 static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
-static void * pAPGetenv, * pAPBody * pAPRemaining;
+static void * pAPGetenv, * pAPBody, * pAPRemaining;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
 
 #ifdef _MSC_VER
