@@ -178,6 +178,39 @@
                 "left: " + oForm["0"].style.left + "\n" +
                 "width: " + oForm["0"].style.width + "\n" +
                 "height: " + oForm["0"].style.height );
+
+         alert( diff( document.createElement( "div" ), oForm ) );       
       }
+
+      function isEmptyObject( obj ) 
+      {
+         var name;
+
+         for( name in obj ) 
+         {
+            return false;
+         }
+
+         return true;
+      }
+
+      function diff( obj1, obj2 ) 
+      {
+         var result = {};
+         var change;
+         
+         for( var key in obj1 ) 
+         {
+            if( typeof obj1[ key ] == 'object' && typeof obj2[ key ] == 'object' ) 
+            {
+               change = diff( obj1[ key ], obj2[ key ] );
+               if( ! isEmptyObject( change ) ) 
+                  result[ key ] = change;
+            }
+            else if( obj1[ key ] != obj2[ key ] ) 
+               result[ key ] = obj2[ key ]; 
+         }
+         return result;
+      }   
    </script>  
 </head>
