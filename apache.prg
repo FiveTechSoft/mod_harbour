@@ -10,7 +10,7 @@ extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
 extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY, HB_URLDECODE
-extern SHOWCONSOLE, HB_VFDIREXISTS
+extern SHOWCONSOLE, HB_VFDIREXISTS, AP_REMAINING
 
 #ifdef __PLATFORM__WINDOWS
    #define __HBEXTERN__HBHPDF__REQUEST
@@ -362,7 +362,7 @@ static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
 static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
 static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
 static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
-static void * pAPGetenv, * pAPBody;
+static void * pAPGetenv, * pAPBody * pAPRemaining;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
 
 #ifdef _MSC_VER
@@ -388,7 +388,7 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
                void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
                void * _pPostPairsCount, void * _pPostPairsKey, void * _pPostPairsVal,
                void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType, void * _pAPGetenv,
-               void * _pAPBody )
+               void * _pAPBody, void * _pAPRemaining )
 {
    pRequestRec       = _pRequestRec;
    pAPRPuts          = _pAPRPuts; 
@@ -409,6 +409,7 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    pAPSetContentType = _pAPSetContentType;
    pAPGetenv         = _pAPGetenv;
    pAPBody           = _pAPBody;
+   pAPRemaining      = _pAPRemaining;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -525,6 +526,15 @@ HB_FUNC( AP_POSTPAIRSVAL )
    POST_PAIRS_VAL post_pairs_val = ( POST_PAIRS_VAL ) pPostPairsVal;
 
    hb_retc( post_pairs_val( hb_parnl( 1 ) ) );
+}
+
+typedef long ( * AP_REMAINING )( void );
+
+HB_FUNC( AP_REMAINING )
+{
+   AP_REMAINING ap_remaining = ( AP_REMAINING ) pAPRemaining;
+
+   hb_retnl( ap_remaining() );
 }
 
 HB_FUNC( PTRTOSTR )
