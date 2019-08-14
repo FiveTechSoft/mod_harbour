@@ -179,7 +179,7 @@
                 "width: " + oForm["0"].style.width + "\n" +
                 "height: " + oForm["0"].style.height );
 
-         alert( diff( document.createElement( "div" ), oForm ) );       
+         alert( JSON.stringify( diff( document.createElement( "div" ), oForm ) ) );       
       }
 
       function isEmptyObject( obj ) 
@@ -187,9 +187,7 @@
          var name;
 
          for( name in obj ) 
-         {
             return false;
-         }
 
          return true;
       }
