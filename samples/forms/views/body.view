@@ -1,0 +1,6 @@
+<body style="background:peachpuff;">
+    <div id="main">
+       {{GetContent()}}
+    </div>
+</body>
+</html>    

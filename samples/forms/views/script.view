@@ -1,0 +1,30 @@
+        <script>     
+            var nForm = 1;
+            var oForm;
+
+            function Form( oForm )
+            {
+               var div = document.createElement( "div" );
+
+               div.className = "form";
+               div.id = "form" + nForm++;
+               div.style.marginTop = oForm.top;
+               div.style.marginLeft = oForm.left;
+               div.style.width = oForm.width;
+               div.style.height = oForm.height;
+               div.style.boxShadow = "5px 5px 5px 0, 0px 0px 5px 0";
+               div.style.overflow = "none";
+               div.style.backgroundColor = 'lightgray';
+               div.style.borderRadius = "5px"; 
+               div.style.visibility = 'visible'; 
+
+               $( "#main" ).append( div );   
+               $( "#" + div.id ).draggable().resizable().click(function(){
+                if( $(this).is('.ui-draggable-dragging') ) {
+                      return;
+                } } );
+
+               return div;
+            }
+        </script>
+
