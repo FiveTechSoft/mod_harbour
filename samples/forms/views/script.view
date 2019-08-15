@@ -1,6 +1,6 @@
         <script>     
             var nForm = 1;
-            var oForm;
+            var oMainForm;
 
             function Form( oForm )
             {
@@ -24,7 +24,39 @@
                       return;
                 } } );
 
+                oMainForm = $( "#" + div.id );
+
                return div;
+            }
+
+            function ShowJson()
+            {
+                var form = {}; 
+
+                form.top    = oMainForm["0"].style.marginTop;
+                form.left   = oMainForm["0"].style.marginLeft;
+                form.width  = oMainForm["0"].style.width;
+                form.height = oMainForm["0"].style.height;
+                form.backgroundColor = oMainForm["0"].style.backgroundColor;
+                form.controls = []; 
+
+                $( ".control" ).each( function( n ) {
+                    form.controls.push( CtrlObj( $( this ) ) ); } );
+                
+                MsgMemo( JSON.stringify( form ) );
+            }
+
+            function CtrlObj( oCtrl )
+            {
+                var control = {};
+
+                control.type   = oCtrl.attr( 'id' );
+                control.top    = oCtrl["0"].style.top== 0 ? oCtrl.parent().css( "top" ): oCtrl.css( "top" );
+                control.left   = oCtrl["0"].style.left == 0 ? oCtrl.parent().css( "left" ): oCtrl["0"].style.left;
+                control.width  = oCtrl["0"].style.width;
+                control.height = oCtrl["0"].style.height;
+                
+                return control;
             }
         </script>
 
