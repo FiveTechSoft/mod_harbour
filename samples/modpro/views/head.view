@@ -196,11 +196,10 @@
          var control = {};
 
          control.type   = oCtrl.attr( 'id' );
-         control.top    = oCtrl["0"].style.top;
-         control.left   = oCtrl["0"].style.left;
+         control.top    = oCtrl["0"].style.top== 0 ? oCtrl.parent().css( "top" ): oCtrl.css( "top" );
+         control.left   = oCtrl["0"].style.left == 0 ? oCtrl.parent().css( "left" ): oCtrl["0"].style.left;
          control.width  = oCtrl["0"].style.width;
          control.height = oCtrl["0"].style.height;
-         control.backgroundColor = oCtrl["0"].style.backgroundColor;
          
          return control;
       }
