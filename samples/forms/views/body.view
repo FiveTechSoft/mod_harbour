@@ -31,10 +31,9 @@
 			</div>
 		</div>
 		<div id="main" class="row" style="height:calc( 100% - 50px );">
-			<div class="col-md-2" style="padding:0px;height:110%;background:turquoise;"> 
-	            {{GetContent()}}  
+			<div class="col-md-2" style="padding:0px;height:110%;background:turquoise;">
+			  {{GetContent()}}  
 			</div>
-		</div>
 	</div>
 </body>
 </html>
