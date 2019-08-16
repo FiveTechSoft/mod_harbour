@@ -3,8 +3,14 @@
 		[
 		  "Test1.prg",
 		  "Data1.prg",
-		  "Ejemplo básico con JSON Form <br><em>Basic sample with JSON Form</em>",
+		  "Ejemplo básico de formulario con el plugin JsonForm <br><em>Basic sample form with JsonForm plugin</em>",
 		  "<a href=test1.prg>Test</a>"
+		],
+		[
+		  "Test2.prg",
+		  "-",
+		  "Diseñador de formularios con formeo<br><em>Form Design Workshop with formeo</em>",
+		  "<a href=test2.prg>Test</a>"
 		]
 	]
 }
