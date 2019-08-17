@@ -20,8 +20,10 @@ return nil
 
 function CheckUser()
 
-   if ! Empty( GetCookies()[ "genesis" ] )
-      cUserName = GetCookies()[ "genesis" ]
+   local hCookies := GetCookies()
+
+   if hb_HHasKey( hCookies, "genesis" ) .and. ! Empty( hCookies[ "genesis" ] )
+      cUserName = hCookies[ "genesis" ]
    else
       cUserName = "guest"   
    endif
