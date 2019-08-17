@@ -220,5 +220,10 @@
       {
          editor.selectAll();
       }
+
+      function AceGotoLine( nLine, nCol )
+      {
+         editor.gotoLine( nLine, nCol, true );
+      }
    </script>  
 </head>

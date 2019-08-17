@@ -32,7 +32,8 @@
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" onclick="SelectAll()">Select all</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" >Go to Line...</a>
+									<a class="dropdown-item" 
+									   onclick="MsgGet( 'number:  ', 'Goto line', 'AceGotoLine(' );" >Go to Line...</a>
 									<a class="dropdown-item" >Find...</a>
 									<a class="dropdown-item" >Find again</a>
 									<a class="dropdown-item" >Replace and find again</a>
