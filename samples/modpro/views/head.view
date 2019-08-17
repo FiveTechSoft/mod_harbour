@@ -203,5 +203,22 @@
          
          return control;
       }
+
+      function Copy()
+      {
+         editor.focus();
+         document.execCommand('copy');;
+      }
+
+      function Paste()
+      {
+         editor.focus();
+         document.execCommand('paste');;
+      }
+
+      function SelectAll()
+      {
+         editor.selectAll();
+      }
    </script>  
 </head>
