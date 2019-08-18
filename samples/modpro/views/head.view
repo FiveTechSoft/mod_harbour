@@ -221,9 +221,9 @@
          editor.selectAll();
       }
 
-      function AceGotoLine( cLine, nCol )
+      function AceGotoLine( cLine )
       {
-         editor.gotoLine( parseInt( cLine ), nCol, true );
+         editor.gotoLine( parseInt( cLine ), 0, true );
       }
    </script>  
 </head>
