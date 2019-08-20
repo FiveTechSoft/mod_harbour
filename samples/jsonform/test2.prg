@@ -43,12 +43,13 @@ function Main()
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
-				        <h3 class="modal-title" id="form-popup-label">Modal title</h3>
+				        <h3 class="modal-title" id="form-popup-label">Preview form</h3>
 				      </div>
 				      <div class="modal-body">
 				        <div id="form-render"></div>
 				      </div>
 				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				      </div>
 				    </div>
 				  </div>
@@ -63,17 +64,22 @@ function Main()
 		    <script src="https://draggable.github.io/formeo/assets/js/formeo.min.js"></script>
 		    <script>
 
-				function Preview() { 
+				function Render() { 
 					var oForm = new FormeoRenderer({renderContainer: '#form-render'}); 
 					oForm.render(formeo.formData);
+					return $('#form-render').html();
+				}
+
+				function Preview() { 
+					Render()
 					$('#form-popup').modal('show');
 				}
 
 				function SaveForm(formName) {
-
 					var formData = {
 						'name': formName,
-						'form': formeo.formData
+						'form': formeo.formData,
+						'html': Render()
 					};
 					
 					$.ajax({

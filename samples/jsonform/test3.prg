@@ -63,7 +63,30 @@ function Main()
 			</div>
 			<script src="https://draggable.github.io/formeo/assets/js/formeo.min.js"></script>
 			<script>
-		    
+
+				function Render(mode, response) { 
+
+					var oForm;
+
+					if (mode) {
+						oForm= new FormeoRenderer({renderContainer:'#form-render'}); 
+						oForm.render(response.form);
+						$('#form-popup').modal('show');
+
+					} else {
+						
+						if (response.html) {
+
+							var w = window.open();
+							$(w.document.body).html(response.html);
+
+						} else {
+
+							console.log("No existe formulario en HTML");
+						}
+					}
+				}
+
 				function CreateTable(response) {
 					
 					$("#example").DataTable({
@@ -74,7 +97,7 @@ function Main()
 					});
 				}
 
-				function Preview(id) {
+				function Preview(id, mode) {
 
 					$.getJSON( "data3.prg", {id:id}, function(response, status) {
 						// debug
@@ -83,9 +106,7 @@ function Main()
 						if (status=="success") {
 
 							// Renderizar formulario
-							var oForm = new FormeoRenderer({renderContainer:'#form-render'}); 
-							oForm.render(response.form);
-							$('#form-popup').modal('show');
+							Render(mode, response);
 						}
 					});
 				}
@@ -102,9 +123,15 @@ function Main()
 			    			CreateTable(response);
 
 			       		// Capturar evento click para mostrar formulario seleccionado
-							$('.viewer').on( 'click', function(e) {
+							$('.viewPopup').on( 'click', function(e) {
 								// debug console.log( e.target.id );
-								Preview(e.target.id);
+								Preview(e.target.id, true);
+							});
+
+			       		// Capturar evento click para mostrar formulario seleccionado
+							$('.viewPage').on( 'click', function(e) {
+								// debug console.log( e.target.id );
+								Preview(e.target.id, false);
 							});
 						}
 					});

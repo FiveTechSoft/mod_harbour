@@ -11,7 +11,7 @@ function main()
    local hData := {=>}
    local hForm
    local cHeader
-   local aHeaders, aRow, aRequest
+   local aHeaders, aRow
 
    SET EPOCH TO 1950                
    SET DATE FORMAT TO "dd-mm-yyyy"
@@ -33,7 +33,10 @@ function main()
             aadd( aRow, rtrim(data->origin) )
             aadd( aRow, dtoc(data->date) )
             aadd( aRow, data->time )
-            aadd( aRow, '<a href="#" class="viewer" id="'+ltrim(str(recno()))+'">link</a>' )
+            aadd( aRow, ;
+               '<a href="#" class="viewPopup" id="'+ltrim(str(recno()))+'">popup</a> | '+;
+               '<a href="#" class="viewPage" id="'+ltrim(str(recno()))+'">new page</a>' ;
+            )
             aadd( hData['data'], aRow )
             dbskip()
          enddo
@@ -60,11 +63,10 @@ function main()
          hb_jsondecode( data->json, @hForm )
          hData['name'] := data->name
          hData['form'] := hForm
-         hData['aRequest'] := aRequest
+         hData['html'] := data->html
 
          dbunlock()
          hData['error']  := .F.
-         hData['post']  := AP_Args()
 
       endif
 
