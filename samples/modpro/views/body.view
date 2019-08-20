@@ -26,20 +26,21 @@
 									data-toggle="dropdown">Edit</a>
 								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
 									<a class="dropdown-item" style="color:white;">Cut</a> 
-									<a class="dropdown-item" >Copy</a> 
-									<a class="dropdown-item" >Paste</a>
+									<a class="dropdown-item" onclick="Copy()">Copy</a> 
+									<a class="dropdown-item" onclick="Paste()">Paste</a>
 									<a class="dropdown-item" >Clear</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" >Select all</a>
+									<a class="dropdown-item" onclick="SelectAll()">Select all</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" >Go to Line...</a>
+									<a class="dropdown-item" 
+									   onclick="MsgGet( 'number:  ', 'Goto line', 'AceGotoLine(' );" >Go to Line...</a>
 									<a class="dropdown-item" >Find...</a>
 									<a class="dropdown-item" >Find again</a>
 									<a class="dropdown-item" >Replace and find again</a>
 									<a class="dropdown-item" >Replace all</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" >Prev</a>
-									<a class="dropdown-item" >Next</a>
+									<a class="dropdown-item" onclick="editor.findNext()">Next</a>
+									<a class="dropdown-item" onclick="editor.findPrevious()">Prev</a>
 								</div>
 							</li>
 						</ul>					

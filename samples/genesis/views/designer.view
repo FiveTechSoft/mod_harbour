@@ -3,6 +3,9 @@ var nGroups = 1;
 var nRows = 1;
 var nLabels = 2;
 var nGets = 2;
+var nChecks = 0;
+var nButtons = 0;
+var nRadios = 0;
 
 function AddGroup()
 {
@@ -45,10 +48,61 @@ function AddGet()
    $( cRow ).bind( "focusout", function(){ oFocus = this; } );                               
 }
 
+function AddCheck()
+{
+   var cRow = "#row" + ( ++nChecks );
+   var cGroup = "#" + oFocus.parentElement.id;
+
+   $( cGroup ).append( '<label for="text" class="col-1 col-form-label">Label' + ++nLabels + "</label>\r\n" + 
+                       '<div id="row' + nRows + '-3" class="col-3">\r\n' +
+                       '   <input id="get' + nGets++ + '" name="fieldname" type="checkbox" class="form-control" value="" placeholder="">\r\n' +
+                       '</div>\r\n' );
+
+   $( cRow ).bind( "focusout", function(){ oFocus = this; } );                               
+}
+
+function AddButton()
+{
+   var cRow = "#row" + ( ++nButtons );
+   var cGroup = "#" + oFocus.parentElement.id;
+
+   $( cGroup ).append( '<div id="row' + nRows + '-3" class="col-3">\r\n' +
+                       '   <button id="btn' + nButtons++ + '" name="fieldname" class="btn btn-primary">Button</button>\r\n' +
+                       '</div>\r\n' );
+
+   $( cRow ).bind( "focusout", function(){ oFocus = this; } );                               
+}
+
+function AddRadios()
+{
+   var cRow = "#row" + ( ++nRadios );
+   var cGroup = "#" + oFocus.parentElement.id;
+
+   $( cGroup ).append( '<div id="row' + nRows + '-3" class="col-3">\r\n' +
+                       '<div class="radio">\r\n' +
+                       '   <label><input type="radio" name="optradio" checked> Option 1</label>\r\n' +
+                       '</div>\r\n' +
+                       '<div class="radio">\r\n' +
+                       '   <label><input type="radio" name="optradio"> Option 2</label>\r\n' +
+                       '</div>\r\n' +
+                       '<div class="radio">\r\n' +
+                       '   <label><input type="radio" name="optradio"> Option 3</label>\r\n' +
+                       '</div>\r\n' + 
+                       '</div>\r\n' ); 
+      
+   $( cRow ).bind( "focusout", function(){ oFocus = this; } );                               
+}
+
 function ShowHTML()
 {
    MsgMemo( "", "HTML" );
    $( "#memo" ).html( '<div id="form" class="row">' + $( "#form" ).html() + "</div>" );
+}
+
+function Delete()
+{
+   $( oFocus ).prev().remove();
+   $( oFocus ).remove();
 }
 
 function Larger()
@@ -145,10 +199,21 @@ function Smaller()
                         style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
                         <i class="fas fa-plus" style="color:lightgray;padding-right:10px;font-size:18px"></i>
                         Row</button>
-                     <button onclick="AddGet();" class="btn btn-primary" 
-                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
-                        <i class="fas fa-plus" style="color:lightgray;padding-right:10px;font-size:18px"></i>
-                        Get</button>
+                     <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" 
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                           style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                           <i class="fas fa-plus" style="color:lightgray;padding-right:10px;font-size:18px"></i>Control
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="color:White;background-color:{{GetColor1()}};">
+                             <a class="dropdown-item" onclick="AddGet()">Get</a>
+                             <a class="dropdown-item" onclick="AddCheck()">CheckBox</a>
+                             <a class="dropdown-item" onclick="AddButton()">Button</a>
+                             <a class="dropdown-item" onclick="AddRadios()">Radios</a>
+                             <a class="dropdown-item" href="#">ComboBox</a>
+                        </div>
+                     </div>
+
                      <button onclick="ShowHTML();" class="btn btn-primary" 
                         style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
                         <i class="fas fa-edit" style="color:lightgray;padding-right:10px;font-size:18px"></i>
@@ -159,20 +224,12 @@ function Smaller()
                         Search</button>
                      <button onclick="location.href='index.prg?{{GetContent()}}';" class="btn btn-primary" 
                         style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
-                        <i class="fa fa-list" style="color:lightgray;padding-right:10px;font-size:18px"></i>
-                        Menu</button>
-                     <button onclick="location.href='index.prg?{{GetContent()}}';" class="btn btn-primary" 
-                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
                         <i class="fa fa-eye" style="color:lightgray;padding-right:10px;font-size:18px"></i>
                         View</button>
-                     <button onclick="location.href='index.prg?{{GetContent()}}';" class="btn btn-primary" 
+                     <button onclick="Delete()" class="btn btn-primary" 
                         style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
                         <i class="fa fa-remove" style="color:lightgray;padding-right:10px;font-size:18px"></i>
-                        Un/Delete</button>
-                     <button onclick="location.href='index.prg?{{GetContent()}}';" class="btn btn-primary" 
-                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
-                        <i class="fas fa-sign-out-alt" style="color:lightgray;padding-right:10px;font-size:18px"></i>
-                        Exit</button>
+                        Delete</button>
                   </div>   
                </div>
                </form>

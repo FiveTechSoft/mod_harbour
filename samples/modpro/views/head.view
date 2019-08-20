@@ -203,5 +203,27 @@
          
          return control;
       }
+
+      function Copy()
+      {
+         editor.focus();
+         document.execCommand('copy');;
+      }
+
+      function Paste()
+      {
+         editor.focus();
+         document.execCommand('paste');;
+      }
+
+      function SelectAll()
+      {
+         editor.selectAll();
+      }
+
+      function AceGotoLine( cLine )
+      {
+         editor.gotoLine( parseInt( cLine ), 0, true );
+      }
    </script>  
 </head>
