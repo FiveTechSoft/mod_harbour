@@ -28,71 +28,109 @@ function Main()
 		    <title>FRW. Forms Resource Workshop</title>
 		  </head>
 		  <body>
-		    <h1>FRW. Forms Resource Workshop</h1>
 
-			<!-- Modal -->
-			<div class="modal fade" id="form-popup" tabindex="-1" role="dialog" aria-labelledby="form-popup-label" aria-hidden="true">
-			  <div class="modal-dialog" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			        <h3 class="modal-title" id="form-popup-label">Modal title</h3>
-			      </div>
-			      <div class="modal-body">
-			        <div id="form-render"></div>
-			      </div>
-			      <div class="modal-footer">
-			      </div>
-			    </div>
-			  </div>
-			</div>
+			<div class="container">
+				<div class="row">
+					<h1>FRW. Forms Resource Workshop</h1>
+					<hr>
+				</div>
 
-			<div id="formeo-editor"></div>
+				<!-- Modal -->
+				<div class="modal fade" id="form-popup" tabindex="-1" role="dialog" aria-labelledby="form-popup-label" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				        <h3 class="modal-title" id="form-popup-label">Preview form</h3>
+				      </div>
+				      <div class="modal-body">
+				        <div id="form-render"></div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
 
+				<div id="formeo-editor"></div>
+				<div>
+					<button type="button" class="btn btn-primary" onclick="Preview()">Preview</button>
+				</div>
+		   </div>
+		   
 		    <script src="https://draggable.github.io/formeo/assets/js/formeo.min.js"></script>
 		    <script>
-		    var data;
-		    var formeo = new FormeoEditor({
-				editorContainer: '#formeo-editor',
-				svgSprite: 'https://draggable.github.io/formeo/assets/img/formeo-sprite.svg',
-				debug:false,
-				sessionStorage: false,
 
-				events: {
-					onSave: (evt) => {
-						console.log(this.formeo.formData);
-
-						var oForm = new FormeoRenderer({renderContainer: '#form-render'}); 
-						FormRender(oForm, this.formeo.formData);
-						$('#form-popup').modal('show');
-					}
-				},
-
-				controls: {
-					elements: [{
-						tag: 'input',
-						attrs: {
-							type: 'number',
-							className: 'form-control'
-						},
-						config: {
-							label: 'Price'
-						},
-						meta: {
-							group: 'common',
-							icon: 'text-input',
-							id: 'price-input'
-						}
-					}]
+				function Render() { 
+					var oForm = new FormeoRenderer({renderContainer: '#form-render'}); 
+					oForm.render(formeo.formData);
+					return $('#form-render').html();
 				}
-			});
 
-			function FormRender( oForm, formData ) { 
-				oForm.render(formData);
-			}
-		   
+				function Preview() { 
+					Render()
+					$('#form-popup').modal('show');
+				}
+
+				function SaveForm(formName) {
+					var formData = {
+						'name': formName,
+						'form': formeo.formData,
+						'html': Render()
+					};
+					
+					$.ajax({
+						url: 'data2.prg',
+						method: 'POST',
+						data: JSON.stringify( formData )
+
+					}).done(function(response) {
+						console.log(response);
+
+					}).fail(function(response) {
+					   console.log(response);
+					});
+				}
+		    
+				var formeo = new FormeoEditor({
+					editorContainer: '#formeo-editor',
+					svgSprite: 'https://draggable.github.io/formeo/assets/img/formeo-sprite.svg',
+					debug:false,
+					sessionStorage: false,
+
+					events: {
+						onSave: (evt) => {
+
+							var formName = prompt("Nombre del formulario a guardar ?");
+
+							if (formName!==null) {
+								SaveForm(formName);
+							}
+						}
+					},
+
+					controls: {
+						elements: [{
+							tag: 'input',
+							attrs: {
+								type: 'number',
+								className: 'form-control'
+							},
+							config: {
+								label: 'Price'
+							},
+							meta: {
+								group: 'common',
+								icon: 'text-input',
+								id: 'price-input'
+							}
+						}]
+					}
+				});
+
 		    </script>
 		  </body>
 		</html>
