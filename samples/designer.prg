@@ -30,13 +30,8 @@ function Main()
             height: 11px;
             background-color: #000000;
             border: 1px solid #000000;
-            visible:none;
-         }
-         .nwgrip:focus, .negrip:focus, .swgrip:focus, .segrip:focus, .ngrip:focus, .egrip, .sgrip, .wgrip {
-            width: 7px;
-            height: 11px;
-            visible:block;
-         }         
+            visibility:hidden;
+         }     
          .nwgrip {
             left: -5px;
             top: -5px;
@@ -67,13 +62,13 @@ function Main()
          }
          .wgrip{
             left:-5px;
-            top:50%;
+            top:47%;
             width: 11px;
             height: 7px;
          }
          .egrip{
             right:-5px;
-            top:50%;
+            top:47%;
             width: 11px;
             height: 7px;     
          }
@@ -118,6 +113,8 @@ function Main()
             }).draggable( { grid: [20, 20],
                axis: "x,y",
                containment: '#container' } );
+            $('.button').focus(function() { $(this).find(".ui-resizable-handle").css( "visibility", "visible") } ); 
+            $('.button').focusout(function() { $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
          </script>
       </body>
    ENDTEXT
