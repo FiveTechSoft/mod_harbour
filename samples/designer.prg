@@ -20,16 +20,25 @@ function Main()
          .label {
             border: 0px solid;
             border-color: black;
-            width: 174px;
-            height: 54px;
+            width: 80px;
+            height: 32px;
             overflow: hidden;
             -webkit-user-modify: read-write;
          }
+         .edit {
+            border: 3px solid;
+            border-color: darkgray white white darkgray;
+            width: 300px;
+            height: 32px;
+            overflow: hidden;
+            background-color: whitesmoke;
+            -webkit-user-modify: read-write;
+         }         
          .button {
             border: 3px solid;
             border-color: white darkgray darkgray white;
-            width: 174px;
-            height: 54px;
+            width: 117px;
+            height: 32px;
             overflow: hidden;
             background-color: lightgray;
             -webkit-user-modify: read-write;
@@ -100,7 +109,7 @@ function Main()
          <table style="border-spacing:0px;padding-left:80px;padding-top:60px;">
          <tr>
          <td><div class="button toolbar" title="label" onclick="AddLabel()"><i class="fas fa-font" style="color:black;font-size:20px;padding:17px;"></i></div></td>
-         <td><div class="button toolbar" title="input"><i class="fas fa-edit" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+         <td><div class="button toolbar" title="input" onclick="AddEdit()"><i class="fas fa-edit" style="color:black;font-size:20px;padding:15px;"></i></div></td>
          <td><div class="button toolbar" title="button" onclick="AddButton()"><i class="fas fa-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
          </tr>
          <tr>
@@ -133,9 +142,8 @@ function Main()
          </div>
          <script>
             var labels = 0;
+            var edits = 0;
             var buttons = 0;
-
-            AddButton();
 
             function AddLabel()
             { 
@@ -155,6 +163,26 @@ function Main()
                '</div>';
 
                $( "#container" ).append( cHtml );
+               InitButtons( cId );
+            }  
+
+            function AddEdit()
+            { 
+               var cId = "inp" + ++edits;
+               var cHtml = 
+               '<div id="' + cId + '" class="edit">' + 
+               '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-se segrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-n ngrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
+               '</div>';
+
+               $( "#container" ).append( cHtml );
+               $( "#" + cId ).position().top += 2;
                InitButtons( cId );
             }  
 
