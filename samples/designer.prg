@@ -97,11 +97,11 @@ function Main()
          </tr>
          <tr>
          <td><div class="button toolbar" title="combobox"><i class="fas fa-bars" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-         <td><div class="button toolbar"></div></td>
-         <td><div class="button toolbar"></div></td>         
+         <td><div class="button toolbar" title="radios"><i class="fas fa-list-ul" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+         <td><div class="button toolbar" title="image"><i class="far fa-image" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
          </tr>
          <tr>
-         <td><div class="button toolbar"></div></td>
+         <td><div class="button toolbar" title="checkbox"><i class="far fa-check-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>
          <td><div class="button toolbar"></div></td>
          <td><div class="button toolbar"></div></td>         
          </tr>
@@ -117,8 +117,8 @@ function Main()
          </tr>
          <tr>
          <td><div class="button toolbar"></div></td>
-         <td><div class="button toolbar"></div></td>
-         <td><div class="button toolbar"></div></td>
+         <td><div class="button toolbar" title="save"><i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+         <td><div class="button toolbar" title="settings"><i class="fas fa-cog" style="color:black;font-size:20px;padding:15px;"></i></div></td>
          </tr>
          </table> 
          <div id="container" style="top:150px;left:400px;width:1000px;height:600px;">
