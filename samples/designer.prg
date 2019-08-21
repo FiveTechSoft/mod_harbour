@@ -16,53 +16,62 @@ function Main()
          overflow: hidden;
          background: whitesmoke url('https://s3.amazonaws.com/com.appgrinders.test/images/grid_20.png') repeat;
          }
-         #elementResizable {
-            border: 1px solid #000000;
-            width: 300px;
-            height: 100px;
+         .button {
+            border: 3px solid;
+            border-color: white darkgray darkgray white;
+            width: 174px;
+            height: 54px;
             overflow: hidden;
+            background-color: lightgray;
+            -webkit-user-modify: read-write;
          }
-         #nwgrip, #negrip, #swgrip, #segrip, #ngrip, #egrip, #sgrip, #wgrip {
+         .nwgrip, .negrip, .swgrip, .segrip, .ngrip, .egrip, .sgrip, .wgrip {
             width: 7px;
             height: 11px;
             background-color: #000000;
             border: 1px solid #000000;
+            visible:none;
          }
-         #nwgrip {
+         .nwgrip:focus, .negrip:focus, .swgrip:focus, .segrip:focus, .ngrip:focus, .egrip, .sgrip, .wgrip {
+            width: 7px;
+            height: 11px;
+            visible:block;
+         }         
+         .nwgrip {
             left: -5px;
             top: -5px;
             width: 11px;
          }
-         #negrip{
+         .negrip{
             top: -5px;
             right: -5px;
             width: 11px;
          }
-         #swgrip{
+         .swgrip{
             bottom: -5px;
             left: -5px;
             width: 11px;
          }
-         #segrip{
+         .segrip{
             bottom: -5px;
             right:-5px;
             width: 11px;
          }
-         #ngrip{
+         .ngrip{
             top: -5px;
             left:50%;
          }
-         #sgrip{
+         .sgrip{
             bottom: -5px;
             left: 50%;
          }
-         #wgrip{
+         .wgrip{
             left:-5px;
             top:50%;
             width: 11px;
             height: 7px;
          }
-         #egrip{
+         .egrip{
             right:-5px;
             top:50%;
             width: 11px;
@@ -73,28 +82,38 @@ function Main()
       <body>
          <h2>mod_harbour designer prototype</h2>
          <div id="container" style="top:150px;left:400px;width:1000px;height:600px;">
-            <div id='elementResizable'>
-               <div class="ui-resizable-handle ui-resizable-nw" id="nwgrip"></div>
-               <div class="ui-resizable-handle ui-resizable-ne" id="negrip"></div>
-               <div class="ui-resizable-handle ui-resizable-sw" id="swgrip"></div>
-               <div class="ui-resizable-handle ui-resizable-se" id="segrip"></div>
-               <div class="ui-resizable-handle ui-resizable-n" id="ngrip"></div>
-               <div class="ui-resizable-handle ui-resizable-s" id="sgrip"></div>
-               <div class="ui-resizable-handle ui-resizable-e" id="egrip"></div>
-               <div class="ui-resizable-handle ui-resizable-w" id="wgrip"></div>
+            <div class='button'>
+               <div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>
+               <div class="ui-resizable-handle ui-resizable-ne negrip"></div>
+               <div class="ui-resizable-handle ui-resizable-sw swgrip"></div>
+               <div class="ui-resizable-handle ui-resizable-se segrip"></div>
+               <div class="ui-resizable-handle ui-resizable-n ngrip"></div>
+               <div class="ui-resizable-handle ui-resizable-s sgrip"></div>
+               <div class="ui-resizable-handle ui-resizable-e egrip"></div>
+               <div class="ui-resizable-handle ui-resizable-w wgrip"></div>
+            </div>
+            <div class='button'>
+               <div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>
+               <div class="ui-resizable-handle ui-resizable-ne negrip"></div>
+               <div class="ui-resizable-handle ui-resizable-sw swgrip"></div>
+               <div class="ui-resizable-handle ui-resizable-se segrip"></div>
+               <div class="ui-resizable-handle ui-resizable-n ngrip"></div>
+               <div class="ui-resizable-handle ui-resizable-s sgrip"></div>
+               <div class="ui-resizable-handle ui-resizable-e egrip"></div>
+               <div class="ui-resizable-handle ui-resizable-w wgrip"></div>
             </div>
          </div>
          <script>
-               $('#elementResizable').resizable({
+               $('.button').resizable({
                   handles: {
-                     'nw': '#nwgrip',
-                     'ne': '#negrip',
-                     'sw': '#swgrip',
-                     'se': '#segrip',
-                     'n': '#ngrip',
-                     'e': '#egrip',
-                     's': '#sgrip',
-                     'w': '#wgrip'
+                     'nw': '.nwgrip',
+                     'ne': '.negrip',
+                     'sw': '.swgrip',
+                     'se': '.segrip',
+                     'n': '.ngrip',
+                     'e': '.egrip',
+                     's': '.sgrip',
+                     'w': '.wgrip'
                   }
             }).draggable( { grid: [20, 20],
                axis: "x,y",
