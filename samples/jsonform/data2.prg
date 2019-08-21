@@ -12,7 +12,8 @@ function main()
    local hPost
 
    hb_jsondecode( AP_Body(), @hPost )
-   hData['post'] := hPost
+   hData['post']  := hPost
+   hData['error'] := .F.
 
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/jsonform.dbf" ) ALIAS "data" SHARED
 
@@ -26,7 +27,6 @@ function main()
       data->html     := CreateHtmlDocument( data->name, hPost['html'] )
 
       dbunlock()
-      hData['error']  := .F.
    else
       hData['error']  := .T.
       hData['errmsg'] := "Error data"

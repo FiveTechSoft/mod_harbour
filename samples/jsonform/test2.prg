@@ -120,7 +120,7 @@ function Main()
 								className: 'form-control'
 							},
 							config: {
-								label: 'Price'
+								label: 'Precio'
 							},
 							meta: {
 								group: 'common',
