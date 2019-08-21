@@ -17,6 +17,14 @@ function Main()
          overflow: hidden;
          background: whitesmoke url('https://s3.amazonaws.com/com.appgrinders.test/images/grid_20.png') repeat;
          }
+         .label {
+            border: 0px solid;
+            border-color: black;
+            width: 174px;
+            height: 54px;
+            overflow: hidden;
+            -webkit-user-modify: read-write;
+         }
          .button {
             border: 3px solid;
             border-color: white darkgray darkgray white;
@@ -91,7 +99,7 @@ function Main()
          <br><br>
          <table style="border-spacing:0px;padding-left:80px;padding-top:60px;">
          <tr>
-         <td><div class="button toolbar" title="label"><i class="fas fa-font" style="color:black;font-size:20px;padding:17px;"></i></div></td>
+         <td><div class="button toolbar" title="label" onclick="AddLabel()"><i class="fas fa-font" style="color:black;font-size:20px;padding:17px;"></i></div></td>
          <td><div class="button toolbar" title="input"><i class="fas fa-edit" style="color:black;font-size:20px;padding:15px;"></i></div></td>
          <td><div class="button toolbar" title="button" onclick="AddButton()"><i class="fas fa-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
          </tr>
@@ -124,10 +132,32 @@ function Main()
          <div id="container" style="top:150px;left:400px;width:1000px;height:600px;">
          </div>
          <script>
+            var labels = 0;
             var buttons = 0;
 
             AddButton();
-          
+
+            function AddLabel()
+            { 
+               var cId = "lbl" + ++labels;
+               var cHtml = 
+               '<div id="' + cId + '" class="label">' + 
+               '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-se segrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-n ngrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
+               '<label onclick="$(this).parent().focus()"><font size="5">Label' + 
+               labels + '</font></label>' +
+               '</div>';
+
+               $( "#container" ).append( cHtml );
+               InitButtons( cId );
+            }  
+
             function AddButton()
             { 
                var cId = "btn" + ++buttons;
