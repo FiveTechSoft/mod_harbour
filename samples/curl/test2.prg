@@ -6,7 +6,9 @@
 *       Inicio: 12-08-2019                                                 *
 ****************************************************************************
 */
-#include "hbcurl.ch"
+//#include "hbcurl.ch"
+#define HB_CURLOPT_URL                        2
+#define HB_CURLOPT_DL_BUFF_SETUP              1008
 
 function main()
 	
