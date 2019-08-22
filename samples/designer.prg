@@ -200,8 +200,8 @@ function Main()
                '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
                '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
                '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
-               '<label onclick="$(this).parent().focus()" style="padding:30px;">' +
-               'Button' + buttons + '</label>' +
+               '<label onclick="$(this).parent().focus()" style="padding:12px;">' +
+               '<font size="5">Button' + buttons + '</font></label>' +
                '</div>';
 
                $( "#container" ).append( cHtml );
