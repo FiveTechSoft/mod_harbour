@@ -123,13 +123,13 @@ function Main()
          <td><div class="button toolbar"></div></td>         
          </tr>
          <tr>
-         <td><div class="button toolbar"></div></td>
-         <td><div class="button toolbar"></div></td>
+         <td><div class="button toolbar" title="fine move to top" onclick="ToUp()"><i class="fas fa-arrow-up" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+         <td><div class="button toolbar" title="fine move to bottom" onclick="ToDown()"><i class="fas fa-arrow-down" style="color:black;font-size:20px;padding:15px;"></i></div></td>
          <td><div class="button toolbar"></div></td>        
          </tr>
          <tr>
-         <td><div class="button toolbar"></div></td>
-         <td><div class="button toolbar"></div></td>
+         <td><div class="button toolbar" title="fine move to left" onclick="ToLeft()"><i class="fas fa-arrow-left" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+         <td><div class="button toolbar" title="fine move to right" onclick="ToRight()"><i class="fas fa-arrow-right" style="color:black;font-size:20px;padding:15px;"></i></div></td>
          <td><div class="button toolbar"></div></td>         
          </tr>
          <tr>
@@ -191,7 +191,7 @@ function Main()
             { 
                var cId = "btn" + ++buttons;
                var cHtml = 
-               '<div id="' + cId + '" class="button">' + 
+               '<div id="' + cId + '" class="button" style="width:100px">' + 
                '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
                '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
                '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
@@ -200,6 +200,8 @@ function Main()
                '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
                '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
                '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
+               '<label onclick="$(this).parent().focus()" style="padding:30px;">' +
+               'Button' + buttons + '</label>' +
                '</div>';
 
                $( "#container" ).append( cHtml );
@@ -227,6 +229,26 @@ function Main()
                $( "#" + cId ).focusout(function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
             }      
 
+            function ToUp()
+            {
+               oCtrl[0].style.top = parseFloat( oCtrl[0].style.top ) - 1;
+            }   
+
+            function ToDown()
+            {
+               oCtrl[0].style.top = parseFloat( oCtrl[0].style.top ) + 1;
+            }   
+
+            function ToLeft()
+            {
+               oCtrl[0].style.left = parseFloat( oCtrl[0].style.left ) - 1;
+            }   
+
+            function ToRight()
+            {
+               oCtrl[0].style.left = parseFloat( oCtrl[0].style.left ) + 1;
+            }   
+   
             function SnapToGrid()
             {
                oCtrl[0].style.top = parseInt( oCtrl[0].style.top ) + 10 + "px";
