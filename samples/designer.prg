@@ -21,7 +21,7 @@ function Main()
             border: 0px solid;
             border-color: black;
             width: 80px;
-            height: 32px;
+            height: 30px;
             overflow: hidden;
             -webkit-user-modify: read-write;
          }
@@ -133,17 +133,18 @@ function Main()
          <td><div class="button toolbar"></div></td>         
          </tr>
          <tr>
-         <td><div class="button toolbar"></div></td>
+         <td><div class="button toolbar" title="snap to grid" onclick="SnapToGrid()"><i class="fas fa-compress" style="color:black;font-size:20px;padding:15px;"></i></div></td>
          <td><div class="button toolbar" title="save"><i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:15px;"></i></div></td>
          <td><div class="button toolbar" title="settings"><i class="fas fa-cog" style="color:black;font-size:20px;padding:15px;"></i></div></td>
          </tr>
          </table> 
-         <div id="container" style="top:150px;left:400px;width:1000px;height:600px;">
+         <div id="container" style="top:140px;left:400px;width:1000px;height:600px;">
          </div>
          <script>
             var labels = 0;
             var edits = 0;
             var buttons = 0;
+            var oCtrl;
 
             function AddLabel()
             { 
@@ -223,8 +224,15 @@ function Main()
                containment: '#container' } );
 
                $( "#" + cId ).focus(function() { $(this).find(".ui-resizable-handle").css( "visibility", "visible") } ); 
-               $( "#" + cId ).focusout(function() { $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
+               $( "#" + cId ).focusout(function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
             }      
+
+            function SnapToGrid()
+            {
+               oCtrl[0].style.top = parseInt( oCtrl[0].style.top ) + 10 + "px";
+               console.log( parseInt( oCtrl[0].style.top ) % 20 );
+               oCtrl.position().left -= oCtrl.position().left % 20;
+            }   
          </script>
       </body>
    ENDTEXT
