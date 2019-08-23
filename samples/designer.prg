@@ -19,7 +19,7 @@ function Main()
             top:150px;
             left:150px;
             width:157px;
-            height:310px;
+            height:362px;
             position:absolute;  
          }
          .form {
@@ -160,6 +160,11 @@ function Main()
             <td><div class="button toolbar"></div></td>         
             </tr>
             <tr>
+            <td><div class="button toolbar"></div></td>
+            <td><div class="button toolbar"></div></td>
+            <td><div class="button toolbar"></div></td>         
+            </tr>
+            <tr>
             <td><div class="button toolbar" title="fine move to top" onclick="ToUp()"><i class="fas fa-arrow-up" style="color:black;font-size:20px;padding:15px;"></i></div></td>
             <td><div class="button toolbar" title="fine move to bottom" onclick="ToDown()"><i class="fas fa-arrow-down" style="color:black;font-size:20px;padding:15px;"></i></div></td>
             <td><div class="button toolbar"></div></td>        
@@ -210,7 +215,7 @@ function Main()
                '</div>';
 
                $( "#form" ).append( cHtml );
-               InitButtons( cId );
+               InitGrips( cId );
             }  
 
             function AddEdit()
@@ -230,7 +235,7 @@ function Main()
 
                $( "#form" ).append( cHtml );
                $( "#" + cId ).position().top += 2;
-               InitButtons( cId );
+               InitGrips( cId );
             }  
 
             function AddButton()
@@ -251,7 +256,7 @@ function Main()
                '</div>';
 
                $( "#form" ).append( cHtml );
-               InitButtons( cId );
+               InitGrips( cId );
             }
             
             function AddCheckbox()
@@ -273,7 +278,7 @@ function Main()
                '</div>';
 
                $( "#form" ).append( cHtml );
-               InitButtons( cId );
+               InitGrips( cId );
             }
 
             function AddImage()
@@ -293,10 +298,10 @@ function Main()
 
                $( "#form" ).append( cHtml );
                $( "#" + cId ).position().top += 2;
-               InitButtons( cId );
+               InitGrips( cId );
             } 
 
-            function InitButtons( cId )
+            function InitGrips( cId )
             {    
                $( "#"  + cId ).resizable({
                   handles: {
