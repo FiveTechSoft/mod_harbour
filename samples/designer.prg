@@ -18,8 +18,8 @@ function Main()
             box-shadow:10px 10px 10px darkgray, 0px 0px 10px darkgray;
             top:150px;
             left:150px;
-            width:157px;
-            height:362px;
+            width:127px;
+            height:293px;
             position:absolute;  
          }
          .inspector{
@@ -30,6 +30,7 @@ function Main()
             height:362px;
             position:absolute; 
             background: lightgray; 
+            border-radius: 5px;
          }         
          .form {
             border: solid gray 1px;
@@ -146,11 +147,11 @@ function Main()
             height: 7px;     
          }
          .toolbar{
-            width:50px;
-            height:50px;
+            width:40px;
+            height:40px;
             -webkit-user-modify:read-only;
             border: 0px solid;
-            border-radius: 5px;
+            border-radius: 2px;
          }
          .toolbar:hover{
             background-color: darkgray;  
@@ -164,6 +165,7 @@ function Main()
             padding:4px;
             border: 1px solid black;
             background-color:white;
+            border-radius: 5px;
          }
          .table_inspector tr {
             padding:4px;
@@ -186,17 +188,17 @@ function Main()
          <div id="toolbox" class="toolbox">
             <table style="border-spacing:0px;">
             <tr>
-            <td><div class="button toolbar" title="label" onclick="AddLabel()"><i class="fas fa-font" style="color:black;font-size:20px;padding:17px;"></i></div></td>
-            <td><div class="button toolbar" title="input" onclick="AddEdit()"><i class="fas fa-edit" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-            <td><div class="button toolbar" title="button" onclick="AddButton()"><i class="fas fa-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
+            <td><div class="button toolbar" title="label" onclick="AddLabel()"><i class="fas fa-font" style="color:black;font-size:20px;padding:10px;"></i></div></td>
+            <td><div class="button toolbar" title="input" onclick="AddEdit()"><i class="fas fa-edit" style="color:black;font-size:20px;padding:10px;"></i></div></td>
+            <td><div class="button toolbar" title="button" onclick="AddButton()"><i class="fas fa-square" style="color:black;font-size:20px;padding:10px;"></i></div></td>         
             </tr>
             <tr>
-            <td><div class="button toolbar" title="combobox/listbox" onclick="AddListbox()"><i class="fas fa-bars" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-            <td><div class="button toolbar" title="radios"><i class="fas fa-list-ul" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-            <td><div class="button toolbar" title="image" onclick="AddImage()"><i class="far fa-image" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
+            <td><div class="button toolbar" title="combobox/listbox" onclick="AddListbox()"><i class="fas fa-bars" style="color:black;font-size:20px;padding:10px;"></i></div></td>
+            <td><div class="button toolbar" title="radios"><i class="fas fa-list-ul" style="color:black;font-size:20px;padding:10px;"></i></div></td>
+            <td><div class="button toolbar" title="image" onclick="AddImage()"><i class="far fa-image" style="color:black;font-size:20px;padding:10px;"></i></div></td>         
             </tr>
             <tr>
-            <td><div class="button toolbar" title="checkbox" onclick="AddCheckbox()"><i class="far fa-check-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar" title="checkbox" onclick="AddCheckbox()"><i class="far fa-check-square" style="color:black;font-size:20px;padding:10px;"></i></div></td>
             <td><div class="button toolbar"></div></td>
             <td><div class="button toolbar"></div></td>         
             </tr>
@@ -206,19 +208,19 @@ function Main()
             <td><div class="button toolbar"></div></td>         
             </tr>
             <tr>
-            <td><div class="button toolbar" title="fine move to top" onclick="ToUp()"><i class="fas fa-arrow-up" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-            <td><div class="button toolbar" title="fine move to bottom" onclick="ToDown()"><i class="fas fa-arrow-down" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar" title="fine move to top" onclick="ToUp()"><i class="fas fa-arrow-up" style="color:black;font-size:20px;padding:10px;"></i></div></td>
+            <td><div class="button toolbar" title="fine move to bottom" onclick="ToDown()"><i class="fas fa-arrow-down" style="color:black;font-size:20px;padding:10px;"></i></div></td>
             <td><div class="button toolbar"></div></td>        
             </tr>
             <tr>
-            <td><div class="button toolbar" title="fine move to left" onclick="ToLeft()"><i class="fas fa-arrow-left" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-            <td><div class="button toolbar" title="fine move to right" onclick="ToRight()"><i class="fas fa-arrow-right" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-            <td><div class="button toolbar" title="delete" onclick="Remove()"><i class="fas fa-times" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
+            <td><div class="button toolbar" title="fine move to left" onclick="ToLeft()"><i class="fas fa-arrow-left" style="color:black;font-size:20px;padding:10px;"></i></div></td>
+            <td><div class="button toolbar" title="fine move to right" onclick="ToRight()"><i class="fas fa-arrow-right" style="color:black;font-size:20px;padding:10px;"></i></div></td>
+            <td><div class="button toolbar" title="delete" onclick="Remove()"><i class="fas fa-times" style="color:black;font-size:20px;padding:10px;"></i></div></td>         
             </tr>
             <tr>
-            <td><div class="button toolbar" title="snap to grid" onclick="SnapToGrid()"><i class="fas fa-compress" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-            <td><div class="button toolbar" title="save"><i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-            <td><div class="button toolbar" title="settings"><i class="fas fa-cog" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar" title="snap to grid" onclick="SnapToGrid()"><i class="fas fa-compress" style="color:black;font-size:20px;padding:10px;"></i></div></td>
+            <td><div class="button toolbar" title="save"><i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:10px;"></i></div></td>
+            <td><div class="button toolbar" title="settings"><i class="fas fa-cog" style="color:black;font-size:20px;padding:10px;"></i></div></td>
             </tr>
             </table> 
          </div>
@@ -233,15 +235,23 @@ function Main()
                </tr>
                <tr>
                   <td class="left">top</td>
-                  <td><input type="text" value="0"></td>
+                  <td><input type="text" value="0" style="padding:2px"></td>
                </tr>
                <tr>
                   <td class="left">left</td>
-                  <td><input type="text" value="0"></td>
+                  <td><input type="text" value="0" style="padding:2px"></td>
                </tr>
                <tr>
                   <td class="left">prompt</td>
-                  <td><input type="text" value="..."></td>
+                  <td><input type="text" value="..." style="padding:2px"></td>
+               </tr>
+               <tr>
+                  <td class="left">color</td>
+                  <td><input type="text" value="..." style="padding:2px"></td>
+               </tr>
+               <tr>
+                  <td class="left">bgcolor</td>
+                  <td><input type="text" value="..." style="padding:2px"></td>
                </tr>
             </table>
          </div>
