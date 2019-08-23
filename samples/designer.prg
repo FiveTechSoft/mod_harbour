@@ -10,12 +10,12 @@ function Main()
          <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
       <style>
          #container {
-         border: solid blue 1px;
-         width: 800px;
-         height: 400px;
-         position: absolute;
-         overflow: hidden;
-         background: whitesmoke url('https://s3.amazonaws.com/com.appgrinders.test/images/grid_20.png') repeat;
+            border: solid blue 1px;
+            width: 800px;
+            height: 400px;
+            position: absolute;
+            overflow: hidden;
+            background: whitesmoke url('https://s3.amazonaws.com/com.appgrinders.test/images/grid_20.png') repeat;
          }
          .label {
             border: 0px solid;
@@ -49,7 +49,10 @@ function Main()
             background-color: #000000;
             border: 1px solid #000000;
             visibility:hidden;
-         }     
+         } 
+         .segrip.main{
+            visibility:visible;            
+         }    
          .nwgrip {
             left: -5px;
             top: -5px;
@@ -139,12 +142,16 @@ function Main()
          </tr>
          </table> 
          <div id="container" style="top:140px;left:400px;width:1000px;height:600px;">
+            <div class="ui-resizable-handle ui-resizable-se segrip main"></div>
          </div>
          <script>
             var labels = 0;
             var edits = 0;
             var buttons = 0;
             var oCtrl;
+
+            $( "#container" ).resizable( {
+                  handles: { 'se': '.segrip' } } ).draggable();
 
             function AddLabel()
             { 
