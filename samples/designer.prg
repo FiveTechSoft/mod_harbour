@@ -22,7 +22,7 @@ function Main()
             height:310px;
             position:absolute;  
          }
-         #container {
+         #form {
             border: solid gray 1px;
             width: 800px;
             height: 400px;
@@ -58,6 +58,14 @@ function Main()
             background-color: lightgray;
             -webkit-user-modify: read-write;
          }
+         .checkbox {
+            border: 0px solid;
+            border-color: white darkgray darkgray white;
+            width: 185px;
+            height: 45px;
+            overflow: hidden;
+            -webkit-user-modify: read-write;
+         }         
          .nwgrip, .negrip, .swgrip, .segrip, .ngrip, .egrip, .sgrip, .wgrip {
             width: 7px;
             height: 11px;
@@ -137,7 +145,7 @@ function Main()
             <td><div class="button toolbar" title="image"><i class="far fa-image" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
             </tr>
             <tr>
-            <td><div class="button toolbar" title="checkbox"><i class="far fa-check-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar" title="checkbox" onclick="AddCheckbox()"><i class="far fa-check-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>
             <td><div class="button toolbar"></div></td>
             <td><div class="button toolbar"></div></td>         
             </tr>
@@ -158,16 +166,17 @@ function Main()
             </tr>
             </table> 
          </div>
-         <div id="container" style="top:140px;left:400px;width:1000px;height:600px;">
+         <div id="form" style="top:140px;left:400px;width:1000px;height:600px;">
             <div class="ui-resizable-handle ui-resizable-se segrip main"></div>
          </div>
          <script>
             var labels = 0;
             var edits = 0;
             var buttons = 0;
+            var checkboxes = 0;
             var oCtrl;
 
-            $( "#container" ).resizable( {
+            $( "#form" ).resizable( {
                handles: { 'se': '.segrip' } } ).draggable();
 
             $( "#toolbox" ).draggable();
@@ -189,7 +198,7 @@ function Main()
                labels + '</font></label>' +
                '</div>';
 
-               $( "#container" ).append( cHtml );
+               $( "#form" ).append( cHtml );
                InitButtons( cId );
             }  
 
@@ -208,7 +217,7 @@ function Main()
                '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
                '</div>';
 
-               $( "#container" ).append( cHtml );
+               $( "#form" ).append( cHtml );
                $( "#" + cId ).position().top += 2;
                InitButtons( cId );
             }  
@@ -230,10 +239,32 @@ function Main()
                '<font size="5">Button' + buttons + '</font></label>' +
                '</div>';
 
-               $( "#container" ).append( cHtml );
+               $( "#form" ).append( cHtml );
                InitButtons( cId );
             }
             
+            function AddCheckbox()
+            { 
+               var cId = "chk" + ++checkboxes;
+               var cHtml = 
+               '<div id="' + cId + '" class="checkbox">' + 
+               '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-se segrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-n ngrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
+               '<label onclick="$(this).parent().focus()" style="padding:12px;">' +
+               '<i class="far fa-check-square" style="color:black;font-size:20px;padding:10px;"></i>' +
+               '<font size="5">Checkbox' + checkboxes + '</font></label>' +
+               '</div>';
+
+               $( "#form" ).append( cHtml );
+               InitButtons( cId );
+            }
+
             function InitButtons( cId )
             {    
                $( "#"  + cId ).resizable({
@@ -249,7 +280,7 @@ function Main()
                   }
                }).draggable( { grid: [20, 20],
                axis: "x,y",
-               containment: '#container' } );
+               containment: '#form' } );
 
                $( "#" + cId ).focus(function() { $(this).find(".ui-resizable-handle").css( "visibility", "visible") } ); 
                $( "#" + cId ).focusout(function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
