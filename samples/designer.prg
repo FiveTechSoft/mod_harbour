@@ -22,6 +22,15 @@ function Main()
             height:362px;
             position:absolute;  
          }
+         .inspector{
+            box-shadow:10px 10px 10px darkgray, 0px 0px 10px darkgray;
+            top:150px;
+            left:1400px;
+            width:250px;
+            height:362px;
+            position:absolute; 
+            background: lightgray; 
+         }         
          .form {
             border: solid gray 1px;
             width: 800px;
@@ -146,6 +155,24 @@ function Main()
          .toolbar:hover{
             background-color: darkgray;  
          }
+         .table_inspector {
+            width:880px;
+            border: 1px solid black;
+            border-collapse: collapse;
+         }
+         .table_inspector th {
+            padding:4px;
+            border: 1px solid black;
+            background-color:white;
+         }
+         .table_inspector tr {
+            padding:4px;
+         }
+         .table_inspector td {
+            border: 1px solid black;
+            width:50%;
+            padding-left:10px;         
+         }
       </style>   
       </head>
       <body>
@@ -193,6 +220,26 @@ function Main()
          <div id="form" class="form">
             <div class="ui-resizable-handle ui-resizable-se segrip main"></div>
          </div>
+         <div id="inspector" class="inspector">
+            <table class="table_inspector" style="width:100%">
+               <tr>
+                  <th>Property</th>
+                  <th>Value</th>
+               </tr>
+               <tr>
+                  <td>top</td>
+                  <td>0</td>
+               </tr>
+               <tr>
+                  <td>left</td>
+                  <td>0</td>
+               </tr>
+               <tr>
+                  <td>prompt</td>
+                  <td>"..."</td>
+               </tr>
+            </table>
+         </div>
          <script>
             var labels = 0;
             var edits = 0;
@@ -206,6 +253,7 @@ function Main()
                handles: { 'se': '.segrip' } } ).draggable();
 
             $( "#toolbox" ).draggable();
+            $( "#inspector" ).draggable();  
 
             function AddLabel()
             { 
