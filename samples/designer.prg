@@ -50,6 +50,15 @@ function Main()
             background-color: whitesmoke;
             -webkit-user-modify: read-write;
          }         
+         .listbox {
+            border: 3px solid;
+            border-color: darkgray white white darkgray;
+            width: 170px;
+            height: 32px;
+            overflow: hidden;
+            background-color: whitesmoke;
+            -webkit-user-modify: read-write;
+         }         
          .button {
             border: 3px solid;
             border-color: white darkgray darkgray white;
@@ -150,7 +159,7 @@ function Main()
             <td><div class="button toolbar" title="button" onclick="AddButton()"><i class="fas fa-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
             </tr>
             <tr>
-            <td><div class="button toolbar" title="combobox"><i class="fas fa-bars" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar" title="combobox/listbox" onclick="AddListbox()"><i class="fas fa-bars" style="color:black;font-size:20px;padding:15px;"></i></div></td>
             <td><div class="button toolbar" title="radios"><i class="fas fa-list-ul" style="color:black;font-size:20px;padding:15px;"></i></div></td>
             <td><div class="button toolbar" title="image" onclick="AddImage()"><i class="far fa-image" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
             </tr>
@@ -190,6 +199,7 @@ function Main()
             var buttons = 0;
             var checkboxes = 0;
             var images = 0;
+            var listboxes = 0;
             var oCtrl;
 
             $( "#form" ).resizable( {
@@ -238,6 +248,28 @@ function Main()
                InitGrips( cId );
             }  
 
+            function AddListbox()
+            { 
+               var cId = "lbx" + ++listboxes;
+               var cHtml = 
+               '<div id="' + cId + '" class="listbox">' + 
+               '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-se segrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-n ngrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' +
+               '<i class="fas fa-angle-down" onclick="$(this).parent().focus()"' + 
+               'style="height:10px;color:black;background:lightgray;font-size:20px;padding:10px;right:-5px;float:right;"></i>' + 
+               '</div>';
+
+               $( "#form" ).append( cHtml );
+               $( "#" + cId ).position().top += 2;
+               InitGrips( cId );
+            }  
+   
             function AddButton()
             { 
                var cId = "btn" + ++buttons;
