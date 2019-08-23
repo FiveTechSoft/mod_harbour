@@ -28,11 +28,7 @@ function Main()
             height: 400px;
             position: absolute;
             overflow: hidden;
-<<<<<<< HEAD
             background: whitesmoke url('https://github.com/FiveTechSoft/mod_harbour/blob/master/samples/images/grid_20.png?raw=true') repeat;
-=======
-            background: whitesmoke url('https://s3.amazonaws.com/com.appgrinders.test/images/grid_20.png') repeat;
->>>>>>> 0b1708a56e74bbb16cb1cb99e09deb22ae048f41
             box-shadow:10px 10px 10px darkgray, 0px 0px 10px darkgray;
             border-radius:10px;
          }
