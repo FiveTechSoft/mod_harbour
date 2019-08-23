@@ -61,11 +61,21 @@ function Main()
          .checkbox {
             border: 0px solid;
             border-color: white darkgray darkgray white;
-            width: 185px;
+            width: 180px;
             height: 45px;
             overflow: hidden;
             -webkit-user-modify: read-write;
-         }         
+         }
+         .image {
+            border: 1px solid;
+            width: 120px;
+            height: 100px;
+            overflow: hidden;
+            background-image: url( "https://raw.githubusercontent.com/FiveTechSoft/mod_harbour/master/samples/images/fivetech.bmp" );
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            -webkit-user-modify: read-write;
+         }                    
          .nwgrip, .negrip, .swgrip, .segrip, .ngrip, .egrip, .sgrip, .wgrip {
             width: 7px;
             height: 11px;
@@ -142,7 +152,7 @@ function Main()
             <tr>
             <td><div class="button toolbar" title="combobox"><i class="fas fa-bars" style="color:black;font-size:20px;padding:15px;"></i></div></td>
             <td><div class="button toolbar" title="radios"><i class="fas fa-list-ul" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-            <td><div class="button toolbar" title="image"><i class="far fa-image" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
+            <td><div class="button toolbar" title="image" onclick="AddImage()"><i class="far fa-image" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
             </tr>
             <tr>
             <td><div class="button toolbar" title="checkbox" onclick="AddCheckbox()"><i class="far fa-check-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>
@@ -174,6 +184,7 @@ function Main()
             var edits = 0;
             var buttons = 0;
             var checkboxes = 0;
+            var images = 0;
             var oCtrl;
 
             $( "#form" ).resizable( {
@@ -264,6 +275,26 @@ function Main()
                $( "#form" ).append( cHtml );
                InitButtons( cId );
             }
+
+            function AddImage()
+            { 
+               var cId = "img" + ++images;
+               var cHtml = 
+               '<div id="' + cId + '" class="image">' + 
+               '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-se segrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-n ngrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
+               '</div>';
+
+               $( "#form" ).append( cHtml );
+               $( "#" + cId ).position().top += 2;
+               InitButtons( cId );
+            } 
 
             function InitButtons( cId )
             {    
