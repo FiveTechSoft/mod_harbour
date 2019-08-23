@@ -171,6 +171,11 @@ function Main()
          .table_inspector td {
             border: 1px solid black;
             width:50%;
+            padding-left:0px;         
+         }
+         .table_inspector .left {
+            border: 1px solid black;
+            width:50%;
             padding-left:10px;         
          }
       </style>   
@@ -227,16 +232,16 @@ function Main()
                   <th>Value</th>
                </tr>
                <tr>
-                  <td>top</td>
-                  <td>0</td>
+                  <td class="left">top</td>
+                  <td><input type="text" value="0"></td>
                </tr>
                <tr>
-                  <td>left</td>
-                  <td>0</td>
+                  <td class="left">left</td>
+                  <td><input type="text" value="0"></td>
                </tr>
                <tr>
-                  <td>prompt</td>
-                  <td>"..."</td>
+                  <td class="left">prompt</td>
+                  <td><input type="text" value="..."></td>
                </tr>
             </table>
          </div>
