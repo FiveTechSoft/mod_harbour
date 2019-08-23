@@ -22,10 +22,11 @@ function Main()
             height:310px;
             position:absolute;  
          }
-         #form {
+         .form {
             border: solid gray 1px;
             width: 800px;
-            height: 400px;
+            height: 600px;
+            left:450px;
             position: absolute;
             overflow: hidden;
             background: whitesmoke url('https://github.com/FiveTechSoft/mod_harbour/blob/master/samples/images/grid_20.png?raw=true') repeat;
@@ -133,7 +134,6 @@ function Main()
             border: 0px solid;
             border-radius: 5px;
          }
-
          .toolbar:hover{
             background-color: darkgray;  
          }
@@ -167,7 +167,7 @@ function Main()
             <tr>
             <td><div class="button toolbar" title="fine move to left" onclick="ToLeft()"><i class="fas fa-arrow-left" style="color:black;font-size:20px;padding:15px;"></i></div></td>
             <td><div class="button toolbar" title="fine move to right" onclick="ToRight()"><i class="fas fa-arrow-right" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-            <td><div class="button toolbar"></div></td>         
+            <td><div class="button toolbar" title="delete" onclick="Remove()"><i class="fas fa-times" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
             </tr>
             <tr>
             <td><div class="button toolbar" title="snap to grid" onclick="SnapToGrid()"><i class="fas fa-compress" style="color:black;font-size:20px;padding:15px;"></i></div></td>
@@ -176,7 +176,7 @@ function Main()
             </tr>
             </table> 
          </div>
-         <div id="form" style="top:140px;left:400px;width:1000px;height:600px;">
+         <div id="form" class="form">
             <div class="ui-resizable-handle ui-resizable-se segrip main"></div>
          </div>
          <script>
@@ -336,6 +336,22 @@ function Main()
             {
                oCtrl[0].style.left = parseFloat( oCtrl[0].style.left ) + 1;
             }   
+
+            function Remove()
+            {
+               if( oCtrl.hasClass( "label" ) )
+                  labels--;
+               if( oCtrl.hasClass( "edit" ) )
+                  edits--;                  
+               if( oCtrl.hasClass( "button" ) )
+                  buttons--;
+               if( oCtrl.hasClass( "checkbox" ) )
+                  checkboxes--;                  
+               if( oCtrl.hasClass( "image" ) )
+                  images--;    
+
+               oCtrl.remove();
+            }
    
             function SnapToGrid()
             {
