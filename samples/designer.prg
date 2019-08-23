@@ -9,13 +9,28 @@ function Main()
          <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
          <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
       <style>
+         body {
+            background: #bdc3c7; 
+            background: -webkit-linear-gradient(to left, lightgray, darkgray);  
+            background: linear-gradient(to left, whitesmoke, royalblue);             
+         }
+         .toolbox{
+            box-shadow:10px 10px 10px darkgray, 0px 0px 10px darkgray;
+            top:150px;
+            left:150px;
+            width:157px;
+            height:310px;
+            position:absolute;  
+         }
          #container {
-            border: solid blue 1px;
+            border: solid gray 1px;
             width: 800px;
             height: 400px;
             position: absolute;
             overflow: hidden;
             background: whitesmoke url('https://s3.amazonaws.com/com.appgrinders.test/images/grid_20.png') repeat;
+            box-shadow:10px 10px 10px darkgray, 0px 0px 10px darkgray;
+            border-radius:10px;
          }
          .label {
             border: 0px solid;
@@ -107,40 +122,42 @@ function Main()
       </style>   
       </head>
       <body>
-         <h2>mod_harbour designer prototype</h2>
+         <h1>mod_harbour forms designer</h1>
          <br><br>
-         <table style="border-spacing:0px;padding-left:80px;padding-top:60px;">
-         <tr>
-         <td><div class="button toolbar" title="label" onclick="AddLabel()"><i class="fas fa-font" style="color:black;font-size:20px;padding:17px;"></i></div></td>
-         <td><div class="button toolbar" title="input" onclick="AddEdit()"><i class="fas fa-edit" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-         <td><div class="button toolbar" title="button" onclick="AddButton()"><i class="fas fa-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
-         </tr>
-         <tr>
-         <td><div class="button toolbar" title="combobox"><i class="fas fa-bars" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-         <td><div class="button toolbar" title="radios"><i class="fas fa-list-ul" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-         <td><div class="button toolbar" title="image"><i class="far fa-image" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
-         </tr>
-         <tr>
-         <td><div class="button toolbar" title="checkbox"><i class="far fa-check-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-         <td><div class="button toolbar"></div></td>
-         <td><div class="button toolbar"></div></td>         
-         </tr>
-         <tr>
-         <td><div class="button toolbar" title="fine move to top" onclick="ToUp()"><i class="fas fa-arrow-up" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-         <td><div class="button toolbar" title="fine move to bottom" onclick="ToDown()"><i class="fas fa-arrow-down" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-         <td><div class="button toolbar"></div></td>        
-         </tr>
-         <tr>
-         <td><div class="button toolbar" title="fine move to left" onclick="ToLeft()"><i class="fas fa-arrow-left" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-         <td><div class="button toolbar" title="fine move to right" onclick="ToRight()"><i class="fas fa-arrow-right" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-         <td><div class="button toolbar"></div></td>         
-         </tr>
-         <tr>
-         <td><div class="button toolbar" title="snap to grid" onclick="SnapToGrid()"><i class="fas fa-compress" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-         <td><div class="button toolbar" title="save"><i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-         <td><div class="button toolbar" title="settings"><i class="fas fa-cog" style="color:black;font-size:20px;padding:15px;"></i></div></td>
-         </tr>
-         </table> 
+         <div id="toolbox" class="toolbox">
+            <table style="border-spacing:0px;">
+            <tr>
+            <td><div class="button toolbar" title="label" onclick="AddLabel()"><i class="fas fa-font" style="color:black;font-size:20px;padding:17px;"></i></div></td>
+            <td><div class="button toolbar" title="input" onclick="AddEdit()"><i class="fas fa-edit" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar" title="button" onclick="AddButton()"><i class="fas fa-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
+            </tr>
+            <tr>
+            <td><div class="button toolbar" title="combobox"><i class="fas fa-bars" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar" title="radios"><i class="fas fa-list-ul" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar" title="image"><i class="far fa-image" style="color:black;font-size:20px;padding:15px;"></i></div></td>         
+            </tr>
+            <tr>
+            <td><div class="button toolbar" title="checkbox"><i class="far fa-check-square" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar"></div></td>
+            <td><div class="button toolbar"></div></td>         
+            </tr>
+            <tr>
+            <td><div class="button toolbar" title="fine move to top" onclick="ToUp()"><i class="fas fa-arrow-up" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar" title="fine move to bottom" onclick="ToDown()"><i class="fas fa-arrow-down" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar"></div></td>        
+            </tr>
+            <tr>
+            <td><div class="button toolbar" title="fine move to left" onclick="ToLeft()"><i class="fas fa-arrow-left" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar" title="fine move to right" onclick="ToRight()"><i class="fas fa-arrow-right" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar"></div></td>         
+            </tr>
+            <tr>
+            <td><div class="button toolbar" title="snap to grid" onclick="SnapToGrid()"><i class="fas fa-compress" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar" title="save"><i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            <td><div class="button toolbar" title="settings"><i class="fas fa-cog" style="color:black;font-size:20px;padding:15px;"></i></div></td>
+            </tr>
+            </table> 
+         </div>
          <div id="container" style="top:140px;left:400px;width:1000px;height:600px;">
             <div class="ui-resizable-handle ui-resizable-se segrip main"></div>
          </div>
@@ -151,7 +168,9 @@ function Main()
             var oCtrl;
 
             $( "#container" ).resizable( {
-                  handles: { 'se': '.segrip' } } ).draggable();
+               handles: { 'se': '.segrip' } } ).draggable();
+
+            $( "#toolbox" ).draggable();
 
             function AddLabel()
             { 
