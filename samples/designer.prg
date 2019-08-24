@@ -443,6 +443,8 @@ function Main()
                    $( "#color" ).val( $(this).css( "color" ) ); $( "#bgcolor" ).val( $(this).css( "backgroundColor" ) ); } );
                $( "#" + cId ).resize( function(){ $( "#width" ).val( $(this).css( "width" ) ); } );     
                $( "#" + cId ).focusout( function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
+
+               $( "#prompt" ).keydown( function(e){ if( e.which == 13 ) oCtrl.find( "#label" ).html( $( "#prompt" ).val() ); } );
             }      
 
             function ToUp()
