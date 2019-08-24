@@ -428,7 +428,9 @@ function Main()
                      's': '.sgrip',
                      'w': '.wgrip'
                   }
-               }).draggable( { grid: [20, 20],
+               }).draggable( { drag: function() {
+                  $( "#top" ).val( $(this).css( "top" ) ); 
+                  $( "#left" ).val( $(this).css( "left" ) ); }, grid: [20, 20],
                axis: "x,y",
                containment: '#form' } );
 
