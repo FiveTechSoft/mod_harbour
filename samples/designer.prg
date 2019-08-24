@@ -281,7 +281,8 @@ function Main()
                                             $( "#prompt").val( "" );
                                             $( "#color" ).val( $(this).css( "color" ) ); 
                                             $( "#bgcolor" ).val( $(this).css( "backgroundColor" ) ); } );
-
+            $( document ).ready( function(){ $( "#form" ).focus(); $( "#form" ).focus(); } );
+            $( "#form" ).resize( function(){ $( "#form" ).focus(); } );  
             $( "#toolbox" ).draggable();
             $( "#inspector" ).draggable();  
 
