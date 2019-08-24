@@ -273,7 +273,10 @@ function Main()
             var oCtrl;
 
             $( "#form" ).resizable( {
-               handles: { 'se': '.segrip' } } ).draggable();
+               handles: { 'se': '.segrip' } } ).draggable( { drag: function() {
+                  $( "#top" ).val( $(this).css( "top" ) ); 
+                  $( "#left" ).val( $(this).css( "left" ) ); } } );
+
             $( "#form" ).focus(function() { $( "#top" ).val( $(this).css( "top" ) ); 
                                             $( "#left" ).val( $(this).css( "left" ) );
                                             $( "#width" ).val( $(this).css( "width" ) );
@@ -434,7 +437,7 @@ function Main()
                    $( "#width" ).val( $(this).css( "width" ) ); $( "#height" ).val( $(this).css( "height" ) );
                    $( "#prompt" ).val( $(this).find( "#label" ).html() );
                    $( "#color" ).val( $(this).css( "color" ) ); $( "#bgcolor" ).val( $(this).css( "backgroundColor" ) ); } );
-               $( "#" + cId ).resize( function(){ $( "#" + cId ).focus(); $( "#width" ).val( $(this).css( "width" ) ); } );     
+               $( "#" + cId ).resize( function(){ $( "#width" ).val( $(this).css( "width" ) ); } );     
                $( "#" + cId ).focusout( function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
             }      
 
