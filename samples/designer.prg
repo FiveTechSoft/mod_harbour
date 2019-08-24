@@ -255,11 +255,11 @@ function Main()
                </tr>
                <tr>
                   <td class="left">color</td>
-                  <td><input id="color" type="text" value="..." style="padding:2px"></td>
+                  <td><input id="color" type="color" value="#000000" style="padding:2px"></td>
                </tr>
                <tr>
                   <td class="left">bgcolor</td>
-                  <td><input id="bgcolor" type="text" value="..." style="padding:2px"></td>
+                  <td><input id="bgcolor" type="color" value="#000000" style="padding:2px"></td>
                </tr>
             </table>
          </div>
@@ -277,15 +277,18 @@ function Main()
                   $( "#top" ).val( $(this).css( "top" ) ); 
                   $( "#left" ).val( $(this).css( "left" ) ); } } );
 
-            $( "#form" ).focus(function() { $( "#top" ).val( $(this).css( "top" ) ); 
+            $( "#form" ).focus(function() { oCtrl = $(this);
+                                            $( "#top" ).val( $(this).css( "top" ) ); 
                                             $( "#left" ).val( $(this).css( "left" ) );
                                             $( "#width" ).val( $(this).css( "width" ) );
                                             $( "#height" ).val( $(this).css( "height" ) );
                                             $( "#prompt").val( "" );
-                                            $( "#color" ).val( $(this).css( "color" ) ); 
-                                            $( "#bgcolor" ).val( $(this).css( "backgroundColor" ) ); } );
+                                            $( "#color" ).val( RGBToHex( $(this).css( "color" ) ) ); 
+                                            $( "#bgcolor" ).val( RGBToHex( $(this).css( "backgroundColor" ) ) ); } );
             $( document ).ready( function(){ $( "#form" ).focus(); $( "#form" ).focus(); } );
             $( "#form" ).resize( function(){ $( "#form" ).focus(); } );  
+            $( "#color" ).on( "input", function(e){ oCtrl.css( "color", $( "#color" ).val() ) } );
+            $( "#bgcolor" ).on( "input", function(e){ oCtrl.css( "backgroundColor", $( "#bgcolor" ).val() ) } );
             $( "#toolbox" ).draggable();
             $( "#inspector" ).draggable();  
 
@@ -440,12 +443,13 @@ function Main()
                    $( "#top" ).val( $(this).css( "top" ) ); $( "#left" ).val( $(this).css( "left" ) );
                    $( "#width" ).val( $(this).css( "width" ) ); $( "#height" ).val( $(this).css( "height" ) );
                    $( "#prompt" ).val( $(this).find( "#label" ).html() );
-                   $( "#color" ).val( $(this).css( "color" ) ); $( "#bgcolor" ).val( $(this).css( "backgroundColor" ) ); } );
+                   $( "#color" ).val( RGBToHex( $(this).css( "color" ) ) ); 
+                   $( "#bgcolor" ).val( RGBToHex( $(this).css( "backgroundColor" ) ) ); } );
                $( "#" + cId ).resize( function(){ $( "#width" ).val( $(this).css( "width" ) ); } );     
                $( "#" + cId ).focusout( function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
 
                $( "#prompt" ).keydown( function(e){ if( e.which == 13 ) oCtrl.find( "#label" ).html( $( "#prompt" ).val() ); } );
-            }      
+            }
 
             function ToUp()
             {
@@ -484,6 +488,24 @@ function Main()
    
                oCtrl.remove();
             }
+
+            function RGBToHex(rgb) {
+               let sep = rgb.indexOf(",") > -1 ? "," : " ";
+               rgb = rgb.substr(4).split(")")[0].split(sep);
+             
+               let r = (+rgb[0]).toString(16),
+                   g = (+rgb[1]).toString(16),
+                   b = (+rgb[2]).toString(16);
+             
+               if (r.length == 1)
+                 r = "0" + r;
+               if (g.length == 1)
+                 g = "0" + g;
+               if (b.length == 1)
+                 b = "0" + b;
+             
+               return "#" + r + g + b;
+             }
          </script>
       </body>
    ENDTEXT
