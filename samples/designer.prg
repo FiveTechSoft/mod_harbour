@@ -235,11 +235,11 @@ function Main()
                </tr>
                <tr>
                   <td class="left">top</td>
-                  <td><input type="text" value="0" style="padding:2px"></td>
+                  <td><input id="top" type="text" value="0" style="padding:2px"></td>
                </tr>
                <tr>
                   <td class="left">left</td>
-                  <td><input type="text" value="0" style="padding:2px"></td>
+                  <td><input id="left" type="text" value="0" style="padding:2px"></td>
                </tr>
                <tr>
                   <td class="left">prompt</td>
@@ -266,6 +266,8 @@ function Main()
 
             $( "#form" ).resizable( {
                handles: { 'se': '.segrip' } } ).draggable();
+            $( "#form" ).focus(function() { $( "#top" ).val( $(this).css( "top" ) ); 
+                                            $( "#left" ).val( $(this).css( "left" ) ); } );
 
             $( "#toolbox" ).draggable();
             $( "#inspector" ).draggable();  
@@ -413,7 +415,8 @@ function Main()
                axis: "x,y",
                containment: '#form' } );
 
-               $( "#" + cId ).focus(function() { $(this).find(".ui-resizable-handle").css( "visibility", "visible") } ); 
+               $( "#" + cId ).focus(function() { $(this).find(".ui-resizable-handle").css( "visibility", "visible"),
+                   $( "#top" ).val( $(this).css( "top" ) ); $( "#left" ).val( $(this).css( "left" ) ); } ); 
                $( "#" + cId ).focusout(function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
             }      
 
