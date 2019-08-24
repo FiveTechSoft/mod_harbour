@@ -418,6 +418,8 @@ function Main()
             function InitGrips( cId )
             {    
                $( "#"  + cId ).resizable({
+                  resize: function() { $( "#width" ).val( $(this).css( "width" ) );
+                                       $( "#height" ).val( $(this).css( "height" ) ); },
                   handles: {
                      'nw': '.nwgrip',
                      'ne': '.negrip',
