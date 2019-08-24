@@ -218,7 +218,7 @@ function Main()
             <td><div class="button toolbar" title="delete" onclick="Remove()"><i class="fas fa-times" style="color:black;font-size:20px;padding:10px;"></i></div></td>         
             </tr>
             <tr>
-            <td><div class="button toolbar" title="snap to grid" onclick="SnapToGrid()"><i class="fas fa-compress" style="color:black;font-size:20px;padding:10px;"></i></div></td>
+            <td><div class="button toolbar"><i class="" style="color:black;font-size:20px;padding:10px;"></i></div></td>
             <td><div class="button toolbar" title="save"><i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:10px;"></i></div></td>
             <td><div class="button toolbar" title="settings"><i class="fas fa-cog" style="color:black;font-size:20px;padding:10px;"></i></div></td>
             </tr>
@@ -242,16 +242,24 @@ function Main()
                   <td><input id="left" type="text" value="0" style="padding:2px"></td>
                </tr>
                <tr>
+                  <td class="left">width</td>
+                  <td><input id="width" type="text" value="0" style="padding:2px"></td>
+               </tr>
+               <tr>
+                  <td class="left">height</td>
+                  <td><input id="height" type="text" value="0" style="padding:2px"></td>
+               </tr>
+               <tr>
                   <td class="left">prompt</td>
-                  <td><input type="text" value="..." style="padding:2px"></td>
+                  <td><input id="prompt" type="text" value="..." style="padding:2px"></td>
                </tr>
                <tr>
                   <td class="left">color</td>
-                  <td><input type="text" value="..." style="padding:2px"></td>
+                  <td><input id="color" type="text" value="..." style="padding:2px"></td>
                </tr>
                <tr>
                   <td class="left">bgcolor</td>
-                  <td><input type="text" value="..." style="padding:2px"></td>
+                  <td><input id="bgcolor" type="text" value="..." style="padding:2px"></td>
                </tr>
             </table>
          </div>
@@ -267,7 +275,12 @@ function Main()
             $( "#form" ).resizable( {
                handles: { 'se': '.segrip' } } ).draggable();
             $( "#form" ).focus(function() { $( "#top" ).val( $(this).css( "top" ) ); 
-                                            $( "#left" ).val( $(this).css( "left" ) ); } );
+                                            $( "#left" ).val( $(this).css( "left" ) );
+                                            $( "#width" ).val( $(this).css( "width" ) );
+                                            $( "#height" ).val( $(this).css( "height" ) );
+                                            $( "#prompt").val( "" );
+                                            $( "#color" ).val( $(this).css( "color" ) ); 
+                                            $( "#bgcolor" ).val( $(this).css( "backgroundColor" ) ); } );
 
             $( "#toolbox" ).draggable();
             $( "#inspector" ).draggable();  
@@ -285,7 +298,7 @@ function Main()
                '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
                '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
                '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
-               '<label onclick="$(this).parent().focus()"><font size="5">Label' + 
+               '<label onclick="$(this).parent().focus()"><font id="label" size="5">Label' + 
                labels + '</font></label>' +
                '</div>';
 
@@ -349,7 +362,7 @@ function Main()
                '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
                '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
                '<label onclick="$(this).parent().focus()" style="padding:12px;">' +
-               '<font size="5">Button' + buttons + '</font></label>' +
+               '<font id="label" size="5">Button' + buttons + '</font></label>' +
                '</div>';
 
                $( "#form" ).append( cHtml );
@@ -371,7 +384,7 @@ function Main()
                '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
                '<label onclick="$(this).parent().focus()" style="padding:12px;">' +
                '<i class="far fa-check-square" style="color:black;font-size:20px;padding:10px;"></i>' +
-               '<font size="5">Checkbox' + checkboxes + '</font></label>' +
+               '<font id="label" size="5">Checkbox' + checkboxes + '</font></label>' +
                '</div>';
 
                $( "#form" ).append( cHtml );
@@ -416,7 +429,10 @@ function Main()
                containment: '#form' } );
 
                $( "#" + cId ).focus(function() { $(this).find(".ui-resizable-handle").css( "visibility", "visible"),
-                   $( "#top" ).val( $(this).css( "top" ) ); $( "#left" ).val( $(this).css( "left" ) ); } ); 
+                   $( "#top" ).val( $(this).css( "top" ) ); $( "#left" ).val( $(this).css( "left" ) );
+                   $( "#width" ).val( $(this).css( "width" ) ); $( "#height" ).val( $(this).css( "height" ) );
+                   $( "#prompt" ).val( $(this).find( "#label" ).html() );
+                   $( "#color" ).val( $(this).css( "color" ) ); $( "#bgcolor" ).val( $(this).css( "backgroundColor" ) ); } ); 
                $( "#" + cId ).focusout(function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
             }      
 
@@ -452,16 +468,11 @@ function Main()
                   checkboxes--;                  
                if( oCtrl.hasClass( "image" ) )
                   images--;    
-
+               if( oCtrl.hasClass( "listbox" ) )
+                  listboxes--;    
+   
                oCtrl.remove();
             }
-   
-            function SnapToGrid()
-            {
-               oCtrl[0].style.top = parseInt( oCtrl[0].style.top ) + 10 + "px";
-               console.log( parseInt( oCtrl[0].style.top ) % 20 );
-               oCtrl.position().left -= oCtrl.position().left % 20;
-            }   
          </script>
       </body>
    ENDTEXT
