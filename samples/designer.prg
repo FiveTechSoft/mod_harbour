@@ -429,12 +429,13 @@ function Main()
                axis: "x,y",
                containment: '#form' } );
 
-               $( "#" + cId ).focus(function() { $(this).find(".ui-resizable-handle").css( "visibility", "visible"),
+               $( "#" + cId ).focus( function() { $(this).find(".ui-resizable-handle").css( "visibility", "visible"),
                    $( "#top" ).val( $(this).css( "top" ) ); $( "#left" ).val( $(this).css( "left" ) );
                    $( "#width" ).val( $(this).css( "width" ) ); $( "#height" ).val( $(this).css( "height" ) );
                    $( "#prompt" ).val( $(this).find( "#label" ).html() );
-                   $( "#color" ).val( $(this).css( "color" ) ); $( "#bgcolor" ).val( $(this).css( "backgroundColor" ) ); } ); 
-               $( "#" + cId ).focusout(function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
+                   $( "#color" ).val( $(this).css( "color" ) ); $( "#bgcolor" ).val( $(this).css( "backgroundColor" ) ); } );
+               $( "#" + cId ).resize( function(){ $( "#" + cId ).focus(); $( "#width" ).val( $(this).css( "width" ) ); } );     
+               $( "#" + cId ).focusout( function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
             }      
 
             function ToUp()
