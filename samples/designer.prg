@@ -1,5 +1,41 @@
 function Main()
 
+   local hValues
+
+   if ! File( "./data/forms.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf",; 
+                { { "ID",   "C", 20, 0 },;
+                  { "CODE", "M", 10, 0 } } )
+   endif
+
+   if AP_Method() == "POST"
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf" ) 
+      APPEND BLANK
+      field->Id = DToS( Date() ) + StrTran( Time(), ":", "" )
+      field->code = AP_Body()
+      ? "designer.prg?" + field->Id
+      USE
+      return nil 
+   endif
+
+   if ! Empty( AP_Args() )
+      USE ( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf" ) SHARED NEW
+      LOCATE FOR AP_Args() $ Field->Id
+      if Found()
+         ? "Found"
+         ? field->code
+      else
+         ? "Not found"
+         ? AP_Args() 
+         GO TOP 
+         while ! Eof()
+            ? field->Id
+         end   
+      endif
+      USE
+      return nil
+   endif         
+
    TEMPLATE
       <html>
       <head>
@@ -219,7 +255,7 @@ function Main()
             </tr>
             <tr>
             <td><div class="button toolbar"><i class="" style="color:black;font-size:20px;padding:10px;"></i></div></td>
-            <td><div class="button toolbar" title="save"><i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:10px;"></i></div></td>
+            <td><div class="button toolbar" title="save" onclick="AsJson()"><i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:10px;"></i></div></td>
             <td><div class="button toolbar" title="settings"><i class="fas fa-cog" style="color:black;font-size:20px;padding:10px;"></i></div></td>
             </tr>
             </table> 
@@ -507,6 +543,19 @@ function Main()
              
                return "#" + r + g + b;
              }
+
+            function AsJson()
+            {
+               var o = { top: $( "#form" ).css( "top" ),
+                         left: $( "#form" ).css( "left" ),
+                         width: $( "#form" ).css( "width" ),
+                         height: $( "#form" ).css( "height" ),
+                         bgcolor: RGBToHex( $( "#form" ).css( "backgroundColor" ) ) };
+
+               $.post( "designer.prg", JSON.stringify( o ) )
+                  .done( function( data ) { console.log( 'DONE', data ); alert( data ); } )
+                  .fail( function( data ) { console.log( 'ERROR', data ); } );         
+            }   
          </script>
       </body>
    ENDTEXT
