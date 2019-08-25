@@ -35,7 +35,8 @@ function Main()
          <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
          <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
          <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-      <style>
+         <script src="https://github.com/FiveTechSoft/mod_harbour/blob/master/javascript/jquery.touch.min.js"></script>
+         <style>
          body {
             background: #bdc3c7; 
             background: -webkit-linear-gradient(to left, lightgray, darkgray);  
@@ -355,7 +356,7 @@ function Main()
                      ctrl.css( "left", oForm.controls[ n ].left );
                      ctrl.css( "width", oForm.controls[ n ].width );
                      ctrl.css( "height", oForm.controls[ n ].height );
-                     ctrl.find( "#label" ).val( oForm.controls[ n ].prompt );
+                     ctrl.find( "#label" ).html( oForm.controls[ n ].prompt );
                      ctrl.css( "color", oForm.controls[ n ].color );
                      ctrl.css( "backgroundColor", oForm.controls[ n ].bgcolor );
                   }   
