@@ -251,15 +251,16 @@ function Main()
                </tr>
                <tr>
                   <td class="left">prompt</td>
-                  <td><input id="prompt" type="text" value="..." style="padding:2px"></td>
+                  <td><input id="prompt" type="text" value="..." style="padding:0px;padding-right:2px;width:100%">
+                  <button style="position:absolute;background-color:lightgray;top:128;width:15px;right:3px;height:15;padding:2px;padding-bottom:3px;"></button></td>
                </tr>
                <tr>
                   <td class="left">color</td>
-                  <td><input id="color" type="color" value="#000000" style="padding:2px"></td>
+                  <td><input id="color" type="color" value="#000000" style="width:100px;padding:2px"></td>
                </tr>
                <tr>
                   <td class="left">bgcolor</td>
-                  <td><input id="bgcolor" type="color" value="#000000" style="padding:2px"></td>
+                  <td><input id="bgcolor" type="color" value="#000000" style="width:100px;padding:2px"></td>
                </tr>
             </table>
          </div>
