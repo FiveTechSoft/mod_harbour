@@ -1,6 +1,7 @@
 function Main()
 
    local cCode := "null"
+   local cArgs := AP_Args()
 
    if ! File( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf" )
       DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf",; 
@@ -18,9 +19,12 @@ function Main()
       return nil 
    endif
 
-   if ! Empty( AP_Args() )
+   if ! Empty( cArgs )
+      if "&" $ cArgs
+         cArgs = SubStr( cArgs, 1, At( "&", cArgs ) - 1 )
+      endif   
       USE ( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf" ) SHARED NEW
-      LOCATE FOR AP_Args() $ Field->Id
+      LOCATE FOR cArgs $ Field->Id
       if Found()
          cCode = field->code
       endif
