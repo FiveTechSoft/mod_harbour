@@ -1,8 +1,8 @@
 function Main()
 
-   local hValues
+   local cCode := "null"
 
-   if ! File( "./data/forms.dbf" )
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf" )
       DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf",; 
                 { { "ID",   "C", 20, 0 },;
                   { "CODE", "M", 10, 0 } } )
@@ -13,7 +13,7 @@ function Main()
       APPEND BLANK
       field->Id = DToS( Date() ) + StrTran( Time(), ":", "" )
       field->code = AP_Body()
-      ? "designer.prg?" + field->Id
+      ?? field->Id
       USE
       return nil 
    endif
@@ -22,21 +22,12 @@ function Main()
       USE ( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf" ) SHARED NEW
       LOCATE FOR AP_Args() $ Field->Id
       if Found()
-         ? "Found"
-         ? field->code
-      else
-         ? "Not found"
-         ? AP_Args() 
-         GO TOP 
-         while ! Eof()
-            ? field->Id
-         end   
+         cCode = field->code
       endif
       USE
-      return nil
    endif         
 
-   TEMPLATE
+   BLOCKS PARAMS cCode
       <html>
       <head>
          <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
@@ -288,7 +279,7 @@ function Main()
                <tr>
                   <td class="left">prompt</td>
                   <td><input id="prompt" type="text" value="..." style="padding:0px;padding-right:2px;width:100%">
-                  <button style="position:absolute;background-color:lightgray;top:128;width:15px;right:3px;height:15;padding:2px;padding-bottom:3px;"></button></td>
+                  <button style="position:absolute;background-color:lightgray;top:136;width:18px;right:3px;height:18;padding:2px;padding-bottom:3px;"></button></td>
                </tr>
                <tr>
                   <td class="left">color</td>
@@ -308,6 +299,7 @@ function Main()
             var images = 0;
             var listboxes = 0;
             var oCtrl;
+            var oForm = JSON.parse( '{{cCode}}' ); 
 
             $( "#form" ).resizable( {
                handles: { 'se': '.segrip' } } ).draggable( { drag: function() {
@@ -326,6 +318,16 @@ function Main()
             $( "#form" ).resize( function(){ $( "#form" ).focus(); } );  
             $( "#color" ).on( "input", function(e){ oCtrl.css( "color", $( "#color" ).val() ) } );
             $( "#bgcolor" ).on( "input", function(e){ oCtrl.css( "backgroundColor", $( "#bgcolor" ).val() ) } );
+
+            if( oForm != null )
+            {
+               $( "#form" ).css( "top",  oForm.top );
+               $( "#form" ).css( "left", oForm.left );
+               $( "#form" ).css( "width", oForm.width );
+               $( "#form" ).css( "height", oForm.height );
+               $( "#form" ).css( "backgroundColor", oForm.bgcolor );
+            }   
+
             $( "#toolbox" ).draggable();
             $( "#inspector" ).draggable();  
 
@@ -526,11 +528,12 @@ function Main()
                oCtrl.remove();
             }
 
-            function RGBToHex(rgb) {
-               let sep = rgb.indexOf(",") > -1 ? "," : " ";
+            function RGBToHex(rgb) 
+            {
+               var sep = rgb.indexOf(",") > -1 ? "," : " ";
                rgb = rgb.substr(4).split(")")[0].split(sep);
              
-               let r = (+rgb[0]).toString(16),
+               var r = (+rgb[0]).toString(16),
                    g = (+rgb[1]).toString(16),
                    b = (+rgb[2]).toString(16);
              
@@ -550,10 +553,11 @@ function Main()
                          left: $( "#form" ).css( "left" ),
                          width: $( "#form" ).css( "width" ),
                          height: $( "#form" ).css( "height" ),
-                         bgcolor: RGBToHex( $( "#form" ).css( "backgroundColor" ) ) };
+                         bgcolor: RGBToHex( $( "#form" ).css( "backgroundColor" ) ),
+                         controls: [] };
 
                $.post( "designer.prg", JSON.stringify( o ) )
-                  .done( function( data ) { console.log( 'DONE', data ); alert( data ); } )
+                  .done( function( data ) { console.log( 'DONE', data ); location.href="designer.prg?" + data; } )
                   .fail( function( data ) { console.log( 'ERROR', data ); } );         
             }   
          </script>
