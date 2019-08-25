@@ -326,6 +326,40 @@ function Main()
                $( "#form" ).css( "width", oForm.width );
                $( "#form" ).css( "height", oForm.height );
                $( "#form" ).css( "backgroundColor", oForm.bgcolor );
+
+               if( oForm.controls.length > 0 )
+               {
+                  for( var n = 0; n < oForm.controls.length; n++ )
+                  {
+                     var ctrl; 
+
+                     if( oForm.controls[ n ].class.includes( "label" ) )
+                        ctrl = AddLabel();
+
+                     if( oForm.controls[ n ].class.includes( "button" ) )
+                        ctrl = AddButton();
+
+                     if( oForm.controls[ n ].class.includes( "edit" ) )
+                        ctrl = AddEdit();
+
+                     if( oForm.controls[ n ].class.includes( "checkbox" ) )
+                        ctrl = AddCheckbox();
+
+                     if( oForm.controls[ n ].class.includes( "listbox" ) )
+                        ctrl = AddListbox();
+   
+                     if( oForm.controls[ n ].class.includes( "image" ) )
+                        ctrl = AddImage();
+                           
+                     ctrl.css( "top", oForm.controls[ n ].top );
+                     ctrl.css( "left", oForm.controls[ n ].left );
+                     ctrl.css( "width", oForm.controls[ n ].width );
+                     ctrl.css( "height", oForm.controls[ n ].height );
+                     ctrl.find( "#label" ).val( oForm.controls[ n ].prompt );
+                     ctrl.css( "color", oForm.controls[ n ].color );
+                     ctrl.css( "backgroundColor", oForm.controls[ n ].bgcolor );
+                  }   
+               }   
             }   
 
             $( "#toolbox" ).draggable();
@@ -350,6 +384,7 @@ function Main()
 
                $( "#form" ).append( cHtml );
                InitGrips( cId );
+               return $( "#" + cId ); 
             }  
 
             function AddEdit()
@@ -370,6 +405,7 @@ function Main()
                $( "#form" ).append( cHtml );
                $( "#" + cId ).position().top += 2;
                InitGrips( cId );
+               return $( "#" + cId ); 
             }  
 
             function AddListbox()
@@ -392,6 +428,7 @@ function Main()
                $( "#form" ).append( cHtml );
                $( "#" + cId ).position().top += 2;
                InitGrips( cId );
+               return $( "#" + cId );
             }  
    
             function AddButton()
@@ -413,6 +450,7 @@ function Main()
 
                $( "#form" ).append( cHtml );
                InitGrips( cId );
+               return $( "#" + cId ); 
             }
             
             function AddCheckbox()
@@ -435,6 +473,7 @@ function Main()
 
                $( "#form" ).append( cHtml );
                InitGrips( cId );
+               return $( "#" + cId );
             }
 
             function AddImage()
@@ -455,6 +494,7 @@ function Main()
                $( "#form" ).append( cHtml );
                $( "#" + cId ).position().top += 2;
                InitGrips( cId );
+               return $( "#" + cId );
             } 
 
             function InitGrips( cId )
@@ -555,6 +595,20 @@ function Main()
                          height: $( "#form" ).css( "height" ),
                          bgcolor: RGBToHex( $( "#form" ).css( "backgroundColor" ) ),
                          controls: [] };
+
+               var controls = $( "#form" ).children();
+               
+               for( var n = 1; n < controls.length; n++ )
+               {
+                  var ctrl = { class: $( controls[ n ] ).attr( "class" ),
+                               top: $( controls[ n ] ).css( "top" ),
+                               left: $( controls[ n ] ).css( "left" ),
+                               width: $( controls[ n ] ).css( "width" ),
+                               prompt: $( controls[ n ] ).find( "#label" ).html(),
+                               color: RGBToHex( $( controls[ n ] ).css( "color" ) ),
+                               bgcolor: RGBToHex( $( controls[ n ] ).css( "backgroundColor" ) ) };
+                  o.controls.push( ctrl );             
+               }   
 
                $.post( "designer.prg", JSON.stringify( o ) )
                   .done( function( data ) { console.log( 'DONE', data ); location.href="designer.prg?" + data; } )
