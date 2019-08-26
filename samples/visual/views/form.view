@@ -18,11 +18,13 @@
                                       $( "#height" ).val( $(this).css( "height" ) );
                                       $( "#prompt").val( "" );
                                       $( "#color" ).val( RGBToHex( $(this).css( "color" ) ) ); 
-                                      $( "#bgcolor" ).val( RGBToHex( $(this).css( "backgroundColor" ) ) ); } );
+                                      $( "#bgcolor" ).val( RGBToHex( $(this).css( "backgroundColor" ) ) );
+                                      $( "#onclick" ).val( $(this).onclick ); } );
 
       $( document ).ready( function(){ $( "#form" ).focus(); } );        
       $( "#form" ).focus();
       $( "#color" ).on( "input", function(e){ oCtrl.css( "color", $( "#color" ).val() ) } );
       $( "#bgcolor" ).on( "input", function(e){ oCtrl.css( "backgroundColor", $( "#bgcolor" ).val() ) } );
+      $( "#onclick" ).keydown( function(e){ if( e.which == 13 ) { oCtrl.onclick = $( "#onclick" ).val(); console.log( oCtrl.onclick ); } } );
       
    </script>      

@@ -158,11 +158,14 @@
                    $( "#width" ).val( $(this).css( "width" ) ); $( "#height" ).val( $(this).css( "height" ) );
                    $( "#prompt" ).val( $(this).find( "#label" ).html() );
                    $( "#color" ).val( RGBToHex( $(this).css( "color" ) ) ); 
-                   $( "#bgcolor" ).val( RGBToHex( $(this).css( "backgroundColor" ) ) ); } );
+                   $( "#bgcolor" ).val( RGBToHex( $(this).css( "backgroundColor" ) ) ); 
+                   $( "#onclick" ).val( $(this).onclick ); } );
+
                $( "#" + cId ).resize( function(){ $( "#width" ).val( $(this).css( "width" ) ); } );     
                $( "#" + cId ).focusout( function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
 
                $( "#prompt" ).keydown( function(e){ if( e.which == 13 ) oCtrl.find( "#label" ).html( $( "#prompt" ).val() ); } );
+               $( "#onclick" ).keydown( function(e){ if( e.which == 13 ) oCtrl.onclick = function(){ $( "#onclick" ).val(); } } );
             }
 
             function GoUp()

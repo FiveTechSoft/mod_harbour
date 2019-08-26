@@ -76,7 +76,7 @@
             <tbody>
                <tr>
                   <td>
-                     <div class="rbnbutton" title="save" onclick="Save()">
+                     <div class="rbnbutton" title="save" onclick="SaveJson()">
                         <i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:7px;"></i>
                      </div>
                   </td>
