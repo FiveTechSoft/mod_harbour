@@ -57,8 +57,8 @@
          box-shadow:10px 10px 10px darkgray, 0px 0px 10px darkgray;
          top:170px;
          left:1500px;
-         width:250px;
-         height:362px;
+         width:270px;
+         height:400px;
          position:absolute; 
          background: lightgray; 
          border-radius: 5px;
@@ -86,7 +86,8 @@
       .table_inspector .left {
          border: 1px solid black;
          width:50%;
-         padding-left:10px;         
+         padding-left:10px;
+         padding-right:10px;         
       }   
       .form {
          border: solid gray 1px;

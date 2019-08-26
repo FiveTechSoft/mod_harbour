@@ -37,6 +37,22 @@
                <td class="left">bgcolor</td>
                <td><input id="bgcolor" type="color" value="#000000" style="width:100px;padding:2px"></td>
             </tr>
+            <tr>
+               <th>Event</th>
+               <th>Code</th>
+            </tr>            
+            <tr>
+               <td class="left">onclick</td>
+               <td><input id="onclick" type="text" value="" style="padding:2px"></td>
+            </tr>
+            <tr>
+               <td class="left">onfocus</td>
+               <td><input id="onfocus" type="text" value="" style="padding:2px"></td>
+            </tr>
+            <tr>
+               <td class="left">onfocusout</td>
+               <td><input id="onfocusout" type="text" value="" style="padding:2px"></td>
+            </tr>
          </table>
       </div>
       <script>
