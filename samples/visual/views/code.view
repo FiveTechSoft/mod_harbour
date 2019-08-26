@@ -153,6 +153,7 @@
                containment: '#form' } );
 
                $( "#" + cId ).focus( function() { $(this).find(".ui-resizable-handle").css( "visibility", "visible"),
+                   $( "#id" ).val( $(this).attr( "id" ) );
                    $( "#top" ).val( $(this).css( "top" ) ); $( "#left" ).val( $(this).css( "left" ) );
                    $( "#width" ).val( $(this).css( "width" ) ); $( "#height" ).val( $(this).css( "height" ) );
                    $( "#prompt" ).val( $(this).find( "#label" ).html() );
