@@ -1,24 +1,41 @@
    <div class="ribbon">
-      <ul><li>File</li><li>Project</li><li>Components</li><li>Help</li></ul>
+      <ul><li>File</li><li>Edit</li><li>Project</li><li class="active">Components</li><li>Windows</li><li>Help</li></ul>
       <div class="panel">
          <table>
-            <tr>
-               <td>
-                  <div class="rbnbutton" title="label" onclick="AddLabel()">
-                     <i class="fas fa-font" style="color:black;font-size:20px;padding:7px;"></i>
-                  </div>
-               <td>
-               <td>   
-                  <div class="rbnbutton" title="edit" onclick="AddEdit()">
-                     <i class="fas fa-edit" style="color:black;font-size:20px;padding:7px;"></i>
-                  </div>
-               </td>
-               <td>   
-                  <div class="rbnbutton" title="button" onclick="AddButton()">
-                     <i class="fas fa-square" style="color:black;font-size:20px;padding:7px;"></i>
-                  </div>
-               </td>
-            </tr>
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="rbnbutton" title="label" onclick="AddLabel()">
+                        <i class="fas fa-font" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" title="edit" onclick="AddEdit()">
+                        <i class="fas fa-edit" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" title="button" onclick="AddButton()">
+                        <i class="fas fa-square" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" title="checkbox" onclick="AddCheckbox()">
+                        <i class="far fa-check-square" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" title="listbox" onclick="AddListbox()">
+                        <i class="fas fa-bars" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" title="image" onclick="AddImage()">
+                        <i class="far fa-image" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
+               </tr>
+            </tbody>
          </table>         
       </div>
    </div>

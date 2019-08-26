@@ -15,20 +15,17 @@
       }
       .panel{
          background-color: white;
-         height: 70%;
+         height: 69%;
          width:100%;
       }
       .rbnbutton{
          background-color: white;
-         height:40px;
-         width:40px;
-         padding:0px;
+         height:35px;
+         width:35px;
+         padding:3px;
       }
       .rbnbutton:hover{
          background-color: lightgray;
-         height:30px;
-         width:30px;
-         padding:0px;
       }
       ul {
          list-style-type: none;
@@ -49,6 +46,10 @@
          cursor:pointer;
       }
       li:hover {
+         background-color:lightblue;
+         color:blue;
+      }
+      li.active {
          background-color:white;
          color:blue;
       }

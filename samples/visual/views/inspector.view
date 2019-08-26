@@ -27,7 +27,7 @@
             <tr>
                <td class="left">prompt</td>
                <td><input id="prompt" type="text" value="" style="padding:0px;padding-right:2px;width:100%">
-               <button style="position:absolute;background-color:lightgray;top:137;width:18px;right:3px;height:20;padding:2px;padding-bottom:3px;"></button></td>
+               <button style="position:absolute;background-color:lightgray;top:162;width:18px;right:3px;height:20;padding:2px;padding-bottom:3px;"></button></td>
             </tr>
             <tr>
                <td class="left">color</td>
