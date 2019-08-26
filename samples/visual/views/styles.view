@@ -5,54 +5,6 @@
          background: -webkit-linear-gradient(to left, lightgray, darkgray);  
          background: linear-gradient(to left, whitesmoke, royalblue);             
       }
-      .ribbon{
-         border:0px;
-         background-color: blue;
-         height: 80px;
-         width:100%;
-         overflow-x:hidden;
-         overflow-y: hidden;
-      }
-      .panel{
-         background-color: white;
-         height: 69%;
-         width:100%;
-      }
-      .rbnbutton{
-         background-color: white;
-         height:35px;
-         width:35px;
-         padding:3px;
-      }
-      .rbnbutton:hover{
-         background-color: lightgray;
-      }
-      ul {
-         list-style-type: none;
-         margin: 0;
-         padding: 0;
-         overflow: hidden;
-         background-color: blue;
-      }
-      li {
-         float: left;
-         display: block;
-         color: white;
-         text-align: center;
-         padding: 8px;
-         padding-left:20px;
-         padding-right:20px;
-         font-family: Arial;
-         cursor:pointer;
-      }
-      li:hover {
-         background-color:lightblue;
-         color:blue;
-      }
-      li.active {
-         background-color:white;
-         color:blue;
-      }
       .inspector{
          box-shadow:10px 10px 10px darkgray, 0px 0px 10px darkgray;
          top:170px;

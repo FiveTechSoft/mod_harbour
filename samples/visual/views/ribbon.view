@@ -1,6 +1,96 @@
+<style>
+   .ribbon{
+      border:0px;
+      background-color: blue;
+      height: 80px;
+      width:100%;
+      overflow-x:hidden;
+      overflow-y: hidden;
+   }
+   .panel{
+      background-color: white;
+      height: 50px;
+      width:100%;
+      visibility: hidden;
+      position: absolute;
+   }
+   .panel.active{
+      visibility: visible;
+   }
+   .rbnbutton{
+      background-color: white;
+      height:35px;
+      width:35px;
+      padding:3px;
+   }
+   .rbnbutton:hover{
+      background-color: lightgray;
+   }
+   ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: blue;
+   }
+   li {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 8px;
+      padding-left:20px;
+      padding-right:20px;
+      font-family: Arial;
+      cursor:pointer;
+   }
+   li:hover {
+      background-color:lightblue;
+      color:blue;
+   }
+   li.active {
+      background-color:white;
+      color:blue;
+   }
+   li:last-child{
+      float:right;
+   }
+   li:last-child:hover{
+      color:blue;
+   }
+  </style>
+ 
    <div class="ribbon">
-      <ul><li>File</li><li>Edit</li><li>Project</li><li class="active">Components</li><li>Windows</li><li>Help</li></ul>
+      <ul>
+         <li onclick="SelTopItem(this)"> File</li>
+         <li onclick="SelTopItem(this)">Edit</li>
+         <li onclick="SelTopItem(this)">Project</li>
+         <li class="active" onclick="SelTopItem(this)">Components</li>
+         <li onclick="SelTopItem(this)">Windows</li>
+         <li onclick="SelTopItem(this)">Help</li>
+         <li onclick="lZoom?RestScreen():FullScreen()" title="Full"><i class="far fa-square" style="color:white;font-size:12px;padding:3px;"></i></li>
+      </ul>
+      
       <div class="panel">
+         <table>
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="rbnbutton" title="label" onclick="AddLabel()">
+                        <i class="fas fa-font" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" title="edit" onclick="AddEdit()">
+                        <i class="fas fa-edit" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
+               </tr>
+            </tbody>               
+         </table>
+      </div>
+
+      <div class="panel active">
          <table>
             <tbody>
                <tr>
@@ -64,3 +154,40 @@
          </table>         
       </div>
    </div>
+
+   <script>
+      var elem = document.documentElement;
+      var lZoom = false;
+
+      function SelTopItem( o )
+      {
+         $( o ).addClass( "active" );
+         $( o ).siblings().removeClass( "active" );
+      }  
+
+      function FullScreen() {
+         if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+         } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen();
+         } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+            elem.webkitRequestFullscreen();
+         } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen();
+         }            
+         lZoom = true;
+      } 
+         
+      function RestScreen() {   
+         if (document.exitFullscreen) {
+            document.exitFullscreen();
+         } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+         } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+         } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+         }
+         lZoom = false;
+      }      
+   </script>
