@@ -159,13 +159,20 @@
                    $( "#prompt" ).val( $(this).find( "#label" ).html() );
                    $( "#color" ).val( RGBToHex( $(this).css( "color" ) ) ); 
                    $( "#bgcolor" ).val( RGBToHex( $(this).css( "backgroundColor" ) ) ); 
-                   $( "#onclick" ).val( $(this).onclick ); } );
+                   $( "#onclick" ).val( $(this).attr( "data-onclick" ) ); } );
 
                $( "#" + cId ).resize( function(){ $( "#width" ).val( $(this).css( "width" ) ); } );     
                $( "#" + cId ).focusout( function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
 
-               $( "#prompt" ).keydown( function(e){ if( e.which == 13 ) oCtrl.find( "#label" ).html( $( "#prompt" ).val() ); } );
-               $( "#onclick" ).keydown( function(e){ if( e.which == 13 ) oCtrl.onclick = function(){ $( "#onclick" ).val(); } } );
+               $( "#" + cId ).on( "click", function(){ eval( $( "#" + cId ).attr( "data-onclick" ) ); } );
+
+               $( "#onclick" ).focusout( function() {
+                  var cId = $('#id').val();
+                  $( "#" + cId ).attr( 'data-onclick', $(this).val() ); } );
+
+               $( "#prompt" ).focusout( function() {
+                  var cId = $('#id').val();
+                  $( "#" + cId ).find( "#label" ).html( $(this).val() ); } );
             }
 
             function GoUp()
