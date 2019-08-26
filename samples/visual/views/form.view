@@ -1,0 +1,26 @@
+   <div id="form" class="form">
+      <div class="ui-resizable-handle ui-resizable-se segrip main"></div>
+   </div>
+
+   <script>
+      $( "#form" ).resizable( { handles: { 'se': '' } } ).draggable( { drag: function() {
+            $( "#top" ).val( $(this).css( "top" ) ); 
+            $( "#left" ).val( $(this).css( "left" ) ); } } );
+      
+      $( "#form" ).resize( function(){ $( "#width" ).val( $(this).css( "width" ) );
+                                       $( "#height" ).val( $(this).css( "height" ) ); } );
+
+      $( "#form" ).focus(function() { oCtrl = $(this);
+                                      $( "#id" ).val( $(this).attr( "id" ) ); 
+                                      $( "#top" ).val( $(this).css( "top" ) ); 
+                                      $( "#left" ).val( $(this).css( "left" ) );
+                                      $( "#width" ).val( $(this).css( "width" ) );
+                                      $( "#height" ).val( $(this).css( "height" ) );
+                                      $( "#prompt").val( "" );
+                                      $( "#color" ).val( RGBToHex( $(this).css( "color" ) ) ); 
+                                      $( "#bgcolor" ).val( RGBToHex( $(this).css( "backgroundColor" ) ) ); } );
+
+      $( document ).ready( function(){ $( "#form" ).focus(); } );        
+      $( "#form" ).focus();
+      
+   </script>      
