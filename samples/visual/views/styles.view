@@ -5,42 +5,6 @@
          background: -webkit-linear-gradient(to left, lightgray, darkgray);  
          background: linear-gradient(to left, whitesmoke, royalblue);             
       }
-      .inspector{
-         box-shadow:10px 10px 10px darkgray, 0px 0px 10px darkgray;
-         top:170px;
-         left:1500px;
-         width:270px;
-         height:400px;
-         position:absolute; 
-         background: lightgray; 
-         border-radius: 5px;
-      }  
-      .table_inspector {
-         width:880px;
-         border: 1px solid black;
-         border-collapse: collapse;
-         font-family: Arial;         
-      }
-      .table_inspector th {
-         padding:4px;
-         border: 1px solid black;
-         background-color:white;
-         border-radius: 5px;
-      }
-      .table_inspector tr {
-         padding:4px;
-      }
-      .table_inspector td {
-         border: 1px solid black;
-         width:50%;
-         padding-left:0px;         
-      }
-      .table_inspector .left {
-         border: 1px solid black;
-         width:50%;
-         padding-left:10px;
-         padding-right:10px;         
-      }   
       .form {
          border: solid gray 1px;
          width: 800px;
@@ -53,108 +17,107 @@
          box-shadow:10px 10px 10px darkgray, 0px 0px 10px darkgray;
          border-radius:10px;
       }     
-         .label {
-            border: 0px solid;
-            border-color: black;
-            width: 80px;
-            height: 30px;
-            overflow: hidden;
-            -webkit-user-modify: read-write;
-         }
-         .edit {
-            border: 3px solid;
-            border-color: darkgray white white darkgray;
-            width: 300px;
-            height: 32px;
-            overflow: hidden;
-            background-color: whitesmoke;
-            -webkit-user-modify: read-write;
-         }         
-         .listbox {
-            border: 3px solid;
-            border-color: darkgray white white darkgray;
-            width: 170px;
-            height: 32px;
-            overflow: hidden;
-            background-color: whitesmoke;
-            -webkit-user-modify: read-write;
-         }         
-         .button {
-            border: 3px solid;
-            border-color: white darkgray darkgray white;
-            width: 117px;
-            height: 32px;
-            overflow: hidden;
-            background-color: lightgray;
-            -webkit-user-modify: read-write;
-         }
-         .checkbox {
-            border: 0px solid;
-            border-color: white darkgray darkgray white;
-            width: 180px;
-            height: 45px;
-            overflow: hidden;
-            -webkit-user-modify: read-write;
-         }
-         .image {
-            border: 1px solid;
-            width: 120px;
-            height: 100px;
-            overflow: hidden;
-            background-image: url( "https://raw.githubusercontent.com/FiveTechSoft/mod_harbour/master/samples/images/fivetech.bmp" );
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            -webkit-user-modify: read-write;
-         }                    
-         .nwgrip, .negrip, .swgrip, .segrip, .ngrip, .egrip, .sgrip, .wgrip {
-            width: 7px;
-            height: 11px;
-            background-color: #000000;
-            border: 1px solid #000000;
-            visibility:hidden;
-         } 
-         .segrip.main{
-            visibility:visible;            
-         }    
-         .nwgrip {
-            left: -5px;
-            top: -5px;
-            width: 11px;
-         }
-         .negrip{
-            top: -5px;
-            right: -5px;
-            width: 11px;
-         }
-         .swgrip{
-            bottom: -5px;
-            left: -5px;
-            width: 11px;
-         }
-         .segrip{
-            bottom: -5px;
-            right:-5px;
-            width: 11px;
-         }
-         .ngrip{
-            top: -5px;
-            left:50%;
-         }
-         .sgrip{
-            bottom: -5px;
-            left: 50%;
-         }
-         .wgrip{
-            left:-5px;
-            top:47%;
-            width: 11px;
-            height: 7px;
-         }
-         .egrip{
-            right:-5px;
-            top:47%;
-            width: 11px;
-            height: 7px;     
-         }
-
+      .label {
+         border: 0px solid;
+         border-color: black;
+         width: 80px;
+         height: 30px;
+         overflow: hidden;
+         -webkit-user-modify: read-write;
+      }
+      .edit {
+         border: 3px solid;
+         border-color: darkgray white white darkgray;
+         width: 300px;
+         height: 32px;
+         overflow: hidden;
+         background-color: whitesmoke;
+         -webkit-user-modify: read-write;
+      }         
+      .listbox {
+         border: 3px solid;
+         border-color: darkgray white white darkgray;
+         width: 170px;
+         height: 32px;
+         overflow: hidden;
+         background-color: whitesmoke;
+         -webkit-user-modify: read-write;
+      }         
+      .button {
+         border: 3px solid;
+         border-color: white darkgray darkgray white;
+         width: 117px;
+         height: 32px;
+         overflow: hidden;
+         background-color: lightgray;
+         -webkit-user-modify: read-write;
+      }
+      .checkbox {
+         border: 0px solid;
+         border-color: white darkgray darkgray white;
+         width: 180px;
+         height: 45px;
+         overflow: hidden;
+         -webkit-user-modify: read-write;
+      }
+      .image {
+         border: 1px solid;
+         width: 120px;
+         height: 100px;
+         overflow: hidden;
+         background-image: url( "https://raw.githubusercontent.com/FiveTechSoft/mod_harbour/master/samples/images/fivetech.bmp" );
+         background-repeat: no-repeat;
+         background-size: 100% 100%;
+         -webkit-user-modify: read-write;
+      }                    
+      .nwgrip, .negrip, .swgrip, .segrip, .ngrip, .egrip, .sgrip, .wgrip {
+         width: 7px;
+         height: 11px;
+         background-color: #000000;
+         border: 1px solid #000000;
+         visibility:hidden;
+      } 
+      .segrip.main{
+         visibility:visible;            
+      }    
+      .nwgrip {
+         left: -5px;
+         top: -5px;
+         width: 11px;
+      }
+      .negrip{
+         top: -5px;
+         right: -5px;
+         width: 11px;
+      }
+      .swgrip{
+         bottom: -5px;
+         left: -5px;
+         width: 11px;
+      }
+      .segrip{
+         bottom: -5px;
+         right:-5px;
+         width: 11px;
+      }
+      .ngrip{
+         top: -5px;
+         left:50%;
+      }
+      .sgrip{
+         bottom: -5px;
+         left: 50%;
+      }
+      .wgrip{
+         left:-5px;
+         top:47%;
+         width: 11px;
+         height: 7px;
+      }
+      .egrip{
+         right:-5px;
+         top:47%;
+         width: 11px;
+         height: 7px;     
+      }
    </style>   

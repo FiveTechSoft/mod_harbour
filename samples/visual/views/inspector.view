@@ -1,3 +1,42 @@
+      <style>
+         .inspector{
+            box-shadow:10px 10px 10px darkgray, 0px 0px 10px darkgray;
+            top:170px;
+            left:1500px;
+            width:280px;
+            height:400px;
+            position:absolute; 
+            background: lightgray; 
+            border-radius: 5px;
+         }  
+         .table_inspector {
+            width:880px;
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-family: Arial;         
+         }
+         .table_inspector th {
+            padding:4px;
+            border: 1px solid black;
+            background-color:white;
+            border-radius: 5px;
+         }
+         .table_inspector tr {
+            padding:4px;
+         }
+         .table_inspector td {
+            border: 1px solid black;
+            width:50%;
+            padding-left:0px;         
+         }
+         .table_inspector .left {
+            border: 1px solid black;
+            width:50%;
+            padding-left:10px;
+            padding-right:10px;         
+         }   
+      </style>
+
       <div id="inspector" class="inspector">
          <table class="table_inspector" style="width:100%">
             <tr>
@@ -27,7 +66,7 @@
             <tr>
                <td class="left">prompt</td>
                <td><input id="prompt" type="text" value="" style="padding:0px;padding-right:2px;width:100%">
-               <button style="position:absolute;background-color:lightgray;top:162;width:18px;right:3px;height:20;padding:2px;padding-bottom:3px;"></button></td>
+               <button style="position:absolute;background-color:lightgray;top:159;width:18px;right:3px;height:20;padding:2px;padding-bottom:3px;"></button></td>
             </tr>
             <tr>
                <td class="left">color</td>
