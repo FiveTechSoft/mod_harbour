@@ -34,6 +34,31 @@
                         <i class="far fa-image" style="color:black;font-size:20px;padding:7px;"></i>
                      </div>
                   </td>
+                  <td>   
+                     <div class="rbnbutton" title="up" onclick="GoUp()">
+                        <i class="fas fa-arrow-up" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" title="down" onclick="GoDown()">
+                        <i class="fas fa-arrow-down" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" title="left" onclick="GoLeft()">
+                        <i class="fas fa-arrow-left" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" title="right" onclick="GoRight()">
+                        <i class="fas fa-arrow-right" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" title="delete" onclick="Remove()">
+                        <i class="fas fa-times" style="color:black;font-size:20px;padding:7px;"></i>
+                     </div>
+                  </td>
                </tr>
             </tbody>
          </table>         

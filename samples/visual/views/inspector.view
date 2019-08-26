@@ -41,5 +41,6 @@
       </div>
       <script>
          $( "#inspector" ).draggable();
+         $( "#color" ).on( "input", function(e){ oCtrl.css( "color", $( "#color" ).val() ) } );
          $( "#bgcolor" ).on( "input", function(e){ oCtrl.css( "backgroundColor", $( "#bgcolor" ).val() ) } );
       </script> 

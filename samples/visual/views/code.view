@@ -164,22 +164,22 @@
                $( "#prompt" ).keydown( function(e){ if( e.which == 13 ) oCtrl.find( "#label" ).html( $( "#prompt" ).val() ); } );
             }
 
-            function ToUp()
+            function GoUp()
             {
                oCtrl[0].style.top = parseFloat( oCtrl[0].style.top ) - 1;
             }   
 
-            function ToDown()
+            function GoDown()
             {
                oCtrl[0].style.top = parseFloat( oCtrl[0].style.top ) + 1;
             }   
 
-            function ToLeft()
+            function GoLeft()
             {
                oCtrl[0].style.left = parseFloat( oCtrl[0].style.left ) - 1;
             }   
 
-            function ToRight()
+            function GoRight()
             {
                oCtrl[0].style.left = parseFloat( oCtrl[0].style.left ) + 1;
             }   
