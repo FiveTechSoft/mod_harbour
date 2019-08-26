@@ -1,3 +1,24 @@
    <div class="ribbon">
-      <ul><li>One</li><li>Two</li><li>Three</li></ul>
+      <ul><li>File</li><li>Project</li><li>Components</li><li>Help</li></ul>
+      <div class="panel">
+         <table>
+            <tr>
+               <td>
+                  <div class="rbnbutton" title="label" onclick="AddLabel()">
+                     <i class="fas fa-font" style="color:black;font-size:20px;padding:7px;"></i>
+                  </div>
+               <td>
+               <td>   
+                  <div class="rbnbutton" title="edit" onclick="AddEdit()">
+                     <i class="fas fa-edit" style="color:black;font-size:20px;padding:7px;"></i>
+                  </div>
+               </td>
+               <td>   
+                  <div class="rbnbutton" title="button" onclick="AddButton()">
+                     <i class="fas fa-square" style="color:black;font-size:20px;padding:7px;"></i>
+                  </div>
+               </td>
+            </tr>
+         </table>         
+      </div>
    </div>
