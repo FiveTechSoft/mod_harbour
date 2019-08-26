@@ -1,15 +1,15 @@
    <style>
       body {
+         margin: 0px;
          background: #bdc3c7; 
          background: -webkit-linear-gradient(to left, lightgray, darkgray);  
          background: linear-gradient(to left, whitesmoke, royalblue);             
       }
       .ribbon{
+         border:0px;
          background-color: blue;
          height: 80px;
          width:100%;
-         margin-top:-10px;
-         margin-left:-8px;
          overflow-x:hidden;
          overflow-y: hidden;
       }
