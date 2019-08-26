@@ -76,13 +76,13 @@
             <tbody>
                <tr>
                   <td>
-                     <div class="rbnbutton" title="label" onclick="AddLabel()">
-                        <i class="fas fa-font" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" title="save" onclick="Save()">
+                        <i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:7px;"></i>
                      </div>
                   </td>
                   <td>   
-                     <div class="rbnbutton" title="edit" onclick="AddEdit()">
-                        <i class="fas fa-edit" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" title="settings" onclick="AddEdit()">
+                        <i class="fas fa-cog" style="color:black;font-size:20px;padding:7px;"></i>
                      </div>
                   </td>
                </tr>
