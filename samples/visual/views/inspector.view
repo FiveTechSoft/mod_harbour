@@ -31,11 +31,11 @@
             </tr>
             <tr>
                <td class="left">color</td>
-               <td><input id="color" type="color" value="#000000" style="width:100px;padding:2px"></td>
+               <td><input id="color" type="color" value="#000000" style="width:100%;padding:2px"></td>
             </tr>
             <tr>
                <td class="left">bgcolor</td>
-               <td><input id="bgcolor" type="color" value="#000000" style="width:100px;padding:2px"></td>
+               <td><input id="bgcolor" type="color" value="#000000" style="width:100%;padding:2px"></td>
             </tr>
             <tr>
                <th>Event</th>
