@@ -64,14 +64,14 @@
       <ul>
          <li onclick="SelTopItem(this)"> File</li>
          <li onclick="SelTopItem(this)">Edit</li>
-         <li onclick="SelTopItem(this)">Project</li>
-         <li class="active" onclick="SelTopItem(this)">Components</li>
+         <li id="#project" onclick="SelTopItem(this)">Project</li>
+         <li id="#components" class="active" onclick="SelTopItem(this)">Components</li>
          <li onclick="SelTopItem(this)">Windows</li>
          <li onclick="SelTopItem(this)">Help</li>
          <li onclick="lZoom?RestScreen():FullScreen()" title="Full"><i class="far fa-square" style="color:white;font-size:12px;padding:3px;"></i></li>
       </ul>
       
-      <div class="panel">
+      <div id="project" class="panel">
          <table>
             <tbody>
                <tr>
@@ -90,7 +90,7 @@
          </table>
       </div>
 
-      <div class="panel active">
+      <div id="components" class="panel active">
          <table>
             <tbody>
                <tr>
@@ -161,6 +161,8 @@
 
       function SelTopItem( o )
       {
+         $( $( o ).attr( "id" ) ).addClass( "active" );
+         $( $( o ).attr( "id" ) ).siblings().removeClass( "active" );
          $( o ).addClass( "active" );
          $( o ).siblings().removeClass( "active" );
       }  
