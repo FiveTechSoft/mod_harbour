@@ -63,7 +63,7 @@
    <div class="ribbon">
       <ul>
          <li id="#file" onclick="SelTopItem(this)">File</li>
-         <li onclick="SelTopItem(this)">Edit</li>
+         <li id="#edit" onclick="SelTopItem(this)">Edit</li>
          <li id="#project" onclick="SelTopItem(this)">Project</li>
          <li id="#components" class="active" onclick="SelTopItem(this)">Components</li>
          <li id="#windows" onclick="SelTopItem(this)">Windows</li>
@@ -83,6 +83,20 @@
                   <td>
                      <div class="rbnbutton" title="close" onclick="CloseFile()">
                         <i class="far fa-window-close" style="color:black;font-size:20px;padding:9px;"></i>
+                     </div>
+                  </td>
+               </tr>
+            </tbody>               
+         </table>
+      </div>
+
+      <div id="edit" class="panel">
+         <table>
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="rbnbutton" title="goto line" onclick="GotoLine()">
+                        <i class="fas fa-indent" style="color:black;font-size:20px;padding:9px;"></i>
                      </div>
                   </td>
                </tr>
