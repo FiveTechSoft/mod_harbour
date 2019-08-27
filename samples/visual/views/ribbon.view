@@ -187,6 +187,11 @@
                         <i class="fas fa-vector-square" style="color:black;font-size:20px;padding:9px;"></i>
                      </div>
                   </td>
+                  <td>
+                     <div class="rbnbutton" title="show inspector" onclick="ShowInspector()">
+                        <i class="fas fa-eye" style="color:black;font-size:20px;padding:8px;"></i>
+                     </div>
+                  </td>
                </tr>
             </tbody>               
          </table>
