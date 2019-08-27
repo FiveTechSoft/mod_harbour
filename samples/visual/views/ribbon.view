@@ -183,13 +183,8 @@
             <tbody>
                <tr>
                   <td>
-                     <div class="rbnbutton" title="form" onclick="ShowForm()">
+                     <div class="rbnbutton" title="show form" onclick="ShowForm()">
                         <i class="fas fa-vector-square" style="color:black;font-size:20px;padding:9px;"></i>
-                     </div>
-                  </td>
-                  <td>
-                     <div class="rbnbutton" title="close" onclick="CloseFile()">
-                        <i class="far fa-window-close" style="color:black;font-size:20px;padding:9px;"></i>
                      </div>
                   </td>
                </tr>
