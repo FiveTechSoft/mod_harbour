@@ -62,19 +62,43 @@
  
    <div class="ribbon">
       <ul>
-         <li onclick="SelTopItem(this)"> File</li>
+         <li id="#file" onclick="SelTopItem(this)">File</li>
          <li onclick="SelTopItem(this)">Edit</li>
          <li id="#project" onclick="SelTopItem(this)">Project</li>
          <li id="#components" class="active" onclick="SelTopItem(this)">Components</li>
-         <li onclick="SelTopItem(this)">Windows</li>
+         <li id="#windows" onclick="SelTopItem(this)">Windows</li>
          <li onclick="SelTopItem(this)">Help</li>
          <li onclick="lZoom?RestScreen():FullScreen()" title="Full"><i class="far fa-square" style="color:white;font-size:12px;padding:3px;"></i></li>
       </ul>
       
+      <div id="file" class="panel">
+         <table>
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="rbnbutton" title="load" onclick="OpenFile()">
+                        <i class="far fa-file-alt" style="color:black;font-size:20px;padding:9px;"></i>
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" title="close" onclick="CloseFile()">
+                        <i class="far fa-window-close" style="color:black;font-size:20px;padding:9px;"></i>
+                     </div>
+                  </td>
+               </tr>
+            </tbody>               
+         </table>
+      </div>
+
       <div id="project" class="panel">
          <table>
             <tbody>
                <tr>
+                  <td>
+                     <div class="rbnbutton" title="run" onclick="Run()">
+                        <i class="fas fa-bolt" style="color:black;font-size:20px;padding:9px;"></i>
+                     </div>
+                  </td>
                   <td>
                      <div class="rbnbutton" title="save" onclick="SaveJson()">
                         <i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:7px;"></i>
@@ -152,6 +176,25 @@
                </tr>
             </tbody>
          </table>         
+      </div>
+
+      <div id="windows" class="panel">
+         <table>
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="rbnbutton" title="form" onclick="ShowForm()">
+                        <i class="fas fa-vector-square" style="color:black;font-size:20px;padding:9px;"></i>
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" title="close" onclick="CloseFile()">
+                        <i class="far fa-window-close" style="color:black;font-size:20px;padding:9px;"></i>
+                     </div>
+                  </td>
+               </tr>
+            </tbody>               
+         </table>
       </div>
    </div>
 
