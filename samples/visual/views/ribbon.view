@@ -2,29 +2,31 @@
    .ribbon{
       border:0px;
       background-color: blue;
-      height: 80px;
+      height: 110px;
       width:100%;
       overflow-x:hidden;
       overflow-y: hidden;
    }
    .panel{
-      background-color: white;
-      height: 50px;
+      background: linear-gradient(white,lightgray);
+      height: 85px;
       width:100%;
       visibility: hidden;
       position: absolute;
+      font-family: Arial;
    }
    .panel.active{
       visibility: visible;
    }
    .rbnbutton{
-      background-color: white;
-      height:35px;
-      width:35px;
-      padding:3px;
+      background: linear-gradient(white,lightgray);
+      height:102%;
+      width:50px;
+      padding:10px;
+      padding-left:25px;
    }
    .rbnbutton:hover{
-      background-color: lightgray;
+      background: linear-gradient(lightgray,lightgray);
    }
    ul {
       list-style-type: none;
@@ -67,7 +69,7 @@
          <li id="#project" onclick="SelTopItem(this)">Project</li>
          <li id="#components" class="active" onclick="SelTopItem(this)">Components</li>
          <li id="#windows" onclick="SelTopItem(this)">Windows</li>
-         <li onclick="SelTopItem(this)">Help</li>
+         <li id="#help" onclick="SelTopItem(this)">Help</li>
          <li onclick="lZoom?RestScreen():FullScreen()" title="Full"><i class="far fa-square" style="color:white;font-size:12px;padding:3px;"></i></li>
       </ul>
       
@@ -76,13 +78,13 @@
             <tbody>
                <tr>
                   <td>
-                     <div class="rbnbutton" title="load" onclick="OpenFile()">
-                        <i class="far fa-file-alt" style="color:black;font-size:20px;padding:9px;"></i>
+                     <div class="rbnbutton" onclick="OpenFile()">
+                        <i class="far fa-file-alt" style="color:black;font-size:20px;padding:9px;"></i>Open
                      </div>
                   </td>
                   <td>
-                     <div class="rbnbutton" title="close" onclick="CloseFile()">
-                        <i class="far fa-window-close" style="color:black;font-size:20px;padding:9px;"></i>
+                     <div class="rbnbutton" onclick="CloseFile()">
+                        <i class="far fa-window-close" style="color:black;font-size:20px;padding:9px;"></i>Close
                      </div>
                   </td>
                </tr>
@@ -95,8 +97,8 @@
             <tbody>
                <tr>
                   <td>
-                     <div class="rbnbutton" title="goto line" onclick="GotoLine()">
-                        <i class="fas fa-indent" style="color:black;font-size:20px;padding:9px;"></i>
+                     <div class="rbnbutton" onclick="GotoLine()">
+                        <i class="fas fa-indent" style="color:black;font-size:20px;padding:9px;"></i>Line
                      </div>
                   </td>
                </tr>
@@ -109,18 +111,18 @@
             <tbody>
                <tr>
                   <td>
-                     <div class="rbnbutton" title="run" onclick="Run()">
-                        <i class="fas fa-bolt" style="color:black;font-size:20px;padding:9px;"></i>
+                     <div class="rbnbutton" onclick="Run()">
+                        <i class="fas fa-bolt" style="color:black;font-size:20px;padding:9px;"></i>Run
                      </div>
                   </td>
                   <td>
-                     <div class="rbnbutton" title="save" onclick="SaveJson()">
-                        <i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="SaveJson()">
+                        <i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:7px;"></i>Save
                      </div>
                   </td>
                   <td>   
-                     <div class="rbnbutton" title="settings" onclick="AddEdit()">
-                        <i class="fas fa-cog" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="AddEdit()">
+                        <i class="fas fa-cog" style="color:black;font-size:20px;padding:7px;"></i>Prefs
                      </div>
                   </td>
                </tr>
@@ -133,58 +135,58 @@
             <tbody>
                <tr>
                   <td>
-                     <div class="rbnbutton" title="label" onclick="AddLabel()">
-                        <i class="fas fa-font" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="AddLabel()">
+                        <i class="fas fa-font" style="color:black;font-size:20px;padding:7px;"></i>Label
                      </div>
                   </td>
                   <td>   
-                     <div class="rbnbutton" title="edit" onclick="AddEdit()">
-                        <i class="fas fa-edit" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="AddEdit()">
+                        <i class="fas fa-edit" style="color:black;font-size:20px;padding:7px;"></i>Edit
                      </div>
                   </td>
                   <td>   
-                     <div class="rbnbutton" title="button" onclick="AddButton()">
-                        <i class="fas fa-square" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="AddButton()">
+                        <i class="fas fa-square" style="color:black;font-size:20px;padding:7px;"></i>Button
                      </div>
                   </td>
                   <td>   
-                     <div class="rbnbutton" title="checkbox" onclick="AddCheckbox()">
-                        <i class="far fa-check-square" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="AddCheckbox()">
+                        <i class="far fa-check-square" style="color:black;font-size:20px;padding:7px;"></i>Check
                      </div>
                   </td>
                   <td>   
-                     <div class="rbnbutton" title="listbox" onclick="AddListbox()">
-                        <i class="fas fa-bars" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="AddListbox()">
+                        <i class="fas fa-bars" style="color:black;font-size:20px;padding:7px;"></i>List
                      </div>
                   </td>
                   <td>   
-                     <div class="rbnbutton" title="image" onclick="AddImage()">
-                        <i class="far fa-image" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="AddImage()">
+                        <i class="far fa-image" style="color:black;font-size:20px;padding:7px;"></i>Image
                      </div>
                   </td>
                   <td>   
-                     <div class="rbnbutton" title="up" onclick="GoUp()">
-                        <i class="fas fa-arrow-up" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="GoUp()">
+                        <i class="fas fa-arrow-up" style="color:black;font-size:20px;padding:7px;"></i>Up
                      </div>
                   </td>
                   <td>   
-                     <div class="rbnbutton" title="down" onclick="GoDown()">
-                        <i class="fas fa-arrow-down" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="GoDown()">
+                        <i class="fas fa-arrow-down" style="color:black;font-size:20px;padding:7px;"></i>Down
                      </div>
                   </td>
                   <td>   
-                     <div class="rbnbutton" title="left" onclick="GoLeft()">
-                        <i class="fas fa-arrow-left" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="GoLeft()">
+                        <i class="fas fa-arrow-left" style="color:black;font-size:20px;padding:7px;"></i>Left
                      </div>
                   </td>
                   <td>   
-                     <div class="rbnbutton" title="right" onclick="GoRight()">
-                        <i class="fas fa-arrow-right" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="GoRight()">
+                        <i class="fas fa-arrow-right" style="color:black;font-size:20px;padding:7px;"></i>Right
                      </div>
                   </td>
                   <td>   
-                     <div class="rbnbutton" title="delete" onclick="Remove()">
-                        <i class="fas fa-times" style="color:black;font-size:20px;padding:7px;"></i>
+                     <div class="rbnbutton" onclick="Remove()">
+                        <i class="fas fa-times" style="color:black;font-size:20px;padding:7px;"></i>Del
                      </div>
                   </td>
                </tr>
@@ -197,13 +199,47 @@
             <tbody>
                <tr>
                   <td>
-                     <div class="rbnbutton" title="show form" onclick="ShowForm()">
-                        <i class="fas fa-vector-square" style="color:black;font-size:20px;padding:9px;"></i>
+                     <div class="rbnbutton" onclick="ShowForm()">
+                        <i class="fas fa-vector-square" style="color:black;font-size:20px;padding:9px;"></i>Form
                      </div>
                   </td>
                   <td>
-                     <div class="rbnbutton" title="show inspector" onclick="ShowInspector()">
-                        <i class="fas fa-eye" style="color:black;font-size:20px;padding:8px;"></i>
+                     <div class="rbnbutton" onclick="ShowInspector()">
+                        <i class="fas fa-eye" style="color:black;font-size:20px;padding:8px;"></i>Inspect
+                     </div>
+                  </td>
+               </tr>
+            </tbody>               
+         </table>
+      </div>
+
+      <div id="help" class="panel">
+         <table>
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="rbnbutton" onclick="ShowForm()">
+                        <i class="far fa-comments" style="color:black;font-size:20px;padding:9px;"></i>Chat
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" onclick="ShowInspector()">
+                        <i class="far fa-edit" style="color:black;font-size:20px;padding:8px;"></i>Forum
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" onclick="ShowInspector()">
+                        <i class="fas fa-book" style="color:black;font-size:20px;padding:8px;"></i>Wiki
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" onclick="ShowInspector()">
+                        <i class="fab fa-github" style="color:black;font-size:20px;padding:8px;"></i>Repo
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" onclick="ShowInspector()">
+                        <i class="fas fa-anchor" style="color:black;font-size:20px;padding:8px;"></i>Harbour
                      </div>
                   </td>
                </tr>
