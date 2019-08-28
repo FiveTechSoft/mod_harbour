@@ -1,5 +1,34 @@
-   <div id="editor" style="margin-left:-8px;height:calc(100% - 110px);">{{GetCode()}}
-   </div>
+   <style>
+      #editor{
+         top:20px;
+         height:calc( 100% - 110px);
+         width:60%;
+         float:left;
+      }
+      #splitter{
+         height:100%;
+         width:5px;
+         background-color: white;
+         cursor:col-resize;
+         float:left;
+      }
+      #right{
+          background-color:aquamarine;
+          top:20px;
+          height:calc( 100% - 90px);
+          margin-left:1100px;
+          font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+      }
+   </style>
+
+   <div style="width:100%">
+      <div id="editor">{{GetCode()}}</div>
+      <div id="right">
+         <div id="splitter"></div>
+         <div id="result"></div>
+      </div>   
+   </div>   
+
    <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
    <script>
       var editor = ace.edit("editor");
@@ -30,4 +59,19 @@
       {
          editor.session.setValue( "" );
       }
+
+      $('#splitter').mousedown( function(e) {
+         e.preventDefault();
+         $(document).mousemove( function(e) {
+            var x = e.pageX;
+            e.preventDefault();
+            if( x > 300 && x < ( $(window).width() - 300 ) )
+            {
+               $( "#editor" ).css( "width", x );
+               $( "#right" ).css( "margin-left", x ); 
+            }
+         } ) } );
+
+      $(document).mouseup( function() {
+         $(document).unbind('mousemove'); } );
    </script>  
