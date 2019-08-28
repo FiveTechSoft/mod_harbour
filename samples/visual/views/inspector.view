@@ -93,9 +93,16 @@
                <td><input id="onfocusout" type="text" value="" style="padding:2px"></td>
             </tr>
          </table>
+         <i onclick="$(this).parent().css( 'visibility', 'hidden' )" class="fas fa-times" 
+            style="position:absolute;right:11px;top:7px;cursor:pointer;"></i>
       </div>
       <script>
          $( "#inspector" ).draggable();
          $( "#color" ).on( "input", function(e){ oCtrl.css( "color", $( "#color" ).val() ) } );
          $( "#bgcolor" ).on( "input", function(e){ oCtrl.css( "backgroundColor", $( "#bgcolor" ).val() ) } );
+
+      function ShowInspector()
+      {
+         $( "#inspector" ).css( "visibility", "visible" );
+      }         
       </script> 

@@ -2,8 +2,8 @@
        {{View( [vars] )}}
        {{View( [ribbon] )}}
        {{View( [editor] )}}
-       {{View( [form] )}} 
+       {{View( [form] )}}
        {{View( [inspector] )}}
-       {{View( [code] )}}
+       {{View( [controls] )}}
    </body>
 </html>
