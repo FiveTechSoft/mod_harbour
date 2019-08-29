@@ -23,7 +23,8 @@
       height:100%;
       width:50px;
       padding:10px;
-      padding-left:25px;
+      padding-left:15px;
+      text-align:center;
    }
    .rbnbutton:hover{
       background: linear-gradient(lightgray,lightgray);
@@ -218,28 +219,34 @@
             <tbody>
                <tr>
                   <td>
-                     <div class="rbnbutton" onclick="ShowForm()">
+                     <div class="rbnbutton" onclick="location.href='https://fivetechsoft.github.io/mod_harbour/'">
+                        <i class="fas fa-home" style="color:black;font-size:20px;padding:9px;"></i>Home
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" onclick="location.href='https://app.slack.com/client/TJH5YU202/CJUHF8SBX'">
                         <i class="far fa-comments" style="color:black;font-size:20px;padding:9px;"></i>Chat
                      </div>
                   </td>
                   <td>
-                     <div class="rbnbutton" onclick="ShowInspector()">
+                     <div class="rbnbutton" onclick="location.href='http://forums.fivetechsupport.com/viewforum.php?f=45&start=0'">
                         <i class="far fa-edit" style="color:black;font-size:20px;padding:8px;"></i>Forum
                      </div>
                   </td>
                   <td>
-                     <div class="rbnbutton" onclick="ShowInspector()">
+                     <div class="rbnbutton" onclick="location.href='https://github.com/FiveTechSoft/mod_harbour/wiki'">
                         <i class="fas fa-book" style="color:black;font-size:20px;padding:8px;"></i>Wiki
                      </div>
                   </td>
                   <td>
-                     <div class="rbnbutton" onclick="ShowInspector()">
+                     <div class="rbnbutton" onclick="location.href='https://github.com/FiveTechSoft/mod_harbour'">
                         <i class="fab fa-github" style="color:black;font-size:20px;padding:8px;"></i>Repo
                      </div>
                   </td>
                   <td>
-                     <div class="rbnbutton" onclick="ShowInspector()">
-                        <i class="fas fa-anchor" style="color:black;font-size:20px;padding:8px;"></i>Harbour
+                     <div class="rbnbutton" onclick="location.href='https://harbour.github.io/'">
+                        <i class="fas fa-anchor" style="color:black;font-size:20px;padding:8px;"></i>
+                        Harbour
                      </div>
                   </td>
                </tr>
