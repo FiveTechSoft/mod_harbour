@@ -1,6 +1,6 @@
    <div id="form" class="form">
-      <div class="ui-resizable-handle ui-resizable-se segrip main"></div>
-      <i onclick="$(this).parent().css( 'visibility', 'hidden' )" class="fas fa-times" 
+      <div id="form_handle" class="ui-resizable-handle ui-resizable-se segrip main"></div>
+      <i onclick="HideForm()" class="fas fa-times" 
          style="position:absolute;right:14px;top:12px;cursor:pointer;"></i>
    </div>
 
@@ -38,11 +38,13 @@
       function ShowForm()
       {
          $( "#form" ).css( "visibility", "visible" );
+         $( "#form_handle" ).css( "visibility", "visible" );
       }
 
       function HideForm()
       {
          $( "#form" ).css( "visibility", "hidden" );
+         $( "#form_handle" ).css( "visibility", "hidden" );
       }
 
    </script>      
