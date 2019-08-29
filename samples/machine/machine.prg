@@ -38,23 +38,31 @@ Function Machine()
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, shrink-to-fit=no">
-   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
-   <script src="https://fivetechsoft.github.io/xcloud/source/js/xcloud.js"></script>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
    <meta name="description" content="">
    <meta name="author" content="Cristobal Navarro">
    <title>Virtual Machine Harbour</title>
-   <link href="css/simple-sidebar.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+   <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" id="bootstrap-css">
+   <link rel="stylesheet" href="css/simple-sidebar.css">
+   <script src="https://fivetechsoft.github.io/xcloud/source/js/xcloud.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
    <style>
       .list-group-item {
          background-color:475F89;
          color:#002240;
+         }
+      .list-group-item:focus {
+         background-color:#555555;
+         color:white;
+         }
+      .list-group-item:hover {
+         background-color:#555555;
+         color:white;
          }
       .navbar-expand-lg {
          background-color:#3A5159;
@@ -109,7 +117,7 @@ Function Machine()
          color:#007E33;
           }
       .funcs {
-         color:#00C851;
+         color:#333333;
           }
       .nav-item {
          color:blue;
@@ -139,8 +147,8 @@ Function Machine()
       .panel-heading {
          height: 32px;
          font-size: 0.8rem;
-         color: #0A0A2A;
-         background-color: #CFD6E4;
+         color: #ffffff;
+         background-color: #999999;
          padding: 6px;
          padding-left: 10px;
          }
@@ -169,7 +177,7 @@ Function Machine()
          padding-left: 1px;
          padding-right: 1px;
          padding-bottom: 1px;
-      }
+         }
       .col-lg-7 {
          height: 46.5vh;
          padding-top: 2px;
@@ -179,7 +187,7 @@ Function Machine()
          border: 1px;
          border-color: gainsboro;
          border-style: solid;
-      }
+         }
       .col-lg-5 {
          height: 46.5vh;
          padding-top: 2px;
@@ -189,20 +197,70 @@ Function Machine()
          border: 1px;
          border-color: gainsboro;
          border-style: solid;
-      }
+         }
       .btn {
          border-radius: 4px;
          border: 1px;
          font-size:16px;
-      }
+         background-color:#111111;
+         color:white;
+         }
       .btn:focus {
          border: 1px;
+         background-color:#555555;
+         color:white;
+         }
+      .btn:hover {
+         border: 1px;
+         background-color:#555555;
+         color:white;
+         }
+      .navbar {
+         overflow: hidden;
+      }
+      .navbar .icon {
+        color:white;
+        display: none;
+      }
+      .nav-link {
+         background-color:#111111;
+         color:white;
+         }
+      .nav-link:focus {
+         background-color:#555555;
+         color:white;
+         }
+      .nav-link:hover {
+         background-color:#555555;
+         color:white;
+         }
+      @media screen and (max-width: 600px) {
+      .navbar a:not(:first-child) {display: none;}
+      .navbar a.icon {
+         float: right;
+         display: block;
+         }
+      }
+      @media screen and (max-width: 600px) {
+      .navbar.responsive { 
+         position: relative;
+      }
+      .navbar.responsive a.icon {
+         position: absolute;
+         right: 0;
+         top: 0;
+         }
+      .navbar.responsive a {
+         float: none;
+         display: block;
+         text-align: left;
+         }
       }
       .tree, .tree ul {
          margin:0;
          padding:0;
          list-style:none
-      }
+         }
       .tree ul {
           margin-left:1em;
           position:relative
@@ -269,7 +327,7 @@ Function Machine()
    <div class="d-flex" id="wrapper">
 
     <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading" style="font-size:16px;height:54px;padding-top:16px;">
+      <div class="sidebar-heading" style="font-size:16px;height:54px;padding-top:16px;background-color:#111111;color:white;">
          <i class="fas fa-chalkboard" style="padding-right:2px"></i>
          <b>VIRTUAL MACHINE</b>
       </div>
@@ -286,7 +344,7 @@ Function Machine()
          </a>
       </div>
 
-      <div class="sidebar-heading" style="font-size:16px;height:40px;padding-top:8px;">
+      <div class="sidebar-heading" style="font-size:16px;height:40px;padding-top:8px;;background-color:#111111;color:white;">
          <i class="fas fa-chalkboard-teacher" style="padding-right:2px"></i>
          <b>ACTIONS CODE</b>
       </div>
@@ -355,7 +413,11 @@ Function Machine()
     </div>
 
     <div id="page-content-wrapper">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="height:54px;">
+      <nav class="navbar navbar-expand-lg border-bottom"
+          id="myTopnav" style="height:54px;background-color:#111111;color:white;">
+         <a href="javascript:void(0);" class="icon" onclick="SetResponsive()">
+          <i class="fa fa-bars"></i>
+         </a>
          <button class="btn btn-default btn-md" type="button" id="menu-toggle" title="[ ALT + A ]"
             data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -385,7 +447,7 @@ Function Machine()
                <a class="nav-link" href="#" onclick="show_memory()">MEMORY </a>
              </li>
              <li class="nav-item">
-               <a class="nav-link" href="https://harbour.fourtech.es/modharbour_samples/sandbox.prg">XCLOUD </a>
+               <a class="nav-link" href="https://harbour.fourtech.es/modharbour_samples/sandbox.prg">SANDBOX </a>
              </li>
              <li class="nav-item dropdown">
                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -400,6 +462,10 @@ Function Machine()
                  <a class="dropdown-item" href="https://harbour.fourtech.es/modharbour_samples/eshop/index.prg">
                     <i class="far fa-building" style="font-size:14px;padding-right:6px"></i>
                     EShop
+                 </a>
+                 <a class="dropdown-item" href="https://harbour.fourtech.es/modharbour_samples/genesis.prg">
+                    <i class="far fa-building" style="font-size:14px;padding-right:6px"></i>
+                    Genesis
                  </a>
                  <div class="dropdown-divider"></div>
                  <a class="dropdown-item" href="https://harbour.fourtech.es/modharbour_samples/apps/honey/index.prg">
@@ -691,6 +757,14 @@ ENDCLASS                </div>
          editor.focus();
       });
 
+         function SetResponsive() {
+           var x = document.getElementById("myTopnav");
+           if (x.className === "navbar") {
+             x.className += " responsive";
+           } else {
+             x.className = "navbar";
+           }
+         }
          function BtnClassClick() {
             console.log( "Click Class" );
          }
@@ -761,13 +835,11 @@ ENDCLASS                </div>
             editor.focus();
          }
 
-         function Run()
+         function Run1()
          {
             var o = new Object();
-            
             o[ 'source' ] = editor.getValue();
-            console.log( 'PARAM', o );
-                     
+            //console.log( 'PARAM', o );
             $.post( '<?prg return FileRun() ?>', o )
                .done( function( data ) { console.log( 'DONE', data ); $('#result').html( data ); } )
                .fail( function( data ) { console.log( 'ERROR', data ); } ); 
@@ -943,14 +1015,20 @@ METHOD GetSuper() CLASS TClass
    local oInstance
    local aDats   := {}
    local aCDats  := {}
+   local oErr
       
-   BEGIN SEQUENCE
+   TRY         //BEGIN SEQUENCE
       oInstance := &( ::cName + "()" )
-   RECOVER
-   END SEQUENCE
+   CATCH oErr      //RECOVER
+      //? GetErrorInfo( oErr )
+      //BREAK
+   FINALLY
+      if !Empty( oErr )
+         oInstance := &( "_" + ::cName + "()" )
+      endif
+   END //SEQUENCE
 
    if hb_IsObject( oInstance )
-      
       if ::aDatas == nil
          ::aDatas     := {}
          //::aDatas   := __objGetMsgList( oInstance, .T. )
@@ -999,7 +1077,7 @@ return nil
 
 //----------------------------------------------------------------------------//
 
-Function Error()
+Function _Error()
 return ErrorNew()
 
 //----------------------------------------------------------------------------//
@@ -1009,13 +1087,27 @@ return {=>} //Hash():New() //
 
 //----------------------------------------------------------------------------//
 
-Function Pointer()
+Function _Pointer()
 return @Pointer() //:New()
 
 //----------------------------------------------------------------------------//
 
-Function ScalarObject()
+Function _ScalarObject()
 Return @ScalarObject() //:New()
+
+//----------------------------------------------------------------------------//
+
+Function _Logical()
+Return @Logical()
+
+//----------------------------------------------------------------------------//
+
+Function _Nil()
+Return nil
+
+//----------------------------------------------------------------------------//
+//
+//----------------------------------------------------------------------------//
 
 //----------------------------------------------------------------------------//
 
