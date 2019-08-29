@@ -216,7 +216,7 @@ Function Machine()
          color:white;
          }
       .navbar {
-         overflow: hidden;
+         overflow: initial;
       }
       .navbar .icon {
         color:white;
