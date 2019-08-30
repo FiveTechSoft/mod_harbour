@@ -19,13 +19,23 @@
                                        $( "#width" ).val( $(this).css( "width" ) );
                                        $( "#height" ).val( $(this).css( "height" ) );
                                        $( "#prompt").val( "" );
+                                       $( "#fontfamily" ).val( $(this).css( "fontFamily" ).replace( '"', '').replace( '"', '' ) );
+                                       $( "#fontsize" ).val( $(this).css( "fontSize" ) );
                                        $( "#color" ).val( RGBToHex( $(this).css( "color" ) ) ); 
                                        $( "#bgcolor" ).val( RGBToHex( $(this).css( "backgroundColor" ) ) );
                                        $( "#onclick" ).val( $(this).attr( "data-onclick" ) ); } );
 
       $( document ).ready( function(){ $( "#form" ).focus(); } );        
       $( "#form" ).focus();
-      
+
+      $( "#fontfamily" ).focusout( function() {
+         var cId = $('#id').val();
+         $( "#" + cId ).css( 'fontFamily', $(this).val() ); } );
+
+      $( "#fontsize" ).focusout( function() {
+         var cId = $('#id').val();
+         $( "#" + cId ).css( 'fontSize', $(this).val() ); } );
+
       $( "#color" ).on( "input", function(){ oCtrl.css( "color", $( "#color" ).val() ) } );
       $( "#bgcolor" ).on( "input", function(){ oCtrl.css( "backgroundColor", $( "#bgcolor" ).val() ) } );
 

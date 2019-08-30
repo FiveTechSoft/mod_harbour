@@ -73,6 +73,10 @@
                <td><input id="fontfamily" type="text" value="" style="width:100%;padding:2px"></td>
             </tr>
             <tr>
+               <td class="left">font-size</td>
+               <td><input id="fontsize" type="text" value="" style="width:100%;padding:2px"></td>
+            </tr>
+            <tr>
                <td class="left">color</td>
                <td><input id="color" type="color" value="#000000" style="width:100%;padding:2px"></td>
             </tr>
