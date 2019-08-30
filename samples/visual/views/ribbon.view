@@ -18,6 +18,14 @@
    .panel.active{
       visibility: visible;
    }
+   .tblpanel{
+      top:0;
+      height:30px;
+   }
+   .tblpanel.tr{
+      top:0;
+      height:30px;
+   }   
    .rbnbutton{
       background: linear-gradient(white,lightgray);
       height:100%;
@@ -28,6 +36,10 @@
    }
    .rbnbutton:hover{
       background: linear-gradient(lightgray,lightgray);
+   }
+   .rbnbutton.harbour{
+      padding-left:4px;
+      padding-right:20px;
    }
    ul {
       list-style-type: none;
@@ -75,7 +87,7 @@
       </ul>
       
       <div id="file" class="panel">
-         <table>
+         <table class="tblpanel">
             <tbody>
                <tr>
                   <td>
@@ -205,8 +217,8 @@
                      </div>
                   </td>
                   <td>
-                     <div class="rbnbutton" onclick="ShowInspector()">
-                        <i class="fas fa-eye" style="color:black;font-size:20px;padding:8px;"></i>Inspect
+                     <div class="rbnbutton harbour" onclick="ShowInspector()">
+                        <i class="fas fa-eye" style="color:black;font-size:20px;padding:8px;margin-left:10px;"></i>Inspect
                      </div>
                   </td>
                </tr>
@@ -244,8 +256,8 @@
                      </div>
                   </td>
                   <td>
-                     <div class="rbnbutton" onclick="location.href='https://harbour.github.io/'">
-                        <i class="fas fa-anchor" style="color:black;font-size:20px;padding:8px;"></i>
+                     <div class="rbnbutton harbour" onclick="location.href='https://harbour.github.io/'">
+                        <i class="fas fa-anchor" style="color:black;font-size:20px;padding:8px;margin-left:10px;"></i>
                         Harbour
                      </div>
                   </td>
