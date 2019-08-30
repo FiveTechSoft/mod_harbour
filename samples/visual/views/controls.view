@@ -158,7 +158,7 @@
                    $( "#width" ).val( $(this).css( "width" ) ); $( "#height" ).val( $(this).css( "height" ) );
                    $( "#prompt" ).val( $(this).find( "#label" ).html() );
                    $( "#fontfamily" ).val( $(this).css( "fontFamily" ).replace( '"', '' ).replace( '"', '' ) );
-                   $( "#fontsize" ).val( $(this).css( "fontSize" ) );
+                   $( "#fontsize" ).val( $(this).find( "#label" ).css( "fontSize" ) );
                    $( "#color" ).val( RGBToHex( $(this).css( "color" ) ) ); 
                    $( "#bgcolor" ).val( RGBToHex( $(this).css( "backgroundColor" ) ) ); 
                    $( "#onclick" ).val( $(this).attr( "data-onclick" ) ); } );
@@ -182,7 +182,7 @@
 
                $( "#fontsize" ).focusout( function() {
                   var cId = $('#id').val();
-                  $( "#" + cId ).css( "fontSize", $(this).val() ); } );
+                  $( "#" + cId ).find( "#label" ).css( "fontSize", $(this).val() ); } );
             }
 
             function GoUp()
