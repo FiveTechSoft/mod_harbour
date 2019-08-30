@@ -69,7 +69,7 @@
             { 
                var cId = "btn" + ++buttons;
                var cHtml = 
-               '<div id="' + cId + '" class="button" style="width:100px">' + 
+               '<div id="' + cId + '" class="button" style="width:100px;text-align:center;">' + 
                '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
                '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
                '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
