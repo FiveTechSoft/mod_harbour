@@ -16,17 +16,7 @@ function Main()
             var camera = new THREE.PerspectiveCamera( 65, window.innerWidth/window.innerHeight, 0.1, 1000 );
             var renderer = new THREE.WebGLRenderer();
             var geometry = new THREE.BoxGeometry( 2, 2, 2 );
-            var cubeMaterials = [
-               new THREE.MeshBasicMaterial({color:Math.floor(Math.random() * 0xFFFFFF)}),
-               new THREE.MeshBasicMaterial({color:Math.floor(Math.random() * 0xFFFFFF)}),
-               new THREE.MeshBasicMaterial({color:Math.floor(Math.random() * 0xFFFFFF)}),
-               new THREE.MeshBasicMaterial({color:Math.floor(Math.random() * 0xFFFFFF)}),
-               new THREE.MeshBasicMaterial({color:Math.floor(Math.random() * 0xFFFFFF)}),
-               new THREE.MeshBasicMaterial({color:Math.floor(Math.random() * 0xFFFFFF)}),
-               new THREE.MeshBasicMaterial({color:Math.floor(Math.random() * 0xFFFFFF)}),
-               new THREE.MeshBasicMaterial({color:Math.floor(Math.random() * 0xFFFFFF)})
-            ];
-            var cube = new THREE.Mesh( geometry, cubeMaterials );
+            var cube = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
             var animate = function () {
                requestAnimationFrame( animate );
          
