@@ -6,7 +6,7 @@ function Main()
   <head>
     <meta charset=UTF-8 />
     <script src="https://threejs.org/build/three.js"></script>
-    <script src="http://threejs.org/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
     <style>
     body {
       width: 100vw;
