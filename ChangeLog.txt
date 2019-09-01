@@ -1,3 +1,7 @@
+2019/August/30
+
+* New examples using 3D three.js module. Please review samples/three folder
+
 2019/July/2
 
 * Fix: BLOCKS ... ENDTEXT was not properly working as ReplaceBlocks() was returning a logical value. ReplaceBlocks()
