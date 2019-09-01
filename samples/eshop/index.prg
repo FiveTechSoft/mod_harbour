@@ -13,7 +13,7 @@ return nil
 function Controller( cRequest )
 
    cContent = If( Empty( cRequest ), "home",;
-                  If( cRequest $ "wishlist,login,cart,checkout", cRequest, "home" ) )
+              If( cRequest $ "wishlist,login,cart,checkout", cRequest, "home" ) )
 
    do case   
       case AP_Method() == "GET"
