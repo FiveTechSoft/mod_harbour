@@ -65,7 +65,9 @@
       <ul>
         <li><a onclick="OpenFile()">Open</a></li>
         <li><a onclick="Run()">Run</a></li>
-        <li><a>Harbour 3.4 (Viktor's fork) wasm (emscripten)</a></li>
+        <li><a onclick="Clear()">Clear</a></li>
+        <li><a onclick="location.href='https://github.com/vszakats/harbour-core'">
+          Harbour 3.4 (Viktor's fork) wasm (emscripten)</a></li>
       </ul> 
     </div>
 
@@ -118,9 +120,14 @@ return nil</div>
           window.location.reload();
        }
  
-       function CloseFile()
+       function Clear()
        {
-          editor.session.setValue( "" );
+          var cCode = "function Main()" + '\r\n\r\n';
+
+          cCode += '   ? "Hello world"' + '\r\n\r\n';
+          cCode += 'return nil';
+
+          editor.session.setValue( cCode );
        }
  
        $('#splitter').mousedown( function(e) {
