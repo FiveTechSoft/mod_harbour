@@ -35,7 +35,7 @@ for (key in Module) {
   }
 }
 
-var arguments_ = [ editor.getValue() ];
+var arguments_ = [editor.getValue()];
 var thisProgram = './this.program';
 var quit_ = function(status, toThrow) {
   throw toThrow;
@@ -1220,11 +1220,11 @@ function updateGlobalBufferAndViews(buf) {
 
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 320208,
+    STACK_BASE = 320224,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 5563088,
-    DYNAMIC_BASE = 5563088,
-    DYNAMICTOP_PTR = 320176;
+    STACK_MAX = 5563104,
+    DYNAMIC_BASE = 5563104,
+    DYNAMICTOP_PTR = 320192;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1741,7 +1741,7 @@ var ASM_CONSTS = [];
 
 
 
-// STATICTOP = STATIC_BASE + 319184;
+// STATICTOP = STATIC_BASE + 319200;
 /* global initializers */  __ATINIT__.push({ func: function() { globalCtors() } });
 
 
@@ -1752,7 +1752,7 @@ var ASM_CONSTS = [];
 
 
 /* no memory initializer */
-var tempDoublePtr = 320192
+var tempDoublePtr = 320208
 assert(tempDoublePtr % 8 == 0);
 
 function copyTempFloat(ptr) { // functions, because inlining this code increases code size too much
@@ -5898,10 +5898,10 @@ function copyTempDouble(ptr) {
     }
 
   
-  var ___tm_current=320032;
+  var ___tm_current=320048;
   
   
-  var ___tm_timezone=(stringToUTF8("GMT", 320080, 4), 320080);
+  var ___tm_timezone=(stringToUTF8("GMT", 320096, 4), 320096);
   
   function _tzset() {
       // TODO: Use (malleable) environment variables instead of system settings.
