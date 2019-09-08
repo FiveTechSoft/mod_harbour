@@ -64,7 +64,7 @@
     <div id="menu">
       <ul>
         <li><a onclick="OpenFile()">Open</a></li>
-        <li><a>Run</a></li>
+        <li><a onclick="Run()">Run</a></li>
         <li><a>Harbour 3.4 (Viktor's fork) wasm (emscripten)</a></li>
       </ul> 
     </div>
@@ -72,7 +72,7 @@
     <div style="width:100%;height:100%;">
       <div id="editor">function Main()
         
-  ? "Hello world" 
+  ? "Hello world"
            
 return nil</div>
       <div id="right">
@@ -84,10 +84,15 @@ return nil</div>
     <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script>
        var editor = ace.edit("editor");
+       var code;
        editor.setTheme("ace/theme/tomorrow_night_blue");
        editor.setFontSize(18);     
        editor.setHighlightActiveLine(true);
        editor.session.setMode("ace/mode/c_cpp");
+
+       code = localStorage.getItem('code');  
+       if( code.length != 0 )
+          editor.session.setValue( code );
  
        function OpenFile()
        { 
@@ -106,6 +111,12 @@ return nil</div>
  
          oFPicker.click(); 
        }       
+
+       function Run()
+       {
+          localStorage.setItem( 'code', editor.getValue() );
+          window.location.reload();
+       }
  
        function CloseFile()
        {
