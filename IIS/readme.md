@@ -31,3 +31,9 @@ Create a test.html
 **4. From the web browser go to localhost/hello.prg**
 
 Also go to localhost/test.html
+
+**5. libharbour.dll has to be copied here:**
+
+c:\Windows\SysWOW64\inetsrv\
+
+and give it proper permissions: read and execute 
