@@ -9,3 +9,13 @@ Expand the Internet Information Services feature and verify that the web server 
 Click OK
 
 **2. Installing mod_harbour**
+
+Open IIS administrator
+
+Click on modules
+
+On the right side click on configure native modules
+
+Click on register
+
+Select mod_harbour.dll
