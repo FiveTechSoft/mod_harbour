@@ -19,3 +19,13 @@ On the right side click on configure native modules
 Click on register
 
 Select mod_harbour.dll
+
+**3. Go to c:\inetpub\wwwroot\**
+
+Create a hello.prg
+
+Create a test.html
+
+**4. From the web browser go to localhost/hello.prg
+
+Also go to localhost/test.html
