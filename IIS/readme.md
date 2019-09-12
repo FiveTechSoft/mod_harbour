@@ -26,6 +26,6 @@ Create a hello.prg
 
 Create a test.html
 
-**4. From the web browser go to localhost/hello.prg
+**4. From the web browser go to localhost/hello.prg**
 
 Also go to localhost/test.html
