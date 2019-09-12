@@ -20,7 +20,7 @@ Click on register
 
 Select mod_harbour.dll
 
-**3. Create some test files **
+**3. Create some test files**
 
 Go to c:\inetpub\wwwroot\ 
 
