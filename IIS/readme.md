@@ -20,7 +20,7 @@ Click on register
 
 Select mod_harbour.dll
 
-**3. Go to c:\inetpub\wwwroot\**
+**3. Go to c:\inetpub\wwwroot\ **
 
 Create a hello.prg
 
