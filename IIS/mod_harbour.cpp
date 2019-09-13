@@ -9,6 +9,8 @@ extern "C" {
 		void* pHeadersOutCount, void* pHeadersOutSet, void* pSetContentType,
 		void* pApacheGetenv, void* pAPBody, long lAPRemaining);
 
+	IHttpContext * _pHttpContext = NULL;
+
 	char* GetErrorMessage(DWORD dwLastError)
 	{
 		LPVOID lpMsgBuf;
@@ -76,22 +78,29 @@ extern "C" {
 		return 0;
 	}
 
-	void ap_headers_out_set(const char* szKey, const char* szValue)
+	void ap_headers_out_set( const char * szKey, const char * szValue )
 	{
 	}
 
-	void ap_set_contenttype(const char* szContentType)
+	void ap_set_contenttype( const char * szContentType )
 	{
 	}
 
-	const char* ap_getenv(const char* szVarName)
+	const char * ap_getenv( const char * szVarName )
 	{
 		return "";
 	}
 
-	const char* ap_body(void)
+	const char * ap_body( void )
 	{
 		return "";
+	}
+
+	void byteToHexChar( PSTR pszBuffer, BYTE bValue )
+	{
+		pszBuffer[0] = 48 + (bValue >> 4) + ((bValue >> 4) > 9 ? 7 : 0);
+		pszBuffer[1] = 48 + (bValue & 0xF) + ((bValue & 0xF) > 9 ? 7 : 0);
+		return;
 	}
 
 }
@@ -107,7 +116,7 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 
 	pHttpContext->GetServerVariable( "PATH_INFO", &pszPathInfo, &cbValue );
 
-	if( strstr( pszPathInfo, ".prg" ) )
+	if( strstr( pszPathInfo, ".prg" ) || strstr( pszPathInfo, ".hrb" ) )
 	{
 		IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
 		HMODULE lib_harbour = LoadLibrary( "c:\\Windows\\SysWOW64\\inetsrv\\libharbour.dll" );
@@ -125,16 +134,27 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 		{
 			PHB_APACHE _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
 			int iResult = 0;
-				
+			char szIP[] = "??.??.??.??";
+			PSOCKADDR_IN pSockAddr_in = ( PSOCKADDR_IN ) pHttpContext->GetRequest()->GetRemoteAddress();
+			char path[ 512 ];
+
+			strcpy( path, "c:\\inetpub\\wwwroot" );
+			strcat( path, pszPathInfo );
+
+			byteToHexChar( szIP + 0, pSockAddr_in->sin_addr.S_un.S_un_b.s_b1 );
+			byteToHexChar( szIP + 3, pSockAddr_in->sin_addr.S_un.S_un_b.s_b2 );
+			byteToHexChar( szIP + 6, pSockAddr_in->sin_addr.S_un.S_un_b.s_b3 );
+			byteToHexChar( szIP + 9, pSockAddr_in->sin_addr.S_un.S_un_b.s_b4 );
+
 			if( _hb_apache != NULL )
 			{
-				OutputDebugString("before");
- 				_hb_apache( pHttpContext, ap_rputs, "c:\\inetpub\\wwwroot\\hello.prg", "", "GET", "localhost",
+ 				_hb_apache( pHttpContext, ap_rputs, path, "", 
+					        pHttpContext->GetRequest()->GetHttpMethod(), szIP,
 							NULL, NULL,
-							(void*) ap_headers_in_count, (void*) ap_headers_in_key, (void*) ap_headers_in_val,
-							(void*) ap_post_pairs_count, (void*) ap_post_pairs_key, (void*) ap_post_pairs_val,
-							(void*) ap_headers_out_count, (void*) ap_headers_out_set, (void*) ap_set_contenttype,
-							(void*) ap_getenv, (void*) ap_body, lAPRemaining);
+							( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
+							( void * ) ap_post_pairs_count, ( void * ) ap_post_pairs_key, ( void * ) ap_post_pairs_val,
+							( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
+							( void * ) ap_getenv, ( void * ) ap_body, lAPRemaining );
  			}
 			
 			if( _hb_apache == NULL )
