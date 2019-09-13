@@ -28,11 +28,14 @@ extern "C" {
 	__declspec (dllexport) int ap_rputs(const char* szText, IHttpContext* pHttpContext)
 	{
 		HTTP_DATA_CHUNK dataChunk;
+		PCSTR pszText = (PCSTR)pHttpContext->AllocateRequestMemory(strlen( szText ) + 1 );
 		IHttpResponse* pHttpResponse = pHttpContext->GetResponse();
 
+		strcpy(( char * ) pszText, szText);
+
 		dataChunk.DataChunkType = HttpDataChunkFromMemory;
-		dataChunk.FromMemory.pBuffer = (PVOID)szText;
-		dataChunk.FromMemory.BufferLength = (ULONG)strlen(szText);
+		dataChunk.FromMemory.pBuffer = (PVOID) pszText;
+		dataChunk.FromMemory.BufferLength = (ULONG)strlen(pszText);
 
 		return pHttpResponse->WriteEntityChunkByReference(&dataChunk, -1);
 	}
@@ -125,6 +128,7 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 				
 			if( _hb_apache != NULL )
 			{
+				OutputDebugString("before");
  				_hb_apache( pHttpContext, ap_rputs, "c:\\inetpub\\wwwroot\\hello.prg", "", "GET", "localhost",
 							NULL, NULL,
 							(void*) ap_headers_in_count, (void*) ap_headers_in_key, (void*) ap_headers_in_val,
@@ -133,12 +137,7 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 							(void*) ap_getenv, (void*) ap_body, lAPRemaining);
  			}
 			
-			if( _hb_apache != NULL )
-			{
-				ap_rputs( "<h1>mod_harbour for IIS - hb_apache() yes!!!</h1>", pHttpContext );
-				ap_rputs( pszPathInfo, pHttpContext );
-			}
-			else
+			if( _hb_apache == NULL )
 				ap_rputs( "can't find hb_apache()", pHttpContext );
 		}
 
