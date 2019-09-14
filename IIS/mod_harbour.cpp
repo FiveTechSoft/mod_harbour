@@ -33,13 +33,18 @@ extern "C" {
 		PCSTR pszText = ( PCSTR ) pHttpContext->AllocateRequestMemory( strlen( szText ) + 1 );
 		IHttpResponse* pHttpResponse = pHttpContext->GetResponse();
 
-		strcpy(( char * ) pszText, szText);
+		if (pszText)
+		{
+			strcpy((char*)pszText, szText);
 
-		dataChunk.DataChunkType = HttpDataChunkFromMemory;
-		dataChunk.FromMemory.pBuffer = (PVOID) pszText;
-		dataChunk.FromMemory.BufferLength = (ULONG) strlen( pszText );
+			dataChunk.DataChunkType = HttpDataChunkFromMemory;
+			dataChunk.FromMemory.pBuffer = (PVOID)pszText;
+			dataChunk.FromMemory.BufferLength = (ULONG)strlen(pszText);
 
-		return pHttpResponse->WriteEntityChunkByReference( &dataChunk, -1 );
+			return pHttpResponse->WriteEntityChunkByReference(&dataChunk, -1);
+		}
+		else
+			return 0;
 	}
 
 
@@ -101,9 +106,7 @@ extern "C" {
 
 	const char * ap_args( void )
 	{
-		const char * at = strstr( ap_getenv( "HTTP_URL" ), "?" );
-
-		return at ? at + 1 : "";
+		return ap_getenv("QUERY_STRING");
 	}
 
 	const char * ap_body( void )
@@ -112,20 +115,23 @@ extern "C" {
         int totalBytesRead = 0;
         int bytesToRead = atoi( ap_getenv( "CONTENT_LENGTH" ) );
         IHttpRequest * request = _pHttpContext->GetRequest();
-        char * buffer = ( char * ) _pHttpContext->AllocateRequestMemory( bytesToRead + 1 );
+        char * buffer = ( char * ) _pHttpContext->AllocateRequestMemory( bytesToRead );
         BOOL bCompletionPending = false;
        
-		while( bytesToRead > 0 )
-        {
-           request->ReadEntityBody( buffer + bytesRead, bytesToRead, false, &bytesRead, &bCompletionPending );
+		if( buffer )
+		{
+			while (bytesToRead > 0)
+			{
+				request->ReadEntityBody((char*)(buffer + bytesRead), bytesToRead, false, &bytesRead, &bCompletionPending);
 
-           if( ! bytesRead )
-               break;
+				if (!bytesRead)
+					break;
 
-           bytesToRead -= bytesRead;
-        }
+				bytesToRead -= bytesRead;
+			}
+		}
 
-        return buffer;	
+		return buffer;	
 	}
 }
 
