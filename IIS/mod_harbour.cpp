@@ -108,7 +108,24 @@ extern "C" {
 
 	const char * ap_body( void )
 	{
-		return ap_getenv( "ALL_RAW" );
+        DWORD bytesRead = 0;
+        int totalBytesRead = 0;
+        int bytesToRead = atoi( ap_getenv( "CONTENT_LENGTH" ) );
+        IHttpRequest * request = _pHttpContext->GetRequest();
+        char * buffer = ( char * ) _pHttpContext->AllocateRequestMemory( bytesToRead + 1 );
+        BOOL bCompletionPending = false;
+       
+		while( bytesToRead > 0 )
+        {
+           request->ReadEntityBody( buffer + bytesRead, bytesToRead, false, &bytesRead, &bCompletionPending );
+
+           if( ! bytesRead )
+               break;
+
+           bytesToRead -= bytesRead;
+        }
+
+        return buffer;	
 	}
 }
 
