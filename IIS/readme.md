@@ -37,3 +37,7 @@ Also go to localhost/test.html
 c:\Windows\SysWOW64\inetsrv\
 
 and give it proper permissions: read and execute 
+
+***
+
+https://www.w3schools.com/asp/coll_servervariables.asp
