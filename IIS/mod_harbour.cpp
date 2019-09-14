@@ -27,19 +27,19 @@ extern "C" {
 		LocalFree(lpMsgBuf);
 	}
 
-	__declspec (dllexport) int ap_rputs(const char* szText, IHttpContext* pHttpContext)
+	__declspec (dllexport) int ap_rputs( const char * szText, IHttpContext * pHttpContext )
 	{
 		HTTP_DATA_CHUNK dataChunk;
-		PCSTR pszText = (PCSTR)pHttpContext->AllocateRequestMemory(strlen( szText ) + 1 );
+		PCSTR pszText = ( PCSTR ) pHttpContext->AllocateRequestMemory( strlen( szText ) + 1 );
 		IHttpResponse* pHttpResponse = pHttpContext->GetResponse();
 
 		strcpy(( char * ) pszText, szText);
 
 		dataChunk.DataChunkType = HttpDataChunkFromMemory;
 		dataChunk.FromMemory.pBuffer = (PVOID) pszText;
-		dataChunk.FromMemory.BufferLength = (ULONG)strlen(pszText);
+		dataChunk.FromMemory.BufferLength = (ULONG) strlen( pszText );
 
-		return pHttpResponse->WriteEntityChunkByReference(&dataChunk, -1);
+		return pHttpResponse->WriteEntityChunkByReference( &dataChunk, -1 );
 	}
 
 
@@ -88,12 +88,29 @@ extern "C" {
 
 	const char * ap_getenv( const char * szVarName )
 	{
-		return "";
+		PCSTR rawBuffer = NULL;
+		DWORD rawLength = 0;
+
+		_pHttpContext->GetServerVariable( szVarName, &rawBuffer, &rawLength );
+
+		return rawBuffer;
+	}
+
+	const char * ap_args( void )
+	{
+		const char * at = strstr( ap_getenv( "HTTP_URL" ), "?" );
+
+		return at ? at + 1 : "";
 	}
 
 	const char * ap_body( void )
 	{
-		return "";
+		PCSTR rawBuffer = NULL;
+		DWORD rawLength = 0;
+
+		_pHttpContext->GetServerVariable( "ALL_RAW", &rawBuffer, &rawLength );
+
+		return rawBuffer;
 	}
 
 	void byteToHexChar( PSTR pszBuffer, BYTE bValue )
@@ -102,7 +119,6 @@ extern "C" {
 		pszBuffer[1] = 48 + (bValue & 0xF) + ((bValue & 0xF) > 9 ? 7 : 0);
 		return;
 	}
-
 }
 
 long lAPRemaining = 0;
@@ -114,6 +130,7 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 	DWORD cbValue = 512;
 	PCSTR pszPathInfo = (PCSTR) pHttpContext->AllocateRequestMemory( cbValue );
 
+	_pHttpContext = pHttpContext;
 	pHttpContext->GetServerVariable( "PATH_INFO", &pszPathInfo, &cbValue );
 
 	if( strstr( pszPathInfo, ".prg" ) || strstr( pszPathInfo, ".hrb" ) )
@@ -148,7 +165,7 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 
 			if( _hb_apache != NULL )
 			{
- 				_hb_apache( pHttpContext, ap_rputs, path, "", 
+ 				_hb_apache( pHttpContext, ap_rputs, path, ap_args(), 
 					        pHttpContext->GetRequest()->GetHttpMethod(), szIP,
 							NULL, NULL,
 							( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
