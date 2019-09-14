@@ -110,13 +110,6 @@ extern "C" {
 	{
 		return ap_getenv( "ALL_RAW" );
 	}
-
-	void byteToHexChar( PSTR pszBuffer, BYTE bValue )
-	{
-		pszBuffer[0] = 48 + (bValue >> 4) + ((bValue >> 4) > 9 ? 7 : 0);
-		pszBuffer[1] = 48 + (bValue & 0xF) + ((bValue & 0xF) > 9 ? 7 : 0);
-		return;
-	}
 }
 
 static long lAPRemaining = 0;
@@ -145,22 +138,15 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 		else
 		{
 			PHB_APACHE _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
-			char szIP[] = "??.??.??.??";
-			PSOCKADDR_IN pSockAddr_in = ( PSOCKADDR_IN ) pHttpContext->GetRequest()->GetRemoteAddress();
 			char szPath[ 512 ];
 
-			strcpy( szPath, "c:\\inetpub\\wwwroot" );
+			strcpy( szPath, ap_getenv( "APPL_PHYSICAL_PATH" ) );
 			strcat( szPath, szPathInfo );
-
-			byteToHexChar( szIP + 0, pSockAddr_in->sin_addr.S_un.S_un_b.s_b1 );
-			byteToHexChar( szIP + 3, pSockAddr_in->sin_addr.S_un.S_un_b.s_b2 );
-			byteToHexChar( szIP + 6, pSockAddr_in->sin_addr.S_un.S_un_b.s_b3 );
-			byteToHexChar( szIP + 9, pSockAddr_in->sin_addr.S_un.S_un_b.s_b4 );
 
 			if( _hb_apache != NULL )
 			{
  				_hb_apache( pHttpContext, ap_rputs, szPath, ap_args(), 
-					        pHttpContext->GetRequest()->GetHttpMethod(), szIP,
+					        ap_getenv( "REQUEST_METHOD" ), ap_getenv( "REMOTE_ADDR" ),
 							NULL, NULL,
 							( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
 							( void * ) ap_post_pairs_count, ( void * ) ap_post_pairs_key, ( void * ) ap_post_pairs_val,
