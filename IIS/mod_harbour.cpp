@@ -9,7 +9,7 @@ extern "C" {
 		void* pHeadersOutCount, void* pHeadersOutSet, void* pSetContentType,
 		void* pApacheGetenv, void* pAPBody, long lAPRemaining);
 
-	IHttpContext * _pHttpContext = NULL;
+	static IHttpContext * _pHttpContext = NULL;
 
 	char* GetErrorMessage(DWORD dwLastError)
 	{
@@ -27,7 +27,7 @@ extern "C" {
 		LocalFree(lpMsgBuf);
 	}
 
-	__declspec (dllexport) int ap_rputs( const char * szText, IHttpContext * pHttpContext )
+	int ap_rputs( const char * szText, IHttpContext * pHttpContext )
 	{
 		HTTP_DATA_CHUNK dataChunk;
 		PCSTR pszText = ( PCSTR ) pHttpContext->AllocateRequestMemory( strlen( szText ) + 1 );
@@ -84,6 +84,9 @@ extern "C" {
 
 	void ap_set_contenttype( const char * szContentType )
 	{
+		IHttpResponse * pHttpResponse = _pHttpContext->GetResponse();
+
+		pHttpResponse->SetHeader( "Content-Type", szContentType, strlen( szContentType ), true );
 	}
 
 	const char * ap_getenv( const char * szVarName )
@@ -105,12 +108,7 @@ extern "C" {
 
 	const char * ap_body( void )
 	{
-		PCSTR rawBuffer = NULL;
-		DWORD rawLength = 0;
-
-		_pHttpContext->GetServerVariable( "ALL_RAW", &rawBuffer, &rawLength );
-
-		return rawBuffer;
+		return ap_getenv( "ALL_RAW" );
 	}
 
 	void byteToHexChar( PSTR pszBuffer, BYTE bValue )
@@ -121,42 +119,37 @@ extern "C" {
 	}
 }
 
-long lAPRemaining = 0;
+static long lAPRemaining = 0;
 
 REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContext * pHttpContext,
 																  IN OUT IHttpEventProvider * pProvider )
 {
-    HRESULT hr = S_OK;
-	DWORD cbValue = 512;
-	PCSTR pszPathInfo = (PCSTR) pHttpContext->AllocateRequestMemory( cbValue );
+	const char * szPathInfo;
 
 	_pHttpContext = pHttpContext;
-	pHttpContext->GetServerVariable( "PATH_INFO", &pszPathInfo, &cbValue );
+	szPathInfo = ap_getenv( "PATH_INFO" );
 
-	if( strstr( pszPathInfo, ".prg" ) || strstr( pszPathInfo, ".hrb" ) )
+	if( strstr( szPathInfo, ".prg" ) || strstr( szPathInfo, ".hrb" ) )
 	{
-		IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
 		HMODULE lib_harbour = LoadLibrary( "c:\\Windows\\SysWOW64\\inetsrv\\libharbour.dll" );
 
-		pHttpResponse->SetHeader( "Content-Type", "text/html", strlen( "text/html" ), true );
+		ap_set_contenttype( "text/html" );
 
 		if( lib_harbour == NULL )
 		{
 			char * szErrorMessage = GetErrorMessage( GetLastError() );
-
 			ap_rputs( szErrorMessage, pHttpContext );
 			LocalFree( ( void * ) szErrorMessage );
 		}
 		else
 		{
 			PHB_APACHE _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
-			int iResult = 0;
 			char szIP[] = "??.??.??.??";
 			PSOCKADDR_IN pSockAddr_in = ( PSOCKADDR_IN ) pHttpContext->GetRequest()->GetRemoteAddress();
-			char path[ 512 ];
+			char szPath[ 512 ];
 
-			strcpy( path, "c:\\inetpub\\wwwroot" );
-			strcat( path, pszPathInfo );
+			strcpy( szPath, "c:\\inetpub\\wwwroot" );
+			strcat( szPath, szPathInfo );
 
 			byteToHexChar( szIP + 0, pSockAddr_in->sin_addr.S_un.S_un_b.s_b1 );
 			byteToHexChar( szIP + 3, pSockAddr_in->sin_addr.S_un.S_un_b.s_b2 );
@@ -165,7 +158,7 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 
 			if( _hb_apache != NULL )
 			{
- 				_hb_apache( pHttpContext, ap_rputs, path, ap_args(), 
+ 				_hb_apache( pHttpContext, ap_rputs, szPath, ap_args(), 
 					        pHttpContext->GetRequest()->GetHttpMethod(), szIP,
 							NULL, NULL,
 							( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
