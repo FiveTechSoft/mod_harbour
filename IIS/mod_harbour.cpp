@@ -138,6 +138,7 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 		if( lib_harbour == NULL )
 		{
 			char * szErrorMessage = GetErrorMessage( GetLastError() );
+			ap_rputs( "c:\\Windows\\SysWOW64\\inetsrv\\libharbour.dll - ", pHttpContext );
 			ap_rputs( szErrorMessage, pHttpContext );
 			LocalFree( ( void * ) szErrorMessage );
 		}
