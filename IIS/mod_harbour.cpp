@@ -164,7 +164,9 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 			char szPath[ 512 ];
 
 			strcpy( szPath, ap_getenv( "APPL_PHYSICAL_PATH" ) );
-			strcat( szPath, szPathInfo );
+			strcat( szPath, szPathInfo + 1 );
+         while( strchr( szPath, '\\' ) )
+            * strchr( szPath, '\\' ) = '/';
 
 			if( _hb_apache != NULL )
 			{
