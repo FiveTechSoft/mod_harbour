@@ -24,6 +24,7 @@ fi
 cd harbour
 ln -sf ~/mod_harbour/mod_harbour.c mod_harbour.c
 make all
+ln -sf .libs/mod_harbour.so ~/mod_harbour/linux/"Ubuntu 18.04"
 cd ~/harbour_for_modharbour/src/rtl
 ln -sf ~/mod_harbour/apache.prg apache.prg  
 cd ~/harbour_for_modharbour
