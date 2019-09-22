@@ -97,7 +97,7 @@ function Main()
                       next
                       cRow += "<td>" + CRLF
                       cRow += '<button type="button" class="btn btn-xs btn-default" onclick="location.href=' + ;
-                              "'dbrowse.prg?edit:" + ;
+                              "'dbrowse2.prg?edit:" + ;
                               AllTrim( Str( RecNo() ) ) + ":" + AllTrim( Str( RecNo() - nRow + 1 ) ) + "'" + '">'
     	                cRow += '   <span class="glyphicon glyphicon-pencil"></span>'
                       cRow += "</button>"
@@ -122,12 +122,12 @@ function Main()
           <div class="col-xs-6">
              <div class="dataTables_paginate paging_bootstrap">
                 <ul class="pagination pagination-sm" style="margin:0 !important">
-                   <li class="prev"><a href="dbrowse.prg?prev:<?prg return AllTrim( Str( RecNo() - 10 ) )?>">Previous</a></li>
+                   <li class="prev"><a href="dbrowse2.prg?prev:<?prg return AllTrim( Str( RecNo() - 10 ) )?>">Previous</a></li>
                    <li class="active"><a href="#">1</a></li>
                    <li><a href="#">2</a></li>
                    <li><a href="#">3</a></li>
                    <li><a href="#">4</a></li>
-                   <li class="next"><a href="dbrowse.prg?next:<?prg return AllTrim( Str( RecNo() ) )?>">Next</a></li></ul>
+                   <li class="next"><a href="dbrowse2.prg?next:<?prg return AllTrim( Str( RecNo() ) )?>">Next</a></li></ul>
              </div>
           </div>
           <div class="btn-group">
