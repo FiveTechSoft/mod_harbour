@@ -156,6 +156,12 @@ METHOD New() CLASS View
                border-collapse: collapse;
             }
          </style>
+         <script>
+            function add()
+            {
+               location.href = "seamap.prg?add";
+            }
+         </script>   
       </head>
       <body>
    ENDTEXT   
@@ -170,7 +176,7 @@ METHOD Browse( hData ) CLASS View
 
    local n, nRow
 
-   ::cHtml += "<button>Add</button>" + CRLF
+   ::cHtml += "<button onclick='add()'>Add</button>" + CRLF
    ::cHtml += "<table>" + CRLF + "<tr>" + CRLF
 
    for n = 1 to Len( hData[ "headers" ] )
