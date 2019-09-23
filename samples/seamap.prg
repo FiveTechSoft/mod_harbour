@@ -60,8 +60,9 @@ function Controller()
 
       case cMethod == "POST"
          ? "We process a POST"
-         ? AP_PostPairs()
-   endcase
+         oModel:Save()
+         ? oView:Browse( oModel:Browse() )   
+      endcase
 
 return nil
 
@@ -102,7 +103,7 @@ CLASS Model
    METHOD BrowseNext() VIRTUAL
    METHOD BrowsePrev() VIRTUAL
    METHOD Delete( nRecNo ) 
-   METHOD Save() VIRTUAL
+   METHOD Save( nRecNo ) 
 
 ENDCLASS
 
@@ -182,8 +183,43 @@ METHOD Edit( nRecNo ) CLASS Model
    
    hData[ "fields" ] = aFields
    hData[ "values" ] = aValues
+   hData[ "recno"  ] = nRecNo
 
 return hData   
+
+//----------------------------------------------------------------------------//
+
+METHOD Save() CLASS Model
+
+   local n, hPairs := AP_PostPairs()
+   
+   GOTO Val( hPairs[ "recno" ] )
+
+   if RLock()
+      for n = 1 to FCount()
+         if hb_HHasKey( hPairs, FieldName( n ) )
+            do case
+               case FieldType( n ) == "D"
+                     FieldPut( n, CToD( hb_UrlDecode( hb_HGet( hPairs, FieldName( n ) ) ) ) )
+
+               case FieldType( n ) == "L"
+                     FieldPut( n, "on" $ hb_UrlDecode( hb_HGet( hPairs, FieldName( n ) ) ) )     
+            
+               otherwise   
+                     FieldPut( n, hb_UrlDecode( hb_HGet( hPairs, FieldName( n ) ) ) )
+            endcase   
+         else
+            if FieldType( n ) == "L"
+               FieldPut( n, .F. )
+            endif      
+         endif 
+      next
+      DbUnLock()
+   endif
+
+   GO TOP 
+
+return nil      
 
 //----------------------------------------------------------------------------//
 
@@ -285,7 +321,7 @@ METHOD Edit( hData ) CLASS View
 
    local n
 
-   ::cHtml += "<form action='seamap.prg' method='post' id='edit'>" + CRLF
+   ::cHtml += "<form action='seamap.prg' method='post'>" + CRLF
 
    ::cHtml += "<table>" + CRLF + "<tr>" + CRLF
    ::cHtml += "<tr>" + CRLF
@@ -301,9 +337,11 @@ METHOD Edit( hData ) CLASS View
    next
    
    ::cHtml += "</table><br>" + CRLF
-   ::cHtml += "<button type='submit' form='edit'>Save</button>"
+   ::cHtml += "<input type='text' name='recno' id='recno' value='" + AllTrim( Str( hData[ "recno" ] ) ) + "' hidden>"
+   ::cHtml += "<input type='submit' value='Save'>"
    ::cHtml += "</form>" 
    ::cHtml += "<button onclick='cancel()'>Cancel</button>" + CRLF
+   ::End()
 
 return ::cHtml   
 
