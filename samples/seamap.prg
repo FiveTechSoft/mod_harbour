@@ -41,15 +41,15 @@ function Controller()
                ? oView:Edit( oModel:Edit( nRecNo ) )
 
             case aArgs[ 1 ] == "next"
-               ? "browse next is required"
+               ? "browse next is required" + "<br>"
                oModel:BrowseNext()
 
             case aArgs[ 1 ] == "prev"
-               ? "browse prev is required"
+               ? "browse prev is required" + "<br>"
                oModel:BrowsePrev()
 
             case aArgs[ 1 ] == "del"
-               ? "del is required"
+               ? "del is required" + "<br>"
                oModel:Delete( nRecNo )
                ? oView:Browse( oModel:Browse() )   
 
@@ -62,7 +62,7 @@ function Controller()
          ? "We process a POST"
          do case
             case aArgs[ 1 ] == "save"
-               ? "save is required"
+               ? "save is required" + "<br>"
                oModel:Save()
          endcase
    endcase
