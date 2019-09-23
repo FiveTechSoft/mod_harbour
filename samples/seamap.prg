@@ -16,10 +16,15 @@ return nil
 function Controller()
 
    local cMethod := AP_Method()
-   local aArgs := hb_aTokens( AP_Args(), ":" )
+   local aArgs  := hb_aTokens( AP_Args(), ":" )
    local oModel := Model():New()
-   local oView := View():New()
-   
+   local oView  := View():New()
+   local nRecNo 
+
+   if Len( aArgs ) > 1
+      nRecNo = Val( aArgs[ 2 ] )
+   endif   
+
    do case
 
       case cMethod == "GET"
@@ -45,7 +50,8 @@ function Controller()
 
             case aArgs[ 1 ] == "del"
                ? "del is required"
-               oModel:Delete()
+               oModel:Delete( nRecNo )
+               ? oView:Browse( oModel:Browse() )   
 
             otherwise
                ? "default browse"
@@ -99,7 +105,7 @@ CLASS Model
    METHOD Browse( hData ) 
    METHOD BrowseNext() VIRTUAL
    METHOD BrowsePrev() VIRTUAL
-   METHOD Delete() VIRTUAL
+   METHOD Delete( nRecNo ) 
    METHOD Save() VIRTUAL
 
 ENDCLASS
@@ -142,6 +148,27 @@ METHOD Browse() CLASS Model
    hData[ "rows" ] = aRows
 
 return hData   
+
+//----------------------------------------------------------------------------//
+
+METHOD Delete( nRecNo ) CLASS Model
+
+   GOTO nRecNo
+   
+   if RLock()
+      DELETE
+      DbUnLock() 
+   endif
+
+   USE 
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/links" )
+   PACK
+   USE
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/links" ) SHARED NEW
+
+   GO TOP
+   
+return nil   
 
 //----------------------------------------------------------------------------//
 
