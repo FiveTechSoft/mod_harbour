@@ -29,6 +29,7 @@ function Controller()
             case aArgs[ 1 ] == "add"
                ? "add is required"
                oModel:Add()
+               ? oView:Browse( oModel:Browse() )
 
             case aArgs[ 1 ] == "edit"
                ? "edit is required"
@@ -93,7 +94,7 @@ return nil
 
 CLASS Model
 
-   METHOD Add() VIRTUAL
+   METHOD Add() 
    METHOD Edit() VIRTUAL
    METHOD Browse( hData ) 
    METHOD BrowseNext() VIRTUAL
@@ -102,6 +103,19 @@ CLASS Model
    METHOD Save() VIRTUAL
 
 ENDCLASS
+
+//----------------------------------------------------------------------------//
+
+METHOD Add() CLASS Model
+
+   APPEND BLANK
+   field->linkdest := "www.new.com"
+   field->linkname := "new"
+   field->longText := "a new link"
+
+   GO TOP
+
+return nil   
 
 //----------------------------------------------------------------------------//
 
