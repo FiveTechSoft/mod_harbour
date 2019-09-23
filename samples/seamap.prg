@@ -170,6 +170,7 @@ METHOD Browse( hData ) CLASS View
 
    local n, nRow
 
+   ::cHtml += "<button>Add</button>" + CRLF
    ::cHtml += "<table>" + CRLF + "<tr>" + CRLF
 
    for n = 1 to Len( hData[ "headers" ] )
