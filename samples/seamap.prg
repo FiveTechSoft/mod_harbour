@@ -60,11 +60,7 @@ function Controller()
 
       case cMethod == "POST"
          ? "We process a POST"
-         do case
-            case aArgs[ 1 ] == "save"
-               ? "save is required" + "<br>"
-               oModel:Save()
-         endcase
+         ? AP_PostPairs()
    endcase
 
 return nil
@@ -231,6 +227,10 @@ METHOD New() CLASS View
             {
                location.href = "seamap.prg?del:" + nRecord;
             }
+            function save()
+            {
+               location.href = "seamap.prg?save:" + nRecord;
+            }   
             function cancel()
             {
                location.href = "seamap.prg";
@@ -285,6 +285,8 @@ METHOD Edit( hData ) CLASS View
 
    local n
 
+   ::cHtml += "<form action='seamap.prg' method='post' id='edit'>" + CRLF
+
    ::cHtml += "<table>" + CRLF + "<tr>" + CRLF
    ::cHtml += "<tr>" + CRLF
    ::cHtml += "<th>FieldName</th>" + CRLF
@@ -294,12 +296,13 @@ METHOD Edit( hData ) CLASS View
    for n = 1 to Len( hData[ "fields" ] )
       ::cHtml += "<tr>" + CRLF
       ::cHtml += "<td>" + hData[ "fields" ][ n ] + "</td>" + CRLF
-      ::cHtml += "<td><input type='text' value='" + hData[ "values" ][ n ] + "'></td>" + CRLF
+      ::cHtml += "<td><input name='" + hData[ "fields" ][ n ] + "' type='text' value='" + hData[ "values" ][ n ] + "'></td>" + CRLF
       ::cHtml += "</tr>" + CRLF
    next
    
    ::cHtml += "</table><br>" + CRLF
-   ::cHtml += "<button>Save</button>"
+   ::cHtml += "<button type='submit' form='edit'>Save</button>"
+   ::cHtml += "</form>" 
    ::cHtml += "<button onclick='cancel()'>Cancel</button>" + CRLF
 
 return ::cHtml   
