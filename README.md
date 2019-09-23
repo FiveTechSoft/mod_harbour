@@ -37,10 +37,10 @@ docker build . -t mod_harbour
 and then run it with:
 
 ```sh
-docker run -p<port>:80 -v"<path>:/var/www/html2:rw,Z" harbour
+docker run -p<port>:80 -v"<path>:/var/www/html2:rw,Z" mod_harbour
 ```
 
 , for example:
 ```sh
-docker run -p3000:80 -v "/home/my_user/mod_harbour/samples:/var/www/html2:rw,Z" harbour
+docker run -p3000:80 -v "/home/my_user/mod_harbour/samples:/var/www/html2:rw,Z" mod_harbour
 ```
