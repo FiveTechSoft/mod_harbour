@@ -294,7 +294,7 @@ METHOD Edit( hData ) CLASS View
    for n = 1 to Len( hData[ "fields" ] )
       ::cHtml += "<tr>" + CRLF
       ::cHtml += "<td>" + hData[ "fields" ][ n ] + "</td>" + CRLF
-      ::cHtml += "<td>" + hData[ "values" ][ n ] + "</td>" + CRLF
+      ::cHtml += "<td><input type='text' value='" + hData[ "values" ][ n ] + "'></td>" + CRLF
       ::cHtml += "</tr>" + CRLF
    next
    
