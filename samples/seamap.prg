@@ -32,13 +32,13 @@ function Controller()
 
          do case
             case aArgs[ 1 ] == "add"
-               ? "add is required"
+               ? "add is required" + "<br>"
                oModel:Add()
                ? oView:Browse( oModel:Browse() )
 
             case aArgs[ 1 ] == "edit"
-               ? "edit is required"
-               oModel:Edit()
+               ? "edit is required" + "<br>"
+               ? oView:Edit( oModel:Edit( nRecNo ) )
 
             case aArgs[ 1 ] == "next"
                ? "browse next is required"
@@ -54,7 +54,7 @@ function Controller()
                ? oView:Browse( oModel:Browse() )   
 
             otherwise
-               ? "default browse"
+               ? "default browse" + "<br>"
                ? oView:Browse( oModel:Browse() )   
          endcase
 
@@ -101,7 +101,7 @@ return nil
 CLASS Model
 
    METHOD Add() 
-   METHOD Edit() VIRTUAL
+   METHOD Edit()
    METHOD Browse( hData ) 
    METHOD BrowseNext() VIRTUAL
    METHOD BrowsePrev() VIRTUAL
@@ -172,12 +172,30 @@ return nil
 
 //----------------------------------------------------------------------------//
 
+METHOD Edit( nRecNo ) CLASS Model
+
+   local hData := {=>}
+   local n, aFields := {}, aValues := {}
+
+   for n = 1 to FCount()
+      AAdd( aFields, FieldName( n ) )
+      AAdd( aValues, FieldGet( n ) )
+   next
+   
+   hData[ "fields" ] = aFields
+   hData[ "values" ] = aValues
+
+return hData   
+
+//----------------------------------------------------------------------------//
+
 CLASS View
 
    DATA   cHTML INIT ""
 
    METHOD New()
    METHOD Browse( hData )
+   METHOD Edit( hData )   
    METHOD End()   
 
 ENDCLASS      
@@ -208,9 +226,13 @@ METHOD New() CLASS View
                location.href = "seamap.prg?edit:" + nRecord;
             }   
             function del( nRecord )
-               {
-                  location.href = "seamap.prg?del:" + nRecord;
-               }   
+            {
+               location.href = "seamap.prg?del:" + nRecord;
+            }
+            function cancel()
+            {
+               location.href = "seamap.prg";
+            }   
             </script>   
       </head>
       <body>
@@ -226,7 +248,7 @@ METHOD Browse( hData ) CLASS View
 
    local n, nRow
 
-   ::cHtml += "<button onclick='add()'>Add</button>" + CRLF
+   ::cHtml += "<button onclick='add()'>Add</button><br><br>" + CRLF
    ::cHtml += "<table>" + CRLF + "<tr>" + CRLF
 
    for n = 1 to Len( hData[ "headers" ] )
@@ -252,6 +274,31 @@ METHOD Browse( hData ) CLASS View
    
    ::cHtml += "</table>" + CRLF
    ::End() 
+
+return ::cHtml   
+
+//----------------------------------------------------------------------------//
+
+METHOD Edit( hData ) CLASS View
+
+   local n
+
+   ::cHtml += "<table>" + CRLF + "<tr>" + CRLF
+   ::cHtml += "<tr>" + CRLF
+   ::cHtml += "<th>FieldName</th>" + CRLF
+   ::cHtml += "<th>Value</th>" + CRLF
+   ::cHtml += "</tr>" + CRLF 
+
+   for n = 1 to Len( hData[ "fields" ] )
+      ::cHtml += "<tr>" + CRLF
+      ::cHtml += "<td>" + hData[ "fields" ][ n ] + "</td>" + CRLF
+      ::cHtml += "<td>" + ValToChar( hData[ "values" ][ n ] ) + "</td>" + CRLF
+      ::cHtml += "</tr>" + CRLF
+   next
+   
+   ::cHtml += "</table><br>" + CRLF
+   ::cHtml += "<button>Save</button>"
+   ::cHtml += "<button onclick='cancel()'>Cancel</button>" + CRLF
 
 return ::cHtml   
 
