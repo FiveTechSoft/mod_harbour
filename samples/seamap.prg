@@ -177,6 +177,8 @@ METHOD Edit( nRecNo ) CLASS Model
    local hData := {=>}
    local n, aFields := {}, aValues := {}
 
+   GOTO nRecNo
+
    for n = 1 to FCount()
       AAdd( aFields, FieldName( n ) )
       AAdd( aValues, FieldGet( n ) )
