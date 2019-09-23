@@ -84,6 +84,7 @@ function CheckTables()
       field->linkdest := "www.modharbour.live"
       field->linkname := "mod_harbour"
       field->longText := "harbour on the web"
+      GO TOP
    endif   
 
 return nil
