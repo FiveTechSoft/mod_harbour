@@ -66,8 +66,8 @@ return nil
 
 function CheckTables()
 
-   if ! File( hb_GetEnv( "PRGPATH" ) + "/links.dbf" )
-      DbCreate( hb_GetEnv( "PRGPATH" ) + "/links.dbf",;
+   if ! File( hb_GetEnv( "PRGPATH" ) + "/data/links.dbf" )
+      DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/links.dbf",;
          { { "LINKDEST", "C", 200, 0 },;
            { "LINKNAME", "C", 200, 0 },;
            { "LONGTEXT", "M", 10, 0 } } )
