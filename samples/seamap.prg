@@ -73,7 +73,7 @@ function CheckTables()
            { "LONGTEXT", "M", 10, 0 } } )
    endif
 
-   USE ( hb_GetEnv( "PRGPATH" ) + "/links" ) SHARED NEW
+   USE ( hb_GetEnv( "PRGPATH" ) + "/data/links" ) SHARED NEW
 
    if RecCount() == 0
       APPEND BLANK
