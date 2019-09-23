@@ -164,6 +164,7 @@ METHOD New() CLASS View
    TEXT INTO cHeader
       <html>
       <head>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
          <style>
             table, th, td {
                border: 1px solid black;
@@ -175,7 +176,15 @@ METHOD New() CLASS View
             {
                location.href = "seamap.prg?add";
             }
-         </script>   
+            function edit( nRecord )
+            {
+               location.href = "seamap.prg?edit:" + nRecord;
+            }   
+            function del( nRecord )
+               {
+                  location.href = "seamap.prg?del:" + nRecord;
+               }   
+            </script>   
       </head>
       <body>
    ENDTEXT   
@@ -196,12 +205,21 @@ METHOD Browse( hData ) CLASS View
    for n = 1 to Len( hData[ "headers" ] )
       ::cHtml += "<th>" + hData[ "headers" ][ n ] + "</th>"
    next
+   ::cHtml += "<th>Actions</th>"
 
    for n = 1 to Len( hData[ "rows" ] )
       ::cHtml += "<tr>" + CRLF
       for nRow = 1 to Len( hData[ "rows" ][ n ] )
          ::cHtml += "<td>" + hData[ "rows" ][ n ][ nRow ] + "</td>" + CRLF
       next   
+      ::cHtml += "<td>"
+      ::cHtml += '<button type="button" onclick="edit(' + AllTrim( Str( n ) ) + ")" + '" class="btn btn-xs btn-default">'
+      ::cHtml += '   <span class="glyphicon glyphicon-pencil"></span>'
+      ::cHtml += "</button>"
+      ::cHtml += '<button type="button" onclick="del(' + AllTrim( Str( n ) ) + ")" + '" class="remove-news btn btn-xs btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Delete">'
+      ::cHtml += '   <span class="glyphicon glyphicon-trash"></span>'
+      ::cHtml += "</button>"
+      ::cHtml += "</td>"
       ::cHtml += "</tr>" + CRLF
    next
    
