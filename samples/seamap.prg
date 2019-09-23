@@ -263,13 +263,11 @@ METHOD New() CLASS View
             {
                location.href = "seamap.prg?del:" + nRecord;
             }
-            function save()
-            {
-               location.href = "seamap.prg?save:" + nRecord;
-            }   
             function cancel()
             {
                location.href = "seamap.prg";
+
+               return false;
             }   
             </script>   
       </head>
@@ -339,8 +337,8 @@ METHOD Edit( hData ) CLASS View
    ::cHtml += "</table><br>" + CRLF
    ::cHtml += "<input type='text' name='recno' id='recno' value='" + AllTrim( Str( hData[ "recno" ] ) ) + "' hidden>"
    ::cHtml += "<input type='submit' value='Save'>"
+   ::cHtml += "<input type='button' onclick='cancel()' value='Cancel'>" + CRLF
    ::cHtml += "</form>" 
-   ::cHtml += "<button onclick='cancel()'>Cancel</button>" + CRLF
    ::End()
 
 return ::cHtml   
