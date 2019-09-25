@@ -2,9 +2,9 @@
 # CONFIGURACION RUTAS PROGRAMA  (Relative to DOCUMENT_ROOT)
 # --------------------------------------------------------------------------
 SetEnv APP_TITLE           "Seamap"
-SetEnv PATH_URL            "/seamap"
-SetEnv PATH_APP            "/seamap"
-SetEnv PATH_DATA           "/seamap/data/"
+SetEnv PATH_URL            "/modharbour_samples/mvc/seamap"
+SetEnv PATH_APP            "/modharbour_samples/mvc/seamap"
+SetEnv PATH_DATA           "/modharbour_samples/mvc/seamap/data/"
 
 
 # --------------------------------------------------------------------------
