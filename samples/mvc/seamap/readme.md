@@ -1,4 +1,4 @@
-This example uses the Mercury MVC framework for mod_harbour by Carles Aubia (Charly)
+This example uses the **Mercury MVC framework for mod_harbour** by Carles Aubia (Charly)
 
 **IMPORTANT:**
 
