@@ -1,0 +1,26 @@
+# --------------------------------------------------------------------------
+# CONFIGURACION RUTAS PROGRAMA  (Relative to DOCUMENT_ROOT)
+# --------------------------------------------------------------------------
+SetEnv APP_TITLE           "Seamap"
+SetEnv PATH_URL            "/seamap"
+SetEnv PATH_APP            "/seamap"
+SetEnv PATH_DATA           "/seamap/data/"
+
+
+# --------------------------------------------------------------------------
+# Impedir que lean los ficheros del directorio
+# --------------------------------------------------------------------------
+Options All -Indexes
+
+
+# --------------------------------------------------------------------------
+# Pagina por defectos
+# --------------------------------------------------------------------------
+DirectoryIndex index.prg main.prg
+
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ index.prg/$1 [L]
+</IfModule>
