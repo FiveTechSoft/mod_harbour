@@ -1,6 +1,6 @@
 **0. Download and install Microsoft Visual C++ Redistributable for VSC2019**
 
-https://aka.ms/vs/16/release/vc_redist.x64.exe
+https://github.com/FiveTechSoft/mod_harbour/blob/master/IIS/bin/VC_redist.x64.exe
 
 **1. Enabling IIS and required IIS components on Windows**
 
