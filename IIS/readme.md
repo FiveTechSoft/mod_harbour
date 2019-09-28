@@ -1,4 +1,4 @@
-**0. Download Microsoft Visual C++ Redistributable for VSC2019**
+**0. Download and install Microsoft Visual C++ Redistributable for VSC2019**
 
 https://aka.ms/vs/16/release/vc_redist.x64.exe
 
