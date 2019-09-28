@@ -113,10 +113,12 @@ extern "C" {
 	{
        DWORD bytesRead = 0;
        int totalBytesRead = 0;
-       int bytesToRead = atoi( ap_getenv( "CONTENT_LENGTH" ) );
+       int bytesToRead = atoi( ap_getenv( "CONTENT_LENGTH" ) ), iSize;
        IHttpRequest * request = _pHttpContext->GetRequest();
        char * buffer = ( char * ) _pHttpContext->AllocateRequestMemory( bytesToRead );
        BOOL bCompletionPending = false;
+
+      iSize = bytesToRead;
        
 		if( buffer )
 		{
@@ -129,6 +131,8 @@ extern "C" {
 
 				bytesToRead -= bytesRead;
 			}
+
+         * ( buffer + iSize ) = 0;
 		}
 
 		return buffer;	
