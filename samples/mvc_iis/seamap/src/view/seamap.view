@@ -1,0 +1,71 @@
+<html>
+
+	{{ View( 'default_head.view' ) }}
+	{{ Css( 'default.css' ) }}
+		
+      <body>
+	 
+		{{ View( 'header.view' ) }}	 
+
+		<div id="content">
+	
+			<form method="POST" action="{{ Route( 'root' ) }}"  >	
+			
+				<button type='submit' name='action' class="mybtn mybtn_add" value='add' >Add</button><br><br>
+				
+				<table id="mytable">
+				
+					<?prg
+						LOCAL hData 	:= PValue(1)
+						LOCAL cHtml 	:= '<thead><tr>'
+						
+						FOR n := 1 TO len( hData[ 'headers' ] )
+							cHtml += "<th>" + hData[ "headers" ][ n ] + "</th>"
+						NEXT
+						
+						
+						cHtml += "<th width='75px'>Actions</th>"
+						
+						cHtml += "</thead>"
+						
+						cHtml += "<tbody>"
+						
+					   for n = 1 to Len( hData[ "rows" ] )
+					   
+						  cHtml += "<tr>" + CRLF
+						  
+						  for nRow = 1 to Len( hData[ "rows" ][ n ] )
+							 cHtml += "<td>" + hData[ "rows" ][ n ][ nRow ] + "</td>" + CRLF
+						  next   
+						  
+						  cHtml += "<td>"
+						  
+						  cHtml += '<form method="POST" action="{{ Route( 'root' ) }}"  >'
+						  
+						  cHtml += '<button type="submit" name="action" value="edit" class="btn_grid">'
+						  cHtml += '   <span class="glyphicon glyphicon-pencil"></span>'
+						  cHtml += "</button>"
+						 
+						  cHtml += '<button type="submit" name="action" value="del" class="btn_grid">'
+						  cHtml += '   <span class="glyphicon glyphicon-trash"></span>'
+						  cHtml += "</button>"
+						  
+						  cHtml += '<input type="hidden" name="recno" value="' + ltrim(str(n)) + '" />'					  
+						  
+						  cHtml += '</form>'
+						  
+						  cHtml += "</td>"
+						  cHtml += "</tr>" + CRLF
+					   next												
+					   
+						cHtml += "</tbody>"
+					  
+					   return cHtml
+					?>
+					
+				</table>
+			</form>
+		
+		</div>
+	  </body>
+</html>

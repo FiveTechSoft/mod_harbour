@@ -1,0 +1,55 @@
+<html>
+
+	{{ View( 'default_head.view' ) }}
+	{{ Css( 'default.css' ) }}
+	
+      <body>
+	  
+		{{ View( 'header.view' ) }}
+		
+		<div id="content">		
+	  
+			<form method="POST" action="{{ Route( 'root' ) }}"  >	
+
+				<table>			
+					
+					<tr>
+						<th>FieldName</th>
+						<th>Value</th>
+					</tr>
+					
+					<?prg 
+						LOCAL hData := PValue(1)
+						LOCAL cHtml := ''
+						LOCAL n
+						
+						for n = 1 to Len( hData[ "fields" ] )
+						  cHtml += "<tr>" + CRLF
+						  cHtml += "<td>" + hData[ "fields" ][ n ] + "</td>" + CRLF
+						  cHtml += "<td class='myinput' ><input name='" + hData[ "fields" ][ n ] + "' type='text' value='" + hData[ "values" ][ n ] + "'></td>" + CRLF
+						  cHtml += "</tr>" + CRLF
+						next								
+						
+						RETU cHtml																
+					?>
+					
+				</table>
+
+				<?prg 
+					LOCAL hData := PValue(1)
+					LOCAL cHtml := ''
+					
+					cHtml += "<br>"
+					cHtml += "<input type='text' name='recno' id='recno' value='" + AllTrim( Str( hData[ "recno" ] ) ) + "' hidden>"
+					cHtml += "<input type='submit' name ='action' class='mybtn mybtn_edit' value='Save'>"
+					cHtml += "<input type='submit' name ='action' class='mybtn mybtn_edit' value='Cancel'>"					
+					
+					RETU cHtml																
+				?>			
+				
+			</form>
+
+		</div>		
+
+	  </body>
+</html>
