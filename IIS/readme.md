@@ -1,3 +1,7 @@
+**0. Download Microsoft Visual C++ Redistributable for VSC2019**
+
+https://aka.ms/vs/16/release/vc_redist.x64.exe
+
 **1. Enabling IIS and required IIS components on Windows**
 
 Open Control Panel and click Programs and Features > Turn Windows features on or off.
