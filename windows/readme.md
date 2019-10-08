@@ -4,7 +4,7 @@ If you are using Xampp on Windows then use SetEnv like this from httpd.conf:
 LoadModule harbour_module modules/mod_harbour.so
 
 <FilesMatch "\.(prg|hrb)$">
-    SetEnv LIBHARBOUR "c:/xampp/htdocs" 
+    SetEnv LIBHARBOUR "c:\xampp\htdocs\libharbour.dll" 
     SetHandler harbour
 </FilesMatch>
 ```
