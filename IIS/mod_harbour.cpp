@@ -85,6 +85,9 @@ extern "C" {
 
 	void ap_headers_out_set( const char * szKey, const char * szValue )
 	{
+		IHttpResponse * pHttpResponse = _pHttpContext->GetResponse();
+
+		pHttpResponse->SetHeader( szKey, szValue, strlen( szValue ), true );	
 	}
 
 	void ap_set_contenttype( const char * szContentType )
