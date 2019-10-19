@@ -1,5 +1,7 @@
 -hbdynvm
 -olibharbour
+
+harbour.def
 -L..\..\lib\win\msvc64
 -l-hbfship
 -l-hbxpp
