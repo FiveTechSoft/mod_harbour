@@ -1,0 +1,13 @@
+-hbdynvm
+-olibharbour
+-L..\..\lib\win\msvc64
+-l-hbfship
+-l-hbxpp
+
+apache.prg
+
+hbcurl.hbc
+hbwin.hbc
+hbhpdf.hbc
+xhb.hbc
+hbct.hbc
