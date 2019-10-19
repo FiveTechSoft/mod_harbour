@@ -8,8 +8,9 @@ harbour.def
 
 apache.prg
 
-hbcurl.hbc
 hbwin.hbc
 hbhpdf.hbc
 xhb.hbc
 hbct.hbc
+
+mod.hbp
