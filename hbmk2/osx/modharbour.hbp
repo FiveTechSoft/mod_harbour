@@ -1,0 +1,12 @@
+-hbdynvm
+-olibharbour
+
+-L..\..\lib\darwin\clang
+-l-hbfship
+-l-hbxpp
+
+apache.prg
+
+hbhpdf.hbc
+xhb.hbc
+hbct.hbc
