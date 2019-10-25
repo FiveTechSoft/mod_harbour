@@ -1,5 +1,6 @@
 -hbdynvm
 -olibharbour
+-trace
 
 harbour.def
 -L..\..\lib\win\msvc64
