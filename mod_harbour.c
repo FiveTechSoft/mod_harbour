@@ -8,6 +8,7 @@
 #include "http_protocol.h"
 #include "ap_config.h"
 #include "util_script.h"
+#include "multithread.h"
 
 #ifdef _WINDOWS_
    #include <windows.h>
@@ -15,7 +16,8 @@
    #include <dlfcn.h>
 #endif        
 
-static request_rec * _r;
+static mutex * _mutex = NULL;
+static request_rec * _r = NULL;
 static apr_array_header_t * POST_pairs = NULL;
 long   lAPRemaining = 0;
 
@@ -188,6 +190,11 @@ static int harbour_handler( request_rec * r )
    if( strcmp( r->handler, "harbour" ) )
       return DECLINED;
 
+   if( ! _mutex ) 
+      ap_create_mutex( NULL );
+
+   ap_acquire_mutex( _mutex ); // blocks if mutex is already being used
+
    r->content_type = "text/html";
    _r = r;
 
@@ -247,6 +254,11 @@ static int harbour_handler( request_rec * r )
       #else
          dlclose( lib_harbour );
       #endif      
+
+   ap_release_mutex( _mutex );
+   ap_destroy_mutex( _mutex );
+   _r = NULL; 
+   _mutex = NULL;   
 
    return iResult;
 }
