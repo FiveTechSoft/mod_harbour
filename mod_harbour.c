@@ -191,7 +191,7 @@ static int harbour_handler( request_rec * r )
       return DECLINED;
 
    if( ! _mutex ) 
-      ap_create_mutex( NULL );
+      _mutex = ap_create_mutex( NULL );
 
    ap_acquire_mutex( _mutex ); // blocks if mutex is already being used
 
