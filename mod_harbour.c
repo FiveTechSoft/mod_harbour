@@ -254,7 +254,8 @@ static int harbour_handler( request_rec * r )
 
 static void harbour_register_hooks( apr_pool_t * p )
 {
-    ap_hook_handler( harbour_handler, NULL, NULL, APR_HOOK_MIDDLE );
+   p = p;
+   ap_hook_handler( harbour_handler, NULL, NULL, APR_HOOK_MIDDLE );
 }
 
 /* Dispatch list for API hooks */
