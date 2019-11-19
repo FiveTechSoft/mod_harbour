@@ -161,7 +161,6 @@ char * GetErrorMessage( DWORD dwLastError )
                   NULL );
 
    return ( ( char * ) lpMsgBuf );
-   LocalFree( lpMsgBuf );
 }
 
 #endif
