@@ -224,11 +224,7 @@ static int harbour_handler( request_rec * r )
       ap_add_common_vars( r );
    
       #ifdef _WINDOWS_
-         #ifdef __GNUC__
-            _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
-         #else  
-            ( ( FARPROC ) _hb_apache ) = GetProcAddress( lib_harbour, "hb_apache" );
-         #endif 
+         _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
       #else
          _hb_apache = dlsym( lib_harbour, "hb_apache" );
       #endif
