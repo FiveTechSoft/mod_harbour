@@ -232,7 +232,7 @@ static int harbour_handler( request_rec * r )
       if( _hb_apache == NULL )
          ap_rputs( "failed to load hb_apache()", r );
       else
-         iResult = _hb_apache( r, ap_rputs, r->filename, r->args, r->method, r->useragent_ip, 
+         iResult = _hb_apache( r, ( void * ) ap_rputs, r->filename, r->args, r->method, r->useragent_ip, 
                                r->headers_in, r->headers_out,
                                ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
                                ( void * ) ap_post_pairs_count, ( void * ) ap_post_pairs_key, ( void * ) ap_post_pairs_val, 
