@@ -1,6 +1,7 @@
 -hbdyn
 -omod_harbour.so
 
+-cflag=-TC
 -ic:\apache24\include
 mod_harbour.c
 
