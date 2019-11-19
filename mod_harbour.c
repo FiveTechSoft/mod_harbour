@@ -130,7 +130,7 @@ const char * ap_body( void )
     return "";
  if( ap_should_client_block( _r ) )
  {
-    long length = _r->remaining;
+    long length = ( long ) _r->remaining;
     char * rbuf = ( char * ) apr_pcalloc( _r->pool, length + 1 );
     int iRead = 0, iTotal = 0;
     lAPRemaining = length;
