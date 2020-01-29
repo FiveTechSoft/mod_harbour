@@ -4,15 +4,8 @@
 -L../../lib/linux/gccc
 -l-hbfship
 -l-hbxpp
--lcurl
--lhbhpdf
--llibhpdf
 
 ../../apache.prg
 
 -trace
-
-hbhpdf.hbc
-xhb.hbc
-hbct.hbc
-hbcurl.hbc
+-dflag=@libs.txt
