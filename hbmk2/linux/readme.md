@@ -19,6 +19,10 @@ cd /var/www/html
 sudo ln -sf ~/mod_harbour/hbmk2/linux/libharbour.so.3.2.0 libharbour.so.3.2.0
 sudo ln -sf ~/mod_harbour/samples modharbour_samples
 ```
+copy mod_harbour.so to the Apache modules folder:
+```
+sudo mv mod_harbour.so /usr/lib/apache2/modules
+```
 and restart apache
 ```
 sudo systemctl restart apache2
