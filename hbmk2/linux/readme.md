@@ -1,4 +1,14 @@
-First of all, build Harbour then give execution permissions to go.sh and execute it:
+First of all, build Harbour
+```
+git clone https://github.com/harbour/core harbour
+cd harbour
+make
+```
+Install apache2-dev
+```
+sudo apt-get install apache2-dev
+```
+then give execution permissions to go.sh and execute it:
 ```
 chmod +x go.sh
 ./go.sh
