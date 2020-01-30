@@ -28,3 +28,7 @@ Then from your browser go to:
 ```
 localhost/modharbour_samples
 ```
+In case you get a wrong behavior, please check:
+```
+/var/log/apache2/error.log
+```
