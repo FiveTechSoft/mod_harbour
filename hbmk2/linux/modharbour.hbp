@@ -1,7 +1,6 @@
 -hbdynvm
 -oharbour.so.3.2.0
 
--L../../lib/linux/gcc
 -l-hbfship
 -l-hbxpp
 
