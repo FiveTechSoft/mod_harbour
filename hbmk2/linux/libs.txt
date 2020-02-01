@@ -25,5 +25,7 @@
 -lrddfpt
 -lrddnsx
 -lrddntx
+-lhbziparc
+-lhbmzip
 
 -Wl,--no-whole-archive
