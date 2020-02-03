@@ -2,3 +2,7 @@
   Order Allow,Deny
   Deny from all
 </Files>
+
+<FilesMatch "runner.hrb_">
+   Header set Access-Control-Allow-Origin "*"
+</FileMatch>
