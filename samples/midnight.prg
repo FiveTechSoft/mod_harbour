@@ -1,4 +1,4 @@
-// {% hb_SetEnv( "HB_USER_PRGFLAGS", "-B" ) %}
+// {% hb_SetEnv( "HB_USER_PRGFLAGS", "" ) %} // -B
 
 function Main()
 
