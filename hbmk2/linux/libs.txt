@@ -27,5 +27,6 @@
 -lrddntx
 -lhbziparc
 -lhbmzip
+-lminizip
 
 -Wl,--no-whole-archive
