@@ -14,29 +14,29 @@ extern SHOWCONSOLE, HB_VFDIREXISTS, AP_REMAINING
 
 #ifdef __PLATFORM__WINDOWS
    #define __HBEXTERN__HBHPDF__REQUEST
-   #include "..\..\..\..\..\contrib\hbhpdf\hbhpdf.hbx"
+   #include "..\harbour\contrib\hbhpdf\hbhpdf.hbx"
    #define __HBEXTERN__XHB__REQUEST
-   #include "..\..\..\..\..\contrib\xhb\xhb.hbx"
+   #include "..\harbour\contrib\xhb\xhb.hbx"
    #define __HBEXTERN__HBCT__REQUEST
-   #include "..\..\..\..\..\contrib\hbct\hbct.hbx"
+   #include "..\harbour\contrib\hbct\hbct.hbx"
    #define __HBEXTERN__HBWIN__REQUEST
-   #include "..\..\..\..\..\contrib\hbwin\hbwin.hbx"
+   #include "..\harbour\contrib\hbwin\hbwin.hbx"
    #define __HBEXTERN__HBCURL__REQUEST
-   #include "..\..\..\..\..\contrib\hbcurl\hbcurl.hbx"
+   #include "..\harbour\contrib\hbcurl\hbcurl.hbx"
 #else
    #define __HBEXTERN__HBHPDF__REQUEST
    #include "../../../harbour/contrib/hbhpdf/hbhpdf.hbx"
    #define __HBEXTERN__XHB__REQUEST
    #include "../../../harbour/contrib/xhb/xhb.hbx"
    #define __HBEXTERN__HBCT__REQUEST
-   #include "../../..//harbour/contrib/hbct/hbct.hbx"
+   #include "../../../harbour/contrib/hbct/hbct.hbx"
    #define __HBEXTERN__HBCURL__REQUEST  
    #include "../../../harbour/contrib/hbcurl/hbcurl.hbx"
 #endif
 
 #ifdef HB_WITH_ADS
    #define __HBEXTERN__RDDADS__REQUEST
-   #include "..\..\..\..\..\contrib\rddads\rddads.hbx"
+   #include "..\harbour\contrib\rddads\rddads.hbx"
 #endif
 
 static hPP
