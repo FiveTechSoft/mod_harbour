@@ -3,7 +3,7 @@
 
 -cflag=-TC
 -ic:\apache24\include
-..\..\mod_harbour.c
+..\..\..\mod_harbour.c
 
 -Lc:\Apache24\lib32
 -lapr-1

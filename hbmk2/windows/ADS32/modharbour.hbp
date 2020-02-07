@@ -7,7 +7,7 @@ harbour.def
 -l-hbxpp
 -lace32
 
-..\..\apache.prg
+..\..\..\apache.prg
 
 hbwin.hbc
 hbhpdf.hbc
