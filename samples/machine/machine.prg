@@ -1,4 +1,4 @@
-//{% hb_SetEnv( "HB_INCLUDE", "/home/anto/harbour/include" ) %}
+//{% hb_SetEnv( "HB_INCLUDE", "/home/user/harbour/include" ) %}
 #include "hbclass.ch"
 #include "hboo.ch"
 
@@ -1374,7 +1374,7 @@ Return cItems
 Function GetTransformText( cStr, lRet )
 
    if !hb_Isnil( cStr )
-      cStr  := StrTran( cStr, "ÿ|ÿ", "<br>" )
+      cStr  := StrTran( cStr, "Ã¿|Ã¿", "<br>" )
       cStr  := StrTran( cStr, "??", "<br>" )
          cStr  := StrTran( cStr, "=>", "---" )
          cStr  := StrTran( cStr, ">Syntax", "><b><h6>Syntax</h6></b>" )
