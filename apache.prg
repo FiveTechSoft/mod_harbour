@@ -60,7 +60,7 @@ function Main()
                     SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
          pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), AP_Args() )
       endif
-      if pThread != nil .and. hb_threadWait( pThread, 15 ) != 1
+      if hb_threadWait( pThread, 15 ) != 1
          hb_threadQuitRequest( pThread )
       endif    
    else
