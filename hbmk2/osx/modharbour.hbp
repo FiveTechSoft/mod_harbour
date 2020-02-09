@@ -1,5 +1,6 @@
 -hbdynvm
 -olibharbour
+-mt
 
 -L..\..\lib\darwin\clang
 -l-hbfship

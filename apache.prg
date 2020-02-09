@@ -45,7 +45,7 @@ static hPP
 
 function Main()
 
-   local cFileName
+   local cFileName, pThread
 
    ErrorBlock( { | o | DoBreak( o ) } )
 
@@ -54,12 +54,15 @@ function Main()
 
    if File( cFileName )
       if Lower( Right( cFileName, 4 ) ) == ".hrb"
-         hb_HrbDo( hb_HrbLoad( 1, cFileName ), AP_Args() )
+         pThread = hb_threadStart( @hb_HrbDo(), hb_HrbLoad( 1, cFileName ), AP_Args() )
       else
          hb_SetEnv( "PRGPATH",;
                     SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
-         Execute( MemoRead( cFileName ), AP_Args() )
+         pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), AP_Args() )
       endif
+      if hb_threadWait( pThread, 15 ) != 1
+         hb_threadQuitRequest( pThread )
+      endif    
    else
       ErrorLevel( 404 )
    endif   
