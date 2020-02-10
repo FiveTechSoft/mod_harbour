@@ -20,7 +20,7 @@
 -lhbrtl
 -lhbsix
 -lhbusrrdd
--lhbvm
+-lhbvmmt
 -lrddcdx
 -lrddfpt
 -lrddnsx
