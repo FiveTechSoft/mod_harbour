@@ -53,11 +53,11 @@ function Main()
    AddPPRules()
 
    if File( cFileName )
+      hb_SetEnv( "PRGPATH",;
+                 SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
       if Lower( Right( cFileName, 4 ) ) == ".hrb"
          pThread = hb_threadStart( @hb_HrbDo(), hb_HrbLoad( 1, cFileName ), AP_Args() )
       else
-         hb_SetEnv( "PRGPATH",;
-                    SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
          pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), AP_Args() )
       endif
       if hb_threadWait( pThread, 15 ) != 1
