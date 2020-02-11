@@ -5,4 +5,4 @@
 
 <FilesMatch "runner.hrb_">
    Header set Access-Control-Allow-Origin "*"
-</FileMatch>
+</FilesMatch>
