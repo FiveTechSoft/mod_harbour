@@ -2,6 +2,7 @@ First of all, build Harbour
 ```
 git clone https://github.com/harbour/core harbour
 cd harbour
+export HB_USER_CFLAGS="-fPIC"
 make
 ```
 Install apache2-dev
