@@ -1,3 +1,11 @@
+/*
+**  apache.prg -- Apache harbour module
+**
+** (c) FiveTech Software SL, 2019-2020
+** Developed by Antonio Linares alinares@fivetechsoft.com
+** MIT license https://github.com/FiveTechSoft/mod_harbour/blob/master/LICENSE
+*/
+
 #include "hbclass.ch"
 #include "hbhrb.ch"
 
@@ -7,7 +15,7 @@
 
 extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, PTRTOUI, AP_RPUTS
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
-extern AP_POSTPAIRSCOUNT, AP_POSTPAIRSKEY, AP_POSTPAIRSVAL, AP_POSTPAIRS
+extern AP_POSTPAIRS
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
 extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY, HB_URLDECODE
 extern SHOWCONSOLE, HB_VFDIREXISTS, AP_REMAINING
@@ -30,8 +38,8 @@ extern SHOWCONSOLE, HB_VFDIREXISTS, AP_REMAINING
    #include "../../../harbour/contrib/xhb/xhb.hbx"
    #define __HBEXTERN__HBCT__REQUEST
    #include "../../../harbour/contrib/hbct/hbct.hbx"
-   #define __HBEXTERN__HBCURL__REQUEST  
-   #include "../../../harbour/contrib/hbcurl/hbcurl.hbx"
+   // #define __HBEXTERN__HBCURL__REQUEST  
+   // #include "../../../harbour/contrib/hbcurl/hbcurl.hbx"
 #endif
 
 #ifdef HB_WITH_ADS
@@ -419,7 +427,7 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    return hb_vmQuit();
 }   
 
-typedef int ( * AP_RPUTS )( const char * s, void * r );
+typedef int ( * AP_RPUTS )( const char *, void * );
 
 HB_FUNC( AP_RPUTS )
 {
@@ -460,76 +468,49 @@ HB_FUNC( AP_USERIP )
    hb_retc( szUserIP );
 }
 
-typedef int ( * HEADERS_IN_COUNT )( void );
+typedef int ( * HEADERS_IN_COUNT )( void * );
 
 HB_FUNC( AP_HEADERSINCOUNT )
 {
    HEADERS_IN_COUNT headers_in_count = ( HEADERS_IN_COUNT ) pHeadersInCount;
    
-   hb_retnl( headers_in_count() );
+   hb_retnl( headers_in_count( pRequestRec ) );
 }   
 
-typedef int ( * HEADERS_OUT_COUNT )( void );
+typedef int ( * HEADERS_OUT_COUNT )( void * );
 
 HB_FUNC( AP_HEADERSOUTCOUNT )
 {
    HEADERS_OUT_COUNT headers_out_count = ( HEADERS_OUT_COUNT ) pHeadersOutCount;
 
-   hb_retnl( headers_out_count() );
+   hb_retnl( headers_out_count( pRequestRec ) );
 }
 
-typedef const char * ( * HEADERS_IN_KEY )( int );
+typedef const char * ( * HEADERS_IN_KEY )( int, void * );
 
 HB_FUNC( AP_HEADERSINKEY )
 {
    HEADERS_IN_KEY headers_in_key = ( HEADERS_IN_KEY ) pHeadersInKey;
    
-   hb_retc( headers_in_key( hb_parnl( 1 ) ) );
+   hb_retc( headers_in_key( hb_parnl( 1 ), pRequestRec ) );
 }   
 
-typedef const char * ( * HEADERS_IN_VAL )( int );
+typedef const char * ( * HEADERS_IN_VAL )( int, void * );
 
 HB_FUNC( AP_HEADERSINVAL )
 {
    HEADERS_IN_VAL headers_in_val = ( HEADERS_IN_VAL ) pHeadersInVal;
    
-   hb_retc( headers_in_val( hb_parnl( 1 ) ) );
+   hb_retc( headers_in_val( hb_parnl( 1 ), pRequestRec ) );
 }   
 
-typedef int ( * POST_PAIRS_COUNT )( void );
-
-HB_FUNC( AP_POSTPAIRSCOUNT )
-{
-   POST_PAIRS_COUNT post_pairs_count = ( POST_PAIRS_COUNT ) pPostPairsCount;
-
-   hb_retnl( post_pairs_count() );
-}
-
-typedef void ( * HEADERS_OUT_SET )( const char * szKey, const char * szValue );
+typedef void ( * HEADERS_OUT_SET )( const char * szKey, const char * szValue, void * );
 
 HB_FUNC( AP_HEADERSOUTSET )
 {
    HEADERS_OUT_SET headers_out_set = ( HEADERS_OUT_SET ) pHeadersOutSet;
 
-   headers_out_set( hb_parc( 1 ), hb_parc( 2 ) );
-}
-
-typedef const char * ( * POST_PAIRS_KEY )( int );
-
-HB_FUNC( AP_POSTPAIRSKEY )
-{
-   POST_PAIRS_KEY post_pairs_key = ( POST_PAIRS_KEY ) pPostPairsKey;
-
-   hb_retc( post_pairs_key( hb_parnl( 1 ) ) );
-}
-
-typedef const char * ( * POST_PAIRS_VAL )( int );
-
-HB_FUNC( AP_POSTPAIRSVAL )
-{
-   POST_PAIRS_VAL post_pairs_val = ( POST_PAIRS_VAL ) pPostPairsVal;
-
-   hb_retc( post_pairs_val( hb_parnl( 1 ) ) );
+   headers_out_set( hb_parc( 1 ), hb_parc( 2 ), pRequestRec );
 }
 
 HB_FUNC( AP_REMAINING )
@@ -555,7 +536,7 @@ HB_FUNC( AP_HEADERSIN )
 {
    PHB_ITEM hHeadersIn = hb_hashNew( NULL ); 
    HEADERS_IN_COUNT headers_in_count = ( HEADERS_IN_COUNT ) pHeadersInCount;
-   int iKeys = headers_in_count();
+   int iKeys = headers_in_count( pRequestRec );
 
    if( iKeys > 0 )
    {
@@ -569,8 +550,8 @@ HB_FUNC( AP_HEADERSIN )
    
       for( iKey = 0; iKey < iKeys; iKey++ )
       {
-         hb_itemPutCConst( pKey,   headers_in_key( iKey ) );
-         hb_itemPutCConst( pValue, headers_in_val( iKey ) );
+         hb_itemPutCConst( pKey,   headers_in_key( iKey, pRequestRec ) );
+         hb_itemPutCConst( pValue, headers_in_val( iKey, pRequestRec ) );
          hb_hashAdd( hHeadersIn, pKey, pValue );
       }
       
@@ -581,27 +562,27 @@ HB_FUNC( AP_HEADERSIN )
    hb_itemReturnRelease( hHeadersIn );
 }
 
-typedef void ( * AP_SET_CONTENTTYPE )( const char * szContentType );
+typedef void ( * AP_SET_CONTENTTYPE )( const char * szContentType, void * );
 
 HB_FUNC( AP_SETCONTENTTYPE )
 {
    AP_SET_CONTENTTYPE ap_set_contenttype = ( AP_SET_CONTENTTYPE ) pAPSetContentType;
 
-   ap_set_contenttype( hb_parc( 1 ) );
+   ap_set_contenttype( hb_parc( 1 ), pRequestRec );
 }
 
-typedef const char * ( * AP_GET_ENV )( const char * );
+typedef const char * ( * AP_GET_ENV )( const char *, void * );
 
 HB_FUNC( AP_GETENV )
 {
    AP_GET_ENV ap_getenv = ( AP_GET_ENV ) pAPGetenv;
    
-   hb_retc( ap_getenv( hb_parc( 1 ) ) );
+   hb_retc( ap_getenv( hb_parc( 1 ), pRequestRec ) );
 }   
 
 static char * szBody = NULL;
 
-typedef const char * ( * AP_BODY )( void );
+typedef const char * ( * AP_BODY )( void * );
 
 HB_FUNC( AP_BODY )
 {
@@ -612,7 +593,7 @@ HB_FUNC( AP_BODY )
       hb_retc( szBody );
    else
    {
-      _szBody = ( char * ) ap_body();
+      _szBody = ( char * ) ap_body( pRequestRec );
       szBody = ( char * ) hb_xgrab( strlen( _szBody ) + 1 );
       strcpy( szBody, _szBody );
       hb_retc( _szBody );
