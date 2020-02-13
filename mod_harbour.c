@@ -20,7 +20,6 @@
 #endif        
 
 static request_rec * _r = NULL;
-static apr_array_header_t * POST_pairs = NULL;
 long   lAPRemaining = 0;
 
 int ap_headers_in_count( request_rec * r )
@@ -31,14 +30,6 @@ int ap_headers_in_count( request_rec * r )
 int ap_headers_out_count( request_rec * r )
 {
    return apr_table_elts( r->headers_out )->nelts;
-}
-
-int ap_post_pairs_count( void )
-{
-   if( POST_pairs != NULL )
-      return POST_pairs->nelts;
-   else
-      return 0;
 }
 
 const char * ap_headers_in_key( int iKey, request_rec * r )
@@ -63,56 +54,10 @@ const char * ap_headers_in_val( int iKey, request_rec * r )
       return "";
 }
 
-const char * ap_post_pairs_key( int iKey )
-{
-   ap_form_pair_t * e;
-
-   if( POST_pairs != NULL )
-   {
-      e = ( ap_form_pair_t * ) POST_pairs->elts;
-
-      if( iKey >= 0 && iKey < POST_pairs->nelts )
-         return e[ iKey ].name;
-      else
-         return "";
-   }
-   else
-      return "";
-}
-
 const char * ap_getenv( const char * szVarName, request_rec * r )
 {
    return apr_table_get( r->subprocess_env, szVarName );
 }   
-
-const char * ap_post_pairs_val( int iKey, request_rec * r )
-{
-   ap_form_pair_t * e;
-
-   if( POST_pairs != NULL )
-   {
-      e = ( ap_form_pair_t * ) POST_pairs->elts;
-
-      if( iKey >= 0 && iKey < POST_pairs->nelts )
-      {
-         apr_off_t len;
-         apr_size_t size; 
-         char * buffer;
-
-         apr_brigade_length( e[ iKey ].value, 1, &len );
-         size = ( apr_size_t ) len;
-         buffer = apr_palloc( r->pool, size + 1 );
-         apr_brigade_flatten( e[ iKey ].value, buffer, &size );
-         buffer[ len ] = 0;
-
-         return buffer;
-      }
-      else
-         return "";
-   }
-   else
-      return "";
-}
 
 void ap_headers_out_set( const char * szKey, const char * szValue, request_rec * r )
 {
@@ -174,7 +119,6 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
                               const char * szFileName, const char * szArgs, const char * szMethod, const char * szUserIP,
                               void * pHeadersIn, void * pHeadersOut, 
                               void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal, 
-                              void * pPostPairsCount, void * pPostPairsKey, void * pPostPairsVal,
                               void * pHeadersOutCount, void * pHeadersOutSet, void * pSetContentType, 
                               void * pApacheGetenv, void * pAPBody, long lAPRemaining );
 
@@ -239,7 +183,6 @@ static int harbour_handler( request_rec * r )
          iResult = _hb_apache( r, ( void * ) ap_rputs, r->filename, r->args, r->method, r->useragent_ip, 
                                r->headers_in, r->headers_out,
                                ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
-                               ( void * ) ap_post_pairs_count, ( void * ) ap_post_pairs_key, ( void * ) ap_post_pairs_val, 
                                ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
                                ( void * ) ap_getenv, ( void * ) ap_body, lAPRemaining );
    }

@@ -372,7 +372,6 @@ return ""
 static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
 static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
 static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
-static void * pPostPairsCount, * pPostPairsKey, * pPostPairsVal;
 static void * pAPGetenv, * pAPBody;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
 static long lAPRemaining;
@@ -398,7 +397,6 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
                const char * _szFileName, const char * _szArgs, const char * _szMethod, const char * _szUserIP,
                void * _pHeadersIn, void * _pHeadersOut, 
                void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
-               void * _pPostPairsCount, void * _pPostPairsKey, void * _pPostPairsVal,
                void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType, void * _pAPGetenv,
                void * _pAPBody, long _lAPRemaining )
 {
@@ -413,9 +411,6 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    pHeadersInCount   = _pHeadersInCount;
    pHeadersInKey     = _pHeadersInKey;
    pHeadersInVal     = _pHeadersInVal;
-   pPostPairsCount   = _pPostPairsCount;
-   pPostPairsKey     = _pPostPairsKey;
-   pPostPairsVal     = _pPostPairsVal;
    pHeadersOutCount  = _pHeadersOutCount;
    pHeadersOutSet    = _pHeadersOutSet;
    pAPSetContentType = _pAPSetContentType;
