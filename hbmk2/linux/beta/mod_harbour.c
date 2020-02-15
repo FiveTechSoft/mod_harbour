@@ -22,7 +22,7 @@
 #define AP_SQ_MS_CREATE_PRE_CONFIG   2
 
 int ap_state_query( int query_code );
-char * 	apr_strerror (apr_status_t statcode, char *buf, apr_size_t bufsize);
+char * apr_strerror( apr_status_t statcode, char *buf, apr_size_t bufsize );
 
 #ifdef _WINDOWS_
    #include <windows.h>
