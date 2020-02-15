@@ -13,11 +13,16 @@
 #include "ap_config.h"
 #include "util_script.h"
 #include "util_mutex.h"
+#include "http_log.h"
+#include "http_main.h"
+#include "http_request.h"
+#include "apr_global_mutex.h"
 
 #define AP_SQ_MAIN_STATE             0
 #define AP_SQ_MS_CREATE_PRE_CONFIG   2
 
 int ap_state_query( int query_code );
+char * 	apr_strerror (apr_status_t statcode, char *buf, apr_size_t bufsize);
 
 #ifdef _WINDOWS_
    #include <windows.h>
@@ -130,6 +135,8 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
 
 static int harbour_handler( request_rec * r )
 {
+   apr_status_t rs; 
+
    #ifdef _WINDOWS_
       HMODULE lib_harbour = NULL;
    #else
@@ -173,27 +180,41 @@ static int harbour_handler( request_rec * r )
       ap_add_cgi_vars( r );
       ap_add_common_vars( r );
 
-      if( APR_SUCCESS == apr_global_mutex_lock( harbour_mutex ) )
+      rs = apr_global_mutex_trylock( harbour_mutex );
+
+      if( rs == APR_SUCCESS )
       {
+         ap_log_error( 0, 0, 0, 0, 0, r->server, "mutex_locked" );                        
+
          #ifdef _WINDOWS_
             _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
          #else
             _hb_apache = dlsym( lib_harbour, "hb_apache" );
          #endif
 
+         /* 
          if( _hb_apache == NULL )
             ap_rputs( "failed to load hb_apache()", r );
          else
             iResult = _hb_apache( r, ( void * ) ap_rputs, r->filename, r->args, r->method, r->useragent_ip, 
-                                    r->headers_in, r->headers_out,
-                                    ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
-                                    ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
-                                    ( void * ) ap_getenv, ( void * ) ap_body, lAPRemaining );
-         apr_global_mutex_unlock( harbour_mutex );                           
+                                  r->headers_in, r->headers_out,
+                                  ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
+                                  ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
+                                  ( void * ) ap_getenv, ( void * ) ap_body, lAPRemaining );
+         */
+
+         ap_rputs( "main", r ); 
+         apr_global_mutex_unlock( harbour_mutex );
       }
       else
       {
+         /*
+         char buffer[ 200 ];
+         apr_strerror( rs, buffer, 200 );
+         ap_log_error( 0, 0, 0, 0, 0, r->server, "error: %s", buffer );               
          ap_rputs( "child", r );
+         ap_log_error( 0, 0, 0, 0, 0, r->server, "aguanta" );
+         */               
       }
    }
 
@@ -202,29 +223,20 @@ static int harbour_handler( request_rec * r )
          FreeLibrary( lib_harbour );
       #else
          dlclose( lib_harbour );
-      #endif      
+      #endif
 
    return iResult;
 }
 
-static int harbour_pre_config( apr_pool_t * pconf, apr_pool_t * plog, apr_pool_t * ptemp )
-{
-   plog = plog;
-   ptemp = ptemp;
-   ap_mutex_register( pconf, "mod_harbour", NULL, APR_LOCK_DEFAULT, 0 );
-   return OK;
-}
-
 static int harbour_post_config( apr_pool_t * pconf, apr_pool_t * plog, apr_pool_t * ptemp, server_rec * s )
 {
+   pconf = pconf;
    plog = plog;
    ptemp = ptemp;
+   s = s;
 
    if( ap_state_query( AP_SQ_MAIN_STATE ) == AP_SQ_MS_CREATE_PRE_CONFIG )
       return OK;
-
-   if( APR_SUCCESS != ap_global_mutex_create( &harbour_mutex, NULL, "mod_harbour", NULL, s, pconf, 0 ) )
-      return HTTP_INTERNAL_SERVER_ERROR;
 
    return OK;   
 }
@@ -233,16 +245,15 @@ static void harbour_child_init( apr_pool_t * p, server_rec * s )
 {
    s = s;
 
-   if( APR_SUCCESS != apr_global_mutex_child_init( &harbour_mutex,
-                                                   apr_global_mutex_lockfile( harbour_mutex ),
-                                                   p ) )
+   if( APR_SUCCESS != apr_global_mutex_create( &harbour_mutex, NULL, APR_LOCK_DEFAULT, p ) )
       exit( 1 );
+   else
+      ap_log_error( 0, 0, 0, 0, 0, s, "harbour_child_init ok" );                        
 }
 
 static void harbour_register_hooks( apr_pool_t * p )
 {
    p = p;
-   ap_hook_pre_config( harbour_pre_config, NULL, NULL, APR_HOOK_MIDDLE );
    ap_hook_post_config( harbour_post_config, NULL, NULL, APR_HOOK_MIDDLE );
    ap_hook_child_init( harbour_child_init, NULL, NULL, APR_HOOK_MIDDLE );   
    ap_hook_handler( harbour_handler, NULL, NULL, APR_HOOK_MIDDLE );
