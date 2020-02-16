@@ -32,6 +32,7 @@ char * apr_strerror( apr_status_t statcode, char *buf, apr_size_t bufsize );
 
 long lAPRemaining = 0;
 apr_global_mutex_t * harbour_mutex;
+pthread_t pThreadMain = ( pthread_t ) NULL;
 
 int ap_headers_in_count( request_rec * r )
 {
@@ -135,8 +136,6 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
 
 static int harbour_handler( request_rec * r )
 {
-   apr_status_t rs; 
-
    #ifdef _WINDOWS_
       HMODULE lib_harbour = NULL;
    #else
@@ -180,9 +179,7 @@ static int harbour_handler( request_rec * r )
       ap_add_cgi_vars( r );
       ap_add_common_vars( r );
 
-      rs = apr_global_mutex_trylock( harbour_mutex );
-
-      if( rs == APR_SUCCESS )
+      if( APR_SUCCESS == apr_global_mutex_lock( harbour_mutex ) )
       {
          ap_log_error( 0, 0, 0, 0, 0, r->server, "mutex_locked" );                        
 
@@ -192,7 +189,6 @@ static int harbour_handler( request_rec * r )
             _hb_apache = dlsym( lib_harbour, "hb_apache" );
          #endif
 
-         /* 
          if( _hb_apache == NULL )
             ap_rputs( "failed to load hb_apache()", r );
          else
@@ -201,20 +197,8 @@ static int harbour_handler( request_rec * r )
                                   ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
                                   ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
                                   ( void * ) ap_getenv, ( void * ) ap_body, lAPRemaining );
-         */
 
-         ap_rputs( "main", r ); 
          apr_global_mutex_unlock( harbour_mutex );
-      }
-      else
-      {
-         /*
-         char buffer[ 200 ];
-         apr_strerror( rs, buffer, 200 );
-         ap_log_error( 0, 0, 0, 0, 0, r->server, "error: %s", buffer );               
-         ap_rputs( "child", r );
-         ap_log_error( 0, 0, 0, 0, 0, r->server, "aguanta" );
-         */               
       }
    }
 
@@ -226,19 +210,6 @@ static int harbour_handler( request_rec * r )
       #endif
 
    return iResult;
-}
-
-static int harbour_post_config( apr_pool_t * pconf, apr_pool_t * plog, apr_pool_t * ptemp, server_rec * s )
-{
-   pconf = pconf;
-   plog = plog;
-   ptemp = ptemp;
-   s = s;
-
-   if( ap_state_query( AP_SQ_MAIN_STATE ) == AP_SQ_MS_CREATE_PRE_CONFIG )
-      return OK;
-
-   return OK;   
 }
 
 static void harbour_child_init( apr_pool_t * p, server_rec * s )
@@ -254,7 +225,6 @@ static void harbour_child_init( apr_pool_t * p, server_rec * s )
 static void harbour_register_hooks( apr_pool_t * p )
 {
    p = p;
-   ap_hook_post_config( harbour_post_config, NULL, NULL, APR_HOOK_MIDDLE );
    ap_hook_child_init( harbour_child_init, NULL, NULL, APR_HOOK_MIDDLE );   
    ap_hook_handler( harbour_handler, NULL, NULL, APR_HOOK_MIDDLE );
 }
