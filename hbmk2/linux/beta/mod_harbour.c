@@ -32,7 +32,6 @@ char * apr_strerror( apr_status_t statcode, char *buf, apr_size_t bufsize );
 
 long lAPRemaining = 0;
 apr_global_mutex_t * harbour_mutex;
-pthread_t pThreadMain = ( pthread_t ) NULL;
 
 int ap_headers_in_count( request_rec * r )
 {
