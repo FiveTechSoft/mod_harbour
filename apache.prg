@@ -117,6 +117,8 @@ function Execute( cCode, ... )
    local cHBheaders1 := "~/harbour/include"
    local cHBheaders2 := "c:\harbour\include"
 
+   ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError ) ), Break( oError ) } )
+
    while lReplaced 
       lReplaced = ReplaceBlocks( @cCode, "{%", "%}" )
       cCode = __pp_process( hPP, cCode )
