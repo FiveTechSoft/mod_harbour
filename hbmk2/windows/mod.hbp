@@ -5,7 +5,6 @@
 -ic:\apache24\include
 ..\..\mod_harbour.c
 
--Lc:\Apache24\lib
 -lapr-1
 -laprutil-1
 -llibapr-1
