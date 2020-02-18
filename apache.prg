@@ -71,6 +71,7 @@ function Main()
       if hb_threadWait( pThread, 15 ) != 1
          hb_threadQuitRequest( pThread )
       endif    
+      InKey( 0.1 )
    else
       ErrorLevel( 404 )
    endif   
