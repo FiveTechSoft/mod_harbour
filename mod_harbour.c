@@ -12,6 +12,11 @@
 #include "http_protocol.h"
 #include "ap_config.h"
 #include "util_script.h"
+#include "util_mutex.h"
+#include "http_log.h"
+#include "http_main.h"
+#include "http_request.h"
+#include "apr_global_mutex.h"
 
 #ifdef _WINDOWS_
    #include <windows.h>
@@ -19,8 +24,8 @@
    #include <dlfcn.h>
 #endif        
 
-static request_rec * _r = NULL;
-long   lAPRemaining = 0;
+long lAPRemaining = 0;
+apr_global_mutex_t * harbour_mutex;
 
 int ap_headers_in_count( request_rec * r )
 {
@@ -136,41 +141,40 @@ static int harbour_handler( request_rec * r )
    if( strcmp( r->handler, "harbour" ) )
       return DECLINED;
 
-   if( _r )
-      return OK;
-   
-   r->content_type = "text/html";
-   _r = r;
-
-   #ifdef _WINDOWS_
-      lib_harbour = LoadLibrary( ap_getenv( "LIBHARBOUR" ) ); 
-      if( lib_harbour == NULL )
-         lib_harbour = LoadLibrary( "c:\\Apache24\\htdocs\\libharbour.dll" );
-   #else
-      #ifdef DARWIN
-         lib_harbour = dlopen( "/Library/WebServer/Documents/libharbour.3.2.0.dylib", RTLD_LAZY );
-      #else
-         lib_harbour = dlopen( "/var/www/html/libharbour.so.3.2.0", RTLD_LAZY );
-      #endif
-   #endif
-
-   if( lib_harbour == NULL )
+   if( APR_SUCCESS == apr_global_mutex_lock( harbour_mutex ) )
    {
-      #ifdef _WINDOWS_
-         char * szErrorMessage = GetErrorMessage( GetLastError() );
+      // ap_log_error( 0, 0, 0, 0, 0, r->server, "mutex_locked" );                        
 
-         ap_rputs( "c:\\Apache24\\htdocs\\libharbour.dll<br>", r ); 
-         ap_rputs( szErrorMessage, r );
-         LocalFree( ( void * ) szErrorMessage );
-      #else
-         ap_rputs( dlerror(), r ); 
-      #endif
-   }   
-   else
-   {
+      r->content_type = "text/html";
+
       ap_add_cgi_vars( r );
       ap_add_common_vars( r );
-   
+
+      #ifdef _WINDOWS_
+         lib_harbour = LoadLibrary( ap_getenv( "LIBHARBOUR", r ) ); 
+         if( lib_harbour == NULL )
+            lib_harbour = LoadLibrary( "c:\\Apache24\\htdocs\\libharbour.dll" );
+      #else
+         #ifdef DARWIN
+            lib_harbour = dlopen( "/Library/WebServer/Documents/libharbour.3.2.0.dylib", RTLD_LAZY );
+         #else
+            lib_harbour = dlopen( "/var/www/html/libharbour.so.3.2.0", RTLD_LAZY );
+         #endif
+      #endif
+
+      if( lib_harbour == NULL )
+      {
+         #ifdef _WINDOWS_
+            char * szErrorMessage = GetErrorMessage( GetLastError() );
+
+            ap_rputs( "c:\\Apache24\\htdocs\\libharbour.dll<br>", r ); 
+            ap_rputs( szErrorMessage, r );
+            LocalFree( ( void * ) szErrorMessage );
+         #else
+            ap_rputs( dlerror(), r ); 
+         #endif
+      }   
+
       #ifdef _WINDOWS_
          _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
       #else
@@ -181,27 +185,38 @@ static int harbour_handler( request_rec * r )
          ap_rputs( "failed to load hb_apache()", r );
       else
          iResult = _hb_apache( r, ( void * ) ap_rputs, r->filename, r->args, r->method, r->useragent_ip, 
-                               r->headers_in, r->headers_out,
-                               ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
-                               ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
-                               ( void * ) ap_getenv, ( void * ) ap_body, lAPRemaining );
+                                 r->headers_in, r->headers_out,
+                                 ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
+                                 ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
+                                 ( void * ) ap_getenv, ( void * ) ap_body, lAPRemaining );
+
+      if( lib_harbour != NULL )
+         #ifdef _WINDOWS_	
+            FreeLibrary( lib_harbour );
+         #else
+            dlclose( lib_harbour );
+         #endif
+
+      apr_global_mutex_unlock( harbour_mutex );
    }
 
-   if( lib_harbour != NULL )
-      #ifdef _WINDOWS_	
-         FreeLibrary( lib_harbour );
-      #else
-         dlclose( lib_harbour );
-      #endif      
-
-   _r = NULL; 
-
    return iResult;
+}
+
+static void harbour_child_init( apr_pool_t * p, server_rec * s )
+{
+   s = s;
+
+   if( APR_SUCCESS != apr_global_mutex_create( &harbour_mutex, NULL, APR_LOCK_DEFAULT, p ) )
+      exit( 1 );
+   // else
+   //    ap_log_error( 0, 0, 0, 0, 0, s, "harbour_child_init ok" );                        
 }
 
 static void harbour_register_hooks( apr_pool_t * p )
 {
    p = p;
+   ap_hook_child_init( harbour_child_init, NULL, NULL, APR_HOOK_MIDDLE );   
    ap_hook_handler( harbour_handler, NULL, NULL, APR_HOOK_MIDDLE );
 }
 
