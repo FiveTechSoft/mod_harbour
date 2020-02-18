@@ -16,6 +16,6 @@ LoadModule harbour_module modules/mod_harbour.so
 
 Start c:\Apache24\bin\httpd.exe
 
-For easy of testing, create a folder "c:\Apache24\htdocs\modharbour_examples\" and copy all mod_harbour samples *.prg there
+For easy of testing, create a folder "c:\Apache24\htdocs\modharbour_samples\" and copy all mod_harbour samples *.prg there
 
-From your web browser go to: localhost/modharbour_examples
+From your web browser go to: localhost/modharbour_samples
