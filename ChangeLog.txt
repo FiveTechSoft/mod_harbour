@@ -1,3 +1,13 @@
+2020/February/18
+
+* New version 2.0
+  + Concurrency support. To test it: 
+    c:\Apache24\bin\ab -n 100 -c 10  http://localhost/modharbour_samples/info.prg
+    
+  + Timeouts control (15 secs max)
+  
+  + MultiThreading support
+
 2019/August/30
 
 * New examples using 3D three.js module. Please review samples/three folder
