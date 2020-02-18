@@ -2,9 +2,11 @@
 
 Build Harbour this way:
 
+```
 export HB_WITH_CURL=/usr/local/Cellar/curl/7.65.3/include/
 
 export HB_BUILD_CONTRIBS=""
+```
 
 **IMPORTANT** In order to build mod_harbour.so for OSX do this:
 
