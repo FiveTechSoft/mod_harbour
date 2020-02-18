@@ -64,7 +64,7 @@ function Main()
       hb_SetEnv( "PRGPATH",;
                  SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
       if Lower( Right( cFileName, 4 ) ) == ".hrb"
-         pThread = hb_threadStart( @hb_HrbDo(), hb_HrbLoad( 1, cFileName ), AP_Args() )
+         pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ), AP_Args() )
       else
          pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), AP_Args() )
       endif
@@ -108,6 +108,14 @@ function AddPPRules()
                       "IF <v1> == NIL ; <v1> := <x1> ; END [; IF <vn> == NIL ; <vn> := <xn> ; END ]" )
 
 return nil
+
+//----------------------------------------------------------------//
+
+function ExecuteHrb( oHrb, cArgs )
+
+   ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError ) ), Break( oError ) } )
+
+return hb_HrbDo( oHrb, cArgs )
 
 //----------------------------------------------------------------//
 
