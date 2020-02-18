@@ -1,13 +1,13 @@
 -hbdynvm
--olibharbour
+-oharbour.so.3.2.0
 -mt
 
--L..\..\lib\darwin\clang
 -l-hbfship
 -l-hbxpp
 
-apache.prg
+../../apache.prg
 
-hbhpdf.hbc
-xhb.hbc
-hbct.hbc
+-trace
+-dflag=@libs.txt
+
+mod.hbp
