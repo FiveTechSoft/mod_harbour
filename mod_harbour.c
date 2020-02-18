@@ -150,30 +150,47 @@ static int harbour_handler( request_rec * r )
       ap_add_cgi_vars( r );
       ap_add_common_vars( r );
 
-      #ifdef _WINDOWS_
-         lib_harbour = LoadLibrary( ap_getenv( "LIBHARBOUR", r ) ); 
-         if( lib_harbour == NULL )
-            lib_harbour = LoadLibrary( "c:\\Apache24\\htdocs\\libharbour.dll" );
-      #else
-         #ifdef DARWIN
-            lib_harbour = dlopen( "/Library/WebServer/Documents/libharbour.3.2.0.dylib", RTLD_LAZY );
-         #else
-            lib_harbour = dlopen( "/var/www/html/libharbour.so.3.2.0", RTLD_LAZY );
-         #endif
-      #endif
-
-      if( lib_harbour == NULL )
       {
-         #ifdef _WINDOWS_
-            char * szErrorMessage = GetErrorMessage( GetLastError() );
+         // First we check the Apache environment variable LIBHARBOUR.
+         char * libharbour_path = ap_getenv( "LIBHARBOUR", r );
+         
+         if ( libharbour_path == NULL )
+         {
+            // Then the compile-time macro LIBHARBOUR.
+            #ifdef LIBHARBOUR
+               libharbour_path = LIBHARBOUR;
+            #else
+               // Now we provide platform-specific defaults.
+               #ifdef _WINDOWS_
+                  libharbour_path = "c:\\Apache24\\htdocs\\libharbour.dll";
+               #else
+                  #ifdef DARWIN
+                     libharbour_path = "/Library/WebServer/Documents/libharbour.3.2.0.dylib";
+                  #else
+                     libharbour_path = "/var/www/html/libharbour.so.3.2.0";
+                  #endif
+               #endif
+            #endif
+         }
 
-            ap_rputs( "c:\\Apache24\\htdocs\\libharbour.dll<br>", r ); 
-            ap_rputs( szErrorMessage, r );
-            LocalFree( ( void * ) szErrorMessage );
+         #ifdef _WINDOWS_
+            lib_harbour = LoadLibrary( libharbour_path );
+            if ( lib_harbour == NULL )
+            {
+               char * szErrorMessage = GetErrorMessage( GetLastError() ); 
+               ap_rputs( szErrorMessage, r );
+               LocalFree( ( void * ) szErrorMessage );
+               return HTTP_INTERNAL_SERVER_ERROR;
+            }
          #else
-            ap_rputs( dlerror(), r ); 
+            lib_harbour = dlopen( libharbour_path, RTLD_LAZY );
+            if (lib_harbour == NULL)
+            {
+               ap_rputs( dlerror(), r );
+               return HTTP_INTERNAL_SERVER_ERROR;
+            }
          #endif
-      }   
+      }
 
       #ifdef _WINDOWS_
          _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
