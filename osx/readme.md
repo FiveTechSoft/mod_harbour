@@ -17,7 +17,7 @@ sudo ln -sf /Users/$USER/mod_harbour/samples modharbour_samples
 sudo apachectl start
 ```
 
-In case that **you just want to install mod_harbour**, do this:
+Now just browse to localhost/modharbour_samples from from browser and click on any PRG file
 
 <hr>
 
