@@ -4,13 +4,17 @@ Apple provides an installed apache by default, that serves pages at:
 /Library/WebServer/Documents
 ```
 
-From the browser go to localhost to check if it is running. If not simply do:
-
+Download mod_harbour files:
 ```
-sudo apachectl start
+git clone https://github.com/fivetechsoft/mod_harbour
+```
+
+Create the required symbolic links:
+```
 cd /Library/WebServer/Documents
 sudo ln -sf /Users/$USER/mod_harbour/hbmk2/osx/libharbour.so.3.2.0 libharbour.3.2.0.dylib
 sudo ln -sf /Users/$USER/mod_harbour/samples modharbour_samples
+sudo apachectl start
 ```
 
 In case that **you just want to install mod_harbour**, do this:
