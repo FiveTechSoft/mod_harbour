@@ -14,7 +14,6 @@ Create the required symbolic links:
 cd /Library/WebServer/Documents
 sudo ln -sf /Users/$USER/mod_harbour/hbmk2/osx/libharbour.so.3.2.0 libharbour.3.2.0.dylib
 sudo ln -sf /Users/$USER/mod_harbour/samples modharbour_samples
-sudo apachectl start
 ```
 
 Edit **httpd.conf** at /private/etc/apache2 and add these lines:
@@ -28,6 +27,11 @@ LoadModule harbour_module /usr/local/httpd/modules/mod_harbour.so
 and add Indexes here:
 ```
 Options Indexes FollowSymLinks Multiviews
+```
+
+Restart apache:
+```
+sudo apachectl start
 ```
 
 Now just browse to **localhost/modharbour_samples/** from from browser and click on any PRG file
