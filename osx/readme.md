@@ -1,7 +1,7 @@
 Apple provides an installed apache by default, that serves pages at:
 
 ```
-/Library/WeServer/Documents
+/Library/WebServer/Documents
 ```
 
 From the browser go to localhost to check if it is running. If not simply do:
