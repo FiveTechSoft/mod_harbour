@@ -20,6 +20,7 @@ In case that you want to rebuild mod_harbour yourself, then you need to install 
 
 brew install httpd
 ```
+<hr>
 
 **0.** brew install curl
 
