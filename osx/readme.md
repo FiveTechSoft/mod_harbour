@@ -8,12 +8,16 @@ From the browser go to localhost to check if it is running. If not simply do:
 
 ```
 sudo apachectl start
+cd /Library/WebServer/Documents
+sudo ln -sf /Users/$USER/mod_harbour/hbmk2/osx/libharbour.so.3.2.0 libharbour.3.2.0.dylib
+sudo ln -sf /Users/$USER/mod_harbour/samples modharbour_samples
 ```
 
-In case that you just want to install mod_harbour, do this:
+In case that **you just want to install mod_harbour**, do this:
 
+<hr>
 
-In case that you want to rebuild mod_harbour yourself, then you need to install brew as the default installed apache does not provides all the required files (headers and libraries) to build it:
+In case that **you want to rebuild mod_harbour yourself**, then you need to install brew as the default installed apache does not provides all the required files (headers and libraries) to build it:
 
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -22,29 +26,27 @@ brew install httpd
 ```
 <hr>
 
-**0.** brew install curl
-
-Build Harbour this way:
+0. Install curl:
 
 ```
+brew install curl
+```
+
+1. Download Harbour and build it:
+
+```
+git clone https://github.com/harbour/core harbour
 export HB_WITH_CURL=/usr/local/Cellar/curl/7.68.0/include/
-
 export HB_BUILD_CONTRIBS=""
+make
 ```
 
-**IMPORTANT** In order to build mod_harbour.so for OSX do this:
+2. Install Apache so we get the missing required headers and libraries:
 
-**1.** brew install apache2
+```
+brew install httpd
+```
 
-**2.** mkdir temp, cd temp, apxs -g -n harbour
-
-**3.** modify Makefile this line:
-
-top_builddir=/usr/local/opt/httpd/lib/httpd
-
-**4.** copy mod_harbour.c to the created harbour folder and do "make"
-
-*******************************************************************************
 
 **1.** sudo apachectl start
 
