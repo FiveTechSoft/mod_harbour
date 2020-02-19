@@ -19,6 +19,11 @@ sudo apachectl start
 
 Now just browse to localhost/modharbour_samples from from browser and click on any PRG file
 
+In case that you get errors please review the log files at:
+```
+/var/log/apache2
+```
+
 <hr>
 
 In case that **you want to rebuild mod_harbour yourself**, then you need to install brew as the default installed apache does not provides all the required files (headers and libraries) to build it:
