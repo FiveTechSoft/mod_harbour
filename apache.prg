@@ -70,11 +70,11 @@ function Main()
       endif
       if hb_threadWait( pThread, 15 ) != 1
          hb_threadQuitRequest( pThread )
-	 ErrorLevel( 408 )
+	 ErrorLevel( 408 ) // request timeout
       endif    
       InKey( 0.1 )
    else
-      ErrorLevel( 404 )
+      ErrorLevel( 404 ) // not found
    endif   
 
 return nil
