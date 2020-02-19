@@ -1,3 +1,19 @@
+Apple provides an installed apache by default, that serves pages at:
+
+/Library/WeServer/Documents
+
+From the browser go to localhost to check if it is running. If not simply do:
+
+sudo apachectl start
+
+In case that you just want to install mod_harbour, do this:
+
+
+In case that you want to rebuild mod_harbour yourself, then you need to install brew as the default installed apache does not provides all the required files (headers and libraries) to build it:
+
+
+
+
 **0.** brew install curl
 
 Build Harbour this way:
