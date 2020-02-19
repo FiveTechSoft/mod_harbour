@@ -17,7 +17,7 @@ sudo ln -sf /Users/$USER/mod_harbour/samples modharbour_samples
 sudo apachectl start
 ```
 
-Now just browse to localhost/modharbour_samples from from browser and click on any PRG file
+Now just browse to **localhost/modharbour_samples/** from from browser and click on any PRG file
 
 In case that you get errors please review the log files at:
 ```
