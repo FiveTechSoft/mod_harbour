@@ -133,8 +133,6 @@ static int harbour_handler( request_rec * r )
    char * szTempFileName;
    SYSTEMTIME time;
 
-   GetSystemTime( &time );
-
    #ifdef _WINDOWS_
       HMODULE lib_harbour = NULL;
    #else
@@ -146,6 +144,8 @@ static int harbour_handler( request_rec * r )
 
    if( strcmp( r->handler, "harbour" ) )
       return DECLINED;
+
+   GetSystemTime( &time );
 
    apr_temp_dir_get( &szTempPath, r->pool );
    CopyFile( "c:\\Apache24\\htdocs\\libharbour.dll", 
