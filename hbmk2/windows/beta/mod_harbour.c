@@ -25,7 +25,6 @@
 #endif        
 
 long lAPRemaining = 0;
-apr_global_mutex_t * harbour_mutex;
 
 int ap_headers_in_count( request_rec * r )
 {
@@ -210,20 +209,9 @@ static int harbour_handler( request_rec * r )
    return iResult;
 }
 
-static void harbour_child_init( apr_pool_t * p, server_rec * s )
-{
-   s = s;
-
-   if( APR_SUCCESS != apr_global_mutex_create( &harbour_mutex, NULL, APR_LOCK_DEFAULT, p ) )
-      exit( 1 );
-   // else
-   //    ap_log_error( 0, 0, 0, 0, 0, s, "harbour_child_init ok" );                        
-}
-
 static void harbour_register_hooks( apr_pool_t * p )
 {
    p = p;
-   ap_hook_child_init( harbour_child_init, NULL, NULL, APR_HOOK_MIDDLE );   
    ap_hook_handler( harbour_handler, NULL, NULL, APR_HOOK_MIDDLE );
 }
 
