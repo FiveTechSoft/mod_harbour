@@ -214,7 +214,7 @@ static int harbour_handler( request_rec * r )
    #endif   
 
    apr_temp_dir_get( &szTempPath, r->pool );
-   CopyFile( szDllName, szTempFileName = apr_psprintf( r->pool, "%s\\%s.%d.%d", 
+   CopyFile( szDllName, szTempFileName = apr_psprintf( r->pool, "%s/%s.%d.%d", 
              szTempPath, "libharbour", ( int ) pthread_self(), ( int ) apr_time_now() ), 0 );
    // ap_rputs( szTempFileName, r );
 
@@ -240,6 +240,7 @@ static int harbour_handler( request_rec * r )
          ap_rputs( szErrorMessage, r );
          LocalFree( ( void * ) szErrorMessage );
       #else
+         ap_rputs( "mod_harbour version 2020/02/20<br>", r );
          ap_rputs( dlerror(), r ); 
       #endif
    }   
@@ -251,7 +252,7 @@ static int harbour_handler( request_rec * r )
    #endif
 
    if( _hb_apache == NULL )
-      ap_rputs( "failed to load hb_apache()", r );
+      ap_rputs( "<br>failed to load hb_apache()", r );
    else
       iResult = _hb_apache( r, ( void * ) ap_rputs, r->filename, r->args, r->method, r->useragent_ip, 
                               r->headers_in, r->headers_out,
