@@ -13,7 +13,6 @@
 #include "http_log.h"
 #include "http_protocol.h"
 #include "ap_config.h"
-#include "util_mutex.h"
 #include "util_script.h"
 #include "apr.h"
 #include "apr_strings.h"
