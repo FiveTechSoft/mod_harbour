@@ -19,6 +19,7 @@
    #include <windows.h>
 #else
    #include <dlfcn.h>
+   #include <unistd.h>
 #endif        
 
 long lAPRemaining = 0;
@@ -114,6 +115,67 @@ char * GetErrorMessage( DWORD dwLastError )
    return ( ( char * ) lpMsgBuf );
 }
 
+#else
+
+int CopyFile( const char * from, const char * to, int iOverWrite )
+{
+    int fd_to, fd_from;
+    char buf[4096];
+    ssize_t nread;
+    int saved_errno;
+
+    fd_from = open(from, O_RDONLY);
+    if (fd_from < 0)
+        return -1;
+
+    fd_to = open(to, O_WRONLY | O_CREAT | O_EXCL, 0666);
+    if (fd_to < 0)
+        goto out_error;
+
+    while (nread = read(fd_from, buf, sizeof buf), nread > 0)
+    {
+        char *out_ptr = buf;
+        ssize_t nwritten;
+
+        do {
+            nwritten = write(fd_to, out_ptr, nread);
+
+            if (nwritten >= 0)
+            {
+                nread -= nwritten;
+                out_ptr += nwritten;
+            }
+            else if (errno != EINTR)
+            {
+                goto out_error;
+            }
+        } while (nread > 0);
+    }
+
+    if (nread == 0)
+    {
+        if (close(fd_to) < 0)
+        {
+            fd_to = -1;
+            goto out_error;
+        }
+        close(fd_from);
+
+        /* Success! */
+        return 0;
+    }
+
+  out_error:
+    saved_errno = errno;
+
+    close(fd_from);
+    if (fd_to >= 0)
+        close(fd_to);
+
+    errno = saved_errno;
+    return errno;
+}
+
 #endif
 
 typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts, 
@@ -125,9 +187,9 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
 
 static int harbour_handler( request_rec * r )
 {
-   char * szTempPath;
+   const char * szTempPath;
    char * szTempFileName;
-   SYSTEMTIME time;
+   // SYSTEMTIME time;
 
    #ifdef _WINDOWS_
       HMODULE lib_harbour = NULL;
@@ -141,11 +203,11 @@ static int harbour_handler( request_rec * r )
    if( strcmp( r->handler, "harbour" ) )
       return DECLINED;
 
-   GetSystemTime( &time );
+   // GetSystemTime( &time );
    apr_temp_dir_get( &szTempPath, r->pool );
    CopyFile( "c:\\Apache24\\htdocs\\libharbour.dll", 
              szTempFileName = apr_psprintf( r->pool, "%s\\%s.%d.%d", szTempPath, "libharbour", 
-                                            GetCurrentThreadId(), time.wMilliseconds ), 0 );
+                                            ( int ) pthread_self(), ( int ) apr_time_now() ), 0 );
    // ap_rputs( szTempFileName, r );
 
    r->content_type = "text/html";
@@ -200,7 +262,11 @@ static int harbour_handler( request_rec * r )
          dlclose( lib_harbour );
       #endif
 
-   DeleteFile( szTempFileName );
+   #ifdef _WINDOWS_ 
+      DeleteFile( szTempFileName );
+   #else
+      remove( szTempFileName );
+   #endif      
 
    return iResult;
 }
