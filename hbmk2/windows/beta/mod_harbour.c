@@ -143,7 +143,6 @@ static int harbour_handler( request_rec * r )
       return DECLINED;
 
    GetSystemTime( &time );
-
    apr_temp_dir_get( &szTempPath, r->pool );
    CopyFile( "c:\\Apache24\\htdocs\\libharbour.dll", 
              szTempFileName = apr_psprintf( r->pool, "%s\\%s.%d.%d", szTempPath, "libharbour", 
