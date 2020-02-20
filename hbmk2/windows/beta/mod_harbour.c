@@ -189,6 +189,7 @@ static int harbour_handler( request_rec * r )
 {
    const char * szTempPath;
    char * szTempFileName;
+   char * szDllName;
 
    #ifdef _WINDOWS_
       HMODULE lib_harbour = NULL;
@@ -202,10 +203,19 @@ static int harbour_handler( request_rec * r )
    if( strcmp( r->handler, "harbour" ) )
       return DECLINED;
 
+   #ifdef _WINDOWS_
+      szDllName = "c:\\Apache24\\htdocs\\libharbour.dll";
+   #else       
+      #ifdef DARWIN
+         szDllName = "/Library/WebServer/Documents/libharbour.3.2.0.dylib";
+      #else   
+         szDllName = "/var/www/html/libharbour.so.3.2.0";
+      #endif
+   #endif   
+
    apr_temp_dir_get( &szTempPath, r->pool );
-   CopyFile( "c:\\Apache24\\htdocs\\libharbour.dll", 
-             szTempFileName = apr_psprintf( r->pool, "%s\\%s.%d.%d", szTempPath, "libharbour", 
-                                            ( int ) pthread_self(), ( int ) apr_time_now() ), 0 );
+   CopyFile( szDllName, szTempFileName = apr_psprintf( r->pool, "%s\\%s.%d.%d", 
+             szTempPath, "libharbour", ( int ) pthread_self(), ( int ) apr_time_now() ), 0 );
    // ap_rputs( szTempFileName, r );
 
    r->content_type = "text/html";
@@ -218,11 +228,7 @@ static int harbour_handler( request_rec * r )
       if( lib_harbour == NULL )
           lib_harbour = LoadLibrary( szTempFileName ); // "c:\\Apache24\\htdocs\\libharbour.dll" );
    #else
-      #ifdef DARWIN
-         lib_harbour = dlopen( "/Library/WebServer/Documents/libharbour.3.2.0.dylib", RTLD_LAZY );
-      #else
-         lib_harbour = dlopen( "/var/www/html/libharbour.so.3.2.0", RTLD_LAZY );
-      #endif
+      lib_harbour = dlopen( szTempFileName, RTLD_LAZY );
    #endif
 
    if( lib_harbour == NULL )
