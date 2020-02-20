@@ -16,7 +16,7 @@ sudo ln -sf /Users/$USER/mod_harbour/hbmk2/osx/libharbour.so.3.2.0 libharbour.3.
 sudo ln -sf /Users/$USER/mod_harbour/samples modharbour_samples
 ```
 
-Edit **httpd.conf** at /private/etc/apache2 and add these lines:
+Edit **httpd.conf** at /private/etc/apache2 (or at /usr/local/etc/httpd/httpd.conf) and add these lines:
 ```
 LoadModule harbour_module /usr/local/httpd/modules/mod_harbour.so
 
