@@ -19,3 +19,4 @@ cd genesis
 sudo chown -R $user:$user data
 cd ..
 sudo chown -R $user:$user machine
+sudo chown -R $user:$user snippets
