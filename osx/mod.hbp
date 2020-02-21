@@ -1,0 +1,11 @@
+-hbdyn
+-omod_harbour.so
+
+#-cflag=-I/usr/include/apache2
+#-cflag+=-I/usr/include/apr-1.0
+-cflag=-I/usr/local/Cellar/httpd/2.4.41_1/include/httpd
+-cflag+=-I/usr/local/Cellar/apr-util/1.6.1_3/libexec/include/apr-1
+-cflag+=-I/usr/local/Cellar/apr/1.7.0/libexec/include/apr-1
+
+../../mod_harbour.c
+
