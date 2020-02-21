@@ -6,3 +6,7 @@
 <FilesMatch "runner.hrb_">
    Header set Access-Control-Allow-Origin "*"
 </FilesMatch>
+
+<FilesMatch "*.pdf">
+   Allow from all
+</FilesMatch>   
