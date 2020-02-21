@@ -602,7 +602,7 @@ HB_FUNC( AP_BODY )
    {
       _szBody = ( char * ) ap_body( pRequestRec );
       szBody = ( char * ) hb_xgrab( strlen( _szBody ) + 1 );
-      strcpy_s( szBody, strlen( _szBody ) + 1, _szBody );
+      strcpy( szBody, _szBody );
       hb_retc( _szBody );
    }   
 }   

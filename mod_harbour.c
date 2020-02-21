@@ -190,7 +190,7 @@ static int harbour_handler( request_rec * r )
    const char * szTempPath;
    char * szTempFileName;
    const char * szDllName;
-   DWORD dwThreadId;
+   unsigned int dwThreadId;
 
    #ifdef _WINDOWS_
       HMODULE lib_harbour = NULL;
