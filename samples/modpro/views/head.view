@@ -50,7 +50,8 @@
       }
 
       #body{
-         height: calc( 100% - 30px );
+         background-color:aquamarine;
+         height: calc( 100% - 25px );
          width: 100%;
       }
       
@@ -72,13 +73,11 @@
       }
       
       #right{
-          background-color:aquamarine;
           font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
           margin-left: 947px;
           position: absolute;
           top: 30px;
           bottom: 0px;
-          width: 100%;
       }
       
       #output{

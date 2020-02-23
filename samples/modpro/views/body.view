@@ -182,7 +182,9 @@
              {
                 $( "#editor" ).css( "width", x );
                 $( "#right" ).css( "margin-left", x ); 
-					 $( "#right" ).css( "width", "calc( 100% -" + x + "px)" );
+					 localStorage.setItem( 'code', editor.getValue() );
+                localStorage.setItem( 'editor-width', $( "#editor" ).css( "width" ) );
+                localStorage.setItem( 'right-margin-left', $( "#right" ).css( "margin-left" ) );   
              }
           } ) } );
  
