@@ -28,5 +28,6 @@
 -lhbziparc
 -lhbmzip
 -lminizip
+-lhbnetio
 
 -Wl,--no-whole-archive

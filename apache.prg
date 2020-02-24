@@ -31,6 +31,8 @@ extern SHOWCONSOLE, HB_VFDIREXISTS, AP_REMAINING
    #include "..\harbour\contrib\hbwin\hbwin.hbx"
    #define __HBEXTERN__HBCURL__REQUEST
    #include "..\harbour\contrib\hbcurl\hbcurl.hbx"
+   #define __HBEXTERN__HBNETIO__REQUEST
+   #include "..\harbour\contrib\hbnetio\hbnetio.hbx"
 #else
    #define __HBEXTERN__HBHPDF__REQUEST
    #include "../harbour/contrib/hbhpdf/hbhpdf.hbx"
@@ -40,6 +42,8 @@ extern SHOWCONSOLE, HB_VFDIREXISTS, AP_REMAINING
    #include "../harbour/contrib/hbct/hbct.hbx"
    #define __HBEXTERN__HBCURL__REQUEST  
    #include "../harbour/contrib/hbcurl/hbcurl.hbx"
+   #define __HBEXTERN__HBNETIO__REQUEST
+   #include "../harbour/contrib/hbnetio/hbnetio.hbx"
 #endif
 
 #ifdef HB_WITH_ADS
