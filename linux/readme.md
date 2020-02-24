@@ -19,7 +19,9 @@ sudo apachectl restart
 
 Copy samples/test.prg to /var/www/html and go to localhost/test.prg in your browser
 
-** How to build mod_harbour: **
+<hr>
+
+**How to build mod_harbour: **
 
 First of all, build Harbour
 ```
