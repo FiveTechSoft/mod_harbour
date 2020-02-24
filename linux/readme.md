@@ -21,7 +21,7 @@ Copy samples/test.prg to /var/www/html and go to localhost/test.prg in your brow
 
 <hr>
 
-**How to build mod_harbour: **
+**How to build mod_harbour:**
 
 First of all, build Harbour
 ```
