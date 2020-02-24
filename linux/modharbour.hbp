@@ -1,0 +1,13 @@
+-hbdynvm
+-oharbour.so.3.2.0
+-mt
+
+-l-hbfship
+-l-hbxpp
+
+../../apache.prg
+
+-trace
+-dflag=@libs.txt
+
+mod.hbp
