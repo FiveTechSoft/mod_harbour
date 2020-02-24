@@ -31,9 +31,10 @@ export HB_USER_CFLAGS="-fPIC"
 export HB_BUILD_CONTRIBS
 make
 ```
-Install apache2-dev
+Install apache2-dev and libcurl3-dev
 ```
 sudo apt-get install apache2-dev
+sudo apt-get install libcurl3-dev
 ```
 then give execution permissions to go.sh and execute it:
 ```
