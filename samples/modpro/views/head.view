@@ -85,6 +85,10 @@
         height: 100%;
         padding: 10px;
       }   
+
+      .fa-1x {
+         font-size: 0.85em;
+      }
    </style>
 
    <script>
