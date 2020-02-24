@@ -18,7 +18,7 @@ function UseWebService()
 
    if ! empty( hCurl := curl_easy_init() )
         curl_easy_setopt( hCurl, HB_CURLOPT_POST, 1 )
-        curl_easy_setopt( hCurl, HB_CURLOPT_URL, "http://localhost/modharbour_samples/webservice.prg" )
+        curl_easy_setopt( hCurl, HB_CURLOPT_URL, "http://www.modharbour.org/modharbour_samples/webservice.prg" )
         curl_easy_setopt( hCurl, HB_CURLOPT_DL_BUFF_SETUP )
         curl_easy_setopt( hCurl, HB_CURLOPT_POSTFIELDS, hb_jsonEncode( { "key1" => "value1", "key2" => "value2", "key3" => "value3" } ) )
 
