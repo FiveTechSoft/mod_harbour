@@ -19,6 +19,53 @@ sudo apachectl restart
 
 Copy samples/test.prg to /var/www/html and go to localhost/test.prg in your browser
 
+** How to build mod_harbour: **
+
+First of all, build Harbour
+```
+git clone https://github.com/harbour/core harbour
+cd harbour
+export HB_USER_CFLAGS="-fPIC"
+export HB_BUILD_CONTRIBS
+make
+```
+Install apache2-dev
+```
+sudo apt-get install apache2-dev
+```
+then give execution permissions to go.sh and execute it:
+```
+chmod +x go.sh
+./go.sh
+```
+Once built, do this:
+```
+cd /var/www/html
+sudo ln -sf ~/mod_harbour/hbmk2/linux/libharbour.so.3.2.0 libharbour.so.3.2.0
+sudo ln -sf ~/mod_harbour/samples modharbour_samples
+```
+copy mod_harbour.so to the Apache modulesudo service apache2 restarts folder:
+```
+sudo mv mod_harbour.so /usr/lib/apache2/modules
+```
+and restart apache
+```
+sudo systemctl restart apache2
+
+or
+
+sudo service apache2 restart
+```
+
+Then from your browser go to:
+```
+localhost/modharbour_samples
+```
+In case you get a wrong behavior, please check:
+```
+/var/log/apache2/error.log
+```
+
 ***
 
 [![](https://bitbucket.org/fivetech/screenshots/downloads/harbour.jpg)](https://harbour.github.io "The Harbour Project")
