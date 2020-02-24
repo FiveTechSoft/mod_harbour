@@ -33,13 +33,13 @@ extern SHOWCONSOLE, HB_VFDIREXISTS, AP_REMAINING
    #include "..\harbour\contrib\hbcurl\hbcurl.hbx"
 #else
    #define __HBEXTERN__HBHPDF__REQUEST
-   #include "../../../harbour/contrib/hbhpdf/hbhpdf.hbx"
+   #include "../harbour/contrib/hbhpdf/hbhpdf.hbx"
    #define __HBEXTERN__XHB__REQUEST
-   #include "../../../harbour/contrib/xhb/xhb.hbx"
+   #include "../harbour/contrib/xhb/xhb.hbx"
    #define __HBEXTERN__HBCT__REQUEST
-   #include "../../../harbour/contrib/hbct/hbct.hbx"
-   // #define __HBEXTERN__HBCURL__REQUEST  
-   // #include "../../../harbour/contrib/hbcurl/hbcurl.hbx"
+   #include "../harbour/contrib/hbct/hbct.hbx"
+   #define __HBEXTERN__HBCURL__REQUEST  
+   #include "../harbour/contrib/hbcurl/hbcurl.hbx"
 #endif
 
 #ifdef HB_WITH_ADS
