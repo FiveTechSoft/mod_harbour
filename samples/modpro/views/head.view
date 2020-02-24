@@ -155,7 +155,8 @@
            var reader = new FileReader();
            oFile = evt.target.files[0];
            reader.onload = function( e ) {
-              editor.session.setValue( e.target.result ) };
+              editor.session.setValue( e.target.result ); 
+              localStorage.setItem( 'code', e.target.result ); };
            reader.readAsText( oFile ); 
            }
 
