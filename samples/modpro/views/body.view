@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	<script>
-      var editor_width, right_margin_left;
+      var editor_width, right_margin_left, cResult;
 
       editor_width = localStorage.getItem( 'editor-width' );
       if( editor_width )
@@ -23,6 +23,10 @@
       right_margin_left = localStorage.getItem( 'right-margin-left' );
       if( right_margin_left )
           $( "#right" ).css( "margin-left", right_margin_left );
+
+		cResult = localStorage.getItem( 'result' );
+		if( cResult )
+			$('#output').html( cResult );	 
 
 		$('#splitter').mousedown( function(e) {
           e.preventDefault();

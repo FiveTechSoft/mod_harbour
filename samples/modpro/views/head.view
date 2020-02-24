@@ -248,13 +248,19 @@
       function Copy()
       {
          editor.focus();
-         document.execCommand('copy');;
+         document.execCommand('copy');
       }
 
       function Paste()
       {
          editor.focus();
-         document.execCommand('paste');;
+         document.execCommand('paste');
+      }
+
+      function Clear()
+      {
+         $('#output').html('');
+         localStorage.setItem( 'result', '' );
       }
 
       function SelectAll()

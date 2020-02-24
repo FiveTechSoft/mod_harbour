@@ -25,7 +25,7 @@
 									<a class="dropdown-item" style="color:white;">Cut</a> 
 									<a class="dropdown-item" onclick="Copy()">Copy</a> 
 									<a class="dropdown-item" onclick="Paste()">Paste</a>
-									<a class="dropdown-item" >Clear</a>
+									<a class="dropdown-item" onclick="Clear()">Clear</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" onclick="SelectAll()">Select all</a>
 									<div class="dropdown-divider"></div>
