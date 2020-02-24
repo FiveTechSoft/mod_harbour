@@ -5,7 +5,7 @@
 -l-hbfship
 -l-hbxpp
 
-../../apache.prg
+../apache.prg
 
 -trace
 -dflag=@libs.txt
