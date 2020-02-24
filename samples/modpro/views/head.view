@@ -162,6 +162,12 @@
         oFPicker.click(); 
       } 
 
+      function ClosePrg()
+      {
+         editor.session.setValue( '' );   
+         localStorage.setItem( 'code', '' );
+      }
+
       function OpenDbf()
       { 
         var oFile; 
