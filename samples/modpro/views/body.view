@@ -1,5 +1,5 @@
 <body>
-	<div id="main" class="container-fluid" style="padding:0px">
+	<div id="main" class="container-fluid" style="padding:0px;overflow:hidden">
 		<div class="row">
 			<div class="col-md-12">
 				{{View("menu")}}
