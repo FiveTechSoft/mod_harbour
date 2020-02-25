@@ -1,4 +1,8 @@
-#include "/home/user/harbour/contrib/hbcurl/hbcurl.ch"
+#ifdef __PLATFORM__WINDOWS
+   #include "c:\harbour\contrib\hbcurl\hbcurl.ch"
+#else
+   #include "/home/user/harbour/contrib/hbcurl/hbcurl.ch"
+#endif
 
 function Main()
 
