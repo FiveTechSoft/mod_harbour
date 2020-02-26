@@ -39,7 +39,7 @@ function Main()
             ?? Field->Code
          else
             ?? "function Main()" + hb_OsNewLine() + hb_OsNewLine() + ;
-               '  ? "Hello world"' + hb_OSNewLine() + hb_OsNewLine() + ;
+               '   ? "Hello world"' + hb_OSNewLine() + hb_OsNewLine() + ;
                "return nil"
          endif         
       else   
