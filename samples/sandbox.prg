@@ -253,7 +253,7 @@ function Main( cFile )
                <div class="col-sm-7" style="background-color:Ivory;height:100%;">
                   <div id="editor" style="height:100%;"><?prg return cText ?></div>
                </div>
-               <div class="col-sm" id="result" scrolling="auto"
+               <div class="col-sm" id="output" scrolling="auto"
                   style="border:0.5px solid;border-color:#92A8D1;
                          background-color:Ivory;height:100%;
                          padding-left:5px;padding-right:0px;
@@ -974,7 +974,7 @@ function Main( cFile )
             }
           else {
              if ( ext == "html" | ext == "htm" | ext == "view" | ext == "tpl" ) {
-                document.getElementById("result").innerHTML = editor.getValue();
+                document.getElementById("output").innerHTML = editor.getValue();
                }
           }
           editor.focus();
@@ -989,7 +989,7 @@ function Main( cFile )
         }
 
         function ToggleResult() {
-          var x = document.getElementById( "result" );
+          var x = document.getElementById( "output" );
           if ( x.style.display === "none" ) {
              x.style.display = "block";
            } else {
