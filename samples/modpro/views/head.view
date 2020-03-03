@@ -279,5 +279,10 @@
       {
          editor.gotoLine( parseInt( cLine ), 0, true );
       }
+      
+      function SaveParams( cParams )
+      {
+         localStorage.setItem( 'params', cParams );
+      }   
    </script>  
 </head>
