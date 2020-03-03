@@ -156,7 +156,7 @@
            oFile = evt.target.files[0];
            reader.onload = function( e ) {
               editor.session.setValue( e.target.result ); 
-              localStorage.setItem( 'code', e.target.result ); };
+              sessionStorage.setItem( 'code', e.target.result ); };
            reader.readAsText( oFile ); 
            }
 
@@ -166,7 +166,7 @@
       function ClosePrg()
       {
          editor.session.setValue( '' );   
-         localStorage.setItem( 'code', '' );
+         sessionStorage.setItem( 'code', '' );
       }
 
       function OpenDbf()
@@ -267,7 +267,7 @@
       function Clear()
       {
          $('#output').html('');
-         localStorage.setItem( 'result', '' );
+         sessionStorage.setItem( 'result', '' );
       }
 
       function SelectAll()
@@ -282,12 +282,12 @@
       
       function GetParams()
       {
-         MsgGet( 'params:  ', 'params to provide', 'SaveParams(', localStorage.getItem( 'params' ) );
+         MsgGet( 'params:  ', 'params to provide', 'SaveParams(', sessionStorage.getItem( 'params' ) );
       }
       
       function SaveParams( cParams )
       {
-         localStorage.setItem( 'params', cParams );
+         sessionStorage.setItem( 'params', cParams );
       }   
    </script>  
 </head>
