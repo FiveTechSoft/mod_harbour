@@ -280,6 +280,11 @@
          editor.gotoLine( parseInt( cLine ), 0, true );
       }
       
+      function GetParams()
+      {
+         MsgGet( 'params:  ', 'params to provide', 'SaveParams(', localStorage.getItem( 'params' ) );
+      }
+      
       function SaveParams( cParams )
       {
          localStorage.setItem( 'params', cParams );
