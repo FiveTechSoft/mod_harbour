@@ -5,7 +5,6 @@ extern "C" {
 		const char * szFileName, const char * szArgs, const char * szMethod, const char * szUserIP,
 		void * pHeadersIn, void * pHeadersOut,
 		void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal,
-		void * pPostPairsCount, void * pPostPairsKey, void * pPostPairsVal,
 		void * pHeadersOutCount, void * pHeadersOutSet, void * pSetContentType,
 		void * pApacheGetenv, void * pAPBody, long lAPRemaining );
 
@@ -181,7 +180,6 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 					        ap_getenv( "REQUEST_METHOD" ), ap_getenv( "REMOTE_ADDR" ),
 							  NULL, NULL,
 							  ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
-							  ( void * ) ap_post_pairs_count, ( void * ) ap_post_pairs_key, ( void * ) ap_post_pairs_val,
 							  ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
 							  ( void * ) ap_getenv, ( void * ) ap_body, lAPRemaining );
  			}
