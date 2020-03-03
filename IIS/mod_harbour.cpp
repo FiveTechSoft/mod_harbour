@@ -62,21 +62,6 @@ extern "C" {
 		return "";
 	}
 
-	int ap_post_pairs_count( void )
-	{
-		return 0;
-	}
-
-	const char * ap_post_pairs_key( int iKey )
-	{
-		return "";
-	}
-
-	const char * ap_post_pairs_val( int iKey )
-	{
-		return "";
-	}
-
 	int ap_headers_in_count( void )
 	{
 		return 0;
