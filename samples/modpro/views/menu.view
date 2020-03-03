@@ -104,7 +104,7 @@
 								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
 									data-toggle="dropdown">Run</a>
 								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" onclick="Run()">Execute</a> 
+									<a class="dropdown-item" onclick="Run()?" + localStorage.getItem( 'params' )>Execute</a> 
 									<a class="dropdown-item" >Debug...</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" onclick="MsgGet( 'params:  ', 'params to provide', 'SaveParams(' );">Params...</a>
