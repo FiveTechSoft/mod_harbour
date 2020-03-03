@@ -9,7 +9,7 @@
              editor.setHighlightActiveLine(true);
              editor.session.setMode("ace/mode/c_cpp");
 
-             code = localStorage.getItem('code');  
+             code = sessionStorage.getItem('code');  
              if( code && code.length != 0 )
                 editor.session.setValue( code );
           </script>
