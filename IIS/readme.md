@@ -36,9 +36,9 @@ Create a test.html
 
 Also go to localhost/test.html
 
-**5. libharbour.dll has to be copied here:**
+**5. libharbour.dll have to be copied here:**
 
-c:\Windows\SysWOW64\inetsrv\
+c:\Windows\System32\inetsrv\
 
 and give it proper permissions: read and execute 
 
