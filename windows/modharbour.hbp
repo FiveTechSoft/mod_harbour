@@ -7,12 +7,13 @@ harbour.def
 -l-hbfship
 -l-hbxpp
 
-..\..\apache.prg
+..\apache.prg
 
 hbwin.hbc
 hbhpdf.hbc
 xhb.hbc
 hbct.hbc
 hbcurl.hbc
+hbnetio.hbc
 
 mod.hbp
