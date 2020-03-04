@@ -8,6 +8,8 @@ extern "C" {
 		void * pHeadersOutCount, void * pHeadersOutSet, void * pSetContentType,
 		void * pApacheGetenv, void * pAPBody, long lAPRemaining );
 
+   const char * ap_getenv( const char * szVarName, IHttpContext * pHttpContext );
+
 	char * GetErrorMessage( DWORD dwLastError )
 	{
 		LPVOID lpMsgBuf;
@@ -78,7 +80,16 @@ extern "C" {
 
 	int ap_headers_in_count( IHttpContext * pHttpContext )
 	{
-	   return HttpHeaderRequestMaximum;
+	   const char * szHeaders = ap_getenv( "ALL_HTTP", pHttpContext );
+      int iCount = 0; char * pPos = ( char * ) szHeaders;
+
+      while( pPos = strstr( pPos, "HTTP_" ) )
+      { 
+         pPos += 5;
+         iCount++; 
+      }
+              
+      return iCount;
 	}
 
 	void ap_headers_out_set( const char * szKey, const char * szValue, IHttpContext * pHttpContext )
@@ -112,14 +123,14 @@ extern "C" {
 
 	const char * ap_body( IHttpContext * pHttpContext )
 	{
-           DWORD bytesRead = 0;
-           int totalBytesRead = 0;
-           int bytesToRead = atoi( ap_getenv( "CONTENT_LENGTH", pHttpContext ) ), iSize;
-           IHttpRequest * request = pHttpContext->GetRequest();
-           char * buffer = ( char * ) pHttpContext->AllocateRequestMemory( bytesToRead );
-           BOOL bCompletionPending = false;
+      DWORD bytesRead = 0;
+      int totalBytesRead = 0;
+      int bytesToRead = atoi( ap_getenv( "CONTENT_LENGTH", pHttpContext ) ), iSize;
+      IHttpRequest * request = pHttpContext->GetRequest();
+      char * buffer = ( char * ) pHttpContext->AllocateRequestMemory( bytesToRead );
+      BOOL bCompletionPending = false;
 
-           iSize = bytesToRead;
+      iSize = bytesToRead;
        
 	   if( buffer )
 	   {
@@ -127,17 +138,17 @@ extern "C" {
 	      {
 	         request->ReadEntityBody( ( char * ) ( buffer + bytesRead ), bytesToRead, false, &bytesRead, &bCompletionPending );
 
-		 if( ! bytesRead )
-		    break;
+      		if( ! bytesRead )
+		         break;
 
-		 bytesToRead -= bytesRead;
+		      bytesToRead -= bytesRead;
 	      }
 
-              * ( buffer + iSize ) = 0;
+         * ( buffer + iSize ) = 0;
 	   }
 
 	   return buffer;	
-      }
+   }
 }
 
 static long lAPRemaining = 0;
