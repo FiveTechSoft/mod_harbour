@@ -1,3 +1,9 @@
+2020/March/04
+
+* Cookies management functions added in libharbour.dll
+  + function SetCookie( cName, cValue, nSecs, cPath, cDomain, lHttps, lOnlyHttp )
+  + function GetCookies() --> hCookies (hash value)
+
 2020/February/18
 
 * New version 2.0
