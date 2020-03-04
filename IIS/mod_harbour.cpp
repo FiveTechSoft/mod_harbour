@@ -47,107 +47,107 @@ extern "C" {
 
 	int ap_headers_out_count( IHttpContext * pHttpContext )
 	{
-		return HttpHeaderMaximum;
+	   return HttpHeaderMaximum;
 	}
 
 	const char * ap_headers_in_key( int iKey, IHttpContext * pHttpContext )
 	{
-      IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
-      USHORT cchKey;
-      PCSTR pszHeader;
+           IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+           USHORT cchKey;
+           PCSTR pszHeader;
 
-      pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
+           pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
 
-      if( cchKey > 0 )
-      {
-         pszHeader = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchKey + 1 );
-         pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
-         return pszHeader;
-      }
-      else
-		   return "";
+           if( cchKey > 0 )
+           {
+              pszHeader = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchKey + 1 );
+              pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
+              return pszHeader;
+           }
+           else
+	      return "";
 	}
 
 	const char * ap_headers_in_val( int iKey, IHttpContext * pHttpContext )
 	{
-      IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
-      USHORT cchKey;
-      PCSTR pszHeader;
+           IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+           USHORT cchKey;
+           PCSTR pszHeader;
 
-      pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
+           pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
 
-      if( cchKey > 0 )
-      {
-         pszHeader = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchKey + 1 );
-         pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
-         return pszHeader;
-      }
-      else
-         return "";
-   }
+           if( cchKey > 0 )
+           {
+              pszHeader = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchKey + 1 );
+              pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
+              return pszHeader;
+           }
+           else
+              return "";
+        }
 
 	int ap_headers_in_count( IHttpContext * pHttpContext )
 	{
-		return HttpHeaderRequestMaximum;
+	   return HttpHeaderRequestMaximum;
 	}
 
 	void ap_headers_out_set( const char * szKey, const char * szValue, IHttpContext * pHttpContext )
 	{
-		IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+	   IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
 
-		pHttpResponse->SetHeader( szKey, szValue, strlen( szValue ), true );	
+	   pHttpResponse->SetHeader( szKey, szValue, strlen( szValue ), true );	
 	}
 
 	void ap_set_contenttype( const char * szContentType, IHttpContext * pHttpContext )
 	{
-		IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+	   IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
 
-		pHttpResponse->SetHeader( "Content-Type", szContentType, strlen( szContentType ), true );
+	   pHttpResponse->SetHeader( "Content-Type", szContentType, strlen( szContentType ), true );
 	}
 
 	const char * ap_getenv( const char * szVarName, IHttpContext * pHttpContext )
 	{
-		PCSTR rawBuffer = NULL;
-		DWORD rawLength = 0;
+	   PCSTR rawBuffer = NULL;
+	   DWORD rawLength = 0;
 
-		pHttpContext->GetServerVariable( szVarName, &rawBuffer, &rawLength );
+	   pHttpContext->GetServerVariable( szVarName, &rawBuffer, &rawLength );
 
-		return rawBuffer;
+	   return rawBuffer;
 	}
 
 	const char * ap_args( IHttpContext * pHttpContext )
 	{
-		return ap_getenv( "QUERY_STRING", pHttpContext );
+	   return ap_getenv( "QUERY_STRING", pHttpContext );
 	}
 
 	const char * ap_body( IHttpContext * pHttpContext )
 	{
-      DWORD bytesRead = 0;
-      int totalBytesRead = 0;
-      int bytesToRead = atoi( ap_getenv( "CONTENT_LENGTH", pHttpContext ) ), iSize;
-      IHttpRequest * request = pHttpContext->GetRequest();
-      char * buffer = ( char * ) pHttpContext->AllocateRequestMemory( bytesToRead );
-      BOOL bCompletionPending = false;
+           DWORD bytesRead = 0;
+           int totalBytesRead = 0;
+           int bytesToRead = atoi( ap_getenv( "CONTENT_LENGTH", pHttpContext ) ), iSize;
+           IHttpRequest * request = pHttpContext->GetRequest();
+           char * buffer = ( char * ) pHttpContext->AllocateRequestMemory( bytesToRead );
+           BOOL bCompletionPending = false;
 
-      iSize = bytesToRead;
+           iSize = bytesToRead;
        
-		if( buffer )
-		{
-			while( bytesToRead > 0 )
-			{
-				request->ReadEntityBody( ( char * ) ( buffer + bytesRead ), bytesToRead, false, &bytesRead, &bCompletionPending );
+	   if( buffer )
+	   {
+	      while( bytesToRead > 0 )
+	      {
+	         request->ReadEntityBody( ( char * ) ( buffer + bytesRead ), bytesToRead, false, &bytesRead, &bCompletionPending );
 
-				if( ! bytesRead )
-					break;
+		 if( ! bytesRead )
+		    break;
 
-				bytesToRead -= bytesRead;
-			}
+		 bytesToRead -= bytesRead;
+	      }
 
-         * ( buffer + iSize ) = 0;
-		}
+              * ( buffer + iSize ) = 0;
+	   }
 
-		return buffer;	
-	}
+	   return buffer;	
+      }
 }
 
 static long lAPRemaining = 0;
