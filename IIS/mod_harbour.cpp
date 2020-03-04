@@ -52,39 +52,29 @@ extern "C" {
 
 	const char * ap_headers_in_key( int iKey, IHttpContext * pHttpContext )
 	{
-           IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
-           USHORT cchKey;
-           PCSTR pszHeader;
+      IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+      USHORT cchKey = 0;
 
-           pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
+      pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
 
-           if( cchKey > 0 )
-           {
-              pszHeader = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchKey + 1 );
-              pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
-              return pszHeader;
-           }
-           else
+      if( cchKey > 0 )
+         return pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
+      else
 	      return "";
 	}
 
 	const char * ap_headers_in_val( int iKey, IHttpContext * pHttpContext )
 	{
-           IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
-           USHORT cchKey;
-           PCSTR pszHeader;
+      IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+      USHORT cchKey = 0;
 
-           pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
+      pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
 
-           if( cchKey > 0 )
-           {
-              pszHeader = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchKey + 1 );
-              pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
-              return pszHeader;
-           }
-           else
-              return "";
-        }
+      if( cchKey > 0 )
+         return pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
+      else
+         return "";
+   }
 
 	int ap_headers_in_count( IHttpContext * pHttpContext )
 	{
