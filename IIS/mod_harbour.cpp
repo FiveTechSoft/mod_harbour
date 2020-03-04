@@ -8,8 +8,6 @@ extern "C" {
 		void * pHeadersOutCount, void * pHeadersOutSet, void * pSetContentType,
 		void * pApacheGetenv, void * pAPBody, long lAPRemaining );
 
-	static IHttpContext * _pHttpContext = NULL;
-
 	char * GetErrorMessage( DWORD dwLastError )
 	{
 		LPVOID lpMsgBuf;
@@ -47,63 +45,89 @@ extern "C" {
 	}
 
 
-	int ap_headers_out_count( void )
+	int ap_headers_out_count( IHttpContext * pHttpContext )
 	{
-		return 0;
+		return HttpHeaderMaximum;
 	}
 
-	const char * ap_headers_in_key( int iKey )
+	const char * ap_headers_in_key( int iKey, IHttpContext * pHttpContext )
 	{
-		return "";
+      IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+      USHORT cchKey;
+      PCSTR pszHeader;
+
+      pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
+
+      if( cchKey > 0 )
+      {
+         pszHeader = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchKey + 1 );
+         pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
+         return pszHeader;
+      }
+      else
+		   return "";
 	}
 
-	const char * ap_headers_in_val( int iKey )
+	const char * ap_headers_in_val( int iKey, IHttpContext * pHttpContext )
 	{
-		return "";
+      IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+      USHORT cchKey;
+      PCSTR pszHeader;
+
+      pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
+
+      if( cchKey > 0 )
+      {
+         pszHeader = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchKey + 1 );
+         pszHeader = pHttpResponse->GetHeader( ( IN HTTP_HEADER_ID ) iKey, &cchKey );
+         return pszHeader;
+      }
+      else
+         return "";
+   }
+
+	int ap_headers_in_count( IHttpContext * pHttpContext )
+	{
+		return HttpHeaderRequestMaximum;
 	}
 
-	int ap_headers_in_count( void )
+	void ap_headers_out_set( const char * szKey, const char * szValue, IHttpContext * pHttpContext )
 	{
-		return 0;
-	}
-
-	void ap_headers_out_set( const char * szKey, const char * szValue )
-	{
-		IHttpResponse * pHttpResponse = _pHttpContext->GetResponse();
+		IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
 
 		pHttpResponse->SetHeader( szKey, szValue, strlen( szValue ), true );	
 	}
 
-	void ap_set_contenttype( const char * szContentType )
+	void ap_set_contenttype( const char * szContentType, IHttpContext * pHttpContext )
 	{
-		IHttpResponse * pHttpResponse = _pHttpContext->GetResponse();
+		IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
 
 		pHttpResponse->SetHeader( "Content-Type", szContentType, strlen( szContentType ), true );
 	}
 
-	const char * ap_getenv( const char * szVarName )
+	const char * ap_getenv( const char * szVarName, IHttpContext * pHttpContext )
 	{
 		PCSTR rawBuffer = NULL;
 		DWORD rawLength = 0;
 
-		_pHttpContext->GetServerVariable( szVarName, &rawBuffer, &rawLength );
+		pHttpContext->GetServerVariable( szVarName, &rawBuffer, &rawLength );
 
 		return rawBuffer;
 	}
 
-	const char * ap_args( void )
+	const char * ap_args( IHttpContext * pHttpContext )
 	{
-		return ap_getenv( "QUERY_STRING" );
+		return ap_getenv( "QUERY_STRING", pHttpContext );
 	}
 
-	const char * ap_body( void )
+	const char * ap_body( IHttpContext * pHttpContext )
 	{
-       DWORD bytesRead = 0;
-       int totalBytesRead = 0;
-       int bytesToRead = atoi( ap_getenv( "CONTENT_LENGTH" ) ), iSize;
-       IHttpRequest * request = _pHttpContext->GetRequest();
-       char * buffer = ( char * ) _pHttpContext->AllocateRequestMemory( bytesToRead );
-       BOOL bCompletionPending = false;
+      DWORD bytesRead = 0;
+      int totalBytesRead = 0;
+      int bytesToRead = atoi( ap_getenv( "CONTENT_LENGTH", pHttpContext ) ), iSize;
+      IHttpRequest * request = pHttpContext->GetRequest();
+      char * buffer = ( char * ) pHttpContext->AllocateRequestMemory( bytesToRead );
+      BOOL bCompletionPending = false;
 
       iSize = bytesToRead;
        
@@ -133,19 +157,18 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 {
 	const char * szPathInfo;
 
-	_pHttpContext = pHttpContext;
-	szPathInfo = ap_getenv( "PATH_INFO" );
+	szPathInfo = ap_getenv( "PATH_INFO", pHttpContext );
 
 	if( strstr( szPathInfo, ".prg" ) || strstr( szPathInfo, ".hrb" ) )
 	{
-		HMODULE lib_harbour = LoadLibrary( "c:\\Windows\\SysWOW64\\inetsrv\\libharbour.dll" );
+		HMODULE lib_harbour = LoadLibrary( "c:\\Windows\\System32\\inetsrv\\libharbour.dll" );
 
-		ap_set_contenttype( "text/html" );
+		ap_set_contenttype( "text/html", pHttpContext );
 
 		if( lib_harbour == NULL )
 		{
 			char * szErrorMessage = GetErrorMessage( GetLastError() );
-			ap_rputs( "c:\\Windows\\SysWOW64\\inetsrv\\libharbour.dll - ", pHttpContext );
+			ap_rputs( "c:\\Windows\\System32\\inetsrv\\libharbour.dll - ", pHttpContext );
 			ap_rputs( szErrorMessage, pHttpContext );
 			LocalFree( ( void * ) szErrorMessage );
 		}
@@ -154,15 +177,15 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 			PHB_APACHE _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
 			char szPath[ 512 ];
 
-			strcpy( szPath, ap_getenv( "APPL_PHYSICAL_PATH" ) );
+			strcpy( szPath, ap_getenv( "APPL_PHYSICAL_PATH", pHttpContext ) );
 			strcat( szPath, szPathInfo + 1 );
          while( strchr( szPath, '\\' ) )
             * strchr( szPath, '\\' ) = '/';
 
 			if( _hb_apache != NULL )
 			{
- 				_hb_apache( pHttpContext, ap_rputs, szPath, ap_args(), 
-					        ap_getenv( "REQUEST_METHOD" ), ap_getenv( "REMOTE_ADDR" ),
+ 				_hb_apache( pHttpContext, ap_rputs, szPath, ap_args( pHttpContext ), 
+					        ap_getenv( "REQUEST_METHOD", pHttpContext ), ap_getenv( "REMOTE_ADDR", pHttpContext ),
 							  NULL, NULL,
 							  ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
 							  ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
