@@ -69,9 +69,10 @@ extern "C" {
 
          if( pPos = strstr( pPos, ": " ) )
          {
-            char * buffer = ( char * ) pHttpContext->AllocateRequestMemory( pPos - pStart );
+            char * buffer = ( char * ) pHttpContext->AllocateRequestMemory( pPos - pStart + 1 );
    
             memcpy( buffer, pStart, pPos - pStart );
+            buffer[ pPos - pStart + 1 ] = 0;
             return buffer;
          }
          else
@@ -102,6 +103,7 @@ extern "C" {
             char * buffer = ( char * ) pHttpContext->AllocateRequestMemory( pPos - pStart + 1 );
    
             memcpy( buffer, pStart, pPos - pStart );
+            buffer[ pPos - pStart + 1 ] = 0;
             return buffer;
          }
          else
