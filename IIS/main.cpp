@@ -42,7 +42,7 @@ RegisterModule(
     // step 3: register for server events
     // TODO: register for more server events here
     hr = pModuleInfo->SetRequestNotifications( pFactory, /* module factory */
-                                               RQ_ACQUIRE_REQUEST_STATE /* server event mask */,
+                                               RQ_EXECUTE_REQUEST_HANDLER /* server event mask */,
                                                0 /* server post event mask */);
     if ( FAILED( hr ) )
     {

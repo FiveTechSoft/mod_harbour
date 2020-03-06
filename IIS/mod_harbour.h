@@ -11,7 +11,7 @@ public:
 
 	//  Implementation of the AcquireRequestState event handler method.
     REQUEST_NOTIFICATION_STATUS
-    OnAcquireRequestState(
+       OnExecuteRequestHandler(
         IN IHttpContext *                       pHttpContext,
         IN OUT IHttpEventProvider *             pProvider
     );

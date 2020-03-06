@@ -189,7 +189,7 @@ extern "C" {
 
 static long lAPRemaining = 0;
 
-REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContext * pHttpContext,
+REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnExecuteRequestHandler( IN IHttpContext * pHttpContext,
 									                  							IN OUT IHttpEventProvider * pProvider )
 {
 	const char * szPathInfo;
