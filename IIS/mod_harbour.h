@@ -10,11 +10,12 @@ class CMyHttpModule : public CHttpModule
 public:
 
 	//  Implementation of the AcquireRequestState event handler method.
-    REQUEST_NOTIFICATION_STATUS
+       REQUEST_NOTIFICATION_STATUS
        OnExecuteRequestHandler(
         IN IHttpContext *                       pHttpContext,
         IN OUT IHttpEventProvider *             pProvider
     );
+
 
 	//  TODO: override additional event handler methods below.
 };
