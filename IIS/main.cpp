@@ -21,6 +21,13 @@ RegisterModule(
     HRESULT                             hr = S_OK;
     CMyHttpModuleFactory  *             pFactory = NULL;
 
+    //#ifdef _DEBUG
+    // Sleep(30 * 1000);
+    // #endif // _DEBUG
+
+
+
+
     if ( pModuleInfo == NULL || pHttpServer == NULL )
     {
         hr = HRESULT_FROM_WIN32( ERROR_INVALID_PARAMETER );
