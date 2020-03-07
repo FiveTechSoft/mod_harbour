@@ -1,0 +1,6 @@
+﻿  precomp.cpp
+  main.cpp
+  mod_harbour.cpp
+  Generating Code...
+     Creating library H:\mod_harbour_fivetechsoft\IIS\x64\Debug\mod_harbour.lib and object H:\mod_harbour_fivetechsoft\IIS\x64\Debug\mod_harbour.exp
+  mod_harbour.vcxproj -> H:\mod_harbour_fivetechsoft\IIS\x64\Debug\mod_harbour.dll
