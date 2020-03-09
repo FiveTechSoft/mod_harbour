@@ -21,13 +21,6 @@ RegisterModule(
     HRESULT                             hr = S_OK;
     CMyHttpModuleFactory  *             pFactory = NULL;
 
-    //#ifdef _DEBUG
-    // Sleep(30 * 1000);
-    // #endif // _DEBUG
-
-
-
-
     if ( pModuleInfo == NULL || pHttpServer == NULL )
     {
         hr = HRESULT_FROM_WIN32( ERROR_INVALID_PARAMETER );
@@ -49,7 +42,7 @@ RegisterModule(
     // step 3: register for server events
     // TODO: register for more server events here
     hr = pModuleInfo->SetRequestNotifications( pFactory, /* module factory */
-                                               RQ_EXECUTE_REQUEST_HANDLER /* server event mask */,
+       RQ_EXECUTE_REQUEST_HANDLER /* server event mask */,
                                                0 /* server post event mask */);
     if ( FAILED( hr ) )
     {
