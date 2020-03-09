@@ -198,7 +198,18 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 
 	if( strstr( szPathInfo, ".prg" ) || strstr( szPathInfo, ".hrb" ) )
 	{
-		HMODULE lib_harbour = LoadLibrary( "c:\\Windows\\System32\\inetsrv\\libharbour.dll" );
+		HMODULE lib_harbour;
+      char * szTempPath = ( char * ) pHttpContext->AllocateRequestMemory( MAX_PATH + 1 );
+      char * szTempFileName = ( char * ) pHttpContext->AllocateRequestMemory( MAX_PATH + 1 );
+      const char * szDllName = "c:\\Windows\\System32\\inetsrv\\libharbour.dll";
+      SYSTEMTIME time;
+
+      GetTempPath( MAX_PATH + 1, szTempPath );
+      GetSystemTime( &time );
+      wsprintf( szTempFileName, "%s/%s.%d.%d", szTempPath, "libharbour", GetCurrentThreadId(), ( int ) time.wMilliseconds );
+      CopyFile( szDllName, szTempFileName, 0 );
+
+      lib_harbour = LoadLibrary( szTempFileName );
 
 		ap_set_contenttype( "text/html", pHttpContext );
 
@@ -234,7 +245,10 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 		}
 
 		if( lib_harbour )
+      { 
 			FreeLibrary( lib_harbour );
+         DeleteFile( szTempFileName );
+      }
 		
 		return RQ_NOTIFICATION_FINISH_REQUEST;
 	}
