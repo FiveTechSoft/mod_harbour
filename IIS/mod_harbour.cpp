@@ -206,7 +206,7 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 
       GetTempPath( MAX_PATH + 1, szTempPath );
       GetSystemTime( &time );
-      wsprintf( szTempFileName, "%s/%s.%d.%d", szTempPath, "libharbour", GetCurrentThreadId(), ( int ) time.wMilliseconds );
+      wsprintf( szTempFileName, "%s%s.%d.%d", szTempPath, "libharbour", GetCurrentThreadId(), ( int ) time.wMilliseconds );
       CopyFile( szDllName, szTempFileName, 0 );
 
       lib_harbour = LoadLibrary( szTempFileName );
