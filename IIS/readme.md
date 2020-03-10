@@ -36,12 +36,6 @@ Create a test.html
 
 Also go to localhost/test.html
 
-**5. libharbour.dll, libcurl.dll, libcrypto-1_1-x64.dll, libssl-1_1-x64.dll have to be copied here:**
-
-c:\Windows\System32\inetsrv\
-
-and give it proper permissions: read and execute 
-
 ***
 
 https://www.w3schools.com/asp/coll_servervariables.asp
