@@ -1,3 +1,8 @@
+2020/March/10
+
+* mod_harbour for IIS no longer needs to copy any DLLs to a specific place. They are used from
+  the same folder where mod_harbour.dll is placed.
+
 2020/March/04
 
 * Cookies management functions added in libharbour.dll
