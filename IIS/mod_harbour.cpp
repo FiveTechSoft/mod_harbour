@@ -189,6 +189,16 @@ extern "C" {
 
 static long lAPRemaining = 0;
 
+static char * strrstr( const char * str, const char * strSearch )
+{
+   char * ptr = ( char * ) str, * last = NULL;
+
+   while( ( ptr = strstr( ptr, strSearch ) ) ) 
+      last = ptr++;
+   
+   return last;
+}
+
 REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContext * pHttpContext,
 									                  							IN OUT IHttpEventProvider * pProvider )
 {
@@ -199,16 +209,26 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 	if( strstr( szPathInfo, ".prg" ) || strstr( szPathInfo, ".hrb" ) )
 	{
 		HMODULE lib_harbour;
+      char * szModHarbourPath = ( char * ) pHttpContext->AllocateRequestMemory( MAX_PATH + 1 );
+      WCHAR * szModHarbourPathW = ( WCHAR * ) pHttpContext->AllocateRequestMemory( ( MAX_PATH + 1 ) * 2 );
       char * szTempPath = ( char * ) pHttpContext->AllocateRequestMemory( MAX_PATH + 1 );
       char * szTempFileName = ( char * ) pHttpContext->AllocateRequestMemory( MAX_PATH + 1 );
-      const char * szDllName = "c:\\Windows\\System32\\inetsrv\\libharbour.dll";
+      char * szDllName = ( char * ) pHttpContext->AllocateRequestMemory( MAX_PATH + 1 );
       SYSTEMTIME time;
+
+      GetModuleFileName( GetModuleHandle( "mod_harbour.dll" ), szDllName, MAX_PATH + 1 );
+      strcpy( szModHarbourPath, szDllName );
+      * ( strrstr( szModHarbourPath, "\\" ) + 1 ) = 0;
+      strcpy( strrstr( szDllName, "\\" ) + 1, "libharbour.dll" );
 
       GetTempPath( MAX_PATH + 1, szTempPath );
       GetSystemTime( &time );
       wsprintf( szTempFileName, "%s%s.%d.%d", szTempPath, "libharbour", GetCurrentThreadId(), ( int ) time.wMilliseconds );
       CopyFile( szDllName, szTempFileName, 0 );
 
+      SetDefaultDllDirectories( LOAD_LIBRARY_SEARCH_DEFAULT_DIRS );
+      MultiByteToWideChar( CP_ACP, MB_COMPOSITE, szModHarbourPath, -1, szModHarbourPathW, MAX_PATH + 1 );
+      AddDllDirectory( szModHarbourPathW );
       lib_harbour = LoadLibrary( szTempFileName );
 
 		ap_set_contenttype( "text/html", pHttpContext );
@@ -216,7 +236,9 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 		if( lib_harbour == NULL )
 		{
 			char * szErrorMessage = GetErrorMessage( GetLastError() );
-			ap_rputs( "c:\\Windows\\System32\\inetsrv\\libharbour.dll - ", pHttpContext );
+         ap_rputs( "mod_harbour error:<br>", pHttpContext );
+			ap_rputs( szTempFileName, pHttpContext );
+         ap_rputs( "<br>", pHttpContext );
 			ap_rputs( szErrorMessage, pHttpContext );
 			LocalFree( ( void * ) szErrorMessage );
 		}
