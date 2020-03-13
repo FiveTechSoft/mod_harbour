@@ -1,7 +1,7 @@
 #include "precomp.h"
 
 extern "C" {
-	typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
+   typedef int ( *PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
 		const char * szFileName, const char * szArgs, const char * szMethod, const char * szUserIP,
 		void * pHeadersIn, void * pHeadersOut,
 		void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal,
@@ -58,9 +58,9 @@ extern "C" {
       int iCount = 1; char * pPos = ( char * ) szHeaders;
 
       while( ( iCount < iKey ) && ( pPos = strstr( pPos, "\r\n" ) ) )
-      { 
+      {
          pPos += strlen( "\r\n" );
-         iCount++; 
+         iCount++;
       }
 
       if( pPos )
@@ -70,14 +70,14 @@ extern "C" {
          if( pPos = strstr( pPos, ": " ) )
          {
             char * buffer = ( char * ) pHttpContext->AllocateRequestMemory( pPos - pStart + 1 );
-   
+
             memcpy( buffer, pStart, pPos - pStart );
-            buffer[ pPos - pStart ] = 0;
+            buffer[pPos - pStart] = 0;
             return buffer;
          }
          else
             return "";
-          
+
       }
       else
          return "";
@@ -89,9 +89,9 @@ extern "C" {
       int iCount = 1; char * pPos = ( char * ) szHeaders;
 
       while( ( iCount < iKey ) && ( pPos = strstr( pPos, "\r\n" ) ) )
-      { 
+      {
          pPos += strlen( "\r\n" );
-         iCount++; 
+         iCount++;
       }
 
       if( pPos )
@@ -101,14 +101,14 @@ extern "C" {
          if( pPos = strstr( pPos, "\r\n" ) )
          {
             char * buffer = ( char * ) pHttpContext->AllocateRequestMemory( pPos - pStart + 1 );
-   
+
             memcpy( buffer, pStart, pPos - pStart );
-            buffer[ pPos - pStart ] = 0;
+            buffer[pPos - pStart] = 0;
             return buffer;
          }
          else
             return "";
-          
+
       }
       else
          return "";
@@ -120,11 +120,11 @@ extern "C" {
       int iCount = 0; char * pPos = ( char * ) szHeaders;
 
       while( pPos = strstr( pPos, "\r\n" ) )
-      { 
+      {
          pPos += strlen( "\r\n" ) + 1;
-         iCount++; 
+         iCount++;
       }
-              
+
       return iCount;
 	}
 
@@ -132,7 +132,7 @@ extern "C" {
 	{
 	   IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
 
-	   pHttpResponse->SetHeader( szKey, szValue, strlen( szValue ), true );	
+      pHttpResponse->SetHeader( szKey, szValue, strlen( szValue ), true );
 	}
 
 	void ap_set_contenttype( const char * szContentType, IHttpContext * pHttpContext )
@@ -167,23 +167,23 @@ extern "C" {
       BOOL bCompletionPending = false;
 
       iSize = bytesToRead;
-       
+
 	   if( buffer )
 	   {
 	      while( bytesToRead > 0 )
 	      {
 	         request->ReadEntityBody( ( char * ) ( buffer + bytesRead ), bytesToRead, false, &bytesRead, &bCompletionPending );
 
-      		if( ! bytesRead )
+            if( !bytesRead )
 		         break;
 
 		      bytesToRead -= bytesRead;
 	      }
 
-         * ( buffer + iSize ) = 0;
+         *( buffer + iSize ) = 0;
 	   }
 
-	   return buffer;	
+      return buffer;
    }
 }
 static BOOL get_script_path(char* path, size_t cb, IHttpContext* ctx)
@@ -203,6 +203,16 @@ static BOOL get_script_path(char* path, size_t cb, IHttpContext* ctx)
 }
 static long lAPRemaining = 0;
 
+static char * strrstr( const char * str, const char * strSearch )
+{
+   char * ptr = ( char * ) str, * last = NULL;
+
+   while( ( ptr = strstr( ptr, strSearch ) ) )
+      last = ptr++;
+
+   return last;
+}
+
 REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnExecuteRequestHandler( IN IHttpContext * pHttpContext,
 									                  							IN OUT IHttpEventProvider * pProvider )
 {
@@ -212,17 +222,27 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnExecuteRequestHandler( IN IHttpCont
 
 	if( strstr( szPathInfo, ".prg" ) || strstr( szPathInfo, ".hrb" ) )
 	{
-		HMODULE lib_harbour;
+      HMODULE lib_harbour;
+      char * szModHarbourPath = ( char * ) pHttpContext->AllocateRequestMemory( MAX_PATH + 1 );
+      WCHAR * szModHarbourPathW = ( WCHAR * ) pHttpContext->AllocateRequestMemory( ( MAX_PATH + 1 ) * 2 );
       char * szTempPath = ( char * ) pHttpContext->AllocateRequestMemory( MAX_PATH + 1 );
       char * szTempFileName = ( char * ) pHttpContext->AllocateRequestMemory( MAX_PATH + 1 );
-      const char * szDllName = "c:\\Windows\\System32\\inetsrv\\libharbour.dll";
+      char * szDllName = ( char * ) pHttpContext->AllocateRequestMemory( MAX_PATH + 1 );
       SYSTEMTIME time;
+
+      GetModuleFileName( GetModuleHandle( "mod_harbour.dll" ), szDllName, MAX_PATH + 1 );
+      strcpy( szModHarbourPath, szDllName );
+      * ( strrstr( szModHarbourPath, "\\" ) + 1 ) = 0;
+      strcpy( strrstr( szDllName, "\\" ) + 1, "libharbour.dll" );
 
       GetTempPath( MAX_PATH + 1, szTempPath );
       GetSystemTime( &time );
       wsprintf( szTempFileName, "%s%s.%d.%d", szTempPath, "libharbour", GetCurrentThreadId(), ( int ) time.wMilliseconds );
       CopyFile( szDllName, szTempFileName, 0 );
 
+      SetDefaultDllDirectories( LOAD_LIBRARY_SEARCH_DEFAULT_DIRS );
+      MultiByteToWideChar( CP_ACP, MB_COMPOSITE, szModHarbourPath, -1, szModHarbourPathW, MAX_PATH + 1 );
+      AddDllDirectory( szModHarbourPathW );
       lib_harbour = LoadLibrary( szTempFileName );
 
 		ap_set_contenttype( "text/html", pHttpContext );
@@ -230,14 +250,16 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnExecuteRequestHandler( IN IHttpCont
 		if( lib_harbour == NULL )
 		{
 			char * szErrorMessage = GetErrorMessage( GetLastError() );
-			ap_rputs( "c:\\Windows\\System32\\inetsrv\\libharbour.dll - ", pHttpContext );
+         ap_rputs( "mod_harbour error:<br>", pHttpContext );
+         ap_rputs( szTempFileName, pHttpContext );
+         ap_rputs( "<br>", pHttpContext );
 			ap_rputs( szErrorMessage, pHttpContext );
 			LocalFree( ( void * ) szErrorMessage );
 		}
 		else
 		{
 			PHB_APACHE _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
-			char szPath[ 512 ];
+         char szPath[ MAX_PATH + 1 ];
 
 			// strcpy( szPath, ap_getenv( "APPL_PHYSICAL_PATH", pHttpContext ) );
 			// strcat( szPath, szPathInfo + 1 );
@@ -246,24 +268,24 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnExecuteRequestHandler( IN IHttpCont
 
 			if( _hb_apache != NULL )
 			{
- 				_hb_apache( pHttpContext, ap_rputs, szPath, ap_args( pHttpContext ), 
+            _hb_apache( pHttpContext, ap_rputs, szPath, ap_args( pHttpContext ),
 					        ap_getenv( "REQUEST_METHOD", pHttpContext ), ap_getenv( "REMOTE_ADDR", pHttpContext ),
 							  NULL, NULL,
 							  ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
 							  ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
 							  ( void * ) ap_getenv, ( void * ) ap_body, lAPRemaining );
  			}
-			
+
 			if( _hb_apache == NULL )
 				ap_rputs( "can't find hb_apache()", pHttpContext );
 		}
 
 		if( lib_harbour )
-      { 
+      {
 			FreeLibrary( lib_harbour );
          DeleteFile( szTempFileName );
       }
-		
+
 		return RQ_NOTIFICATION_FINISH_REQUEST;
 	}
 	else
