@@ -216,7 +216,7 @@ function hb_SysMySQL()
          cLibName = "/usr/local/Cellar/mysql/8.0.16/lib/libmysqlclient.dylib"
       else   
          cLibName = If( hb_version( HB_VERSION_BITWIDTH ) == 64,;
-                        "/usr/lib/x86_64-linux-gnu/libmariadbclient.so",; // libmysqlclient.so.20 for mariaDB
+                        "/usr/lib/x86_64-linux-gnu/libmariadb.so.3",; // libmysqlclient.so.20 for mariaDB
                         "/usr/lib/x86-linux-gnu/libmariadbclient.so" )
       endif                  
    else
