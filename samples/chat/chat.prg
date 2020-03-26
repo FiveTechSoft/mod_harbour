@@ -88,7 +88,7 @@ function BeginPage()
          function scrollToBottom( id )
          {
             var div = document.getElementById( id );
-            div.scrollTop = records.scrollHeight - div.clientHeight;
+            div.scrollTop = div.scrollHeight - div.clientHeight;
          }
          
          function reloadIFrame() 
