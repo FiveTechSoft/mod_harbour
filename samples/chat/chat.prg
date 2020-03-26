@@ -4,8 +4,6 @@ function Main()
    
    Start()
    
-   ?? ValToChar( AP_PostPairs() )
-    
    ?? "<div class='browse'>"
    for n = 1 to 50
       DispRecord()
@@ -50,7 +48,7 @@ function DispRecord( cMsg )
    ?? "<div class='record'>"
    ?? "<img src='https://ca.slack-edge.com/TJH5YU202-UNAHBRTFA-g3d2a3f4c28c-48' width=40 height=40>"
    ?? "<a><b>mod_harbour</b></a>"
-   ?? "<a>"+ If( Empty( cMsg ), "18:30", Time() ) + "</a><br>"
+   ?? "<a>"+ If( Empty( cMsg ), "18:30", Left( Time(), 5 ) ) + "</a><br>"
    ?? "<a style='padding-left:50px;'>" + If( Empty( cMsg ), "Hello my friends", cMsg )+ "</a>"
    ?? "</div>"
 
