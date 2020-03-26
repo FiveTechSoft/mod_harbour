@@ -39,7 +39,7 @@ function Start()
    ?? "   background-color: rgb(248,248,248);"
    ?? "}"
    ?? "</style>"
-   ?? "<body>"
+   ?? "<body style='background-color:purple;'>"
 
 return nil
 
