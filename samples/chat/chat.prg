@@ -28,7 +28,7 @@ function Main()
             <button type="submit">Send</button>
          </form>
          <script>
-            scrollToBottom( "records" );
+            scrollToBottom( "browse" );
             setInterval( reloadIFrame, 3000 );
          </script>
       ENDTEXT
