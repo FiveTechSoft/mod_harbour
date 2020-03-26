@@ -7,7 +7,10 @@ function Main()
    ?? "<div class='browse'>"
    for n = 1 to 50
       DispRecord()
-   next
+   next   
+   if AP_Method() == "POST"
+      DispRecord( AP_PostPairs[ "msg" ] );
+   endif   
    ?? "</div>"
    
    ?? '<form action="chat.prg" method="post">'
@@ -40,13 +43,13 @@ function Start()
 
 return nil
 
-function DispRecord()
+function DispRecord( cMsg )
 
    ?? "<div class='record'>"
    ?? "<img src='https://ca.slack-edge.com/TJH5YU202-UNAHBRTFA-g3d2a3f4c28c-48' width=40 height=40>"
    ?? "<a><b>mod_harbour</b></a>"
-   ?? "<a>18:30</a><br>"
-   ?? "<a style='padding-left:50px;'>Hello my friends</a>"
+   ?? "<a>"+ If( Empty( cMsg ), "18:30", Time() ) + "</a><br>"
+   ?? "<a style='padding-left:50px;'>" + If( Empty( cMsg ), "Hello my friends", cMsg )+ "</a>"
    ?? "</div>"
 
 return nil
