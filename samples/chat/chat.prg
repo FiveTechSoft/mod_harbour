@@ -30,6 +30,7 @@ function Start()
    ?? "<style>"
    ?? ".browse {"
    ?? "  overflow-y: scroll;"
+   ?? "  width: 600px;"
    ?? "  height: 600px;"
    ?? "  background-color:white;"
    ?? "}"
