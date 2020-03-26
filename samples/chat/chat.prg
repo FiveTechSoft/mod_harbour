@@ -9,7 +9,7 @@ function Main()
       DispRecord()
    next   
    if AP_Method() == "POST"
-      DispRecord( AP_PostPairs[ "msg" ] )
+      DispRecord( AP_PostPairs()[ "msg" ] )
    endif   
    ?? "</div>"
    
