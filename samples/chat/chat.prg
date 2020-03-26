@@ -28,7 +28,7 @@ function Main()
             <button type="submit">Send</button>
          </form>
          <script>
-            scrollToBottom( "browse" );
+            scrollToBottom( "records" );
             setInterval( reloadIFrame, 3000 );
          </script>
       ENDTEXT
@@ -88,8 +88,7 @@ function BeginPage()
          function scrollToBottom( id )
          {
             var div = document.getElementById( id );
-            var records = div.document.getElementById( "records" );
-            records.scrollTop = records.scrollHeight - records.clientHeight;
+            div.scrollTop = records.scrollHeight - div.clientHeight;
          }
          
          function reloadIFrame() 
