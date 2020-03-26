@@ -47,7 +47,7 @@ function BeginPage()
    TEMPLATE
       <html>
       <head>
-         <meta http-equiv="refresh" content="1"/>
+         <meta http-equiv="refresh" content="5"/>
          <meta charset="UTF-8">
       </head>
       <style>
