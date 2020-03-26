@@ -12,7 +12,7 @@ function Main()
    if Empty( AP_Args() )
       BeginPage()
 
-      ?? "<iframe class='browse' id='browse'>"
+      ?? "<iframe class='browse' id='browse' src='chat.prg?items'>"
    endif   
    
    while ! EOF()
