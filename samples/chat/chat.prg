@@ -13,6 +13,7 @@ function Main()
       BeginPage()
 
       ?? "<iframe class='browse' id='browse' src='chat.prg?items'>"
+      ?? "<div id='records'>"
    endif   
    
    while ! EOF()
@@ -31,6 +32,7 @@ function Main()
    endif   
 
    if Empty( AP_Args() )
+      ?? "</div>"
       ?? "</iframe>"
    
       TEMPLATE
@@ -39,7 +41,7 @@ function Main()
             <button type="submit">Send</button>
          </form>
          <script>
-            scrollToBottom( "browse" );
+            scrollToBottom( "records" );
             setInterval( reloadIFrame, 3000 );
          </script>
       ENDTEXT
