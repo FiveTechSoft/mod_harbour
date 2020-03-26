@@ -11,9 +11,10 @@ function Main()
    
    if Empty( AP_Args() )
       BeginPage()
+
+      ?? "<div class='browse' id='browse'>"
    endif   
    
-   ?? "<div class='browse' id='browse'>"
    while ! EOF()
       DispRecord()
       SKIP
@@ -28,20 +29,21 @@ function Main()
       endif         
       DispRecord()
    endif   
-   ?? "</div>"
-   
-   TEMPLATE
-      <form action="chat.prg" method="post">
-         <br><br><input type="text" id="msg" name="msg" size="90">
-         <button type="submit">Send</button>
-      </form>
-      <script>
-         scrollToBottom( "browse" );
-         setInterval( "reloadIFrame();", 30000 );
-      </script>
-   ENDTEXT
-   
+
    if Empty( AP_Args() )
+      ?? "</div>"
+   
+      TEMPLATE
+         <form action="chat.prg" method="post">
+            <br><br><input type="text" id="msg" name="msg" size="90">
+            <button type="submit">Send</button>
+         </form>
+         <script>
+            scrollToBottom( "browse" );
+            setInterval( "reloadIFrame();", 30000 );
+         </script>
+      ENDTEXT
+
       EndPage()
    endif   
    
