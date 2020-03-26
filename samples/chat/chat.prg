@@ -9,23 +9,21 @@ function Main()
    
    USE ( hb_GetEnv( "PRGPATH" ) + "/chat" ) SHARED NEW   
    
-   if Empty( AP_Args() )
+   if AP_Method() == "POST"
+      APPEND BLANK
+      if RLock()
+         Field->Time   := Left( Time(), 5 )
+         Field->UserId := "Test"
+         Field->Msg    := hb_UrlDecode( AP_PostPairs()[ "msg" ] ) 
+         DbUnLock()
+      endif
+   else if Empty( AP_Args() )
       Page()
    else
       while ! EOF()
          DispRecord()
          SKIP
-      end   
-      if AP_Method() == "POST"
-         APPEND BLANK
-         if RLock()
-            Field->Time   := Left( Time(), 5 )
-            Field->UserId := "Test"
-            Field->Msg    := hb_UrlDecode( AP_PostPairs()[ "msg" ] ) 
-            DbUnLock()
-         endif         
-         DispRecord()
-      endif
+      end
       TEMPLATE
          <script>
              // Scroll to bottom whenever the iframe is (re)loaded.
@@ -70,7 +68,6 @@ function Page()
             <button type="submit">Send</button>
           </form>
           <script>
-            scrollToBottom( "records" );
             setInterval( reloadIFrame, 3000 );
           </script>
       </body>
