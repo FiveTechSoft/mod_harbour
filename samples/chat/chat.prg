@@ -17,6 +17,7 @@ function Main()
          Field->Msg    := hb_UrlDecode( AP_PostPairs()[ "msg" ] ) 
          DbUnLock()
       endif
+      Page()
    else if Empty( AP_Args() )
       Page()
    else
