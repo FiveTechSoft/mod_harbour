@@ -9,7 +9,7 @@ function Main()
    
    USE ( hb_GetEnv( "PRGPATH" ) + "/chat" ) SHARED NEW   
    
-   if Empty( AP_Params() )
+   if Empty( AP_Args() )
       BeginPage()
    endif   
    
@@ -41,7 +41,7 @@ function Main()
       </script>
    ENDTEXT
    
-   if Empty( AP_Params() )
+   if Empty( AP_Args() )
       EndPage()
    endif   
    
