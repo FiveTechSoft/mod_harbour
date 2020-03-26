@@ -2,9 +2,9 @@ function Main()
 
    local n
    
-   Start()
+   BeginPage()
    
-   ?? "<div class='browse'>"
+   ?? "<div class='browse' id='browse'>"
    for n = 1 to 50
       DispRecord()
    next   
@@ -13,35 +13,47 @@ function Main()
    endif   
    ?? "</div>"
    
-   ?? '<form action="chat.prg" method="post">'
-   ?? '<br><br><input type="text" id="msg" name="msg" size="90">'
-   ?? '<button type="submit">Send</button>'
-   ?? '</form>'
+   TEMPLATE
+      <form action="chat.prg" method="post">
+         <br><br><input type="text" id="msg" name="msg" size="90">
+         <button type="submit">Send</button>
+      </form>
+      <script>scrollToBottom( "browse" );</script>
+   ENDTEXT
    
    EndPage()
    
 return nil   
 
-function Start()
+function BeginPage()
 
-   ?? "<html>"
-   ?? "<head>"
-   ?? "</head>"
-   ?? "<style>"
-   ?? ".browse {"
-   ?? "  overflow-y: scroll;"
-   ?? "  width: 700px;"
-   ?? "  height: 600px;"
-   ?? "  background-color:white;"
-   ?? "}"
-   ?? ".record {"
-   ?? "   width:700px;"
-   ?? "}"
-   ?? ".record:hover {"
-   ?? "   background-color: rgb(248,248,248);"
-   ?? "}"
-   ?? "</style>"
-   ?? "<body style='background-color:purple;'>"
+   TEMPLATE
+      <html>
+      <head>
+      </head>
+      <style>
+         .browse {
+            overflow-y: scroll;
+            width: 700px;
+            height: 600px;
+            background-color:white;
+          }
+          .record {
+             width:700px;
+          }
+          .record:hover {
+             background-color: rgb(248,248,248);
+          }
+      </style>
+      <script>
+         function scrollToBottom( id )
+         {
+            var div = document.getElementById( id );
+            div.scrollTop = div.scrollHeight - div.clientHeight;
+         }
+     </script>    
+     <body style='background-color:purple;'>
+   ENDTEXT
 
 return nil
 
