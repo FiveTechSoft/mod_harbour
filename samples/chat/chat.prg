@@ -9,7 +9,9 @@ function Main()
    
    USE ( hb_GetEnv( "PRGPATH" ) + "/chat" ) SHARED NEW   
    
-   BeginPage()
+   if Empty( AP_Params() )
+      BeginPage()
+   endif   
    
    ?? "<div class='browse' id='browse'>"
    while ! EOF()
@@ -33,10 +35,15 @@ function Main()
          <br><br><input type="text" id="msg" name="msg" size="90">
          <button type="submit">Send</button>
       </form>
-      <script>scrollToBottom( "browse" );</script>
+      <script>
+         scrollToBottom( "browse" );
+         setInterval( "reloadIFrame();", 30000 );
+      </script>
    ENDTEXT
    
-   EndPage()
+   if Empty( AP_Params() )
+      EndPage()
+   endif   
    
    USE
    
@@ -47,7 +54,6 @@ function BeginPage()
    TEMPLATE
       <html>
       <head>
-         <meta http-equiv="refresh" content="5"/>
          <meta charset="UTF-8">
       </head>
       <style>
@@ -69,6 +75,11 @@ function BeginPage()
          {
             var div = document.getElementById( id );
             div.scrollTop = div.scrollHeight - div.clientHeight;
+         }
+         
+         function reloadIFrame() 
+         {
+            document.getElementById( "browse" ).src = "chat.prg?items";
          }
      </script>    
      <body style='background-color:purple;'>
