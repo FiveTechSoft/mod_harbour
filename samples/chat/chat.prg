@@ -16,20 +16,7 @@ function Main()
       ?? "<div id='records'>"
    endif   
    
-   while ! EOF()
-      DispRecord()
-      SKIP
-   end   
-   if AP_Method() == "POST"
-      APPEND BLANK
-      if RLock()
-         Field->Time   := Left( Time(), 5 )
-         Field->UserId := "Test"
-         Field->Msg    := hb_UrlDecode( AP_PostPairs()[ "msg" ] ) 
-         DbUnLock()
-      endif         
-      DispRecord()
-   endif   
+   GetItems()
 
    if Empty( AP_Args() )
       ?? "</div>"
@@ -52,6 +39,29 @@ function Main()
    USE
    
 return nil   
+
+//----------------------------------------------------------------------------//
+
+function GetItems()
+
+   while ! EOF()
+      DispRecord()
+      SKIP
+   end   
+   if AP_Method() == "POST"
+      APPEND BLANK
+      if RLock()
+         Field->Time   := Left( Time(), 5 )
+         Field->UserId := "Test"
+         Field->Msg    := hb_UrlDecode( AP_PostPairs()[ "msg" ] ) 
+         DbUnLock()
+      endif         
+      DispRecord()
+   endif   
+   
+return nil   
+
+//----------------------------------------------------------------------------//
 
 function BeginPage()
 
@@ -91,6 +101,8 @@ function BeginPage()
 
 return nil
 
+//----------------------------------------------------------------------------//
+
 function DispRecord()
 
    ?? "<div class='record'>"
@@ -102,9 +114,13 @@ function DispRecord()
 
 return nil
 
+//----------------------------------------------------------------------------//
+
 function EndPage()
 
    ?? "</body>"
    ?? "</html>"
    
 return nil   
+
+//----------------------------------------------------------------------------//
