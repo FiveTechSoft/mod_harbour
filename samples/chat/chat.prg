@@ -40,7 +40,7 @@ function Main()
          </form>
          <script>
             scrollToBottom( "browse" );
-            setInterval( "reloadIFrame();", 30000 );
+            setInterval( reloadIFrame, 30000 );
          </script>
       ENDTEXT
 
