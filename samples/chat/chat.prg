@@ -4,6 +4,8 @@ function Main()
    
    Start()
    
+   ?? ValToChar( AP_PostPairs() )
+    
    ?? "<div class='browse'>"
    for n = 1 to 50
       DispRecord()
