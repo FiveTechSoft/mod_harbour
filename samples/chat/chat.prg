@@ -31,6 +31,7 @@ function Start()
    ?? ".browse {"
    ?? "  overflow-y: scroll;"
    ?? "  height: 600px;"
+   ?? "  background-color:white;"
    ?? "}"
    ?? ".record {"
    ?? "   width:700px;"
