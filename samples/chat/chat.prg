@@ -12,7 +12,7 @@ function Main()
    if Empty( AP_Args() )
       BeginPage()
 
-      ?? "<div class='browse' id='browse'>"
+      ?? "<iframe class='browse' id='browse'>"
    endif   
    
    while ! EOF()
@@ -31,7 +31,7 @@ function Main()
    endif   
 
    if Empty( AP_Args() )
-      ?? "</div>"
+      ?? "</iframe>"
    
       TEMPLATE
          <form action="chat.prg" method="post">
