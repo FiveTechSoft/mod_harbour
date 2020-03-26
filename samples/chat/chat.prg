@@ -19,7 +19,6 @@ function Main()
    GetItems()
 
    if Empty( AP_Args() )
-      ?? "<script>window.scroll({top: document.documentElement.scrollHeight})</script>"
       ?? "</div>"
       ?? "</iframe>"
    
@@ -29,7 +28,7 @@ function Main()
             <button type="submit">Send</button>
          </form>
          <script>
-            // scrollToBottom( "browse" );
+            scrollToBottom( "browse" );
             setInterval( reloadIFrame, 3000 );
          </script>
       ENDTEXT
