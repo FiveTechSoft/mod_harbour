@@ -81,7 +81,7 @@ function BeginPage()
          
          function reloadIFrame() 
          {
-            document.getElementById( "browse" ).src = "chat.prg?items";
+            document.getElementById( "browse" ).contentWindow.location.reload();
          }
      </script>    
      <body style='background-color:purple;'>
