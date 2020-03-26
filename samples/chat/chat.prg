@@ -10,60 +10,33 @@ function Main()
    USE ( hb_GetEnv( "PRGPATH" ) + "/chat" ) SHARED NEW   
    
    if Empty( AP_Args() )
-      BeginPage()
-
-      ?? "<iframe class='browse' id='browse' src='chat.prg?items'>"
-      ?? "<div id='records'>"
-   endif   
-   
-   GetItems()
-
-   if Empty( AP_Args() )
-      ?? "</div>"
-      ?? "</iframe>"
-   
+      Page()
+   else
+      while ! EOF()
+         DispRecord()
+         SKIP
+      end   
+      if AP_Method() == "POST"
+         APPEND BLANK
+         if RLock()
+            Field->Time   := Left( Time(), 5 )
+            Field->UserId := "Test"
+            Field->Msg    := hb_UrlDecode( AP_PostPairs()[ "msg" ] ) 
+            DbUnLock()
+         endif         
+         DispRecord()
+      endif
       TEMPLATE
-         <form action="chat.prg" method="post">
-            <br><br><input type="text" id="msg" name="msg" size="90">
-            <button type="submit">Send</button>
-         </form>
          <script>
-            scrollToBottom( "browse" );
-            setInterval( reloadIFrame, 3000 );
+             // Scroll to bottom whenever the iframe is (re)loaded.
+             window.scroll({top: document.documentElement.scrollHeight})
          </script>
       ENDTEXT
-
-      EndPage()
-   endif   
-   
-   USE
+   endif
    
 return nil   
 
-//----------------------------------------------------------------------------//
-
-function GetItems()
-
-   while ! EOF()
-      DispRecord()
-      SKIP
-   end   
-   if AP_Method() == "POST"
-      APPEND BLANK
-      if RLock()
-         Field->Time   := Left( Time(), 5 )
-         Field->UserId := "Test"
-         Field->Msg    := hb_UrlDecode( AP_PostPairs()[ "msg" ] ) 
-         DbUnLock()
-      endif         
-      DispRecord()
-   endif   
-   
-return nil   
-
-//----------------------------------------------------------------------------//
-
-function BeginPage()
+function Page()
 
    TEMPLATE
       <html>
@@ -85,24 +58,26 @@ function BeginPage()
           }
       </style>
       <script>
-         function scrollToBottom( id )
-         {
-            var div = document.getElementById( id );
-            var records = div.window.getElementById( "records" );
-            records.scrollTop = records.scrollHeight - records.clientHeight;
-         }
-         
          function reloadIFrame() 
          {
             document.getElementById( "browse" ).contentWindow.location.reload();
          }
-     </script>    
-     <body style='background-color:purple;'>
+      </script>    
+      <body style='background-color:purple;'>
+          <iframe class="browse" id="browse" src="chat.prg?items"></iframe>
+          <form action="chat.prg" method="post">
+            <br><br><input type="text" id="msg" name="msg" size="90">
+            <button type="submit">Send</button>
+          </form>
+          <script>
+            scrollToBottom( "records" );
+            setInterval( reloadIFrame, 3000 );
+          </script>
+      </body>
+      </html>
    ENDTEXT
 
 return nil
-
-//----------------------------------------------------------------------------//
 
 function DispRecord()
 
@@ -114,14 +89,3 @@ function DispRecord()
    ?? "</div>"
 
 return nil
-
-//----------------------------------------------------------------------------//
-
-function EndPage()
-
-   ?? "</body>"
-   ?? "</html>"
-   
-return nil   
-
-//----------------------------------------------------------------------------//
