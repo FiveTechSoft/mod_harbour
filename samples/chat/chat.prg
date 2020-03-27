@@ -96,7 +96,7 @@ function BeginPage()
           .message {
 	          flex: 93%;
           }
-          .time {
+          .time-title {
 	          font-size: 0.6em;
 	          color: #747474;
           }
@@ -104,6 +104,8 @@ function BeginPage()
 			  border-radius: 5px;
 		  }
 		  .time-disp {
+			  padding-left: 2px;
+			  padding-top: 2px;
 			  font-size: 0.6em;
 			  color: rgba(255, 255, 255, 0);
 		  }
@@ -151,7 +153,7 @@ function DispRecord()
       ?? "</div>"
       ?? "<div class='message'>"
       ?? "<a><b>" + AllTrim( Field->UserId ) + "</b></a>"
-      ?? "<a class='time'>"+ Field->Time + "</a><br>"
+      ?? "<a class='time-title'>"+ Field->Time + "</a><br>"
       ?? "<a>" + AllTrim( Field->Msg ) + "</a>"
       ?? "</div>"
       ?? "</div>"
