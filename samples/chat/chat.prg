@@ -103,6 +103,13 @@ function BeginPage()
           .img-profile {
 			  border-radius: 5px;
 		  }
+		  .time-disp {
+			  font-size: 0.6em;
+			  color: rgba(255, 255, 255, 0);
+		  }
+		  .record:hover .time-disp {
+			  color: #747474;
+		  }
       </style>
       <script>
          function scrollToBottom( id )
@@ -154,10 +161,10 @@ function DispRecord()
       ?? "<div class='record'>"
       ?? "<div class='row'>"
       ?? "<div class ='profile-img'>"
-      ?? "<a class='time'>"+ Field->Time + "</a>"
+      ?? "<a class='time-disp'>"+ Field->Time + "</a>"
       ?? "</div>"
       ?? "<div class='message'>"
-      ?? "<br><a>" + AllTrim( Field->Msg ) + "</a>"
+      ?? "<a>" + AllTrim( Field->Msg ) + "</a>"
       ?? "</div>"
       ?? "</div>"
       ?? "</div>"
