@@ -71,6 +71,9 @@ function BeginPage()
          <meta charset="UTF-8">
       </head>
       <style>
+         body {
+            background-color: rgba(50, 115, 220, 0.3);
+         }
          .browse {
             overflow-y: scroll;
             width: 700px;
@@ -96,7 +99,7 @@ function BeginPage()
             document.getElementById( "browse" ).contentWindow.location.reload();
          }
      </script>    
-     <body style='background-color:purple;'>
+     <body>
    ENDTEXT
 
 return nil
