@@ -22,7 +22,7 @@ function Main()
    
       TEMPLATE
          <form action="chat.prg" method="post">
-            <br><br><input type="text" id="msg" name="msg" size="88">
+            <br><br><input type="text" id="msg" name="msg" size="88" autofocus>
             <button type="submit">Send</button>
          </form>
          <script>
@@ -74,12 +74,30 @@ function BeginPage()
             width: 700px;
             height: 600px;
             background-color:white;
+            font-family: sans-serif;
           }
           .record {
              width:700px;
           }
           .record:hover {
              background-color: rgb(248,248,248);
+          }
+          .row {
+	         display: flex;
+			 padding-left: 2px;
+			 padding-bottom: 3px;
+			 padding-top: 3px;
+          }
+          .profile-img {
+	          flex: 7%;
+          }
+          .message {
+	          flex: 93%;
+	          padding-top: 5px;
+          }
+          .time {
+	          font-size: smaller;
+	          color: gray;
           }
       </style>
       <script>
@@ -113,10 +131,16 @@ return nil
 function DispRecord()
 
    ?? "<div class='record'>"
-   ?? "<img src='https://ca.slack-edge.com/TJH5YU202-UNAHBRTFA-g3d2a3f4c28c-48' width=40 height=40>"
+   ?? "<div class='row'>"
+   ?? "<div class ='profile-img'>"
+   ?? "<img src='img/profile-default.png' width=40 height=40>"
+   ?? "</div>"
+   ?? "<div class='message'>"
    ?? "<a><b>" + AllTrim( Field->UserId ) + "</b></a>"
-   ?? "<a>"+ Field->Time + "</a><br>"
+   ?? "<a class='time'>"+ Field->Time + "</a><br>"
    ?? "<a style='padding-left:50px;'>" + AllTrim( Field->Msg ) + "</a>"
+   ?? "</div>"
+   ?? "</div>"
    ?? "</div>"
 
 return nil
