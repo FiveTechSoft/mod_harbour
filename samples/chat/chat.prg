@@ -67,6 +67,7 @@ function BeginPage()
       <html>
       <head>
          <meta charset="UTF-8">
+         <link href="https://fonts.googleapis.com/css?family=Lato:300,400&display=swap" rel="stylesheet">
       </head>
       <style>
          .browse {
@@ -74,19 +75,20 @@ function BeginPage()
             width: 700px;
             height: 600px;
             background-color:white;
-            font-family: sans-serif;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
           }
           .record {
              width:700px;
           }
           .record:hover {
-             background-color: rgb(248,248,248);
+             background-color: rgb(180,180,180);
           }
           .row {
 	         display: flex;
-			 padding-left: 2px;
-			 padding-bottom: 3px;
-			 padding-top: 3px;
+			 padding-left: 4px;
+			 padding-bottom: 4px;
+			 padding-top: 4px;
           }
           .profile-img {
 	          flex: 7%;
@@ -96,8 +98,8 @@ function BeginPage()
 	          padding-top: 5px;
           }
           .time {
-	          font-size: smaller;
-	          color: gray;
+	          font-size: 0.6em;
+	          color: #747474;
           }
       </style>
       <script>
@@ -133,12 +135,12 @@ function DispRecord()
    ?? "<div class='record'>"
    ?? "<div class='row'>"
    ?? "<div class ='profile-img'>"
-   ?? "<img src='img/profile-default.png' width=40 height=40>"
+   ?? "<img class="img-profile" src='img/profile-default.png' width=40 height=40>"
    ?? "</div>"
    ?? "<div class='message'>"
    ?? "<a><b>" + AllTrim( Field->UserId ) + "</b></a>"
    ?? "<a class='time'>"+ Field->Time + "</a><br>"
-   ?? "<a style='padding-left:50px;'>" + AllTrim( Field->Msg ) + "</a>"
+   ?? "<a>" + AllTrim( Field->Msg ) + "</a>"
    ?? "</div>"
    ?? "</div>"
    ?? "</div>"
