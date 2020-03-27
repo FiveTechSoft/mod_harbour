@@ -99,7 +99,8 @@ function BeginPage()
                      throw new Error( res.status + " " + res.statusText );
                   }
                } ).then( data => {
-                  document.getElementById( 'browse' ).innerHtml = data; } );
+                  console.log( data );
+                  document.getElementById( 'browse' ).innerHTML = data; } );
          }
      </script>    
      <body style='background-color:purple;'>
