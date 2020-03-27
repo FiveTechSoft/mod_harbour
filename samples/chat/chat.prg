@@ -133,7 +133,7 @@ function DispRecord()
    ?? "<div class='record'>"
    ?? "<div class='row'>"
    ?? "<div class ='profile-img'>"
-   ?? "<img src='https://ca.slack-edge.com/TJH5YU202-UNAHBRTFA-g3d2a3f4c28c-48' width=40 height=40>"
+   ?? "<img src='img/profile-default.png' width=40 height=40>"
    ?? "</div>"
    ?? "<div class='message'>"
    ?? "<a><b>" + AllTrim( Field->UserId ) + "</b></a>"
