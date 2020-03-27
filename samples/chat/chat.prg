@@ -134,18 +134,34 @@ return nil
 
 function DispRecord()
 
-   ?? "<div class='record'>"
-   ?? "<div class='row'>"
-   ?? "<div class ='profile-img'>"
-   ?? "<img class='img-profile' src='img/profile-default.png' width=40 height=40>"
-   ?? "</div>"
-   ?? "<div class='message'>"
-   ?? "<a><b>" + AllTrim( Field->UserId ) + "</b></a>"
-   ?? "<a class='time'>"+ Field->Time + "</a><br>"
-   ?? "<a>" + AllTrim( Field->Msg ) + "</a>"
-   ?? "</div>"
-   ?? "</div>"
-   ?? "</div>"
+   static cLastUserId := ""
+   
+   if cLastUserId != Field->UserId
+      ?? "<div class='record'>"
+      ?? "<div class='row'>"
+      ?? "<div class ='profile-img'>"
+      ?? "<img class='img-profile' src='img/profile-default.png' width=40 height=40>"
+      ?? "</div>"
+      ?? "<div class='message'>"
+      ?? "<a><b>" + AllTrim( Field->UserId ) + "</b></a>"
+      ?? "<a class='time'>"+ Field->Time + "</a><br>"
+      ?? "<a>" + AllTrim( Field->Msg ) + "</a>"
+      ?? "</div>"
+      ?? "</div>"
+      ?? "</div>"
+      cLastUserId = Field->UserId
+   else
+      ?? "<div class='record'>"
+      ?? "<div class='row'>"
+      ?? "<div class ='profile-img'>"
+      ?? "<a class='time'>"+ Field->Time + "</a>"
+      ?? "</div>"
+      ?? "<div class='message'>"
+      ?? "<br><a>" + AllTrim( Field->Msg ) + "</a>"
+      ?? "</div>"
+      ?? "</div>"
+      ?? "</div>"
+   endif
 
 return nil
 
