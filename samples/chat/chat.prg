@@ -42,16 +42,18 @@ return nil
 
 function GetItems()
 
+   local hPostPairs := AP_PostPairs()
+
    while ! EOF()
       DispRecord()
       SKIP
    end   
-   if AP_Method() == "POST" .and. ! Empty( AP_PostPairs()[ "msg" ] )
+   if AP_Method() == "POST" .and. ! Empty( hPostPairs[ "msg" ] ) .and. "<script>" != Upper( hPostPairs[ "msg" ] 
       APPEND BLANK
       if RLock()
          Field->Time   := Left( Time(), 5 )
          Field->UserId := AP_UserIP()
-         Field->Msg    := hb_UrlDecode( AP_PostPairs()[ "msg" ] ) 
+         Field->Msg    := hb_UrlDecode( hPostPairs[ "msg" ] ) 
          DbUnLock()
       endif         
       DispRecord()
