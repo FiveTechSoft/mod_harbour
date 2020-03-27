@@ -21,13 +21,13 @@ function Main()
       ?? "</div>"
    
       TEMPLATE
-         <form>
+         <form method="post">
 			<div class="row">
 				<div class="col-11 pr-1">
-					<input type="text" class="form-control">
+					<input name="msg" type="text" class="form-control">
 				</div>
 				<div class="col pl-1">
-					<button class="btn btn-primary w-100">Send</button>
+					<button type="submit" class="btn btn-primary w-100">Send</button>
 				</div>
 			</div>
 		 </form>
@@ -54,8 +54,7 @@ function GetItems()
       DispRecord()
       SKIP
    end   
-   if AP_Method() == "POST" .and. ! Empty( hPostPairs[ "msg" ] ) .and. ; 
-      ! "<SCRIPT" $ Upper( hPostPairs[ "msg" ] )
+   if AP_Method() == "POST" .and. ! Empty( hPostPairs[ "msg" ] ) .and. ! "<SCRIPT>" $ Upper( hPostPairs[ "msg" ] )
       APPEND BLANK
       if RLock()
          Field->Time   := Left( Time(), 5 )
@@ -131,6 +130,8 @@ function BeginPage()
 				.time-column {
 					color: rgba(255, 255, 255, 0) !important;
 					font-size: 0.6em;
+					padding-left: 2px;
+					padding-right: 8px;
 				}
 				
 				.record:hover .time-column{
@@ -154,7 +155,6 @@ function BeginPage()
 		                     throw new Error( res.status + " " + res.statusText );
 		                  }
 		               } ).then( data => {
-		                  console.log( data );
 		                  document.getElementById( 'browse' ).innerHTML = data; } );
 		         }
 		     </script> 
