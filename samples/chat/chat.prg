@@ -50,7 +50,7 @@ function GetItems()
       APPEND BLANK
       if RLock()
          Field->Time   := Left( Time(), 5 )
-         Field->UserId := "Test"
+         Field->UserId := AP_UserIP()
          Field->Msg    := hb_UrlDecode( AP_PostPairs()[ "msg" ] ) 
          DbUnLock()
       endif         
@@ -82,7 +82,7 @@ function BeginPage()
              width:700px;
           }
           .record:hover {
-             background-color: rgb(180,180,180);
+             background-color: rgb(246, 246, 246);
           }
           .row {
 	         display: flex;
@@ -95,12 +95,14 @@ function BeginPage()
           }
           .message {
 	          flex: 93%;
-	          padding-top: 5px;
           }
           .time {
 	          font-size: 0.6em;
 	          color: #747474;
           }
+          .img-profile {
+			  border-radius: 5px;
+		  }
       </style>
       <script>
          function scrollToBottom( id )
