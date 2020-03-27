@@ -49,7 +49,8 @@ function GetItems()
       SKIP
    end   
    if AP_Method() == "POST" .and. ! Empty( hPostPairs[ "msg" ] ) .and. ;
-      ! "<SCRIPT" $ Upper( hb_UrlDecode( hPostPairs[ "msg" ] ) )
+      ( ! "<SCRIPT" $ Upper( hb_UrlDecode( hPostPairs[ "msg" ] ) ) .or. ;
+        ! "<STYLE" $ Upper( hb_UrlDecode( hPostPairs[ "msg" ] ) )
       APPEND BLANK
       if RLock()
          Field->Time   := Left( Time(), 5 )
