@@ -12,24 +12,22 @@ function Main()
    if Empty( AP_Args() )
       BeginPage()
 
-      ?? "<iframe class='browse' id='browse' src='chat.prg?items'>"
-      ?? "<div id='records'>"
+      ?? "<div class='browse' id='browse'>"
    endif   
    
    GetItems()
 
    if Empty( AP_Args() )
       ?? "</div>"
-      ?? "</iframe>"
    
       TEMPLATE
          <form action="chat.prg" method="post">
-            <br><br><input type="text" id="msg" name="msg" size="90">
+            <br><br><input type="text" id="msg" name="msg" size="88">
             <button type="submit">Send</button>
          </form>
          <script>
             scrollToBottom( "browse" );
-            setInterval( reloadIFrame, 3000 );
+            setInterval( LoadItems, 3000 );
          </script>
       ENDTEXT
 
@@ -91,9 +89,16 @@ function BeginPage()
             div.scrollTop = div.scrollHeight - div.clientHeight;
          }
          
-         function reloadIFrame() 
+         function LoadItems() 
          {
-            document.getElementById( "browse" ).contentWindow.location.reload();
+            fetch( "chat.prg?items" ).then( res => {
+               if( res.ok ) {
+                     return res.text();
+                  } else {
+                     throw new Error( res.status + " " + res.statusText );
+                  }
+               } ).then( data => {
+                  document.getElementById( 'browse' ).innerHtml = data; } );
          }
      </script>    
      <body style='background-color:purple;'>
