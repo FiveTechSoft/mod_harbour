@@ -22,7 +22,7 @@ function Main()
    
       TEMPLATE
          <form action="chat.prg" method="post">
-            <br><br><input type="text" id="msg" name="msg" size="88">
+            <br><br><input type="text" id="msg" name="msg" size="88" autofocus>
             <button type="submit">Send</button>
          </form>
          <script>
