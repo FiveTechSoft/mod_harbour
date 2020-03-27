@@ -137,6 +137,27 @@ function BeginPage()
 					color: #9c9c9c !important;
 				}
 			</style>
+			<script>
+		         function scrollToBottom( id )
+		         {
+		            var div = document.getElementById( id );
+		            div.scrollTop = div.scrollHeight - div.clientHeight;
+		         }
+		         
+		         function LoadItems() 
+		         {
+		            scrollToBottom( "browse" );
+		            fetch( "chat.prg?items" ).then( res => {
+		               if( res.ok ) {
+		                     return res.text();
+		                  } else {
+		                     throw new Error( res.status + " " + res.statusText );
+		                  }
+		               } ).then( data => {
+		                  console.log( data );
+		                  document.getElementById( 'browse' ).innerHTML = data; } );
+		         }
+		     </script> 
 		</head>
 		<body class="back">
 			<div class="container-fluid">
