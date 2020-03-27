@@ -104,8 +104,8 @@ function BeginPage()
 			  border-radius: 5px;
 		  }
 		  .time-disp {
-			  padding-left: 2px;
-			  padding-top: 2px;
+			  padding-left: 7px;
+			  padding-top: 5px;
 			  font-size: 0.6em;
 			  color: rgba(255, 255, 255, 0);
 		  }
