@@ -135,7 +135,7 @@ function DispRecord()
    ?? "<div class='record'>"
    ?? "<div class='row'>"
    ?? "<div class ='profile-img'>"
-   ?? "<img class="img-profile" src='img/profile-default.png' width=40 height=40>"
+   ?? "<img class='img-profile' src='img/profile-default.png' width=40 height=40>"
    ?? "</div>"
    ?? "<div class='message'>"
    ?? "<a><b>" + AllTrim( Field->UserId ) + "</b></a>"
