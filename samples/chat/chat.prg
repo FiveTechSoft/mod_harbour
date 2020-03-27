@@ -48,7 +48,7 @@ function GetItems()
       DispRecord()
       SKIP
    end   
-   if AP_Method() == "POST" .and. ! Empty( hPostPairs[ "msg" ] ) .and. "<script>" != Upper( hPostPairs[ "msg" ] 
+   if AP_Method() == "POST" .and. ! Empty( hPostPairs[ "msg" ] ) .and. "<script>" != Upper( hPostPairs[ "msg" ] )
       APPEND BLANK
       if RLock()
          Field->Time   := Left( Time(), 5 )
