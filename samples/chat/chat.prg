@@ -91,6 +91,7 @@ function BeginPage()
          
          function LoadItems() 
          {
+            scrollToBottom( "browse" );
             fetch( "chat.prg?items" ).then( res => {
                if( res.ok ) {
                      return res.text();
