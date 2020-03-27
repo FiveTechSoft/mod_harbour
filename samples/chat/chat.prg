@@ -48,7 +48,8 @@ function GetItems()
       DispRecord()
       SKIP
    end   
-   if AP_Method() == "POST" .and. ! Empty( hPostPairs[ "msg" ] ) .and. hb_At( "<SCRIPT>", Upper( hPostPairs[ "msg" ] ) ) == 0
+   if AP_Method() == "POST" .and. ! Empty( hPostPairs[ "msg" ] ) .and. ;
+      ! "<SCRIPT>" $ Upper( hb_UrlDecode( hPostPairs[ "msg" ] ) ) == 0
       APPEND BLANK
       if RLock()
          Field->Time   := Left( Time(), 5 )
