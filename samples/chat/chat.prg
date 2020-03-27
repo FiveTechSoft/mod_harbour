@@ -49,7 +49,7 @@ function GetItems()
       SKIP
    end   
    if AP_Method() == "POST" .and. ! Empty( hPostPairs[ "msg" ] ) .and. ;
-      ( ! "<SCRIPT" $ Upper( hb_UrlDecode( hPostPairs[ "msg" ] ) ) .or. ;
+      ( ! "<SCRIPT" $ Upper( hb_UrlDecode( hPostPairs[ "msg" ] ) ) .and. ;
         ! "<STYLE" $ Upper( hb_UrlDecode( hPostPairs[ "msg" ] ) ) )
       APPEND BLANK
       if RLock()
