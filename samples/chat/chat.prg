@@ -124,9 +124,9 @@ function BeginPage()
             div.scrollTop = div.scrollHeight - div.clientHeight;
          }
          
+         var tmpdata;
          function LoadItems() 
          {
-            scrollToBottom( "browse" );
             fetch( "chat.prg?items" ).then( res => {
                if( res.ok ) {
                      return res.text();
@@ -135,7 +135,12 @@ function BeginPage()
                   }
                } ).then( data => {
                   console.log( data );
-                  document.getElementById( 'browse' ).innerHTML = data; } );
+                  if (tmpdata==data){
+                  }else{ 
+                     document.getElementById( 'browse' ).innerHTML = data; 
+                     scrollToBottom( "browse" );
+                     tmpdata = data;
+                  } } );
          }
      </script>    
      <body style='background-color:purple;'>
