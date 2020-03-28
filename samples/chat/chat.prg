@@ -1,5 +1,11 @@
 function Main()
+  
+   if Empty( AP_Args() )
+      BeginPage()
 
+      ?? "<div class='browse' id='browse'>"
+   endif   
+   
    if ! File( hb_GetEnv( "PRGPATH" ) + "/chat.dbf" )
       DbCreate( hb_GetEnv( "PRGPATH" ) + "/chat.dbf",;
                 { { "TIME",        "C",  8, 0 },;
@@ -8,13 +14,7 @@ function Main()
    endif   
    
    USE ( hb_GetEnv( "PRGPATH" ) + "/chat" ) SHARED NEW   
-   
-   if Empty( AP_Args() )
-      BeginPage()
 
-      ?? "<div class='browse' id='browse'>"
-   endif   
-   
    GetItems()
 
    if Empty( AP_Args() )
