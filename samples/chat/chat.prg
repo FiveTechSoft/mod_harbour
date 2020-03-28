@@ -90,9 +90,9 @@ function BeginPage()
           }
           .row {
 	         display: flex;
-			 padding-left: 4px;
-			 padding-bottom: 4px;
-			 padding-top: 4px;
+			   padding-left: 4px;
+			   padding-bottom: 4px;
+			   padding-top: 4px;
           }
           .profile-img {
 	          flex: 7%;
@@ -100,20 +100,21 @@ function BeginPage()
           .message {
 	          flex: 93%;
           }
-          .time-title {
-	          font-size: 0.6em;
-	          color: #747474;
-          }
           .img-profile {
-			  border-radius: 5px;
+			    border-radius: 5px;
+          }
+          .timetop {
+             padding-left: 10px;
+             color: #747474;
+             font-size: 12px;
+          }
+		    .timeleft {
+			    padding-left: 7px;
+			    padding-top: 3px;
+			    font-size: 12px;
+			    color: rgba(255, 255, 255, 0);
 		  }
-		  .time-disp {
-			  padding-left: 7px;
-			  padding-top: 5px;
-			  font-size: 0.6em;
-			  color: rgba(255, 255, 255, 0);
-		  }
-		  .record:hover .time-disp {
+		  .record:hover .timeleft {
 			  color: #747474;
 		  }
       </style>
@@ -157,7 +158,7 @@ function DispRecord()
       ?? "</div>"
       ?? "<div class='message'>"
       ?? "<a><b>" + AllTrim( Field->UserId ) + "</b></a>"
-      ?? "<a class='time-title'>"+ Field->Time + "</a><br>"
+      ?? "<a class='timetop'>" + AllTrim( Field->Time ) + "</a><br>"
       ?? "<a>" + AllTrim( Field->Msg ) + "</a>"
       ?? "</div>"
       ?? "</div>"
@@ -167,7 +168,7 @@ function DispRecord()
       ?? "<div class='record'>"
       ?? "<div class='row'>"
       ?? "<div class ='profile-img'>"
-      ?? "<a class='time-disp'>"+ Field->Time + "</a>"
+      ?? "<div class='timeleft'>" + AllTrim( Field->Time ) + "</div>"
       ?? "</div>"
       ?? "<div class='message'>"
       ?? "<a>" + AllTrim( Field->Msg ) + "</a>"
