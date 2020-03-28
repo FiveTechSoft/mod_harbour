@@ -83,10 +83,10 @@ function BeginPage()
             font-weight: 400;
           }
           .record {
-             width:700px;
+            width:700px;
           }
           .record:hover {
-             background-color: rgb(246, 246, 246);
+            background-color: rgb(246, 246, 246);
           }
           .row {
 	         display: flex;
@@ -95,25 +95,32 @@ function BeginPage()
 			   padding-top: 4px;
           }
           .profile-img {
-	          flex: 7%;
+	         flex: 7%;
           }
           .message {
-	          flex: 93%;
+	         flex: 93%;
           }
           .img-profile {
-			    border-radius: 5px;
+			   border-radius: 5px;
+          }
+          .username {
+            font-size: 15px;
+            font-weight: bold;
           }
           .timetop {
-             padding-left: 10px;
-             color: #747474;
-             font-size: 12px;
+            padding-left: 10px;
+            color: #747474;
+            font-size: 12px;
           }
 		    .timeleft {
-			    padding-left: 7px;
-			    padding-top: 3px;
-			    font-size: 12px;
-			    color: rgba(255, 255, 255, 0);
-		  }
+			   padding-left: 7px;
+			   padding-top: 3px;
+			   font-size: 12px;
+			   color: rgba( 255, 255, 255, 0 );
+        }
+        .content {
+            font-size: 15px;
+        }
 		  .record:hover .timeleft {
 			  color: #747474;
 		  }
@@ -157,9 +164,9 @@ function DispRecord()
       ?? "<img class='img-profile' src='img/profile-default.png' width=40 height=40>"
       ?? "</div>"
       ?? "<div class='message'>"
-      ?? "<a><b>" + AllTrim( Field->UserId ) + "</b></a>"
+      ?? "<a class='username'>" + AllTrim( Field->UserId ) + "</a>"
       ?? "<a class='timetop'>" + AllTrim( Field->Time ) + "</a><br>"
-      ?? "<a>" + AllTrim( Field->Msg ) + "</a>"
+      ?? "<a class='content'>" + AllTrim( Field->Msg ) + "</a>"
       ?? "</div>"
       ?? "</div>"
       ?? "</div>"
@@ -171,7 +178,7 @@ function DispRecord()
       ?? "<div class='timeleft'>" + AllTrim( Field->Time ) + "</div>"
       ?? "</div>"
       ?? "<div class='message'>"
-      ?? "<a>" + AllTrim( Field->Msg ) + "</a>"
+      ?? "<a class='content'>" + AllTrim( Field->Msg ) + "</a>"
       ?? "</div>"
       ?? "</div>"
       ?? "</div>"
