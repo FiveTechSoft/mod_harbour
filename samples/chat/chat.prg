@@ -133,6 +133,7 @@ function BeginPage()
          }
          
          var tmpdata;
+
          function LoadItems() 
          {
             fetch( "chat.prg?items" ).then( res => {
@@ -143,8 +144,8 @@ function BeginPage()
                   }
                } ).then( data => {
                   console.log( data );
-                  if (tmpdata==data){
-                  }else{ 
+                  if( tmpdata != data )
+                  {
                      document.getElementById( 'browse' ).innerHTML = data; 
                      scrollToBottom( "browse" );
                      tmpdata = data;
