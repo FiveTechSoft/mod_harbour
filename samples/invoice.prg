@@ -1,4 +1,15 @@
-// {% hb_SetEnv( "HB_INCLUDE", If( "Linux" $ OS(), "/home/user/harbour/include", If( "Windows" $ OS(), "c:\harbour\include", "/Users/anto/harbour/include" ) ) ) %}
+#ifdef __PLATFORM__WINDOWS
+   #include "c:\harbour\include\hbclass.ch"
+   #include "c:\harbour\contrib\hbhpdf\harupdf.ch"
+#else
+   #ifdef __PLATFORM__UNIX
+      #include "/home/user/harbour/include/hbclass.ch"
+      #include "/home/user/harbour/contrib/hbhpdf/harupdf.ch"
+   #else   
+      #include "/Users/anto/harbour/include/hbclass.ch"
+      #include "/Users/anto/harbour/contrib/hbhpdf/harupdf.ch"
+   #endif
+#endif      
 
 STATIC aTtfFontList:= NIL
 STATIC cFontDir
@@ -60,9 +71,6 @@ function Main()
 return nil
 
 //------------------------------------------------------------------------------
-
-#include 'hbclass.ch'
-#include 'harupdf.ch'
 
 CLASS TPdf
 
