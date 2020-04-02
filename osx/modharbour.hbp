@@ -9,5 +9,7 @@
 
 -trace
 -dflag=@libs.txt
+-FCoreFoundation
+-FSecurity
 
 mod.hbp
