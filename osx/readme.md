@@ -63,7 +63,7 @@ brew install pcre
 
 ```
 git clone https://github.com/harbour/core harbour
-export HB_WITH_CURL=/usr/local/Cellar/curl/7.68.0/include/
+export HB_WITH_CURL=/usr/local/Cellar/curl/7.69.1/include/
 export HB_BUILD_CONTRIBS=""
 make
 ```
