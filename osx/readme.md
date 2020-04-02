@@ -52,10 +52,11 @@ brew install httpd
 ```
 <hr>
 
-0. Install curl:
+0. Install curl and pcre:
 
 ```
 brew install curl
+brew install pcre
 ```
 
 1. Download Harbour and build it:
