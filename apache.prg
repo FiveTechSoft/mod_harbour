@@ -320,9 +320,9 @@ function AP_GetPairs()
    for each cPair in aPairs
       aPair = hb_ATokens( cPair, "=" )
       if Len( aPair ) == 2 
-         hPairs[ aPair[ 1 ] ] = aPair[ 2 ]
+         hPairs[ hb_UrlDecode( aPair[ 1 ] ) ] = hb_UrlDecode( aPair[ 2 ] )
       else
-         hPairs[ aPair[ 1 ] ] = ""
+         hPairs[ hb_UrlDecode( aPair[ 1 ] ) ] = ""
       endif   
    next
    
