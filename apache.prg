@@ -312,6 +312,24 @@ return hPairs
 
 //----------------------------------------------------------------//
 
+function AP_GetPairs()
+
+   local aPairs := hb_ATokens( AP_Args(), "&" )
+   local cPair, aPair, hPairs := {=>} 
+
+   for each cPair in aPairs
+      aPair = hb_ATokens( cPair, "=" )
+      if Len( aPair ) == 2 
+         hPairs[ aPair[ 1 ] ] = aPair[ 2 ]
+      else
+         hPairs[ aPair[ 1 ] ] = ""
+      endif   
+   next
+   
+return hPairs
+
+//----------------------------------------------------------------//
+
 function ReplaceBlocks( cCode, cStartBlock, cEndBlock, cParams, ... )
 
    local nStart, nEnd, cBlock
