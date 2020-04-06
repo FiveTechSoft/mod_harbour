@@ -207,6 +207,28 @@ return lResult
 
 //----------------------------------------------------------------//
 
+function ObjToChar( o )
+
+   local cResult  := "Object of Class " + o:ClassName() + "<br>" + CRLF
+   local aDatas   := __objGetMsgList( o, .T. ), cData 
+   local aMethods := __objGetMsgList( o, .F. ), cMethod
+   
+   cResult += "   DATAs: ***********" + "<br>" + CRLF
+   
+   for each cData in aDatas
+      cResult += "   " + cData + ": " + ValToChar( __ObjSendMsg( o, cData ) ) + "<br>" + CRLF
+   next      
+
+   cResult += "   METHODs: ***********" + "<br>" + CRLF
+
+   for each cMethod in aMethods
+      cResult += "   " + cMethod + "<br>" + CRLF
+   next      
+
+return cResult
+
+//----------------------------------------------------------------//
+
 function ValToChar( u )
 
    local cType := ValType( u )
@@ -227,6 +249,9 @@ function ValToChar( u )
 
       case cType == "A"
            cResult = hb_ValToExp( u )
+
+      case cType == "O"
+           cResult = ObjToChar( u )
 
       case cType == "P"
            cResult = "(P)" 
@@ -530,16 +555,39 @@ HB_FUNC( AP_RPUTS )
 
    for( iParam = 1; iParam <= iParams; iParam++ )
    {
-      HB_SIZE nLen;
-      HB_BOOL bFreeReq;
-      char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
+      PHB_ITEM pItem = hb_param( iParam, HB_IT_ANY );
 
-      ap_rputs( buffer, pRequestRec );
-      ap_rputs( " ", pRequestRec ); 
+      if( HB_ISOBJECT( iParam ) )
+      {
+         hb_vmPushSymbol( hb_dynsymGetSymbol( "OBJTOCHAR" ) );
+         hb_vmPushNil();
+         hb_vmPush( pItem );
+         hb_vmFunction( 1 );
+         ap_rputs( hb_parc( -1 ), pRequestRec );
+      }
+      else if( HB_ISHASH( iParam ) || HB_ISARRAY( iParam ) )
+      {
+         hb_vmPushSymbol( hb_dynsymGetSymbol( "HB_VALTOEXP" ) );
+         hb_vmPushNil();
+         hb_vmPush( pItem );
+         hb_vmFunction( 1 );
+         ap_rputs( hb_parc( -1 ), pRequestRec );
+      }
+      else
+      {
+         HB_SIZE nLen;
+         HB_BOOL bFreeReq;
+         char * buffer = hb_itemString( pItem, &nLen, &bFreeReq );
 
-      if( bFreeReq )
-         hb_xfree( buffer );
-   }     
+         ap_rputs( buffer, pRequestRec );
+         ap_rputs( " ", pRequestRec ); 
+
+         if( bFreeReq )
+            hb_xfree( buffer );
+      }      
+   }
+
+   hb_ret();     
 }
 
 HB_FUNC( AP_FILENAME )
