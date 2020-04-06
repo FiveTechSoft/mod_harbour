@@ -210,9 +210,12 @@ return lResult
 function ObjToChar( o )
 
    local hObj := {=>}, aDatas := __objGetMsgList( o, .T. )
-   local hPairs := {=>}
+   local hPairs := {=>}, aParents := __ClsgetAncestors( o:ClassH )
 
-   hObj[ "CLASS" ]   = o:ClassName()
+   AEval( aParents, { | h, n | aParents[ n ] := __ClassName( h ) } ) 
+
+   hObj[ "CLASS" ] = o:ClassName()
+   hObj[ "FROM" ]  = aParents 
 
    AEval( aDatas, { | cData | hPairs[ cData ] := __ObjSendMsg( o, cData ) } )
    hObj[ "DATAs" ]   = hPairs
