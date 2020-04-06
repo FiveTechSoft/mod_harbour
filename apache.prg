@@ -209,23 +209,16 @@ return lResult
 
 function ObjToChar( o )
 
-   local cResult  := "Object of Class " + o:ClassName() + "<br>" + CRLF
-   local aDatas   := __objGetMsgList( o, .T. ), cData 
-   local aMethods := __objGetMsgList( o, .F. ), cMethod
-   
-   cResult += "   DATAs: ***********" + "<br>" + CRLF
-   
-   for each cData in aDatas
-      cResult += "   " + cData + ": " + ValToChar( __ObjSendMsg( o, cData ) ) + "<br>" + CRLF
-   next      
+   local hObj := {=>}, aDatas := __objGetMsgList( o, .T. )
+   local hPairs := {=>}
 
-   cResult += "   METHODs: ***********" + "<br>" + CRLF
+   hObj[ "CLASS" ]   = o:ClassName()
 
-   for each cMethod in aMethods
-      cResult += "   " + cMethod + "<br>" + CRLF
-   next      
+   AEval( aDatas, { | cData | hPairs[ cData ] := __ObjSendMsg( o, cData ) } )
+   hObj[ "DATAs" ]   = hPairs
+   hObj[ "METHODs" ] = __objGetMsgList( o, .F. )
 
-return cResult
+return ValToChar( hObj )
 
 //----------------------------------------------------------------//
 
@@ -260,7 +253,10 @@ function ValToChar( u )
            cResult = "(Symbol)" 
  
       case cType == "H"
-           cResult = hb_ValToExp( u )
+           cResult = StrTran( StrTran( hb_JsonEncode( u, .T. ), CRLF, "<br>" ), " ", "&nbsp;" )
+           if Left( cResult, 2 ) == "{}"
+              cResult = StrTran( cResult, "{}", "{=>}" )
+           endif   
 
       case cType == "U"
            cResult = "nil"
@@ -570,7 +566,7 @@ HB_FUNC( AP_RPUTS )
       }
       else if( HB_ISHASH( iParam ) || HB_ISARRAY( iParam ) )
       {
-         hb_vmPushSymbol( hb_dynsymGetSymbol( "HB_VALTOEXP" ) );
+         hb_vmPushSymbol( hb_dynsymGetSymbol( "VALTOCHAR" ) );
          hb_vmPushNil();
          hb_vmPush( pItem );
          hb_vmFunction( 1 );
