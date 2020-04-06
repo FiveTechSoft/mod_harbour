@@ -235,7 +235,7 @@ function ValToChar( u )
    local cResult
 
    do case
-      case cType == "C"
+      case cType == "C" .or. cType == "M"
            cResult = u
 
       case cType == "D"
@@ -256,6 +256,9 @@ function ValToChar( u )
       case cType == "P"
            cResult = "(P)" 
 
+      case cType == "S"
+           cResult = "(Symbol)" 
+ 
       case cType == "H"
            cResult = hb_ValToExp( u )
 
