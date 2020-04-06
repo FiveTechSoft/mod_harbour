@@ -81,10 +81,9 @@
       }
       
       #output{
-        float: left;
         height: 100%;
         padding: 10px;
-        width: 70%;
+        width: 100%;
         min-width: 50px;
       }   
 
