@@ -130,7 +130,7 @@ function Execute( cCode, ... )
    local cHBheaders1 := "~/harbour/include"
    local cHBheaders2 := "c:\harbour\include"
 
-   ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError ) ), Break( oError ) } )
+   ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError, @cCode ) ), Break( oError ) } )
 
    while lReplaced 
       lReplaced = ReplaceBlocks( @cCode, "{%", "%}" )
@@ -147,9 +147,10 @@ return uRet
 
 //----------------------------------------------------------------//
 
-function GetErrorInfo( oError )
+function GetErrorInfo( oError, cCode )
 
    local n, cInfo := "Error: " + oError:description + "<br>"
+   local aLines
 
    if ! Empty( oError:operation )
       cInfo += "operation: " + oError:operation + "<br>"
@@ -173,6 +174,15 @@ function GetErrorInfo( oError )
                AllTrim( Str( ProcLine( n ) ) ) + "<br>"
       n++
    end
+
+   if ! Empty( cCode )
+      aLines = hb_ATokens( cCode, CRLF )
+      cInfo += "<br>Source:<br>" + CRLF
+      for n = Max( ProcLine( 2 ) - 2, 1 ) to Min( ProcLine( 2 ) + 2, Len( aLines ) )
+         cInfo += StrZero( n, 4 ) + If( n == ProcLine( 2 ), " =>", ": " ) + ;
+                  hb_HtmlEncode( aLines[ n ] ) + "<br>" + CRLF
+      next
+   endif      
 
 return cInfo
 
@@ -485,6 +495,34 @@ function CookieExpire( nSecs )
               ':' + AllTrim( Str( hb_Sec( tExpire ) ) )
 
 return cExpire
+
+//----------------------------------------------------------------//
+
+function hb_HtmlEncode( cString )
+   
+   local cChar, cResult := "" 
+
+   for each cChar in cString
+      do case
+      case cChar == "<"
+            cChar = "&lt;"
+
+      case cChar == '>'
+            cChar = "&gt;"     
+            
+      case cChar == "&"
+            cChar = "&amp;"     
+
+      case cChar == '"'
+            cChar = "&quot;"    
+            
+      case cChar == " "
+            cChar = "&nbsp;"               
+      endcase
+      cResult += cChar 
+   next
+    
+return cResult   
 
 //----------------------------------------------------------------//
 
