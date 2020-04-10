@@ -150,7 +150,7 @@ return uRet
 function GetErrorInfo( oError, cCode )
 
    local n, cInfo := "Error: " + oError:description + "<br>"
-   local aLines
+   local aLines, nLine
 
    if ! Empty( oError:operation )
       cInfo += "operation: " + oError:operation + "<br>"
@@ -163,7 +163,9 @@ function GetErrorInfo( oError, cCode )
    if ValType( oError:Args ) == "A"
       for n = 1 to Len( oError:Args )
           cInfo += "[" + Str( n, 4 ) + "] = " + ValType( oError:Args[ n ] ) + ;
-                   "   " + ValToChar( oError:Args[ n ] ) + "<br>"
+                   "   " + ValToChar( oError:Args[ n ] ) + ;
+                   If( ValType( oError:Args[ n ] ) == "A", " Len: " + ;
+                   AllTrim( Str( Len( oError:Args[ n ] ) ) ), "" ) + "<br>"
       next
    endif	
 	
@@ -176,10 +178,13 @@ function GetErrorInfo( oError, cCode )
    end
 
    if ! Empty( cCode )
-      aLines = hb_ATokens( cCode, CRLF )
+      aLines = hb_ATokens( cCode, Chr( 10 ) )
       cInfo += "<br>Source:<br>" + CRLF
-      for n = Max( ProcLine( 2 ) - 2, 1 ) to Min( ProcLine( 2 ) + 2, Len( aLines ) )
-         cInfo += StrZero( n, 4 ) + If( n == ProcLine( 2 ), " =>", ": " ) + ;
+      n = 1
+      while( nLine := ProcLine( ++n ) ) == 0
+      end   
+      for n = Max( nLine - 2, 1 ) to Min( nLine + 2, Len( aLines ) )
+         cInfo += StrZero( n, 4 ) + If( n == nLine, " =>", ": " ) + ;
                   hb_HtmlEncode( aLines[ n ] ) + "<br>" + CRLF
       next
    endif      
