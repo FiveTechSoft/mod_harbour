@@ -6,7 +6,7 @@ function Main()
       </head>
         <body>
           <script>
-              let socket = new WebSocket( "ws://echo.websocket.org/" );
+              let socket = new WebSocket( "wss://echo.websocket.org/" );
 
               socket.onopen = function(e) {
                 alert("[open] Connection established");
