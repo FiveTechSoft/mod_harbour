@@ -15,10 +15,10 @@
 
 extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, PTRTOUI, AP_RPUTS
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
-extern AP_POSTPAIRS
-extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
+extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTKEY, AP_HEADERSOUTVAL, AP_HEADERSOUTSET
+extern AP_POSTPAIRS, AP_HEADERSIN, AP_HEADERSOUT, AP_SETCONTENTTYPE
 extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY, HB_URLDECODE
-extern SHOWCONSOLE, HB_VFDIREXISTS, AP_REMAINING
+extern SHOWCONSOLE, HB_VFDIREXISTS
 
 #ifdef __PLATFORM__WINDOWS
    #define __HBEXTERN__HBHPDF__REQUEST
@@ -539,11 +539,11 @@ return cResult
 #include <hbapierr.h>
 
 static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
-static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
+static void * pHeadersIn, * pHeadersOut, * pHeadersOutSet;
 static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
+static void * pHeadersOutCount, * pHeadersOutKey, * pHeadersOutVal;
 static void * pAPGetenv, * pAPBody;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
-static long lAPRemaining;
 
 #ifdef _MSC_VER
    #include <windows.h>
@@ -566,8 +566,8 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
                const char * _szFileName, const char * _szArgs, const char * _szMethod, const char * _szUserIP,
                void * _pHeadersIn, void * _pHeadersOut, 
                void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
-               void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType, void * _pAPGetenv,
-               void * _pAPBody, long _lAPRemaining )
+               void * _pHeadersOutCount, void * _pHeadersOutKey, void * _pHeadersOutVal, void * _pHeadersOutSet, 
+               void * _pAPSetContentType, void * _pAPGetenv, void * _pAPBody )
 {
    pRequestRec       = _pRequestRec;
    pAPRPuts          = _pAPRPuts; 
@@ -578,14 +578,15 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    pHeadersIn        = _pHeadersIn;
    pHeadersOut       = _pHeadersOut;
    pHeadersInCount   = _pHeadersInCount;
+   pHeadersOutCount  = _pHeadersOutCount;
    pHeadersInKey     = _pHeadersInKey;
    pHeadersInVal     = _pHeadersInVal;
-   pHeadersOutCount  = _pHeadersOutCount;
+   pHeadersOutKey    = _pHeadersOutKey;
+   pHeadersOutVal    = _pHeadersOutVal;
    pHeadersOutSet    = _pHeadersOutSet;
    pAPSetContentType = _pAPSetContentType;
    pAPGetenv         = _pAPGetenv;
    pAPBody           = _pAPBody;
-   lAPRemaining      = _lAPRemaining;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -691,6 +692,24 @@ HB_FUNC( AP_HEADERSINVAL )
    hb_retc( headers_in_val( hb_parnl( 1 ), pRequestRec ) );
 }   
 
+typedef const char * ( * HEADERS_OUT_KEY )( int, void * );
+
+HB_FUNC( AP_HEADERSOUTKEY )
+{
+   HEADERS_IN_KEY headers_out_key = ( HEADERS_IN_KEY ) pHeadersOutKey;
+   
+   hb_retc( headers_out_key( hb_parnl( 1 ), pRequestRec ) );
+}   
+
+typedef const char * ( * HEADERS_OUT_VAL )( int, void * );
+
+HB_FUNC( AP_HEADERSOUTVAL )
+{
+   HEADERS_IN_VAL headers_out_val = ( HEADERS_OUT_VAL ) pHeadersOutVal;
+   
+   hb_retc( headers_out_val( hb_parnl( 1 ), pRequestRec ) );
+}   
+
 typedef void ( * HEADERS_OUT_SET )( const char * szKey, const char * szValue, void * );
 
 HB_FUNC( AP_HEADERSOUTSET )
@@ -698,11 +717,6 @@ HB_FUNC( AP_HEADERSOUTSET )
    HEADERS_OUT_SET headers_out_set = ( HEADERS_OUT_SET ) pHeadersOutSet;
 
    headers_out_set( hb_parc( 1 ), hb_parc( 2 ), pRequestRec );
-}
-
-HB_FUNC( AP_REMAINING )
-{
-   hb_retnl( lAPRemaining );
 }
 
 HB_FUNC( PTRTOSTR )
@@ -747,6 +761,36 @@ HB_FUNC( AP_HEADERSIN )
    }  
    
    hb_itemReturnRelease( hHeadersIn );
+}
+
+HB_FUNC( AP_HEADERSOUT )
+{
+   PHB_ITEM hHeadersOut = hb_hashNew( NULL ); 
+   HEADERS_OUT_COUNT headers_out_count = ( HEADERS_OUT_COUNT ) pHeadersOutCount;
+   int iKeys = headers_out_count( pRequestRec );
+
+   if( iKeys > 0 )
+   {
+      int iKey;
+      PHB_ITEM pKey = hb_itemNew( NULL );
+      PHB_ITEM pValue = hb_itemNew( NULL );   
+      HEADERS_OUT_KEY headers_out_key = ( HEADERS_OUT_KEY ) pHeadersOutKey;
+      HEADERS_OUT_VAL headers_out_val = ( HEADERS_OUT_VAL ) pHeadersOutVal;
+
+      hb_hashPreallocate( hHeadersOut, iKeys );
+   
+      for( iKey = 0; iKey < iKeys; iKey++ )
+      {
+         hb_itemPutCConst( pKey,   headers_out_key( iKey, pRequestRec ) );
+         hb_itemPutCConst( pValue, headers_out_val( iKey, pRequestRec ) );
+         hb_hashAdd( hHeadersOut, pKey, pValue );
+      }
+      
+      hb_itemRelease( pKey );
+      hb_itemRelease( pValue );
+   }  
+   
+   hb_itemReturnRelease( hHeadersOut );
 }
 
 typedef void ( * AP_SET_CONTENTTYPE )( const char * szContentType, void * );

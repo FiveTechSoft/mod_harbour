@@ -22,8 +22,6 @@
    #include <unistd.h>
 #endif        
 
-long lAPRemaining = 0;
-
 int ap_headers_in_count( request_rec * r )
 {
    return apr_table_elts( r->headers_in )->nelts;
@@ -32,6 +30,28 @@ int ap_headers_in_count( request_rec * r )
 int ap_headers_out_count( request_rec * r )
 {
    return apr_table_elts( r->headers_out )->nelts;
+}
+
+const char * ap_headers_out_key( int iKey, request_rec * r )
+{
+   const apr_array_header_t * fields = apr_table_elts( r->headers_out );
+   apr_table_entry_t * e = ( apr_table_entry_t * ) fields->elts;
+
+   if( iKey >= 0 && iKey < fields->nelts )
+      return e[ iKey ].key;
+   else
+      return "";
+}
+
+const char * ap_headers_out_val( int iKey, request_rec * r )
+{
+   const apr_array_header_t * fields = apr_table_elts( r->headers_out );
+   apr_table_entry_t * e = ( apr_table_entry_t * ) fields->elts;
+
+   if( iKey >= 0 && iKey < fields->nelts )
+      return e[ iKey ].val;
+   else
+      return "";
 }
 
 const char * ap_headers_in_key( int iKey, request_rec * r )
@@ -85,7 +105,6 @@ const char * ap_body( request_rec * r )
     long length = ( long ) r->remaining;
     char * rbuf = ( char * ) apr_pcalloc( r->pool, length + 1 );
     int iRead = 0, iTotal = 0;
-    lAPRemaining = length;
     
     while( ( iRead = ap_get_client_block( r, rbuf + iTotal, length + 1 - iTotal ) ) < ( length + 1 - iTotal ) && iRead != 0 )
     {
@@ -181,8 +200,8 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
                               const char * szFileName, const char * szArgs, const char * szMethod, const char * szUserIP,
                               void * pHeadersIn, void * pHeadersOut, 
                               void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal, 
-                              void * pHeadersOutCount, void * pHeadersOutSet, void * pSetContentType, 
-                              void * pApacheGetenv, void * pAPBody, long lAPRemaining );
+                              void * pHeadersOutCount, void * pHeadersOutKey, void * pHeadersOutVal, void * pHeadersOutSet, 
+                              void * pSetContentType, void * pApacheGetenv, void * pAPBody );
 
 static int harbour_handler( request_rec * r )
 {
@@ -258,8 +277,9 @@ static int harbour_handler( request_rec * r )
       iResult = _hb_apache( r, ( void * ) ap_rputs, r->filename, r->args, r->method, r->useragent_ip, 
                               r->headers_in, r->headers_out,
                               ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
-                              ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
-                              ( void * ) ap_getenv, ( void * ) ap_body, lAPRemaining );
+                              ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_key, ( void * ) ap_headers_out_val, 
+                              ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
+                              ( void * ) ap_getenv, ( void * ) ap_body );
 
    if( lib_harbour != NULL )
       #ifdef _WINDOWS_	
