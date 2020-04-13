@@ -1,3 +1,7 @@
+Download ADS SDK 32 bits from here:
+
+https://devzone.advantagedatabase.com/dz/content.aspx?key=20&Release=19&Product=25&Platform=12
+
 **IMPORTANT:**
 
 ADS DLLs must be copied to c:\Apache24\bin folder so mod_harbour can work. If you don't copy them, you will get a message
