@@ -20,7 +20,7 @@ With an **easy to use installer** that sets up everything for you.
 ## Linux support
 
 **mod Harbour** versions for **Ubuntu** and **CentOS 7** are already available. Use Ubuntu from your Windows 10 bash, code your PRGs from
-Windows 10 **using your favorite source code editor** and run the PRGs from **Edge or Chrome**. Apache server and MySQL server from Ubuntu give you all you need. The **perfect environment** for creating web applications using Harbour in **records time**.
+Windows 10 **using your favorite source code editor** and run the PRGs from **Edge or Chrome**. Apache server and MySQL server from Ubuntu give you all you need. The **perfect environment** for creating web applications using Harbour in **record time**.
 
 ```c
 // typicall Harbour PRG running on the web
@@ -34,7 +34,7 @@ return nil
 
 ### DBFs support
 
-Have your **DBFs running on the web** in **record time**. Simply copy them to /var/www/test in the Apache server, set the **right permissions** for the test folder and you are ready to go. Please read the **detailed instructions** [here](https://github.com/FiveTechSoft/mod_harbour/wiki/Using-DBFs-from-the-server). Please review samples/dbedit.prg and dbrowse.prg and **use them as templates**.
+Have your **DBFs running on the web** **today**. Simply copy them to /var/www/test in the Apache server, set the **right permissions** for the test folder and you are ready to go. Please read the **detailed instructions** [here](https://github.com/FiveTechSoft/mod_harbour/wiki/Using-DBFs-from-the-server). Please review samples/dbedit.prg and dbrowse.prg and **use them as templates**.
 
 ### MySQL support
 
