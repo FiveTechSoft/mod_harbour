@@ -143,6 +143,8 @@ int CopyFile( const char * from, const char * to, int iOverWrite )
     ssize_t nread;
     int saved_errno;
 
+    iOverWrite = iOverWrite;
+
     fd_from = open( from, O_RDONLY );
     if( fd_from < 0 )
         return -1;
