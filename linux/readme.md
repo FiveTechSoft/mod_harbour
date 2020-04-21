@@ -32,7 +32,8 @@ Copy samples/test.prg to /var/www/html and go to localhost/test.prg in your brow
 
 You need to install these Linux packages:
 ```
-sudo apt-get install libcurl3-dev
+sudo apt install libcurl3-dev
+sudo apt install libssl-dev
 ```
 
 First of all, build Harbour
