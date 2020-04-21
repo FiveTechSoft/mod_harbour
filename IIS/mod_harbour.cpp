@@ -46,27 +46,29 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
          return 0;
    }
 
-
    int ap_headers_out_count( IHttpContext * pHttpContext )
    {
-      return HttpHeaderMaximum;
+      IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+      HTTP_RESPONSE * pResponseStruct = pHttpResponse->GetRawHttpResponse();
+
+      return pResponseStruct->Headers.UnknownHeaderCount;
    }
 
    const char * ap_headers_out_key( int iKey, IHttpContext * pHttpContext )
    {
       IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
-      PCSTR pszHeaderKey = "";
-      USHORT cchHeaderKey;
+      PCSTR pszHeaderValue = "";
+      USHORT cchHeaderValue;
 
-      pszHeaderKey = pHttpResponse->GetHeader( ( HTTP_HEADER_ID ) iKey, &cchHeaderKey );
+      pszHeaderValue = pHttpResponse->GetHeader( ( HTTP_HEADER_ID ) iKey, &cchHeaderValue );
 
-      if( cchHeaderKey > 0 )
+      if( cchHeaderValue > 0 )
       {
-         pszHeaderKey = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchHeaderKey + 1 );
-         pszHeaderKey = pHttpResponse->GetHeader( ( HTTP_HEADER_ID ) iKey, &cchHeaderKey );
+         pszHeaderValue = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchHeaderValue + 1 );
+         pszHeaderValue = pHttpResponse->GetHeader( ( HTTP_HEADER_ID ) iKey, &cchHeaderValue );
       }
 
-      return pszHeaderKey;
+      return pszHeaderValue;
    }
 
    const char * ap_headers_out_val( int iKey, IHttpContext * pHttpContext )
