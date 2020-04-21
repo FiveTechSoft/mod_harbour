@@ -1,12 +1,12 @@
 #include "precomp.h"
 
 extern "C" {
-   typedef int ( *PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
-      const char * szFileName, const char * szArgs, const char * szMethod, const char * szUserIP,
-      void * pHeadersIn, void * pHeadersOut,
-      void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal,
-      void * pHeadersOutCount, void * pHeadersOutSet, void * pSetContentType,
-      void * pApacheGetenv, void * pAPBody, long lAPRemaining );
+typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts, 
+                              const char * szFileName, const char * szArgs, const char * szMethod, const char * szUserIP,
+                              void * pHeadersIn, void * pHeadersOut, 
+                              void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal, 
+                              void * pHeadersOutCount, void * pHeadersOutKey, void * pHeadersOutVal, void * pHeadersOutSet, 
+                              void * pSetContentType, void * pApacheGetenv, void * pAPBody );
 
    const char * ap_getenv( const char * szVarName, IHttpContext * pHttpContext );
 
@@ -50,6 +50,47 @@ extern "C" {
    int ap_headers_out_count( IHttpContext * pHttpContext )
    {
       return HttpHeaderMaximum;
+   }
+
+   const char * ap_headers_out_key( int iKey, IHttpContext * pHttpContext )
+   {
+      IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+      PCSTR pszHeaderKey = "";
+      USHORT cchHeaderKey;
+
+      pszHeaderKey = pHttpResponse->GetHeader( ( HTTP_HEADER_ID ) iKey, &cchHeaderKey );
+
+      if( cchHeaderKey > 0 )
+      {
+         pszHeaderKey = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchHeaderKey + 1 );
+         pszHeaderKey = pHttpResponse->GetHeader( ( HTTP_HEADER_ID ) iKey, &cchHeaderKey );
+      }
+
+      return pszHeaderKey;
+   }
+
+   const char * ap_headers_out_val( int iKey, IHttpContext * pHttpContext )
+   {
+      IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+      PCSTR pszHeaderValue = "";
+      USHORT cchHeaderValue;
+
+      pszHeaderValue = pHttpResponse->GetHeader( ( HTTP_HEADER_ID ) iKey, &cchHeaderValue );
+
+      if( cchHeaderValue > 0 )
+      {
+         pszHeaderValue = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchHeaderValue + 1 );
+         pszHeaderValue = pHttpResponse->GetHeader( ( HTTP_HEADER_ID ) iKey, &cchHeaderValue );
+      }
+
+      return pszHeaderValue;
+   }
+
+   void ap_headers_out_set( const char * szKey, const char * szValue, IHttpContext * pHttpContext )
+   {
+      IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+
+      pHttpResponse->SetHeader( szKey, szValue, strlen( szValue ), true );
    }
 
    const char * ap_headers_in_key( int iKey, IHttpContext * pHttpContext )
@@ -126,13 +167,6 @@ extern "C" {
       }
 
       return iCount;
-   }
-
-   void ap_headers_out_set( const char * szKey, const char * szValue, IHttpContext * pHttpContext )
-   {
-      IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
-
-      pHttpResponse->SetHeader( szKey, szValue, strlen( szValue ), true );
    }
 
    void ap_set_contenttype( const char * szContentType, IHttpContext * pHttpContext )
@@ -254,12 +288,13 @@ REQUEST_NOTIFICATION_STATUS CMyHttpModule::OnAcquireRequestState( IN IHttpContex
 
          if( _hb_apache != NULL )
          {
-            _hb_apache( pHttpContext, ap_rputs, szPath, ap_args( pHttpContext ),
-               ap_getenv( "REQUEST_METHOD", pHttpContext ), ap_getenv( "REMOTE_ADDR", pHttpContext ),
-               NULL, NULL,
-               ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
-               ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
-               ( void * ) ap_getenv, ( void * ) ap_body, lAPRemaining );
+            _hb_apache( pHttpContext, ( void * ) ap_rputs, szPath, ap_args( pHttpContext ),
+                        ap_getenv( "REQUEST_METHOD", pHttpContext ), ap_getenv( "REMOTE_ADDR", pHttpContext ),
+                        NULL, NULL,
+                        ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
+                        ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_key, ( void * ) ap_headers_out_val,
+                        ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
+                        ( void * ) ap_getenv, ( void * ) ap_body );
          }
 
          if( _hb_apache == NULL )
