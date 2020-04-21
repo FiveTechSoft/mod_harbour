@@ -2,7 +2,12 @@
 
 **How to install mod_harbour:**
 
-Copy libharbour.so.3.2.0 to /var/www/html
+```
+git clone https://github.com/fivetechsoft/mod_harbour
+cd /var/www/html
+sudo ln -sf ~/mod_harbour/linux/libharbour.so.3.2.0 libharbour.so.3.2.0
+sudo ln -sf ~/mod_harbour/samples modharbour_samples
+```
 
 Copy mod_harbour.so to /usr/lib/apache2/modules
 
