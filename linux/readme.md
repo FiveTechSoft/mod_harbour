@@ -30,6 +30,11 @@ Copy samples/test.prg to /var/www/html and go to localhost/test.prg in your brow
 
 **How to build mod_harbour:**
 
+You need to install these Linux packages:
+```
+sudo apt-get install libcurl3-dev
+```
+
 First of all, build Harbour
 ```
 git clone https://github.com/harbour/core harbour
@@ -38,10 +43,9 @@ export HB_USER_CFLAGS="-fPIC"
 export HB_BUILD_CONTRIBS
 make
 ```
-Install apache2-dev and libcurl3-dev
+Install apache2-dev
 ```
 sudo apt-get install apache2-dev
-sudo apt-get install libcurl3-dev
 ```
 then give execution permissions to go.sh and execute it:
 ```
