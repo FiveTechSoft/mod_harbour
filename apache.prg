@@ -443,10 +443,10 @@ function GetCookies()
    local cCookies := AP_GetEnv( "HTTP_COOKIE" )
    local aCookies := hb_aTokens( cCookies, "; " )
    local cCookie, hCookies := {=>}
-   local cHeadersOut := AP_HeadersOut(), cCookieHeader
+   local hHeadersOut := AP_HeadersOut(), cCookieHeader
 
-   if( hb_HHasKey( cHeadersOut, "Set-Cookie" ) )
-      cCookieHeader := cHeadersOut["Set-Cookie"]
+   if( hb_HHasKey( hHeadersOut, "Set-Cookie" ) )
+      cCookieHeader := hHeadersOut["Set-Cookie"]
       cCookieHeader := Left( cCookieHeader, At( ';', cCookieHeader )-1 )
       AAdd( aCookies, cCookieHeader )
    endif
