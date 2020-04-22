@@ -1,13 +1,15 @@
 -hbdynvm
--oharbour.so.3.2.0
+-oharbour.3.2.0.dylib
 -mt
 
 -l-hbfship
 -l-hbxpp
 
-../../apache.prg
+../apache.prg
 
 -trace
 -dflag=@libs.txt
+-FCoreFoundation
+-FSecurity
 
 mod.hbp

@@ -15,10 +15,10 @@
 
 extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, PTRTOUI, AP_RPUTS
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
-extern AP_POSTPAIRS
-extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTSET, AP_HEADERSIN, AP_SETCONTENTTYPE
+extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTKEY, AP_HEADERSOUTVAL, AP_HEADERSOUTSET
+extern AP_POSTPAIRS, AP_HEADERSIN, AP_HEADERSOUT, AP_SETCONTENTTYPE
 extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY, HB_URLDECODE
-extern SHOWCONSOLE, HB_VFDIREXISTS, AP_REMAINING
+extern SHOWCONSOLE, HB_VFDIREXISTS
 
 #ifdef __PLATFORM__WINDOWS
    #define __HBEXTERN__HBHPDF__REQUEST
@@ -130,7 +130,7 @@ function Execute( cCode, ... )
    local cHBheaders1 := "~/harbour/include"
    local cHBheaders2 := "c:\harbour\include"
 
-   ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError ) ), Break( oError ) } )
+   ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError, @cCode ) ), Break( oError ) } )
 
    while lReplaced 
       lReplaced = ReplaceBlocks( @cCode, "{%", "%}" )
@@ -147,9 +147,10 @@ return uRet
 
 //----------------------------------------------------------------//
 
-function GetErrorInfo( oError )
+function GetErrorInfo( oError, cCode )
 
    local n, cInfo := "Error: " + oError:description + "<br>"
+   local aLines, nLine
 
    if ! Empty( oError:operation )
       cInfo += "operation: " + oError:operation + "<br>"
@@ -162,7 +163,9 @@ function GetErrorInfo( oError )
    if ValType( oError:Args ) == "A"
       for n = 1 to Len( oError:Args )
           cInfo += "[" + Str( n, 4 ) + "] = " + ValType( oError:Args[ n ] ) + ;
-                   "   " + ValToChar( oError:Args[ n ] ) + "<br>"
+                   "   " + ValToChar( oError:Args[ n ] ) + ;
+                   If( ValType( oError:Args[ n ] ) == "A", " Len: " + ;
+                   AllTrim( Str( Len( oError:Args[ n ] ) ) ), "" ) + "<br>"
       next
    endif	
 	
@@ -173,6 +176,18 @@ function GetErrorInfo( oError )
                AllTrim( Str( ProcLine( n ) ) ) + "<br>"
       n++
    end
+
+   if ! Empty( cCode )
+      aLines = hb_ATokens( cCode, Chr( 10 ) )
+      cInfo += "<br>Source:<br>" + CRLF
+      n = 1
+      while( nLine := ProcLine( ++n ) ) == 0
+      end   
+      for n = Max( nLine - 2, 1 ) to Min( nLine + 2, Len( aLines ) )
+         cInfo += StrZero( n, 4 ) + If( n == nLine, " =>", ": " ) + ;
+                  hb_HtmlEncode( aLines[ n ] ) + "<br>" + CRLF
+      next
+   endif      
 
 return cInfo
 
@@ -207,13 +222,31 @@ return lResult
 
 //----------------------------------------------------------------//
 
+function ObjToChar( o )
+
+   local hObj := {=>}, aDatas := __objGetMsgList( o, .T. )
+   local hPairs := {=>}, aParents := __ClsgetAncestors( o:ClassH )
+
+   AEval( aParents, { | h, n | aParents[ n ] := __ClassName( h ) } ) 
+
+   hObj[ "CLASS" ] = o:ClassName()
+   hObj[ "FROM" ]  = aParents 
+
+   AEval( aDatas, { | cData | hPairs[ cData ] := __ObjSendMsg( o, cData ) } )
+   hObj[ "DATAs" ]   = hPairs
+   hObj[ "METHODs" ] = __objGetMsgList( o, .F. )
+
+return ValToChar( hObj )
+
+//----------------------------------------------------------------//
+
 function ValToChar( u )
 
    local cType := ValType( u )
    local cResult
 
    do case
-      case cType == "C"
+      case cType == "C" .or. cType == "M"
            cResult = u
 
       case cType == "D"
@@ -228,11 +261,20 @@ function ValToChar( u )
       case cType == "A"
            cResult = hb_ValToExp( u )
 
+      case cType == "O"
+           cResult = ObjToChar( u )
+
       case cType == "P"
            cResult = "(P)" 
 
+      case cType == "S"
+           cResult = "(Symbol)" 
+ 
       case cType == "H"
-           cResult = hb_ValToExp( u )
+           cResult = StrTran( StrTran( hb_JsonEncode( u, .T. ), CRLF, "<br>" ), " ", "&nbsp;" )
+           if Left( cResult, 2 ) == "{}"
+              cResult = StrTran( cResult, "{}", "{=>}" )
+           endif   
 
       case cType == "U"
            cResult = "nil"
@@ -308,6 +350,24 @@ function AP_PostPairs()
       endif
     next
 
+return hPairs
+
+//----------------------------------------------------------------//
+
+function AP_GetPairs()
+
+   local aPairs := hb_ATokens( AP_Args(), "&" )
+   local cPair, aPair, hPairs := {=>} 
+
+   for each cPair in aPairs
+      aPair = hb_ATokens( cPair, "=" )
+      if Len( aPair ) == 2 
+         hPairs[ hb_UrlDecode( aPair[ 1 ] ) ] = hb_UrlDecode( aPair[ 2 ] )
+      else
+         hPairs[ hb_UrlDecode( aPair[ 1 ] ) ] = ""
+      endif   
+   next
+   
 return hPairs
 
 //----------------------------------------------------------------//
@@ -443,6 +503,34 @@ return cExpire
 
 //----------------------------------------------------------------//
 
+function hb_HtmlEncode( cString )
+   
+   local cChar, cResult := "" 
+
+   for each cChar in cString
+      do case
+      case cChar == "<"
+            cChar = "&lt;"
+
+      case cChar == '>'
+            cChar = "&gt;"     
+            
+      case cChar == "&"
+            cChar = "&amp;"     
+
+      case cChar == '"'
+            cChar = "&quot;"    
+            
+      case cChar == " "
+            cChar = "&nbsp;"               
+      endcase
+      cResult += cChar 
+   next
+    
+return cResult   
+
+//----------------------------------------------------------------//
+
 #pragma BEGINDUMP
 
 #include <hbapi.h>
@@ -451,11 +539,11 @@ return cExpire
 #include <hbapierr.h>
 
 static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
-static void * pHeadersIn, * pHeadersOut, * pHeadersOutCount, * pHeadersOutSet;
+static void * pHeadersIn, * pHeadersOut, * pHeadersOutSet;
 static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
+static void * pHeadersOutCount, * pHeadersOutKey, * pHeadersOutVal;
 static void * pAPGetenv, * pAPBody;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
-static long lAPRemaining;
 
 #ifdef _MSC_VER
    #include <windows.h>
@@ -478,8 +566,8 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
                const char * _szFileName, const char * _szArgs, const char * _szMethod, const char * _szUserIP,
                void * _pHeadersIn, void * _pHeadersOut, 
                void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
-               void * _pHeadersOutCount, void * _pHeadersOutSet, void * _pAPSetContentType, void * _pAPGetenv,
-               void * _pAPBody, long _lAPRemaining )
+               void * _pHeadersOutCount, void * _pHeadersOutKey, void * _pHeadersOutVal, void * _pHeadersOutSet, 
+               void * _pAPSetContentType, void * _pAPGetenv, void * _pAPBody )
 {
    pRequestRec       = _pRequestRec;
    pAPRPuts          = _pAPRPuts; 
@@ -490,14 +578,15 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
    pHeadersIn        = _pHeadersIn;
    pHeadersOut       = _pHeadersOut;
    pHeadersInCount   = _pHeadersInCount;
+   pHeadersOutCount  = _pHeadersOutCount;
    pHeadersInKey     = _pHeadersInKey;
    pHeadersInVal     = _pHeadersInVal;
-   pHeadersOutCount  = _pHeadersOutCount;
+   pHeadersOutKey    = _pHeadersOutKey;
+   pHeadersOutVal    = _pHeadersOutVal;
    pHeadersOutSet    = _pHeadersOutSet;
    pAPSetContentType = _pAPSetContentType;
    pAPGetenv         = _pAPGetenv;
    pAPBody           = _pAPBody;
-   lAPRemaining      = _lAPRemaining;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -512,16 +601,39 @@ HB_FUNC( AP_RPUTS )
 
    for( iParam = 1; iParam <= iParams; iParam++ )
    {
-      HB_SIZE nLen;
-      HB_BOOL bFreeReq;
-      char * buffer = hb_itemString( hb_param( iParam, HB_IT_ANY ), &nLen, &bFreeReq );
+      PHB_ITEM pItem = hb_param( iParam, HB_IT_ANY );
 
-      ap_rputs( buffer, pRequestRec );
-      ap_rputs( " ", pRequestRec ); 
+      if( HB_ISOBJECT( iParam ) )
+      {
+         hb_vmPushSymbol( hb_dynsymGetSymbol( "OBJTOCHAR" ) );
+         hb_vmPushNil();
+         hb_vmPush( pItem );
+         hb_vmFunction( 1 );
+         ap_rputs( hb_parc( -1 ), pRequestRec );
+      }
+      else if( HB_ISHASH( iParam ) || HB_ISARRAY( iParam ) )
+      {
+         hb_vmPushSymbol( hb_dynsymGetSymbol( "VALTOCHAR" ) );
+         hb_vmPushNil();
+         hb_vmPush( pItem );
+         hb_vmFunction( 1 );
+         ap_rputs( hb_parc( -1 ), pRequestRec );
+      }
+      else
+      {
+         HB_SIZE nLen;
+         HB_BOOL bFreeReq;
+         char * buffer = hb_itemString( pItem, &nLen, &bFreeReq );
 
-      if( bFreeReq )
-         hb_xfree( buffer );
-   }     
+         ap_rputs( buffer, pRequestRec );
+         ap_rputs( " ", pRequestRec ); 
+
+         if( bFreeReq )
+            hb_xfree( buffer );
+      }      
+   }
+
+   hb_ret();     
 }
 
 HB_FUNC( AP_FILENAME )
@@ -580,6 +692,24 @@ HB_FUNC( AP_HEADERSINVAL )
    hb_retc( headers_in_val( hb_parnl( 1 ), pRequestRec ) );
 }   
 
+typedef const char * ( * HEADERS_OUT_KEY )( int, void * );
+
+HB_FUNC( AP_HEADERSOUTKEY )
+{
+   HEADERS_IN_KEY headers_out_key = ( HEADERS_IN_KEY ) pHeadersOutKey;
+   
+   hb_retc( headers_out_key( hb_parnl( 1 ), pRequestRec ) );
+}   
+
+typedef const char * ( * HEADERS_OUT_VAL )( int, void * );
+
+HB_FUNC( AP_HEADERSOUTVAL )
+{
+   HEADERS_IN_VAL headers_out_val = ( HEADERS_OUT_VAL ) pHeadersOutVal;
+   
+   hb_retc( headers_out_val( hb_parnl( 1 ), pRequestRec ) );
+}   
+
 typedef void ( * HEADERS_OUT_SET )( const char * szKey, const char * szValue, void * );
 
 HB_FUNC( AP_HEADERSOUTSET )
@@ -587,11 +717,6 @@ HB_FUNC( AP_HEADERSOUTSET )
    HEADERS_OUT_SET headers_out_set = ( HEADERS_OUT_SET ) pHeadersOutSet;
 
    headers_out_set( hb_parc( 1 ), hb_parc( 2 ), pRequestRec );
-}
-
-HB_FUNC( AP_REMAINING )
-{
-   hb_retnl( lAPRemaining );
 }
 
 HB_FUNC( PTRTOSTR )
@@ -636,6 +761,36 @@ HB_FUNC( AP_HEADERSIN )
    }  
    
    hb_itemReturnRelease( hHeadersIn );
+}
+
+HB_FUNC( AP_HEADERSOUT )
+{
+   PHB_ITEM hHeadersOut = hb_hashNew( NULL ); 
+   HEADERS_OUT_COUNT headers_out_count = ( HEADERS_OUT_COUNT ) pHeadersOutCount;
+   int iKeys = headers_out_count( pRequestRec );
+
+   if( iKeys > 0 )
+   {
+      int iKey;
+      PHB_ITEM pKey = hb_itemNew( NULL );
+      PHB_ITEM pValue = hb_itemNew( NULL );   
+      HEADERS_OUT_KEY headers_out_key = ( HEADERS_OUT_KEY ) pHeadersOutKey;
+      HEADERS_OUT_VAL headers_out_val = ( HEADERS_OUT_VAL ) pHeadersOutVal;
+
+      hb_hashPreallocate( hHeadersOut, iKeys );
+   
+      for( iKey = 0; iKey < iKeys; iKey++ )
+      {
+         hb_itemPutCConst( pKey,   headers_out_key( iKey, pRequestRec ) );
+         hb_itemPutCConst( pValue, headers_out_val( iKey, pRequestRec ) );
+         hb_hashAdd( hHeadersOut, pKey, pValue );
+      }
+      
+      hb_itemRelease( pKey );
+      hb_itemRelease( pValue );
+   }  
+   
+   hb_itemReturnRelease( hHeadersOut );
 }
 
 typedef void ( * AP_SET_CONTENTTYPE )( const char * szContentType, void * );

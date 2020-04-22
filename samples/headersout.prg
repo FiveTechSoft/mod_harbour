@@ -1,20 +1,9 @@
-// #define REDIRECTION  302
-
 function Main()
 
-   ? AP_HeadersOutCount() 
-   ? "<br>"
-
-   // AP_HeadersOutSet( "Location", "test.prg" )
-
-   // ? AP_HeadersOutCount()
-   // ? "<br>"
-
-   AP_HeadersOutSet( "Set-Cookie", "cookie-name=harbour;expires=" + DToS( Date() ) )
+   AP_HeadersOutSet( "one", "first" )
    
-   ? AP_HeadersOutCount()
-   ? "<br>"
-   
-   // ErrorLevel( REDIRECTION )
+   SetCookie( "two", "second" )
+
+   ? AP_HeadersOut()
 
 return nil

@@ -52,17 +52,18 @@ brew install httpd
 ```
 <hr>
 
-0. Install curl:
+0. Install curl and pcre:
 
 ```
 brew install curl
+brew install pcre
 ```
 
 1. Download Harbour and build it:
 
 ```
 git clone https://github.com/harbour/core harbour
-export HB_WITH_CURL=/usr/local/Cellar/curl/7.68.0/include/
+export HB_WITH_CURL=/usr/local/Cellar/curl/7.69.1/include/
 export HB_BUILD_CONTRIBS=""
 make
 ```

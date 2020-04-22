@@ -2,7 +2,14 @@
 
 **How to install mod_harbour:**
 
-Copy libharbour.so.3.2.0 to /var/www/html
+```
+git clone https://github.com/fivetechsoft/mod_harbour
+cd /var/www/html
+sudo ln -sf ~/mod_harbour/linux/libharbour.so.3.2.0 libharbour.so.3.2.0
+sudo ln -sf ~/mod_harbour/samples modharbour_samples
+cd /usr/lib/apache2/modules
+sudo ln -sf ~/mod_harbour/linux/mod_harbour.so mod_harbour.so
+```
 
 Copy mod_harbour.so to /usr/lib/apache2/modules
 
@@ -23,6 +30,12 @@ Copy samples/test.prg to /var/www/html and go to localhost/test.prg in your brow
 
 **How to build mod_harbour:**
 
+You need to install these Linux packages:
+```
+sudo apt install libcurl-dev
+sudo apt install libssl-dev
+```
+
 First of all, build Harbour
 ```
 git clone https://github.com/harbour/core harbour
@@ -31,10 +44,9 @@ export HB_USER_CFLAGS="-fPIC"
 export HB_BUILD_CONTRIBS
 make
 ```
-Install apache2-dev and libcurl3-dev
+Install apache2-dev
 ```
 sudo apt-get install apache2-dev
-sudo apt-get install libcurl3-dev
 ```
 then give execution permissions to go.sh and execute it:
 ```

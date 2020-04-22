@@ -1,3 +1,10 @@
+2020/April/06
+
+* New: function AP_GetPairs() provides similar functionality as AP_PostPairs(). Parameters must
+  be provided like this example: index.prg?one=first&two=second&three=third. Example: ? AP_GetPairs() 
+
+* Enhanced function AP_RPuts() support for arrays, hashes and objects. In example: ? AP_HeadersIn()
+
 2020/March/10
 
 * mod_harbour for IIS no longer needs to copy any DLLs to a specific place. They are used from
