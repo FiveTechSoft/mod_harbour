@@ -49,43 +49,22 @@ typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts,
    int ap_headers_out_count( IHttpContext * pHttpContext )
    {
       IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
-      HTTP_RESPONSE * pResponseStruct = pHttpResponse->GetRawHttpResponse();
 
-      return pResponseStruct->Headers.UnknownHeaderCount;
+      return pHttpResponse->GetRawHttpResponse()->Headers.UnknownHeaderCount;
    }
 
    const char * ap_headers_out_key( int iKey, IHttpContext * pHttpContext )
    {
       IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
-      PCSTR pszHeaderValue = "";
-      USHORT cchHeaderValue;
 
-      pszHeaderValue = pHttpResponse->GetHeader( ( HTTP_HEADER_ID ) iKey, &cchHeaderValue );
-
-      if( cchHeaderValue > 0 )
-      {
-         pszHeaderValue = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchHeaderValue + 1 );
-         pszHeaderValue = pHttpResponse->GetHeader( ( HTTP_HEADER_ID ) iKey, &cchHeaderValue );
-      }
-
-      return pszHeaderValue;
+      return pHttpResponse->GetRawHttpResponse()->Headers.pUnknownHeaders[ iKey ].pName;
    }
 
    const char * ap_headers_out_val( int iKey, IHttpContext * pHttpContext )
    {
       IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
-      PCSTR pszHeaderValue = "";
-      USHORT cchHeaderValue;
 
-      pszHeaderValue = pHttpResponse->GetHeader( ( HTTP_HEADER_ID ) iKey, &cchHeaderValue );
-
-      if( cchHeaderValue > 0 )
-      {
-         pszHeaderValue = ( PCSTR ) pHttpContext->AllocateRequestMemory( cchHeaderValue + 1 );
-         pszHeaderValue = pHttpResponse->GetHeader( ( HTTP_HEADER_ID ) iKey, &cchHeaderValue );
-      }
-
-      return pszHeaderValue;
+      return pHttpResponse->GetRawHttpResponse()->Headers.pUnknownHeaders[ iKey ].pRawValue;
    }
 
    void ap_headers_out_set( const char * szKey, const char * szValue, IHttpContext * pHttpContext )
