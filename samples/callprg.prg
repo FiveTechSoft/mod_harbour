@@ -10,7 +10,7 @@ function Main()
 
   ? "Hello world"
 
-  ? callPRG( "another.prg" ) 
+  ? callPRG( "https://www.modharbour.org/modharbour_samples/another.prg" ) 
 
 return nil
 
