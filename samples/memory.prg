@@ -1,12 +1,10 @@
 // ; Donated to the public domain by
 //   Viktor Szakats (vszakats.net/harbour)
 #ifdef __PLATFORM__WINDOWS 
-   #include "c:\harbour\contrib\hbcurl\hbcurl.ch"
+   #include "c:\harbour\include\memory.ch"
 #else
-   #include "/usr/include/harbour/hbcurl.ch"
-#endif   
-
-#include "hbmemory.ch"
+   #include "/usr/include/harbour/memory.ch"
+#endif
 
 PROCEDURE Main()
 
