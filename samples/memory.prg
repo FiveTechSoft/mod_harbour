@@ -1,6 +1,10 @@
 // ; Donated to the public domain by
 //   Viktor Szakats (vszakats.net/harbour)
-// {% hb_SetEnv( "HB_INCLUDE", "/home/anto/harbour/include" ) %} For mod_harbour demo server
+#ifdef __PLATFORM__WINDOWS 
+   #include "c:\harbour\contrib\hbcurl\hbcurl.ch"
+#else
+   #include "/usr/include/harbour/hbcurl.ch"
+#endif   
 
 #include "hbmemory.ch"
 
