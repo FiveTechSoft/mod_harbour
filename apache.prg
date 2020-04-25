@@ -18,37 +18,26 @@ extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTKEY, AP_HEADERSOUTVAL, AP_HEADERSOUTSET
 extern AP_POSTPAIRS, AP_HEADERSIN, AP_HEADERSOUT, AP_SETCONTENTTYPE
 extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY, HB_URLDECODE
-extern SHOWCONSOLE, HB_VFDIREXISTS
+extern SHOWCONSOLE, HB_VFDIREXISTS 
 
-#ifdef __PLATFORM__WINDOWS
-   #define __HBEXTERN__HBHPDF__REQUEST
-   #include "..\harbour\contrib\hbhpdf\hbhpdf.hbx"
-   #define __HBEXTERN__XHB__REQUEST
-   #include "..\harbour\contrib\xhb\xhb.hbx"
-   #define __HBEXTERN__HBCT__REQUEST
-   #include "..\harbour\contrib\hbct\hbct.hbx"
-   #define __HBEXTERN__HBWIN__REQUEST
-   #include "..\harbour\contrib\hbwin\hbwin.hbx"
-   #define __HBEXTERN__HBCURL__REQUEST
-   #include "..\harbour\contrib\hbcurl\hbcurl.hbx"
-   #define __HBEXTERN__HBNETIO__REQUEST
-   #include "..\harbour\contrib\hbnetio\hbnetio.hbx"
-#else
-   #define __HBEXTERN__HBHPDF__REQUEST
-   #include "../harbour/contrib/hbhpdf/hbhpdf.hbx"
-   #define __HBEXTERN__XHB__REQUEST
-   #include "../harbour/contrib/xhb/xhb.hbx"
-   #define __HBEXTERN__HBCT__REQUEST
-   #include "../harbour/contrib/hbct/hbct.hbx"
-   #define __HBEXTERN__HBCURL__REQUEST  
-   #include "../harbour/contrib/hbcurl/hbcurl.hbx"
-   #define __HBEXTERN__HBNETIO__REQUEST
-   #include "../harbour/contrib/hbnetio/hbnetio.hbx"
-#endif
+#define __HBEXTERN__HBHPDF__REQUEST
+#include "../harbour/contrib/hbhpdf/hbhpdf.hbx"
+#define __HBEXTERN__XHB__REQUEST
+#include "../harbour/contrib/xhb/xhb.hbx"
+#define __HBEXTERN__HBCT__REQUEST
+#include "../harbour/contrib/hbct/hbct.hbx"
+#define __HBEXTERN__HBCURL__REQUEST  
+#include "../harbour/contrib/hbcurl/hbcurl.hbx"
+#define __HBEXTERN__HBNETIO__REQUEST
+#include "../harbour/contrib/hbnetio/hbnetio.hbx"
+#define __HBEXTERN__HBMZIP__REQUEST
+#include "../harbour/contrib/hbmzip/hbmzip.hbx"
+#define __HBEXTERN__HBZIPARC__REQUEST
+#include "../harbour/contrib/hbziparc/hbziparc.hbx"
 
 #ifdef HB_WITH_ADS
    #define __HBEXTERN__RDDADS__REQUEST
-   #include "..\harbour\contrib\rddads\rddads.hbx"
+   #include "../harbour/contrib/rddads/rddads.hbx"
 #endif
 
 static hPP
