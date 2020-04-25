@@ -63,7 +63,7 @@ function Main()
       endif
       if hb_threadWait( pThread, 15 ) != 1
          hb_threadQuitRequest( pThread )
-	 ErrorLevel( 408 ) // request timeout
+	      ErrorLevel( 408 ) // request timeout
       endif    
       InKey( 0.1 )
    else
