@@ -6,6 +6,8 @@
 harbour.def
 -l-hbfship
 -l-hbxpp
+-lhbmzip
+-lhbziparc
 
 ..\apache.prg
 
@@ -15,5 +17,6 @@ xhb.hbc
 hbct.hbc
 hbcurl.hbc
 hbnetio.hbc
+hbmzip.hbc
 
 mod.hbp
