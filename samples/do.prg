@@ -1,5 +1,11 @@
 // Calling a function inside another PRG
 
+#ifdef __PLATFORM__WINDOWS
+   #include "c:\harbour\contrib\hbcurl\hbcurl.ch"
+#else
+   #include "/home/user/harbour/contrib/hbcurl/hbcurl.ch"
+#endif
+
 function Main()
 
    ? Do( "https://www.modharbour.org/modharbour_samples/testdo.prg", "Test", 123, 456 )
