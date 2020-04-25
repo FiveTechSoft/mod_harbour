@@ -8,10 +8,10 @@ return nil
 
 function Do( cUrlPRG, cFuncName, ... )
 
-   local uValue, hParams := hb_AParams()
+   local uValue, aParams := hb_AParams(), hParams
    
-   hb_HDelAt( hParams, 1 )
-   hb_HDelAt( hParams, 1 )
+   hb_ADel( hParams, 1, .T. )
+   hb_ADel( hParams, 1, .T. )
 
    hParams = { "function" => cFuncName,; 
                "params"   => hParams }
