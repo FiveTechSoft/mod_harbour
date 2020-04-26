@@ -1,9 +1,4 @@
-// {% hb_SetEnv( "HB_INCLUDE", If( "Windows" $ OS(), "c:/", If( "Darwin" $ OS(), "/Users/user", "/home/user" ) ) + "/harbour/include" ) %}
-
-#include "hbdyn.ch"
-
-// #xcommand ? [<x,...>] => QOut( [<x>] )
-// #xcommand ?? [<x,...>] => QQOut( [<x>] )
+#include "/usr/include/harbour/hbdyn.ch"
 
 #define HB_VERSION_BITWIDTH  17
 #define NULL 0         
