@@ -1,4 +1,8 @@
-#include "/usr/include/harbour/hbdyn.ch"
+#ifdef __PLATFORM__WINDOWS
+   #include "c:\harbour\include\hbdyn.ch"
+#else
+   #include "/home/user/harbour/include/hbdyn.ch"
+#endif
 
 #define HB_VERSION_BITWIDTH  17
 #define NULL 0         
