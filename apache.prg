@@ -40,13 +40,13 @@ extern SHOWCONSOLE, HB_VFDIREXISTS
    #include "../harbour/contrib/rddads/rddads.hbx"
 #endif
 
-static hPP, lUpdateCache := .T., cHrbName, cTmpFilePath
+static hPP, cHrbName, cTmpFilePath
 
 //----------------------------------------------------------------//
 
 function Main()
 
-   local cFileName, pThread
+   local cFileName, pThread, lUpdateCache := .T.
    local dPrgDate, cPrgTime, dHrbDate, cHrbTime
 
    ErrorBlock( { | o | DoBreak( o ) } )
@@ -75,7 +75,7 @@ function Main()
       if Lower( Right( cFileName, 4 ) ) == ".hrb"
          pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ), AP_Args() )
       else
-         pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), AP_Args() )
+         pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), lUpdateCache, AP_Args() )
       endif
       if hb_threadWait( pThread, 15 ) != 1
          hb_threadQuitRequest( pThread )
@@ -129,11 +129,13 @@ return hb_HrbDo( oHrb, cArgs )
 
 //----------------------------------------------------------------//
 
-function Execute( cCode, ... )
+function Execute( cCode, lUpdateCache, ... )
 
    local oHrb, uRet, lReplaced := .T.
    local cHBheaders1 := "~/harbour/include"
    local cHBheaders2 := "c:\harbour\include"
+
+   hb_default( @lUpdateCache, .T. )
 
    ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError, @cCode ) ), Break( oError ) } )
 
@@ -336,7 +338,7 @@ function ExecInline( cCode, cParams, ... )
       cParams = ""
    endif   
 
-return Execute( "function __Inline( " + cParams + " )" + HB_OsNewLine() + cCode, ... )   
+return Execute( "function __Inline( " + cParams + " )" + HB_OsNewLine() + cCode, .T., ... )   
 
 //----------------------------------------------------------------//
 

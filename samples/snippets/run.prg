@@ -14,7 +14,7 @@ function Main()
    AP_HeadersOutSet( "Access-Control-Allow-Origin", "*" )
    
    if ! Empty( cCode )
-      Execute( cCode )
+      Execute( cCode, .T. )  // Always update cache
    endif
    
 return nil

@@ -357,7 +357,7 @@ METHOD Execute( cController, hParam, aRouteSelect ) CLASS TRoute
 		
 		LOG '<h3>Ejecutamos Controller() ==> ' + cController + '</h3>'
 		
-		Execute( cCode, oTController )
+		Execute( cCode, .T., oTController )  // Always update cache
 	
 	ELSE
 	

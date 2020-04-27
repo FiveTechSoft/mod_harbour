@@ -680,7 +680,7 @@ function Save()
          SELECT "database"
          LOCATE FOR RTrim( database->table ) == GetContent()
          if Found() .and. ! Empty( database->OnPostEdit )
-            Execute( database->OnPostEdit )
+            Execute( database->OnPostEdit, .T. )  // Always update cache
          endif
          USE
          SELECT ( GetContent() )
@@ -711,7 +711,7 @@ function Task()
 
    if ! Empty( cCode )
       if "func" $ cCode .or. "proc" $ cCode 
-         cResult = Execute( cCode )
+         cResult = Execute( cCode, .T. )  // Always update cache
       else
          cResult = cCode
       endif      

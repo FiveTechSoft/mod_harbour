@@ -17,7 +17,7 @@ FUNCTION zReplace( cCode, ... )
 
 	LOCAL cExecute := "function __Inline()" + HB_OsNewLine() + cCode
 
-RETURN Execute( cExecute, ... )
+RETURN Execute( cExecute, .T., ... )
 */
 
 FUNCTION Vista( cPrg, ... )
@@ -25,7 +25,7 @@ FUNCTION Vista( cPrg, ... )
 	LOCAL cFile := 'ap_GetEnv("HONEY_APP")' + '\src\view\' + cPrg 
 	LOCAL cCode := MemoRead( cFile )
 	
-	Execute( cCode, ... )		
+	Execute( cCode, .T., ... )		
 
 RETU NIL
 
