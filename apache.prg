@@ -75,7 +75,7 @@ function Main()
       if Lower( Right( cFileName, 4 ) ) == ".hrb"
          pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ), AP_Args() )
       else
-         pThread = hb_threadStart( @Execute(), lUpdateCache, MemoRead( cFileName ), lUpdateCache, AP_Args() )
+         pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), lUpdateCache, AP_Args() )
       endif
       if hb_threadWait( pThread, 15 ) != 1
          hb_threadQuitRequest( pThread )
