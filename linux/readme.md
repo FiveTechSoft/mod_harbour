@@ -45,9 +45,10 @@ export HB_USER_CFLAGS="-fPIC"
 export HB_BUILD_CONTRIBS
 make
 ```
-Install apache2-dev
+Install apache and apache2-dev
 ```
-sudo apt-get install apache2-dev
+sudo apt install apache2
+sudo apt install apache2-dev
 ```
 then give execution permissions to go.sh and execute it:
 ```
