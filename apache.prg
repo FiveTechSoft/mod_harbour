@@ -147,7 +147,11 @@ function Execute( cCode, lUpdateCache, ... )
    if lUpdateCache
       oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2,;
                                 "-I" + hb_GetEnv( "HB_INCLUDE" ), hb_GetEnv( "HB_USER_PRGFLAGS" ) )
-      MemoWrit( cTmpFilePath + cHrbName, oHrb )
+      if ! Empty( cTmpFile ) .and. ! Empty( cHrbName )				
+         MemoWrit( cTmpFilePath + cHrbName, oHrb )
+	 cTmpFilePath = nil
+	 cHrbName = nil
+      endif	 
    else
       oHrb = MemoRead( cTmpFilePath + cHrbName )
    endif
