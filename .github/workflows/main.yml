@@ -34,7 +34,7 @@ jobs:
          sudo apt install libcurl4-openssl-dev libssl-dev apache2-dev gcc
          sudo cp -r /usr/include/x86_64-linux-gnu/curl /usr/include
        
-    - name: Clone and compile harbour
+    - name: Compile harbour
       run: |
         cd harbour
         export HB_USER_CFLAGS="-fPIC"
@@ -46,5 +46,4 @@ jobs:
       run: |
         cd ..
         cd mod_harbour/linux
-        chmod +x go.sh
-        ./go.sh
+        ../../harbour/linux/gcc/hbmk2 modharbour.hbp
