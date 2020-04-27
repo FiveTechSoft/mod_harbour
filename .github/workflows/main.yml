@@ -45,5 +45,5 @@ jobs:
     - name: Compile mod_harbour
       run: |
         cd ..
-        cd linux
+        cd mod_harbour/linux
         ../harbour/bin/linux/gcc/hbmk2 modharbour.hbp
