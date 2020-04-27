@@ -33,8 +33,17 @@ jobs:
       run: |
          sudo apt install libcurl4-openssl-dev libssl-dev apache2-dev gcc
          sudo cp -r /usr/include/x86_64-linux-gnu/curl /usr/include
+         
+    - name: Compile harbour
+      run: |
+        cd harbour
+        export HB_USER_CFLAGS="-fPIC"
+        export HB_BUILD_CONTRIBS
+        make
 
     # Runs a set of commands using the runners shell
     - name: Compile mod_harbour
       run: |
-        ls
+        cd ..
+        cd linux
+        ../harbour/bin/linux/gcc/hbmk2 modharbour.hbp
