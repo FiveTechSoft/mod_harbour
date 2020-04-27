@@ -25,7 +25,7 @@ jobs:
     # Runs a single command using the runners shell
     - name: Install dependencies
       run: |
-         sudo apt install libcurl4-openssl-dev libssl-dev apache2-dev
+         sudo apt install libcurl4-openssl-dev libssl-dev apache2-dev gcc
          sudo cp -r /usr/include/x86_64-linux-gnu/curl /usr/include
        
     - name: Clone and compile harbour
