@@ -45,6 +45,6 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Compile mod_harbour
       run: |
-        cd
+        cd ..
         cd mod_harbour/linux
         hbmk2 modharbour.hbp
