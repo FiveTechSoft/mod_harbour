@@ -224,7 +224,7 @@ static int harbour_handler( request_rec * r )
    if( strcmp( r->handler, "harbour" ) )
       return DECLINED;
 
-   if( ! ( szDllName = ap_getenv( "LIBHARBOUR", r ) ) )
+   if( ! ( szDllName = ap_getenv( "LIBHARBOUR", r ), szDllName ) )
    #ifdef _WINDOWS_
       szDllName = "c:\\Apache24\\htdocs\\libharbour.dll";
       dwThreadId = GetCurrentThreadId();
