@@ -1,9 +1,9 @@
 // ; Donated to the public domain by
 //   Viktor Szakats (vszakats.net/harbour)
 #ifdef __PLATFORM__WINDOWS 
-   #include "c:\harbour\include\memory.ch"
+   #include "c:\harbour\include\hbmemory.ch"
 #else
-   #include "/usr/include/harbour/memory.ch"
+   #include "/usr/include/harbour/hbmemory.ch"
 #endif
 
 PROCEDURE Main()
