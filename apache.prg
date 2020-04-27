@@ -9,7 +9,7 @@
 #include "hbclass.ch"
 #include "hbhrb.ch"
 
-#xcommand ? <cText> => AP_RPuts( <cText> )
+#xcommand ? [<explist,...>] => AP_RPuts( '<br>' [,<explist>] )
 
 #define CRLF hb_OsNewLine()
 
@@ -40,18 +40,34 @@ extern SHOWCONSOLE, HB_VFDIREXISTS
    #include "../harbour/contrib/rddads/rddads.hbx"
 #endif
 
-static hPP
+static hPP, lUpdateCache := .T., cHrbName, cTmpFilePath
 
 //----------------------------------------------------------------//
 
 function Main()
 
    local cFileName, pThread
+   local dPrgDate, cPrgTime, dHrbDate, cHrbTime
 
    ErrorBlock( { | o | DoBreak( o ) } )
 
    cFileName = AP_FileName()
    AddPPRules()
+
+   if Lower( Right( cFileName, 4 ) ) == ".prg"
+      cTmpFilePath = SubStr( cFileName, At( "/", cFileName ) + 1 )
+      cTmpFilePath = hb_DirSepToOS( hb_DirTemp() + hb_FNameDir( cTmpFilePath ) )
+      cHrbName = hb_FNameExtSet( hb_FNameName( cFileName ), "hrb" )
+      if File( cTmpFilePath + cHrbName )
+         hb_fGetDateTime( cFileName, @dPrgDate, @cPrgTime )
+         hb_fGetDateTime( cTmpFilePath + cHrbName, @dHrbDate, @cHrbTime )
+         lUpdateCache = dHrbDate <= dPrgDate .and. cHrbTime < cPrgTime
+      else
+         if ! hb_DirExists( cTmpFilePath )
+            hb_DirBuild( cTmpFilePath )
+         endif   
+      endif
+   endif                        
 
    if File( cFileName )
       hb_SetEnv( "PRGPATH",;
@@ -126,8 +142,14 @@ function Execute( cCode, ... )
       cCode = __pp_process( hPP, cCode )
    end
 
-   oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2,;
-                             "-I" + hb_GetEnv( "HB_INCLUDE" ), hb_GetEnv( "HB_USER_PRGFLAGS" ) )
+   if lUpdateCache
+      oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2,;
+                                "-I" + hb_GetEnv( "HB_INCLUDE" ), hb_GetEnv( "HB_USER_PRGFLAGS" ) )
+      MemoWrit( cTmpFilePath + cHrbName, oHrb )
+   else
+      oHrb = MemoRead( cTmpFilePath + cHrbName )
+   endif
+
    if ! Empty( oHrb )
       uRet = hb_HrbDo( hb_HrbLoad( 1, oHrb ), ... )
    endif
@@ -542,6 +564,7 @@ static void * pAPGetenv, * pAPBody;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
 
 #ifdef _MSC_VER
+   #pragma warning(disable:4996)
    #include <windows.h>
 
 HB_FUNC( SHOWCONSOLE )     // to use the debugger locally on Windows
@@ -717,15 +740,23 @@ HB_FUNC( AP_HEADERSOUTSET )
 
 HB_FUNC( PTRTOSTR )
 {
-   const char * * pStrs = ( const char * * ) hb_parnll( 1 );   
-   
+   #ifdef HB_ARCH_32BIT
+      const char * * pStrs = ( const char * * ) hb_parnl( 1 );   
+   #else
+      const char * * pStrs = ( const char * * ) hb_parnll( 1 );   
+   #endif
+
    hb_retc( * ( pStrs + hb_parnl( 2 ) ) );
 }
 
 HB_FUNC( PTRTOUI )
 {
-   unsigned int * pNums = ( unsigned int * ) hb_parnll( 1 );   
-   
+   #ifdef HB_ARCH_32BIT
+      unsigned int * pNums = ( unsigned int * ) hb_parnl( 1 );   
+   #else
+      unsigned int * pNums = ( unsigned int * ) hb_parnll( 1 );   
+   #endif
+
    hb_retnl( * ( pNums + hb_parnl( 2 ) ) );
 }
 
