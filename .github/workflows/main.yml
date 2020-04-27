@@ -21,6 +21,12 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+    
+    - name: Checkout harbour/core repo
+      uses: actions/checkout@v2
+      with:
+       repository: harbour/core
+       path: harbour
 
     # Runs a single command using the runners shell
     - name: Install dependencies
@@ -30,7 +36,6 @@ jobs:
        
     - name: Clone and compile harbour
       run: |
-        git clone https://github.com/harbour/core harbour
         cd harbour
         export HB_USER_CFLAGS="-fPIC"
         export HB_BUILD_CONTRIBS
@@ -39,6 +44,7 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Compile mod_harbour
       run: |
+        cd ..
         cd mod_harbour/linux
         chmod +x go.sh
         ./go.sh
