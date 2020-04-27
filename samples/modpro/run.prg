@@ -14,7 +14,7 @@ function Main()
    AP_HeadersOutSet( "Access-Control-Allow-Origin", "*" )
    
    if ! Empty( cCode )
-      Execute( cCode, .T., hb_UrlDecode( hPostPairs[ "params" ] ) )  // Always update cache
+      Execute( cCode, hb_UrlDecode( hPostPairs[ "params" ] ) )
    endif
    
 return nil

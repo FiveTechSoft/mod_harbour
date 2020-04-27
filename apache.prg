@@ -40,13 +40,14 @@ extern SHOWCONSOLE, HB_VFDIREXISTS
    #include "../harbour/contrib/rddads/rddads.hbx"
 #endif
 
-static hPP, cHrbName, cTmpFilePath
+static hPP
 
 //----------------------------------------------------------------//
 
 function Main()
 
    local cFileName, pThread, lUpdateCache := .T.
+   local cHrbName, cTmpFilePath
    local dPrgDate, cPrgTime, dHrbDate, cHrbTime
 
    ErrorBlock( { | o | DoBreak( o ) } )
@@ -75,7 +76,8 @@ function Main()
       if Lower( Right( cFileName, 4 ) ) == ".hrb"
          pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ), AP_Args() )
       else
-         pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), lUpdateCache, AP_Args() )
+         pThread = hb_threadStart( @ExecuteCache(), MemoRead( cFileName ), lUpdateCache, cTmpFilePath,;
+                                   cHrbName, AP_Args() )
       endif
       if hb_threadWait( pThread, 15 ) != 1
          hb_threadQuitRequest( pThread )
@@ -129,13 +131,11 @@ return hb_HrbDo( oHrb, cArgs )
 
 //----------------------------------------------------------------//
 
-function Execute( cCode, lUpdateCache, ... )
+function ExecuteCache( cCode, lUpdateCache, cTmpFilePath, cHrbName, ... )
 
    local oHrb, uRet, lReplaced := .T.
    local cHBheaders1 := "~/harbour/include"
    local cHBheaders2 := "c:\harbour\include"
-
-   hb_default( @lUpdateCache, .T. )
 
    ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError, @cCode ) ), Break( oError ) } )
 
@@ -147,15 +147,34 @@ function Execute( cCode, lUpdateCache, ... )
    if lUpdateCache
       oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2,;
                                 "-I" + hb_GetEnv( "HB_INCLUDE" ), hb_GetEnv( "HB_USER_PRGFLAGS" ) )
-      if ! Empty( cTmpFilePath ) .and. ! Empty( cHrbName )				
-         MemoWrit( cTmpFilePath + cHrbName, oHrb )
-	 cTmpFilePath = nil
-	 cHrbName = nil
-      endif	 
+      MemoWrit( cTmpFilePath + cHrbName, oHrb )
    else
       oHrb = MemoRead( cTmpFilePath + cHrbName )
    endif
 
+   if ! Empty( oHrb )
+      uRet = hb_HrbDo( hb_HrbLoad( 1, oHrb ), ... )
+   endif
+
+return uRet
+
+//----------------------------------------------------------------//
+
+function Execute( cCode, ... )
+
+   local oHrb, uRet, lReplaced := .T.
+   local cHBheaders1 := "~/harbour/include"
+   local cHBheaders2 := "c:\harbour\include"
+
+   ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError, @cCode ) ), Break( oError ) } )
+
+   while lReplaced 
+      lReplaced = ReplaceBlocks( @cCode, "{%", "%}" )
+      cCode = __pp_process( hPP, cCode )
+   end
+
+   oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2,;
+                             "-I" + hb_GetEnv( "HB_INCLUDE" ), hb_GetEnv( "HB_USER_PRGFLAGS" ) )
    if ! Empty( oHrb )
       uRet = hb_HrbDo( hb_HrbLoad( 1, oHrb ), ... )
    endif
@@ -342,7 +361,7 @@ function ExecInline( cCode, cParams, ... )
       cParams = ""
    endif   
 
-return Execute( "function __Inline( " + cParams + " )" + HB_OsNewLine() + cCode, .T., ... )   
+return Execute( "function __Inline( " + cParams + " )" + HB_OsNewLine() + cCode, ... )   
 
 //----------------------------------------------------------------//
 
