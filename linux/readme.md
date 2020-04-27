@@ -34,7 +34,7 @@ You need to install these Linux packages:
 ```
 sudo apt install libcurl4-openssl-dev
 sudo apt install libssl-dev
-sudo cp /usr/include/x86_64-linux-gnu/curl /usr/include
+sudo cp -r /usr/include/x86_64-linux-gnu/curl /usr/include
 ```
 
 First of all, build Harbour
