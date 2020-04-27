@@ -313,5 +313,6 @@ module AP_MODULE_DECLARE_DATA harbour_module = {
     NULL,                  /* create per-server config structures */
     NULL,                  /* merge  per-server config structures */
     NULL,                  /* table of config file commands       */
-    harbour_register_hooks  /* register hooks                      */
+    harbour_register_hooks,  /* register hooks                      */
+    0
 };
