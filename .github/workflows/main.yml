@@ -14,8 +14,11 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
+    strategy:
+      matrix:
+        os: ['ubuntu-latest', 'macos-latest']
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -27,12 +30,19 @@ jobs:
       with:
        repository: harbour/core
        path: harbour
+       
+    - name: Test for macOS
+      run: |
+        pwd
+        ls
+      if: matrix.os == 'macos-latest'
 
     # Runs a single command using the runners shell
     - name: Install dependencies
       run: |
          sudo apt install libcurl4-openssl-dev libssl-dev apache2-dev gcc
          sudo cp -r /usr/include/x86_64-linux-gnu/curl /usr/include
+      if: matrix.os == 'ubuntu-latest'
          
     - name: Compile harbour
       run: |
@@ -41,6 +51,7 @@ jobs:
         export HB_BUILD_CONTRIBS
         export HB_WITH_PCRE=local
         make
+      if: matrix.os == 'ubuntu-latest'
 
     # Runs a set of commands using the runners shell
     - name: Compile mod_harbour
@@ -48,13 +59,16 @@ jobs:
         cd linux
         ../harbour/bin/linux/gcc/hbmk2 modharbour.hbp
         mv libmod_harbour.so mod_harbour.so
+      if: matrix.os == 'ubuntu-latest'
         
     - name: Zip artifacts
       run: |
         cd linux
         zip modharbour mod_harbour.so libharbour.so.3.2.0
+      if: matrix.os == 'ubuntu-latest'
         
     - uses: actions/upload-artifact@v1
       with:
        name: modharbour
        path: linux/modharbour.zip
+       if: matrix.os == 'ubuntu-latest'
