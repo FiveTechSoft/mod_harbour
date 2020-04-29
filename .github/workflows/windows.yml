@@ -39,3 +39,21 @@ jobs:
         del .\src\common\obj\win\msvc64\hbver_dyn.obj
         del .\src\common\obj\win\msvc64\hbverdsp.obj
         win-make.exe
+
+   - name: Build mod_harbour
+      shell: cmd
+      run: |
+        cd mod_harbour
+        go64.bat
+
+  - name: Upload mod_harbour.so to artifact
+      uses: actions/upload-artifact@v2
+      with:
+      name: modharbour
+      path: windows/mod_harbour.so
+       
+  - name: Upload libharbour.dll to artifact
+      uses: actions/upload-artifact@v2
+      with:
+      name: modharbour
+      path: windows/libharbour.dll
