@@ -12,6 +12,5 @@ jobs:
     - name: My Tests
       shell: cmd
       run: |
-         dir "c:\%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Enterprise"
-         dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC"
+         dir c:vcvarsall.* /s
       
