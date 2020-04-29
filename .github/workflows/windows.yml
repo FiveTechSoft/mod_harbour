@@ -22,6 +22,7 @@ jobs:
          choco install apache-httpd --params '"/installLocation:C:\"'
          choco install visualstudio2019community
          choco install curl
+         choco install openssl
          
     - name: Windows test
       run: |
