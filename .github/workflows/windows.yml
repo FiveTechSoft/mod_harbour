@@ -1,0 +1,41 @@
+name: Windows x64 CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Checkout harbour/core repo
+      uses: actions/checkout@v2
+      with:
+       repository: harbour/core
+       path: harbour
+
+    - name: Install dependencies
+      run: |
+         choco install curl
+         choco install openssl --x86
+         dir "C:\Program Files (x86)\OpenSSL-Win32\"
+         
+    - name: Compile Harbour
+      shell: cmd
+      run: |
+        cd harbour
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
+        set HB_BUILD_MODE=c
+        set HB_USER_PRGFLAGS=-l-
+        set HB_BUILD_CONTRIBS=
+        set HB_WITH_OPENSSL="C:\Program Files (x86)\OpenSSL-Win32\include"
+        set HB_WITH_CURL=c:\curl\include
+        set OPENSSL_CONF="C:\Program Files (x86)\OpenSSL-Win32\openssl.cfg"
+        set HB_COMPILER=msvc64
+        del .\src\common\obj\win\msvc64\hbver.obj
+        del .\src\common\obj\win\msvc64\hbver_dyn.obj
+        del .\src\common\obj\win\msvc64\hbverdsp.obj
+        win-make.exe
