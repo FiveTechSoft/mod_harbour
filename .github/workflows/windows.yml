@@ -25,6 +25,7 @@ jobs:
          choco install openssl
          
     - name: Compile Harbour
+      shell: cmd
       run: |
         cd harbour
         call "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
@@ -39,6 +40,7 @@ jobs:
         win-make.exe
       
     - name: Compile mod_harbour
+      shell: cmd
       run: |
         cd windows
         @set oldpath=%Path%
