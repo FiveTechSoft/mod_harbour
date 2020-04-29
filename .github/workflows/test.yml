@@ -9,9 +9,7 @@ jobs:
     runs-on: windows-latest
     
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Compile Harbour
+    - name: My Tests
       shell: cmd
-      run: cl.exe
+      run: set
       
