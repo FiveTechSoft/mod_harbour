@@ -46,29 +46,12 @@ static hPP
 
 function Main()
 
-   local cFileName, pThread, lUpdateCache := .T.
-   local cHrbName, cTmpFilePath
-   local dPrgDate, cPrgTime, dHrbDate, cHrbTime
+   local cFileName, pThread
 
    ErrorBlock( { | o | DoBreak( o ) } )
 
    cFileName = AP_FileName()
    AddPPRules()
-
-   if Lower( Right( cFileName, 4 ) ) == ".prg"
-      cTmpFilePath = SubStr( cFileName, At( "/", cFileName ) + 1 )
-      cTmpFilePath = hb_DirSepToOS( hb_DirTemp() + hb_FNameDir( cTmpFilePath ) )
-      cHrbName = hb_FNameExtSet( hb_FNameName( cFileName ), "hrb" )
-      if File( cTmpFilePath + cHrbName )
-         hb_fGetDateTime( cFileName, @dPrgDate, @cPrgTime )
-         hb_fGetDateTime( cTmpFilePath + cHrbName, @dHrbDate, @cHrbTime )
-         lUpdateCache = dHrbDate <= dPrgDate .and. cHrbTime < cPrgTime
-      else
-         if ! hb_DirExists( cTmpFilePath )
-            hb_DirBuild( cTmpFilePath )
-         endif   
-      endif
-   endif                        
 
    if File( cFileName )
       hb_SetEnv( "PRGPATH",;
@@ -76,8 +59,7 @@ function Main()
       if Lower( Right( cFileName, 4 ) ) == ".hrb"
          pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ), AP_Args() )
       else
-         pThread = hb_threadStart( @ExecuteCache(), MemoRead( cFileName ), lUpdateCache, cTmpFilePath,;
-                                   cHrbName, AP_Args() )
+         pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), AP_Args() )
       endif
       if hb_threadWait( pThread, 15 ) != 1
          hb_threadQuitRequest( pThread )
@@ -128,35 +110,6 @@ function ExecuteHrb( oHrb, cArgs )
    ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError ) ), Break( oError ) } )
 
 return hb_HrbDo( oHrb, cArgs )
-
-//----------------------------------------------------------------//
-
-function ExecuteCache( cCode, lUpdateCache, cTmpFilePath, cHrbName, ... )
-
-   local oHrb, uRet, lReplaced := .T.
-   local cHBheaders1 := "~/harbour/include"
-   local cHBheaders2 := "c:\harbour\include"
-
-   ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError, @cCode ) ), Break( oError ) } )
-
-   while lReplaced 
-      lReplaced = ReplaceBlocks( @cCode, "{%", "%}" )
-      cCode = __pp_process( hPP, cCode )
-   end
-
-   if lUpdateCache
-      oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2,;
-                                "-I" + hb_GetEnv( "HB_INCLUDE" ), hb_GetEnv( "HB_USER_PRGFLAGS" ) )
-      MemoWrit( cTmpFilePath + cHrbName, oHrb )
-   else
-      oHrb = MemoRead( cTmpFilePath + cHrbName )
-   endif
-
-   if ! Empty( oHrb )
-      uRet = hb_HrbDo( hb_HrbLoad( 1, oHrb ), ... )
-   endif
-
-return uRet
 
 //----------------------------------------------------------------//
 
