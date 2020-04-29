@@ -43,7 +43,7 @@ jobs:
     - name: Build mod_harbour
       shell: cmd
       run: |
-        cd mod_harbour
+        cd mod_harbour\windows
         go64.bat
 
     - name: Upload mod_harbour.so to artifact
