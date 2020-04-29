@@ -1,0 +1,52 @@
+name: Ubuntu
+
+on:
+  push:
+    paths: 
+      - 'apache.prg'
+      - 'mod_harbour.c'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout mod_harbour repo
+      uses: actions/checkout@v2
+    
+    - name: Checkout harbour/core repo
+      uses: actions/checkout@v2
+      with:
+       repository: harbour/core
+       path: harbour
+
+    - name: Install dependencies
+      run: |
+         sudo apt install libcurl4-openssl-dev libssl-dev apache2-dev gcc
+         sudo cp -r /usr/include/x86_64-linux-gnu/curl /usr/include
+         
+    - name: Compile harbour
+      run: |
+        cd harbour
+        export HB_USER_CFLAGS="-fPIC"
+        export HB_BUILD_CONTRIBS
+        export HB_WITH_PCRE=local
+        make
+
+    - name: Compile mod_harbour
+      run: |
+        cd linux
+        ../harbour/bin/linux/gcc/hbmk2 modharbour.hbp
+        mv libmod_harbour.so mod_harbour.so
+        
+    - name: Upload mod_harbour.so to artifact
+      uses: actions/upload-artifact@v2
+      with:
+       name: modharbour
+       path: linux/mod_harbour.so
+       
+    - name: Upload libharbour.so.3.2.0 to artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: modharbour
+        path: linux/libharbour.so.3.2.0
