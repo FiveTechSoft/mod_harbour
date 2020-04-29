@@ -15,11 +15,11 @@ jobs:
       uses: actions/checkout@v2
       with:
        repository: harbour/core
-       path: harbour
+       path: C:\harbour
 
     - name: Install dependencies
       run: |
-         choco install apache-httpd
+         choco install apache-httpd --params '"/installLocation:C:\Apache24"'
          
     - name: Windows test
       run: |
