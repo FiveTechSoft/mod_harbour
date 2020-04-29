@@ -173,7 +173,7 @@ function JavaScript()
       ignore_onend = false;
       final_span.innerHTML = '';
       interim_span.innerHTML = '';
-      start_img.src = 'http://www.google.com/intl/en/chrome/assets/common/images/content/mic-slash.gif';
+      start_img.src = 'https://www.google.com/intl/en/chrome/assets/common/images/content/mic-slash.gif';
       start_timestamp = event.timeStamp;
     }    
 
