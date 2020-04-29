@@ -12,5 +12,5 @@ jobs:
     - name: My Tests
       shell: cmd
       run: |
-         dir c:
+         dir c:\%ProgramFiles(x86)%
       
