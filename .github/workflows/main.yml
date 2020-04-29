@@ -5,6 +5,7 @@ on:
     paths: 
       - 'apache.prg'
       - 'mod_harbour.c'
+      - 'ChangeLog.txt'
 
 jobs:
   build:
