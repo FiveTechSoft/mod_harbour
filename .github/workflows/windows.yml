@@ -32,7 +32,7 @@ jobs:
         set HB_BUILD_MODE=c
         set HB_USER_PRGFLAGS=-l-
         set HB_BUILD_CONTRIBS=
-        set HB_COMPILER=msvc64
+        set HB_COMPILER=win64
         set HB_WITH_OPENSSL=c:\%ProgramFiles(x86)%\OpenSSL-Win32\include
         set HB_WITH_CURL=c:\curl\include
         del .\src\common\obj\win\msvc64\hbver.obj
