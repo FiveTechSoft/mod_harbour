@@ -1,25 +1,16 @@
-# This is a basic workflow to help you get started with Actions
+name: Ubuntu CI
 
-name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    paths:
+      - 'apache.prg'
+      - 'mod_harbour.c'
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     
     - name: Checkout harbour/core repo
@@ -28,7 +19,6 @@ jobs:
        repository: harbour/core
        path: harbour
 
-    # Runs a single command using the runners shell
     - name: Install dependencies
       run: |
          sudo apt install libcurl4-openssl-dev libssl-dev apache2-dev gcc
@@ -42,19 +32,18 @@ jobs:
         export HB_WITH_PCRE=local
         make
 
-    # Runs a set of commands using the runners shell
     - name: Compile mod_harbour
       run: |
         cd linux
         ../harbour/bin/linux/gcc/hbmk2 modharbour.hbp
         mv libmod_harbour.so mod_harbour.so
         
-    - name: Zip artifacts
-      run: |
-        cd linux
-        zip modharbour mod_harbour.so libharbour.so.3.2.0
-        
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v2
       with:
        name: modharbour
-       path: linux/modharbour.zip
+       path: linux/mod_harbour.so
+       
+    - uses: actions/upload-artifact@v2
+      with:
+        name: modharbour
+        path: linux/libharbour.so.3.2.0
