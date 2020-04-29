@@ -2,9 +2,7 @@ name: Ubuntu CI
 
 on:
   push:
-    paths:
-      - 'apache.prg'
-      - 'mod_harbour.c'
+    branches: [master]
 
 jobs:
   build:
