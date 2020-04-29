@@ -9,8 +9,12 @@ jobs:
     runs-on: windows-latest
     
     steps:
+    - name: Install VS Community
+      run: choco install visualstudio2019community
+      
     - name: My Tests
       shell: cmd
       run: |
-         dir c:vcvarsall.* /s
+         dir "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC"
+         dir "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC"
       
