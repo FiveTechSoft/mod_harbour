@@ -32,8 +32,9 @@ Copy samples/test.prg to /var/www/html and go to localhost/test.prg in your brow
 
 You need to install these Linux packages:
 ```
-sudo apt install libcurl-dev
+sudo apt install libcurl4-openssl-dev
 sudo apt install libssl-dev
+sudo cp -r /usr/include/x86_64-linux-gnu/curl /usr/include
 ```
 
 First of all, build Harbour
@@ -44,9 +45,10 @@ export HB_USER_CFLAGS="-fPIC"
 export HB_BUILD_CONTRIBS
 make
 ```
-Install apache2-dev
+Install apache and apache2-dev
 ```
-sudo apt-get install apache2-dev
+sudo apt install apache2
+sudo apt install apache2-dev
 ```
 then give execution permissions to go.sh and execute it:
 ```

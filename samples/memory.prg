@@ -1,8 +1,10 @@
 // ; Donated to the public domain by
 //   Viktor Szakats (vszakats.net/harbour)
-// {% hb_SetEnv( "HB_INCLUDE", "/home/anto/harbour/include" ) %} For mod_harbour demo server
-
-#include "hbmemory.ch"
+#ifdef __PLATFORM__WINDOWS 
+   #include "c:\harbour\include\hbmemory.ch"
+#else
+   #include "/usr/include/harbour/hbmemory.ch"
+#endif
 
 PROCEDURE Main()
 

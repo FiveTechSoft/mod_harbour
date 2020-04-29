@@ -224,7 +224,7 @@ static int harbour_handler( request_rec * r )
    if( strcmp( r->handler, "harbour" ) )
       return DECLINED;
 
-   if( ! ( szDllName = ap_getenv( "LIBHARBOUR", r ) ) )
+   if( ! ( szDllName = ap_getenv( "LIBHARBOUR", r ), szDllName ) )  // pacified warning
    #ifdef _WINDOWS_
       szDllName = "c:\\Apache24\\htdocs\\libharbour.dll";
       dwThreadId = GetCurrentThreadId();
@@ -313,5 +313,6 @@ module AP_MODULE_DECLARE_DATA harbour_module = {
     NULL,                  /* create per-server config structures */
     NULL,                  /* merge  per-server config structures */
     NULL,                  /* table of config file commands       */
-    harbour_register_hooks  /* register hooks                      */
+    harbour_register_hooks,  /* register hooks                      */
+    0
 };

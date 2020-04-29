@@ -1,6 +1,10 @@
-//{% hb_SetEnv( "HB_INCLUDE", "/home/user/harbour/include" ) %}
-#include "hbclass.ch"
-#include "hboo.ch"
+#ifdef __PLATFORM__WINDOWS 
+   #include "c:\harbour\include\hbclass.ch"
+   #include "c:\harbour\include\hboo.ch"
+#else
+   #include "/usr/include/harbour/hbclass.ch"
+   #include "/usr/include/harbour/hboo.ch"
+#endif   
 
 Static oPanels
 Static aObjs

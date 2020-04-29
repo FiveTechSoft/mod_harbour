@@ -15,5 +15,7 @@ xhb.hbc
 hbct.hbc
 hbcurl.hbc
 hbnetio.hbc
+hbmzip.hbc
+hbziparc.hbc
 
 mod.hbp

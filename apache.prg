@@ -9,7 +9,7 @@
 #include "hbclass.ch"
 #include "hbhrb.ch"
 
-#xcommand ? <cText> => AP_RPuts( <cText> )
+#xcommand ? [<explist,...>] => AP_RPuts( '<br>' [,<explist>] )
 
 #define CRLF hb_OsNewLine()
 
@@ -18,37 +18,26 @@ extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTKEY, AP_HEADERSOUTVAL, AP_HEADERSOUTSET
 extern AP_POSTPAIRS, AP_HEADERSIN, AP_HEADERSOUT, AP_SETCONTENTTYPE
 extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY, HB_URLDECODE
-extern SHOWCONSOLE, HB_VFDIREXISTS
+extern SHOWCONSOLE, HB_VFDIREXISTS 
 
-#ifdef __PLATFORM__WINDOWS
-   #define __HBEXTERN__HBHPDF__REQUEST
-   #include "..\harbour\contrib\hbhpdf\hbhpdf.hbx"
-   #define __HBEXTERN__XHB__REQUEST
-   #include "..\harbour\contrib\xhb\xhb.hbx"
-   #define __HBEXTERN__HBCT__REQUEST
-   #include "..\harbour\contrib\hbct\hbct.hbx"
-   #define __HBEXTERN__HBWIN__REQUEST
-   #include "..\harbour\contrib\hbwin\hbwin.hbx"
-   #define __HBEXTERN__HBCURL__REQUEST
-   #include "..\harbour\contrib\hbcurl\hbcurl.hbx"
-   #define __HBEXTERN__HBNETIO__REQUEST
-   #include "..\harbour\contrib\hbnetio\hbnetio.hbx"
-#else
-   #define __HBEXTERN__HBHPDF__REQUEST
-   #include "../harbour/contrib/hbhpdf/hbhpdf.hbx"
-   #define __HBEXTERN__XHB__REQUEST
-   #include "../harbour/contrib/xhb/xhb.hbx"
-   #define __HBEXTERN__HBCT__REQUEST
-   #include "../harbour/contrib/hbct/hbct.hbx"
-   #define __HBEXTERN__HBCURL__REQUEST  
-   #include "../harbour/contrib/hbcurl/hbcurl.hbx"
-   #define __HBEXTERN__HBNETIO__REQUEST
-   #include "../harbour/contrib/hbnetio/hbnetio.hbx"
-#endif
+#define __HBEXTERN__HBHPDF__REQUEST
+#include "../harbour/contrib/hbhpdf/hbhpdf.hbx"
+#define __HBEXTERN__XHB__REQUEST
+#include "../harbour/contrib/xhb/xhb.hbx"
+#define __HBEXTERN__HBCT__REQUEST
+#include "../harbour/contrib/hbct/hbct.hbx"
+#define __HBEXTERN__HBCURL__REQUEST  
+#include "../harbour/contrib/hbcurl/hbcurl.hbx"
+#define __HBEXTERN__HBNETIO__REQUEST
+#include "../harbour/contrib/hbnetio/hbnetio.hbx"
+#define __HBEXTERN__HBMZIP__REQUEST
+#include "../harbour/contrib/hbmzip/hbmzip.hbx"
+#define __HBEXTERN__HBZIPARC__REQUEST
+#include "../harbour/contrib/hbziparc/hbziparc.hbx"
 
 #ifdef HB_WITH_ADS
    #define __HBEXTERN__RDDADS__REQUEST
-   #include "..\harbour\contrib\rddads\rddads.hbx"
+   #include "../harbour/contrib/rddads/rddads.hbx"
 #endif
 
 static hPP
@@ -74,7 +63,7 @@ function Main()
       endif
       if hb_threadWait( pThread, 15 ) != 1
          hb_threadQuitRequest( pThread )
-	 ErrorLevel( 408 ) // request timeout
+	      ErrorLevel( 408 ) // request timeout
       endif    
       InKey( 0.1 )
    else
@@ -553,6 +542,7 @@ static void * pAPGetenv, * pAPBody;
 static const char * szFileName, * szArgs, * szMethod, * szUserIP;
 
 #ifdef _MSC_VER
+   #pragma warning(disable:4996)
    #include <windows.h>
 
 HB_FUNC( SHOWCONSOLE )     // to use the debugger locally on Windows
@@ -728,15 +718,23 @@ HB_FUNC( AP_HEADERSOUTSET )
 
 HB_FUNC( PTRTOSTR )
 {
-   const char * * pStrs = ( const char * * ) hb_parnll( 1 );   
-   
+   #ifdef HB_ARCH_32BIT
+      const char * * pStrs = ( const char * * ) hb_parnl( 1 );   
+   #else
+      const char * * pStrs = ( const char * * ) hb_parnll( 1 );   
+   #endif
+
    hb_retc( * ( pStrs + hb_parnl( 2 ) ) );
 }
 
 HB_FUNC( PTRTOUI )
 {
-   unsigned int * pNums = ( unsigned int * ) hb_parnll( 1 );   
-   
+   #ifdef HB_ARCH_32BIT
+      unsigned int * pNums = ( unsigned int * ) hb_parnl( 1 );   
+   #else
+      unsigned int * pNums = ( unsigned int * ) hb_parnll( 1 );   
+   #endif
+
    hb_retnl( * ( pNums + hb_parnl( 2 ) ) );
 }
 

@@ -1,3 +1,13 @@
+2020/April/27
+
+* New PRGs into HRBs automatic cache implemented. This technique was originally implemented, in the xbase world, by FoxBase+
+and later ported to FoxPro. Now mod_harbour automatically avoid the need to recompile when there are no changes
+in the source code. If there is a change, mod_harbour recompiles and updates the cache.
+
+2020/April/15
+
+* New function AP_HeadersOut() same as there is a AP_HeadersIn(). IIS support also.
+
 2020/April/06
 
 * New: function AP_GetPairs() provides similar functionality as AP_PostPairs(). Parameters must
