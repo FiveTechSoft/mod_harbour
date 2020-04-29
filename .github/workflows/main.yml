@@ -2,14 +2,17 @@ name: Ubuntu CI
 
 on:
   push:
-    branches: [master]
+    paths: 
+      - 'apache.prg'
+      - 'mod_harbour.c'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout mod_harbour repo
+      uses: actions/checkout@v2
     
     - name: Checkout harbour/core repo
       uses: actions/checkout@v2
@@ -36,12 +39,14 @@ jobs:
         ../harbour/bin/linux/gcc/hbmk2 modharbour.hbp
         mv libmod_harbour.so mod_harbour.so
         
-    - uses: actions/upload-artifact@v2
+    - name: Upload mod_harbour.so to artifact
+      uses: actions/upload-artifact@v2
       with:
        name: modharbour
        path: linux/mod_harbour.so
        
-    - uses: actions/upload-artifact@v2
+    - name: Upload libharbour.so.3.2.0 to artifact
+      uses: actions/upload-artifact@v2
       with:
         name: modharbour
         path: linux/libharbour.so.3.2.0
