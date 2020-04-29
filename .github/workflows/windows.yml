@@ -1,0 +1,27 @@
+name: Windows x64 CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Checkout harbour/core repo
+      uses: actions/checkout@v2
+      with:
+       repository: harbour/core
+       path: harbour
+
+    - name: Install dependencies
+      run: |
+         choco install apache-httpd
+         
+    - name: Windows test
+      run: |
+         dir
+         dir c:
