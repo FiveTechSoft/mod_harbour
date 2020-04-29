@@ -26,3 +26,4 @@ jobs:
     - name: Windows test
       run: |
          dir c:
+         dir c:\ProgramData\chocolatey\lib\curl
