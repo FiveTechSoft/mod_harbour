@@ -32,6 +32,7 @@ jobs:
         set HB_BUILD_MODE=c
         set HB_USER_PRGFLAGS=-l-
         set HB_BUILD_CONTRIBS=
+        set HB_COMPILER=msvc64
         set HB_WITH_OPENSSL=c:\%ProgramFiles(x86)%\OpenSSL-Win32\include
         set HB_WITH_CURL=c:\curl\include
         del .\src\common\obj\win\msvc64\hbver.obj
@@ -46,7 +47,7 @@ jobs:
         set oldpath=%Path%
         set oldinclude=%INCLUDE%
         call "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
-        ..\harbour\bin\win\mingw64\hbmk2 modharbour.hbp -comp=mingw64 -Lc:\Apache24\lib
+        ..\harbour\bin\win\msvc64\hbmk2 modharbour.hbp -comp=msvc64 -Lc:\Apache24\lib
         set Path=%oldpath%
         set INCLUDE=%oldinclude%
       
