@@ -1,0 +1,21 @@
+name: Windows x64 CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    
+    - name: Install dependencies
+      run: |
+         (new-object System.Net.WebClient).DownloadFile('https://github.com/FiveTechSoft/harbour_and_xharbour_builds/blob/master/curl-7.54.0-win32-mingw.7z', 'C:\temp\curl-7.54.0-win32-mingw.7z')
+         cd C:\temp
+         tar -xvf curl-7.54.0-win32-mingw.7z
+         dir "C:"
+         dir "C:\temp"
+         
+      
