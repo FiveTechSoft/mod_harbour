@@ -1,3 +1,9 @@
+2020/April/29
+
+* Cache temporarly removed. We are doing more tests.
+
+* New GitHub actions to automatically build mod_harbour for Linux.
+
 2020/April/27
 
 * New PRGs into HRBs automatic cache implemented. This technique was originally implemented, in the xbase world, by FoxBase+
