@@ -258,8 +258,8 @@ static int harbour_handler( request_rec * r )
       ap_rprintf( r, "mod_harbour version %s, %s<br>", __DATE__, __TIME__ );
       #ifdef _WINDOWS_
          char * szErrorMessage = GetErrorMessage( GetLastError() );
-
-         ap_rputs( "c:\\Apache24\\htdocs\\libharbour.dll<br>", r ); 
+  
+         ap_rprintf( r, "%s<br>", szDllName );
          ap_rputs( szErrorMessage, r );
          LocalFree( ( void * ) szErrorMessage );
       #else
