@@ -29,8 +29,6 @@ jobs:
          
     - name: Tests
       run: |
-        dir C:\
-        dir C:\OpenSSL
         dir C:\curl
          
     - name: Compile Harbour
