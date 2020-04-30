@@ -40,12 +40,17 @@ jobs:
         del .\src\common\obj\win\msvc64\hbverdsp.obj
         win-make.exe
 
-    - name: Build mod_harbour
+    - name: Compile mod_harbour
       shell: cmd
       run: |
-        cd mod_harbour\windows
-        go64.bat
-
+        cd windows
+        set oldpath=%Path%
+        set oldinclude=%INCLUDE%
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
+        ..\harbour\bin\win\msvc64\hbmk2 modharbour.hbp -comp=msvc64 -Lc:\Apache24\lib
+        set Path=%oldpath%
+        set INCLUDE=%oldinclude%
+        
     - name: Upload mod_harbour.so to artifact
       uses: actions/upload-artifact@v2
       with:
