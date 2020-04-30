@@ -5,6 +5,8 @@ on:
     paths: 
       - 'apache.prg'
       - 'mod_harbour.c'
+      - 'linux/modharbour.hbp'
+      - 'linux/mod.hbp'
 
 jobs:
   build:
