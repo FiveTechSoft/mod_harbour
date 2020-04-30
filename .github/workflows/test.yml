@@ -12,7 +12,7 @@ jobs:
     
     - name: Install dependencies
       run: |
-         (new-object System.Net.WebClient).DownloadFile('https://github.com/FiveTechSoft/harbour_and_xharbour_builds/blob/master/OpenSSL-Win32.zip', 'C:\temp\')
+         (new-object System.Net.WebClient).DownloadFile('https://github.com/FiveTechSoft/harbour_and_xharbour_builds/blob/master/OpenSSL-Win32.zip', 'C:\temp\OpenSSL-Win32.zip')
          cd C:\temp
          Expand-Archive -LiteralPath C:\temp\OpenSSL-Win32.zip -DestinationPath C:\ OpenSSL
          dir "C:"
