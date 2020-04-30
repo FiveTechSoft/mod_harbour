@@ -1,15 +1,20 @@
-name: Ubuntu
+name: Ubuntu x64
 
 on:
   push:
     paths: 
       - 'apache.prg'
       - 'mod_harbour.c'
-      - 'ChangeLog.txt'
+      - 'linux/modharbour.hbp'
+      - 'linux/mod.hbp'
+  watch:
+   types: [started]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    if: github.actor == github.event.repository.owner.login
     
     steps:
     - name: Checkout mod_harbour repo
