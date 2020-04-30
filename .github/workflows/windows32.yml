@@ -2,7 +2,11 @@ name: Windows x86
 
 on:
   push:
-    branches: [master]
+    paths: 
+      - 'apache.prg'
+      - 'mod_harbour.c'
+      - 'windows/modharbour.hbp'
+      - 'windows/mod.hbp'
   watch:
    types: [started]
 
