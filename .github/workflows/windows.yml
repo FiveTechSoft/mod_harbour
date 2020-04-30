@@ -23,8 +23,16 @@ jobs:
          choco install apache-httpd --params '"/installLocation:C:"'
          choco install curl
          choco install openssl --x86
-         dir "C:\Program Files (x86)\OpenSSL-Win32\"
-         dir "C:\Apache24"
+         (new-object System.Net.WebClient).DownloadFile('https://github.com/FiveTechSoft/harbour_and_xharbour_builds/raw/master/OpenSSL-Win32.zip', 'C:\temp\OpenSSL-Win32.zip')
+         Expand-Archive -LiteralPath C:\temp\OpenSSL-Win32.zip -DestinationPath C:\OpenSSL -Force
+         (new-object System.Net.WebClient).DownloadFile('https://api.zop.yt/curl-7.54.0-win32-mingw.zip', 'C:\temp\curl-7.54.0-win32-mingw.zip')
+         Expand-Archive -LiteralPath C:\temp\curl-7.54.0-win32-mingw.zip -DestinationPath C:\curl -Force
+         
+    - name: Tests
+      run: |
+        dir C:\
+        dir C:\OpenSSL
+        dir C:\curl
          
     - name: Compile Harbour
       shell: cmd
@@ -34,9 +42,8 @@ jobs:
         set HB_BUILD_MODE=c
         set HB_USER_PRGFLAGS=-l-
         set HB_BUILD_CONTRIBS=
-        set HB_WITH_OPENSSL="C:\Program Files (x86)\OpenSSL-Win32\include"
-        set HB_WITH_CURL=c:\curl\include
-        set OPENSSL_CONF="C:\Program Files (x86)\OpenSSL-Win32\openssl.cfg"
+        set HB_WITH_OPENSSL=C:\OpenSSL\include
+        set HB_WITH_CURL=C:\curl\include
         set HB_COMPILER=msvc64
         del .\src\common\obj\win\msvc64\hbver.obj
         del .\src\common\obj\win\msvc64\hbver_dyn.obj
