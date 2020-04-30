@@ -2,7 +2,9 @@ name: Windows x64 CI
 
 on:
   push:
-    branches: [master]
+    paths: 
+      - 'apache.prg'
+      - 'mod_harbour.c'
 
 jobs:
   build:
