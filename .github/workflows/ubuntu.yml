@@ -48,11 +48,11 @@ jobs:
     - name: Upload mod_harbour.so to artifact
       uses: actions/upload-artifact@v2
       with:
-       name: modharbour_Ubuntu64
+       name: modharbour_ubuntu64_dev
        path: linux/mod_harbour.so
        
     - name: Upload libharbour.so.3.2.0 to artifact
       uses: actions/upload-artifact@v2
       with:
-        name: modharbour_Ubuntu64
+        name: modharbour_ubuntu64_dev
         path: linux/libharbour.so.3.2.0
