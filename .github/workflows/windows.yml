@@ -57,4 +57,16 @@ jobs:
         ..\harbour\bin\win\msvc64\hbmk2 modharbour.hbp -comp=msvc64 -Lc:\Apache24\lib
         set Path=%oldpath%
         set INCLUDE=%oldinclude%
+        
+    - name: Upload mod_harbour.so to artifact
+      uses: actions/upload-artifact@v2
+      with:
+       name: modharbour
+       path: windows/mod_harbour.so
+       
+    - name: Upload libharbour.so.3.2.0 to artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: modharbour
+        path: windows/libharbour.dll
       
