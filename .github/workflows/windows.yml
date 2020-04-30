@@ -2,8 +2,7 @@ name: Windows x64 CI
 
 on:
   push:
-    paths: 
-      - 'mod_harbour.c'
+    branches: [master]
 
 jobs:
   build:
