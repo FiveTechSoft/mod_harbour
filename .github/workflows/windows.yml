@@ -19,9 +19,11 @@ jobs:
 
     - name: Install dependencies
       run: |
+         choco install apache-httpd --params '"/installLocation:C:"'
          choco install curl
          choco install openssl --x86
          dir "C:\Program Files (x86)\OpenSSL-Win32\"
+         dir "C:\Apache24"
          
     - name: Compile Harbour
       shell: cmd
