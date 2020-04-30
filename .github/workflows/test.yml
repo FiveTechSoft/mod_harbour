@@ -12,9 +12,9 @@ jobs:
     
     - name: Install dependencies
       run: |
-         (new-object System.Net.WebClient).DownloadFile('https://github.com/FiveTechSoft/harbour_and_xharbour_builds/blob/master/curl-7.54.0-win32-mingw.7z', 'C:\temp\curl-7.54.0-win32-mingw.7z')
+         (new-object System.Net.WebClient).DownloadFile('https://github.com/FiveTechSoft/harbour_and_xharbour_builds/blob/master/OpenSSL-Win32.zip', 'C:\temp\')
          cd C:\temp
-         tar -xvf curl-7.54.0-win32-mingw.7z
+         Expand-Archive -LiteralPath C:\temp\OpenSSL-Win32.zip -DestinationPath C:\ OpenSSL
          dir "C:"
          dir "C:\temp"
          
