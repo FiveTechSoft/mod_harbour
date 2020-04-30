@@ -55,10 +55,10 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: modharbour
-        path: windows/mod_harbour.so
+        path: mod_harbour/windows/mod_harbour.so
        
     - name: Upload libharbour.dll to artifact
       uses: actions/upload-artifact@v2
       with:
         name: modharbour
-        path: windows/libharbour.dll
+        path: mod_harbour/windows/libharbour.dll
