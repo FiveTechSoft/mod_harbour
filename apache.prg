@@ -100,11 +100,7 @@ function AddPPRules()
    __pp_addRule( hPP, "#xcommand FINALLY => ALWAYS" )
    __pp_addRule( hPP, "#xcommand DEFAULT <v1> TO <x1> [, <vn> TO <xn> ] => ;" + ;
                       "IF <v1> == NIL ; <v1> := <x1> ; END [; IF <vn> == NIL ; <vn> := <xn> ; END ]" )
-   /* TRY / CATCH / FINALLY / END */
-   __pp_addRule( hPP, "#xcommand TRY => BEGIN SEQUENCE WITH __BreakBlock()" )
-   __pp_addRule( hPP, "#xcommand CATCH [<!oErr!>] => RECOVER [USING <oErr>] <-oErr->" )
-   __pp_addRule( hPP, "#xcommand FINALLY => ALWAYS" )		      
-
+		      
 return nil
 
 //----------------------------------------------------------------//
