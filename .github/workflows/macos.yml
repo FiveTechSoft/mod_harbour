@@ -30,7 +30,7 @@ jobs:
          
     - name: Test
       run: |
-        cd harbour/osx
+        cd osx
         sed -n 's/anto/runner\/runners\/2.169.1\/work\/mod_harbour\/mod_harbour/gpw libs.txt' libs.txt
         sed -n 's/8.43/8.44/gpw libs.txt' libs.txt
         cat libs.txt
