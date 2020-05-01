@@ -1,0 +1,35 @@
+name: macOS
+
+on:
+  push:
+    branches: [master]
+  watch:
+   types: [started]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    if: github.actor == github.event.repository.owner.login
+    
+    steps:
+    - name: Checkout mod_harbour repo
+      uses: actions/checkout@v2
+    
+    - name: Checkout harbour/core repo
+      uses: actions/checkout@v2
+      with:
+       repository: harbour/core
+       path: harbour
+
+    - name: Install dependencies
+      run: |
+         brew install curl
+         brew install pcre
+         brew install httpd
+         
+    - name: Test
+      run: |
+        ls
+        pwd
+        ls /usr/local/Cellar/curl/
