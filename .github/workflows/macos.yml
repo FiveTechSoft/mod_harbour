@@ -28,13 +28,13 @@ jobs:
          brew install pcre
          brew install httpd
          
-     - name: Test
-       run: |
-         ls /usr/local/Cellar/
-         ls /usr/local/Cellar/httpd/
-         ls /usr/local/Cellar/httpd/2.4.41_1/include/
-         ls /usr/local/Cellar/apr-util/1.6.1_3/libexec/include/apr-1
-         ls /usr/local/Cellar/apr/1.7.0/libexec/include/apr-1
+    - name: Test
+      run: |
+          ls /usr/local/Cellar/
+          ls /usr/local/Cellar/httpd/
+          ls /usr/local/Cellar/httpd/2.4.41_1/include/
+          ls /usr/local/Cellar/apr-util/1.6.1_3/libexec/include/apr-1
+          ls /usr/local/Cellar/apr/1.7.0/libexec/include/apr-1
          
 #    - name: Compile Harbour
 #      run: |
