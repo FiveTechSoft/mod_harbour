@@ -1,4 +1,4 @@
-name: Windows 32 bits
+name: Windows 32-bits
 
 on:
   push:
