@@ -49,7 +49,7 @@ function JavaScript()
    TEXT INTO cScript
       <script>
          function demo() {
-            var object = { one: "first", two: "second", third: "third" };
+            var object = { one: "first", two: "second", three: "third" };
 
             jsonToPrg( "js_to_prg.prg", object );
          }    
