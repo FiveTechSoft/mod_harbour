@@ -1,5 +1,5 @@
 // This example shows how to send javascript values (objects) 
-// from javascript (low level) to a PRG (high level)
+// from javascript (low level) to a Harbour hash (high level)
 
 //----------------------------------------------------------------//
 
@@ -12,7 +12,7 @@ function Main()
       hPostPairs = AP_PostPairs()
       hPostPairs[ "params" ] = hb_UrlDecode( hPostPairs[ "params" ] )
       ? hb_jsonDecode( hPostPairs[ "params" ] ) // Here we get a Harbour hash
-      ? "<h3>This way you can send javascript values (from the client side) to Harbour hashes (on the server side)</h3>"
+      ? "<h3>This way you can send javascript objects (from the client side) to Harbour hashes (on the server side)</h3>"
    else   
       ?? Html()
    endif   
@@ -31,8 +31,8 @@ function Html()
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
          </head>
          <body>
-            <h2>Javacript (low level) to PRG (high level) demo</h2>
-            <h3>working...</h3> 
+            <h2>Javacript object (json from low level) to Harbour hash (at high level) demo</h2>
+            <button onclick='demo()'>Click to proceed</button> 
             {{JavaScript()}}
          </body>
       </html>
@@ -48,9 +48,11 @@ function JavaScript()
 
    TEXT INTO cScript
       <script>
-         var object = { one: "first", two: "second", third: "third" };
+         function demo() {
+            var object = { one: "first", two: "second", third: "third" };
 
-         jsonToPrg( "js_to_prg.prg", object ); 
+            jsonToPrg( "js_to_prg.prg", object );
+         }    
 
          function jsonToPrg( cUrl, hJson ) {
             var $form = $("<form />");
