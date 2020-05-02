@@ -1,13 +1,9 @@
 function Main()
 
-   local hPairs := AP_PostPairs()
-
-   if Len( hPairs ) == 0
-      ? "This example is used from samples/post.prg"
-   else
-      ? ValToChar( hPairs )
+   if AP_Method() == "POST"
+      ? AP_PostPairs()
+   else   
+      ? "This example is used to review POST sent values"
    endif
-
-   ? AP_Remaining()
 
 return nil
