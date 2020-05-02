@@ -12,4 +12,4 @@ return AP_RPuts( "<script>localStorage.setItem( '" + cKey + "','" + cValue + "')
 
 function ShowLocalStorageItem( cKey )
 
-return Ap_RPuts( "<script>alert( localStorage.getItem( '" + cKey + "') )</script>" )
+return AP_RPuts( "<script>alert( localStorage.getItem( '" + cKey + "') )</script>" )
