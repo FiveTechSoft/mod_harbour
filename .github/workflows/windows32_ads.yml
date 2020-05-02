@@ -1,4 +1,4 @@
-name: Windows x86 with ADS
+name: Windows 32-bits with ADS
 
 on:
   push:

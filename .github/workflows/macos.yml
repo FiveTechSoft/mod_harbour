@@ -1,18 +1,18 @@
-name: Ubuntu 64-bits
+name: macOS
 
 on:
   push:
     paths: 
       - 'apache.prg'
       - 'mod_harbour.c'
-      - 'linux/modharbour.hbp'
-      - 'linux/mod.hbp'
+      - 'osx/modharbour.hbp'
+      - 'osx/mod.hbp'
   watch:
    types: [started]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     
     if: github.actor == github.event.repository.owner.login
     
@@ -28,31 +28,33 @@ jobs:
 
     - name: Install dependencies
       run: |
-         sudo apt install libcurl4-openssl-dev libssl-dev apache2-dev gcc
-         sudo cp -r /usr/include/x86_64-linux-gnu/curl /usr/include
+         brew install curl
+         brew install pcre
+         brew install httpd
+         cd osx
+         sed -i '' 's/anto/runner\/runners\/2.169.1\/work\/mod_harbour\/mod_harbour/g' libs.txt
          
-    - name: Compile harbour
+    - name: Compile Harbour
       run: |
         cd harbour
-        export HB_USER_CFLAGS="-fPIC"
-        export HB_BUILD_CONTRIBS
-        export HB_WITH_PCRE=local
+        export HB_WITH_CURL=/usr/local/Cellar/curl/7.69.1/include/
+        export HB_BUILD_CONTRIBS=""
         make
-
+        
     - name: Compile mod_harbour
       run: |
-        cd linux
-        ../harbour/bin/linux/gcc/hbmk2 modharbour.hbp
+        cd osx
+        ../harbour/bin/darwin/clang/hbmk2 modharbour.hbp
         mv libmod_harbour.so mod_harbour.so
         
     - name: Upload mod_harbour.so to artifact
       uses: actions/upload-artifact@v2
       with:
-       name: modharbour_ubuntu64_dev
-       path: linux/mod_harbour.so
+       name: modharbour_macos_dev
+       path: osx/mod_harbour.so
        
     - name: Upload libharbour.so.3.2.0 to artifact
       uses: actions/upload-artifact@v2
       with:
-        name: modharbour_ubuntu64_dev
-        path: linux/libharbour.so.3.2.0
+        name: modharbour_macos_dev
+        path: osx/libharbour.3.2.0.dylib

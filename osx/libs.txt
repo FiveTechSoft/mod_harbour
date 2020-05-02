@@ -1,4 +1,4 @@
--force_load /usr/local/Cellar/pcre/8.43/lib/libpcre.a
+-force_load /usr/local/Cellar/pcre/8.44/lib/libpcre.a
 -force_load /usr/local/Cellar/curl/7.69.1/lib/libcurl.a
 -force_load /Users/anto/harbour/lib/darwin/clang/libhbhpdf.a
 -force_load /Users/anto/harbour/lib/darwin/clang/liblibhpdf.a
