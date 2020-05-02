@@ -28,27 +28,35 @@ jobs:
          brew install pcre
          brew install httpd
          
-    - name: Compile Harbour
-      run: |
-        cd harbour
-        export HB_WITH_CURL=/usr/local/Cellar/curl/7.69.1/include/
-        export HB_BUILD_CONTRIBS=""
-        make
+     - name: Test
+       run: |
+         ls /usr/local/Cellar/
+         ls /usr/local/Cellar/httpd/
+         ls /usr/local/Cellar/httpd/2.4.41_1/include/
+         ls /usr/local/Cellar/apr-util/1.6.1_3/libexec/include/apr-1
+         ls /usr/local/Cellar/apr/1.7.0/libexec/include/apr-1
+         
+#    - name: Compile Harbour
+#      run: |
+#        cd harbour
+#        export HB_WITH_CURL=/usr/local/Cellar/curl/7.69.1/include/
+#        export HB_BUILD_CONTRIBS=""
+#        make
         
-    - name: Compile mod_harbour
-      run: |
-        cd osx
-        ../harbour/bin/darwin/clang/hbmk2 modharbour.hbp
-        mv libmod_harbour.so mod_harbour.so
+#    - name: Compile mod_harbour
+#      run: |
+#        cd osx
+#        ../harbour/bin/darwin/clang/hbmk2 modharbour.hbp
+#        mv libmod_harbour.so mod_harbour.so
         
-    - name: Upload mod_harbour.so to artifact
-      uses: actions/upload-artifact@v2
-      with:
-       name: modharbour_macos_dev
-       path: osx/mod_harbour.so
+#    - name: Upload mod_harbour.so to artifact
+#      uses: actions/upload-artifact@v2
+#      with:
+#       name: modharbour_macos_dev
+#       path: osx/mod_harbour.so
        
-    - name: Upload libharbour.so.3.2.0 to artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: modharbour_macos_dev
-        path: osx/libharbour.3.2.0.dylib
+#    - name: Upload libharbour.so.3.2.0 to artifact
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: modharbour_macos_dev
+#        path: osx/libharbour.3.2.0.dylib
