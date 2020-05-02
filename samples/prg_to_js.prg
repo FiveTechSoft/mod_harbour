@@ -6,7 +6,7 @@ function Main()
 	hHash[ 'date' ] = date()
 	hHash[ 'age'  ] = 123
 
-  ? "From PRG (json) to Javascript (object)"	
+  ? "<h2>From PRG (json) to Javascript (object)</h2>"	
     
 	?? "<script>"
 	?? "var object=" + hb_jsonEncode( hHash, .T. ) + ";"
