@@ -56,3 +56,9 @@ jobs:
       with:
         name: modharbour_ubuntu64_dev
         path: linux/libharbour.so.3.2.0
+        
+    - name: Upload readme.md to artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: modharbour_ubuntu64_dev
+        path: linux/readme.md
