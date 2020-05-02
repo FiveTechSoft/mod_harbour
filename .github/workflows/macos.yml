@@ -31,6 +31,6 @@ jobs:
     - name: Test
       run: |
         cd osx
-        sed -i 's/anto/runner\/runners\/2.169.1\/work\/mod_harbour\/mod_harbour/g' libs.txt
-        sed -i 's/8.43/8.44/g' libs.txt
+        sed -i '' 's/anto/runner\/runners\/2.169.1\/work\/mod_harbour\/mod_harbour/g' libs.txt
+        sed -i '' 's/8.43/8.44/g' libs.txt
         cat libs.txt
