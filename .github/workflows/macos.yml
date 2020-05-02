@@ -58,3 +58,9 @@ jobs:
       with:
         name: modharbour_macos_dev
         path: osx/libharbour.3.2.0.dylib
+        
+    - name: Upload readme.md to artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: modharbour_macos_dev
+        path: osx/readme.md:  
