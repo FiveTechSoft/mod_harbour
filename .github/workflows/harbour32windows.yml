@@ -39,8 +39,21 @@ jobs:
         set HB_COMPILER=msvc
         win-make.exe
         
+    - name: Upload bins to artifact
+      uses: actions/upload-artifact@v2
+      with:
+       name: harbour_win32_msvc
+       path: harbour/bin/win/msvc
+
     - name: Upload libs to artifact
       uses: actions/upload-artifact@v2
       with:
        name: harbour_win32_msvc
-       path: lib/win/msvc/*.lib
+       path: harbour/lib/win/msvc
+
+    - name: Upload includes to artifact
+      uses: actions/upload-artifact@v2
+      with:
+       name: harbour_win32_msvc
+       path: harbour/include
+
