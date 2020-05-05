@@ -1,12 +1,6 @@
 name: Harbour for Windows 32-bits
 
 on:
-  push:
-    paths: 
-      - 'apache.prg'
-      - 'mod_harbour.c'
-      - 'windows/modharbour.hbp'
-      - 'windows/mod.hbp'
   watch:
    types: [started]
 
