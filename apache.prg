@@ -466,7 +466,10 @@ function SetCookie( cName, cValue, nSecs, cPath, cDomain, lHttps, lOnlyHttp )
    cCookie += cName + '=' + cValue + ';'
    cCookie += 'expires=' + CookieExpire( nSecs ) + ';'
    cCookie += 'path=' + cPath + ';'
-   cCookie += 'domain=' + cDomain + ';'
+   
+   if ! Empty( cDomain )
+      cCookie += 'domain=' + cDomain + ';'
+   endif
 		
    // pending logical values for https y OnlyHttp
 
