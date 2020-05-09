@@ -16,8 +16,7 @@ jobs:
     - name: Checkout mod_harbour repo
       uses: actions/checkout@v2
             
-    - name: Install dependencies
+    - name: Build installer
       run: |
-        choco install innosetup
         iscc mod_harbour/win/install_win64/modharbour.iss
           
