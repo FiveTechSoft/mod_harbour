@@ -44,9 +44,6 @@ jobs:
         set HB_WITH_OPENSSL=C:\OpenSSL\include
         set HB_WITH_CURL=C:\curl\include
         set HB_COMPILER=msvc
-        del .\src\common\obj\win\msvc\hbver.obj
-        del .\src\common\obj\win\msvc\hbver_dyn.obj
-        del .\src\common\obj\win\msvc\hbverdsp.obj
         win-make.exe
         
     - name: Compile mod_harbour
