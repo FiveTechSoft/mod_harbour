@@ -17,4 +17,8 @@ jobs:
     if: github.actor == github.event.repository.owner.login
     
     steps:
-      -name: 
+      
+      - name: Install dependencies
+        run: |
+          choco install innosetup
+          
