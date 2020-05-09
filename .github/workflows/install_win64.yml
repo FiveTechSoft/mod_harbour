@@ -19,4 +19,17 @@ jobs:
     - name: Build installer
       run: |
         iscc windows/win64/setup/modharbour.iss
-          
+        
+    - name: Get current time
+      uses: srfrnk/current-time@master
+      id: current-time
+      with:
+        format: YYYY_MM_DD
+ 
+    - name: Upload Harbour to artifact
+      env:
+         TIME: "${{ steps.current-time.outputs.formattedTime }}"
+      uses: actions/upload-artifact@v2
+      with:
+       name: install_win64_${{ env.TIME }}
+       path: D:\a\mod_harbour\mod_harbour\windows\win64\setup\Output\modharbour.exe        
