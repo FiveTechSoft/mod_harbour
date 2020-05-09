@@ -1,4 +1,4 @@
-name: modharbour Windows 64bits installer
+name: Windows 64bits installer
 
 on:
   push:
