@@ -20,11 +20,11 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName=c:\modharbour\{#MyAppName}
 DisableDirPage=yes
 DefaultGroupName={#MyAppName}
-LicenseFile=LICENSE
+LicenseFile=..\..\..\..\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputBaseFilename=modharbour
-SetupIconFile=C:\mod_harbour\docs\favicon.ico
+SetupIconFile=..\..\..\docs\favicon.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -56,6 +56,6 @@ Name: "turkish"; MessagesFile: "compiler:Languages\Turkish.isl"
 Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Files]
-Source: "C:\mod_harbour\windows\mod_harbour.so"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\mod_harbour\windows\libharbour.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\windows\mod_harbour.so"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\windows\libharbour.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
