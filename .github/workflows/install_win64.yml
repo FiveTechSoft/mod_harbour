@@ -2,8 +2,7 @@ name: modharbour Windows 64bits installer
 
 on:
   push:
-    paths: 
-      - '.github/workflows/install_win64.yml'
+
   watch:
     types: [started]
 
