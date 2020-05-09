@@ -60,5 +60,50 @@ Source: "..\..\..\windows\win64\mod_harbour.so"; DestDir: "{app}"; Flags: ignore
 Source: "..\..\..\windows\win64\libharbour.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
+[Code]
+var
+  ServersPage: TInputQueryWizardPage;
+  ApacheCheckBox: TNewCheckBox;
+  XamppCheckBox: TNewCheckBox;
+  IISCheckBox: TNewCheckBox;
+
+procedure AddServersPage();
+begin
+  ServersPage := CreateInputQueryPage(
+    wpWelcome,
+    'Please select the server(s) to use',
+    '',
+    'mod_harbour supports Apache, Xampp and Windows IIS');
+
+  ApacheCheckBox         := TNewCheckBox.Create( ServersPage );
+  ApacheCheckBox.Parent  := ServersPage.Surface;
+  ApacheCheckBox.Top     := ApacheCheckBox.Top + 30; 
+  ApacheCheckBox.Caption := 'Apache';
+
+  XamppCheckBox          := TNewCheckBox.Create( ServersPage );
+  XamppCheckBox.Parent   := ServersPage.Surface;
+  XamppCheckBox.Top      := XamppCheckBox.Top + 60; 
+  XamppCheckBox.Caption  := 'Xampp';  
+
+  IISCheckBox            := TNewCheckBox.Create( ServersPage );
+  IISCheckBox.Parent     := ServersPage.Surface;
+  IISCheckBox.Top        := IISCheckBox.Top + 90; 
+  IISCheckBox.Caption    := 'Microsoft IIS';  
+end;
+
+procedure InitializeWizard();
+begin
+  AddServersPage();
+end;
+
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  if CurStep = ssPostInstall then
+  begin
+    { Read custom value }
+    MsgBox('Custom Value = ' + ServersPage.Values[0], mbInformation, MB_OK);
+  end;
+end;
+
 [Run]
 Filename: http://localhost/modharbour_samples/; Description: "Review mod_harbour samples"; Flags: postinstall shellexec
