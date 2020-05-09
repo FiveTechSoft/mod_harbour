@@ -66,6 +66,10 @@ var
   ApacheCheckBox: TNewCheckBox;
   XamppCheckBox: TNewCheckBox;
   IISCheckBox: TNewCheckBox;
+  TempPath: string;
+  Parameters: string;
+  retCode: integer;
+  AResult: AnsiString;
 
 procedure AddServersPage();
 begin
@@ -89,6 +93,22 @@ begin
   IISCheckBox.Parent     := ServersPage.Surface;
   IISCheckBox.Top        := IISCheckBox.Top + 90; 
   IISCheckBox.Caption    := 'Microsoft IIS';  
+
+  TempPath := ExpandConstant( '{tmp}\server.txt' ); 
+  Parameters := '(Invoke-WebRequest "localhost") -match "xampp" -ErrorFile "' + TempPath + '"';    
+
+  if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and ( retCode = 0 ) then
+    begin    
+      LoadStringFromFile( TempPath, AResult );
+      MsgBox( 'OK', mbInformation, MB_OK );
+    end 
+  else 
+    begin
+      MsgBox( 'NO', mbInformation, MB_OK );
+    end;
+
+  DeleteFile( TempPath );
+          
 end;
 
 procedure InitializeWizard();
