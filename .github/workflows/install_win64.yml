@@ -18,5 +18,5 @@ jobs:
             
     - name: Build installer
       run: |
-        iscc mod_harbour/win/install_win64/modharbour.iss
+        iscc win/install_win64/modharbour.iss
           
