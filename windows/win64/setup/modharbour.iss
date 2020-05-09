@@ -94,13 +94,13 @@ begin
   IISCheckBox.Top        := IISCheckBox.Top + 90; 
   IISCheckBox.Caption    := 'Microsoft IIS';  
 
-  TempPath := ExpandConstant( '{tmp}\server.txt' ); 
-  Parameters := '(Invoke-WebRequest "localhost") -match "xampp" -ErrorFile "' + TempPath + '"';    
+  TempPath := ExpandConstant( '{tmp}\\info.txt' ); 
+  Parameters := '(Invoke-WebRequest "localhost") -match "apache">' + TempPath;    
 
-  if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and ( retCode = 0 ) then
-    begin    
+  if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( TempPath ) then
+    begin  
       LoadStringFromFile( TempPath, AResult );
-      MsgBox( 'OK', mbInformation, MB_OK );
+      MsgBox( SysErrorMessage( retCode ), mbInformation, MB_OK );
     end 
   else 
     begin
