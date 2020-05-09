@@ -20,7 +20,7 @@ jobs:
       run: |
         iscc windows/win64/setup/modharbour.iss
         
-    - name: Get current time
+    - name: Get current date
       uses: srfrnk/current-time@master
       id: current-time
       with:
