@@ -19,4 +19,5 @@ jobs:
     - name: Install dependencies
       run: |
         choco install innosetup
+        iscc mod_harbour/win/install_win64/modharbour.iss
           
