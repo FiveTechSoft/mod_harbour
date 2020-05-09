@@ -12,13 +12,13 @@
 AppId={{B86542BD-ECFF-4834-B9D6-62771476D533}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={localappdata}\{#MyAppName}
-DisableDirPage=yes
+DisableDirPage=no
 DefaultGroupName={#MyAppName}
 LicenseFile=..\..\..\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
