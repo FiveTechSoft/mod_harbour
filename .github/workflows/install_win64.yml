@@ -26,7 +26,7 @@ jobs:
       with:
         format: YYYY_MM_DD
  
-    - name: Upload Harbour to artifact
+    - name: Building the final zip with the installer inside
       env:
          TIME: "${{ steps.current-time.outputs.formattedTime }}"
       uses: actions/upload-artifact@v2
