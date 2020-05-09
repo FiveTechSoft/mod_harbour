@@ -66,10 +66,25 @@ var
   ApacheCheckBox: TNewCheckBox;
   XamppCheckBox: TNewCheckBox;
   IISCheckBox: TNewCheckBox;
-  TempPath: string;
+  cTmpFile: string;
   Parameters: string;
   retCode: integer;
-  AResult: AnsiString;
+  cHtml: AnsiString;
+
+function Wide( str: AnsiString ):String;
+var
+ i : Integer;
+ iChar : Integer;
+ outString : String;
+begin
+ outString :='';
+ for i := 1 to Length( str ) do
+ begin
+  outString := outString + Chr( Ord( str[ i ] ) ) + Chr( 0 );
+ end;
+
+ Result := outString;
+end;
 
 procedure AddServersPage();
 begin
@@ -94,20 +109,23 @@ begin
   IISCheckBox.Top        := IISCheckBox.Top + 90; 
   IISCheckBox.Caption    := 'Microsoft IIS';  
 
-  TempPath := ExpandConstant( '{tmp}\\info.txt' ); 
-  Parameters := '(Invoke-WebRequest "localhost") -match "apache">' + TempPath;    
+  cTmpFile := ExpandConstant( '{tmp}\info.txt' ); 
+  Parameters := '(Invoke-WebRequest "localhost") >' + cTmpFile;    
 
-  if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( TempPath ) then
+  if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( cTmpFile ) then
     begin  
-      LoadStringFromFile( TempPath, AResult );
-      MsgBox( SysErrorMessage( retCode ), mbInformation, MB_OK );
-    end 
-  else 
-    begin
-      MsgBox( 'NO', mbInformation, MB_OK );
+      LoadStringFromFile( cTmpFile, cHtml );
+      if Pos( Wide( 'Apache' ), cHtml ) <> 0 then
+         ApacheCheckBox.checked := true;
+
+      if Pos( Wide( 'Xampp' ), cHtml ) <> 0 then
+         XamppCheckBox.checked := true;
+
+      if Pos( Wide( 'IIS' ), cHtml ) <> 0 then
+         IISCheckBox.checked := true;
     end;
 
-  DeleteFile( TempPath );
+  DeleteFile( cTmpFile );
           
 end;
 
