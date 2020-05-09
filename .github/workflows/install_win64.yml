@@ -1,0 +1,20 @@
+name: modharbour Windows 64bits installer
+
+on:
+  push:
+    paths: 
+      - 'apache.prg'
+      - 'mod_harbour.c'
+      - 'windows/modharbour.hbp'
+      - 'windows/mod.hbp'
+  watch:
+   types: [started]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    if: github.actor == github.event.repository.owner.login
+    
+    steps:
+      -name: 
