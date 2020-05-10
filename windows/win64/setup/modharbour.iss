@@ -126,7 +126,7 @@ begin
 
   if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( cTmpFile ) then
   begin
-    MsgBox( 'Apache downloaded, proceeding to install...', mbInformation, 1 );
+    MsgBox( 'Apache downloaded, proceeding to install it...', mbInformation, 1 );
   end else begin
     ResultLabel.Caption := 'Can''t download Apache right now';
   end
