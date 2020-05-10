@@ -74,6 +74,7 @@ var
   ApacheButton, XamppButton, IISButton: TButton;
   ApacheInstallButton, XamppInstallButton, IISInstallButton: TButton;
   ApachePath, XamppPath, IISPath: string;
+  ResultLabel: TLabel;
   cTmpFile, Parameters: string;
   retCode: integer;
   cHtml: AnsiString;
@@ -108,8 +109,9 @@ end;
 
 procedure ApacheInstallClick( sender: TObject );
 begin
-  ( sender as TButton ).Caption = 'wait...';
-  ( sender as TButton ).Enabled = false; 
+  ( sender as TButton ).Caption := 'wait...';
+  ( sender as TButton ).Enabled := false; 
+  ResultLabel.Caption := 'Downloading, please wait...';
 
   if IsWin64() then
   begin
@@ -123,8 +125,12 @@ begin
   end;
 
   if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( cTmpFile ) then
-      MsgBox( 'Apache downloaded, proceding to install...', mbInformation, 1 );
-      // SysErrorMessage( retCode )
+  begin
+    MsgBox( 'Apache downloaded, proceeding to install...', mbInformation, 1 );
+  end else begin
+    ResultLabel.Caption := 'Can''t download Apache right now';
+  end
+    // SysErrorMessage( retCode )
 
 end;
 
@@ -310,6 +316,15 @@ begin
     Caption  := '&Install...'
     // OnClick  := @ApacheButtonClick;
     TabOrder := 4;
+  end;
+
+  ResultLabel := TLabel.Create( ServersPage );
+  with ResultLabel do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := IISEdit.Top + 100;
+    Left     := IISEdit.Left;
+    Caption  := 'Please select';
   end;
 
   cTmpFile := ExpandConstant( '{tmp}\info.txt' ); 
