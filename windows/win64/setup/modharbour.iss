@@ -28,6 +28,7 @@ SetupIconFile=..\..\..\docs\favicon.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
+WizardSizePercent=150
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -103,6 +104,28 @@ procedure ApacheButtonClick( sender: TObject );
 begin
   if BrowseForFolder( 'Select Apache path', ApachePath, true ) then
     ApacheEdit.Text := ApachePath;
+end;
+
+procedure ApacheInstallClick( sender: TObject );
+begin
+  ( sender as TButton ).Caption = 'wait...';
+  ( sender as TButton ).Enabled = false; 
+
+  if IsWin64() then
+  begin
+    cTmpFile := ExpandConstant( '{tmp}\httpd-2.4.43-o111g-x64-vc15.zip' ); 
+    Parameters := '(new-object System.Net.WebClient).DownloadFile( ''https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x64-vc15.zip'',''' + 
+                  cTmpFile + ''')';    
+  end else begin
+    cTmpFile := ExpandConstant( '{tmp}\https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x86-vc15.zip' ); 
+    Parameters := '(new-object System.Net.WebClient).DownloadFile( ''https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x86-vc15.zip'',''' + 
+                  cTmpFile + ''')';    
+  end;
+
+  if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( cTmpFile ) then
+      MsgBox( 'Apache downloaded, proceding to install...', mbInformation, 1 );
+      // SysErrorMessage( retCode )
+
 end;
 
 procedure XamppButtonClick( sender: TObject );
@@ -183,7 +206,7 @@ begin
     Width    := 80;
     Height   := 25;
     Caption  := '&Install...'
-    // OnClick  := @ApacheButtonClick;
+    OnClick  := @ApacheInstallClick;
     TabOrder := 4;
   end;
 
