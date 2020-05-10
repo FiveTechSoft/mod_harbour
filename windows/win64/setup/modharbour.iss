@@ -71,6 +71,7 @@ var
   ApacheCheckBox, XamppCheckBox, IISCheckBox: TNewCheckBox;
   ApacheEdit, XamppEdit, IISEdit: TEdit;
   ApacheButton, XamppButton, IISButton: TButton;
+  ApacheInstallButton, XamppInstallButton, IISInstallButton: TButton;
   ApachePath, XamppPath, IISPath: string;
   cTmpFile, Parameters: string;
   retCode: integer;
@@ -95,6 +96,7 @@ procedure ApacheClick( sender: TObject );
 begin
   ApacheEdit.enabled   := ( sender as TNewCheckBox ).checked;
   ApacheButton.enabled := ( sender as TNewCheckBox ).checked;
+  ApacheInstallButton.enabled := ( sender as TNewCheckBox ).checked;
 end;
 
 procedure ApacheButtonClick( sender: TObject );
@@ -119,25 +121,28 @@ procedure XamppClick( sender: TObject );
 begin
   XamppEdit.enabled   := ( sender as TNewCheckBox ).checked;
   XamppButton.enabled := ( sender as TNewCheckBox ).checked;
+  XamppInstallButton.enabled := ( sender as TNewCheckBox ).checked;
 end;
 
 procedure IISClick( sender: TObject );
 begin
   IISEdit.enabled   := ( sender as TNewCheckBox ).checked;
   IISButton.enabled := ( sender as TNewCheckBox ).checked;
+  IISInstallButton.enabled := ( sender as TNewCheckBox ).checked;
 end;
 
 procedure AddServersPage();
 begin
-  ServersPage := CreateInputQueryPage( wpWelcome, 'Please select the server(s) to use',
-                                       '', 'mod_harbour supports Apache, Xampp and Windows IIS');
+  ServersPage := CreateInputQueryPage( wpWelcome, 'Please select the web server(s) to use',
+                                       'This installer helps you to install the web server(s) if you have not installed them yet...', 
+                                       'mod_harbour supports Apache, Xampp and Windows IIS');
 
   ApacheCheckBox := TNewCheckBox.Create( ServersPage );
   with ApacheCheckBox do
   begin
     Parent   := ServersPage.Surface;
     Top      := ApacheCheckBox.Top + 50; 
-    Left     := ApacheCheckBox.Left + 50; 
+    Left     := ApacheCheckBox.Left + 20; 
     Caption  := 'Apache';
     OnClick  := @ApacheClick;
     TabOrder := 1;
@@ -161,12 +166,25 @@ begin
   begin
     Parent   := ServersPage.Surface;
     Top      := ApacheEdit.Top - 2;
-    Left     := ApacheEdit.Width + 170;
+    Left     := ApacheEdit.Width + 140;
     Width    := 70;
     Height   := 25;
     Caption  := '&Browse...'
     OnClick  := @ApacheButtonClick;
     TabOrder := 3;
+  end;
+
+  ApacheInstallButton := TButton.Create( ServersPage );
+  with ApacheInstallButton do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := ApacheEdit.Top - 2;
+    Left     := ApacheButton.Left + ApacheButton.Width + 10;
+    Width    := 80;
+    Height   := 25;
+    Caption  := '&Install...'
+    // OnClick  := @ApacheButtonClick;
+    TabOrder := 4;
   end;
 
   XamppCheckBox := TNewCheckBox.Create( ServersPage );
@@ -199,12 +217,25 @@ begin
   begin
     Parent   := ServersPage.Surface;
     Top      := XamppEdit.Top - 2;
-    Left     := XamppEdit.Width + 170;
+    Left     := XamppEdit.Width + 140;
     Width    := 70;
     Height   := 25;
     Caption  := '&Browse...'
     OnClick  := @XamppButtonClick;
     TabOrder := 6;
+  end;
+
+  XamppInstallButton := TButton.Create( ServersPage );
+  with XamppInstallButton do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := XamppEdit.Top - 2;
+    Left     := XamppButton.Left + XamppButton.Width + 10;
+    Width    := 80;
+    Height   := 25;
+    Caption  := '&Install...'
+    // OnClick  := @ApacheButtonClick;
+    TabOrder := 4;
   end;
 
   IISCheckBox := TNewCheckBox.Create( ServersPage );
@@ -237,12 +268,25 @@ begin
   begin
     Parent   := ServersPage.Surface;
     Top      := IISEdit.Top - 2;
-    Left     := IISEdit.Width + 170;
+    Left     := IISEdit.Width + 140;
     Width    := 70;
     Height   := 25;
     Caption  := '&Browse...'
     OnClick  := @IISButtonClick;
     TabOrder := 9;
+  end;
+
+  IISInstallButton := TButton.Create( ServersPage );
+  with IISInstallButton do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := IISEdit.Top - 2;
+    Left     := IISButton.Left + IISButton.Width + 10;
+    Width    := 80;
+    Height   := 25;
+    Caption  := '&Install...'
+    // OnClick  := @ApacheButtonClick;
+    TabOrder := 4;
   end;
 
   cTmpFile := ExpandConstant( '{tmp}\info.txt' ); 
@@ -253,10 +297,13 @@ begin
     LoadStringFromFile( cTmpFile, cHtml );
     ApacheCheckBox.checked := ( Pos( Wide( 'Apache' ), cHtml ) <> 0 );
     ApacheButton.enabled   := ( Pos( Wide( 'Apache' ), cHtml ) <> 0 );
+    ApacheInstallButton.enabled := ( Pos( Wide( 'Apache' ), cHtml ) <> 0 );
     XamppCheckBox.checked  := ( Pos( Wide( 'Xampp' ), cHtml ) <> 0 );
     XamppButton.enabled    := ( Pos( Wide( 'Xampp' ), cHtml ) <> 0 );
+    XamppInstallButton.enabled  := ( Pos( Wide( 'Xampp' ), cHtml ) <> 0 );
     IISCheckBox.checked    := ( Pos( Wide( 'IIS' ), cHtml ) <> 0 );
     IISButton.enabled      := ( Pos( Wide( 'IIS' ), cHtml ) <> 0 );
+    IISInstallButton.enabled := ( Pos( Wide( 'IIS' ), cHtml ) <> 0 );
   end;
 
   DeleteFile( cTmpFile );
