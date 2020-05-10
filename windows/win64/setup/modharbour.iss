@@ -61,69 +61,203 @@ Source: "..\..\..\windows\win64\libharbour.dll"; DestDir: "{app}"; Flags: ignore
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Code]
+const
+  TOP     = 200;
+  LEFT    = 200;
+  BTNLEFT = 120;
+
 var
   ServersPage: TInputQueryWizardPage;
-  ApacheCheckBox: TNewCheckBox;
-  XamppCheckBox: TNewCheckBox;
-  IISCheckBox: TNewCheckBox;
-  cTmpFile: string;
-  Parameters: string;
+  ApacheCheckBox, XamppCheckBox, IISCheckBox: TNewCheckBox;
+  ApacheEdit, XamppEdit, IISEdit: TEdit;
+  ApacheButton, XamppButton, IISButton: TButton;
+  ApachePath, XamppPath, IISPath: string;
+  cTmpFile, Parameters: string;
   retCode: integer;
   cHtml: AnsiString;
 
 function Wide( str: AnsiString ):String;
 var
- i : Integer;
- iChar : Integer;
- outString : String;
+  i : Integer;
+  iChar : Integer;
+  outString : String;
 begin
- outString :='';
- for i := 1 to Length( str ) do
- begin
-  outString := outString + Chr( Ord( str[ i ] ) ) + Chr( 0 );
- end;
+  outString :='';
+  for i := 1 to Length( str ) do
+  begin
+    outString := outString + Chr( Ord( str[ i ] ) ) + Chr( 0 );
+  end;
 
- Result := outString;
+  Result := outString;
+end;
+
+procedure ApacheClick( sender: TObject );
+begin
+  ApacheEdit.enabled   := ( sender as TNewCheckBox ).checked;
+  ApacheButton.enabled := ( sender as TNewCheckBox ).checked;
+end;
+
+procedure ApacheButtonClick( sender: TObject );
+begin
+  if BrowseForFolder( 'Select Apache path', ApachePath, true ) then
+    ApacheEdit.Text := ApachePath;
+end;
+
+procedure XamppButtonClick( sender: TObject );
+begin
+  if BrowseForFolder( 'Select Xampp path', XamppPath, true ) then
+    XamppEdit.Text := XamppPath;
+end;
+
+procedure IISButtonClick( sender: TObject );
+begin
+  if BrowseForFolder( 'Select IIS path', IISPath, true ) then
+    IISEdit.Text := IISPath;
+end;
+
+procedure XamppClick( sender: TObject );
+begin
+  XamppEdit.enabled   := ( sender as TNewCheckBox ).checked;
+  XamppButton.enabled := ( sender as TNewCheckBox ).checked;
+end;
+
+procedure IISClick( sender: TObject );
+begin
+  IISEdit.enabled   := ( sender as TNewCheckBox ).checked;
+  IISButton.enabled := ( sender as TNewCheckBox ).checked;
 end;
 
 procedure AddServersPage();
 begin
-  ServersPage := CreateInputQueryPage(
-    wpWelcome,
-    'Please select the server(s) to use',
-    '',
-    'mod_harbour supports Apache, Xampp and Windows IIS');
+  ServersPage := CreateInputQueryPage( wpWelcome, 'Please select the server(s) to use',
+                                       '', 'mod_harbour supports Apache, Xampp and Windows IIS');
 
-  ApacheCheckBox         := TNewCheckBox.Create( ServersPage );
-  ApacheCheckBox.Parent  := ServersPage.Surface;
-  ApacheCheckBox.Top     := ApacheCheckBox.Top + 30; 
-  ApacheCheckBox.Caption := 'Apache';
+  ApacheCheckBox := TNewCheckBox.Create( ServersPage );
+  with ApacheCheckBox do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := ApacheCheckBox.Top + 50; 
+    Left     := ApacheCheckBox.Left + 50; 
+    Caption  := 'Apache';
+    OnClick  := @ApacheClick;
+    TabOrder := 1;
+  end;
 
-  XamppCheckBox          := TNewCheckBox.Create( ServersPage );
-  XamppCheckBox.Parent   := ServersPage.Surface;
-  XamppCheckBox.Top      := XamppCheckBox.Top + 60; 
-  XamppCheckBox.Caption  := 'Xampp';  
+  ApacheEdit := TEdit.Create( ServersPage );
+  with ApacheEdit do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := ApacheCheckBox.Top;
+    Left     := ApacheCheckBox.Left + 100;
+    Width    := 200; 
+    Height   := ScaleY( 25 );
+    Text     := 'c:\Apache24';
+    Enabled  := ApacheCheckBox.checked;
+    TabOrder := 2;
+  end;
 
-  IISCheckBox            := TNewCheckBox.Create( ServersPage );
-  IISCheckBox.Parent     := ServersPage.Surface;
-  IISCheckBox.Top        := IISCheckBox.Top + 90; 
-  IISCheckBox.Caption    := 'Microsoft IIS';  
+  ApacheButton := TButton.Create( ServersPage );
+  with ApacheButton do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := ApacheEdit.Top - 2;
+    Left     := ApacheEdit.Width + 170;
+    Width    := 70;
+    Height   := 25;
+    Caption  := '&Browse...'
+    OnClick  := @ApacheButtonClick;
+    TabOrder := 3;
+  end;
+
+  XamppCheckBox := TNewCheckBox.Create( ServersPage );
+  with XamppCheckBox do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := ApacheCheckBox.Top + 40; 
+    Left     := ApacheCheckBox.Left; 
+    Caption  := 'Xampp';
+    OnClick  := @XamppClick;
+    TabOrder := 4;
+  end;    
+
+  XamppEdit := TEdit.Create( ServersPage );
+  with XamppEdit do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := XamppCheckBox.Top;
+    Left     := ApacheCheckBox.Left + 100;
+    Width    := 200; 
+    Height   := ScaleY( 25 );
+    TabOrder := 1;
+    Text     := 'c:\xampp';
+    Enabled  := XamppCheckBox.checked;
+    TabOrder := 5;
+  end;
+
+  XamppButton := TButton.Create( ServersPage );
+  with XamppButton do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := XamppEdit.Top - 2;
+    Left     := XamppEdit.Width + 170;
+    Width    := 70;
+    Height   := 25;
+    Caption  := '&Browse...'
+    OnClick  := @XamppButtonClick;
+    TabOrder := 6;
+  end;
+
+  IISCheckBox := TNewCheckBox.Create( ServersPage );
+  with IISCheckBox do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := XamppCheckBox.Top + 40; 
+    Left     := ApacheCheckBox.Left; 
+    Caption  := 'Microsoft IIS';
+    OnClick  := @IISClick;
+    TabOrder := 7;
+  end;    
+
+  IISEdit := TEdit.Create( ServersPage );
+  with IISEdit do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := IISCheckBox.Top;
+    Left     := ApacheCheckBox.Left + 100;
+    Width    := 200; 
+    Height   := ScaleY( 25 );
+    TabOrder := 1;
+    Text     := 'c:\inetpub';
+    Enabled  := IISCheckBox.checked;
+    TabOrder := 8;
+  end;
+
+  IISButton := TButton.Create( ServersPage );
+  with IISButton do
+  begin
+    Parent   := ServersPage.Surface;
+    Top      := IISEdit.Top - 2;
+    Left     := IISEdit.Width + 170;
+    Width    := 70;
+    Height   := 25;
+    Caption  := '&Browse...'
+    OnClick  := @IISButtonClick;
+    TabOrder := 9;
+  end;
 
   cTmpFile := ExpandConstant( '{tmp}\info.txt' ); 
   Parameters := '(Invoke-WebRequest "localhost") >' + cTmpFile;    
 
   if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( cTmpFile ) then
-    begin  
-      LoadStringFromFile( cTmpFile, cHtml );
-      if Pos( Wide( 'Apache' ), cHtml ) <> 0 then
-         ApacheCheckBox.checked := true;
-
-      if Pos( Wide( 'Xampp' ), cHtml ) <> 0 then
-         XamppCheckBox.checked := true;
-
-      if Pos( Wide( 'IIS' ), cHtml ) <> 0 then
-         IISCheckBox.checked := true;
-    end;
+  begin  
+    LoadStringFromFile( cTmpFile, cHtml );
+    ApacheCheckBox.checked := ( Pos( Wide( 'Apache' ), cHtml ) <> 0 );
+    ApacheButton.enabled   := ( Pos( Wide( 'Apache' ), cHtml ) <> 0 );
+    XamppCheckBox.checked  := ( Pos( Wide( 'Xampp' ), cHtml ) <> 0 );
+    XamppButton.enabled    := ( Pos( Wide( 'Xampp' ), cHtml ) <> 0 );
+    IISCheckBox.checked    := ( Pos( Wide( 'IIS' ), cHtml ) <> 0 );
+    IISButton.enabled      := ( Pos( Wide( 'IIS' ), cHtml ) <> 0 );
+  end;
 
   DeleteFile( cTmpFile );
           
