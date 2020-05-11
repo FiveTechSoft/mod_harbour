@@ -69,6 +69,9 @@ const
   LEFT    = 200;
   BTNLEFT = 120;
 
+type
+  TTimerProc = procedure( Wnd: HWND; Msg: UINT; TimerID: UINT_PTR; SysTime: DWORD );
+
 var
   ServersPage: TInputQueryWizardPage;
   ApacheCheckBox, XamppCheckBox, IISCheckBox: TNewCheckBox;
@@ -82,6 +85,8 @@ var
   cTmpFile1, cTmpFile2, Parameters: string;
   retCode: integer;
   cHtml: AnsiString;
+  TimerID: Integer;
+  SlideID: Integer;
 
 function Wide( str: AnsiString ):String;
 var
@@ -167,6 +172,37 @@ begin
   IISEdit.enabled   := ( sender as TNewCheckBox ).checked;
   IISButton.enabled := ( sender as TNewCheckBox ).checked;
   IISInstallButton.enabled := ( sender as TNewCheckBox ).checked;
+end;
+
+function WrapTimerProc(Callback: TTimerProc; ParamCount: Integer): LongWord;
+external 'wrapcallback@files:InnoCallback.dll stdcall';    
+
+function SetTimer(hWnd: HWND; nIDEvent, uElapse: UINT; lpTimerFunc: UINT): UINT;         
+external 'SetTimer@user32.dll stdcall';
+
+function KillTimer(hWnd: HWND; uIDEvent: UINT): BOOL; 
+external 'KillTimer@user32.dll stdcall'; 
+
+procedure OnSlideTimer(Wnd: HWND; Msg: UINT; TimerID: UINT_PTR; SysTime: DWORD);
+begin
+  case SlideID of 
+    0: SlideID := 1;
+    1: SlideID := 2;
+    2: SlideID := 3;
+    3: SlideID := 4;
+    4: SlideID := 5;
+    5: SlideID := 0;
+  end;
+  // BackImage.Bitmap.LoadFromFile(ExpandConstant('{tmp}\' + IntToStr(SlideID + 1))+ ExpandConstant('{cm:imgbase}.bmp'));
+end;
+
+procedure StartSlideTimer;
+var
+  TimerCallback: LongWord;
+begin
+  TimerCallback := WrapTimerProc( @OnSlideTimer, 4 );
+
+  TimerID := SetTimer( 0, 0, 7000, TimerCallback );
 end;
 
 procedure AddServersPage();
