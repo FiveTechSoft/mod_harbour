@@ -7,6 +7,7 @@
 #define MyAppURL "http://www.modharbour.org"
 
 [Setup]
+; SignTool=signtool
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{B86542BD-ECFF-4834-B9D6-62771476D533}
@@ -75,7 +76,7 @@ var
   ApacheInstallButton, XamppInstallButton, IISInstallButton: TButton;
   ApachePath, XamppPath, IISPath: string;
   ResultLabel: TLabel;
-  cTmpFile, Parameters: string;
+  cTmpFile1, cTmpFile2, Parameters: string;
   retCode: integer;
   cHtml: AnsiString;
 
@@ -115,18 +116,23 @@ begin
 
   if IsWin64() then
   begin
-    cTmpFile := ExpandConstant( '{tmp}\httpd-2.4.43-o111g-x64-vc15.zip' ); 
+    cTmpFile1 := ExpandConstant( '{tmp}\httpd-2.4.43-o111g-x64-vc15.zip' ); 
     Parameters := '(new-object System.Net.WebClient).DownloadFile( ''https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x64-vc15.zip'',''' + 
-                  cTmpFile + ''')';    
+                  cTmpFile1 + ''')';    
   end else begin
-    cTmpFile := ExpandConstant( '{tmp}\https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x86-vc15.zip' ); 
+    cTmpFile1 := ExpandConstant( '{tmp}\https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x86-vc15.zip' ); 
     Parameters := '(new-object System.Net.WebClient).DownloadFile( ''https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x86-vc15.zip'',''' + 
-                  cTmpFile + ''')';    
+                  cTmpFile1 + ''')';    
   end;
 
-  if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( cTmpFile ) then
+  if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( cTmpFile1 ) then
   begin
-    MsgBox( 'Apache downloaded, proceeding to install it...', mbInformation, 1 );
+    ResultLabel.Caption := 'Apache downloaded, proceeding to install it...';
+    cTmpFile2 := ExpandConstant( '{tmp}\Apache24' );
+    Parameters := 'Expand-Archive -LiteralPath ' + cTmpFile1 + ' -DestinationPath ' + cTmpFile2 + ' -Force';
+    Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode );
+    Exec( 'powershell.exe', 'Copy-Item ' + cTmpFile2 + '\Apache24' + ' -Destination c:\temp\Apache24 -recurse', '', SW_HIDE, ewWaitUntilTerminated, retCode ); 
+    ResultLabel.Caption := 'done';
   end else begin
     ResultLabel.Caption := 'Can''t download Apache right now';
   end
@@ -327,12 +333,12 @@ begin
     Caption  := 'Please select';
   end;
 
-  cTmpFile := ExpandConstant( '{tmp}\info.txt' ); 
-  Parameters := '(Invoke-WebRequest "localhost") >' + cTmpFile;    
+  cTmpFile1 := ExpandConstant( '{tmp}\info.txt' ); 
+  Parameters := '(Invoke-WebRequest "localhost") >' + cTmpFile1;    
 
-  if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( cTmpFile ) then
+  if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( cTmpFile1 ) then
   begin  
-    LoadStringFromFile( cTmpFile, cHtml );
+    LoadStringFromFile( cTmpFile1, cHtml );
     ApacheCheckBox.checked := ( Pos( Wide( 'Apache' ), cHtml ) <> 0 );
     ApacheButton.enabled   := ( Pos( Wide( 'Apache' ), cHtml ) <> 0 );
     ApacheInstallButton.enabled := ( Pos( Wide( 'Apache' ), cHtml ) <> 0 );
@@ -344,7 +350,7 @@ begin
     IISInstallButton.enabled := ( Pos( Wide( 'IIS' ), cHtml ) <> 0 );
   end;
 
-  DeleteFile( cTmpFile );
+  DeleteFile( cTmpFile1 );
           
 end;
 
