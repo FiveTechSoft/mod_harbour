@@ -60,6 +60,7 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 [Files]
 Source: "..\..\..\windows\win64\mod_harbour.so"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\..\windows\win64\libharbour.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\..\samples\images\sand-clock-dribbble.gif"; Flags: dontcopy noencryption
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Code]
@@ -75,6 +76,8 @@ var
   ApacheButton, XamppButton, IISButton: TButton;
   ApacheInstallButton, XamppInstallButton, IISInstallButton: TButton;
   ApachePath, XamppPath, IISPath: string;
+  ClockImage: TBitmapImage;
+  ClockBmp: TBitmap;
   ResultLabel: TLabel;
   cTmpFile1, cTmpFile2, Parameters: string;
   retCode: integer;
@@ -331,6 +334,23 @@ begin
     Top      := IISEdit.Top + 100;
     Left     := IISEdit.Left;
     Caption  := 'Please select';
+  end;
+
+  // ClockBmp := TBitmap.Create;
+  // with ClockBmp do
+  // begin
+  //  ExtractTemporaryFile( 'sand-clock-dribbble.gif' );
+  //  MsgBox( ExpandConstant( '{tmp}' ) + '\sand-clock-dribbble.gif', mbInformation, 1 );
+  //  LoadFromFile( ExpandConstant( '{tmp}' ) + '\sand-clock-dribbble.gif' );
+  // end;
+  
+  ClockImage := TBitmapImage.Create( ServersPage );
+  with ClockImage do
+  begin
+    Parent := ServersPage.Surface;
+    Top    := ResultLabel.Top + 20;
+    Left   := ResultLabel.Left + 20;
+    // Bitmap.Assign( ClockBmp ); 
   end;
 
   cTmpFile1 := ExpandConstant( '{tmp}\info.txt' ); 
