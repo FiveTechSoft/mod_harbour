@@ -87,6 +87,7 @@ var
   cHtml: AnsiString;
   TimerID: Integer;
   SlideID: Integer;
+  TimerCount: Integer;
 
 function Wide( str: AnsiString ):String;
 var
@@ -101,6 +102,18 @@ begin
   end;
 
   Result := outString;
+end;
+
+function SetTimer( hWnd, nIDEvent, uElapse, lpTimerFunc: Longword ): Longword;
+external 'SetTimer@user32.dll stdcall';
+
+function KillTimer( hWnd: HWND; uIDEvent: UINT ): BOOL; 
+external 'KillTimer@user32.dll stdcall'; 
+
+procedure MyTimerProc( Arg1, Arg2, Arg3, Arg4: Longword );
+begin
+  Inc( TimerCount );
+  Beep();
 end;
 
 procedure ApacheClick( sender: TObject );
@@ -121,6 +134,8 @@ begin
   ( sender as TButton ).Caption := 'wait...';
   ( sender as TButton ).Enabled := false; 
   ResultLabel.Caption := 'Downloading, please wait...';
+
+  TimerID := SetTimer( 0, 0, 1000, CreateCallback( @MyTimerProc ) );
 
   if IsWin64() then
   begin
@@ -143,8 +158,9 @@ begin
     ResultLabel.Caption := 'done';
   end else begin
     ResultLabel.Caption := 'Can''t download Apache right now';
-  end
+  end;
     // SysErrorMessage( retCode )
+  KillTimer( 0, TimerID );
 
 end;
 
@@ -172,37 +188,6 @@ begin
   IISEdit.enabled   := ( sender as TNewCheckBox ).checked;
   IISButton.enabled := ( sender as TNewCheckBox ).checked;
   IISInstallButton.enabled := ( sender as TNewCheckBox ).checked;
-end;
-
-function WrapTimerProc(Callback: TTimerProc; ParamCount: Integer): LongWord;
-external 'wrapcallback@files:InnoCallback.dll stdcall';    
-
-function SetTimer(hWnd: HWND; nIDEvent, uElapse: UINT; lpTimerFunc: UINT): UINT;         
-external 'SetTimer@user32.dll stdcall';
-
-function KillTimer(hWnd: HWND; uIDEvent: UINT): BOOL; 
-external 'KillTimer@user32.dll stdcall'; 
-
-procedure OnSlideTimer(Wnd: HWND; Msg: UINT; TimerID: UINT_PTR; SysTime: DWORD);
-begin
-  case SlideID of 
-    0: SlideID := 1;
-    1: SlideID := 2;
-    2: SlideID := 3;
-    3: SlideID := 4;
-    4: SlideID := 5;
-    5: SlideID := 0;
-  end;
-  // BackImage.Bitmap.LoadFromFile(ExpandConstant('{tmp}\' + IntToStr(SlideID + 1))+ ExpandConstant('{cm:imgbase}.bmp'));
-end;
-
-procedure StartSlideTimer;
-var
-  TimerCallback: LongWord;
-begin
-  TimerCallback := WrapTimerProc( @OnSlideTimer, 4 );
-
-  TimerID := SetTimer( 0, 0, 7000, TimerCallback );
 end;
 
 procedure AddServersPage();
@@ -367,8 +352,8 @@ begin
   with ResultLabel do
   begin
     Parent   := ServersPage.Surface;
-    Top      := IISEdit.Top + 100;
-    Left     := IISEdit.Left;
+    Top      := IISEdit.Top  +  50;
+    Left     := IISEdit.Left + 100;
     Caption  := 'Please select';
   end;
 
@@ -384,8 +369,8 @@ begin
   with ClockImage do
   begin
     Parent := ServersPage.Surface;
-    Top    := ResultLabel.Top + 20;
-    Left   := ResultLabel.Left + 20;
+    Top    := ResultLabel.Top + 30;
+    Left   := ResultLabel.Left - 50;
     // Bitmap.Assign( ClockBmp ); 
   end;
 
