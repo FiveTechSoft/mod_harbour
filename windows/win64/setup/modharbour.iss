@@ -68,7 +68,6 @@ Source: "..\..\..\samples\images\fivetech.bmp"; Flags: dontcopy noencryption
 type
   TTimerProc = procedure( Wnd: HWND; Msg: UINT; TimerID: UINT_PTR; SysTime: DWORD );
   GpGraphics = Longword;
-  GpStatus = Longword;
   GpImage = Longword;
   Status = (
     Ok,                       //  0
@@ -93,7 +92,7 @@ type
     PropertyNotFound,         // 19
     PropertyNotSupported      // 20
   );
-  TStatus = Status;
+  GpStatus = Status;
 
   GdiplusStartupInput = record
    GdiplusVersion          : Cardinal; 
@@ -114,15 +113,12 @@ var
   ApacheButton, XamppButton, IISButton: TButton;
   ApacheInstallButton, XamppInstallButton, IISInstallButton: TButton;
   ApachePath, XamppPath, IISPath: string;
-  ClockImage: TPanel;
-  ClockBmp: TBitmap;
   ResultLabel: TLabel;
   cTmpFile1, cTmpFile2, Parameters: string;
   retCode: integer;
   cHtml: AnsiString;
+  ClockImage: TPanel;
   TimerID: Integer;
-  SlideID: Integer;
-  TimerCount: Integer;
   token: Longword;
   inputbuf: GdiplusStartupInput;
   outputbuf: GdiplusStartupOutput;
@@ -135,9 +131,9 @@ var
 
 procedure Assert( status: GpStatus );
 begin
-   if status <> 0 then
+   if status <> Ok then
    begin
-      MsgBox( intToStr( status ), mbInformation, 1 );
+      MsgBox( intToStr( Integer( status ) ), mbInformation, 1 );
    end
 end;
 
@@ -188,7 +184,6 @@ external 'GdipImageSelectActiveFrame@GdiPlus.dll stdcall';
 
 procedure MyTimerProc( Arg1, Arg2, Arg3, Arg4: Longword );
 begin
-  // Beep();
   if iFrame < count then begin
     iFrame := iFrame + 1;
   end else begin
@@ -242,9 +237,6 @@ begin
   // MsgBox( intToStr( count ), mbInformation, 1 );  
   iFrame := 1
   status := GdipImageSelectActiveFrame( image, dimensionID[ 0 ], iFrame );
-  // Assert( status );
-  status := GdipDrawImageRect( graphics, image, 0, 0, ClockImage.Width, ClockImage.Height ); 
-  // Assert( status );
 
   if IsWin64() then
   begin
