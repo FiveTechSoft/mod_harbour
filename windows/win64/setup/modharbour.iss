@@ -62,41 +62,37 @@ Source: "..\..\..\windows\win64\mod_harbour.so"; DestDir: "{app}"; Flags: ignore
 Source: "..\..\..\windows\win64\libharbour.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\..\samples\images\sand-clock-dribbble.gif"; Flags: dontcopy noencryption
 Source: "..\..\..\samples\images\fivetech.bmp"; Flags: dontcopy noencryption
+Source: "..\..\..\samples\images\matrix.gif"; Flags: dontcopy noencryption
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Code]
-const
-  TOP     = 200;
-  LEFT    = 200;
-  BTNLEFT = 120;
-
 type
   TTimerProc = procedure( Wnd: HWND; Msg: UINT; TimerID: UINT_PTR; SysTime: DWORD );
   GpGraphics = Longword;
   GpStatus = Longword;
   GpImage = Longword;
   Status = (
-    Ok,
-    GenericError,
-    InvalidParameter,
-    OutOfMemory,
-    ObjectBusy,
-    InsufficientBuffer,
-    NotImplemented,
-    Win32Error,
-    WrongState,
-    Aborted,
-    FileNotFound,
-    ValueOverflow,
-    AccessDenied,
-    UnknownImageFormat,
-    FontFamilyNotFound,
-    FontStyleNotFound,
-    NotTrueTypeFont,
-    UnsupportedGdiplusVersion,
-    GdiplusNotInitialized,
-    PropertyNotFound,
-    PropertyNotSupported
+    Ok,                       //  0
+    GenericError,             //  1
+    InvalidParameter,         //  2
+    OutOfMemory,              //  3
+    ObjectBusy,               //  4
+    InsufficientBuffer,       //  5
+    NotImplemented,           //  6
+    Win32Error,               //  7
+    WrongState,               //  8
+    Aborted,                  //  9
+    FileNotFound,             // 10
+    ValueOverflow,            // 11
+    AccessDenied,             // 12
+    UnknownImageFormat,       // 13
+    FontFamilyNotFound,       // 14
+    FontStyleNotFound,        // 15
+    NotTrueTypeFont,          // 16
+    UnsupportedGdiplusVersion,// 17
+    GdiplusNotInitialized,    // 18
+    PropertyNotFound,         // 19
+    PropertyNotSupported      // 20
   );
   TStatus = Status;
 
@@ -104,7 +100,6 @@ type
    GdiplusVersion          : Cardinal; 
    DebugEventCallback      : Longword; 
    SuppressBackgroundThread: BOOL;     
-                                       
    SuppressExternalCodecs  : BOOL;     
   end;                                 
 
@@ -120,7 +115,7 @@ var
   ApacheButton, XamppButton, IISButton: TButton;
   ApacheInstallButton, XamppInstallButton, IISInstallButton: TButton;
   ApachePath, XamppPath, IISPath: string;
-  ClockImage: TWinControl; // TBitmapImage;
+  ClockImage: TPanel;
   ClockBmp: TBitmap;
   ResultLabel: TLabel;
   cTmpFile1, cTmpFile2, Parameters: string;
@@ -136,7 +131,8 @@ var
   image: GpImage;
   status: GpStatus;
   count: Integer;
-  dimensionID: array[0..50] of TGuid;
+  dimensionID: array[ 0..1 ] of TGuid;
+  iFrame: Integer;
 
 procedure Assert( status: GpStatus );
 begin
@@ -185,16 +181,23 @@ external 'GdipImageGetFrameDimensionsCount@GdiPlus.dll stdcall';
 function GdipImageGetFrameCount( image: GpImage; var dimensionID: TGuid; var count: Integer ): GpStatus;
 external 'GdipImageGetFrameCount@GdiPlus.dll stdcall';
 
-function GdipImageGetFrameDimensionsList( image: GpImage; var dimensionID: TGuid; var count: Integer ): GpStatus;
+function GdipImageGetFrameDimensionsList( image: GpImage; var dimensionID: TGuid; count: Integer ): GpStatus;
 external 'GdipImageGetFrameDimensionsList@GdiPlus.dll stdcall';
 
-function GdipImageSelectActiveFrame( image: GpImage; var dimensionID: TGuid; frameIndex: Integer ): GpStatus;
+function GdipImageSelectActiveFrame( image: GpImage; dimensionID: TGuid; frameIndex: Integer ): GpStatus;
 external 'GdipImageSelectActiveFrame@GdiPlus.dll stdcall';
 
 procedure MyTimerProc( Arg1, Arg2, Arg3, Arg4: Longword );
 begin
-  Inc( TimerCount );
-  Beep();
+  // Beep();
+  if iFrame < count then begin
+    iFrame := iFrame + 1;
+  end else begin
+    iFrame := 0
+  end;
+
+  status := GdipImageSelectActiveFrame( image, dimensionID[ 0 ], iFrame );
+  status := GdipDrawImageRect( graphics, image, 0, 0, ClockImage.Width, ClockImage.Height ); 
 end;
 
 procedure ApacheClick( sender: TObject );
@@ -216,64 +219,60 @@ begin
   ( sender as TButton ).Enabled := false; 
   ResultLabel.Caption := 'Downloading, please wait...';
 
-  // TimerID := SetTimer( 0, 0, 1000, CreateCallback( @MyTimerProc ) );
+  TimerID := SetTimer( 0, 0, 25, CreateCallback( @MyTimerProc ) );
   ExtractTemporaryFile( 'sand-clock-dribbble.gif' );
 
   inputbuf.GdiplusVersion := 1;
   status := GdiplusStartup( token, inputbuf, outputbuf ); 
-  Assert( status );
+  // Assert( status );
   status := GdipCreateFromHWND( ClockImage.Handle, graphics ); 
-  Assert( status );
-  // MsgBox( intToStr( graphics ), mbInformation, 1 );
+  // Assert( status );
   status := GdipLoadImageFromFile( ExpandConstant( '{tmp}' ) + '\sand-clock-dribbble.gif', image );
-  Assert( status );
+  // Assert( status );
   // MsgBox( intToStr( image ), mbInformation, 1 );
-
   status := GdipDrawImageRect( graphics, image, 0, 0, ClockImage.Width, ClockImage.Height ); 
-  Assert( status );
-
+  // Assert( status );
   status := GdipImageGetFrameDimensionsCount( image, count );
-  Assert( status );
-  MsgBox( intToStr( count ), mbInformation, 1 );
-
+  // Assert( status );
+  // MsgBox( intToStr( count ), mbInformation, 1 );
   status := GdipImageGetFrameDimensionsList( image, dimensionID[ 0 ], count );
-  Assert( status );
-
+  // Assert( status );
+  // MsgBox( intToStr( count ), mbInformation, 1 );
   status := GdipImageGetFrameCount( image, dimensionID[ 0 ], count );
-  Assert( status );
-  MsgBox( intToStr( count ), mbInformation, 1 );  
-  
-  status := GdipImageSelectActiveFrame( image, dimensionID[ 0 ], 3 );
-  Assert( status );
-
+  // Assert( status );
+  // MsgBox( intToStr( count ), mbInformation, 1 );  
+  iFrame := 1
+  status := GdipImageSelectActiveFrame( image, dimensionID[ 0 ], iFrame );
+  // Assert( status );
   status := GdipDrawImageRect( graphics, image, 0, 0, ClockImage.Width, ClockImage.Height ); 
-  Assert( status );
+  // Assert( status );
 
-  // if IsWin64() then
-  // begin
-  //   cTmpFile1 := ExpandConstant( '{tmp}\httpd-2.4.43-o111g-x64-vc15.zip' ); 
-  //   Parameters := '(new-object System.Net.WebClient).DownloadFile( ''https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x64-vc15.zip'',''' + 
-  //                 cTmpFile1 + ''')';    
-  // end else begin
-  //   cTmpFile1 := ExpandConstant( '{tmp}\https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x86-vc15.zip' ); 
-  //   Parameters := '(new-object System.Net.WebClient).DownloadFile( ''https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x86-vc15.zip'',''' + 
-  //                 cTmpFile1 + ''')';    
-  // end;
+  if IsWin64() then
+  begin
+   cTmpFile1  := ExpandConstant( '{tmp}\httpd-2.4.43-o111g-x64-vc15.zip' ); 
+   Parameters := '(new-object System.Net.WebClient).DownloadFile( ''https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x64-vc15.zip'',''' + 
+                 cTmpFile1 + ''')';    
+  end else begin
+   cTmpFile1  := ExpandConstant( '{tmp}\https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x86-vc15.zip' ); 
+   Parameters := '(new-object System.Net.WebClient).DownloadFile( ''https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x86-vc15.zip'',''' + 
+                 cTmpFile1 + ''')';    
+  end;
 
-  // if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( cTmpFile1 ) then
-  // begin
-  //   ResultLabel.Caption := 'Apache downloaded, proceeding to install it...';
-  //   cTmpFile2 := ExpandConstant( '{tmp}\Apache24' );
-  //   Parameters := 'Expand-Archive -LiteralPath ' + cTmpFile1 + ' -DestinationPath ' + cTmpFile2 + ' -Force';
-  //   Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode );
-  //   Exec( 'powershell.exe', 'Copy-Item ' + cTmpFile2 + '\Apache24' + ' -Destination c:\temp\Apache24 -recurse', '', SW_HIDE, ewWaitUntilTerminated, retCode ); 
-  //   ResultLabel.Caption := 'done';
-  // end else begin
-  //   ResultLabel.Caption := 'Can''t download Apache right now';
-  // end;
+  if Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode ) and FileExists( cTmpFile1 ) then
+  begin
+   ResultLabel.Caption := 'Apache downloaded, proceeding to install it...';
+   cTmpFile2 := ExpandConstant( '{tmp}\Apache24' );
+   Parameters := 'Expand-Archive -LiteralPath ' + cTmpFile1 + ' -DestinationPath ' + cTmpFile2 + ' -Force';
+   Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode );
+   Exec( 'powershell.exe', 'Copy-Item ' + cTmpFile2 + '\Apache24' + ' -Destination c:\temp\Apache24 -recurse', '', SW_HIDE, ewWaitUntilTerminated, retCode ); 
+   ResultLabel.Caption := 'done';
+  end else begin
+   ResultLabel.Caption := 'Can''t download Apache right now';
+  end;
 
-    // SysErrorMessage( retCode )
-  // KillTimer( 0, TimerID );
+  // SysErrorMessage( retCode )
+  KillTimer( 0, TimerID );
+  ClockImage.Hide();
 
 end;
 
@@ -470,23 +469,16 @@ begin
     Caption  := 'Please select';
   end;
 
-  // ClockBmp := TBitmap.Create;
-  // with ClockBmp do
-  // begin
-  //  ExtractTemporaryFile( 'sand-clock-dribbble.gif' );
-  //  MsgBox( ExpandConstant( '{tmp}' ) + '\sand-clock-dribbble.gif', mbInformation, 1 );
-  //  LoadFromFile( ExpandConstant( '{tmp}' ) + '\sand-clock-dribbble.gif' );
-  // end;
-  
-  ClockImage := TPanel.Create( ServersPage ); // TBitmapImage.Create( ServersPage );
+  ClockImage := TPanel.Create( ServersPage );
   with ClockImage do
   begin
-    Parent  := ServersPage.Surface;
-    Top     := ResultLabel.Top + 30;
-    Left    := ResultLabel.Left - 50;
-    Height  := 150;
+    Parent     := ServersPage.Surface;
+    Top        := ResultLabel.Top + 30;
+    Left       := ResultLabel.Left;
+    Height     := 150;
+    BevelOuter := bvNone;
   end;
-
+  
   cTmpFile1 := ExpandConstant( '{tmp}\info.txt' ); 
   Parameters := '(Invoke-WebRequest "localhost") >' + cTmpFile1;    
 
