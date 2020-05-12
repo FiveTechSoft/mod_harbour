@@ -62,7 +62,6 @@ Source: "..\..\..\windows\win64\mod_harbour.so"; DestDir: "{app}"; Flags: ignore
 Source: "..\..\..\windows\win64\libharbour.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\..\samples\images\sand-clock-dribbble.gif"; Flags: dontcopy noencryption
 Source: "..\..\..\samples\images\fivetech.bmp"; Flags: dontcopy noencryption
-Source: "..\..\..\samples\images\matrix.gif"; Flags: dontcopy noencryption
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Code]
