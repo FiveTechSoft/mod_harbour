@@ -203,17 +203,17 @@ begin
   ResultLabel.Caption := 'Downloading, please wait...';
 
   // TimerID := SetTimer( 0, 0, 1000, CreateCallback( @MyTimerProc ) );
-  ExtractTemporaryFile( 'fivetech.bmp' );
+  ExtractTemporaryFile( 'sand-clock-dribbble.gif' );
 
   inputbuf.GdiplusVersion := 1;
   status := GdiplusStartup( token, inputbuf, outputbuf ); 
   Assert( status );
   status := GdipCreateFromHWND( ClockImage.Handle, graphics ); 
   Assert( status );
-  MsgBox( intToStr( graphics ), mbInformation, 1 );
-  status := GdipLoadImageFromFile( ExpandConstant( '{tmp}' ) + '\fivetech.bmp', image );
+  // MsgBox( intToStr( graphics ), mbInformation, 1 );
+  status := GdipLoadImageFromFile( ExpandConstant( '{tmp}' ) + '\sand-clock-dribbble.gif', image );
   Assert( status );
-  MsgBox( intToStr( image ), mbInformation, 1 );
+  // MsgBox( intToStr( image ), mbInformation, 1 );
   status := GdipDrawImageRect( graphics, image, 0, 0, ClockImage.Width, ClockImage.Height ); 
   Assert( status );
 
@@ -446,14 +446,13 @@ begin
   //  LoadFromFile( ExpandConstant( '{tmp}' ) + '\sand-clock-dribbble.gif' );
   // end;
   
-  ClockImage := TWinControl.Create( ServersPage ); // TBitmapImage.Create( ServersPage );
+  ClockImage := TPanel.Create( ServersPage ); // TBitmapImage.Create( ServersPage );
   with ClockImage do
   begin
     Parent  := ServersPage.Surface;
     Top     := ResultLabel.Top + 30;
     Left    := ResultLabel.Left - 50;
-    Show(); // Visible := True;
-    // Bitmap.Assign( ClockBmp ); 
+    Height  := 150;
   end;
 
   cTmpFile1 := ExpandConstant( '{tmp}\info.txt' ); 
