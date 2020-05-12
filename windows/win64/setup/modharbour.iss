@@ -135,6 +135,8 @@ var
   graphics: GpGraphics;
   image: GpImage;
   status: GpStatus;
+  count: Integer;
+  dimensionID: array[0..50] of TGuid;
 
 procedure Assert( status: GpStatus );
 begin
@@ -177,6 +179,18 @@ external 'GdipLoadImageFromFile@GdiPlus.dll stdcall';
 function GdipDrawImageRect( graphics: GpGraphics; image: GpImage; x,y: single; width, height: single ): GpStatus;
 external 'GdipDrawImageRect@GdiPlus.dll stdcall';
 
+function GdipImageGetFrameDimensionsCount( image: GpImage; var count: Integer ): GpStatus;
+external 'GdipImageGetFrameDimensionsCount@GdiPlus.dll stdcall';
+
+function GdipImageGetFrameCount( image: GpImage; var dimensionID: TGuid; var count: Integer ): GpStatus;
+external 'GdipImageGetFrameCount@GdiPlus.dll stdcall';
+
+function GdipImageGetFrameDimensionsList( image: GpImage; var dimensionID: TGuid; var count: Integer ): GpStatus;
+external 'GdipImageGetFrameDimensionsList@GdiPlus.dll stdcall';
+
+function GdipImageSelectActiveFrame( image: GpImage; var dimensionID: TGuid; frameIndex: Integer ): GpStatus;
+external 'GdipImageSelectActiveFrame@GdiPlus.dll stdcall';
+
 procedure MyTimerProc( Arg1, Arg2, Arg3, Arg4: Longword );
 begin
   Inc( TimerCount );
@@ -214,6 +228,24 @@ begin
   status := GdipLoadImageFromFile( ExpandConstant( '{tmp}' ) + '\sand-clock-dribbble.gif', image );
   Assert( status );
   // MsgBox( intToStr( image ), mbInformation, 1 );
+
+  status := GdipDrawImageRect( graphics, image, 0, 0, ClockImage.Width, ClockImage.Height ); 
+  Assert( status );
+
+  status := GdipImageGetFrameDimensionsCount( image, count );
+  Assert( status );
+  MsgBox( intToStr( count ), mbInformation, 1 );
+
+  status := GdipImageGetFrameDimensionsList( image, dimensionID[ 0 ], count );
+  Assert( status );
+
+  status := GdipImageGetFrameCount( image, dimensionID[ 0 ], count );
+  Assert( status );
+  MsgBox( intToStr( count ), mbInformation, 1 );  
+  
+  status := GdipImageSelectActiveFrame( image, dimensionID[ 0 ], 3 );
+  Assert( status );
+
   status := GdipDrawImageRect( graphics, image, 0, 0, ClockImage.Width, ClockImage.Height ); 
   Assert( status );
 
