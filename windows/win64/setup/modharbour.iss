@@ -161,6 +161,9 @@ external 'KillTimer@user32.dll stdcall';
 function GdiplusStartup( var token: Longword; var inputbuf: GdiPlusStartupInput; var outputbuf: GdiplusStartupOutput ): GpStatus;
 external 'GdiplusStartup@GdiPlus.dll stdcall';
 
+procedure GdiplusShutdown( token: Longword );
+external 'GdiplusShutdown@GdiPlus.dll stdcall';
+
 function GdipCreateFromHWND( hWnd: HWND; var graphics: GpGraphics ): GpStatus;
 external 'GdipCreateFromHWND@GdiPlus.dll stdcall';
 
@@ -264,6 +267,7 @@ begin
   // SysErrorMessage( retCode )
   KillTimer( 0, TimerID );
   ClockImage.Hide();
+  GdiplusShutdown( token );
 
 end;
 
