@@ -524,8 +524,13 @@ begin
   begin
    if ApacheCheckbox.checked then
    begin
-    Exec( 'powershell.exe', 'Copy-Item ' + ExpandConstant( '{app}' ) + '\mod_harbour.so' + ' -Destination c:\Apache24\modules -recurse', '', SW_HIDE, ewWaitUntilTerminated, retCode ); 
-    Exec( 'powershell.exe', 'Copy-Item ' + ExpandConstant( '{app}' ) + '\libharbour.dll' + ' -Destination c:\Apache24\htdocs -recurse', '', SW_HIDE, ewWaitUntilTerminated, retCode ); 
+    Exec( 'powershell.exe', 'Copy-Item ' + ExpandConstant( '{app}' ) + '\mod_harbour.so' + ' -Destination ' + ApacheEdit.Text + '\modules -recurse', '', SW_HIDE, ewWaitUntilTerminated, retCode ); 
+    Exec( 'powershell.exe', 'Copy-Item ' + ExpandConstant( '{app}' ) + '\libharbour.dll' + ' -Destination ' + ApacheEdit.Text + '\htdocs -recurse', '', SW_HIDE, ewWaitUntilTerminated, retCode ); 
+    Exec( 'powershell.exe', 'Add-Content ' + ApacheEdit.Text + '\conf\httpd.conf ' + '''LoadModule harbour_module modules/mod_harbour.so''', '', SW_HIDE, ewWaitUntilTerminated, retCode );
+    Exec( 'powershell.exe', 'Add-Content ' + ApacheEdit.Text + '\conf\httpd.conf ' + '''<FilesMatch "\.(prg|hrb)$">''', '', SW_HIDE, ewWaitUntilTerminated, retCode );
+    Exec( 'powershell.exe', 'Add-Content ' + ApacheEdit.Text + '\conf\httpd.conf ' + '''   SetEnv LIBHARBOUR "c:\xampp\htdocs\libharbour.dll"''', '', SW_HIDE, ewWaitUntilTerminated, retCode );
+    Exec( 'powershell.exe', 'Add-Content ' + ApacheEdit.Text + '\conf\httpd.conf ' + '''   SetHandler harbour''', '', SW_HIDE, ewWaitUntilTerminated, retCode );
+    Exec( 'powershell.exe', 'Add-Content ' + ApacheEdit.Text + '\conf\httpd.conf ' + '''</FilesMatch>''', '', SW_HIDE, ewWaitUntilTerminated, retCode );
     Exec( ApacheEdit.Text + '\bin\httpd.exe', '', '', SW_HIDE, ewNoWait, retCode ); 
    end; 
   end;
