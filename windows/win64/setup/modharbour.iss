@@ -112,7 +112,6 @@ var
   ApacheEdit, XamppEdit, IISEdit: TEdit;
   ApacheButton, XamppButton, IISButton: TButton;
   ApacheInstallButton, XamppInstallButton, IISInstallButton: TButton;
-  ApachePath, XamppPath, IISPath: string;
   ResultLabel: TLabel;
   cTmpFile1, cTmpFile2, Parameters: string;
   retCode: integer;
@@ -205,7 +204,10 @@ begin
 end;
 
 procedure ApacheButtonClick( sender: TObject );
+var
+  ApachePath : string;
 begin
+  ApachePath := ApacheEdit.Text; 
   if BrowseForFolder( 'Select Apache path', ApachePath, true ) then
     ApacheEdit.Text := ApachePath;
 end;
@@ -213,7 +215,17 @@ end;
 procedure ApacheInstallClick( sender: TObject );
 begin
   ( sender as TButton ).Caption := 'wait...';
-  ( sender as TButton ).Enabled := false; 
+  ( sender as TButton ).Enabled := false;
+  
+  if DirExists( ApacheEdit.Text ) then
+  begin
+    if MsgBox( 'It seems as Apache is already installed, do you want to reinstall it ?', mbConfirmation, MB_YESNO ) = IDNO then
+    begin
+      ( sender as TButton ).Enabled := true;
+      exit;
+    end;
+  end;       
+   
   ResultLabel.Caption := 'Downloading, please wait...';
 
   TimerID := SetTimer( 0, 0, 25, CreateCallback( @MyTimerProc ) );
@@ -258,7 +270,7 @@ begin
    cTmpFile2 := ExpandConstant( '{tmp}\Apache24' );
    Parameters := 'Expand-Archive -LiteralPath ' + cTmpFile1 + ' -DestinationPath ' + cTmpFile2 + ' -Force';
    Exec( 'powershell.exe', Parameters, '', SW_HIDE, ewWaitUntilTerminated, retCode );
-   Exec( 'powershell.exe', 'Copy-Item ' + cTmpFile2 + '\Apache24' + ' -Destination c:\temp\Apache24 -recurse', '', SW_HIDE, ewWaitUntilTerminated, retCode ); 
+   Exec( 'powershell.exe', 'Copy-Item ' + cTmpFile2 + '\Apache24' + ' -Destination c:\ -recurse', '', SW_HIDE, ewWaitUntilTerminated, retCode ); 
    ResultLabel.Caption := 'done';
   end else begin
    ResultLabel.Caption := 'Can''t download Apache right now';
@@ -272,13 +284,19 @@ begin
 end;
 
 procedure XamppButtonClick( sender: TObject );
+var
+  XamppPath: string;
 begin
+  XamppPath := XamppEdit.Text;
   if BrowseForFolder( 'Select Xampp path', XamppPath, true ) then
     XamppEdit.Text := XamppPath;
 end;
 
 procedure IISButtonClick( sender: TObject );
+var
+  IISPath: string;
 begin
+  IISPath := IISEdit.Text;
   if BrowseForFolder( 'Select IIS path', IISPath, true ) then
     IISEdit.Text := IISPath;
 end;
@@ -500,12 +518,16 @@ begin
   AddServersPage();
 end;
 
-procedure CurStepChanged(CurStep: TSetupStep);
+procedure CurStepChanged( CurStep: TSetupStep );
 begin
   if CurStep = ssPostInstall then
   begin
-    { Read custom value }
-    MsgBox('Custom Value = ' + ServersPage.Values[0], mbInformation, MB_OK);
+   if ApacheCheckbox.checked then
+   begin
+    Exec( 'powershell.exe', 'Copy-Item ' + ExpandConstant( '{app}' ) + '\mod_harbour.so' + ' -Destination c:\Apache24\modules -recurse', '', SW_HIDE, ewWaitUntilTerminated, retCode ); 
+    Exec( 'powershell.exe', 'Copy-Item ' + ExpandConstant( '{app}' ) + '\libharbour.dll' + ' -Destination c:\Apache24\htdocs -recurse', '', SW_HIDE, ewWaitUntilTerminated, retCode ); 
+    Exec( ApacheEdit.Text + '\bin\httpd.exe', '', '', SW_HIDE, ewNoWait, retCode ); 
+   end; 
   end;
 end;
 
