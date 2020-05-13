@@ -7,6 +7,7 @@ on:
       - 'mod_harbour.c'
       - 'linux/modharbour.hbp'
       - 'linux/mod.hbp'
+      - 'linux/libs.txt'
       - '.github/workflows/ubuntu.yml'
   watch:
    types: [started]
