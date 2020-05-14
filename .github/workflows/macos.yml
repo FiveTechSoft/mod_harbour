@@ -49,20 +49,26 @@ jobs:
         ../harbour/bin/darwin/clang/hbmk2 modharbour.hbp
         mv libmod_harbour.so mod_harbour.so
         
-    - name: Upload mod_harbour.so to artifact
-      uses: actions/upload-artifact@v2
-      with:
-       name: modharbour_macos_dev
-       path: osx/mod_harbour.so
-       
-    - name: Upload libharbour.so.3.2.0 to artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: modharbour_macos_dev
-        path: osx/libharbour.3.2.0.dylib
+    - name: Create output folders
+      shell: cmd
+      run: |
+        mkdir output
+        mkdir output/samples
+        cp osx/mod_harbour.so output
+        cp osx/libharbour.3.2.0.dylib output
+        cp osx/readme.md output
+        cp -r ../samples output/samples
         
-    - name: Upload readme.md to artifact
+    - name: Get current time
+      uses: srfrnk/current-time@master
+      id: current-time
+      with:
+        format: YYYY_MM_DD
+ 
+    - name: Upload mod_harbour to artifact
+      env:
+         TIME: "${{ steps.current-time.outputs.formattedTime }}"
       uses: actions/upload-artifact@v2
       with:
-        name: modharbour_macos_dev
-        path: osx/readme.md
+       name: modharbour_osx_${{ env.TIME }}
+       path: output        
