@@ -58,7 +58,7 @@ jobs:
         set Path=%oldpath%
         set INCLUDE=%oldinclude%
         
-     - name: Create output folders
+    - name: Create output folders
       shell: cmd
       run: |
         mkdir output
