@@ -1,4 +1,4 @@
-name: Windows 32-bits
+name: modharbour for Win32 msvc
 
 on:
   push:
@@ -57,20 +57,26 @@ jobs:
         set Path=%oldpath%
         set INCLUDE=%oldinclude%
         
-    - name: Upload mod_harbour.so to artifact
+     - name: Create output folders
+      shell: cmd
+      run: |
+        mkdir output
+        mkdir output/samples
+        copy windows/mod_harbour.so output
+        copy windows/libharbour.dll output
+        copy windows/readme.md output
+        copy -r samples output/samples   
+        
+    - name: Get current time
+      uses: srfrnk/current-time@master
+      id: current-time
+      with:
+        format: YYYY_MM_DD
+ 
+    - name: Upload mod_harbour to artifact
+      env:
+         TIME: "${{ steps.current-time.outputs.formattedTime }}"
       uses: actions/upload-artifact@v2
       with:
-       name: modharbour_win32_dev
-       path: windows/mod_harbour.so
-       
-    - name: Upload libharbour.dll to artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: modharbour_win32_dev
-        path: windows/libharbour.dll
-
-    - name: Upload readme.md to artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: modharbour_win32_dev
-        path: windows/readme.md
+       name: modharbour_win32_msvc_${{ env.TIME }}
+       path: output
