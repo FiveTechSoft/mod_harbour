@@ -7,6 +7,7 @@ on:
       - 'mod_harbour.c'
       - 'osx/modharbour.hbp'
       - 'osx/mod.hbp'
+      - '.github/workflows/macos.yml
   watch:
    types: [started]
 
