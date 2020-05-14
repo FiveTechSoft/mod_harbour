@@ -1,4 +1,4 @@
-name: Windows 32-bits with ADS
+name: modharbour for Win32 with msvc and ADS
 
 on:
   push:
