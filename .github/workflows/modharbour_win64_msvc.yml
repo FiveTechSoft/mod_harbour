@@ -1,4 +1,4 @@
-name: Windows 64-bits
+name: modharbour for Win64
 
 on:
   push:
