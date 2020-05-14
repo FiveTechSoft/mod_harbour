@@ -62,6 +62,7 @@ jobs:
         ..\harbour\bin\win\msvc64\hbmk2 modharbour.hbp -comp=msvc64 -Lc:\Apache24\lib -dHB_WITH_ADS="c:\acesdk\" rddads.hbc
         set Path=%oldpath%
         set INCLUDE=%oldinclude%
+        
     - name: Create output folders
       shell: cmd
       run: |
