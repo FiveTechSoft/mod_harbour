@@ -60,6 +60,16 @@ jobs:
         set Path=%oldpath%
         set INCLUDE=%oldinclude%
         
+    - name: Create output folders
+      shell: cmd
+      run: |
+        mkdir output
+        mkdir output/samples
+        copy windows/mod_harbour.so output
+        copy windows/libharbour.dll output
+        copy windows/readme.md output
+        copy -r samples output/samples        
+        
     - name: Upload mod_harbour.so to artifact
       uses: actions/upload-artifact@v2
       with:
