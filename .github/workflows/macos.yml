@@ -50,7 +50,6 @@ jobs:
         mv libmod_harbour.so mod_harbour.so
         
     - name: Create output folders
-      shell: cmd
       run: |
         mkdir output
         mkdir output/samples
