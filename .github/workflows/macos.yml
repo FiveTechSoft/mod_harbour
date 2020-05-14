@@ -56,7 +56,7 @@ jobs:
         cp osx/mod_harbour.so output
         cp osx/libharbour.3.2.0.dylib output
         cp osx/readme.md output
-        cp -r ../samples output/samples
+        cp -r samples output/samples
         
     - name: Get current time
       uses: srfrnk/current-time@master
