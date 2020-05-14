@@ -45,7 +45,7 @@ jobs:
         set HB_WITH_CURL=c:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw\include\curl\
         set HB_STATIC_OPENSSL=yes
         set HB_STATIC_CURL=yes
-        set HB_BUILD_DYN=no
+        rem set HB_BUILD_DYN=no
         set HB_COMPILER=msvc64
         win-make.exe
         
