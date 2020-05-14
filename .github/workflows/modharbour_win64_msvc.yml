@@ -32,7 +32,7 @@ jobs:
          choco install openssl --params '"/installLocation:C:"'
          choco install curl --params '"/installLocation:C:"'
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace '/../inc32','' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
-         Copy-Item c:\programdata\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw\lib\libcurl.a -Destination c:\programdata\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw\lib\libcurl.lib
+         Copy-Item "c:\programdata\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw\lib\libcurl.a" -Destination "c:\programdata\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw\lib\libcurl.lib"
          
     - name: Compile Harbour
       shell: cmd
