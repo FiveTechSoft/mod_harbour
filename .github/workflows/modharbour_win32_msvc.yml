@@ -7,6 +7,7 @@ on:
       - 'mod_harbour.c'
       - 'windows/modharbour.hbp'
       - 'windows/mod.hbp'
+      - '.github/workflows/modharbour_win32_msvc.yml'
   watch:
    types: [started]
 
@@ -61,11 +62,11 @@ jobs:
       shell: cmd
       run: |
         mkdir output
-        mkdir output/samples
-        copy windows/mod_harbour.so output
-        copy windows/libharbour.dll output
-        copy windows/readme.md output
-        copy -r samples output/samples   
+        mkdir output\samples
+        copy windows\mod_harbour.so output
+        copy windows\libharbour.dll output
+        copy windows\readme.md output
+        copy -r samples output\samples   
         
     - name: Get current time
       uses: srfrnk/current-time@master
