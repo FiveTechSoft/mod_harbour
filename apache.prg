@@ -34,10 +34,6 @@ extern SHOWCONSOLE, HB_VFDIREXISTS
 #include "../harbour/contrib/hbmzip/hbmzip.hbx"
 #define __HBEXTERN__HBZIPARC__REQUEST
 #include "../harbour/contrib/hbziparc/hbziparc.hbx"
-#define __HBEXTERN__HBSSL__REQUEST
-#include "../harbour/contrib/hbssl/hbssl.hbx"
-#define __HBEXTERN__HBTIP__REQUEST
-#include "../harbour/contrib/hbtip/hbtip.hbx"
 
 #ifdef HB_WITH_ADS
    #define __HBEXTERN__RDDADS__REQUEST
