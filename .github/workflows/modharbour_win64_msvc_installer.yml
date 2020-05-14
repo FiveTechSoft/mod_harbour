@@ -1,0 +1,35 @@
+name: modharbour Win64 installer
+
+on:
+  push:
+
+  watch:
+    types: [started]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    if: github.actor == github.event.repository.owner.login
+    
+    steps:
+    - name: Checkout mod_harbour repo
+      uses: actions/checkout@v2
+            
+    - name: Build installer
+      run: |
+        iscc windows/win64/setup/modharbour.iss
+        
+    - name: Get current date
+      uses: srfrnk/current-time@master
+      id: current-time
+      with:
+        format: YYYY_MM_DD
+ 
+    - name: Building the final zip with the installer inside
+      env:
+         TIME: "${{ steps.current-time.outputs.formattedTime }}"
+      uses: actions/upload-artifact@v2
+      with:
+       name: install_win64_${{ env.TIME }}
+       path: D:\a\mod_harbour\mod_harbour\windows\win64\setup\Output\modharbour.exe 
