@@ -33,6 +33,7 @@ jobs:
          choco install curl
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace '/../inc32','' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
          copy-Item 'c:\Program Files\OpenSSL-Win64' -destination 'c:\OpenSSL-Win64' -recurse
+         copy-Item '.windows/win64/app_missing/libcurl.lib' -destination 'c:/ProgramData/chocolatey/lib/curl/tools/curl-7.70.0-win64-mingw/lib'
          
     - name: Compile Harbour
       shell: cmd
