@@ -32,6 +32,10 @@ jobs:
          choco install openssl --x86
          (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/curl-7.54.0-win32-mingw.zip', 'C:\temp\curl-7.54.0-win32-mingw.zip')
          Expand-Archive -LiteralPath C:\temp\curl-7.54.0-win32-mingw.zip -DestinationPath C:\curl -Force
+         Copy-Item 'C:\Program Files (x86)\OpenSSL-Win32' 'C:\OpenSSL-Win32'
+   
+    - name: Checks
+      run: dir C:\
 
     - name: Compile Harbour
       shell: cmd
@@ -41,7 +45,7 @@ jobs:
         set HB_BUILD_MODE=c
         set HB_USER_PRGFLAGS=-l-
         set HB_BUILD_CONTRIBS=
-        set HB_WITH_OPENSSL=C:\Program Files (x86)\OpenSSL-Win32\include
+        set HB_WITH_OPENSSL=C:\OpenSSL-Win32\include
         set HB_WITH_CURL=C:\curl\include
         set HB_COMPILER=msvc64
         del .\src\common\obj\win\msvc64\hbver.obj
