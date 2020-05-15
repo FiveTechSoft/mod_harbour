@@ -29,10 +29,10 @@ jobs:
     - name: Install dependencies
       run: |
          choco install apache-httpd --params '"/installLocation:C:"'
-         choco install openssl --params '"/installLocation:C:"'
-         choco install curl --params '"/installLocation:C:"'
+         choco install openssl
+         choco install curl
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace '/../inc32','' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
-         Copy-Item "c:\programdata\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw\lib\libcurl.a" -Destination "c:\programdata\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw\lib\libcurl.lib"
+         copy-Item 'c:\Program Files\OpenSSL-Win64' -destination 'c:\OpenSSL-Win64' -recurse
          
     - name: Compile Harbour
       shell: cmd
@@ -42,7 +42,7 @@ jobs:
         set HB_BUILD_MODE=c
         set HB_USER_PRGFLAGS=-l-
         set HB_BUILD_CONTRIBS=
-        set HB_WITH_OPENSSL="%ProgramFiles%"/OpenSSL-Win64/include
+        set HB_WITH_OPENSSL=c:/OpenSSL-Win64/include
         set HB_WITH_CURL=c:/ProgramData/chocolatey/lib/curl/tools/curl-7.70.0-win64-mingw/include/
         set HB_OPENSSL_STATIC=        
         set HB_STATIC_CURL=no
