@@ -41,7 +41,7 @@ jobs:
         set HB_BUILD_MODE=c
         set HB_USER_PRGFLAGS=-l-
         set HB_BUILD_CONTRIBS=
-        set HB_WITH_OPENSSL="%ProgramFiles%"/OpenSSL-Win64/include
+        set HB_WITH_OPENSSL="%ProgramFiles%"/OpenSSL-Win64/include/
         set HB_WITH_CURL=c:/ProgramData/chocolatey/lib/curl/tools/curl-7.70.0-win64-mingw/include/
         set HB_OPENSSL_STATIC=        
         set HB_STATIC_CURL=no
