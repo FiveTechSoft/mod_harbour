@@ -53,11 +53,7 @@ jobs:
       shell: cmd
       run: |
         cd windows
-        set oldpath=%Path%
-        set oldinclude=%INCLUDE%
-        ..\harbour\bin\win\mingw64\hbmk2 modharbour.hbp -comp=msvc64 -Lc:\Apache24\lib
-        set Path=%oldpath%
-        set INCLUDE=%oldinclude%
+        ..\harbour\bin\win\mingw64\hbmk2 modharbour.hbp -comp=mingw64 -Lc:\Apache24\lib
         
     - name: Create output folders
       shell: cmd
