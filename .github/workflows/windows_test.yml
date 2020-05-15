@@ -32,6 +32,6 @@ jobs:
          choco install openssl --x86 --params '"/installLocation:C:"'
          (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/curl-7.54.0-win32-mingw.zip', 'C:\temp\curl-7.54.0-win32-mingw.zip')
          Expand-Archive -LiteralPath C:\temp\curl-7.54.0-win32-mingw.zip -DestinationPath C:\curl -Force
-         
-     - name: Checks
-       run: dir c:\
+
+    - name: Checks
+      run: dir c:\
