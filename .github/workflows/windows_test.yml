@@ -29,12 +29,13 @@ jobs:
     - name: Install dependencies
       run: |
          choco install apache-httpd --params '"/installLocation:C:"'
-         choco install openssl --x86
+         choco install openssl --x86 --params '"/InstallDir:C:"'
          (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/curl-7.54.0-win32-mingw.zip', 'C:\temp\curl-7.54.0-win32-mingw.zip')
          Expand-Archive -LiteralPath C:\temp\curl-7.54.0-win32-mingw.zip -DestinationPath C:\curl -Force
          
     - name: Checks
       run: |
+         dir C:\
          dir "C:\Program Files (x86)\OpenSSL-Win32\include"
          dir "C:\Program Files (x86)\OpenSSL-Win32\include\openssl"
          dir C:\OpenSSL-Win32
