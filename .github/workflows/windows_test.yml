@@ -33,12 +33,6 @@ jobs:
          (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/curl-7.54.0-win32-mingw.zip', 'C:\temp\curl-7.54.0-win32-mingw.zip')
          Expand-Archive -LiteralPath C:\temp\curl-7.54.0-win32-mingw.zip -DestinationPath C:\curl -Force
          Copy-Item 'C:\Program Files (x86)\OpenSSL-Win32' 'C:\OpenSSL-Win32' -Recurse
-   
-    - name: Checks
-      run: |
-         dir C:\
-         dir C:\OpenSSL-Win32
-         dir C:\lmdkmddd
 
     - name: Compile Harbour
       shell: cmd
