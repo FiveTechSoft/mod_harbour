@@ -32,6 +32,7 @@ jobs:
          choco install openssl --params '"/installLocation:C:"'
          choco install curl --params '"/installLocation:C:"'
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace '/../inc32','' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
+         Copy-Item ".\windows\win64\ap_missing\ap_config_auto.h" -Destination "c:\Apache24\include\ap_config_auto.h"
          
     - name: Compile Harbour
       shell: cmd
