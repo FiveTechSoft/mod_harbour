@@ -215,7 +215,7 @@
   #define HAVE_STRING_H 1
   
   /* Define to 1 if you have the `syslog' function. */
-  #define HAVE_SYSLOG 1
+  #define HAVE_SYSLOG 0
   
   /* Define to 1 if you have the <syslog.h> header file. */
   /* #undef HAVE_SYSLOG_H */
