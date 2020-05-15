@@ -35,10 +35,8 @@ jobs:
          
     - name: Checks
       run: |
-         dir "C:\Program Files\"
-         dir "C:\Program Files\OpenSSL"
-         dir "C:\Program Files\OpenSSL\include"
-         dir "C:\Program Files\OpenSSL\include\openssl"
+         dir "C:\Program Files (x86)\OpenSSL-Win32\include"
+         dir "C:\Program Files (x86)\OpenSSL-Win32\include\openssl"
          dir C:\OpenSSL-Win32
          dir C:\OpenSSL-Win32\include
 
