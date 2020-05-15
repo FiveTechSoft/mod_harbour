@@ -29,8 +29,9 @@ jobs:
     - name: Install dependencies
       run: |
          choco install apache-httpd --params '"/installLocation:C:"'
-         choco install openssl --params '"/installLocation:C:"'
-         choco install curl --params '"/installLocation:C:"'
+         choco install openssl
+         copy-Item 'c:\Program Files\OpenSSL-Win64' -destination 'c:\OpenSSL-Win64' -recurse
+         choco install curl
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace '/../inc32','' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
          Copy-Item ".\windows\win64\ap_missing\ap_config_auto.h" -Destination "c:\Apache24\include\ap_config_auto.h"
          
@@ -41,7 +42,7 @@ jobs:
         set HB_BUILD_MODE=c
         set HB_USER_PRGFLAGS=-l-
         set HB_BUILD_CONTRIBS=
-        set HB_WITH_OPENSSL="c:/Program Files/OpenSSL-Win64/include/"
+        set HB_WITH_OPENSSL=c:/OpenSSL-Win64/include/
         set HB_WITH_CURL=c:/ProgramData/chocolatey/lib/curl/tools/curl-7.70.0-win64-mingw/include/
         set HB_OPENSSL_STATIC=        
         set HB_STATIC_CURL=no
