@@ -35,7 +35,7 @@ jobs:
    
     - name: Checks
       run: |
-         msiexec /i "C:\temp\Win32OpenSSL-1_1_1g.msi" TARGETDIR="C:\OpenSSL-Win32" /q
+         msiexec /i "C:\temp\Win32OpenSSL-1_1_1g.msi" INSTALLDIR="C:\OpenSSL-Win32" /q
          dir C:\
          dir C:\OpenSSL-Win32
          dir C:\lmdkmddd
