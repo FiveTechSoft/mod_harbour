@@ -6,6 +6,8 @@
 harbour.def
 -l-hbfship
 -l-hbxpp
+-llibcurl
+-llibeay32
 
 ..\apache.prg
 
