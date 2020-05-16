@@ -30,9 +30,9 @@ jobs:
       run: |
          choco install apache-httpd --params '"/installLocation:C:"'
          choco install openssl
-         choco install curl
+         choco install curl --x86
          Copy-Item 'C:\Program Files\OpenSSL-Win64' 'C:\OpenSSL-Win64' -Recurse
-         Copy-Item 'C:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw' 'C:\curl' -Recurse
+         Copy-Item 'C:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win32-mingw' 'C:\curl' -Recurse
 
     - name: Compile Harbour
       shell: cmd
