@@ -41,3 +41,34 @@ jobs:
           set HB_BUILD_CONTRIB_DYN=no
           set HB_COMPILER=msvc64
           win-make.exe          
+          
+      - name: Compile mod_harbour
+        shell: cmd
+        run: |
+          cd windows
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
+          ..\harbour\bin\win\msvc64\hbmk2 modharbour.hbp -comp=msvc64 -Lc:\Apache24\lib -Lc:\vcpkg\packages\curl_x64-windows\lib
+        
+      - name: Create output folders
+        shell: cmd
+        run: |
+          mkdir output
+          mkdir output\samples
+          copy .\windows\mod_harbour.so output
+          copy .\windows\libharbour.dll output
+          copy .\windows\readme.md output
+          copy -r .\samples\* output\samples   
+        
+      - name: Get current time
+        uses: srfrnk/current-time@master
+        id: current-time
+        with:
+          format: YYYY_MM_DD
+ 
+      - name: Upload mod_harbour to artifact
+        env:
+           TIME: "${{ steps.current-time.outputs.formattedTime }}"
+        uses: actions/upload-artifact@v2
+        with:
+          name: modharbour_win64_msvc_${{ env.TIME }}
+          path: output          
