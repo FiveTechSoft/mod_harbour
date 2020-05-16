@@ -36,6 +36,7 @@ jobs:
     - name: Checks
       run: |
          dir C:\
+         dir C:\ProgramData\chocolatey\lib\curl\tools
          dir hchchch
 
     - name: Compile Harbour
