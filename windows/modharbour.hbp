@@ -17,5 +17,6 @@ hbcurl.hbc
 hbnetio.hbc
 hbmzip.hbc
 hbziparc.hbc
+hbssl.hbc
 
 mod.hbp
