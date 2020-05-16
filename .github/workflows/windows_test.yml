@@ -37,8 +37,8 @@ jobs:
     - name: Checks
       run: |
         dir "C:\Program Files\"
-        dir "C:\Program Files\OpenSSL\"
-        dir "C:\Program Files\OpenSSL\include"
+        dir "C:\Program Files\OpenSSL-Win64\"
+        dir "C:\Program Files\OpenSSL-Win64\include"
         dir C:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw\
         dir kjndjkfnkdjfn
 
