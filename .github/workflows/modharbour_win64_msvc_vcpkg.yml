@@ -25,6 +25,9 @@ jobs:
           vcpkg.exe install curl:x64-windows
           vcpkg.exe install openssl:x64-windows
           vcpkg integrate install
+          
+      - name: Fixing Harbour hbssl.hbp
+        run: |
           (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace 'libeay32','libcrypto' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
           (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace 'ssleay32','libssl' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
           
