@@ -53,7 +53,7 @@ jobs:
         set HB_USER_PRGFLAGS=-l-
         set HB_BUILD_CONTRIBS=
         set HB_WITH_OPENSSL=c:/OpenSSL-Win64/include
-        set HB_WITH_CURL=c:\curl-7.70.0\curl-7-70.0\builds\libcurl-vc-x64-release-static-ipv6-sspi-winssl\include\
+        set HB_WITH_CURL=c:\curl-7.70.0\curl-7-70.0\builds\libcurl-vc-x64-release-static-ipv6-sspi-winssl\include
         set HB_OPENSSL_STATIC=        
         set HB_STATIC_CURL=no
         set HB_BUILD_DYN=no
