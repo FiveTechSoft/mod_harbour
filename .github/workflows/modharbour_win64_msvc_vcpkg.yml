@@ -1,4 +1,4 @@
-name: Harbour for Win64 using msvc
+name: Harbour for Win64 using msvc and vcpkg
 
 on:
   push:
