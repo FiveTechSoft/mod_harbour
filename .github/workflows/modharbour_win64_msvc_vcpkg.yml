@@ -1,0 +1,25 @@
+name: Harbour for Win64 using msvc
+
+on:
+  push:
+  watch:
+   types: [started]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+    
+      - name: Checkout harbour/core repo
+        uses: actions/checkout@v2
+        with:
+          repository: harbour/core
+          path: harbour
+  
+      - name: Installing dependencies
+        shell: cmd 
+        run: |
+          vcpkg.exe install curl:x64-windows
+          vcpkg.exe install openssl:x64-windows
