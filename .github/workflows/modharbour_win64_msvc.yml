@@ -30,21 +30,30 @@ jobs:
       run: |
          choco install apache-httpd --params '"/installLocation:C:"'
          choco install openssl
-         choco install curl
+         (new-object System.Net.WebClient).DownloadFile( 'https://curl.haxx.se/download/curl-7.70.0.zip', 'c:\temp\curl-7.70.0.zip')
+         Expand-Archive -LiteralPath 'c:\temp\curl-7.70.0.zip' -DestinationPath 'curl-7.70.0' -Force  
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace '/../inc32','' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
          copy-Item 'c:\Program Files\OpenSSL-Win64' -destination 'c:\OpenSSL-Win64' -recurse
-         copy-Item 'windows\win64\app_missing\libcurl.lib' -destination 'c:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw\lib'
          
+    - name: Build curl using msvc
+      shell: cmd 
+      run: |
+        cd curl-7.70.0\curl-7.70.0\winbuild
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
+        set MACHINE=x64
+        nmake /f Makefile.vc mode=static         
+     
     - name: Compile Harbour
       shell: cmd
       run: |
+        copy c:\curl-7.70.0\curl-7-70.0\builds\libcurl-vc-x64-release-static-ipv6-sspi-winssl\lib\libcurl_a.lib c:\curl-7.70.0\curl-7-70.0\builds\libcurl-vc-x64-release-static-ipv6-sspi-winssl\lib\libcur.lib
         cd harbour
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
         set HB_BUILD_MODE=c
         set HB_USER_PRGFLAGS=-l-
         set HB_BUILD_CONTRIBS=
         set HB_WITH_OPENSSL=c:/OpenSSL-Win64/include
-        set HB_WITH_CURL=c:/ProgramData/chocolatey/lib/curl/tools/curl-7.70.0-win64-mingw/include/
+        set HB_WITH_CURL=c:\curl-7.70.0\curl-7-70.0\builds\libcurl-vc-x64-release-static-ipv6-sspi-winssl\include\
         set HB_OPENSSL_STATIC=        
         set HB_STATIC_CURL=no
         set HB_BUILD_DYN=no
@@ -59,7 +68,7 @@ jobs:
         set oldpath=%Path%
         set oldinclude=%INCLUDE%
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
-        ..\harbour\bin\win\msvc64\hbmk2 modharbour.hbp -comp=msvc64 -Lc:\Apache24\lib -Lc:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw\lib
+        ..\harbour\bin\win\msvc64\hbmk2 modharbour.hbp -comp=msvc64 -Lc:\Apache24\lib -Lc:\curl-7.70.0\curl-7-70.0\builds\libcurl-vc-x64-release-static-ipv6-sspi-winssl\lib
         set Path=%oldpath%
         set INCLUDE=%oldinclude%
         
