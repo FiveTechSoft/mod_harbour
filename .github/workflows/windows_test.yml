@@ -40,6 +40,7 @@ jobs:
         dir "C:\Program Files\OpenSSL\"
         dir "C:\Program Files\OpenSSL\include"
         dir C:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw\
+        dir kjndjkfnkdjfn
 
     - name: Compile Harbour
       shell: cmd
