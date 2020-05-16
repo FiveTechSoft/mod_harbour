@@ -29,16 +29,16 @@ jobs:
     - name: Install dependencies
       run: |
          choco install apache-httpd --params '"/installLocation:C:"'
-         choco install openssl
+         choco install openssl --x86
          choco install curl --x86
-         Copy-Item 'C:\Program Files\OpenSSL-Win64' 'C:\OpenSSL-Win64' -Recurse
+         Copy-Item 'C:\Program Files\OpenSSL-Win32' 'C:\OpenSSL-Win32' -Recurse
          Copy-Item 'C:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win32-mingw' 'C:\curl' -Recurse
     
     - name: Checks
       run: |
-        dir C:\OpenSSL-Win64\
-        dir C:\OpenSSL-Win64\lib
-        dir C:\OpenSSL-Win64\include
+        dir C:\OpenSSL-Win32\
+        dir C:\OpenSSL-Win32\lib
+        dir C:\OpenSSL-Win32\include
         dir kjnfdjkfn
 
     - name: Compile Harbour
