@@ -33,13 +33,8 @@ jobs:
          choco install curl --x86
          Copy-Item 'C:\Program Files (x86)\OpenSSL-Win32' 'C:\OpenSSL-Win32' -Recurse
          Copy-Item 'C:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win32-mingw' 'C:\curl' -Recurse
-    
-    - name: Checks
-      run: |
-        dir C:\OpenSSL-Win32\
-        dir C:\OpenSSL-Win32\lib
-        dir C:\OpenSSL-Win32\bin
-        dir kjnfdjkfn
+         (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace 'libeay32','libcrypto' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
+         (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace 'ssleay32','libssl' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
 
     - name: Compile Harbour
       shell: cmd
