@@ -32,11 +32,7 @@ jobs:
          choco install openssl --x86
          choco install curl --x86
          Copy-Item 'C:\Program Files (x86)\OpenSSL-Win32' 'C:\OpenSSL-Win32' -Recurse
-
-    - name: Checks
-      run: |
-         dir C:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win32-mingw\include
-         dir hchchch
+         Copy-Item 'C:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win32-mingw' 'C:\curl' -Recurse
 
     - name: Compile Harbour
       shell: cmd
