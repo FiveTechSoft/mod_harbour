@@ -38,7 +38,7 @@ jobs:
       run: |
         dir C:\OpenSSL-Win32\
         dir C:\OpenSSL-Win32\lib
-        dir C:\OpenSSL-Win32\include
+        dir C:\OpenSSL-Win32\bin
         dir kjnfdjkfn
 
     - name: Compile Harbour
