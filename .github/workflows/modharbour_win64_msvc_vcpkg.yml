@@ -22,6 +22,7 @@ jobs:
         shell: cmd 
         run: |
           vcpkg.exe install apr:x64-windows
+          vcpkg.exe install apr-util:x64-windows
           vcpkg.exe install curl:x64-windows
           vcpkg.exe install openssl:x64-windows
           vcpkg integrate install
