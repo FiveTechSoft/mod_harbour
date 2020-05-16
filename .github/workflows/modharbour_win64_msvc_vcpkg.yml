@@ -21,8 +21,7 @@ jobs:
       - name: Installing dependencies
         shell: cmd 
         run: |
-          vcpkg.exe install apr:x64-windows
-          vcpkg.exe install apr-util:x64-windows
+          choco install apache-httpd --params '"/installLocation:C:"'
           vcpkg.exe install curl:x64-windows
           vcpkg.exe install openssl:x64-windows
           vcpkg integrate install
