@@ -2,6 +2,10 @@ Apple provides an installed apache by default, that serves pages at:
 
 ```
 /Library/WebServer/Documents
+
+if you have installed brew ... then the pages are at:
+
+/usr/local/var/www
 ```
 
 Download mod_harbour files:
