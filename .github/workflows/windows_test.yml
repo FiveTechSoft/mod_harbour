@@ -53,6 +53,8 @@ jobs:
         del .\src\common\obj\win\msvc64\hbver_dyn.obj
         del .\src\common\obj\win\msvc64\hbverdsp.obj
         win-make.exe
+        copy lib\win\msvc64\libcrypto-1_1-x64.lib lib\win\msvc64\libeay32.lib
+        copy lib\win\msvc64\libssl-1_1-x64.lib lib\win\msvc64\ssleay32.lib
         
     - name: Compile mod_harbour
       shell: cmd
