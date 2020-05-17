@@ -53,7 +53,7 @@ jobs:
           set HB_STATIC_CURL=yes
           set HB_BUILD_DYN=no
           set HB_BUILD_CONTRIB_DYN=no
-          set HB_COMPILER=msvc64
+          set HB_COMPILER=msvc
           win-make.exe        
           copy lib\win\msvc\libcrypto-1_1-x32.lib lib\win\msvc\libeay32.lib
           copy lib\win\msvc\libssl-1_1-x32.lib lib\win\msvc\ssleay32.lib
