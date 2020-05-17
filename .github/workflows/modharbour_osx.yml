@@ -33,6 +33,7 @@ jobs:
          brew install curl
          brew install pcre
          brew install httpd
+         brew install openssl
          cd osx
          sed -i '' 's/anto/runner\/runners\/2.169.1\/work\/mod_harbour\/mod_harbour/g' libs.txt
          
@@ -40,6 +41,7 @@ jobs:
       run: |
         cd harbour
         export HB_WITH_CURL=/usr/local/Cellar/curl/7.70.0/include/
+        export HB_WITH_OPENSSL=/usr/local/Cellar/openssl/1.0.2s/include
         export HB_BUILD_CONTRIBS=""
         make
         
