@@ -57,6 +57,7 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 [Files]
 Source: "..\..\..\windows\win64\mod_harbour.so"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\..\windows\win64\libharbour.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\..\IIS\bin\mod_harbour.dll"; DestDir: "{app}\IIS"; Flags: ignoreversion
 Source: "..\..\..\samples\*"; DestDir: "{app}\samples"; Flags: ignoreversion recursesubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -530,6 +531,13 @@ begin
     Exec( 'powershell.exe', 'new-item -itemtype symboliclink -path ' + ApacheEdit.Text + '\htdocs -name modharbour_samples -value ' + ExpandConstant( '{app}' ) + '\samples', '', SW_HIDE, ewWaitUntilTerminated, retCode );
     Exec( ApacheEdit.Text + '\bin\httpd.exe', '', '', SW_HIDE, ewNoWait, retCode ); 
    end; 
+
+   if IISCheckBox.checked then
+   begin
+    Exec( 'powershell.exe', '-ExecutionPolicy Unrestricted c:\windows\system32\inetsrv\appcmd.exe install module /name:mod_harbour /image:' + ExpandConstant( '{app}' ) + '\IIS\mod_harbour.dll', '', SW_HIDE, ewNoWait, retCode ); 
+    MsgBox( intToStr( retCode ), mbInformation, 1 );
+    Exec( 'powershell.exe', 'iisreset /restart', '', SW_HIDE, ewNoWait, retCode ); 
+   end;
   end;
 end;
 
