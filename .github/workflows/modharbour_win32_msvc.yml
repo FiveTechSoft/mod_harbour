@@ -34,7 +34,7 @@ jobs:
       - name: Installing apache-httpd-x86
         run: |          
          (new-object System.Net.WebClient).DownloadFile( 'https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x86-vc15.zip', 'c:\temp\httpd-2.4.43-o111g-x86-vc15.zip' )
-         Expand-Archive -LiteralPath C:\temp\httpd-2.4.43-o111g-x86-vc15.zip -DestinationPath c:\Apache24 -Force
+         Expand-Archive -LiteralPath C:\temp\httpd-2.4.43-o111g-x86-vc15.zip -DestinationPath c:\ -Force
           
       - name: Fixing Harbour hbssl.hbp
         run: |
