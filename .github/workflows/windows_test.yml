@@ -30,9 +30,9 @@ jobs:
       run: |
          choco install apache-httpd --params '"/installLocation:C:"'
          choco install openssl
-         choco install curl --x86
+         choco install curl
          Copy-Item 'C:\Program Files\OpenSSL-Win64' 'C:\OpenSSL-Win64' -Recurse
-         Copy-Item 'C:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win32-mingw' 'C:\curl' -Recurse
+         Copy-Item 'C:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw' 'C:\curl' -Recurse
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace 'libeay32','libcrypto' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace 'ssleay32','libssl' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbc) -replace 'libeay32','libcrypto-1_1-x64' | Set-Content -path harbour\contrib\hbssl\hbssl.hbc
@@ -68,7 +68,7 @@ jobs:
         set oldpath=%Path%
         set oldinclude=%INCLUDE%
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
-        ..\harbour\bin\win\msvc64\hbmk2 modharbour.hbp -comp=msvc64 -Lc:\Apache24\lib
+        ..\harbour\bin\win\msvc64\hbmk2 modharbour.hbp -comp=msvc64 -Lc:\Apache24\lib -Lc:\curl\lib
         set Path=%oldpath%
         set INCLUDE=%oldinclude%
         
