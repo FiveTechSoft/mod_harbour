@@ -67,6 +67,7 @@ jobs:
         shell: cmd
         run: |
           cd windows
+          copy win64\ap_missing\apr_perms_set.h c:\Apache24\Apache24\include
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86
           ..\harbour\bin\win\msvc\hbmk2 modharbour.hbp -comp=msvc -Lc:\Apache24\Apache24\lib -Lc:\vcpkg\packages\curl_x86-windows\lib
         
