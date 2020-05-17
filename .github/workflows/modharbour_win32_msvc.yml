@@ -48,8 +48,8 @@ jobs:
           set HB_BUILD_MODE=c
           set HB_USER_PRGFLAGS=-l-
           set HB_BUILD_CONTRIBS=
-          set HB_WITH_OPENSSL=c:\vcpkg\packages\openssl-windows_x32-windows\include\
-          set HB_WITH_CURL=c:\vcpkg\packages\curl_x32-windows\include
+          set HB_WITH_OPENSSL=c:\vcpkg\packages\openssl-windows_x86-windows\include\
+          set HB_WITH_CURL=c:\vcpkg\packages\curl_x86-windows\include
           set HB_OPENSSL_STATIC=yes      
           set HB_STATIC_OPENSSL=yes  
           set HB_STATIC_CURL=yes
