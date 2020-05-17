@@ -27,14 +27,10 @@ jobs:
       - name: Installing dependencies
         shell: cmd 
         run: |
+          choco install apache-httpd --x86 --params '"/installLocation:C:"'
           vcpkg.exe install curl:x86-windows
           vcpkg.exe install openssl:x86-windows
           vcpkg integrate install
-          
-      - name: Installing apache-httpd-x86
-        run: |          
-         (new-object System.Net.WebClient).DownloadFile( 'https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x86-vc15.zip', 'c:\temp\httpd-2.4.43-o111g-x86-vc15.zip' )
-         Expand-Archive -LiteralPath C:\temp\httpd-2.4.43-o111g-x86-vc15.zip -DestinationPath c:\ -Force
           
       - name: Fixing Harbour hbssl.hbp
         run: |
@@ -67,7 +63,7 @@ jobs:
         shell: cmd
         run: |
           cd windows
-          copy ..\mod_harbour\windows\win64\ap_missing\apr_perms_set.h c:\Apache24\Apache24\include
+          rem copy ..\mod_harbour\windows\win64\ap_missing\apr_perms_set.h c:\Apache24\Apache24\include
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86
           ..\harbour\bin\win\msvc\hbmk2 modharbour.hbp -comp=msvc -Lc:\Apache24\Apache24\lib -Lc:\vcpkg\packages\curl_x86-windows\lib
         
