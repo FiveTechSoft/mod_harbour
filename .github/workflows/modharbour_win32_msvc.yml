@@ -30,8 +30,6 @@ jobs:
           choco install apache-httpd --params '"/installLocation:C:"'
           vcpkg.exe install curl:x86-windows
           vcpkg.exe install openssl:x86-windows
-          dir c:\vcpkg\packages\
-          wait
           vcpkg integrate install
           
       - name: Fixing Harbour hbssl.hbp
@@ -40,6 +38,7 @@ jobs:
           (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace 'ssleay32','libssl' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
           (Get-Content -path harbour\contrib\hbssl\hbssl.hbc) -replace 'libeay32','libcrypto-1_1-x32' | Set-Content -path harbour\contrib\hbssl\hbssl.hbc
           (Get-Content -path harbour\contrib\hbssl\hbssl.hbc) -replace 'ssleay32','libssl-1_1-x32' | Set-Content -path harbour\contrib\hbssl\hbssl.hbc          
+
       - name: Compile Harbour
         shell: cmd
         run: |
