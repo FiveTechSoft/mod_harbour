@@ -534,7 +534,7 @@ begin
 
    if IISCheckBox.checked then
    begin
-    Exec( 'powershell.exe', '-ExecutionPolicy Unrestricted c:\windows\system32\inetsrv\appcmd.exe install module /name:mod_harbour /image:' + ExpandConstant( '{app}' ) + '\IIS\mod_harbour.dll', '', SW_HIDE, ewNoWait, retCode ); 
+    Exec( 'powershell.exe', '-ExecutionPolicy Bypass c:\windows\system32\inetsrv\appcmd.exe install module /name:mod_harbour /image:' + ExpandConstant( '{app}' ) + '\IIS\mod_harbour.dll', '', SW_HIDE, ewNoWait, retCode ); 
     MsgBox( intToStr( retCode ), mbInformation, 1 );
     Exec( 'powershell.exe', 'iisreset /restart', '', SW_HIDE, ewNoWait, retCode ); 
    end;
