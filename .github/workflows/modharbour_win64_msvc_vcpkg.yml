@@ -2,6 +2,7 @@ name: Harbour for Win64 using msvc and vcpkg
 
 on:
   push:
+    paths:
       - 'apache.prg'
       - 'mod_harbour.c'
       - 'windows/modharbour.hbp'
