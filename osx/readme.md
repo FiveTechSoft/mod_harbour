@@ -3,7 +3,7 @@ Apple provides an installed apache by default, that serves pages at:
 ```
 /Library/WebServer/Documents
 
-if you have installed brew ... then the pages are located at:
+if you have used brew to install httpd ... then the pages are located at:
 
 /usr/local/var/www
 ```
