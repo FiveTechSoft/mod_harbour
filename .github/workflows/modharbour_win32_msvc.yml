@@ -27,10 +27,14 @@ jobs:
       - name: Installing dependencies
         shell: cmd 
         run: |
-          choco install apache-httpd --params '"/installLocation:C:"'
           vcpkg.exe install curl:x86-windows
           vcpkg.exe install openssl:x86-windows
           vcpkg integrate install
+          
+      - name: Installing apache-httpd-x86
+        run: |          
+         (new-object System.Net.WebClient).DownloadFile( 'https://www.apachehaus.com/downloads/httpd-2.4.43-o111g-x86-vc15.zip', 'c:\temp\httpd-2.4.43-o111g-x86-vc15.zip' )
+         Expand-Archive -LiteralPath C:\temp\httpd-2.4.43-o111g-x86-vc15.zip -DestinationPath c:\Apache24 -Force
           
       - name: Fixing Harbour hbssl.hbp
         run: |
@@ -64,7 +68,7 @@ jobs:
         run: |
           cd windows
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86
-          ..\harbour\bin\win\msvc\hbmk2 modharbour.hbp -comp=msvc -Lc:\Apache24\lib -Lc:\vcpkg\packages\curl_x86-windows\lib
+          ..\harbour\bin\win\msvc\hbmk2 modharbour.hbp -comp=msvc -Lc:\Apache24\Apache24\lib -Lc:\vcpkg\packages\curl_x86-windows\lib
         
       - name: Create output folders
         shell: cmd
