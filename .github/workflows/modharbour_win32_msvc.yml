@@ -30,6 +30,8 @@ jobs:
           choco install apache-httpd --params '"/installLocation:C:"'
           vcpkg.exe install curl:x86-windows
           vcpkg.exe install openssl:x86-windows
+          dir c:\vcpkg\packages\
+          wait
           vcpkg integrate install
           
       - name: Fixing Harbour hbssl.hbp
