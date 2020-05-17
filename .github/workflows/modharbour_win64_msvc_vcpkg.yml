@@ -49,7 +49,9 @@ jobs:
           set HB_BUILD_DYN=no
           set HB_BUILD_CONTRIB_DYN=no
           set HB_COMPILER=msvc64
-          win-make.exe          
+          win-make.exe        
+          copy lib\win\msvc64\libcrypto-1_1-x64.lib lib\win\msvc64\libeay32.lib
+          copy lib\win\msvc64\libssl-1_1-x64.lib lib\win\msvc64\ssleay32.lib
           
       - name: Compile mod_harbour
         shell: cmd
