@@ -55,8 +55,8 @@ jobs:
         set HB_BUILD_CONTRIB_DYN=no
         set HB_COMPILER=msvc
         win-make.exe
-        copy lib\win\msvc64\libcrypto-1_1.lib lib\win\msvc64\libeay32.lib
-        copy lib\win\msvc64\libssl-1_1.lib lib\win\msvc64\ssleay32.lib
+        copy lib\win\msvc\libcrypto-1_1.lib lib\win\msvc64\libeay32.lib
+        copy lib\win\msvc\libssl-1_1.lib lib\win\msvc64\ssleay32.lib
         
     - name: Compile mod_harbour
       shell: cmd
@@ -65,7 +65,7 @@ jobs:
         set oldpath=%Path%
         set oldinclude=%INCLUDE%
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86
-        ..\harbour\bin\win\msvc64\hbmk2 modharbour.hbp -comp=msvc -Lc:\Apache24\lib -Lc:\curl\lib
+        ..\harbour\bin\win\msvc\hbmk2 modharbour.hbp -comp=msvc -Lc:\Apache24\lib -Lc:\curl\lib
         set Path=%oldpath%
         set INCLUDE=%oldinclude%
         
