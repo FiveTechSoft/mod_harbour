@@ -29,5 +29,7 @@
 -lhbmzip
 -lminizip
 -lhbnetio
+-lhbssl
+-lhbtip
 
 -Wl,--no-whole-archive

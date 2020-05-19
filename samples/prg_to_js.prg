@@ -1,15 +1,15 @@
 function Main()
 
-	local aH := {=>}	
+	local hHash := {=>}	
 	
-	aH[ 'time' ] = time()
-	aH[ 'date' ] = date()
-	aH[ 'age'  ] = 123
+	hHash[ 'time' ] = time()
+	hHash[ 'date' ] = date()
+	hHash[ 'age'  ] = 123
 
-  ? "From PRG (json) to Javascript (object)"	
+  ? "<h2>Converting a Harbour hash into Javascript object</h2>"	
     
 	?? "<script>"
-	?? "var object=" + hb_jsonEncode( aH, .T. ) + ";"
+	?? "var object=" + hb_jsonEncode( hHash, .T. ) + ";"
 	?? "alert( object.time );"
 	?? "alert( object.date );"
 	?? "alert( object.age );"

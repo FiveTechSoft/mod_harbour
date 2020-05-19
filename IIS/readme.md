@@ -31,7 +31,9 @@ Go to c:\inetpub\wwwroot\
 Create this symlink: (run cmd as administrator)
 
 mklink /j modharbour_samples c:\mod_harbour\samples
+
 enable Directories features from IIS panel
+
 go to localhost/modharbour_samples
 
 or

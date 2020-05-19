@@ -102,7 +102,7 @@ function AddPPRules()
    __pp_addRule( hPP, "#xcommand FINALLY => ALWAYS" )
    __pp_addRule( hPP, "#xcommand DEFAULT <v1> TO <x1> [, <vn> TO <xn> ] => ;" + ;
                       "IF <v1> == NIL ; <v1> := <x1> ; END [; IF <vn> == NIL ; <vn> := <xn> ; END ]" )
-
+		      
 return nil
 
 //----------------------------------------------------------------//
@@ -468,7 +468,10 @@ function SetCookie( cName, cValue, nSecs, cPath, cDomain, lHttps, lOnlyHttp )
    cCookie += cName + '=' + cValue + ';'
    cCookie += 'expires=' + CookieExpire( nSecs ) + ';'
    cCookie += 'path=' + cPath + ';'
-   cCookie += 'domain=' + cDomain + ';'
+   
+   if ! Empty( cDomain )
+      cCookie += 'domain=' + cDomain + ';'
+   endif
 		
    // pending logical values for https y OnlyHttp
 

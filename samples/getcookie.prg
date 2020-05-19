@@ -8,7 +8,7 @@ function Main()
    ?
    ? Time(), '<hr>'
    
-   ? 'cookies: ', ValToChar( GetCookies() )
+   ? 'cookies: ', GetCookies()
     
 return nil
 

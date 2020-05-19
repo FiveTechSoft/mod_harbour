@@ -1,0 +1,75 @@
+name: modharbour for Mac OSX
+
+on:
+  push:
+    paths: 
+      - 'apache.prg'
+      - 'mod_harbour.c'
+      - 'osx/modharbour.hbp'
+      - 'osx/mod.hbp'
+      - 'osx/libs.txt'
+      - '.github/workflows/modharbour_osx.yml'
+  watch:
+   types: [started]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    if: github.actor == github.event.repository.owner.login
+    
+    steps:
+    - name: Checkout mod_harbour repo
+      uses: actions/checkout@v2
+    
+    - name: Checkout harbour/core repo
+      uses: actions/checkout@v2
+      with:
+       repository: harbour/core
+       path: harbour
+
+    - name: Install dependencies
+      run: |
+         brew install curl
+         brew install pcre
+         brew install httpd
+         brew install openssl
+         cd osx
+         sed -i '' 's/anto/runner\/runners\/2.169.1\/work\/mod_harbour\/mod_harbour/g' libs.txt
+         
+    - name: Compile Harbour
+      run: |
+        cd harbour
+        export HB_WITH_CURL=/usr/local/Cellar/curl/7.70.0/include/
+        export HB_WITH_OPENSSL=/usr/local/Cellar/openssl/1.0.2s/include
+        export HB_BUILD_CONTRIBS=""
+        make
+        
+    - name: Compile mod_harbour
+      run: |
+        cd osx
+        ../harbour/bin/darwin/clang/hbmk2 modharbour.hbp
+        mv libmod_harbour.so mod_harbour.so
+        
+    - name: Create output folders
+      run: |
+        mkdir output
+        mkdir output/samples
+        cp osx/mod_harbour.so output
+        cp osx/libharbour.3.2.0.dylib output
+        cp osx/readme.md output
+        cp -r samples output/samples
+        
+    - name: Get current time
+      uses: srfrnk/current-time@master
+      id: current-time
+      with:
+        format: YYYY_MM_DD
+ 
+    - name: Upload mod_harbour to artifact
+      env:
+         TIME: "${{ steps.current-time.outputs.formattedTime }}"
+      uses: actions/upload-artifact@v2
+      with:
+       name: modharbour_osx_${{ env.TIME }}
+       path: output
