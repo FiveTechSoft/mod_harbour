@@ -1,0 +1,90 @@
+name: modharbour for Win32 and msvc and choco
+
+on:
+  push:
+    paths: 
+      - 'apache.prg'
+      - 'mod_harbour.c'
+      - 'windows/modharbour.hbp'
+      - 'windows/mod.hbp'
+      - '.github/workflows/modharbour_win32_msvc_choco.yml'
+  watch:
+   types: [started]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    if: github.actor == github.event.repository.owner.login
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Checkout harbour/core repo
+      uses: actions/checkout@v2
+      with:
+       repository: harbour/core
+       path: harbour
+
+    - name: Install dependencies
+      run: |
+         choco install apache-httpd --params '"/installLocation:C:"' --x86
+         choco install openssl --x86
+         choco install curl --x86
+         Copy-Item 'C:\Program Files (x86)\OpenSSL-Win32' 'C:\OpenSSL-Win32' -Recurse
+         Copy-Item 'C:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win32-mingw' 'C:\curl' -Recurse
+         (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace 'libeay32','libcrypto' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
+         (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace 'ssleay32','libssl' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
+         (Get-Content -path harbour\contrib\hbssl\hbssl.hbc) -replace 'libeay32','libcrypto-1_1' | Set-Content -path harbour\contrib\hbssl\hbssl.hbc
+         (Get-Content -path harbour\contrib\hbssl\hbssl.hbc) -replace 'ssleay32','libssl-1_1' | Set-Content -path harbour\contrib\hbssl\hbssl.hbc
+    - name: Compile Harbour
+      shell: cmd
+      run: |
+        cd harbour
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86
+        set HB_BUILD_MODE=c
+        set HB_USER_PRGFLAGS=-l-
+        set HB_BUILD_CONTRIBS=
+        set HB_WITH_OPENSSL=C:\OpenSSL-Win32\include
+        set HB_WITH_CURL=C:\curl\include
+        set HB_OPENSSL_STATIC=yes      
+        set HB_STATIC_OPENSSL=yes  
+        set HB_STATIC_CURL=yes
+        set HB_BUILD_DYN=no
+        set HB_BUILD_CONTRIB_DYN=no
+        set HB_COMPILER=msvc
+        win-make.exe
+        copy lib\win\msvc\libcrypto-1_1.lib lib\win\msvc\libeay32.lib
+        copy lib\win\msvc\libssl-1_1.lib lib\win\msvc\ssleay32.lib
+        
+    - name: Compile mod_harbour
+      shell: cmd
+      run: |
+        cd windows
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86
+        ..\harbour\bin\win\msvc\hbmk2 modharbour.hbp -comp=msvc -Lc:\Apache24\lib -Lc:\curl\lib
+        
+    - name: Create output folders
+      shell: cmd
+      run: |
+        mkdir output
+        mkdir output\samples
+        mkdir output\harbour
+        copy .\windows\mod_harbour.so output
+        copy .\windows\libharbour.dll output
+        copy .\windows\readme.md output
+        xcopy samples output\samples\ /E  
+        
+    - name: Get current time
+      uses: srfrnk/current-time@master
+      id: current-time
+      with:
+        format: YYYY_MM_DD
+ 
+    - name: Upload mod_harbour to artifact
+      env:
+         TIME: "${{ steps.current-time.outputs.formattedTime }}"
+      uses: actions/upload-artifact@v2
+      with:
+        name: modharbour_win32_msvc_${{ env.TIME }}
+        path: output          
