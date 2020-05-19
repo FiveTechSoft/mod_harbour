@@ -1,0 +1,89 @@
+name: modharbour Win64 msvc using choco (fast)
+
+on:
+  push:
+    paths: 
+      - 'apache.prg'
+      - 'mod_harbour.c'
+      - 'windows/modharbour.hbp'
+      - 'windows/mod.hbp'
+      - '.github/workflows/modharbour_win64_msvc_choco.yml'
+  watch:
+   types: [started]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    if: github.actor == github.event.repository.owner.login
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Checkout harbour/core repo
+      uses: actions/checkout@v2
+      with:
+       repository: harbour/core
+       path: harbour
+
+    - name: Install dependencies
+      run: |
+         choco install apache-httpd --params '"/installLocation:C:"'
+         choco install openssl
+         choco install curl
+         Copy-Item 'C:\Program Files\OpenSSL-Win64' 'C:\OpenSSL-Win64' -Recurse
+         Copy-Item 'C:\ProgramData\chocolatey\lib\curl\tools\curl-7.70.0-win64-mingw' 'C:\curl' -Recurse
+         (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace 'libeay32','libcrypto' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
+         (Get-Content -path harbour\contrib\hbssl\hbssl.hbp) -replace 'ssleay32','libssl' | Set-Content -path harbour\contrib\hbssl\hbssl.hbp
+         (Get-Content -path harbour\contrib\hbssl\hbssl.hbc) -replace 'libeay32','libcrypto-1_1-x64' | Set-Content -path harbour\contrib\hbssl\hbssl.hbc
+         (Get-Content -path harbour\contrib\hbssl\hbssl.hbc) -replace 'ssleay32','libssl-1_1-x64' | Set-Content -path harbour\contrib\hbssl\hbssl.hbc
+         (Get-Content -path harbour\contrib\hbcurl\hbcurl.hbp) -replace 'libcurl','libcurl-x64' | Set-Content -path harbour\contrib\hbcurl\hbcurl.hbp
+    - name: Compile Harbour
+      shell: cmd
+      run: |
+        cd harbour
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
+        set HB_BUILD_MODE=c
+        set HB_USER_PRGFLAGS=-l-
+        set HB_BUILD_CONTRIBS=
+        set HB_WITH_OPENSSL=C:\OpenSSL-Win64\include
+        set HB_WITH_CURL=C:\curl\include
+        set HB_OPENSSL_STATIC=yes      
+        set HB_STATIC_OPENSSL=yes  
+        set HB_STATIC_CURL=yes
+        set HB_BUILD_DYN=no
+        set HB_BUILD_CONTRIB_DYN=no
+        set HB_COMPILER=msvc64
+        win-make.exe
+        copy lib\win\msvc64\libcrypto-1_1-x64.lib lib\win\msvc64\libeay32.lib
+        copy lib\win\msvc64\libssl-1_1-x64.lib lib\win\msvc64\ssleay32.lib
+        copy lib\win\msvc64\libcurl-x64.lib lib\win\msvc64\libcurl.lib
+        
+    - name: Compile mod_harbour
+      shell: cmd
+      run: |
+        cd windows
+        set oldpath=%Path%
+        set oldinclude=%INCLUDE%
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
+        ..\harbour\bin\win\msvc64\hbmk2 modharbour.hbp -comp=msvc64 -Lc:\Apache24\lib -Lc:\curl\lib
+        set Path=%oldpath%
+        set INCLUDE=%oldinclude%
+        
+    - name: Upload mod_harbour.so to artifact
+      uses: actions/upload-artifact@v2
+      with:
+       name: modharbour_win64_dev
+       path: windows/mod_harbour.so
+       
+    - name: Upload libharbour.dll to artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: modharbour_win64_dev
+        path: windows/libharbour.dll
+
+    - name: Upload readme.md to artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: modharbour_win64_dev
+        path: windows/readme.md
