@@ -70,27 +70,27 @@ jobs:
         set Path=%oldpath%
         set INCLUDE=%oldinclude%
         
-      - name: Create output folders
-        shell: cmd
-        run: |
-          mkdir output
-          mkdir output\samples
-          mkdir output\harbour
-          copy .\windows\mod_harbour.so output
-          copy .\windows\libharbour.dll output
-          copy .\windows\readme.md output
-          xcopy samples output\samples\ /E  
+    - name: Create output folders
+      shell: cmd
+      run: |
+        mkdir output
+        mkdir output\samples
+        mkdir output\harbour
+        copy .\windows\mod_harbour.so output
+        copy .\windows\libharbour.dll output
+        copy .\windows\readme.md output
+        xcopy samples output\samples\ /E  
         
-      - name: Get current time
-        uses: srfrnk/current-time@master
-        id: current-time
-        with:
-          format: YYYY_MM_DD
+    - name: Get current time
+      uses: srfrnk/current-time@master
+      id: current-time
+      with:
+        format: YYYY_MM_DD
  
-      - name: Upload mod_harbour to artifact
-        env:
-           TIME: "${{ steps.current-time.outputs.formattedTime }}"
-        uses: actions/upload-artifact@v2
-        with:
-          name: modharbour_win64_msvc_${{ env.TIME }}
-          path: output          
+    - name: Upload mod_harbour to artifact
+      env:
+         TIME: "${{ steps.current-time.outputs.formattedTime }}"
+      uses: actions/upload-artifact@v2
+      with:
+        name: modharbour_win64_msvc_${{ env.TIME }}
+        path: output          
