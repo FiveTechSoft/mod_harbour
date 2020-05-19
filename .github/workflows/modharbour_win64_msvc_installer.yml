@@ -2,6 +2,8 @@ name: modharbour Win64 installer
 
 on:
   push:
+    paths:
+      - '.github/workflows/modharbour_win64_msvc_installer.yml'
 
   watch:
     types: [started]
