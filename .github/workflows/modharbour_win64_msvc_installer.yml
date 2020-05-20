@@ -5,9 +5,6 @@ on:
     paths:
       - '.github/workflows/modharbour_win64_msvc_installer.yml'
 
-  watch:
-    types: [started]
-
 jobs:
   build:
     runs-on: windows-latest
