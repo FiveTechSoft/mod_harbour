@@ -8,8 +8,6 @@ on:
       - 'windows/modharbour.hbp'
       - 'windows/mod.hbp'
       - '.github/workflows/modharbour_win32_msvc_choco.yml'
-  watch:
-   types: [started]
 
 jobs:
   build:
