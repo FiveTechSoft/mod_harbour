@@ -39,7 +39,9 @@ jobs:
          
     - name: Checks
       run: |
-        ls /usr/local/Cellar/openssl/1.0.2s
+        ls /usr/local/Cellar/
+        ls /usr/local/Cellar/openssl/
+        ls /usr/local/Cellar/openssl/1.0.2s/
         ls /usr/local/Cellar/openssl/1.0.2s/lib/
         ls mnchcndjdnc
          
