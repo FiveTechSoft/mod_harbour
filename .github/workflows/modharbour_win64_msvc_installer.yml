@@ -3,6 +3,8 @@ name: modharbour Win64 installer
 on:
   push:
     paths:
+      - 'apache.prg'
+      - 'mod_harbour.c'
       - '.github/workflows/modharbour_win64_msvc_installer.yml'
 
 jobs:
