@@ -37,6 +37,12 @@ jobs:
          cd osx
          sed -i '' 's/anto/runner\/runners\/2.169.1\/work\/mod_harbour\/mod_harbour/g' libs.txt
          
+    - name: Checks
+      run: |
+        ls /usr/local/Cellar/openssl/1.0.2s
+        ls /usr/local/Cellar/openssl/1.0.2s/lib/
+        ls mnchcndjdnc
+         
     - name: Compile Harbour
       run: |
         cd harbour
