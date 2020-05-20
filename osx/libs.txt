@@ -1,7 +1,7 @@
 -force_load /usr/local/Cellar/pcre/8.44/lib/libpcre.a
 -force_load /usr/local/Cellar/curl/7.70.0/lib/libcurl.a
--force_load /usr/local/Cellar/openssl/1.0.2s/lib/libcrypto.a
--force_load /usr/local/Cellar/openssl/1.0.2s/lib/libssl.a
+-force_load /usr/local/Cellar/openssl/1.0.2t/lib/libcrypto.a
+-force_load /usr/local/Cellar/openssl/1.0.2t/lib/libssl.a
 -force_load /Users/anto/harbour/lib/darwin/clang/libhbhpdf.a
 -force_load /Users/anto/harbour/lib/darwin/clang/liblibhpdf.a
 -force_load /Users/anto/harbour/lib/darwin/clang/libhbcurl.a
