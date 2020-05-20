@@ -8,8 +8,6 @@ on:
       - 'windows/modharbour.hbp'
       - 'windows/mod.hbp'
       - '.github/workflows/modharbour_win64_mingw64.yml'
-  watch:
-   types: [started]
 
 jobs:
   build:
