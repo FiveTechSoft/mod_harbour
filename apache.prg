@@ -437,7 +437,7 @@ function GetCookies()
    local hHeadersOut := AP_HeadersOut(), cCookieHeader
 
    if( hb_HHasKey( hHeadersOut, "Set-Cookie" ) )
-      cCookieHeader := hHeadersOut["Set-Cookie"]
+      cCookieHeader := hHeadersOut[ "Set-Cookie" ]
       cCookieHeader := Left( cCookieHeader, At( ';', cCookieHeader )-1 )
       AAdd( aCookies, cCookieHeader )
    endif
