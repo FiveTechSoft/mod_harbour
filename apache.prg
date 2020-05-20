@@ -432,7 +432,7 @@ return ""
 function GetCookies()
 
    local cCookies := AP_GetEnv( "HTTP_COOKIE" )
-   local aCookies := hb_aTokens( cCookies, "; " )
+   local aCookies := hb_aTokens( cCookies, ";" )
    local cCookie, hCookies := {=>}
    local hHeadersOut := AP_HeadersOut(), cCookieHeader
 
@@ -443,8 +443,8 @@ function GetCookies()
    endif
    
    for each cCookie in aCookies
-    hb_HSet( hCookies, SubStr( cCookie, 1, At( "=", cCookie ) - 1 ),;
-         SubStr( cCookie, At( "=", cCookie ) + 1 ) )
+      hb_HSet( hCookies, LTrim( SubStr( cCookie, 1, At( "=", cCookie ) - 1 ) ),;
+               SubStr( cCookie, At( "=", cCookie ) + 1 ) )
    next   
    
  return hCookies
