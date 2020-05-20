@@ -9,8 +9,6 @@ on:
       - 'osx/mod.hbp'
       - 'osx/libs.txt'
       - '.github/workflows/modharbour_osx.yml'
-  watch:
-   types: [started]
 
 jobs:
   build:
