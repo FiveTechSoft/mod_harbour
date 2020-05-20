@@ -9,8 +9,6 @@ on:
       - 'linux/mod.hbp'
       - 'linux/libs.txt'
       - '.github/workflows/modharbour_ubuntu64.yml'
-  watch:
-   types: [started]
 
 jobs:
   build:
