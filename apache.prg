@@ -63,7 +63,7 @@ function Main()
       else
          pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), AP_Args() )
       endif
-      if hb_threadWait( pThread, 15 ) != 1
+      if hb_threadWait( pThread, Max( Val( AP_GetEnv( "MHTIMEOUT" ) ), 15 ) ) != 1
          hb_threadQuitRequest( pThread )
 	      ErrorLevel( 408 ) // request timeout
       endif    
