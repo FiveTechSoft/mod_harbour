@@ -41,7 +41,6 @@ function SessionStart() // Starts a session
        cDataDesenc = hb_Serialize( hStart )
        cDataEnc = hb_blowfishEncrypt( cKey, cDataDesenc )
 
-       FCreate( hb_DirTemp() + ".hb_sessions/" + cUUID + ".ses" )
        hb_MemoWrit( hb_DirTemp() + ".hb_sessions/" + cUUID + ".ses", cDataEnc )
     
        cCookie = cUUID + ":" + cPass
