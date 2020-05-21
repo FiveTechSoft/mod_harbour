@@ -35,20 +35,18 @@ jobs:
          cd osx
          sed -i '' 's/anto/runner\/runners\/2.169.1\/work\/mod_harbour\/mod_harbour/g' libs.txt
          
-    - name: Checks
-      run: |
-        ls /usr/local/Cellar
-        ls /usr/local/Cellar/openssl
-        ls /usr/local/Cellar/openssl@1.1
-        ls djkfjdnd
-         
     - name: Compile Harbour
       run: |
         cd harbour
         export HB_WITH_CURL=/usr/local/Cellar/curl/7.70.0/include/
-        export HB_WITH_OPENSSL=/usr/local/Cellar/openssl/1.0.2t/include
+        export HB_WITH_OPENSSL=/usr/local/Cellar/openssl@1.1/1.1.1g/include
         export HB_BUILD_CONTRIBS=""
         make
+        
+    - name: Checks
+      run: |
+        ls harbour/lib/darwin/clang/
+        ls gfhgnfhvbvc
         
     - name: Compile mod_harbour
       run: |
