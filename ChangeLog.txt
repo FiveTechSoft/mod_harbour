@@ -1,3 +1,9 @@
+2020/May/21
+
+* New environment variable MHTIMEOUT. By default is 15 seconds. You can set it from the httpd.conf file this way:
+
+SetEnv MHTIMEOUT "30"
+
 2020/April/29
 
 * Cache temporarly removed. We are doing more tests.
