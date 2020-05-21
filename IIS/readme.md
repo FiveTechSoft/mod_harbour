@@ -47,4 +47,10 @@ Also go to localhost/test.html
 
 ***
 
+In case that you experience any errors, please review the IIS log files at:
+
+%SystemDrive%\inetpub\logs\LogFiles by default.
+
+***
+
 https://www.w3schools.com/asp/coll_servervariables.asp
