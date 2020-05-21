@@ -17,12 +17,6 @@ jobs:
     if: github.actor == github.event.repository.owner.login
     
     steps:
-    - name: Hey hey
-      run: |
-        echo $HOME
-        echo $GITHUB_WORKSPACE
-        ls jhfhfbdhdbf
-      
     - name: Checkout mod_harbour repo
       uses: actions/checkout@v2
     
