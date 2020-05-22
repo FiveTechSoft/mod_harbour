@@ -54,8 +54,6 @@ jobs:
         set HB_BUILD_CONTRIB_DYN=no
         set HB_COMPILER=mingw64
         win-make.exe
-        copy lib\win\msvc64\liblibcrypto-1_1-x64.a lib\win\msvc64\liblibeay32.a
-        copy lib\win\msvc64\liblibssl-1_1-x64.a lib\win\msvc64\libssleay32.a
         
     - name: Checks
       run: dir harbour\lib\win\mingw64
@@ -64,7 +62,7 @@ jobs:
       shell: cmd
       run: |
         cd windows
-        ..\harbour\bin\win\mingw64\hbmk2 modharbour.hbp -comp=mingw64 -Lc:\Apache24\lib -Lc:\curl\lib
+        ..\harbour\bin\win\mingw64\hbmk2 modharbour.hbp -comp=mingw64 -Lc:\Apache24\lib -Lc:\curl\lib -Lc:\OpenSSL-Win64\lib
         
     - name: Create output folders
       shell: cmd
