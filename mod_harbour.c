@@ -83,7 +83,7 @@ const char * ap_getenv( const char * szVarName, request_rec * r )
 
 void ap_headers_out_set( const char * szKey, const char * szValue, request_rec * r )
 {
-   apr_table_set( r->headers_out, szKey, szValue );
+   apr_table_add( r->headers_out, szKey, szValue );
 }
 
 void ap_set_contenttype( const char * szContentType, request_rec * r )
