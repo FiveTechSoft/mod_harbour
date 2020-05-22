@@ -33,7 +33,7 @@ jobs:
          brew install httpd
          brew install openssl
          cd osx
-         sed -i '' 's/anto/runner\/runners\/2.169.1\/work\/mod_harbour\/mod_harbour/g' libs.txt
+         sed -i '' 's/anto/runner\/runners\/2.262.1\/work\/mod_harbour\/mod_harbour/g' libs.txt
          
     - name: Compile Harbour
       run: |
@@ -42,11 +42,6 @@ jobs:
         export HB_WITH_OPENSSL=/usr/local/Cellar/openssl@1.1/1.1.1g/include
         export HB_BUILD_CONTRIBS=""
         make
-        
-    - name: Checks
-      run: |
-        ls harbour/lib/darwin/clang/
-        ls gfhgnfhvbvc
         
     - name: Compile mod_harbour
       run: |
