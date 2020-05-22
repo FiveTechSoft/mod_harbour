@@ -25,6 +25,7 @@ function SessionStart() // Starts a session
     local hStart := { => }
     local cKey, cDataDesenc, cDataEnc
     local cReturned := .F.
+    local nHandle
     
     if cCookie == nil
        for n = 1 to 16
@@ -41,8 +42,12 @@ function SessionStart() // Starts a session
        cDataDesenc = hb_Serialize( hStart )
        cDataEnc = hb_blowfishEncrypt( cKey, cDataDesenc )
 
-       FCreate( hb_DirTemp() + ".hb_sessions/" + cUUID + ".ses" )
-       hb_MemoWrit( hb_DirTemp() + ".hb_sessions/" + cUUID + ".ses", cDataEnc )
+       if ( nHandle := FCreate( hb_DirTemp() + ".hb_sessions/" + cUUID + ".ses" ) ) > 0
+          hb_MemoWrit( hb_DirTemp() + ".hb_sessions/" + cUUID + ".ses", cDataEnc )
+          FClose( nHandle )
+       else
+          cReturned = .F.
+       endif
     
        cCookie = cUUID + ":" + cPass
     
@@ -76,6 +81,7 @@ function SessionStart() // Starts a session
             hReturned = {=>}
           endif
        else
+          SetCookie( "_HB_SESSION_", "", 0 )
           hReturned = nil
        endif
 
@@ -140,6 +146,7 @@ function SessionStart() // Starts a session
        if File( hb_DirTemp() + ".hb_sessions/" + cUUID + ".ses" )
           cReturned := hb_MemoWrit( hb_DirTemp() + ".hb_sessions/" + cUUID + ".ses", cDataEnc )
        else
+          SetCookie( "_HB_SESSION_", "", 0 )
           cReturned = .F.
        endif
     else
