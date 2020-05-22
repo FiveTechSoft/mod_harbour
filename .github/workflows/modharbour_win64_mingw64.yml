@@ -36,6 +36,7 @@ jobs:
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbc) -replace 'libeay32','libcrypto-1_1-x64' | Set-Content -path harbour\contrib\hbssl\hbssl.hbc
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbc) -replace 'ssleay32','libssl-1_1-x64' | Set-Content -path harbour\contrib\hbssl\hbssl.hbc
          (Get-Content -path harbour\contrib\hbcurl\hbcurl.hbp) -replace 'libcurl','libcurl-x64' | Set-Content -path harbour\contrib\hbcurl\hbcurl.hbp
+         Copy-Item ".\windows\win64\ap_missing\ap_config_auto.h" -Destination "c:\Apache24\include\ap_config_auto.h"
          
     - name: Compile Harbour
       shell: cmd
@@ -53,6 +54,9 @@ jobs:
         set HB_BUILD_CONTRIB_DYN=no
         set HB_COMPILER=mingw64
         win-make.exe
+        copy lib\win\mingw64\libcrypto-1_1-x64.lib lib\win\mingw64\libeay32.lib
+        copy lib\win\mingw64\libssl-1_1-x64.lib lib\win\mingw64\ssleay32.lib
+        copy lib\win\mingw64\libcurl-x64.lib lib\win\mingw64\libcurl.lib
         
     - name: Compile mod_harbour
       shell: cmd
