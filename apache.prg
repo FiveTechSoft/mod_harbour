@@ -331,16 +331,33 @@ ENDCLASS
 
 //----------------------------------------------------------------//
 
-function AP_PostPairs()
+function AP_PostPairs( lUrlDecode )
 
+   local aPairs := hb_ATokens( AP_Body(), "&" )
    local cPair, uPair, hPairs := {=>}
+   local nTable, aTable, cKey, cTag	
 
-   for each cPair in hb_ATokens( AP_Body(), "&" )
-      if ( uPair := At( "=", cPair ) ) > 0
-            hb_HSet( hPairs, Left( cPair, uPair - 1 ), SubStr( cPair, uPair + 1 ) )
+   hb_default( @lUrlDecode, .T. )
+   cTag = If( lUrlDecode, '[]', '%5B%5D' )
+   
+   for each cPair in aPairs
+      if lUrlDecode
+         cPair = hb_urlDecode( cPair )
+      endif				
+
+      if ( uPair := At( "=", cPair ) ) > 0	  
+         cKey = Left( cPair, uPair - 1 )	
+	 if ( nTable := At( cTag, cKey ) ) > 0 		
+	    cKey = Left( cKey, nTable - 1 )			
+	    aTable = HB_HGetDef( hPairs, cKey, {} ) 				
+	    AAdd( aTable, SubStr( cPair, uPair + 1 ) )				
+	    hPairs[ cKey ] = aTable
+	 else						
+	    hb_HSet( hPairs, cKey, SubStr( cPair, uPair + 1 ) )
+	 endif
       endif
-    next
-
+   next
+    
 return hPairs
 
 //----------------------------------------------------------------//
