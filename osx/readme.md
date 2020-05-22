@@ -15,8 +15,9 @@ git clone https://github.com/fivetechsoft/mod_harbour
 
 Create the required symbolic links:
 ```
-cd /Library/WebServer/Documents
+cd /usr/local/httpd/modules
 sudo ln -sf /Users/$USER/mod_harbour/osx/mod_harbour.so mod_harbour.so
+cd /Library/WebServer/Documents
 sudo ln -sf /Users/$USER/mod_harbour/osx/libharbour.so.3.2.0 libharbour.3.2.0.dylib
 sudo ln -sf /Users/$USER/mod_harbour/samples modharbour_samples
 ```
