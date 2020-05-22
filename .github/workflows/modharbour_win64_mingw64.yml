@@ -54,9 +54,9 @@ jobs:
         set HB_BUILD_CONTRIB_DYN=no
         set HB_COMPILER=mingw64
         win-make.exe
-        copy lib\win\mingw64\libcrypto-1_1-x64.lib lib\win\mingw64\libeay32.lib
-        copy lib\win\mingw64\libssl-1_1-x64.lib lib\win\mingw64\ssleay32.lib
-        copy lib\win\mingw64\libcurl-x64.lib lib\win\mingw64\libcurl.lib
+        
+    - name: Checks
+      run: dir lib\win\mingw64
         
     - name: Compile mod_harbour
       shell: cmd
