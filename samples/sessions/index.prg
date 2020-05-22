@@ -10,7 +10,7 @@
 
 function Main()
    
-   if Empty( GetSession() )
+   if GetSession() != nil
       if AP_Method() == "POST"
          if Login()
             ? "<script>location.href='info.prg';</script>"
