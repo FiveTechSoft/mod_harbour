@@ -56,7 +56,7 @@ jobs:
         win-make.exe
         
     - name: Checks
-      run: dir lib\win\mingw64
+      run: dir harbour\lib\win\mingw64
         
     - name: Compile mod_harbour
       shell: cmd
