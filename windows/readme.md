@@ -1,3 +1,5 @@
+**Instructions for both Apache or Xampp:**
+
 If you are using Xampp on Windows then use SetEnv like this from httpd.conf:
 
 ```
