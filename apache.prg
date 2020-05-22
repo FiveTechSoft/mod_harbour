@@ -216,7 +216,7 @@ return lResult
 function ObjToChar( o )
 
    local hObj := {=>}, aDatas := __objGetMsgList( o, .T. )
-   local hPairs := {=>}, aParents := __ClsgetAncestors( o:ClassH )
+   local hPairs := {=>}, aParents := __ClsGetAncestors( o:ClassH )
 
    AEval( aParents, { | h, n | aParents[ n ] := __ClassName( h ) } ) 
 
