@@ -1,3 +1,7 @@
+2020/May/22
+
+* Multiple SetCookie() support
+
 2020/May/21
 
 * New environment variable MHTIMEOUT. By default is 15 seconds. You can set it from the httpd.conf file this way:
