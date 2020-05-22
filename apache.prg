@@ -347,14 +347,14 @@ function AP_PostPairs( lUrlDecode )
 
       if ( uPair := At( "=", cPair ) ) > 0	  
          cKey = Left( cPair, uPair - 1 )	
-	 if ( nTable := At( cTag, cKey ) ) > 0 		
-	    cKey = Left( cKey, nTable - 1 )			
-	    aTable = HB_HGetDef( hPairs, cKey, {} ) 				
-	    AAdd( aTable, SubStr( cPair, uPair + 1 ) )				
-	    hPairs[ cKey ] = aTable
-	 else						
-	    hb_HSet( hPairs, cKey, SubStr( cPair, uPair + 1 ) )
-	 endif
+         if ( nTable := At( cTag, cKey ) ) > 0 		
+            cKey = Left( cKey, nTable - 1 )			
+            aTable = HB_HGetDef( hPairs, cKey, {} ) 				
+            AAdd( aTable, SubStr( cPair, uPair + 1 ) )				
+            hPairs[ cKey ] = aTable
+         else						
+            hb_HSet( hPairs, cKey, SubStr( cPair, uPair + 1 ) )
+         endif
       endif
    next
     
