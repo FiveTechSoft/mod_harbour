@@ -15,8 +15,10 @@ git clone https://github.com/fivetechsoft/mod_harbour
 
 Create the required symbolic links:
 ```
+cd /usr/local/httpd/modules
+sudo ln -sf /Users/$USER/mod_harbour/osx/mod_harbour.so mod_harbour.so
 cd /Library/WebServer/Documents
-sudo ln -sf /Users/$USER/mod_harbour/hbmk2/osx/libharbour.so.3.2.0 libharbour.3.2.0.dylib
+sudo ln -sf /Users/$USER/mod_harbour/osx/libharbour.so.3.2.0 libharbour.3.2.0.dylib
 sudo ln -sf /Users/$USER/mod_harbour/samples modharbour_samples
 ```
 
@@ -68,6 +70,7 @@ brew install pcre
 ```
 git clone https://github.com/harbour/core harbour
 export HB_WITH_CURL=/usr/local/Cellar/curl/7.70.0/include/
+export HB_WITH_OPENSSL=/usr/local/Cellar/openssl@1.1/1.1.1g
 export HB_BUILD_CONTRIBS=""
 make
 ```

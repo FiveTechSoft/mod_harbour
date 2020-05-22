@@ -63,7 +63,7 @@ function Main()
       else
          pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), AP_Args() )
       endif
-      if hb_threadWait( pThread, 15 ) != 1
+      if hb_threadWait( pThread, Max( Val( AP_GetEnv( "MHTIMEOUT" ) ), 15 ) ) != 1
          hb_threadQuitRequest( pThread )
 	      ErrorLevel( 408 ) // request timeout
       endif    
@@ -216,7 +216,7 @@ return lResult
 function ObjToChar( o )
 
    local hObj := {=>}, aDatas := __objGetMsgList( o, .T. )
-   local hPairs := {=>}, aParents := __ClsgetAncestors( o:ClassH )
+   local hPairs := {=>}, aParents := __ClsGetAncestors( o:ClassH )
 
    AEval( aParents, { | h, n | aParents[ n ] := __ClassName( h ) } ) 
 
@@ -331,16 +331,33 @@ ENDCLASS
 
 //----------------------------------------------------------------//
 
-function AP_PostPairs()
+function AP_PostPairs( lUrlDecode )
 
+   local aPairs := hb_ATokens( AP_Body(), "&" )
    local cPair, uPair, hPairs := {=>}
+   local nTable, aTable, cKey, cTag	
 
-   for each cPair in hb_ATokens( AP_Body(), "&" )
-      if ( uPair := At( "=", cPair ) ) > 0
-            hb_HSet( hPairs, Left( cPair, uPair - 1 ), SubStr( cPair, uPair + 1 ) )
+   hb_default( @lUrlDecode, .T. )
+   cTag = If( lUrlDecode, '[]', '%5B%5D' )
+   
+   for each cPair in aPairs
+      if lUrlDecode
+         cPair = hb_urlDecode( cPair )
+      endif				
+
+      if ( uPair := At( "=", cPair ) ) > 0	  
+         cKey = Left( cPair, uPair - 1 )	
+	 if ( nTable := At( cTag, cKey ) ) > 0 		
+	    cKey = Left( cKey, nTable - 1 )			
+	    aTable = HB_HGetDef( hPairs, cKey, {} ) 				
+	    AAdd( aTable, SubStr( cPair, uPair + 1 ) )				
+	    hPairs[ cKey ] = aTable
+	 else						
+	    hb_HSet( hPairs, cKey, SubStr( cPair, uPair + 1 ) )
+	 endif
       endif
-    next
-
+   next
+    
 return hPairs
 
 //----------------------------------------------------------------//
