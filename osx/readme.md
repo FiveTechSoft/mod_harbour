@@ -18,7 +18,7 @@ Create the required symbolic links:
 cd /usr/local/httpd/modules
 sudo ln -sf /Users/$USER/mod_harbour/osx/mod_harbour.so mod_harbour.so
 cd /Library/WebServer/Documents
-sudo ln -sf /Users/$USER/mod_harbour/osx/libharbour.so.3.2.0.dylib libharbour.3.2.0.dylib
+sudo ln -sf /Users/$USER/mod_harbour/osx/libharbour.3.2.0.dylib libharbour.3.2.0.dylib
 sudo ln -sf /Users/$USER/mod_harbour/samples modharbour_samples
 ```
 
