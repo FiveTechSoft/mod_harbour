@@ -16,6 +16,7 @@ harbour.def
 -Lc:\Apache24\lib
 
 ..\source\apache.prg
+..\source\pairs.prg
 ..\source\in.c
 ..\source\out.c
 
