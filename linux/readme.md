@@ -63,7 +63,8 @@ sudo ln -sf ~/mod_harbour/samples modharbour_samples
 ```
 copy mod_harbour.so to the Apache modulesudo service apache2 restarts folder:
 ```
-sudo mv mod_harbour.so /usr/lib/apache2/modules
+cd /usr/lib/apache2/modules
+sudo ln -sf ~/mod_harbour/linux/mod_harbour.so mod_harbour.so
 ```
 and restart apache
 ```
