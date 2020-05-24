@@ -59,9 +59,6 @@ Once built, do this:
 cd /var/www/html
 sudo ln -sf ~/mod_harbour/linux/libharbour.so.3.2.0 libharbour.so.3.2.0
 sudo ln -sf ~/mod_harbour/samples modharbour_samples
-```
-copy mod_harbour.so to the Apache modulesudo service apache2 restarts folder:
-```
 cd /usr/lib/apache2/modules
 sudo ln -sf ~/mod_harbour/linux/mod_harbour.so mod_harbour.so
 ```
