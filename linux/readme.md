@@ -10,9 +10,6 @@ sudo ln -sf ~/mod_harbour/samples modharbour_samples
 cd /usr/lib/apache2/modules
 sudo ln -sf ~/mod_harbour/linux/mod_harbour.so mod_harbour.so
 ```
-
-Copy mod_harbour.so to /usr/lib/apache2/modules
-
 In /etc/apache2/apache2.conf add these lines:
 ```
 LoadModule harbour_module /usr/lib/apache2/modules/mod_harbour.so
