@@ -21,6 +21,7 @@ harbour.def
 ..\source\in.c
 ..\source\out.c
 ..\source\pointers.c
+..\source\url.c
 
 -cflag=-Ic:\apache24\include
 
