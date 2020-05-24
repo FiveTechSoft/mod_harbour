@@ -6,7 +6,6 @@
 -l-hbxpp
 
 ../source/apache.prg
-../source/apache.prg
 ../source/cookies.prg
 ../source/exec.prg
 ../source/pairs.prg
