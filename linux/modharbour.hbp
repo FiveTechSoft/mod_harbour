@@ -5,7 +5,20 @@
 -l-hbfship
 -l-hbxpp
 
-../apache.prg
+../source/apache.prg
+../source/apache.prg
+../source/cookies.prg
+../source/exec.prg
+../source/pairs.prg
+../source/paths.prg
+../source/console.c
+../source/in.c
+../source/out.c
+../source/pointers.c
+../source/url.c
+
+-cflag=-I/usr/include/apache2
+-cflag=-I/usr/include/apr-1.0
 
 -trace
 -dflag=@libs.txt
