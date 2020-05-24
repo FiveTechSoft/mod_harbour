@@ -22,9 +22,11 @@ LoadModule harbour_module /usr/lib/apache2/modules/mod_harbour.so
 ```
 Restart apache doing this: 
 
+```
 sudo apachectl restart
+```
 
-Copy samples/test.prg to /var/www/html and go to localhost/test.prg in your browser
+Go to localhost/modharbour_samples/ from your browser and click on any .prg
 
 <hr>
 
