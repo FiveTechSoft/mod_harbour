@@ -13,8 +13,8 @@ harbour.def
 
 -lc:\Apache24\lib\libhttpd
 
-..\apache.prg
-..\out.c
+..\source\apache.prg
+..\source\out.c
 
 -cflag=-Ic:\apache24\include
 

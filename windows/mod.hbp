@@ -3,7 +3,7 @@
 
 -cflag=-TC
 -ic:\apache24\include
-..\mod_harbour.c
+..\source\mod_harbour.c
 
 -lapr-1
 -laprutil-1
