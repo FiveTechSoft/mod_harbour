@@ -34,8 +34,6 @@
    #include "../../harbour/contrib/rddads/rddads.hbx"
 #endif
 
-static hPP
-
 //----------------------------------------------------------------//
 
 function Main()
@@ -64,37 +62,6 @@ function Main()
       ErrorLevel( 404 ) // not found
    endif   
 
-return nil
-
-//----------------------------------------------------------------//
-
-function AddPPRules()
-
-   if hPP == nil
-      hPP = __pp_init()
-      __pp_path( hPP, "~/harbour/include" )
-      __pp_path( hPP, "c:\harbour\include" )
-      if ! Empty( hb_GetEnv( "HB_INCLUDE" ) )
-         __pp_path( hPP, hb_GetEnv( "HB_INCLUDE" ) )
-      endif 	 
-   endif
-
-   __pp_addRule( hPP, "#xcommand ? [<explist,...>] => AP_RPuts( '<br>' [,<explist>] )" )
-   __pp_addRule( hPP, "#xcommand ?? [<explist,...>] => AP_RPuts( [<explist>] )" )
-   __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
-   __pp_addRule( hPP, "#xcommand TEXT <into:TO,INTO> <v> => #pragma __cstream|<v>:=%s" )
-   __pp_addRule( hPP, "#xcommand TEXT <into:TO,INTO> <v> ADDITIVE => #pragma __cstream|<v>+=%s" )
-   __pp_addRule( hPP, "#xcommand TEMPLATE [ USING <x> ] [ PARAMS [<v1>] [,<vn>] ] => " + ;
-                      '#pragma __cstream | AP_RPuts( InlinePrg( %s, [@<x>] [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )
-   __pp_addRule( hPP, "#xcommand BLOCKS [ PARAMS [<v1>] [,<vn>] ] => " + ;
-                      '#pragma __cstream | AP_RPuts( ReplaceBlocks( %s, "{{", "}}" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )   
-   __pp_addRule( hPP, "#command ENDTEMPLATE => #pragma __endtext" )
-   __pp_addRule( hPP, "#xcommand TRY  => BEGIN SEQUENCE WITH {| oErr | Break( oErr ) }" )
-   __pp_addRule( hPP, "#xcommand CATCH [<!oErr!>] => RECOVER [USING <oErr>] <-oErr->" )
-   __pp_addRule( hPP, "#xcommand FINALLY => ALWAYS" )
-   __pp_addRule( hPP, "#xcommand DEFAULT <v1> TO <x1> [, <vn> TO <xn> ] => ;" + ;
-                      "IF <v1> == NIL ; <v1> := <x1> ; END [; IF <vn> == NIL ; <vn> := <xn> ; END ]" )
-		      
 return nil
 
 //----------------------------------------------------------------//
