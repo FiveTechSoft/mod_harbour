@@ -18,6 +18,7 @@ harbour.def
 ..\source\apache.prg
 ..\source\cookies.prg
 ..\source\pairs.prg
+..\source\paths.prg
 ..\source\console.c
 ..\source\in.c
 ..\source\out.c
