@@ -24,3 +24,22 @@ function PathBase( cDirFile )
 return cPath
 
 //----------------------------------------------------------------//
+
+function Include( cFile )
+
+   local cPath := AP_GetEnv( "DOCUMENT_ROOT" ) 
+
+   hb_default( @cFile, '' )
+   cFile = cPath + cFile   
+   
+   if "Linux" $ OS()
+      cFile = StrTran( cFile, '\', '/' )     
+   endif   
+    
+   if File( cFile )
+      return MemoRead( cFile )
+   endif
+   
+return ""
+
+//----------------------------------------------------------------//
