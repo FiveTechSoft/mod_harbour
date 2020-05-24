@@ -34,6 +34,8 @@
    #include "../../harbour/contrib/rddads/rddads.hbx"
 #endif
 
+extern AP_RWRITE
+
 //----------------------------------------------------------------//
 
 function Main()
