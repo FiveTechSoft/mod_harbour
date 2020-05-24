@@ -22,101 +22,6 @@
    #include <unistd.h>
 #endif        
 
-int ap_headers_in_count( request_rec * r )
-{
-   return apr_table_elts( r->headers_in )->nelts;
-}
-
-int ap_headers_out_count( request_rec * r )
-{
-   return apr_table_elts( r->headers_out )->nelts;
-}
-
-const char * ap_headers_out_key( int iKey, request_rec * r )
-{
-   const apr_array_header_t * fields = apr_table_elts( r->headers_out );
-   apr_table_entry_t * e = ( apr_table_entry_t * ) fields->elts;
-
-   if( iKey >= 0 && iKey < fields->nelts )
-      return e[ iKey ].key;
-   else
-      return "";
-}
-
-const char * ap_headers_out_val( int iKey, request_rec * r )
-{
-   const apr_array_header_t * fields = apr_table_elts( r->headers_out );
-   apr_table_entry_t * e = ( apr_table_entry_t * ) fields->elts;
-
-   if( iKey >= 0 && iKey < fields->nelts )
-      return e[ iKey ].val;
-   else
-      return "";
-}
-
-const char * ap_headers_in_key( int iKey, request_rec * r )
-{
-   const apr_array_header_t * fields = apr_table_elts( r->headers_in );
-   apr_table_entry_t * e = ( apr_table_entry_t * ) fields->elts;
-
-   if( iKey >= 0 && iKey < fields->nelts )
-      return e[ iKey ].key;
-   else
-      return "";
-}
-
-const char * ap_headers_in_val( int iKey, request_rec * r )
-{
-   const apr_array_header_t * fields = apr_table_elts( r->headers_in );
-   apr_table_entry_t * e = ( apr_table_entry_t * ) fields->elts;
-
-   if( iKey >= 0 && iKey < fields->nelts )
-      return e[ iKey ].val;
-   else
-      return "";
-}
-
-const char * ap_getenv( const char * szVarName, request_rec * r )
-{
-   return apr_table_get( r->subprocess_env, szVarName );
-}   
-
-void ap_headers_out_set( const char * szKey, const char * szValue, request_rec * r )
-{
-   apr_table_add( r->headers_out, szKey, szValue );
-}
-
-void ap_set_contenttype( const char * szContentType, request_rec * r )
-{
-   char * szType = ( char * ) apr_pcalloc( r->pool, strlen( szContentType ) + 1 );
-   
-   strcpy( szType, szContentType );
-   
-   r->content_type = szType;
-}
-
-const char * ap_body( request_rec * r )
-{
- if( ap_setup_client_block( r, REQUEST_CHUNKED_ERROR ) != OK )
-    return "";
-
- if( ap_should_client_block( r ) )
- {
-    long length = ( long ) r->remaining;
-    char * rbuf = ( char * ) apr_pcalloc( r->pool, length + 1 );
-    int iRead = 0, iTotal = 0;
-    
-    while( ( iRead = ap_get_client_block( r, rbuf + iTotal, length + 1 - iTotal ) ) < ( length + 1 - iTotal ) && iRead != 0 )
-    {
-       iTotal += iRead;
-       iRead = 0;
-    }
-    return rbuf;
- }
- else
-    return "";
-}
-
 #ifdef _WINDOWS_
 
 char * GetErrorMessage( DWORD dwLastError )
@@ -198,12 +103,7 @@ int CopyFile( const char * from, const char * to, int iOverWrite )
 
 #endif
 
-typedef int ( * PHB_APACHE )( void * pRequestRec, void * pAPRPuts, 
-                              const char * szFileName, const char * szArgs, const char * szMethod, const char * szUserIP,
-                              void * pHeadersIn, void * pHeadersOut, 
-                              void * pHeadersInCount, void * pHeadersInKey, void * pHeadersInVal, 
-                              void * pHeadersOutCount, void * pHeadersOutKey, void * pHeadersOutVal, void * pHeadersOutSet, 
-                              void * pSetContentType, void * pApacheGetenv, void * pAPBody );
+typedef int ( * PHB_APACHE )( void * pRequestRec );
 
 static int harbour_handler( request_rec * r )
 {
@@ -224,7 +124,7 @@ static int harbour_handler( request_rec * r )
    if( strcmp( r->handler, "harbour" ) )
       return DECLINED;
 
-   if( ! ( szDllName = ap_getenv( "LIBHARBOUR", r ), szDllName ) )  // pacified warning
+   if( ! ( szDllName = apr_table_get( r->subprocess_env, "LIBHARBOUR" ), szDllName ) )  // pacified warning
    #ifdef _WINDOWS_
       szDllName = "c:\\Apache24\\htdocs\\libharbour.dll";
       dwThreadId = GetCurrentThreadId();
@@ -276,12 +176,7 @@ static int harbour_handler( request_rec * r )
    if( _hb_apache == NULL )
       ap_rputs( "<br>failed to load hb_apache()", r );
    else
-      iResult = _hb_apache( r, ( void * ) ap_rputs, r->filename, r->args, r->method, r->useragent_ip, 
-                              r->headers_in, r->headers_out,
-                              ( void * ) ap_headers_in_count, ( void * ) ap_headers_in_key, ( void * ) ap_headers_in_val,
-                              ( void * ) ap_headers_out_count, ( void * ) ap_headers_out_key, ( void * ) ap_headers_out_val, 
-                              ( void * ) ap_headers_out_set, ( void * ) ap_set_contenttype,
-                              ( void * ) ap_getenv, ( void * ) ap_body );
+      iResult = _hb_apache( r );
 
    if( lib_harbour != NULL )
       #ifdef _WINDOWS_	

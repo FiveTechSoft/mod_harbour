@@ -17,29 +17,29 @@ extern AP_METHOD, AP_ARGS, AP_USERIP, PTRTOSTR, PTRTOUI, AP_RPUTS
 extern AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL
 extern AP_HEADERSOUTCOUNT, AP_HEADERSOUTKEY, AP_HEADERSOUTVAL, AP_HEADERSOUTSET
 extern AP_POSTPAIRS, AP_HEADERSIN, AP_HEADERSOUT, AP_SETCONTENTTYPE
-extern HB_VMPROCESSSYMBOLS, HB_VMEXECUTE, AP_GETENV, AP_BODY, HB_URLDECODE
+extern AP_GETENV, AP_BODY, HB_URLDECODE
 extern SHOWCONSOLE, HB_VFDIREXISTS, AP_RWRITE
 
 #define __HBEXTERN__HBHPDF__REQUEST
-#include "../harbour/contrib/hbhpdf/hbhpdf.hbx"
+#include "../../harbour/contrib/hbhpdf/hbhpdf.hbx"
 #define __HBEXTERN__XHB__REQUEST
-#include "../harbour/contrib/xhb/xhb.hbx"
+#include "../../harbour/contrib/xhb/xhb.hbx"
 #define __HBEXTERN__HBCT__REQUEST
-#include "../harbour/contrib/hbct/hbct.hbx"
+#include "../../harbour/contrib/hbct/hbct.hbx"
 #define __HBEXTERN__HBCURL__REQUEST  
-#include "../harbour/contrib/hbcurl/hbcurl.hbx"
+#include "../../harbour/contrib/hbcurl/hbcurl.hbx"
 #define __HBEXTERN__HBNETIO__REQUEST
-#include "../harbour/contrib/hbnetio/hbnetio.hbx"
+#include "../../harbour/contrib/hbnetio/hbnetio.hbx"
 #define __HBEXTERN__HBMZIP__REQUEST
-#include "../harbour/contrib/hbmzip/hbmzip.hbx"
+#include "../../harbour/contrib/hbmzip/hbmzip.hbx"
 #define __HBEXTERN__HBZIPARC__REQUEST
-#include "../harbour/contrib/hbziparc/hbziparc.hbx"
+#include "../../harbour/contrib/hbziparc/hbziparc.hbx"
 #define __HBEXTERN__HBSSL__REQUEST
-#include "../harbour/contrib/hbssl/hbssl.hbx"
+#include "../../harbour/contrib/hbssl/hbssl.hbx"
 
 #ifdef HB_WITH_ADS
    #define __HBEXTERN__RDDADS__REQUEST
-   #include "../harbour/contrib/rddads/rddads.hbx"
+   #include "../../harbour/contrib/rddads/rddads.hbx"
 #endif
 
 static hPP
@@ -553,15 +553,9 @@ return cResult
 
 #include <hbapi.h>
 #include <hbvm.h>
-#include <hbapiitm.h>
 #include <hbapierr.h>
 
-static void * pRequestRec, * pAPRPuts, * pAPSetContentType;
-static void * pHeadersIn, * pHeadersOut, * pHeadersOutSet;
-static void * pHeadersInCount, * pHeadersInKey, * pHeadersInVal;
-static void * pHeadersOutCount, * pHeadersOutKey, * pHeadersOutVal;
-static void * pAPGetenv, * pAPBody;
-static const char * szFileName, * szArgs, * szMethod, * szUserIP;
+static void * pRequestRec;
 
 #ifdef _MSC_VER
    #pragma warning(disable:4996)
@@ -581,31 +575,9 @@ HB_FUNC( SHOWCONSOLE )
 
 #endif
 
-HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts, 
-               const char * _szFileName, const char * _szArgs, const char * _szMethod, const char * _szUserIP,
-               void * _pHeadersIn, void * _pHeadersOut, 
-               void * _pHeadersInCount, void * _pHeadersInKey, void * _pHeadersInVal,
-               void * _pHeadersOutCount, void * _pHeadersOutKey, void * _pHeadersOutVal, void * _pHeadersOutSet, 
-               void * _pAPSetContentType, void * _pAPGetenv, void * _pAPBody )
+HB_EXPORT_ATTR int hb_apache( void * _pRequestRec )
 {
-   pRequestRec       = _pRequestRec;
-   pAPRPuts          = _pAPRPuts; 
-   szFileName        = _szFileName;
-   szArgs            = _szArgs;
-   szMethod          = _szMethod;
-   szUserIP          = _szUserIP;
-   pHeadersIn        = _pHeadersIn;
-   pHeadersOut       = _pHeadersOut;
-   pHeadersInCount   = _pHeadersInCount;
-   pHeadersOutCount  = _pHeadersOutCount;
-   pHeadersInKey     = _pHeadersInKey;
-   pHeadersInVal     = _pHeadersInVal;
-   pHeadersOutKey    = _pHeadersOutKey;
-   pHeadersOutVal    = _pHeadersOutVal;
-   pHeadersOutSet    = _pHeadersOutSet;
-   pAPSetContentType = _pAPSetContentType;
-   pAPGetenv         = _pAPGetenv;
-   pAPBody           = _pAPBody;
+   pRequestRec = _pRequestRec;
  
    hb_vmInit( HB_TRUE );
    return hb_vmQuit();
@@ -614,133 +586,6 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec, void * _pAPRPuts,
 void * GetRequestRec( void )
 {
    return pRequestRec;
-}
-
-typedef int ( * AP_RPUTS )( const char *, void * );
-
-HB_FUNC( AP_RPUTS )
-{
-   AP_RPUTS ap_rputs = ( AP_RPUTS ) pAPRPuts;
-   int iParams = hb_pcount(), iParam;
-
-   for( iParam = 1; iParam <= iParams; iParam++ )
-   {
-      PHB_ITEM pItem = hb_param( iParam, HB_IT_ANY );
-
-      if( HB_ISOBJECT( iParam ) )
-      {
-         hb_vmPushSymbol( hb_dynsymGetSymbol( "OBJTOCHAR" ) );
-         hb_vmPushNil();
-         hb_vmPush( pItem );
-         hb_vmFunction( 1 );
-         ap_rputs( hb_parc( -1 ), pRequestRec );
-      }
-      else if( HB_ISHASH( iParam ) || HB_ISARRAY( iParam ) )
-      {
-         hb_vmPushSymbol( hb_dynsymGetSymbol( "VALTOCHAR" ) );
-         hb_vmPushNil();
-         hb_vmPush( pItem );
-         hb_vmFunction( 1 );
-         ap_rputs( hb_parc( -1 ), pRequestRec );
-      }
-      else
-      {
-         HB_SIZE nLen;
-         HB_BOOL bFreeReq;
-         char * buffer = hb_itemString( pItem, &nLen, &bFreeReq );
-
-         ap_rputs( buffer, pRequestRec );
-         ap_rputs( " ", pRequestRec ); 
-
-         if( bFreeReq )
-            hb_xfree( buffer );
-      }      
-   }
-
-   hb_ret();     
-}
-
-HB_FUNC( AP_FILENAME )
-{
-   hb_retc( szFileName );
-}
-
-HB_FUNC( AP_ARGS )
-{
-   hb_retc( szArgs );
-}
-
-HB_FUNC( AP_METHOD )
-{
-   hb_retc( szMethod );
-}
-
-HB_FUNC( AP_USERIP )
-{
-   hb_retc( szUserIP );
-}
-
-typedef int ( * HEADERS_IN_COUNT )( void * );
-
-HB_FUNC( AP_HEADERSINCOUNT )
-{
-   HEADERS_IN_COUNT headers_in_count = ( HEADERS_IN_COUNT ) pHeadersInCount;
-   
-   hb_retnl( headers_in_count( pRequestRec ) );
-}   
-
-typedef int ( * HEADERS_OUT_COUNT )( void * );
-
-HB_FUNC( AP_HEADERSOUTCOUNT )
-{
-   HEADERS_OUT_COUNT headers_out_count = ( HEADERS_OUT_COUNT ) pHeadersOutCount;
-
-   hb_retnl( headers_out_count( pRequestRec ) );
-}
-
-typedef const char * ( * HEADERS_IN_KEY )( int, void * );
-
-HB_FUNC( AP_HEADERSINKEY )
-{
-   HEADERS_IN_KEY headers_in_key = ( HEADERS_IN_KEY ) pHeadersInKey;
-   
-   hb_retc( headers_in_key( hb_parnl( 1 ), pRequestRec ) );
-}   
-
-typedef const char * ( * HEADERS_IN_VAL )( int, void * );
-
-HB_FUNC( AP_HEADERSINVAL )
-{
-   HEADERS_IN_VAL headers_in_val = ( HEADERS_IN_VAL ) pHeadersInVal;
-   
-   hb_retc( headers_in_val( hb_parnl( 1 ), pRequestRec ) );
-}   
-
-typedef const char * ( * HEADERS_OUT_KEY )( int, void * );
-
-HB_FUNC( AP_HEADERSOUTKEY )
-{
-   HEADERS_IN_KEY headers_out_key = ( HEADERS_IN_KEY ) pHeadersOutKey;
-   
-   hb_retc( headers_out_key( hb_parnl( 1 ), pRequestRec ) );
-}   
-
-typedef const char * ( * HEADERS_OUT_VAL )( int, void * );
-
-HB_FUNC( AP_HEADERSOUTVAL )
-{
-   HEADERS_IN_VAL headers_out_val = ( HEADERS_OUT_VAL ) pHeadersOutVal;
-   
-   hb_retc( headers_out_val( hb_parnl( 1 ), pRequestRec ) );
-}   
-
-typedef void ( * HEADERS_OUT_SET )( const char * szKey, const char * szValue, void * );
-
-HB_FUNC( AP_HEADERSOUTSET )
-{
-   HEADERS_OUT_SET headers_out_set = ( HEADERS_OUT_SET ) pHeadersOutSet;
-
-   headers_out_set( hb_parc( 1 ), hb_parc( 2 ), pRequestRec );
 }
 
 HB_FUNC( PTRTOSTR )
@@ -764,114 +609,6 @@ HB_FUNC( PTRTOUI )
 
    hb_retnl( * ( pNums + hb_parnl( 2 ) ) );
 }
-
-HB_FUNC( AP_HEADERSIN )
-{
-   PHB_ITEM hHeadersIn = hb_hashNew( NULL ); 
-   HEADERS_IN_COUNT headers_in_count = ( HEADERS_IN_COUNT ) pHeadersInCount;
-   int iKeys = headers_in_count( pRequestRec );
-
-   if( iKeys > 0 )
-   {
-      int iKey;
-      PHB_ITEM pKey = hb_itemNew( NULL );
-      PHB_ITEM pValue = hb_itemNew( NULL );   
-      HEADERS_IN_KEY headers_in_key = ( HEADERS_IN_KEY ) pHeadersInKey;
-      HEADERS_IN_VAL headers_in_val = ( HEADERS_IN_VAL ) pHeadersInVal;
-
-      hb_hashPreallocate( hHeadersIn, iKeys );
-   
-      for( iKey = 0; iKey < iKeys; iKey++ )
-      {
-         hb_itemPutCConst( pKey,   headers_in_key( iKey, pRequestRec ) );
-         hb_itemPutCConst( pValue, headers_in_val( iKey, pRequestRec ) );
-         hb_hashAdd( hHeadersIn, pKey, pValue );
-      }
-      
-      hb_itemRelease( pKey );
-      hb_itemRelease( pValue );
-   }  
-   
-   hb_itemReturnRelease( hHeadersIn );
-}
-
-HB_FUNC( AP_HEADERSOUT )
-{
-   PHB_ITEM hHeadersOut = hb_hashNew( NULL ); 
-   HEADERS_OUT_COUNT headers_out_count = ( HEADERS_OUT_COUNT ) pHeadersOutCount;
-   int iKeys = headers_out_count( pRequestRec );
-
-   if( iKeys > 0 )
-   {
-      int iKey;
-      PHB_ITEM pKey = hb_itemNew( NULL );
-      PHB_ITEM pValue = hb_itemNew( NULL );   
-      HEADERS_OUT_KEY headers_out_key = ( HEADERS_OUT_KEY ) pHeadersOutKey;
-      HEADERS_OUT_VAL headers_out_val = ( HEADERS_OUT_VAL ) pHeadersOutVal;
-
-      hb_hashPreallocate( hHeadersOut, iKeys );
-   
-      for( iKey = 0; iKey < iKeys; iKey++ )
-      {
-         hb_itemPutCConst( pKey,   headers_out_key( iKey, pRequestRec ) );
-         hb_itemPutCConst( pValue, headers_out_val( iKey, pRequestRec ) );
-         hb_hashAdd( hHeadersOut, pKey, pValue );
-      }
-      
-      hb_itemRelease( pKey );
-      hb_itemRelease( pValue );
-   }  
-   
-   hb_itemReturnRelease( hHeadersOut );
-}
-
-typedef void ( * AP_SET_CONTENTTYPE )( const char * szContentType, void * );
-
-HB_FUNC( AP_SETCONTENTTYPE )
-{
-   AP_SET_CONTENTTYPE ap_set_contenttype = ( AP_SET_CONTENTTYPE ) pAPSetContentType;
-
-   ap_set_contenttype( hb_parc( 1 ), pRequestRec );
-}
-
-typedef const char * ( * AP_GET_ENV )( const char *, void * );
-
-HB_FUNC( AP_GETENV )
-{
-   AP_GET_ENV ap_getenv = ( AP_GET_ENV ) pAPGetenv;
-   
-   hb_retc( ap_getenv( hb_parc( 1 ), pRequestRec ) );
-}   
-
-static char * szBody = NULL;
-
-typedef const char * ( * AP_BODY )( void * );
-
-HB_FUNC( AP_BODY )
-{
-   AP_BODY ap_body = ( AP_BODY ) pAPBody;
-   char * _szBody;
-   
-   if( szBody )
-      hb_retc( szBody );
-   else
-   {
-      _szBody = ( char * ) ap_body( pRequestRec );
-      szBody = ( char * ) hb_xgrab( strlen( _szBody ) + 1 );
-      strcpy( szBody, _szBody );
-      hb_retc( _szBody );
-   }   
-}   
-
-HB_FUNC( HB_VMPROCESSSYMBOLS )
-{
-   hb_retnll( ( HB_LONGLONG ) hb_vmProcessSymbols );
-}   
-
-HB_FUNC( HB_VMEXECUTE )
-{
-   hb_retnll( ( HB_LONGLONG ) hb_vmExecute );
-}   
 
 HB_FUNC( HB_URLDECODE ) // Giancarlo's TIP_URLDECODE
 {
