@@ -20,6 +20,7 @@ harbour.def
 ..\source\pairs.prg
 ..\source\in.c
 ..\source\out.c
+..\source\pointers.c
 
 -cflag=-Ic:\apache24\include
 
