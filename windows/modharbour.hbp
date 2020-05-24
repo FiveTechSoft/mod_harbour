@@ -11,9 +11,12 @@ harbour.def
 -llibeay32
 -llibcrypto
 
--lc:\Apache24\lib\libhttpd
+-llibhttpd
+-llibapr-1
+-Lc:\Apache24\lib
 
 ..\source\apache.prg
+..\source\in.c
 ..\source\out.c
 
 -cflag=-Ic:\apache24\include
