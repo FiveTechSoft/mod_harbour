@@ -10,7 +10,7 @@ sudo ln -sf ~/mod_harbour/samples modharbour_samples
 cd /usr/lib/apache2/modules
 sudo ln -sf ~/mod_harbour/linux/mod_harbour.so mod_harbour.so
 ```
-In /etc/apache2/apache2.conf add these lines:
+In /etc/apache2/apache2.conf add these lines at the bottom of the file:
 ```
 LoadModule harbour_module /usr/lib/apache2/modules/mod_harbour.so
 <FilesMatch "\.(prg|hrb)$">
