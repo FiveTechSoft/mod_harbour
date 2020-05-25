@@ -1,3 +1,11 @@
+/*
+**  mem.c -- shared memory module
+**
+** (c) FiveTech Software SL, 2019-2020
+** Developed by Antonio Linares alinares@fivetechsoft.com
+** MIT license https://github.com/FiveTechSoft/mod_harbour/blob/master/LICENSE
+*/
+
 #ifdef _MSC_VER
    #include <windows.h>
 #endif
