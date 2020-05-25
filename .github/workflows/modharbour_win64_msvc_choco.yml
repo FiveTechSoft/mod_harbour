@@ -38,6 +38,7 @@ jobs:
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbc) -replace 'libeay32','libcrypto-1_1-x64' | Set-Content -path harbour\contrib\hbssl\hbssl.hbc
          (Get-Content -path harbour\contrib\hbssl\hbssl.hbc) -replace 'ssleay32','libssl-1_1-x64' | Set-Content -path harbour\contrib\hbssl\hbssl.hbc
          (Get-Content -path harbour\contrib\hbcurl\hbcurl.hbp) -replace 'libcurl','libcurl-x64' | Set-Content -path harbour\contrib\hbcurl\hbcurl.hbp
+
     - name: Compile Harbour
       shell: cmd
       run: |
