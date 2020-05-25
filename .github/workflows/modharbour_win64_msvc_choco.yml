@@ -2,12 +2,6 @@ name: modharbour Win64 msvc using choco (fast)
 
 on:
   push:
-    paths: 
-      - 'apache.prg'
-      - 'mod_harbour.c'
-      - 'windows/modharbour.hbp'
-      - 'windows/mod.hbp'
-      - '.github/workflows/modharbour_win64_msvc_choco.yml'
   watch:
    types: [started]
 
