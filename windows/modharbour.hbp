@@ -22,6 +22,7 @@ harbour.def
 ..\source\paths.prg
 ..\source\console.c
 ..\source\in.c
+..\source\mem.c
 ..\source\out.c
 ..\source\pointers.c
 ..\source\url.c
