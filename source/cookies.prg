@@ -1,3 +1,10 @@
+/*
+**  cookies.prg -- cookies management
+**
+** Developed by Carles Aubia carles9000@gmail.com
+** MIT license https://github.com/FiveTechSoft/mod_harbour/blob/master/LICENSE
+*/
+
 //----------------------------------------------------------------//
 
 function GetCookies()
