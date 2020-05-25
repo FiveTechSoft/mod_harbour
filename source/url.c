@@ -1,3 +1,7 @@
+/*
+**  url.c -- Giancarlo Nicolai's UrlDecode harbour module
+*/
+
 #include <hbapi.h>
 #include <hbapierr.h>
 
