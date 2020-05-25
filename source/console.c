@@ -1,5 +1,5 @@
 /*
-**  console.c -- Apache harbour module
+**  console.c -- console debug management
 **
 ** (c) FiveTech Software SL, 2019-2020
 ** Developed by Antonio Linares alinares@fivetechsoft.com
