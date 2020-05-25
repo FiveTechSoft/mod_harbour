@@ -1,3 +1,11 @@
+/*
+**  pointers.c -- Pointers high level management module
+**
+** (c) FiveTech Software SL, 2019-2020
+** Developed by Antonio Linares alinares@fivetechsoft.com
+** MIT license https://github.com/FiveTechSoft/mod_harbour/blob/master/LICENSE
+*/
+
 #include <hbapi.h>
 
 //----------------------------------------------------------------//
