@@ -2,8 +2,6 @@ name: modharbour Win64 msvc using choco (fast)
 
 on:
   push:
-  watch:
-   types: [started]
 
 jobs:
   build:
