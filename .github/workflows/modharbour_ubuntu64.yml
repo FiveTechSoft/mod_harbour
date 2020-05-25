@@ -2,13 +2,6 @@ name: modharbour for Ubuntu 64
 
 on:
   push:
-    paths: 
-      - 'apache.prg'
-      - 'mod_harbour.c'
-      - 'linux/modharbour.hbp'
-      - 'linux/mod.hbp'
-      - 'linux/libs.txt'
-      - '.github/workflows/modharbour_ubuntu64.yml'
 
 jobs:
   build:
