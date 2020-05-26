@@ -49,7 +49,7 @@ jobs:
         set HB_COMPILER=msvc64
         win-make.exe
         copy lib\win\msvc64\libcrypto-1_1-x64.lib lib\win\msvc64\libcrypto.lib
-        copy lib\win\msvc64\libssl-1_1-x64.lib lib\win\msvc64\ssleay32.lib
+        copy lib\win\msvc64\libssl-1_1-x64.lib lib\win\msvc64\libeay32.lib
         copy lib\win\msvc64\libcurl-x64.lib lib\win\msvc64\libcurl.lib
         
     - name: Compile mod_harbour
