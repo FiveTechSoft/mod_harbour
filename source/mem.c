@@ -62,7 +62,7 @@ HB_FUNC( MREAD )
 HB_FUNC( MWRITE )
 {
    void * bytes;
-   int fd = shm_open( ( char * ) hb_parc( 1 ), O_RDWR | O_CREAT | O_EXCL, hb_parclen( 2 ) );
+   int fd = shm_open( ( char * ) hb_parc( 1 ), O_RDWR | O_CREAT, S_IRUSR | S_IWUSR );
 
    shm_unlink( hb_parc( 1 ) );
    ignore_result( ftruncate( fd, hb_parclen( 2 ) ) );
@@ -74,7 +74,7 @@ HB_FUNC( MWRITE )
 HB_FUNC( MREAD )
 {
    void * bytes;
-   int fd = shm_open( ( char * ) hb_parc( 1 ), O_RDWR | O_EXCL, hb_parclen( 2 ) );
+   int fd = shm_open( ( char * ) hb_parc( 1 ), O_RDWR | O_EXCL, S_IRUSR | S_IWUSR );
    
    bytes = mmap( NULL, hb_parclen( 2 ), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0 );
    hb_retc( bytes );
