@@ -2,7 +2,6 @@
 **  mem.c -- shared memory module
 **  original idea by Chris Wellons https://nullprogram.com/blog/2016/04/10/
 **
-** (c) FiveTech Software SL, 2019-2020
 ** Developed by Antonio Linares alinares@fivetechsoft.com
 ** MIT license https://github.com/FiveTechSoft/mod_harbour/blob/master/LICENSE
 */
