@@ -1,9 +1,9 @@
 /*
 **  mem.c -- shared memory module
 **  original idea by Chris Wellons https://nullprogram.com/blog/2016/04/10/
-**
-** Developed by Antonio Linares alinares@fivetechsoft.com
-** MIT license https://github.com/FiveTechSoft/mod_harbour/blob/master/LICENSE
+**  and https://gist.github.com/garcia556/8231e844a90457c99cc72e5add8388e4
+**  Developed by Antonio Linares alinares@fivetechsoft.com
+**  MIT license https://github.com/FiveTechSoft/mod_harbour/blob/master/LICENSE
 */
 
 #ifdef _MSC_VER
