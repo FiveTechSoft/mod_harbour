@@ -74,9 +74,9 @@ HB_FUNC( MWRITE )
 HB_FUNC( MREAD )
 {
    void * bytes;
-   int fd = shm_open( ( char * ) hb_parc( 1 ), O_RDWR | O_EXCL, S_IRUSR | S_IWUSR );
+   int fd = shm_open( ( char * ) hb_parc( 1 ), O_RDONLY, S_IRUSR | S_IWUSR );
    
-   bytes = mmap( NULL, hb_parclen( 2 ), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0 );
+   bytes = mmap( NULL, hb_parclen( 2 ), PROT_READ, MAP_SHARED, fd, 0 );
    hb_retc( bytes );
    close( fd );
 }
