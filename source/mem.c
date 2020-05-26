@@ -68,7 +68,7 @@ HB_FUNC( MWRITE )
    ignore_result( ftruncate( fd, hb_parclen( 2 ) ) );
    bytes = mmap( NULL, hb_parclen( 2 ), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0 );
    memcpy( bytes, hb_parc( 2 ), hb_parclen( 2 ) );
-   close( fd );
+   // close( fd );
 }
 
 HB_FUNC( MREAD )
@@ -78,7 +78,7 @@ HB_FUNC( MREAD )
    
    bytes = mmap( NULL, hb_parclen( 2 ), PROT_READ, MAP_SHARED, fd, 0 );
    hb_retc( bytes );
-   close( fd );
+   // close( fd );
 }
 
 #endif
