@@ -29,9 +29,9 @@ HB_FUNC( MWRITE )
    }    
 
    bytes = MapViewOfFileEx( m, FILE_MAP_ALL_ACCESS, 0, 0, ( DWORD ) hb_parclen( 2 ), NULL );   
-
    memcpy( bytes, hb_parc( 2 ), hb_parclen( 2 ) );
-   hb_retptr( m );
+   UnmapViewOfFile( bytes );
+   CloseHandle( m );
 }
 
 HB_FUNC( MREAD )
@@ -46,23 +46,9 @@ HB_FUNC( MREAD )
    }    
 
    bytes = MapViewOfFileEx( m, FILE_MAP_ALL_ACCESS, 0, 0, 0, NULL );
-   hb_retc( ( const char * ) bytes );   
-}
-
-HB_FUNC( MERASE )
-{
-   void * bytes;
-   HANDLE m = OpenFileMapping( PAGE_READONLY, FALSE, hb_parc( 1 ) );
-
-   if( ! m )
-   {
-      hb_ret();
-      return;
-   } 
-
-   bytes = MapViewOfFileEx( m, FILE_MAP_ALL_ACCESS, 0, 0, 0, NULL );
+   hb_retc( ( const char * ) bytes );  
    UnmapViewOfFile( bytes );
-   CloseHandle( m );
+   CloseHandle( m );    
 }
 
 #endif
