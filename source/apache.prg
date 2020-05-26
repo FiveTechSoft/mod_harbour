@@ -34,7 +34,7 @@
    #include "../../harbour/contrib/rddads/rddads.hbx"
 #endif
 
-extern AP_RWRITE, MWRITE, MREAD, MERASE
+extern AP_RWRITE, MWRITE, MREAD
 
 //----------------------------------------------------------------//
 
