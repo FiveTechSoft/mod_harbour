@@ -25,8 +25,8 @@ At c:\Apache24\htdocs create these symlinks: (run cmd as administrator)
 ```mklink /h libharbour.dll c:\mod_harbour\windows\win64\libharbour.dll```
 
 Copy these DLLs (bin folder inside the modharbour zip) to c:\Apache24\bin: 
-libcurl-x64.dll, libcrypto-1_1-x64.dll and libssl-1_1-x64.dll.
-If you are using Xampp, then copy the DLLs to ...
+libcurl-x64.dll, libcrypto-1_1-x64.dll and libssl-1_1-x64.dll
+If you are using Xampp, then copy the DLLs to C:\xampp\apache\bin
 
 From the browse go to localhost/modharbour_samples
 
