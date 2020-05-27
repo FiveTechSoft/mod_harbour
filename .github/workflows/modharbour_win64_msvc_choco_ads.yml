@@ -70,13 +70,17 @@ jobs:
       shell: cmd
       run: |
         mkdir output
+        mkdir output\bin
         mkdir output\samples
         mkdir output\harbour
         copy .\windows\mod_harbour.so output
         copy .\windows\libharbour.dll output
         copy .\windows\readme.md output
         xcopy samples output\samples\ /E  
-        
+        copy c:\curl\bin\libcurl-x64.dll output\bin
+        copy c:\OpenSSL-Win64\bin\libcrypto-1_1-x64.dll output\bin
+        copy c:\OpenSSL-Win64\bin\libssl-1_1-x64.dll output\bin 
+                
     - name: Get current time
       uses: srfrnk/current-time@master
       id: current-time
