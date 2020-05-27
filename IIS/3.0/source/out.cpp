@@ -5,6 +5,27 @@
 extern "C" {
 
 IHttpContext * GetHttpContext( void );
+   
+const char * ap_headers_out_key( int iKey, IHttpContext * pHttpContext )
+{
+   IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+
+   return pHttpResponse->GetRawHttpResponse()->Headers.pUnknownHeaders[ iKey ].pName;
+}
+
+const char * ap_headers_out_val( int iKey, IHttpContext * pHttpContext )
+{
+   IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+
+   return pHttpResponse->GetRawHttpResponse()->Headers.pUnknownHeaders[ iKey ].pRawValue;
+}
+
+void ap_headers_out_set( const char * szKey, const char * szValue, IHttpContext * pHttpContext )
+{
+   IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+
+   pHttpResponse->SetHeader( szKey, szValue, strlen( szValue ), true );
+}
 
 HB_FUNC( AP_RPUTS )
 {
