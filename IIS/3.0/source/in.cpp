@@ -15,6 +15,82 @@ const char * ap_getenv( const char * szVarName )
 
    return rawBuffer;
 }
+   
+const char * ap_headers_in_key( int iKey, IHttpContext * pHttpContext )
+{
+   const char * szHeaders = ap_getenv( "ALL_RAW" );
+   int iCount = 1; char * pPos = ( char * ) szHeaders;
+
+   while( ( iCount < iKey ) && ( pPos = strstr( pPos, "\r\n" ) ) )
+   {
+      pPos += strlen( "\r\n" );
+      iCount++;
+   }
+
+   if( pPos )
+   {
+      char * pStart = pPos;
+
+      if( pPos = strstr( pPos, ": " ) )
+      {
+         char * buffer = ( char * ) pHttpContext->AllocateRequestMemory( pPos - pStart + 1 );
+
+         memcpy( buffer, pStart, pPos - pStart );
+         buffer[pPos - pStart] = 0;
+         return buffer;
+      }
+      else
+         return "";
+
+   }
+   else
+      return "";
+}
+
+const char * ap_headers_in_val( int iKey, IHttpContext * pHttpContext )
+{
+   const char * szHeaders = ap_getenv( "ALL_RAW" );
+   int iCount = 1; char * pPos = ( char * ) szHeaders;
+
+   while( ( iCount < iKey ) && ( pPos = strstr( pPos, "\r\n" ) ) )
+   {
+      pPos += strlen( "\r\n" );
+      iCount++;
+   }
+
+   if( pPos )
+   {
+      char * pStart = strstr( pPos, ": " ) + 2;
+
+      if( pPos = strstr( pPos, "\r\n" ) )
+      {
+         char * buffer = ( char * ) pHttpContext->AllocateRequestMemory( pPos - pStart + 1 );
+
+         memcpy( buffer, pStart, pPos - pStart );
+         buffer[pPos - pStart] = 0;
+         return buffer;
+      }
+      else
+         return "";
+
+   }
+   else
+      return "";
+}
+
+int ap_headers_in_count( IHttpContext * pHttpContext )
+{
+   const char * szHeaders = ap_getenv( "ALL_RAW" );
+   int iCount = 0; char * pPos = ( char * ) szHeaders;
+
+   while( pPos = strstr( pPos, "\r\n" ) )
+   {
+      pPos += strlen( "\r\n" ) + 1;
+      iCount++;
+   }
+
+   return iCount;
+}
 
 HB_FUNC( AP_ARGS )
 {
