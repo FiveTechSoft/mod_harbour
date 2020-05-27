@@ -5,7 +5,17 @@
 -l-hbfship
 -l-hbxpp
 
-../apache.prg
+..\source\apache.prg
+..\source\cookies.prg
+..\source\exec.prg
+..\source\pairs.prg
+..\source\paths.prg
+..\source\console.c
+..\source\in.c
+..\source\mem.c
+..\source\out.c
+..\source\pointers.c
+..\source\url.c
 
 -trace
 -dflag=@libs.txt
