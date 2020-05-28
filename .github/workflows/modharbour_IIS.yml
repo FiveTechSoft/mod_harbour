@@ -11,5 +11,11 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+      
+    - name: Build mod_harbour solution
+      shell: cmd
+      run: |  
+        cd IIS
+        msbuild.exe mod_harbour.sln 
     
     
