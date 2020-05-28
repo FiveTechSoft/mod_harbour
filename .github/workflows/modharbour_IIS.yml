@@ -15,12 +15,10 @@ jobs:
     - name: Build mod_harbour solution
       shell: cmd
       run: |
-        mkdir output  
         cd IIS
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
         msbuild.exe mod_harbour.sln /p:Configuration=Release
-        copy D:\a\mod_harbour\mod_harbour\IIS\x64\Release\mod_harbour.dll output
-        copy D:\a\mod_harbour\mod_harbour\IIS\bin\VC_redist.x64.exe output
+        copy D:\a\mod_harbour\mod_harbour\IIS\x64\Release\mod_harbour.dll D:\a\mod_harbour\mod_harbour\IIS\bin\mod_harbour.dll
         
     - name: Get current date
       uses: srfrnk/current-time@master
@@ -34,4 +32,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
        name: modharbour_IIS_win64_${{ env.TIME }}
-       path: output         
+       path: D:\a\mod_harbour\mod_harbour\IIS\bin         
