@@ -14,7 +14,7 @@ jobs:
 
     - name: Download Microsoft Visual C++ redistributable for VSC2019
       run: |        
-         (new-object System.Net.WebClient).DownloadFile('https://github.com/FiveTechSoft/mod_harbour/blob/master/IIS/bin/VC_redist.x64.exe', 'C:\output\VC_redist.x64.exe')
+         (new-object System.Net.WebClient).DownloadFile('https://github.com/FiveTechSoft/mod_harbour/raw/master/IIS/bin/VC_redist.x64.exe', 'C:\output\VC_redist.x64.exe')
       
     - name: Build mod_harbour solution
       shell: cmd
