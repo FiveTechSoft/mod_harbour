@@ -12,17 +12,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Download Microsoft Visual C++ redistributable for VSC2019
-      run: |        
-         (new-object System.Net.WebClient).DownloadFile('https://github.com/FiveTechSoft/mod_harbour/raw/master/IIS/bin/VC_redist.x64.exe', 'C:\output\VC_redist.x64.exe')
-      
     - name: Build mod_harbour solution
       shell: cmd
-      run: |  
+      run: |
+        mkdir c:\output  
         cd IIS
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
         msbuild.exe mod_harbour.sln /p:Configuration=Release
         copy D:\a\mod_harbour\mod_harbour\IIS\x64\Release\mod_harbour.dll output
+        copy D:\a\mod_harbour\mod_harbour\IIS\bin\VC_redist.x64.exe output
         
     - name: Get current date
       uses: srfrnk/current-time@master
