@@ -28,7 +28,7 @@ jobs:
       with:
         format: YYYY_MM_DD
  
-    - name: Building the final zip with the installer inside
+    - name: Building the final zip with mod_harbour, msvc redistributable and required DLLs inside
       env:
          TIME: "${{ steps.current-time.outputs.formattedTime }}"
       uses: actions/upload-artifact@v2
