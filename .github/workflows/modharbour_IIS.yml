@@ -19,6 +19,7 @@ jobs:
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
         msbuild.exe mod_harbour.sln /p:Configuration=Release
         copy D:\a\mod_harbour\mod_harbour\IIS\x64\Release\mod_harbour.dll D:\a\mod_harbour\mod_harbour\IIS\bin\mod_harbour.dll
+        copy D:\a\mod_harbour\mod_harbour\IIS\readme.md D:\a\mod_harbour\mod_harbour\IIS\bin
         
     - name: Get current date
       uses: srfrnk/current-time@master
