@@ -1,0 +1,15 @@
+name: modharbour IIS Win64 msvc
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    if: github.actor == github.event.repository.owner.login
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    
