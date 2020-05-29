@@ -19,6 +19,7 @@
 ..\source\mem.c
 ..\source\out.c
 ..\source\pointers.c
+..\source\qout.c
 ..\source\url.c
 
 -trace
