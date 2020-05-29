@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #define WIN32_LEAN_AND_MEAN
 #include "httpserv.h"
 #include <hbapi.h>
@@ -69,7 +70,7 @@ HB_FUNC( AP_RPUTS )
 
    if( pszText )
    {
-      strcpy_s( ( char * ) pszText, strlen( szText ) + 1, szText );
+      strcpy( ( char * ) pszText, szText );
 
       dataChunk.DataChunkType = HttpDataChunkFromMemory;
       dataChunk.FromMemory.pBuffer = ( PVOID ) pszText;
@@ -93,7 +94,7 @@ HB_FUNC( AP_RWRITE )
 
    if( pszText )
    {
-      strcpy_s( ( char * ) pszText, strlen( szText ) + 1, szText );
+      strcpy( ( char * ) pszText, szText );
 
       dataChunk.DataChunkType = HttpDataChunkFromMemory;
       dataChunk.FromMemory.pBuffer = ( PVOID ) pszText;

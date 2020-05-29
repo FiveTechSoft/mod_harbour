@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #define WIN32_LEAN_AND_MEAN
 #include "httpserv.h"
 #include <hbapi.h>
@@ -151,8 +152,8 @@ HB_FUNC( AP_FILENAME )
 {
    char szPath[ MAX_PATH + 1 ];
 
-   strcpy_s( szPath, strlen( ap_getenv( "APPL_PHYSICAL_PATH" ) ) + 1, ap_getenv( "APPL_PHYSICAL_PATH" ) );
-   strcat_s( szPath, strlen( ap_getenv( "PATH_INFO" ) ), ap_getenv( "PATH_INFO" ) + 1 );
+   strcpy( szPath, ap_getenv( "APPL_PHYSICAL_PATH" ) );
+   strcat( szPath, ap_getenv( "PATH_INFO" ) );
    while( strchr( szPath, '\\' ) )
       * strchr( szPath, '\\' ) = '/';
        
