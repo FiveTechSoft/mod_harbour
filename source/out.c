@@ -16,6 +16,13 @@ request_rec * GetRequestRec( void );
 
 //----------------------------------------------------------------//
 
+int mh_rputs( const char * szText )
+{
+   hb_retni( ap_rputs( szText, GetRequestRec() ) );
+}
+
+//----------------------------------------------------------------//
+
 HB_FUNC( AP_HEADERSOUTCOUNT )
 {
    hb_retnl( apr_table_elts( GetRequestRec()->headers_out )->nelts );
@@ -66,80 +73,6 @@ HB_FUNC( AP_HEADERSOUTVAL )
 HB_FUNC( AP_HEADERSOUTSET )
 {
    apr_table_add( GetRequestRec()->headers_out, hb_parc( 1 ), hb_parc( 2 ) );
-}
-
-//----------------------------------------------------------------//
-
-HB_FUNC( AP_HEADERSOUT )
-{
-   request_rec * r = GetRequestRec();
-   PHB_ITEM hHeadersOut = hb_hashNew( NULL ); 
-   int iKeys = apr_table_elts( r->headers_out )->nelts;
-
-   if( iKeys > 0 )
-   {
-      int iKey;
-      PHB_ITEM pKey = hb_itemNew( NULL );
-      PHB_ITEM pValue = hb_itemNew( NULL );   
-
-      hb_hashPreallocate( hHeadersOut, iKeys );
-   
-      for( iKey = 0; iKey < iKeys; iKey++ )
-      {
-         hb_itemPutCConst( pKey,   ap_headers_out_key( iKey, r ) );
-         hb_itemPutCConst( pValue, ap_headers_out_val( iKey, r ) );
-         hb_hashAdd( hHeadersOut, pKey, pValue );
-      }
-      
-      hb_itemRelease( pKey );
-      hb_itemRelease( pValue );
-   }  
-   
-   hb_itemReturnRelease( hHeadersOut );
-}
-
-//----------------------------------------------------------------//
-
-HB_FUNC( AP_RPUTS )
-{
-   request_rec * r = GetRequestRec();
-   int iParams = hb_pcount(), iParam;
-
-   for( iParam = 1; iParam <= iParams; iParam++ )
-   {
-      PHB_ITEM pItem = hb_param( iParam, HB_IT_ANY );
-
-      if( HB_ISOBJECT( iParam ) )
-      {
-         hb_vmPushSymbol( hb_dynsymGetSymbol( "OBJTOCHAR" ) );
-         hb_vmPushNil();
-         hb_vmPush( pItem );
-         hb_vmFunction( 1 );
-         ap_rputs( hb_parc( -1 ), r );
-      }
-      else if( HB_ISHASH( iParam ) || HB_ISARRAY( iParam ) )
-      {
-         hb_vmPushSymbol( hb_dynsymGetSymbol( "VALTOCHAR" ) );
-         hb_vmPushNil();
-         hb_vmPush( pItem );
-         hb_vmFunction( 1 );
-         ap_rputs( hb_parc( -1 ), r );
-      }
-      else
-      {
-         HB_SIZE nLen;
-         HB_BOOL bFreeReq;
-         char * buffer = hb_itemString( pItem, &nLen, &bFreeReq );
-
-         ap_rputs( buffer, r );
-         ap_rputs( " ", r ); 
-
-         if( bFreeReq )
-            hb_xfree( buffer );
-      }      
-   }
-
-   hb_ret();     
 }
 
 //----------------------------------------------------------------//

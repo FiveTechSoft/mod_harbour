@@ -26,6 +26,7 @@
 source\in.cpp
 ..\source\mem.c
 source\out.cpp
+..\source\qout.c
 ..\source\pointers.c
 ..\source\url.c
 

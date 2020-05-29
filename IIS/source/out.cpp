@@ -60,11 +60,10 @@ HB_FUNC( AP_HEADERSOUTSET )
 
 //----------------------------------------------------------------//
 
-HB_FUNC( AP_RPUTS )
+int mh_rputs( const char * szText )
 {
-   const char * szText = hb_parc( 1 );
-   HTTP_DATA_CHUNK dataChunk;
    IHttpContext * pHttpContext = GetHttpContext();
+   HTTP_DATA_CHUNK dataChunk;
    PCSTR pszText = ( PCSTR ) pHttpContext->AllocateRequestMemory( ( DWORD ) ( strlen( szText ) + 1 ) );
    IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
 
@@ -76,10 +75,10 @@ HB_FUNC( AP_RPUTS )
       dataChunk.FromMemory.pBuffer = ( PVOID ) pszText;
       dataChunk.FromMemory.BufferLength = ( ULONG ) strlen( pszText );
 
-      hb_retnl( pHttpResponse->WriteEntityChunkByReference( &dataChunk, -1 ) );
+      return pHttpResponse->WriteEntityChunkByReference( &dataChunk, -1 );
    }
    else
-      hb_retnl( 0 );
+      return 0;
 }
 
 //----------------------------------------------------------------//
