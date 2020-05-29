@@ -1,4 +1,0 @@
-LIBRARY	"mod_harbour"
-
-EXPORTS
-    RegisterModule
