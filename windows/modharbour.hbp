@@ -1,9 +1,11 @@
+-hblib
 -hbdynvm
 -olibharbour
 -mt
 -trace
+-info
 
-harbour.def
+modharbour.def
 -l-hbfship
 -l-hbxpp
 
