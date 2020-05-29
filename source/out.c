@@ -18,7 +18,7 @@ request_rec * GetRequestRec( void );
 
 int mh_rputs( const char * szText )
 {
-   hb_retni( ap_rputs( szText, GetRequestRec() ) );
+   return ap_rputs( szText, GetRequestRec() );
 }
 
 //----------------------------------------------------------------//
