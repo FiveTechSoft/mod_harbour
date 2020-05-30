@@ -23,9 +23,16 @@ int mh_rputs( const char * szText )
 
 //----------------------------------------------------------------//
 
+int ap_headers_out_count( void )
+{
+   return apr_table_elts( GetRequestRec()->headers_out )->nelts;
+}
+
+//----------------------------------------------------------------//
+
 HB_FUNC( AP_HEADERSOUTCOUNT )
 {
-   hb_retnl( apr_table_elts( GetRequestRec()->headers_out )->nelts );
+   hb_retnl( ap_headers_out_count() );
 }
 
 //----------------------------------------------------------------//

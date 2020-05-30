@@ -64,9 +64,16 @@ HB_FUNC( AP_GETENV )
 
 //----------------------------------------------------------------//
 
+int ap_headers_in_count( void )
+{
+   return apr_table_elts( GetRequestRec()->headers_in )->nelts;
+}
+
+//----------------------------------------------------------------//
+
 HB_FUNC( AP_HEADERSINCOUNT )
 {
-   hb_retnl( apr_table_elts( GetRequestRec()->headers_in )->nelts );
+   hb_retnl( ap_headers_in_count() );
 }
 
 //----------------------------------------------------------------//
@@ -107,36 +114,6 @@ HB_FUNC( AP_HEADERSINKEY )
 HB_FUNC( AP_HEADERSINVAL )
 {
    hb_retc( ap_headers_in_val( hb_parnl( 1 ), GetRequestRec() ) );
-}
-
-//----------------------------------------------------------------//
-
-HB_FUNC( AP_HEADERSIN )
-{
-   request_rec * r = GetRequestRec();
-   PHB_ITEM hHeadersIn = hb_hashNew( NULL ); 
-   int iKeys = apr_table_elts( GetRequestRec()->headers_in )->nelts;
-
-   if( iKeys > 0 )
-   {
-      int iKey;
-      PHB_ITEM pKey = hb_itemNew( NULL );
-      PHB_ITEM pValue = hb_itemNew( NULL );   
-
-      hb_hashPreallocate( hHeadersIn, iKeys );
-   
-      for( iKey = 0; iKey < iKeys; iKey++ )
-      {
-         hb_itemPutCConst( pKey,   ap_headers_in_key( iKey, r ) );
-         hb_itemPutCConst( pValue, ap_headers_in_val( iKey, r ) );
-         hb_hashAdd( hHeadersIn, pKey, pValue );
-      }
-      
-      hb_itemRelease( pKey );
-      hb_itemRelease( pValue );
-   }  
-   
-   hb_itemReturnRelease( hHeadersIn );
 }
 
 //----------------------------------------------------------------//
