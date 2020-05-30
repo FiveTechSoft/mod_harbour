@@ -31,7 +31,7 @@ source\out.cpp
 ..\source\url.c
 
 -cflag=-Ic:\apache24\include
--dflag=/DEBUG:FULL
+#-dflag=/DEBUG:FULL
 
 hbwin.hbc
 hbhpdf.hbc
