@@ -60,7 +60,9 @@ jobs:
         msbuild.exe mod_harbour.sln /p:Configuration=Release
         c:\harbour\bin\win\msvc64\hbmk2 modharbour.hbp -comp=msvc64 -Lc:\Apache24\lib
         copy D:\a\mod_harbour\mod_harbour\IIS\x64\Release\mod_harbour.dll D:\a\mod_harbour\mod_harbour\IIS\bin\mod_harbour.dll
+        copy D:\a\mod_harbour\mod_harbour\IIS\libharbour.dll D:\a\mod_harbour\mod_harbour\IIS\bin\libharbour.dll
         copy D:\a\mod_harbour\mod_harbour\IIS\readme.md D:\a\mod_harbour\mod_harbour\IIS\bin
+        xcopy D:\a\mod_harbour\mod_harbour\samples D:\a\mod_harbour\mod_harbour\IIS\bin\samples
         
     - name: Get current date
       uses: srfrnk/current-time@master
@@ -74,4 +76,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
        name: modharbour_IIS_win64_${{ env.TIME }}
-       path: D:\a\mod_harbour\mod_harbour\IIS        
+       path: D:\a\mod_harbour\mod_harbour\IIS\bin        
