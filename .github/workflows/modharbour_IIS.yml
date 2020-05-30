@@ -62,7 +62,7 @@ jobs:
         copy D:\a\mod_harbour\mod_harbour\IIS\x64\Release\mod_harbour.dll D:\a\mod_harbour\mod_harbour\IIS\bin\mod_harbour.dll
         copy D:\a\mod_harbour\mod_harbour\IIS\libharbour.dll D:\a\mod_harbour\mod_harbour\IIS\bin\libharbour.dll
         copy D:\a\mod_harbour\mod_harbour\IIS\readme.md D:\a\mod_harbour\mod_harbour\IIS\bin
-        xcopy D:\a\mod_harbour\mod_harbour\samples D:\a\mod_harbour\mod_harbour\IIS\bin\samples
+        xcopy D:\a\mod_harbour\mod_harbour\samples D:\a\mod_harbour\mod_harbour\IIS\bin\samples\ /E
         
     - name: Get current date
       uses: srfrnk/current-time@master
