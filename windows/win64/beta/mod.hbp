@@ -1,0 +1,12 @@
+-hbdyn
+-omod_harbour.so
+
+-cflag=-TC
+-ic:\apache24\include
+..\source\mod_harbour.c
+
+-lapr-1
+-laprutil-1
+-llibapr-1
+-llibaprutil-1
+-llibhttpd
