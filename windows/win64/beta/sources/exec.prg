@@ -7,6 +7,7 @@
 */
 
 #include "hbclass.ch"
+#include "hbhrb.ch"
 
 thread static hPP
 
@@ -53,9 +54,11 @@ return hb_HrbDo( oHrb, cArgs )
 
 function Execute( cCode, ... )
 
-   local oHrb, uRet, lReplaced := .T.
+   local uRet, lReplaced := .T.
    local cHBheaders1 := "~/harbour/include"
    local cHBheaders2 := "c:\harbour\include"
+
+   thread static oHrb
 
    ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError, @cCode ) ), Break( oError ) } )
 

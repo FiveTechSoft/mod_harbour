@@ -53,18 +53,16 @@ function ProcessRequest()
       hb_SetEnv( "PRGPATH",;
                  SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
       if Lower( Right( cFileName, 4 ) ) == ".hrb"
-         // pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ) )
-         ExecuteHrb( hb_HrbLoad( 1, cFileName ) )
+         // pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( HB_HRB_BIND_FORCELOCAL, cFileName ) )
+         ExecuteHrb( hb_HrbLoad( HB_HRB_BIND_FORCELOCAL, cFileName ) )
       else
          // pThread = hb_threadStart( @Execute(), MemoRead( cFileName ) )
          Execute( MemoRead( cFileName ) )
       endif
-      /*
-      if hb_threadWait( pThread, Max( Val( AP_GetEnv( "MHTIMEOUT" ) ), 15 ) ) != 1
-         hb_threadQuitRequest( pThread )
-	      ErrorLevel( 408 ) // request timeout
-      endif
-      */
+      // if hb_threadWait( pThread, Max( Val( AP_GetEnv( "MHTIMEOUT" ) ), 15 ) ) != 1
+      //    hb_threadQuitRequest( pThread )
+	   //    ErrorLevel( 408 ) // request timeout
+      // endif
       InKey( 0.1 ) // This increases the requests per second
    else
       ErrorLevel( 404 ) // not found

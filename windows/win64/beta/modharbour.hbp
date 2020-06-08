@@ -3,6 +3,7 @@
 -mt
 -trace
 -info
+-gc3
 
 modharbour.def
 -l-hbfship
