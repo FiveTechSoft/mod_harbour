@@ -13,6 +13,8 @@
 
 request_rec * GetRequestRec( void );
 
+__declspec(thread) char * szBody = NULL;
+
 //----------------------------------------------------------------//
 
 HB_FUNC( AP_ARGS )
@@ -26,26 +28,33 @@ HB_FUNC( AP_BODY )
 {
    request_rec * r = GetRequestRec();
  
-   if( ap_setup_client_block( r, REQUEST_CHUNKED_ERROR ) != OK )
-      hb_retc( "" );
+   if( szBody )
+      hb_retc( szBody );
    else
    {   
-      if( ap_should_client_block( r ) )
-      {
-         long length = ( long ) r->remaining;
-         char * rbuf = ( char * ) apr_pcalloc( r->pool, length + 1 );
-         int iRead = 0, iTotal = 0;
-      
-         while( ( iRead = ap_get_client_block( r, rbuf + iTotal, length + 1 - iTotal ) ) < ( length + 1 - iTotal ) && iRead != 0 )
-         {
-            iTotal += iRead;
-            iRead = 0;
-         }
-         hb_retc( rbuf );
-      }
-      else
+      if( ap_setup_client_block( r, REQUEST_CHUNKED_ERROR ) != OK )
          hb_retc( "" );
-   }       
+      else
+      {   
+         if( ap_should_client_block( r ) )
+         {
+            long length = ( long ) r->remaining;
+            char * rbuf = ( char * ) apr_pcalloc( r->pool, length + 1 );
+            int iRead = 0, iTotal = 0;
+      
+            while( ( iRead = ap_get_client_block( r, rbuf + iTotal, length + 1 - iTotal ) ) < ( length + 1 - iTotal ) && iRead != 0 )
+            {
+               iTotal += iRead;
+               iRead = 0;
+            }
+            hb_retc( rbuf );
+            szBody = ( char * ) hb_xgrab( strlen( rbuf ) + 1 );
+            strcpy( szBody, rbuf );
+         }
+         else
+            hb_retc( "" );
+      }
+   }   
 }
 
 //----------------------------------------------------------------//
