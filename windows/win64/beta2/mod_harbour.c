@@ -13,6 +13,7 @@
 #include "ap_config.h"
 #include "util_script.h"
 #include "apr.h"
+#include "apr_atomic.h"
 #include "apr_strings.h"
 
 #ifdef _WINDOWS_
@@ -105,34 +106,58 @@ int CopyFile( const char * from, const char * to, int iOverWrite )
 
 typedef int ( * PHB_APACHE )( void * pRequestRec );
 
+#ifdef _WINDOWS_
+   volatile static int iLib = 0;
+   volatile static HMODULE lib_harbour[ 25 ] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                                   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                                   NULL, NULL, NULL, NULL, NULL }; 
+#else
+   volatile static void lib_harbour[ 25 ] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                                NULL, NULL, NULL, NULL, NULL };
+#endif
+
 static int harbour_handler( request_rec * r )
 {
    const char * szTempPath;
    char * szTempFileName;
    const char * szDllName;
 
-   #ifdef _WINDOWS_
-      volatile static HMODULE lib_harbour[ 25 ] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                                    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                                    NULL, NULL, NULL, NULL, NULL }; 
-   #else
-      volatile static void lib_harbour[ 25 ] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                                 NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                                 NULL, NULL, NULL, NULL, NULL };
-   #endif
-
-   int iLib = 0;                                                        
    PHB_APACHE _hb_apache = NULL;
    int iResult = OK;
+   int i = ++iLib;
+
+   if( iLib > 24 )
+   {
+      iLib = 0;
+      i = 0;
+   }
+
+   while( lib_harbour[ iLib ] != NULL )
+   {
+      iLib++;
+      if( iLib > 24 )
+         iLib = 0;
+      i = iLib;
+   }
+ 
+   lib_harbour[ i ] = 5;
 
    if( strcmp( r->handler, "harbour" ) )
       return DECLINED;
 
-   while( lib_harbour[ iLib ] != NULL && iLib < 24 )
-      iLib++;
+   /*
+   apr_atomic_init( r->pool );
 
-   apr_atomic_xchgptr( &lib_harbour[ iLib ], 5 );
-   OutputDebugString( apr_psprintf( r->pool, "%d\n", iLib ) );   
+   do
+   {
+      if( iLib == 25 )
+         iLib = 0;
+   } while( ( iLib < 24 ) && ( apr_atomic_xchgptr( ( volatile void ** ) &lib_harbour[ iLib++ ], ( void * ) 5 ) != NULL ) );
+   iLib--;
+   */
+
+   OutputDebugString( apr_psprintf( r->pool, "%d\n", i ) );   
    
    if( ! ( szDllName = apr_table_get( r->subprocess_env, "LIBHARBOUR" ), szDllName ) )  // pacified warning
    #ifdef _WINDOWS_
@@ -146,7 +171,7 @@ static int harbour_handler( request_rec * r )
    #endif   
 
    apr_temp_dir_get( &szTempPath, r->pool );
-   szTempFileName = apr_psprintf( r->pool, "%s\\%s%d.dll", szTempPath, "libharbour", iLib );
+   szTempFileName = apr_psprintf( r->pool, "%s\\%s%d.dll", szTempPath, "libharbour", i );
    if( _access( szTempFileName, 0 ) == -1 )
       CopyFile( szDllName, szTempFileName, 0 );
 
@@ -158,13 +183,13 @@ static int harbour_handler( request_rec * r )
    ap_add_common_vars( r );
 
    #ifdef _WINDOWS_
-      // lib_harbour[ iLib ] = LoadLibrary( szTempFileName ); 
-      apr_atomic_xchgptr( &lib_harbour[ iLib ], LoadLibrary( szTempFileName ) );
+      // apr_atomic_xchgptr( ( volatile void ** ) &lib_harbour[ iLib ], LoadLibrary( szTempFileName ) );
+      lib_harbour[ i ] = LoadLibrary( szTempFileName );
    #else
-      lib_harbour[ iLib ] = dlopen( szTempFileName, RTLD_LAZY );
+      apr_atomic_xchgptr( ( volatile void ** ) &lib_harbour[ iLib ], dlopen( szTempFileName, RTLD_LAZY ) );
    #endif
 
-   if( lib_harbour[ iLib ] == NULL )
+   if( lib_harbour[ i ] == NULL )
    {
       ap_rprintf( r, "mod_harbour version %s, %s<br>", __DATE__, __TIME__ );
       #ifdef _WINDOWS_
@@ -179,9 +204,9 @@ static int harbour_handler( request_rec * r )
    }   
 
    #ifdef _WINDOWS_
-      _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour[ iLib ], "hb_apache" );
+      _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour[ i ], "hb_apache" );
    #else
-      _hb_apache = dlsym( lib_harbour[ iLib ], "hb_apache" );
+      _hb_apache = dlsym( lib_harbour[ i ], "hb_apache" );
    #endif
 
    if( _hb_apache == NULL )
@@ -189,19 +214,15 @@ static int harbour_handler( request_rec * r )
    else
       iResult = _hb_apache( r );
 
-   if( lib_harbour[ iLib ] != NULL )
+   if( lib_harbour[ i ] != NULL )
       #ifdef _WINDOWS_	
-         FreeLibrary( lib_harbour[ iLib ] );
+         FreeLibrary( lib_harbour[ i ] );
       #else
-         dlclose( lib_harbour[ iLib ] );
+         dlclose( lib_harbour[ i ] );
       #endif
 
-   #ifdef _WINDOWS_ 
-      // lib_harbour[ iLib ] = NULL;
-      apr_atomic_xchgptr( &lib_harbour[ iLib ], NULL );
-   #else
-      remove( szTempFileName );
-   #endif      
+   lib_harbour[ i ] = NULL; 
+   // apr_atomic_xchgptr( ( volatile void ** ) &lib_harbour[ iLib ], NULL );
 
    return iResult;
 }
