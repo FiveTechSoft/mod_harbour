@@ -4,37 +4,31 @@
 
 function AP_Args()
 
-return GetEnv( "QUERY_STRING" )   
+return ap_GetEnv( "QUERY_STRING" )   
 
 //----------------------------------------------------------------//
 
 function AP_FileName()
 
-return GetEnv( "SCRIPT_FILENAME" )
-
-//----------------------------------------------------------------//
-
-function AP_GetEnv( cKey )
-
-return GetEnv( cKey )   
+return ap_GetEnv( "SCRIPT_FILENAME" )
 
 //----------------------------------------------------------------//
 
 function AP_Method()
 
-return getEnv( "REQUEST_METHOD" )
+return ap_GetEnv( "REQUEST_METHOD" )
 
 //----------------------------------------------------------------//
 
 function GetCookies()
 
-return GetEnv( "HTTP_COOKIE" )
+return ap_GetEnv( "HTTP_COOKIE" )
 
 //----------------------------------------------------------------//
 
 function AP_UserIP()
 
-return GetEnv( "REMOTE_ADDR" )
+return ap_GetEnv( "REMOTE_ADDR" )
 
 //----------------------------------------------------------------//
 
@@ -44,6 +38,9 @@ return GetEnv( "REMOTE_ADDR" )
 #include <fcgi_stdio.h>
 
 extern char ** environ;
+
+static FCGX_Stream * g_in, * g_out, * g_err;
+static FCGX_ParamArray g_envp;
 
 static void PrintEnv(char *label, char **envp)
 {
@@ -56,17 +53,22 @@ static void PrintEnv(char *label, char **envp)
 
 HB_FUNC( FCGI_ACCEPT )
 {
-   hb_retnl( FCGI_Accept() );
+   hb_retnl( FCGX_Accept( &g_in, &g_out, &g_err, &g_envp ) );
+}
+
+HB_FUNC( AP_GETENV )
+{
+   hb_retc( FCGX_GetParam( hb_parc( 1 ), g_envp ) );
 }
 
 int mh_rputs( const char * szText )
 {
-   return FCGI_printf( "%s", szText );
+   return FCGX_FPrintF( g_out, "%s", szText );
 }
 
 HB_FUNC( PRINTF )
 {
-   FCGI_printf( "%s", hb_parc( 1 ) );
+   FCGX_FPrintF( g_out, "%s", hb_parc( 1 ) );
 }
 
 HB_FUNC( TEST )
@@ -76,11 +78,11 @@ HB_FUNC( TEST )
 
 HB_FUNC( AP_BODY )
 {
-   char * szMethod = getenv( "REQUEST_METHOD" );
+   char * szMethod = FCGX_GetParam( "REQUEST_METHOD", g_envp );
 
    if( ! strcmp( szMethod, "POST" ) ) 
    {
-      int iLen = atoi( getenv( "CONTENT_LENGTH" ) );
+      int iLen = atoi( FCGX_GetParam( "CONTENT_LENGTH", g_envp ) );
       char * bufp = hb_xgrab( iLen );
       fread( bufp, iLen, 1, stdin );
       hb_retclen( bufp, iLen );
