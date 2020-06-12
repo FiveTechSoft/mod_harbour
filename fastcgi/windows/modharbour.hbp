@@ -2,18 +2,27 @@
 -trace
 -info
 
-modharbour.prg
-main.prg
-exec.prg
+..\source\modharbour.prg
+..\source\main.prg
+..\source\exec.prg
 #headers.c
-pairs.prg
-pointers.c
-qout.c
-url.c
+..\source\pairs.prg
+..\source\pointers.c
+..\source\qout.c
+..\source\url.c
 
--lfcgi
--gtstd
+-llibfcgi
+-L.\win64
+-gtwin
 
--ldflag=@libs.txt
+-I..\include
 
+hbwin.hbc
+hbhpdf.hbc
+xhb.hbc
+hbct.hbc
 hbcurl.hbc
+hbnetio.hbc
+hbmzip.hbc
+hbziparc.hbc
+hbssl.hbc
