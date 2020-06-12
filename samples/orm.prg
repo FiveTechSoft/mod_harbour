@@ -3,9 +3,9 @@
    #include "c:\harbour\include\set.ch"
    #include "c:\harbour\include\hbdyn.ch"
 #else
-   #include "/home/user/harbour/include/hbclass.ch"
-   #include "/home/user/harbour/include/set.ch"
-   #include "/home/user/harbour/include/hbdyn.ch"
+   #include "/usr/include/harbour/hbclass.ch"
+   #include "/usr/include/harbour/set.ch"
+   #include "/usr/include/harbour/hbdyn.ch"
 #endif
 
 #define HB_VERSION_BITWIDTH  17
