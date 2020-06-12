@@ -11,3 +11,5 @@ https://fastcgi-archives.github.io/
 http://httpd.apache.org/mod_fcgid/
 
 http://httpd.apache.org/mod_fcgid/mod/mod_fcgid.html
+
+http://cgi.sourceforge.net/docs/fastcgi___cgi/examples/cgi_examples.html#fastcgi___cgi.examples.cgi_examples.hello_world
