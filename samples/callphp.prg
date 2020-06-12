@@ -1,7 +1,7 @@
 #ifdef __PLATFORM__WINDOWS
    #include "c:\harbour\contrib\hbcurl\hbcurl.ch"
 #else
-   #include "/home/user/harbour/contrib/hbcurl/hbcurl.ch"
+   #include "/usr/include/harbour/hbcurl.ch"
 #endif
 
 function Main()
