@@ -3,8 +3,8 @@
    #include "c:\harbour\contrib\hbhpdf\harupdf.ch"
 #else
    #ifdef __PLATFORM__UNIX
-      #include "/home/user/harbour/include/hbclass.ch"
-      #include "/home/user/harbour/contrib/hbhpdf/harupdf.ch"
+      #include "/usr/include/harbour/hbclass.ch"
+      #include "/usr/include/harbour/harupdf.ch"
    #else   
       #include "/Users/anto/harbour/include/hbclass.ch"
       #include "/Users/anto/harbour/contrib/hbhpdf/harupdf.ch"
