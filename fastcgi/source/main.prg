@@ -38,7 +38,7 @@
 // extern AP_GETENV, AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL, AP_HEADERSIN
 // extern AP_METHOD, AP_USERIP, AP_HEADERSOUTCOUNT, AP_HEADERSOUTKEY, AP_HEADERSOUTVAL
 // extern AP_HEADERSOUTSET, AP_HEADERSOUT, AP_RPUTS, AP_RWRITE, AP_SETCONTENTTYPE
-// extern PTRTOSTR, PTRTOUI, HB_URLDECODE
+extern PTRTOSTR, PTRTOUI, HB_URLDECODE
 extern RddList, hb_GtVersion, MemoLine, hb_HHasKey, hb_LibLoad, hb_LibFree, PtrToStr
 
 //----------------------------------------------------------------//
@@ -60,7 +60,6 @@ function Main()
             pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ), AP_Args() )
          else
             pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), AP_Args() )
-            // Execute( memoRead( cFileName ), AP_Args() )
          endif
          if hb_threadWait( pThread, Max( Val( AP_GetEnv( "MHTIMEOUT" ) ), 15 ) ) != 1
             hb_threadQuitRequest( pThread )

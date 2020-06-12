@@ -5,6 +5,7 @@
 modharbour.prg
 main.prg
 exec.prg
+#headers.c
 pairs.prg
 pointers.c
 qout.c
