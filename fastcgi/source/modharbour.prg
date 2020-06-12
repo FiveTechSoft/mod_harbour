@@ -90,6 +90,11 @@ HB_FUNC( AP_BODY )
       hb_retc( "" );   
 }
 
+HB_FUNC( SETEXITSTATUS )
+{
+   FCGI_SetExitStatus( hb_parni( 1 ) );   
+}
+
 #pragma ENDDUMP
 
 //----------------------------------------------------------------//
