@@ -6,7 +6,7 @@ LoadModule fcgid_module /usr/lib/apache2/modules/mod_fcgid.so
 <FilesMatch "\.(prg|hrb)$">
     SetHandler fcgid-script
     Options +ExecCGI
-    FcgidWrapper /home/anto/modharbour_fastcgi/modharbour
+    FcgidWrapper /usr/bin/harbour/modharbour
     Order allow,deny
     Allow from all
 </FilesMatch>
