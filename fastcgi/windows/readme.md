@@ -1,3 +1,5 @@
+Add these lines at the bottom of c:\Apache24\conf\httpd.conf
+
 ```
 LoadModule fcgid_module c:\Apache24\modules\mod_fcgid.so
 
