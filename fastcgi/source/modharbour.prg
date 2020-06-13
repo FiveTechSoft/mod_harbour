@@ -83,8 +83,8 @@ HB_FUNC( AP_BODY )
    if( ! strcmp( szMethod, "POST" ) ) 
    {
       int iLen = atoi( FCGX_GetParam( "CONTENT_LENGTH", g_envp ) );
-      char * bufp = hb_xgrab( iLen );
-      fread( bufp, iLen, 1, g_in );
+      char * bufp = hb_xgrab( iLen + 1 );
+      FCGX_GetStr( bufp, iLen, g_in );
       hb_retclen( bufp, iLen );
       hb_xfree( bufp );
    }
