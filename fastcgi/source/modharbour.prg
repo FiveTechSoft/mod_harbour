@@ -37,19 +37,8 @@ return ap_GetEnv( "REMOTE_ADDR" )
 #include <hbapi.h>
 #include <fcgi_stdio.h>
 
-extern char ** environ;
-
 static FCGX_Stream * g_in, * g_out, * g_err;
 static FCGX_ParamArray g_envp;
-
-static void PrintEnv(char *label, char **envp)
-{
-    printf("%s:<br>\n<pre>\n", label);
-    for ( ; *envp != NULL; envp++) {
-        printf("%s\n", *envp);
-    }
-    printf("</pre><p>\n");
-}
 
 HB_FUNC( FCGI_ACCEPT )
 {
@@ -69,11 +58,6 @@ int mh_rputs( const char * szText )
 HB_FUNC( PRINTF )
 {
    FCGX_FPrintF( g_out, "%s", hb_parc( 1 ) );
-}
-
-HB_FUNC( TEST )
-{
-   PrintEnv( "test", environ );
 }
 
 HB_FUNC( AP_BODY )
