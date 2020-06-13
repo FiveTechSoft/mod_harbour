@@ -15,7 +15,7 @@
 -L.\win64
 -gtwin
 
--I..\include
+-Iinclude
 
 hbwin.hbc
 hbhpdf.hbc
