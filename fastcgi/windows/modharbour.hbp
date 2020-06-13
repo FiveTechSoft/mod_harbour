@@ -1,10 +1,11 @@
+-omodharbour.exe
 -mt
 -trace
 -info
 #-hblib
 
-..\source\modharbour.prg
 ..\source\apache.prg
+..\source\modharbour.prg
 ..\source\exec.prg
 #headers.c
 ..\source\pairs.prg
