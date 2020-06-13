@@ -3,8 +3,8 @@
 -info
 #-hblib
 
+..\source\apache.prg
 ..\source\modharbour.prg
-..\source\main.prg
 ..\source\exec.prg
 #headers.c
 ..\source\pairs.prg
