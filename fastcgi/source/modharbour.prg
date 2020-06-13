@@ -84,7 +84,7 @@ HB_FUNC( AP_BODY )
    {
       int iLen = atoi( FCGX_GetParam( "CONTENT_LENGTH", g_envp ) );
       char * bufp = hb_xgrab( iLen );
-      fread( bufp, iLen, 1, stdin );
+      fread( bufp, iLen, 1, g_in );
       hb_retclen( bufp, iLen );
       hb_xfree( bufp );
    }
