@@ -3,8 +3,8 @@
 -info
 #-hblib
 
-..\source\apache.prg
 ..\source\modharbour.prg
+..\source\apache.prg
 ..\source\exec.prg
 #headers.c
 ..\source\pairs.prg
@@ -14,6 +14,9 @@
 
 -llibfcgi
 -L.\win64
+-llibcurl
+-llibeay32
+-llibcrypto
 -gtwin
 
 -Iinclude
