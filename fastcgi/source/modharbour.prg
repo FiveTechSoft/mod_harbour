@@ -1,5 +1,3 @@
-#define CRLF hb_osNewLine()
-
 //----------------------------------------------------------------//
 
 function AP_Args()
@@ -17,12 +15,6 @@ return ap_GetEnv( "SCRIPT_FILENAME" )
 function AP_Method()
 
 return ap_GetEnv( "REQUEST_METHOD" )
-
-//----------------------------------------------------------------//
-
-function GetCookies()
-
-return ap_GetEnv( "HTTP_COOKIE" )
 
 //----------------------------------------------------------------//
 
@@ -79,6 +71,80 @@ HB_FUNC( AP_BODY )
 HB_FUNC( SETEXITSTATUS )
 {
    FCGI_SetExitStatus( hb_parni( 1 ) );   
+}
+
+HB_FUNC( AP_HEADERSOUTSET )
+{
+   FCGX_FPrintF( g_out, hb_parc( 1 ) );
+   FCGX_FPrintF( g_out, "\r\n\r\n" );
+}
+
+HB_FUNC( AP_SETCONTENTTYPE )
+{
+}
+
+int ap_headers_in_count( void )
+{
+   return 0;
+}
+
+HB_FUNC( AP_HEADERSINCOUNT )
+{
+   hb_retni( ap_headers_in_count() );
+}
+
+int ap_headers_out_count( void )
+{
+   return 0;
+}
+
+HB_FUNC( AP_HEADERSOUTCOUNT )
+{
+   hb_retni( ap_headers_out_count() );
+}
+
+const char * ap_headers_in_key( int iKey )
+{
+   iKey = iKey;
+   return "";
+}
+
+HB_FUNC( AP_HEADERSINKEY )
+{
+   hb_retc( ap_headers_in_key( hb_parni( 1 ) ) );
+}
+
+const char * ap_headers_in_val( int iKey )
+{
+   iKey = iKey;
+   return "";
+}
+
+HB_FUNC( AP_HEADERSINVAL )
+{
+   hb_retc( ap_headers_in_val( hb_parni( 1 ) ) );
+}
+
+const char * ap_headers_out_key( int iKey )
+{
+   iKey = iKey;
+   return "";
+}
+
+HB_FUNC( AP_HEADERSOUTKEY )
+{
+   hb_retc( ap_headers_out_key( hb_parni( 1 ) ) );
+}
+
+const char * ap_headers_out_val( int iKey )
+{
+   iKey = iKey;
+   return "";
+}
+
+HB_FUNC( AP_HEADERSOUTVAL )
+{
+   hb_retc( ap_headers_out_val( hb_parni( 1 ) ) );
 }
 
 #pragma ENDDUMP

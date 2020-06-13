@@ -1,14 +1,16 @@
--omodharbour.exe
+-omodharbour
 -mt
 -trace
 -info
 #-hblib
 
 ..\source\apache.prg
-..\source\modharbour.prg
+..\source\cookies.prg
 ..\source\exec.prg
-#headers.c
+..\source\modharbour.prg
+..\source\headers.c
 ..\source\pairs.prg
+..\source\paths.prg
 ..\source\pointers.c
 ..\source\qout.c
 ..\source\url.c

@@ -34,11 +34,9 @@
    #include "../../harbour/contrib/rddads/rddads.hbx"
 #endif
 
-// extern MWRITE, MREAD, SHOWCONSOLE, AP_ARGS, AP_BODY, AP_FILENAME
-// extern AP_GETENV, AP_HEADERSINCOUNT, AP_HEADERSINKEY, AP_HEADERSINVAL, AP_HEADERSIN
-// extern AP_METHOD, AP_USERIP, AP_HEADERSOUTCOUNT, AP_HEADERSOUTKEY, AP_HEADERSOUTVAL
-// extern AP_HEADERSOUTSET, AP_HEADERSOUT, AP_RPUTS, AP_RWRITE, AP_SETCONTENTTYPE
-extern PTRTOSTR, PTRTOUI, HB_URLDECODE
+#ifdef __PLATFORM__WINDOWS
+   #include "..\windows\modharbour.hbx"
+#endif
 
 //----------------------------------------------------------------//
 
@@ -46,26 +44,29 @@ function Main()
 
    local cFileName, pThread
 
-   ErrorBlock( { | o | DoBreak( o ) } )
+   QOut( "modharbour.exe (c) The Harbour Project 2020" )
 
-   cFileName = AP_FileName()
+   ErrorBlock( { | o | DoBreak( o ) } )
    AddPPRules()
 
-   if File( cFileName )
-      hb_SetEnv( "PRGPATH",;
-                 SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
-      if Lower( Right( cFileName, 4 ) ) == ".hrb"
-         pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ), AP_Args() )
+   while FCGI_Accept() >= 0
+      printf( "Content-type: text/html" + CRLF + CRLF )
+      if File( cFileName := AP_FileName() )
+         hb_SetEnv( "PRGPATH",;
+                    SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
+         if Lower( Right( cFileName, 4 ) ) == ".hrb"
+            pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ), AP_Args() )
+         else
+            pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), AP_Args() )
+         endif
+         if hb_threadWait( pThread, Max( Val( AP_GetEnv( "MHTIMEOUT" ) ), 15 ) ) != 1
+            hb_threadQuitRequest( pThread )
+            SetExitStatus( 408 ) // request timeout
+         endif    
       else
-         pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), AP_Args() )
-      endif
-      if hb_threadWait( pThread, Max( Val( AP_GetEnv( "MHTIMEOUT" ) ), 15 ) ) != 1
-         hb_threadQuitRequest( pThread )
-	 SetExitStatus( 408 ) // request timeout
-      endif    
-   else
-      SetExitStatus( 404 ) // not found
-   endif   
+         SetExitStatus( 404 ) // not found
+      endif   
+   end
 
 return nil
 
