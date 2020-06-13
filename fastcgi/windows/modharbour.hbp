@@ -1,6 +1,7 @@
 -mt
 -trace
 -info
+#-hblib
 
 ..\source\modharbour.prg
 ..\source\main.prg
