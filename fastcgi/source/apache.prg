@@ -61,11 +61,10 @@ function Main()
       endif
       if hb_threadWait( pThread, Max( Val( AP_GetEnv( "MHTIMEOUT" ) ), 15 ) ) != 1
          hb_threadQuitRequest( pThread )
-	      ErrorLevel( 408 ) // request timeout
+	 SetExitStatus( 408 ) // request timeout
       endif    
-      InKey( 0.1 )
    else
-      ErrorLevel( 404 ) // not found
+      SetExitStatus( 404 ) // not found
    endif   
 
 return nil
