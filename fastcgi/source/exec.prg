@@ -23,15 +23,15 @@ function AddPPRules()
       endif 	 
    endif
 
-   __pp_addRule( hPP, "#xcommand ? [<explist,...>] => AP_RPuts( '<br>' [,<explist>] )" )
-   __pp_addRule( hPP, "#xcommand ?? [<explist,...>] => AP_RPuts( [<explist>] )" )
+   __pp_addRule( hPP, "#xcommand ? [<explist,...>] => MH_Echo( '<br>' [,<explist>] )" )
+   __pp_addRule( hPP, "#xcommand ?? [<explist,...>] => MH_Echo( [<explist>] )" )
    __pp_addRule( hPP, "#define CRLF hb_OsNewLine()" )
    __pp_addRule( hPP, "#xcommand TEXT <into:TO,INTO> <v> => #pragma __cstream|<v>:=%s" )
    __pp_addRule( hPP, "#xcommand TEXT <into:TO,INTO> <v> ADDITIVE => #pragma __cstream|<v>+=%s" )
    __pp_addRule( hPP, "#xcommand TEMPLATE [ USING <x> ] [ PARAMS [<v1>] [,<vn>] ] => " + ;
-                      '#pragma __cstream | AP_RPuts( InlinePrg( %s, [@<x>] [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )
+                      '#pragma __cstream | MH_Echo( InlinePrg( %s, [@<x>] [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )
    __pp_addRule( hPP, "#xcommand BLOCKS [ PARAMS [<v1>] [,<vn>] ] => " + ;
-                      '#pragma __cstream | AP_RPuts( ReplaceBlocks( %s, "{{", "}}" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )   
+                      '#pragma __cstream | MH_Echo( ReplaceBlocks( %s, "{{", "}}" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )' )   
    __pp_addRule( hPP, "#command ENDTEMPLATE => #pragma __endtext" )
    __pp_addRule( hPP, "#xcommand TRY  => BEGIN SEQUENCE WITH {| oErr | Break( oErr ) }" )
    __pp_addRule( hPP, "#xcommand CATCH [<!oErr!>] => RECOVER [USING <oErr>] <-oErr->" )
@@ -45,9 +45,9 @@ return nil
 
 function ExecuteHrb( oHrb, cArgs )
 
-   ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError ) ), Break( oError ) } )
+   ErrorBlock( { | oError | MH_Echo( GetErrorInfo( oError ) ), Break( oError ) } )
 
-return hb_HrbDo( oHrb, cArgs )
+return ( hb_HrbDo( oHrb, cArgs ), mh_Echo( "" ) ) // to end headers if there is no mh_Echo() 
 
 //----------------------------------------------------------------//
 
@@ -57,18 +57,20 @@ function Execute( cCode, ... )
    local cHBheaders1 := "~/harbour/include"
    local cHBheaders2 := "c:\harbour\include"
 
-   ErrorBlock( { | oError | AP_RPuts( GetErrorInfo( oError, @cCode ) ), Break( oError ) } )
+   ErrorBlock( { | oError | MH_Echo( GetErrorInfo( oError, @cCode ) ), Break( oError ) } )
 
    while lReplaced 
       lReplaced = ReplaceBlocks( @cCode, "{%", "%}" )
       cCode = __pp_process( hPP, cCode )
    end
 
-   oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-I" + cHBheaders1, "-I" + cHBheaders2,;
+   oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-q", "-I" + cHBheaders1, "-I" + cHBheaders2,;
                              "-I" + hb_GetEnv( "HB_INCLUDE" ), hb_GetEnv( "HB_USER_PRGFLAGS" ) )
    if ! Empty( oHrb )
       uRet = hb_HrbDo( hb_HrbLoad( 2, oHrb ), ... )
    endif
+
+   mh_Echo( "" ) // to end headers if there is no mh_Echo() 
 
 return uRet
 

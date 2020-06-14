@@ -8,7 +8,7 @@
 
 #include "hbhrb.ch"
 
-#xcommand ? [<explist,...>] => AP_RPuts( '<br>' [,<explist>] )
+#xcommand ? [<explist,...>] => MH_Echo( '<br>' [,<explist>] )
 
 #define CRLF hb_OsNewLine()
 
@@ -42,31 +42,37 @@
 
 function Main()
 
-   local cFileName, pThread
+   local cFileName, pThread, nRetCode
 
    QOut( "modharbour.exe (c) The Harbour Project 2020" )
 
    ErrorBlock( { | o | DoBreak( o ) } )
    AddPPRules()
 
-   while FCGI_Accept() >= 0
-      printf( "Content-type: text/html" + CRLF + CRLF )
-      if File( cFileName := AP_FileName() )
+   while ( nRetCode := FCGI_Accept() ) >= 0
+      mh_Header( "Content-type: text/html" )
+      if File( cFileName := mh_FileName() )
          hb_SetEnv( "PRGPATH",;
                     SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
          if Lower( Right( cFileName, 4 ) ) == ".hrb"
-            pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ), AP_Args() )
+            pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ), MH_Args() )
          else
-            pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), AP_Args() )
+            pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), MH_Args() )
          endif
-         if hb_threadWait( pThread, Max( Val( AP_GetEnv( "MHTIMEOUT" ) ), 15 ) ) != 1
+         if hb_threadWait( pThread, Max( Val( MH_GetEnv( "MHTIMEOUT" ) ), 15 ) ) != 1
             hb_threadQuitRequest( pThread )
             SetExitStatus( 408 ) // request timeout
          endif    
       else
          SetExitStatus( 404 ) // not found
-      endif   
+      endif
    end
+
+   QOut( "This is the modharbour.exe to be placed at c:\Apache24\bin" )
+
+   if nRetCode < 0 .and. ! Empty( hb_pValue( 1 ) ) .and. File( hb_pValue( 1 ) )
+      Execute( MemoRead( hb_pValue( 1 ) ) )
+   endif   
 
 return nil
 

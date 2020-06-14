@@ -10,7 +10,7 @@
 
 function PathUrl()
 
-   local cPath := AP_GetEnv( 'SCRIPT_NAME' )   
+   local cPath := MH_GetEnv( 'SCRIPT_NAME' )   
    local n     := RAt( '/', cPath )
         
 return Substr( cPath, 1, n - 1 )
@@ -35,7 +35,7 @@ return cPath
 
 function Include( cFile )
 
-   local cPath := AP_GetEnv( "DOCUMENT_ROOT" ) 
+   local cPath := MH_GetEnv( "DOCUMENT_ROOT" ) 
 
    hb_default( @cFile, '' )
    cFile = cPath + cFile   

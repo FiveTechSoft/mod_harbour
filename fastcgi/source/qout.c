@@ -2,11 +2,11 @@
 #include <hbapiitm.h>
 #include <hbvm.h>
 
-int mh_rputs( const char * szText );
+int echo( const char * szText );
 
 //----------------------------------------------------------------//
 
-HB_FUNC( AP_RPUTS )
+HB_FUNC( MH_ECHO )
 {
    int iParams = hb_pcount(), iParam;
 
@@ -20,7 +20,7 @@ HB_FUNC( AP_RPUTS )
          hb_vmPushNil();
          hb_vmPush( pItem );
          hb_vmFunction( 1 );
-         mh_rputs( hb_parc( -1 ) );
+         echo( hb_parc( -1 ) );
       }
       else if( HB_ISHASH( iParam ) || HB_ISARRAY( iParam ) )
       {
@@ -28,7 +28,7 @@ HB_FUNC( AP_RPUTS )
          hb_vmPushNil();
          hb_vmPush( pItem );
          hb_vmFunction( 1 );
-         mh_rputs( hb_parc( -1 ) );
+         echo( hb_parc( -1 ) );
       }
       else
       {
@@ -36,8 +36,8 @@ HB_FUNC( AP_RPUTS )
          HB_BOOL bFreeReq;
          char * buffer = hb_itemString( pItem, &nLen, &bFreeReq );
 
-         mh_rputs( buffer );
-         mh_rputs( " " ); 
+         echo( buffer );
+         echo( " " ); 
 
          if( bFreeReq )
             hb_xfree( buffer );

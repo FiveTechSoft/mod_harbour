@@ -1,26 +1,26 @@
 //----------------------------------------------------------------//
 
-function AP_Args()
+function MH_Args()
 
-return ap_GetEnv( "QUERY_STRING" )   
-
-//----------------------------------------------------------------//
-
-function AP_FileName()
-
-return ap_GetEnv( "SCRIPT_FILENAME" )
+return MH_GetEnv( "QUERY_STRING" )   
 
 //----------------------------------------------------------------//
 
-function AP_Method()
+function MH_FileName()
 
-return ap_GetEnv( "REQUEST_METHOD" )
+return MH_GetEnv( "SCRIPT_FILENAME" )
 
 //----------------------------------------------------------------//
 
-function AP_UserIP()
+function MH_Method()
 
-return ap_GetEnv( "REMOTE_ADDR" )
+return MH_GetEnv( "REQUEST_METHOD" )
+
+//----------------------------------------------------------------//
+
+function MH_UserIP()
+
+return MH_GetEnv( "REMOTE_ADDR" )
 
 //----------------------------------------------------------------//
 
@@ -29,30 +29,46 @@ return ap_GetEnv( "REMOTE_ADDR" )
 #include <hbapi.h>
 #include <fcgi_stdio.h>
 
-static FCGX_Stream * g_in, * g_out, * g_err;
-static FCGX_ParamArray g_envp;
+FCGX_Stream * g_in = NULL, * g_out = NULL, * g_err = NULL;
+FCGX_ParamArray g_envp = NULL;
+HB_BOOL bEcho = HB_FALSE;
 
 HB_FUNC( FCGI_ACCEPT )
 {
    hb_retnl( FCGX_Accept( &g_in, &g_out, &g_err, &g_envp ) );
 }
 
-HB_FUNC( AP_GETENV )
+HB_FUNC( MH_GETENV )
 {
    hb_retc( FCGX_GetParam( hb_parc( 1 ), g_envp ) );
 }
 
-int mh_rputs( const char * szText )
+int echo( const char * szText )
 {
-   return FCGX_FPrintF( g_out, "%s", szText );
+   if( ! bEcho )
+   {
+      bEcho = HB_TRUE;
+      if( g_out != NULL )
+         FCGX_FPrintF( g_out, "\r\n" );
+   }
+
+   int iRetCode = 0;
+
+   if( g_out != NULL )
+      iRetCode = FCGX_FPrintF( g_out, "%s", szText );
+   else
+      printf( "%s", szText );
+
+   return iRetCode;      
 }
 
-HB_FUNC( PRINTF )
+HB_FUNC( MH_HEADER )
 {
-   FCGX_FPrintF( g_out, "%s", hb_parc( 1 ) );
+   FCGX_FPrintF( g_out, "%s\r\n", hb_parc( 1 ) );
+   bEcho = HB_FALSE;
 }
 
-HB_FUNC( AP_BODY )
+HB_FUNC( MH_BODY )
 {
    char * szMethod = FCGX_GetParam( "REQUEST_METHOD", g_envp );
 
@@ -73,78 +89,36 @@ HB_FUNC( SETEXITSTATUS )
    FCGI_SetExitStatus( hb_parni( 1 ) );   
 }
 
-HB_FUNC( AP_HEADERSOUTSET )
-{
-   FCGX_FPrintF( g_out, hb_parc( 1 ) );
-   FCGX_FPrintF( g_out, "\r\n\r\n" );
-}
-
-HB_FUNC( AP_SETCONTENTTYPE )
-{
-}
-
-int ap_headers_in_count( void )
+int mh_headers_in_count( void )
 {
    return 0;
 }
 
-HB_FUNC( AP_HEADERSINCOUNT )
+HB_FUNC( MH_HEADERSINCOUNT )
 {
-   hb_retni( ap_headers_in_count() );
+   hb_retni( mh_headers_in_count() );
 }
 
-int ap_headers_out_count( void )
-{
-   return 0;
-}
-
-HB_FUNC( AP_HEADERSOUTCOUNT )
-{
-   hb_retni( ap_headers_out_count() );
-}
-
-const char * ap_headers_in_key( int iKey )
+const char * mh_headers_in_key( int iKey )
 {
    iKey = iKey;
    return "";
 }
 
-HB_FUNC( AP_HEADERSINKEY )
+HB_FUNC( MH_HEADERSINKEY )
 {
-   hb_retc( ap_headers_in_key( hb_parni( 1 ) ) );
+   hb_retc( mh_headers_in_key( hb_parni( 1 ) ) );
 }
 
-const char * ap_headers_in_val( int iKey )
+const char * mh_headers_in_val( int iKey )
 {
    iKey = iKey;
    return "";
 }
 
-HB_FUNC( AP_HEADERSINVAL )
+HB_FUNC( MH_HEADERSINVAL )
 {
-   hb_retc( ap_headers_in_val( hb_parni( 1 ) ) );
-}
-
-const char * ap_headers_out_key( int iKey )
-{
-   iKey = iKey;
-   return "";
-}
-
-HB_FUNC( AP_HEADERSOUTKEY )
-{
-   hb_retc( ap_headers_out_key( hb_parni( 1 ) ) );
-}
-
-const char * ap_headers_out_val( int iKey )
-{
-   iKey = iKey;
-   return "";
-}
-
-HB_FUNC( AP_HEADERSOUTVAL )
-{
-   hb_retc( ap_headers_out_val( hb_parni( 1 ) ) );
+   hb_retc( mh_headers_in_val( hb_parni( 1 ) ) );
 }
 
 #pragma ENDDUMP

@@ -9,17 +9,11 @@
 
 function GetCookies()
 
-   local cCookies := AP_GetEnv( "HTTP_COOKIE" )
+   local cCookies := MH_GetEnv( "HTTP_COOKIE" )
    local aCookies := hb_aTokens( cCookies, ";" )
    local cCookie, hCookies := {=>}
-   local hHeadersOut := AP_HeadersOut(), cCookieHeader
+   local cCookieHeader
 
-   if( hb_HHasKey( hHeadersOut, "Set-Cookie" ) )
-      cCookieHeader := hHeadersOut[ "Set-Cookie" ]
-      cCookieHeader := Left( cCookieHeader, At( ';', cCookieHeader )-1 )
-      AAdd( aCookies, cCookieHeader )
-   endif
-   
    for each cCookie in aCookies
       hb_HSet( hCookies, LTrim( SubStr( cCookie, 1, At( "=", cCookie ) - 1 ) ),;
                SubStr( cCookie, At( "=", cCookie ) + 1 ) )
@@ -54,7 +48,7 @@ function SetCookie( cName, cValue, nSecs, cPath, cDomain, lHttps, lOnlyHttp )
    // pending logical values for https y OnlyHttp
 
    // we send the cookie
-   AP_HeadersOutSet( "Set-Cookie", cCookie )
+   mh_Header( "Set-Cookie: " + cCookie )
 
 return nil
 

@@ -8,9 +8,9 @@
 
 //----------------------------------------------------------------//
 
-function AP_PostPairs( lUrlDecode )
+function MH_PostPairs( lUrlDecode )
 
-   local aPairs := hb_ATokens( AP_Body(), "&" )
+   local aPairs := hb_ATokens( MH_Body(), "&" )
    local cPair, uPair, hPairs := {=>}
    local nTable, aTable, cKey, cTag	
 
@@ -39,9 +39,9 @@ return hPairs
 
 //----------------------------------------------------------------//
 
-function AP_GetPairs()
+function MH_GetPairs()
 
-   local aPairs := hb_ATokens( AP_Args(), "&" )
+   local aPairs := hb_ATokens( MH_Args(), "&" )
    local cPair, aPair, hPairs := {=>} 
 
    for each cPair in aPairs
