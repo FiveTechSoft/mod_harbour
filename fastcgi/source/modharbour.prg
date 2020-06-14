@@ -68,6 +68,12 @@ HB_FUNC( MH_HEADER )
    bEcho = HB_FALSE;
 }
 
+HB_FUNC( MH_SETCONTENTTYPE )
+{
+   FCGX_FPrintF( g_out, "%s %s\r\n", "Content-type:", hb_parc( 1 ) );
+   bEcho = HB_FALSE;
+}
+
 HB_FUNC( MH_BODY )
 {
    char * szMethod = FCGX_GetParam( "REQUEST_METHOD", g_envp );
