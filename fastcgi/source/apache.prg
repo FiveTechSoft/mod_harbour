@@ -74,7 +74,7 @@ function Main()
       if ! Empty( hb_pValue( 1 ) ) .and. File( hb_pValue( 1 ) )
          Execute( MemoRead( hb_pValue( 1 ) ) )
       else
-         QOut( "syntax: modharbour.exe name.prg (displays the output)")
+         QOut( "syntax: modharbour.exe name.prg (displays the output)" )
       endif      
    endif   
 

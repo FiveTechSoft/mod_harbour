@@ -27,6 +27,7 @@ return MH_GetEnv( "REMOTE_ADDR" )
 #pragma BEGINDUMP
 
 #include <hbapi.h>
+#include <hbapigt.h>
 #include <fcgi_stdio.h>
 
 FCGX_Stream * g_in = NULL, * g_out = NULL, * g_err = NULL;
@@ -57,20 +58,26 @@ int echo( const char * szText )
    if( g_out != NULL )
       iRetCode = FCGX_FPrintF( g_out, "%s", szText );
    else
-      printf( "%s", szText );
+      hb_gtOutStd( szText, strlen( szText ) );
 
    return iRetCode;      
 }
 
 HB_FUNC( MH_HEADER )
 {
-   FCGX_FPrintF( g_out, "%s\r\n", hb_parc( 1 ) );
+   if( g_out != NULL )
+      FCGX_FPrintF( g_out, "%s\r\n", hb_parc( 1 ) );
+   else
+      hb_gtOutStd( hb_parc( 1 ), hb_parclen( 1 ) );   
    bEcho = HB_FALSE;
 }
 
 HB_FUNC( MH_SETCONTENTTYPE )
 {
-   FCGX_FPrintF( g_out, "%s %s\r\n", "Content-type:", hb_parc( 1 ) );
+   if( g_out != NULL )
+      FCGX_FPrintF( g_out, "%s %s\r\n", "Content-type:", hb_parc( 1 ) );
+   else
+      printf( "%s", hb_parc( 1 ) );   
    bEcho = HB_FALSE;
 }
 
