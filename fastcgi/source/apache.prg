@@ -44,7 +44,7 @@ function Main()
 
    local cFileName, pThread, nRetCode
 
-   QOut( "modharbour.exe (c) The Harbour Project 2020" )
+   QQOut( "modharbour.exe (c) The Harbour Project 2020" )
 
    ErrorBlock( { | o | DoBreak( o ) } )
    AddPPRules()
@@ -68,10 +68,14 @@ function Main()
       endif
    end
 
-   QOut( "This is the modharbour.exe to be placed at c:\Apache24\bin" )
+   QOut( "This is the server to be placed at c:\Apache24\bin" )
 
-   if nRetCode < 0 .and. ! Empty( hb_pValue( 1 ) ) .and. File( hb_pValue( 1 ) )
-      Execute( MemoRead( hb_pValue( 1 ) ) )
+   if nRetCode < 0 
+      if ! Empty( hb_pValue( 1 ) ) .and. File( hb_pValue( 1 ) )
+         Execute( MemoRead( hb_pValue( 1 ) ) )
+      else
+         QOut( "syntax: modharbour.exe name.prg (displays the output)")
+      endif      
    endif   
 
 return nil
