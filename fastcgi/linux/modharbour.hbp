@@ -2,14 +2,16 @@
 -trace
 -info
 
-modharbour.prg
-main.prg
-exec.prg
-#headers.c
-pairs.prg
-pointers.c
-qout.c
-url.c
+..\source\apache.prg
+..\source\cookies.prg
+..\source\exec.prg
+..\source\modharbour.prg
+..\source\headers.c
+..\source\pairs.prg
+..\source\paths.prg
+..\source\pointers.c
+..\source\qout.c
+..\source\url.c
 
 -lfcgi
 -gtstd
