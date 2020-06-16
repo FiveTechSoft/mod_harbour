@@ -19,3 +19,4 @@
 -ldflag=@libs.txt
 
 hbcurl.hbc
+hbssl.hbc
