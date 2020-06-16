@@ -36,6 +36,8 @@
 
 #ifdef __PLATFORM__WINDOWS
    #include "..\windows\modharbour.hbx"
+#else
+   #include "../linux/modharbour.hbx"   
 #endif
 
 //----------------------------------------------------------------//
