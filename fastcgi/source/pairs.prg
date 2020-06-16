@@ -41,7 +41,7 @@ return hPairs
 
 function MH_GetPairs()
 
-   local aPairs := hb_ATokens( MH_Args(), "&" )
+   local aPairs := hb_ATokens( MH_Query(), "&" )
    local cPair, aPair, hPairs := {=>} 
 
    for each cPair in aPairs

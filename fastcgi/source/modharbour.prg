@@ -1,6 +1,6 @@
 //----------------------------------------------------------------//
 
-function MH_Args()
+function MH_Query()
 
 return MH_GetEnv( "QUERY_STRING" )   
 

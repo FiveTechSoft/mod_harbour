@@ -1,2 +1,3 @@
 extern mh_header
 extern mh_echo
+extern mh_query

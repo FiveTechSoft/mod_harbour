@@ -57,9 +57,9 @@ function Main()
          hb_SetEnv( "PRGPATH",;
                     SubStr( cFileName, 1, RAt( "/", cFileName ) + RAt( "\", cFileName ) - 1 ) )
          if Lower( Right( cFileName, 4 ) ) == ".hrb"
-            pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ), MH_Args() )
+            pThread = hb_threadStart( @ExecuteHrb(), hb_HrbLoad( 1, cFileName ), MH_Query() )
          else
-            pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), MH_Args() )
+            pThread = hb_threadStart( @Execute(), MemoRead( cFileName ), MH_Query() )
          endif
          if hb_threadWait( pThread, Max( Val( MH_GetEnv( "MHTIMEOUT" ) ), 15 ) ) != 1
             hb_threadQuitRequest( pThread )
