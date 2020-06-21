@@ -1,6 +1,6 @@
 function Main()
 
-   local oInstance, cArgs := AP_Args(), cInfo := "", aInfo, n
+   local oInstance, cArgs := mh_Query(), cInfo := "", aInfo, n
 
    GetNew()
    TBrowseNew()
