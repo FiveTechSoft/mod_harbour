@@ -2,6 +2,6 @@
 
 function Test()
 
-   AP_RPuts( "Hello world from a .hrb file" )
+   mh_Echo( "Hello world from a .hrb file" )
 
 return nil
