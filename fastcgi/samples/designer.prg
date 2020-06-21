@@ -13,7 +13,7 @@ function Main()
       USE ( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf" ) 
       APPEND BLANK
       field->Id = DToS( Date() ) + StrTran( Time(), ":", "" )
-      field->code = AP_Body()
+      field->code = mh_Body()
       ?? field->Id
       USE
       return nil 
