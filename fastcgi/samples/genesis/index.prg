@@ -112,10 +112,10 @@ function Controller( cRequest )
            cRequest, "home" ) )
 
    do case   
-      case AP_Method() == "GET"
+      case mh_Method() == "GET"
          AP_RPuts( View( "default" ) )
 
-      case AP_Method() == "POST"
+      case mh_Method() == "POST"
          do case
             case cAction == "save"
                  Save()
