@@ -1,6 +1,6 @@
 function Main()
 
-   local cArgs := AP_Args(), nRecNo, nEdit
+   local cArgs := mh_Query(), nRecNo, nEdit
 
    USE ( hb_GetEnv( "PRGPATH" ) + "/data/customer.dbf" ) SHARED
    
