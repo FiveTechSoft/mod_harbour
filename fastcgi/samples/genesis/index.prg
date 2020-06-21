@@ -113,7 +113,7 @@ function Controller( cRequest )
 
    do case   
       case mh_Method() == "GET"
-         AP_RPuts( View( "default" ) )
+         mh_Echo( View( "default" ) )
 
       case mh_Method() == "POST"
          do case
