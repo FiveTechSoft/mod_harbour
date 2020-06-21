@@ -2,7 +2,7 @@
 
 function Main()
 
-   local cArgs := AP_Args()
+   local cArgs := mh_Query()
 
    ?? View( "default" )
 
