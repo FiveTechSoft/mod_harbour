@@ -9,7 +9,7 @@ function Main()
                   { "CODE", "M", 10, 0 } } )
    endif
 
-   if AP_Method() == "POST"
+   if mh_Method() == "POST"
       USE ( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf" ) 
       APPEND BLANK
       field->Id = DToS( Date() ) + StrTran( Time(), ":", "" )
