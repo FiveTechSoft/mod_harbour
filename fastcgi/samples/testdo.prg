@@ -4,7 +4,7 @@ function Main()
 
    local hValues, cFunction, aParams, cParams := "(" 
 
-   hb_jsonDecode( AP_Body(), @hValues )
+   hb_jsonDecode( mh_Body(), @hValues )
 
    if ! hb_HHasKey( hValues, "function" )
       return nil
