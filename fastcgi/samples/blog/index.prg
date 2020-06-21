@@ -2,7 +2,7 @@ static cContent
 
 function Main()
 
-   Controller( AP_Args() )
+   Controller( mh_Query() )
 
 return nil
 
