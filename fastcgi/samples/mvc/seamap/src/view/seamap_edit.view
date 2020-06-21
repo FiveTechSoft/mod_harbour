@@ -1,0 +1,40 @@
+<html>
+      <head>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      </head>
+      <body>
+	  
+		<form method="POST" action="{{ Route( 'seamap' ) }}"  >	
+
+			<table>
+
+				<tr>
+					<th>FieldName</th>
+					<th>Value</th>
+				</tr>
+				
+				<?prg 
+					local hData := PValue(1)
+					local cHtml := ''
+					local n
+					
+  			      for n = 1 to Len( hData[ "fields" ] )
+					   cHtml += "<tr>" + CRLF
+					   cHtml += "<td>" + hData[ "fields" ][ n ] + "</td>" + CRLF
+					   cHtml += "<td><input name='" + hData[ "fields" ][ n ] + "' type='text' value='" + hData[ "values" ][ n ] + "'></td>" + CRLF
+					   cHtml += "</tr>" + CRLF
+				   next
+					
+					cHtml += "<input type='text' name='recno' id='recno' value='" + AllTrim( Str( hData[ "recno" ] ) ) + "' hidden>"
+					
+					return cHtml																
+				?>
+				
+			</table>			
+			<input type='submit' name ='action' value='save'>
+			<input type='submit' name ='action' value='default'>					
+	
+		</form>						   
+
+	  </body>
+</html>

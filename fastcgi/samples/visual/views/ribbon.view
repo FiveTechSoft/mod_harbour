@@ -1,0 +1,307 @@
+<style>
+   .ribbon{
+      border:0px;
+      background-color: blue;
+      height: 90px;
+      width:100%;
+      overflow-x:hidden;
+      overflow-y: hidden;
+   }
+   .panel{
+      background: linear-gradient(white,lightgray);
+      height: 75px;
+      width:100%;
+      visibility: hidden;
+      position: absolute;
+      font-family: Verdana;
+   }
+   .panel.active{
+      visibility: visible;
+   }
+   .tblpanel{
+      top:0;
+      height:30px;
+   }
+   .tblpanel.tr{
+      top:0;
+      height:30px;
+   }   
+   .rbnbutton{
+      background: linear-gradient(white,lightgray);
+      height:100%;
+      width:50px;
+      padding:10px;
+      padding-left:15px;
+      text-align:center;
+   }
+   .rbnbutton:hover{
+      background: linear-gradient(lightgray,lightgray);
+   }
+   .rbnbutton.harbour{
+      padding-left:4px;
+      padding-right:20px;
+   }
+   ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: blue;
+   }
+   li {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 8px;
+      padding-left:20px;
+      padding-right:20px;
+      font-family: Verdana;
+      cursor:pointer;
+   }
+   li:hover {
+      background-color:lightblue;
+      color:blue;
+   }
+   li.active {
+      background-color:white;
+      color:blue;
+   }
+   li:last-child{
+      float:right;
+   }
+   li:last-child:hover{
+      color:blue;
+   }
+  </style>
+ 
+   <div class="ribbon">
+      <ul>
+         <li id="#file" onclick="SelTopItem(this)">File</li>
+         <li id="#edit" onclick="SelTopItem(this)">Edit</li>
+         <li id="#project" onclick="SelTopItem(this)">Project</li>
+         <li id="#components" class="active" onclick="SelTopItem(this)">Components</li>
+         <li id="#windows" onclick="SelTopItem(this)">Windows</li>
+         <li id="#help" onclick="SelTopItem(this)">Help</li>
+         <li onclick="lZoom?RestScreen():FullScreen()" title="Full"><i class="far fa-square" style="color:white;font-size:12px;padding:3px;"></i></li>
+      </ul>
+      
+      <div id="file" class="panel">
+         <table class="tblpanel">
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="rbnbutton" onclick="OpenFile()">
+                        <i class="far fa-file-alt" style="color:black;font-size:20px;padding:9px;"></i>Open
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" onclick="CloseFile()">
+                        <i class="far fa-window-close" style="color:black;font-size:20px;padding:9px;"></i>Close
+                     </div>
+                  </td>
+               </tr>
+            </tbody>               
+         </table>
+      </div>
+
+      <div id="edit" class="panel">
+         <table>
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="rbnbutton" onclick="GotoLine()">
+                        <i class="fas fa-indent" style="color:black;font-size:20px;padding:9px;"></i>Line
+                     </div>
+                  </td>
+               </tr>
+            </tbody>               
+         </table>
+      </div>
+
+      <div id="project" class="panel">
+         <table>
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="rbnbutton" onclick="Run()">
+                        <i class="fas fa-bolt" style="color:black;font-size:20px;padding:9px;"></i>Run
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" onclick="SaveJson()">
+                        <i class="fas fa-cloud-upload-alt" style="color:black;font-size:20px;padding:7px;"></i>Save
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" onclick="AddEdit()">
+                        <i class="fas fa-cog" style="color:black;font-size:20px;padding:7px;"></i>Prefs
+                     </div>
+                  </td>
+               </tr>
+            </tbody>               
+         </table>
+      </div>
+
+      <div id="components" class="panel active">
+         <table>
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="rbnbutton" onclick="AddLabel()">
+                        <i class="fas fa-font" style="color:black;font-size:20px;padding:7px;"></i>Label
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" onclick="AddEdit()">
+                        <i class="fas fa-edit" style="color:black;font-size:20px;padding:7px;"></i>Edit
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" onclick="AddButton()">
+                        <i class="fas fa-square" style="color:black;font-size:20px;padding:7px;"></i>Button
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" onclick="AddCheckbox()">
+                        <i class="far fa-check-square" style="color:black;font-size:20px;padding:7px;"></i>Check
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" onclick="AddListbox()">
+                        <i class="fas fa-bars" style="color:black;font-size:20px;padding:7px;"></i>List
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" onclick="AddImage()">
+                        <i class="far fa-image" style="color:black;font-size:20px;padding:7px;"></i>Image
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" onclick="GoUp()">
+                        <i class="fas fa-arrow-up" style="color:black;font-size:20px;padding:7px;"></i>Up
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" onclick="GoDown()">
+                        <i class="fas fa-arrow-down" style="color:black;font-size:20px;padding:7px;"></i>Down
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" onclick="GoLeft()">
+                        <i class="fas fa-arrow-left" style="color:black;font-size:20px;padding:7px;"></i>Left
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" onclick="GoRight()">
+                        <i class="fas fa-arrow-right" style="color:black;font-size:20px;padding:7px;"></i>Right
+                     </div>
+                  </td>
+                  <td>   
+                     <div class="rbnbutton" onclick="Remove()">
+                        <i class="fas fa-times" style="color:black;font-size:20px;padding:7px;"></i>Del
+                     </div>
+                  </td>
+               </tr>
+            </tbody>
+         </table>         
+      </div>
+
+      <div id="windows" class="panel">
+         <table>
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="rbnbutton" onclick="ShowForm()">
+                        <i class="fas fa-vector-square" style="color:black;font-size:20px;padding:9px;"></i>Form
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton harbour" onclick="ShowInspector()">
+                        <i class="fas fa-eye" style="color:black;font-size:20px;padding:8px;margin-left:10px;"></i>Inspect
+                     </div>
+                  </td>
+               </tr>
+            </tbody>               
+         </table>
+      </div>
+
+      <div id="help" class="panel">
+         <table>
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="rbnbutton" onclick="location.href='https://fivetechsoft.github.io/mod_harbour/'">
+                        <i class="fas fa-home" style="color:black;font-size:20px;padding:9px;"></i>Home
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" onclick="location.href='https://app.slack.com/client/TJH5YU202/CJUHF8SBX'">
+                        <i class="far fa-comments" style="color:black;font-size:20px;padding:9px;"></i>Chat
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" onclick="location.href='http://forums.fivetechsupport.com/viewforum.php?f=45&start=0'">
+                        <i class="far fa-edit" style="color:black;font-size:20px;padding:8px;"></i>Forum
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" onclick="location.href='https://github.com/FiveTechSoft/mod_harbour/wiki'">
+                        <i class="fas fa-book" style="color:black;font-size:20px;padding:8px;"></i>Wiki
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton" onclick="location.href='https://github.com/FiveTechSoft/mod_harbour'">
+                        <i class="fab fa-github" style="color:black;font-size:20px;padding:8px;"></i>Repo
+                     </div>
+                  </td>
+                  <td>
+                     <div class="rbnbutton harbour" onclick="location.href='https://harbour.github.io/'">
+                        <i class="fas fa-anchor" style="color:black;font-size:20px;padding:8px;margin-left:10px;"></i>
+                        Harbour
+                     </div>
+                  </td>
+               </tr>
+            </tbody>               
+         </table>
+      </div>
+   </div>
+
+   <script>
+      var elem = document.documentElement;
+      var lZoom = false;
+
+      function SelTopItem( o )
+      {
+         $( $( o ).attr( "id" ) ).addClass( "active" );
+         $( $( o ).attr( "id" ) ).siblings().removeClass( "active" );
+         $( o ).addClass( "active" );
+         $( o ).siblings().removeClass( "active" );
+      }  
+
+      function FullScreen() {
+         if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+         } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen();
+         } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+            elem.webkitRequestFullscreen();
+         } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen();
+         }            
+         lZoom = true;
+      } 
+         
+      function RestScreen() {   
+         if (document.exitFullscreen) {
+            document.exitFullscreen();
+         } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+         } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+         } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+         }
+         lZoom = false;
+      }      
+   </script>

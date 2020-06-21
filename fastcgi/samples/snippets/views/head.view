@@ -1,0 +1,33 @@
+<html>
+
+<head>
+  <title>mod_harbour snippets</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, shrink-to-fit=no">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
+   <script src="https://fivetechsoft.github.io/xcloud/source/js/xcloud.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+   <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+
+   <style>
+   </style>
+
+   <script>
+      function Save()
+      {
+          var o = new Object();
+      
+          o[ 'source' ] = editor.getValue();
+          console.log( 'PARAM', o );
+                
+          $.post( "id.prg", o )
+            .done( function( data ) { console.log( 'DONE', data ); location.href="id.prg?" + data; } )
+            .fail( function( data ) { console.log( 'ERROR', data ); } ); 
+      }
+   </script>  
+</head>

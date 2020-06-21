@@ -1,0 +1,25 @@
+<li data-role="list-divider">Usuarios</li>
+<?prg
+
+	LOCAL aDat 	:= hb_PValue(1)
+	LOCAL nLen 	:= len ( aDat )
+	LOCAL cHtml := ''
+	LOCAL nI 
+	
+	FOR nI :=  1 TO nLen
+	
+		aReg := aDat[nI]
+	
+		cHtml += '<li>'
+		cHtml += '  <a href="#">'
+		cHtml += '    <img src="' + aReg[ 'image' ] + '"/>'
+		cHtml += '    <h3>' + aReg[ 'name' ] + '</h3>'
+		cHtml += '    <p>' + aReg[ 'dpt' ] + '</p>'
+		cHtml += '  </a>'
+		cHtml += '  <a href="#" title="Titles are accessible">Another split list link</a>'
+		cHtml +=  '</li>'
+		
+	NEXT
+	
+	RETURN cHtml	
+?>

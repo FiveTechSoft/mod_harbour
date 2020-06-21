@@ -1,0 +1,27 @@
+{{View("menu")}}
+
+<section class="banner-section">
+</section>
+
+<section class="post-content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 post-title-block">
+               
+                <h1 class="text-center">mod_harbour blog example</h1>
+                <ul class="list-inline text-center">
+                    <li>Author |</li>
+                    <li>Category |</li>
+                    <li>Date |</li>
+                </ul>
+            </div>
+
+            {{View( GetContent() )}}
+
+            {{View( "right" )}}
+       </div>  
+
+    </div> <!-- /container -->
+</section>
+
+{{View( "footer" )}}

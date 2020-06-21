@@ -1,0 +1,118 @@
+      <style>
+         .inspector{
+            box-shadow:10px 10px 10px darkgray, 0px 0px 10px darkgray;
+            top:170px;
+            left:1500px;
+            width:280px;
+            height:400px;
+            position:absolute; 
+            background: lightgray; 
+            border-radius: 5px;
+         }  
+         .table_inspector {
+            width:880px;
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-family: Arial;         
+         }
+         .table_inspector th {
+            padding:4px;
+            border: 1px solid black;
+            background-color:white;
+            border-radius: 5px;
+         }
+         .table_inspector tr {
+            padding:4px;
+         }
+         .table_inspector td {
+            border: 1px solid black;
+            width:50%;
+            padding-left:0px;         
+         }
+         .table_inspector .left {
+            border: 1px solid black;
+            width:50%;
+            padding-left:10px;
+            padding-right:10px;         
+         }   
+      </style>
+
+      <div id="inspector" class="inspector">
+         <table class="table_inspector" style="width:100%">
+            <tr>
+               <th>Property</th>
+               <th>Value</th>
+            </tr>
+            <tr>
+               <td class="left">id</td>
+               <td class="right"><input id="id" type="text" value="" style="padding:2px;width:100%"></td>
+            </tr>
+            <tr>
+               <td class="left">top</td>
+               <td><input id="top" type="text" value="0" style="padding:2px;width:100%"></td>
+            </tr>
+            <tr>
+               <td class="left">left</td>
+               <td><input id="left" type="text" value="0" style="padding:2px;width:100%"></td>
+            </tr>
+            <tr>
+               <td class="left">width</td>
+               <td><input id="width" type="text" value="0" style="padding:2px;width:100%"></td>
+            </tr>
+            <tr>
+               <td class="left">height</td>
+               <td><input id="height" type="text" value="0" style="padding:2px;width:100%"></td>
+            </tr>
+            <tr>
+               <td class="left">prompt</td>
+               <td><input id="prompt" type="text" value="" style="padding:0px;padding-right:2px;width:100%">
+               <button id="promptsel" style="position:absolute;background-color:lightgray;width:18px;right:3px;height:17;"></button></td>
+            </tr>
+            <tr>
+               <td class="left">font-family</td>
+               <td><input id="fontfamily" type="text" value="" style="width:100%;padding:2px"></td>
+            </tr>
+            <tr>
+               <td class="left">font-size</td>
+               <td><input id="fontsize" type="text" value="" style="width:100%;padding:2px"></td>
+            </tr>
+            <tr>
+               <td class="left">color</td>
+               <td><input id="color" type="color" value="#000000" style="width:100%;padding:2px"></td>
+            </tr>
+            <tr>
+               <td class="left">bgcolor</td>
+               <td><input id="bgcolor" type="color" value="#000000" style="width:100%;padding:2px"></td>
+            </tr>
+            <tr>
+               <th>Event</th>
+               <th>Code</th>
+            </tr>            
+            <tr>
+               <td class="left">onclick</td>
+               <td><input id="onclick" type="text" value="" style="padding:2px;width:100%"></td>
+            </tr>
+            <tr>
+               <td class="left">onfocus</td>
+               <td><input id="onfocus" type="text" value="" style="padding:2px;width:100%"></td>
+            </tr>
+            <tr>
+               <td class="left">onfocusout</td>
+               <td><input id="onfocusout" type="text" value="" style="padding:2px;width:100%"></td>
+            </tr>
+         </table>
+         <i onclick="$(this).parent().css( 'visibility', 'hidden' )" class="fas fa-times" 
+            style="position:absolute;right:11px;top:7px;cursor:pointer;"></i>
+      </div>
+      <script>
+         $( "#inspector" ).draggable();
+
+         $( "#promptsel" ).css( "top",  $( "#prompt" ).parent().position().top + 4 );
+         $( "#color" ).on( "input", function(e){ oCtrl.css( "color", $( "#color" ).val() ) } );
+         $( "#bgcolor" ).on( "input", function(e){ oCtrl.css( "backgroundColor", $( "#bgcolor" ).val() ) } );
+
+      function ShowInspector()
+      {
+         $( "#inspector" ).css( "visibility", "visible" );
+      }         
+      </script> 

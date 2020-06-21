@@ -1,0 +1,111 @@
+body {
+
+	background: url( './images/sea.jpg');
+	background-size: cover ; 
+
+}
+
+th {
+	background-color: #6f707d;
+	cursor:default;
+    color: white;
+    padding: 5px;
+    border: 1px solid black;	
+}
+
+td {
+   border: 1px solid black;
+   border-collapse: collapse;
+   padding: 3px;
+  
+}
+
+tr:hover {
+	background-color: #b0c4ff;
+	cursor:pointer;
+}
+
+
+#mytable {
+   width: 100%;
+}
+
+form {
+	margin:0px;
+}
+
+.btn_grid {
+	border: 0px;
+	background-color:transparent;
+	margin:2px;
+}
+
+
+.mybtn {
+	padding: 5px;
+    width: 80px;
+}
+
+.mybtn:hover{
+	background-color: #6f707d;
+	color:white;
+}
+
+.mybtn_add {
+	float: right;
+}
+
+.mybtn_edit {
+	float: left;
+	margin-right: 10px;	
+}
+
+.myinput {
+	padding: 1px;
+}
+
+
+#header {
+
+	margin: 10px;
+    border: 1px solid #353539;
+    padding: 10px;
+	box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.59);
+    background-color: #7ba9d0;
+	border-top: 1px solid white;
+	border-left: 1px solid white;
+	height: 70px;
+	display: flex;
+    align-items:center;
+}
+
+#logo {
+	height: 50px;
+}
+
+#header > span {
+
+    font-size: 27px;
+    font-weight: bold;
+    color: white;
+    margin-left: 20px;
+    display: inline;
+    font-family: serif;
+}
+
+#content {
+
+	position: absolute;
+    padding: 10px;
+    top: 95px;
+    bottom: 10px !important;
+    overflow: auto;
+    right: 10px;
+    left: 10px;
+    background-color: #e0e0e0;;
+	box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.59);
+	margin-left: auto;
+    margin-right: auto;
+	width:80%
+	
+}

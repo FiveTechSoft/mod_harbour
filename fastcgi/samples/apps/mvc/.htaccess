@@ -1,0 +1,28 @@
+# --------------------------------------------------------------------------
+# CONFIGURACION RUTAS PROGRAMA
+# --------------------------------------------------------------------------
+SetEnv APP_TITLE           "MVC"
+SetEnv PATH_URL            "/modharbour_samples/apps/mvc"
+SetEnv PATH_APP            "/modharbour_samples/apps/mvc"
+SetEnv PATH_DATA           "/modharbour_samples/apps/data"
+
+
+# --------------------------------------------------------------------------
+# Impedir que lean los ficheros del directorio
+# --------------------------------------------------------------------------
+Options All -Indexes
+
+
+# --------------------------------------------------------------------------
+# Pagina por defectos
+# --------------------------------------------------------------------------
+DirectoryIndex main.prg index.prg
+
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ index.prg/$1 [L]
+</IfModule>
+
+#RewriteRule . /index.prg [L]

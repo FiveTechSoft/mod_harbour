@@ -1,0 +1,94 @@
+{{ View( 'notes_header.view' ) }}
+
+<body>
+
+	{{ View( 'notes_nav.view' ) }}	
+   
+	<div class="container">
+	   
+		<?prg 
+		
+			local pMsg := pvalue(2)						
+
+			if Valtype( pMsg ) == 'H'
+			
+				if pMsg[ 'success' ]	
+					retu '<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;' + pMsg[ 'msg' ] + '</div>'	
+				else
+					retu '<div class="alert alert-danger"><span class="glyphicon glyphicon-alert"></span>&nbsp;&nbsp;' + pMsg[ 'msg' ] + '</div>'	
+				endif
+			
+			endif
+			
+			retu ''
+		?>
+		
+		<div class="row mt40">
+		
+			<div class="col-md-10">
+				<h2><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Notes list</h2>
+			</div>
+		   
+			<div class="col-md-2">
+				<h2><a href="{{ App_Url() + '/new'}}" class="btn btn-danger"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Add Note</a></h2>
+			</div>	 		   
+		   
+					
+			<table class="table table-bordered table-hover" id="laravel_crud">
+				<thead>
+					<tr>
+						<th style="text-align:center;">Recno</th>
+						<th>Title</th>
+						<th>Description</th>
+						<th style="text-align:center;">Last Updated</th>
+						<th colspan="2" style="text-align:center;">Action</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+			   
+					<?prg 
+						
+						LOCAL aRows	:= hb_PValue(1)
+						LOCAL nLen 	:= len ( aRows )
+						LOCAL cHtml := ''
+						LOCAL aReg
+						
+						FOR nI := 1 TO nLen
+						
+							aReg := aRows[ nI ]
+							
+							cHtml += '<tr>'
+							
+							cHtml += '<td style="text-align:center;">' + ltrim(str( aReg[ 'recno' ])) + '</td>'
+							cHtml += '<td>' + aReg[ 'title' ] + '</td>'
+							cHtml += '<td>' + aReg[ 'note' ] + '</td>'
+							cHtml += '<td style="text-align:center;">' + aReg[ 'update' ] + '</td>'
+							
+							cHtml += '<td><a href="' + App_Url() + '/edit/' + ltrim(str(aReg[ 'recno' ])) + '" '
+							cHtml += 'class="btn btn-primary btn_center"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit</a></td>'
+							cHtml += '<td><form action="' + App_Url() + '/delete' + '" method="post" onsubmit="return confirm( 123)"/>'
+							cHtml += '<input name="recno" type="hidden" value="' + ltrim(str(aReg[ 'recno' ])) + '" />'
+							cHtml += '<button class="btn btn-danger btn_center" type="submit"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete</button>'
+							cHtml += '</form>'
+							cHtml += '</td>'
+						
+							
+							cHtml += '</tr>'
+							
+						NEXT	
+
+						RETU cHtml
+						
+					?>
+				
+			   </tbody>				
+
+			</table>				
+			
+		</div>
+		
+	</div>
+    
+</body>
+</html>

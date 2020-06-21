@@ -1,0 +1,27 @@
+<body>
+   <div class="container-fluid" style="overflow:hidden;padding:0px;">
+      <div class="row" style="margin-right:0px;height:100%;">
+         <div id="leftmenu" class="col-sm-2" style="padding:0px;background-color:rgb(34, 45, 50);">
+            <nav class="navbar navbar-expand-lg navbar-inverse" style="background-color:{{GetColor1()}};border:0px;">
+               <a class="navbar-brand" style="color:white;cursor:pointer;padding-left:65px;">Gen<font color="silver">esis</font></a>
+            </nav> 
+            {{If( GetUserName() == "guest", "<script>$('#leftmenu').css('display','none');</script>", View("menu"))}}
+         </div>
+         <div class="{{If( GetUserName() == 'guest','col-sm-12','col-sm-10')}}" style="padding-left:0px;padding-right:0px">
+            <nav class="navbar navbar-expand-lg navbar-inverse" style="background-color:{{GetColor2()}};border:0px;">
+               <a id="title" class="navbar-brand mr-auto" style="color:white;padding-left:30px;">{{hb_CapFirst(GetContent())}}</a>
+               <div class="nav-item" style="color:white;display:inline-block;cursor:pointer;" 
+                  onclick="{{If(GetUserName()!='guest','Logout();','')}}">
+                  <a class="nav-link" style="color:white;" style="cursor:pointer;">Welcome {{GetUserName()}}
+                  <i class="{{If( GetUserName() != 'guest', 'fa fa-sign-out', 'fas fa-sign-in-alt')}}" style="padding-left:15px;"></i></a>
+               </div>
+            </nav> 
+            <div style="background-color:#ecf0f5;height:calc( 100% - 50px );padding-top:50px;">
+               {{Router()}}
+            </div> 
+         </div>
+      </div>
+   </div>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>DataTable examples for mod_harbour</title>
+    <!-- Bootstrap core -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+  </head>
+  <body class="py-4">
+    <div class="container">
+
+  <h1>DataTable examples</h1>
+  <p class="lead">Ejemplos para el plugin jQuery <a href="https://datatables.net">Datatables</a> y mod_harbour<br>
+  <span class="lead"><em>Examples for the jQuery <a href="https://datatables.net">Datatables</a> and mod_harbour</em></span>
+  </p>
+
+  <hr>
+
+  <h3 class="mt-4">Notas</h3>
+  <p>Una de las causas que hicieron a CA-Clipper tan popular en el pasado, fueron las listas desplegables, que llamamos grids o browses</p>
+  <p>Tenemos la oportunidad de generar estas listas de forma muy rápida, pero necesitamos que de la parte 'visual' se encargue un plugin especializado como Datatable.net</p>
+  <p>Es un fantástico plugin que seguro que cubrirá las necesidades de cualquier programador, revisen la documentacion de su <a href="https://datatables.net">sitio web</a>.</p>
+  <p>La idea es que harbour se encargue de generar la información en formato json y que sea el plugin, en la parte del cliente, quien realice todo el trabajo de renderizado del DOM</p>
+
+  <h3 class="mt-4">Ejemplos</h3>
+
+  <div class="row mb-3">
+    <div class="col-12 themed-grid-col">
+      
+      <table id="menu" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+           <tr>
+               <th>Vista PRG</th>
+               <th>Modelo PRG</th>
+               <th>Detalle del test</th>
+               <th>Enlace</th>
+           </tr>
+        </thead>
+      </table>
+
+    </div>
+  </div>
+</div> <!-- /container -->
+
+<script>
+  $(document).ready( function () {
+
+    $('#menu').DataTable({
+      "ajax": "menu.json",
+      "scrollCollapse": true,
+      "paging":         false,
+      "info":           false,
+      "ordering":       false,
+      "searching":      false
+    });
+  });
+</script>
+
+</body></html>

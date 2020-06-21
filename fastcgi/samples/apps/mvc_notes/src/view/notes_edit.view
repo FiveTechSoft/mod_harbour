@@ -1,0 +1,78 @@
+{{ View( 'notes_header.view' )  }}
+
+<body>
+
+	{{ View( 'notes_nav.view' ) }}
+	
+	<div class="container">
+	
+		<?prg 
+		
+			local pMsg := pvalue(2)
+			LOCAL cHtml := ''
+			LOCAL aError
+
+			//	Si llega un mensaje en la pantalla de edicion es uqe hay un error...
+
+			if Valtype( pMsg ) == 'H'
+			
+				if pMsg[ 'success' ] == .F.
+				
+					aError := pMsg[ 'msg' ]
+					
+					cHtml += '<div class="alert alert-danger"><strong><span class="glyphicon glyphicon-alert"></span>&nbsp;&nbsp;Error de Validación</strong>'
+					
+					nError := len( aError)
+					
+					FOR nI := 1 TO nError
+					
+						h := aError[nI] 
+					
+						cHtml += '<br>Campo: ' + h[ 'field' ] + ', ' + h[ 'msg' ]										
+					NEXT					
+					
+					cHtml += '</div>'	
+					
+				endif
+				
+				RETU cHtml
+			
+			endif
+			
+			retu ''
+		?>	
+	
+		<form action="{{ App_Url() + '/update'}}" method="POST">
+	   
+			 <div class="row">
+			 
+				<div class="col-xs-1">
+					<div class="form-group">
+						<strong>Registro</strong>&nbsp;&nbsp;<input type="text" class="form-control input-sm" name="recno" value="{{ PARAM 1, 'recno' }}" readonly>
+					</div>
+				</div>
+				
+				<div class="col-md-12">
+					<div class="form-group">
+						<strong>Title</strong>
+						<input type="text" name="title" class="form-control" placeholder="Enter Title" 
+						value="{{ PARAM 1, 'title' }}">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<strong>Description</strong>
+						<textarea class="form-control" col="4" name="note" placeholder="Enter note..." >{{ PARAM 1, 'note' }}</textarea>
+					</div>
+				</div>
+				<div class="col-md-12">
+						<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;&nbsp;Submit</button>
+				</div>
+			</div>
+			
+		</form>	
+
+	</div>
+    
+</body>
+</html>

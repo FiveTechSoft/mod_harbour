@@ -1,0 +1,7 @@
+<div id="header">
+
+	<img id="logo" src="{{ App():Url() + '/images/harbour_logo.png' }}" >
+
+	<span>SEAMAP SITE </span>
+	
+</div>

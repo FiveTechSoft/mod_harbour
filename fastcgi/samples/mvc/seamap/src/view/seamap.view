@@ -1,0 +1,75 @@
+<html>
+      <head>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		 
+      </head>
+	  
+		<style>
+			table, th, td {
+			   border: 1px solid black;
+			   border-collapse: collapse;
+			}
+
+			form {
+				margin:0px;
+			}
+
+			.btn_grid {
+				border: 0px;
+				background-color:transparent;
+				margin:2px;
+			}
+
+		</style>
+		
+      <body>
+	  
+		<form method="POST" action="{{ Route( 'seamap' ) }}"  >	
+		
+			<button type='submit' name='action' value='add' >Add</button><br><br>
+			<table>
+				<?prg
+					LOCAL hData 	:= PValue(1)
+					LOCAL cHtml 	:= '<tr>'
+					
+					FOR n := 1 TO len( hData[ 'headers' ] )
+						cHtml += "<th>" + hData[ "headers" ][ n ] + "</th>"
+					NEXT
+					
+					cHtml += "<th>Actions</th>"
+					
+				   for n = 1 to Len( hData[ "rows" ] )
+				   
+					  cHtml += "<tr>" + CRLF
+					  
+					  for nRow = 1 to Len( hData[ "rows" ][ n ] )
+						 cHtml += "<td>" + hData[ "rows" ][ n ][ nRow ] + "</td>" + CRLF
+					  next   
+					  
+					  cHtml += "<td>"
+					  
+					  cHtml += '<form method="POST" action="{{ Route( 'seamap' ) }}"  >'
+					  
+					  cHtml += '<button type="submit" name="action" value="edit" class="btn_grid">'
+					  cHtml += '   <span class="glyphicon glyphicon-pencil"></span>'
+					  cHtml += "</button>"
+					 
+					  cHtml += '<button type="submit" name="action" value="del" class="btn_grid">'
+					  cHtml += '   <span class="glyphicon glyphicon-trash"></span>'
+					  cHtml += "</button>"
+					  
+					  cHtml += '<input type="hidden" name="recno" value="' + ltrim(str(n)) + '" />'					  
+					  
+					  cHtml += '</form>'
+					  
+					  cHtml += "</td>"
+					  cHtml += "</tr>" + CRLF
+				   next												
+                  
+                   return cHtml
+				?>
+				
+			</table>
+		</form>
+	  </body>
+</html>

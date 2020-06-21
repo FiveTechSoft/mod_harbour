@@ -1,0 +1,272 @@
+         <script>
+            function AddLabel()
+            { 
+               var cId = "lbl" + ++labels;
+               var cHtml = 
+               '<div id="' + cId + '" class="label">' + 
+               '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-se segrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-n ngrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
+               '<label onclick="$(this).parent().focus()"><font id="label" size="5">Label' + 
+               labels + '</font></label>' +
+               '</div>';
+
+               $( "#form" ).append( cHtml );
+               InitGrips( cId );
+               return $( "#" + cId ); 
+            }  
+
+            function AddEdit()
+            { 
+               var cId = "inp" + ++edits;
+               var cHtml = 
+               '<div id="' + cId + '" class="edit">' + 
+               '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-se segrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-n ngrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
+               '</div>';
+
+               $( "#form" ).append( cHtml );
+               $( "#" + cId ).position().top += 2;
+               InitGrips( cId );
+               return $( "#" + cId ); 
+            }  
+
+            function AddListbox()
+            { 
+               var cId = "lbx" + ++listboxes;
+               var cHtml = 
+               '<div id="' + cId + '" class="listbox">' + 
+               '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-se segrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-n ngrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' +
+               '<i class="fas fa-angle-down" onclick="$(this).parent().focus()"' + 
+               'style="height:10px;color:black;background:lightgray;font-size:20px;padding:10px;right:-5px;float:right;"></i>' + 
+               '</div>';
+
+               $( "#form" ).append( cHtml );
+               $( "#" + cId ).position().top += 2;
+               InitGrips( cId );
+               return $( "#" + cId );
+            }  
+   
+            function AddButton()
+            { 
+               var cId = "btn" + ++buttons;
+               var cHtml = 
+               '<div id="' + cId + '" class="button" style="width:100px;display:table;text-align:center;">' + 
+               '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-se segrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-n ngrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
+               '<label onclick="$(this).parent().focus()" style="padding:12px;display:table-cell;vertical-align:middle;">' +
+               '<font id="label" size="5">Button' + buttons + '</font></label>' +
+               '</div>';
+
+               $( "#form" ).append( cHtml );
+               InitGrips( cId );
+               return $( "#" + cId ); 
+            }
+            
+            function AddCheckbox()
+            { 
+               var cId = "chk" + ++checkboxes;
+               var cHtml = 
+               '<div id="' + cId + '" class="checkbox">' + 
+               '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-se segrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-n ngrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
+               '<label onclick="$(this).parent().focus()" style="padding:12px;">' +
+               '<i class="far fa-check-square" style="color:black;font-size:20px;padding:10px;"></i>' +
+               '<font id="label" size="5">Checkbox' + checkboxes + '</font></label>' +
+               '</div>';
+
+               $( "#form" ).append( cHtml );
+               InitGrips( cId );
+               return $( "#" + cId );
+            }
+
+            function AddImage()
+            { 
+               var cId = "img" + ++images;
+               var cHtml = 
+               '<div id="' + cId + '" class="image">' + 
+               '<div class="ui-resizable-handle ui-resizable-nw nwgrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-ne negrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-sw swgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-se segrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-n ngrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-s sgrip"></div>' +
+               '<div class="ui-resizable-handle ui-resizable-e egrip"></div>' + 
+               '<div class="ui-resizable-handle ui-resizable-w wgrip"></div>' + 
+               '</div>';
+
+               $( "#form" ).append( cHtml );
+               $( "#" + cId ).position().top += 2;
+               InitGrips( cId );
+               return $( "#" + cId );
+            } 
+
+            function InitGrips( cId )
+            {    
+               $( "#"  + cId ).resizable({
+                  resize: function() { $( "#width" ).val( $(this).css( "width" ) );
+                                       $( "#height" ).val( $(this).css( "height" ) ); },
+                  handles: {
+                     'nw': '.nwgrip',
+                     'ne': '.negrip',
+                     'sw': '.swgrip',
+                     'se': '.segrip',
+                     'n': '.ngrip',
+                     'e': '.egrip',
+                     's': '.sgrip',
+                     'w': '.wgrip'
+                  }
+               }).draggable( { drag: function() {
+                  $( "#top" ).val( $(this).css( "top" ) ); 
+                  $( "#left" ).val( $(this).css( "left" ) ); }, grid: [20, 20],
+               axis: "x,y",
+               containment: '#form' } );
+
+               $( "#" + cId ).focus( function() { $(this).find(".ui-resizable-handle").css( "visibility", "visible"),
+                   $( "#id" ).val( $(this).attr( "id" ) );
+                   $( "#top" ).val( $(this).css( "top" ) ); $( "#left" ).val( $(this).css( "left" ) );
+                   $( "#width" ).val( $(this).css( "width" ) ); $( "#height" ).val( $(this).css( "height" ) );
+                   $( "#prompt" ).val( $(this).find( "#label" ).html() );
+                   $( "#fontfamily" ).val( $(this).css( "fontFamily" ).replace( '"', '' ).replace( '"', '' ) );
+                   $( "#fontsize" ).val( $(this).find( "#label" ).css( "fontSize" ) );
+                   $( "#color" ).val( RGBToHex( $(this).css( "color" ) ) ); 
+                   $( "#bgcolor" ).val( RGBToHex( $(this).css( "backgroundColor" ) ) ); 
+                   $( "#onclick" ).val( $(this).attr( "data-onclick" ) ); } );
+
+               $( "#" + cId ).resize( function(){ $( "#width" ).val( $(this).css( "width" ) ); } );     
+               $( "#" + cId ).focusout( function() { oCtrl = $(this); $(this).find(".ui-resizable-handle").css( "visibility", "hidden") } ); 
+
+               $( "#" + cId ).on( "click", function(){ eval( $( "#" + cId ).attr( "data-onclick" ) ); } );
+
+               $( "#onclick" ).focusout( function() {
+                  var cId = $('#id').val();
+                  $( "#" + cId ).attr( 'data-onclick', $(this).val() ); } );
+
+               $( "#prompt" ).focusout( function() {
+                  var cId = $('#id').val();
+                  $( "#" + cId ).find( "#label" ).html( $(this).val() ); } );
+
+               $( "#fontfamily" ).focusout( function() {
+                  var cId = $('#id').val();
+                  $( "#" + cId ).css( "fontFamily", $(this).val() ); } );
+
+               $( "#fontsize" ).focusout( function() {
+                  var cId = $('#id').val();
+                  $( "#" + cId ).find( "#label" ).css( "fontSize", $(this).val() ); } );
+            }
+
+            function GoUp()
+            {
+               oCtrl[0].style.top = parseFloat( oCtrl[0].style.top ) - 1;
+            }   
+
+            function GoDown()
+            {
+               oCtrl[0].style.top = parseFloat( oCtrl[0].style.top ) + 1;
+            }   
+
+            function GoLeft()
+            {
+               oCtrl[0].style.left = parseFloat( oCtrl[0].style.left ) - 1;
+            }   
+
+            function GoRight()
+            {
+               oCtrl[0].style.left = parseFloat( oCtrl[0].style.left ) + 1;
+            }   
+
+            function Remove()
+            {
+               if( oCtrl.hasClass( "label" ) )
+                  labels--;
+               if( oCtrl.hasClass( "edit" ) )
+                  edits--;                  
+               if( oCtrl.hasClass( "button" ) )
+                  buttons--;
+               if( oCtrl.hasClass( "checkbox" ) )
+                  checkboxes--;                  
+               if( oCtrl.hasClass( "image" ) )
+                  images--;    
+               if( oCtrl.hasClass( "listbox" ) )
+                  listboxes--;    
+   
+               oCtrl.remove();
+            }
+
+            function RGBToHex(rgb) 
+            {
+               var sep = rgb.indexOf(",") > -1 ? "," : " ";
+               rgb = rgb.substr(4).split(")")[0].split(sep);
+             
+               var r = (+rgb[0]).toString(16),
+                   g = (+rgb[1]).toString(16),
+                   b = (+rgb[2]).toString(16);
+             
+               if (r.length == 1)
+                 r = "0" + r;
+               if (g.length == 1)
+                 g = "0" + g;
+               if (b.length == 1)
+                 b = "0" + b;
+             
+               return "#" + r + g + b;
+             }
+
+            function AsJson()
+            {
+               var o = { top: $( "#form" ).css( "top" ),
+                         left: $( "#form" ).css( "left" ),
+                         width: $( "#form" ).css( "width" ),
+                         height: $( "#form" ).css( "height" ),
+                         bgcolor: RGBToHex( $( "#form" ).css( "backgroundColor" ) ),
+                         controls: [] };
+
+               var controls = $( "#form" ).children();
+               
+               for( var n = 1; n < controls.length; n++ )
+               {
+                  var ctrl = { class: $( controls[ n ] ).attr( "class" ),
+                               top: $( controls[ n ] ).css( "top" ),
+                               left: $( controls[ n ] ).css( "left" ),
+                               width: $( controls[ n ] ).css( "width" ),
+                               prompt: $( controls[ n ] ).find( "#label" ).html(),
+                               color: RGBToHex( $( controls[ n ] ).css( "color" ) ),
+                               bgcolor: RGBToHex( $( controls[ n ] ).css( "backgroundColor" ) ) };
+                  o.controls.push( ctrl );             
+               }   
+
+               $.post( "designer.prg", JSON.stringify( o ) )
+                  .done( function( data ) { console.log( 'DONE', data ); location.href="designer.prg?" + data; } )
+                  .fail( function( data ) { console.log( 'ERROR', data ); } );         
+            }   
+         </script>

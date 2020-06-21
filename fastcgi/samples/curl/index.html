@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Form examples for mod_harbour</title>
+    <!-- jQyery Bootstrap core -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Datatables plugin -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+
+  <h1>CURL for mod_harbour</h1>
+  <p class="lead">Cuando un script PRG llama al mundo<a href="https://es.wikipedia.org/wiki/CURL"> +wikipedia</a><br>
+  <span class="lead"><em>Hello world, I'm a PRG script<a href="https://en.wikipedia.org/wiki/CURL"> +wikipedia</a></em></span>
+  </p>
+
+  <hr>
+
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Notas</a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse show">
+        <div class="panel-body">
+          <p>Entre las posibilidades que nos ofrece <em>CURL</em> están éstas y otras muchas que se nos ocurrirán:
+          <ul>
+            <li>Comunicarse con scripts PHP remotos</li>
+            <li>Enviar un email de confirmación al iniciar o terminar un registro tipo login</li>
+            <li>Consumir APIs publicas o privadas que expongan su informacion en cualquier lenguaje web
+            <span><a target="_blank_" href="https://github.com/public-apis/public-apis">Repositorio enorme para explorar</a></span>
+            </li>
+            <li>Controlar la subida o bajada de archivos, también por FTP</li>
+            <li>Llamar a procedimientos para mantenimientos desatendidos</li>
+            <li>Existen infinidad de recursos en la red, por ejemplo, <a target="_blank_" href="https://programacion.net/articulo/8_cosas_asombrosas_que_puedes_hacer_con_php_y_curl_1350">8 cosas asombrosas que puedes hacer con PHP y cURL</a></li>
+          </ul>
+          <h5>Ahora también lo podemos hacer desde PRG :)</h5>
+          <hr>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Ejemplos</a>
+        </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="panel-body">
+          <table id="menu" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+               <tr>
+                   <th>Script PRG</th>
+                   <th>Detalle del test</th>
+                   <th>Enlace</th>
+               </tr>
+            </thead>
+          </table>      
+        </div>
+      </div>
+    </div>
+  </div> 
+</div> <!-- /container -->
+
+<script>
+  $(document).ready( function () {
+
+    $('#menu').DataTable({
+      "ajax": "menu.json",
+      "scrollCollapse": true,
+      "paging":         false,
+      "info":           false,
+      "ordering":       false,
+      "searching":      false
+    });
+  });
+</script>
+
+</body></html>

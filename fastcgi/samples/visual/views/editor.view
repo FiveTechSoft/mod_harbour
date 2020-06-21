@@ -1,0 +1,77 @@
+   <style>
+      #editor{
+         top:20px;
+         height:calc( 100% - 110px);
+         width:60%;
+         float:left;
+      }
+      #splitter{
+         height:100%;
+         width:5px;
+         background-color: white;
+         cursor:col-resize;
+         float:left;
+      }
+      #right{
+          background-color:aquamarine;
+          top:20px;
+          height:calc( 100% - 90px);
+          margin-left:1100px;
+          font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+      }
+   </style>
+
+   <div style="width:100%">
+      <div id="editor">{{GetCode()}}</div>
+      <div id="right">
+         <div id="splitter"></div>
+         <div id="result"></div>
+      </div>   
+   </div>   
+
+   <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+   <script>
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/tomorrow_night_blue");
+      editor.setFontSize(18);     
+      editor.setHighlightActiveLine(true);
+      editor.session.setMode("ace/mode/c_cpp");
+
+      function OpenFile()
+      { 
+         var oFile; 
+         oFPicker = document.createElement( "input" );
+         oFPicker.type = "file";
+         oFPicker.accept = ".prg,.ch,.txt,.h,.c";
+         oFPicker.style.visibility = "hidden";
+         oFPicker.onchange = function( evt ){ 
+           var reader = new FileReader();
+           oFile = evt.target.files[0];
+           reader.onload = function( e ) {
+              editor.session.setValue( e.target.result ) };
+           reader.readAsText( oFile ); 
+           }
+
+        oFPicker.click(); 
+      }       
+
+      function CloseFile()
+      {
+         editor.session.setValue( "" );
+      }
+
+      $('#splitter').mousedown( function(e) {
+         e.preventDefault();
+         $(document).mousemove( function(e) {
+            var x = e.pageX;
+            e.preventDefault();
+            if( x > 300 && x < ( $(window).width() - 300 ) )
+            {
+               $( "#editor" ).css( "width", x );
+               $( "#right" ).css( "margin-left", x ); 
+            }
+         } ) } );
+
+      $(document).mouseup( function() {
+         $(document).unbind('mousemove'); } );
+   </script>  

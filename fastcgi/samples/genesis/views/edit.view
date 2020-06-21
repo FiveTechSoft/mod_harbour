@@ -1,0 +1,29 @@
+               <div style="max-height:98%;background-color:white;margin:30px;margin-top:-18px;padding:10px;padding-top:10px;overflow-x:hidden;overflow-y:auto;">
+               <div class="row" style="padding-left:15px;">
+                  <button onclick="window.print();" type="button" class="btn btn-primary" 
+                     style="background-color:{{GetColor1()}};">
+                     <i class="fas fa-print" style="color:lightgray;padding-right:15px;font-size:16px"></i>
+                     Print</button>
+                  <h4 style="padding-left:20px;padding-top:10px;color:gray;">Edit record: {{AllTrim(Str(GetVal1()))}}</h4>
+               </div> 
+               <hr> 
+               <div class="row" style="padding-left:15px;"> 
+                  <div class="col-sm-7"></div>
+                  <div class="col-sm-2" style="padding-right:15px;">  
+                  </div>
+               </div>
+               {{BuildEdit( GetContent() )}}     
+               <hr>
+               <div class="row" style="padding-left:15px">
+                  <div class="col-sm-3"></div> 
+                  <div class="col-sm-7"></div>
+                  <div class="col-sm-2">
+                     <button type="submit" class="btn btn-primary" style="background-color:{{GetColor1()}};">
+                        <i class="fas fa-check" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Save</button>
+                     <button onclick="Cancel();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
+                        <i class="fa fa-remove" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Cancel</button>
+                  </div>   
+               </div>
+               </form>

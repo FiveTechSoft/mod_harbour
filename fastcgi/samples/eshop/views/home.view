@@ -1,0 +1,39 @@
+            <div class="container">
+               <div class="row" style="height:600px;">
+                  <div class="col-sm-3" style="height:570px;">
+                     {{View("leftmenu")}}
+                  </div> 
+                  <div class="col-sm-9">
+                     <div style="background-color:#f2f2f2;height:300px;margin-top:30px;">
+                     </div>
+                     <div class="container" style="padding-left:0px;">
+                     <div class="row">
+                        <div class="col-xs-6" style="margin-top:30px;margin-left:15px;border-style:solid;border-width:1px;border-color:#d0d0d0;width:262px;height:140px;"
+                             onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.background='white';">
+                           <br>Product name<br>Product description<br><br> 
+                           <button title="add to cart" style="border:0px;border-radius: 50%;background-color:{{GetColor()}};width:40px;height:40px;outline:0px;"
+                              onMouseOver="this.style.background='#2f2f2f';" onMouseOut="this.style.background='{{GetColor()}}';">
+                              <img src="/modharbour_samples/eshop/images/cartwhite.png">
+                           </button>     
+                        </div>
+                        <div class="col-xs-6" style="margin-top:30px;margin-left:30px;border-style:solid;border-width:1px;border-color:#d0d0d0;width:262px;height:140px;"
+                             onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.background='white';">
+                           <br>Product name<br>Product description<br><br> 
+                           <button title="add to cart" style="border:0px;border-radius: 50%;background-color:{{GetColor()}};width:40px;height:40px;outline:0px;"
+                               onMouseOver="this.style.background='#2f2f2f';" onMouseOut="this.style.background='{{GetColor()}}';">
+                              <img src="/modharbour_samples/eshop/images/cartwhite.png">
+                           </button>     
+                        </div>
+                        <div class="col-xs-6" style="margin-top:30px;margin-left:30px;border-style:solid;border-width:1px;border-color:#d0d0d0;width:262px;height:140px;"
+                             onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.background='white';">
+                           <br>Product name<br>Product description<br><br> 
+                           <button title="add to cart" style="border:0px;border-radius: 50%;background-color:{{GetColor()}};width:40px;height:40px;outline:0px;"
+                               onMouseOver="this.style.background='#2f2f2f';" onMouseOut="this.style.background='{{GetColor()}}';">
+                              <img src="/modharbour_samples/eshop/images/cartwhite.png">
+                           </button>     
+                        </div>
+                     </div>
+                     </div>
+                  </div> 
+               </div>
+            </div>

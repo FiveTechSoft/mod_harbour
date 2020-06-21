@@ -1,0 +1,50 @@
+<body>
+	<div id="main" class="container-fluid" style="padding:0px;overflow-x:hidden">
+		<div class="row">
+			<div class="col-md-12">
+				{{View("menu")}}
+			</div>
+		</div>
+		<div id="body">
+		   {{View("code")}}
+			<div id="right">
+         	<div id="splitter"></div>
+         	<div id="output"></div>
+      	</div>  
+		</div>
+	</div>
+	<script>
+      var editor_width, right_margin_left, cResult;
+
+      editor_width = sessionStorage.getItem( 'editor-width' );
+      if( editor_width )
+         $( "#editor" ).css( "width", editor_width );
+
+      right_margin_left = sessionStorage.getItem( 'right-margin-left' );
+      if( right_margin_left )
+          $( "#right" ).css( "margin-left", right_margin_left );
+
+		cResult = sessionStorage.getItem( 'result' );
+		if( cResult )
+		   $('#output').html( cResult );	 
+
+      $('#splitter').mousedown( function(e) {
+          e.preventDefault();
+          $(document).mousemove( function(e) {
+             var x = e.pageX;
+             e.preventDefault();
+             if( x > 300 && x < ( $(window).width() - 300 ) )
+             {
+                $( "#editor" ).css( "width", x );
+                $( "#right" ).css( "margin-left", x ); 
+		sessionStorage.setItem( 'code', editor.getValue() );
+                sessionStorage.setItem( 'editor-width', $( "#editor" ).css( "width" ) );
+                sessionStorage.setItem( 'right-margin-left', $( "#right" ).css( "margin-left" ) );   
+             }
+          } ) } );
+ 
+       $(document).mouseup( function() {
+          $(document).unbind('mousemove'); } );
+    </script>
+</body>
+</html>

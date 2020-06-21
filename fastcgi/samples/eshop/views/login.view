@@ -1,0 +1,43 @@
+            <div class="container">
+               <div class="row" style="height:600px;">
+                  <div class="col-sm-3" style="height:570px;">
+                     {{View("leftmenu")}}
+                  </div> 
+                  <div class="col-sm-9">
+                     <h2>Please identify</h2>
+                     <form action="index.prg?login" method="post">
+                        <div class="input-group">
+                           <input type="text" class="form-control" name="username" style="margin-bottom:15px;" placeholder="email or phone number..." required>
+                           <input type="password" class="form-control" name="password" placeholder="password" required>
+                        </div>
+                        <div class="pull-right">
+                           <button type="submit" class="btn btn-primary" name="forgot" 
+                              style="color:white;background-color:{{GetColor()}};border:none"
+                              onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Forgot password</button>
+                           <button type="submit" class="btn btn-primary" name="continue"
+                              style="color:white;background-color:{{GetColor()}};border:none;margin-left:15px;"
+                              onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Continue</button>
+                        </div>
+                     </form>
+                     <br><hr>
+                     <h2>New account</h2>
+                     <form action="index.prg?login" method="post">
+                        <div class="input-group">
+                           <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="First name..." name="first" required>
+                           <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="Last name..." name="last" required>
+                           <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="E-mail..." name="email" required>
+                           <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="Phone number..." name="phone" required>
+                           <input type="text" class="form-control" style="margin-bottom:15px;" placeholder="Password..." name="password" required>
+                           <div class="pull-right">
+                              <button type="submit" class="btn btn-primary" name="ok" 
+                                 style="color:white;background-color:{{GetColor()}};border:none;width:80px;"
+                                 onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Ok</button>
+                              <button class="btn btn-primary" name="cancel" onclick="javascript:location.href='index.prg'"
+                                 style="color:white;background-color:{{GetColor()}};border:none;margin-left:15px;width:80px;"
+                                 onMouseOver="this.style.background='#2f2f2f'" onMouseOut="this.style.background='{{GetColor()}}'">Cancel</button>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>  

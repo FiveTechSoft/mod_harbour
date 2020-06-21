@@ -1,0 +1,3 @@
+<div class="footer" align="center" style="background-color:#f2f2f2;height:210px;">
+   <br><br><br><a href="https://fivetechsoft.github.io/mod_harbour/" style="color:{{GetColor()}}">powered by mod_harbour</a>
+</div>

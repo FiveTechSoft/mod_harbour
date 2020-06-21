@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><?prg retu hb_GetEnv("HONEY_TITLE")?></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="https://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+</head>
+<style>
+
+	.logo {
+		margin-top: 3px;
+		margin-left: 5px;
+		float: left;
+		height: 31px;
+	}
+	
+</style>
+<body>
+  <div data-role="page" data-theme="a">
+    <div data-role="header">
+		<img src="<?prg retu url_images() + 'user.png' ?>" class='logo' >
+      <h1>Demo móbil</h1>
+    </div>
+    <div data-role="content">
+    <!--  <form id="login" name="login" action="login.php" method="POST">-->
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="user" value="demo" />
+        <br />
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="pass" value="" />
+        <br />
+        <input type="hidden" name="hiddenInput" id="hiddenInput" value="secret message" />
+        <input type="button" name="loginSubmit" id="loginSubmit" value="Login" onClick="test()"/>
+    <!--<input type="submit" name="loginSubmit" id="loginSubmit" value="Login" />
+    <!--  </form>-->
+    </div>
+  </div>
+  
+<div data-role="dialog" id="dialog" data-theme="a">
+  <div data-role="header">
+    <h1>Sistema</h1>
+  </div>
+  <div data-role="content">
+    <p>Error en autenticacion</p><br>
+	<a data-role="button" data-rel="back" data-theme="a" >Aceptar</a> 
+  </div>
+ 
+</div>
+
+<script>
+
+	function test() {
+  
+		var oParam = new Object()
+			oParam[ 'action' ] = 'login'
+			oParam[ 'user'   ] = $('#user').val()
+			oParam[ 'pass'   ] = $('#pass').val()
+
+		console.log( oParam )
+		
+		var cUrl_Autentica = "<?prg retu url_controller() + 'autenticate.prg' ?>"
+		
+		$.post( cUrl_Autentica, oParam )
+				.done(function( data, e ) {
+				console.log( data )
+				
+					if ( data[ 'autenticate' ] ) {
+						window.location.href = "<?prg retu url_controller() + 'demo.prg' ?>"
+					} else {        
+						window.location.href = "<?prg retu url_controller() + 'demo.prg' ?>"
+						//S$.mobile.changePage('#dialog', 'pop', true, true);							
+					}
+					
+				})
+				.error(function( data ) {
+					console.log( data )
+				});
+				
+	}
+</script>
+</body>
+</html>

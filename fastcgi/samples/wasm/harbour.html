@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Harbour wasm</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+      body {
+         margin:0px;  
+      }
+      #menu {
+        background-color: black;
+        color:white;
+        font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+      }
+      #menu ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333333;
+      }
+      #menu li {
+        float: left;
+        cursor: pointer;
+      }
+      #menu li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        text-decoration: none;
+      }
+      #menu li a:hover {
+        background-color: darkgray;
+      }
+      #menu li:last-child{
+        float:right;
+      }
+      #editor{
+         margin-left:0px;
+         height:820px;
+         width:60%;
+         float:left;
+      }
+      #splitter{
+         height:820px;
+         width:5px;
+         background-color: white;
+         cursor:col-resize;
+         float:left;
+      }
+      #right{
+          background-color:aquamarine;
+          height:820px;
+          margin-left:1117px;
+          font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="menu">
+      <ul>
+        <li><a onclick="OpenFile()">Open</a></li>
+        <li><a onclick="Run()">Run</a></li>
+        <li><a onclick="Clear()">Clear</a></li>
+        <li><a onclick="location.href='https://github.com/vszakats/harbour-core'">
+          Harbour 3.4 (Viktor's fork) wasm (emscripten)</a></li>
+      </ul> 
+    </div>
+
+    <div style="width:100%;height:100%;">
+      <div id="editor">function Main()
+        
+  ? "Hello world"
+           
+return nil</div>
+      <div id="right">
+         <div id="splitter"></div>
+         <div id="output"></div>
+      </div>   
+    </div>   
+
+    <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+       var editor = ace.edit("editor");
+       var code;
+       editor.setTheme("ace/theme/tomorrow_night_blue");
+       editor.setFontSize(18);     
+       editor.setHighlightActiveLine(true);
+       editor.session.setMode("ace/mode/c_cpp");
+
+       code = localStorage.getItem('code');  
+       if( code.length != 0 )
+          editor.session.setValue( code );
+ 
+       function OpenFile()
+       { 
+          var oFile; 
+          oFPicker = document.createElement( "input" );
+          oFPicker.type = "file";
+          oFPicker.accept = ".prg,.ch,.txt,.h,.c";
+          oFPicker.style.visibility = "hidden";
+          oFPicker.onchange = function( evt ){ 
+            var reader = new FileReader();
+            oFile = evt.target.files[0];
+            reader.onload = function( e ) {
+               editor.session.setValue( e.target.result ) };
+            reader.readAsText( oFile ); 
+            }
+ 
+         oFPicker.click(); 
+       }       
+
+       function Run()
+       {
+          localStorage.setItem( 'code', editor.getValue() );
+          window.location.reload();
+       }
+ 
+       function Clear()
+       {
+          var cCode = "function Main()" + '\r\n\r\n';
+
+          cCode += '   ? "Hello world"' + '\r\n\r\n';
+          cCode += 'return nil';
+
+          editor.session.setValue( cCode );
+       }
+ 
+       $('#splitter').mousedown( function(e) {
+          e.preventDefault();
+          $(document).mousemove( function(e) {
+             var x = e.pageX;
+             e.preventDefault();
+             if( x > 300 && x < ( $(window).width() - 300 ) )
+             {
+                $( "#editor" ).css( "width", x );
+                $( "#right" ).css( "margin-left", x ); 
+             }
+          } ) } );
+ 
+       $(document).mouseup( function() {
+          $(document).unbind('mousemove'); } );
+    </script>  
+
+    <script type='text/javascript'>
+
+      var Module = {
+        preRun: [],
+        postRun: [],
+        print: (function() {
+          var element = document.getElementById('output');
+          if (element) element.value = ''; // clear browser cache
+          return function(text) {
+            if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+            console.log(text);
+            if (element) {
+              element.innerHTML += text;
+              element.scrollTop = element.scrollHeight; // focus on bottom
+            }
+          };
+        })(),
+        printErr: function(text) {
+        }(),
+        setStatus: function(text) {
+          if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+          if (text === Module.setStatus.last.text) return;
+          var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+          var now = Date.now();
+          if (m && now - Module.setStatus.last.time < 30) return; // if this is a progress update, skip it if too soon
+          Module.setStatus.last.time = now;
+          Module.setStatus.last.text = text;
+        },
+        totalDependencies: 0,
+        monitorRunDependencies: function(left) {
+          this.totalDependencies = Math.max(this.totalDependencies, left);
+          Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+        }
+      };
+      Module.setStatus('Downloading...');
+      window.onerror = function(event) {
+        // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
+        Module.setStatus('Exception thrown, see JavaScript console');
+        spinnerElement.style.display = 'none';
+        Module.setStatus = function(text) {
+          if (text) Module.printErr('[post-exception status] ' + text);
+        };
+      };
+    </script>
+    <script async type="text/javascript" src="harbour.js"></script>
+
+  </body>
+</html>

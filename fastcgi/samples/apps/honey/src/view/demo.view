@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HWeb Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+  <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+</head>
+<body>
+  <div data-role="page" data-fullscreen="false" data-theme="a">
+    <div data-role="header" data-position="fixed">
+      <a href="#" data-icon="back" data-rel="back">Previo</a>
+      <h1>Ejemplos...</h1><a data-icon="gear" onClick="not_yet()">Config</a>
+    </div>
+    <div data-role="content" >
+      <a href="<?prg retu url_controller() + 'users.prg' ?>" data-role="button" data-icon="mail">Usuarios</a>
+    </div>
+	
+	<style>	
+		.nav-glyphish-example .ui-btn .ui-btn-inner { padding-top: 40px !important; }
+		.nav-glyphish-example .ui-btn .ui-icon { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
+		#chat .ui-icon { background:  url( <?prg retu url_images() + '09-chat2.png' ?> ) 50% 50% no-repeat; background-size: 24px 22px; }
+		#email .ui-icon { background:  url( <?prg retu url_images() + '18-envelope.png' ?> ) 50% 50% no-repeat; background-size: 24px 16px;  }
+	</style>	
+	
+	<div data-role="footer" data-position="fixed"  class="nav-glyphish-example">
+		<div data-role="navbar" class="nav-glyphish-example" data-grid="d">
+		<ul>
+			<li><a href="#" id="chat" data-icon="custom">Chat</a></li>
+			<li><a href="#" id="email" data-icon="custom">Email</a></li>
+		</ul>
+		</div>
+	</div>
+	
+	<div data-role="dialog" id="dlg_info" data-theme="a">
+	  <div data-role="header">
+		<h1>Sistema</h1>
+	  </div>
+	  <div data-role="content">
+		<p>Pendiente...</p><br>
+		<a data-role="button" data-rel="back" data-theme="a" >Aceptar</a> 
+	  </div>
+	 
+	</div>	
+	
+  </div>
+</body>
+<script>
+
+	function not_yet() {
+		$.mobile.changePage('#dlg_info', 'pop', true, true);
+	}
+
+</script>
+</html>

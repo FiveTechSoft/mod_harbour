@@ -1,0 +1,28 @@
+            <div style="background-color:{{GetColor3()}};height:calc(100% - 50px);overflow-x:hidden;overflow-y:auto;">
+               <div class="vertical-menu" style="background-color:{{GetColor3()}};">
+                  <a {{If( GetContent() == "home", 'class="active"', 'class="text-secondary"' )}}
+                     onclick="SelectCategory( this, 'home' );">
+                     <i class="fa fa-home" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Home</a>
+                  <a {{If( GetContent() == "logs", 'class="active"', 'class="text-secondary"' )}}
+                     onclick="SelectCategory( this, 'logs' );">
+                     <i class="fa fa-list-alt" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Logs</a>
+                  <a {{If( GetContent() == "menus", 'class="active"', 'class="text-secondary"' )}} 
+                     onclick="SelectCategory( this, 'menus' );">
+                     <i class="fa fa-list" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Menus</a>
+                  <a {{If( GetContent() == "views", 'class="active"', 'class="text-secondary"' )}}
+                     onclick="SelectCategory( this, 'views' );">
+                     <i class="fa fa-eye" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Views</a>
+                  <a {{If( GetContent() == "tasks", 'class="active"', 'class="text-secondary"' )}} 
+                     onclick="SelectCategory( this, 'tasks' );">
+                     <i class="fa fa-flash" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Tasks</a>
+                  <a {{If( GetContent() == "users", 'class="active"', 'class="text-secondary"' )}} 
+                     onclick="SelectCategory( this, 'users' );">
+                     <i class="fa fa-users" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Users</a>
+                  <a {{If( GetContent() == "database", 'class="active"', 'class="text-secondary"' )}} 
+                     onclick="SelectCategory( this, 'database' );">
+                     <i class="fa fa-cloud" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Database</a>
+                  <a {{If( GetContent() == "settings", 'class="active"', 'class="text-secondary"' )}}
+                     onclick="SelectCategory( this, 'settings' );">
+                     <i class="fa fa-cog" style="color:lightgray;padding-left:15px;padding-right:15px;font-size:20px"></i>Settings</a>
+               </div>
+            </div>

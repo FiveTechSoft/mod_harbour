@@ -1,0 +1,123 @@
+   <style>
+      body {
+         margin: 0px;
+         background: #bdc3c7; 
+         background: -webkit-linear-gradient(to left, lightgray, darkgray);  
+         background: linear-gradient(to left, whitesmoke, royalblue);             
+      }
+      .form {
+         border: solid gray 1px;
+         width: 800px;
+         height: 600px;
+         top:150px;
+         left:450px;
+         position: absolute;
+         overflow: hidden;
+         background: whitesmoke url('https://github.com/FiveTechSoft/mod_harbour/blob/master/samples/images/grid_20.png?raw=true') repeat;
+         box-shadow:10px 10px 10px darkgray, 0px 0px 10px darkgray;
+         border-radius:10px;
+      }     
+      .label {
+         border: 0px solid;
+         border-color: black;
+         width: 80px;
+         height: 30px;
+         overflow: hidden;
+         -webkit-user-modify: read-write;
+      }
+      .edit {
+         border: 3px solid;
+         border-color: darkgray white white darkgray;
+         width: 300px;
+         height: 32px;
+         overflow: hidden;
+         background-color: whitesmoke;
+         -webkit-user-modify: read-write;
+      }         
+      .listbox {
+         border: 3px solid;
+         border-color: darkgray white white darkgray;
+         width: 170px;
+         height: 32px;
+         overflow: hidden;
+         background-color: whitesmoke;
+         -webkit-user-modify: read-write;
+      }         
+      .button {
+         border: 3px solid;
+         border-color: white darkgray darkgray white;
+         width: 117px;
+         height: 32px;
+         overflow: hidden;
+         background-color: lightgray;
+         -webkit-user-modify: read-write;
+      }
+      .checkbox {
+         border: 0px solid;
+         border-color: white darkgray darkgray white;
+         width: 180px;
+         height: 45px;
+         overflow: hidden;
+         -webkit-user-modify: read-write;
+      }
+      .image {
+         border: 1px solid;
+         width: 120px;
+         height: 100px;
+         overflow: hidden;
+         background-image: url( "https://raw.githubusercontent.com/FiveTechSoft/mod_harbour/master/samples/images/fivetech.bmp" );
+         background-repeat: no-repeat;
+         background-size: 100% 100%;
+         -webkit-user-modify: read-write;
+      }                    
+      .nwgrip, .negrip, .swgrip, .segrip, .ngrip, .egrip, .sgrip, .wgrip {
+         width: 7px;
+         height: 11px;
+         background-color: #000000;
+         border: 1px solid #000000;
+         visibility:hidden;
+      } 
+      .segrip.main{
+         visibility:visible;            
+      }    
+      .nwgrip {
+         left: -5px;
+         top: -5px;
+         width: 11px;
+      }
+      .negrip{
+         top: -5px;
+         right: -5px;
+         width: 11px;
+      }
+      .swgrip{
+         bottom: -5px;
+         left: -5px;
+         width: 11px;
+      }
+      .segrip{
+         bottom: -5px;
+         right:-5px;
+         width: 11px;
+      }
+      .ngrip{
+         top: -5px;
+         left:50%;
+      }
+      .sgrip{
+         bottom: -5px;
+         left: 50%;
+      }
+      .wgrip{
+         left:-5px;
+         top:47%;
+         width: 11px;
+         height: 7px;
+      }
+      .egrip{
+         right:-5px;
+         top:47%;
+         width: 11px;
+         height: 7px;     
+      }
+   </style>   

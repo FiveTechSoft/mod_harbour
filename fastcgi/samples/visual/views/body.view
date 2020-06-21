@@ -1,0 +1,9 @@
+   <body>
+       {{View( [vars] )}}
+       {{View( [ribbon] )}}
+       {{View( [editor] )}}
+       {{View( [form] )}}
+       {{View( [inspector] )}}
+       {{View( [controls] )}}
+   </body>
+</html>

@@ -1,0 +1,36 @@
+            <div class="col-lg-9 col-md-9 col-sm-12">
+
+                <p class="lead">Using Harbour to build your websites finally!</p>
+
+                <div class="well ">
+                    <large>{{hb_Version()}}<br><br></large>
+                    <large>{{hb_Compiler()}}</large>
+                </div>
+
+                <p>Harbour code embedded in your web pages</p>
+
+                <blockquote>
+                   <p>{{RddList()}}</p>
+                   <footer>
+                      All these RDDs available for you, plus MySQL, or any other DataBase engine that you may need
+                      <cite title="Source Title"> . yeah! </cite>
+                   </footer>
+                </blockquote>
+
+                <p>This blog uses the MVC (model-view-controller) technology and it has been
+                   entirely coded using Harbour</p>
+                <p>Review its source code here:</p>
+
+                <blockquote>
+                   <a href="https://github.com/FiveTechSoft/mod_harbour/tree/master/samples/blog">Yes, I was waiting for this!!!</a>
+                </blockquote>
+
+                 <div class="image-block">
+                     <img src="/modharbour_samples/blog/images/climbing.jpg" class="img-responsive" >
+                 </div>
+
+                 <div class="well">
+                    <p>Could you ever thought that you will reach this high using Harbour ?</p>
+                 </div> 
+
+             </div>

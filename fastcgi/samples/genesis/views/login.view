@@ -1,0 +1,66 @@
+               <div style="max-height:98%;background-color:white;margin:30px;margin-top:-18px;padding:10px;padding-top:10px;overflow-x:hidden;overflow-y:auto;">
+                  <button onclick="window.print();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
+                     <i class="fas fa-print" style="color:lightgray;padding-right:15px;font-size:16px"></i>
+                     Print</button><hr>
+                  <div class="row" style="padding-left:15px;"> 
+                     <div class="col-sm-3"></div>
+                     <div class="col-sm-5" style="padding-right:15px;"> 
+                        <h2>Please identify</h2>
+                        <form action="index.prg?login" method="post">
+                           <div class="input-group">
+                              <input type="text" class="form-control" name="username" style="margin-bottom:15px;" 
+                              placeholder="email or phone number..." required>
+                           </div> 
+                           <div class="input-group">  
+                              <input type="password" class="form-control" name="password" placeholder="password" required>
+                           </div>
+                           <br>
+                           <div class="pull-right">
+                              <button type="submit" class="btn btn-primary" name="continue"
+                                 style="color:white;background-color:{{GetColor1()}};border:none;margin-left:15px;">
+                                 <i class="fas fa-check" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                                 Continue</button>
+                              <button type="submit" class="btn btn-primary" name="forgot" 
+                                 style="color:white;background-color:{{GetColor1()}};border:none">
+                                 <i class="fas fa-key" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                                 Forgot password</button>
+                           </div>
+                           <br><br><hr>
+                        </form>
+                        <br>
+                        <h2>New account</h2>
+                        <form action="index.prg?login" method="post">
+                           <div class="input-group">
+                              <input type="text" class="form-control" style="margin-bottom:15px;" 
+                              placeholder="First name..." name="first" required>
+                           </div>   
+                           <div class="input-group">
+                              <input type="text" class="form-control" style="margin-bottom:15px;" 
+                                    placeholder="Last name..." name="last" required>
+                           </div>
+                           <div class="input-group">
+                              <input type="text" class="form-control" style="margin-bottom:15px;" 
+                                    placeholder="E-mail..." name="email" required>
+                           </div>
+                           <div class="input-group">
+                              <input type="text" class="form-control" style="margin-bottom:15px;" 
+                                    placeholder="Phone number..." name="phone" required>
+                           </div>
+                           <div class="input-group">
+                              <input type="password" class="form-control" style="margin-bottom:15px;" 
+                                 placeholder="Password..." name="password" required>
+                           </div>      
+                           <div class="pull-right">
+                              <button type="submit" class="btn btn-primary" name="ok" 
+                                 style="color:white;background-color:{{GetColor1()}};border:none;">
+                                 <i class="fas fa-check" style="color:lightgray;padding-right:10px;font-size:18px"></i>                                 
+                                 Ok</button>
+                              <button class="btn btn-primary" name="cancel" onclick="javascript:location.href='index.prg'"
+                                 style="color:white;background-color:{{GetColor1()}};border:none;margin-left:15px;">
+                                 <i class="fas fa-remove" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                                 Cancel</button>
+                           </div>
+                        </form>
+                     </div>
+                  </div>      
+            </div>

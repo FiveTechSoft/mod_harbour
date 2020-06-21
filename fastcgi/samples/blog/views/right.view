@@ -1,0 +1,79 @@
+<div class="col-lg-3  col-md-3 col-sm-12">
+   
+   <div class="well">
+      <h2>Box with input</h2>
+      <p>description goes here</p>
+      <div class="input-group">
+         <input type="text" class="form-control" placeholder="Search for...">
+         <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Go!</button>
+         </span>
+      </div>
+   </div>
+   
+   <div class="well">
+      <h2>Box with list</h2>
+      <ul class="list-inline">
+         <li><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></li>
+         <li><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></li>
+         <li><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></li>
+         <li><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></li>
+      </ul>
+   </div>
+   
+   <div class="well">
+      <h2>Box with button</h2>
+      <img src="" class="img-rounded" />
+      <p>Any text here...</p>
+      <a href="#" class="btn btn-default">Read more</a>
+   </div>
+   
+   <div class="list-group">
+      <a class="list-group-item active" href=""> <h4 class="list-group-item-heading">Box with options</h4> 
+         <p class="list-group-item-text">First option</p> 
+      </a>
+      <a class="list-group-item" href=""> <h4 class="list-group-item-heading">Another option</h4> 
+         <p class="list-group-item-text">Second option</p> 
+      </a>
+      <a class="list-group-item" href=""> <h4 class="list-group-item-heading">One more option</h4> 
+         <p class="list-group-item-text">Third option</p> 
+      </a> 
+   </div>
+   
+   <div class="well">
+      <div class="media"> 
+         <div class="media-left"> 
+            <a href="https://harbour.github.io"> 
+               <img src="/modharbour_samples/blog/images/harbour-project.jpeg" style="width:128px; height:64px;"> 
+            </a> 
+         </div> 
+         <div class="media-body"> 
+            <h4 class="media-heading">Box with images</h4>First image
+         </div> 
+      </div>
+      
+      <div class="media"> 
+         <div class="media-left"> 
+            <a href="https://www.apache.org/"> 
+               <img src="/modharbour_samples/blog/images/apache.jpeg" class="media-object" style="width: 64px; height: 64px;"> 
+            </a> 
+         </div> 
+         <div class="media-body"> 
+            <h4 class="media-heading">Another image</h4>Second image
+         </div> 
+      </div>
+      
+      <div class="media"> 
+         <div class="media-left"> 
+            <a href="https://fivetechsoft.github.io"> 
+               <img src="/modharbour_samples/blog/images/fivetechsoft.gif" class="media-object" style="width: 64px; height: 50px;"> 
+            </a> 
+         </div> 
+         <div class="media-body"> 
+            <h4 class="media-heading">One more image</h4>Third image
+         </div> 
+      </div>
+      
+   </div>
+   
+</div>   

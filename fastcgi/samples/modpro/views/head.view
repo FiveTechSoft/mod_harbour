@@ -1,0 +1,294 @@
+<html>
+
+<head>
+  <title>modpro</title>
+   <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
+   <script src="https://fivetechsoft.github.io/xcloud/source/js/xcloud.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+   <style>
+      .dropdown-menu{
+         color:white;
+      }
+      .dropdown-item:hover{
+         background-color: gray;
+         color:black;
+      }
+      .navbar-nav{
+         padding-left:15px;
+      }
+      .navbar-nav:hover{
+         background-color: gray;
+      }
+      .nav-link.dropdown-toggle{
+         padding-left:15px;
+      }
+      .dropdown-toggle::after{
+         border-top:0px;
+      }
+      .dropdown-menu.dropdown-menu-left.bg-dark.show{
+         margin-top:-6px;
+         margin-left:-16px;
+         box-shadow: 5px 5px 5px #606060;
+      }
+      .navbar.navbar-expand-lg.navbar-light.bg-light.navbar-dark.bg-dark{
+         margin-top:-5px;
+         margin-bottom:-5px;
+         padding-top:0px;
+         padding-bottom:0px;
+      }
+      .modal-backdrop{
+        display:none;
+      }
+      .modal-dialog{
+         display:none;
+      }
+
+      #body{
+         background-color:aquamarine;
+         height: calc( 100% - 25px );
+         width: 100%;
+      }
+      
+      #editor {
+        margin-left: 0px;
+        width:946px;
+        float: left;
+        bottom: 0px;
+        position: absolute;
+        top: 30px;
+      }
+
+      #splitter{
+         width:5px;
+         background-color: white;
+         cursor:col-resize;
+         float:left;
+         height: 100%;
+      }
+      
+      #right{
+          font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+          margin-left: 947px;
+          position: absolute;
+          top: 30px;
+          bottom: 0px;
+      }
+      
+      #output{
+        height: 100%;
+        padding: 10px;
+        width: 100%;
+        min-width: 50px;
+      }   
+
+      .fa-1x {
+         font-size: 0.85em;
+      }
+   </style>
+
+   <script>
+      function Save()
+      {
+          var o = new Object();
+      
+          o[ 'source' ] = editor.getValue();
+          console.log( 'PARAM', o );
+                
+          $.post( "id.prg", o )
+            .done( function( data ) { console.log( 'DONE', data ); location.href="id.prg?" + data; } )
+            .fail( function( data ) { console.log( 'ERROR', data ); } ); 
+      }
+
+      var nWnd = 1;
+      var oForm;
+
+      function Command( cMsg, lScroll )
+      {  
+         var cId = "command" + nWnd++;
+
+         if( lScroll == null )
+            lScroll = false;
+
+         $( '<div class="form" id="' + cId + 
+            '" style="overflow:' + ( lScroll ? 'auto': 'none' ) + 
+            ';position: absolute;width: 700px;height: 400px;' + 
+            'top: 375px;left: 1016px;background-color:silver;box-shadow:5px 5px 5px 0, 0px 0px 5px 0;' + 
+            'border-radius:5px;"></div>' ).appendTo( "#main" );
+         
+         $( "#" + cId ).draggable().resizable().click(function(){
+            if( $(this).is('.ui-draggable-dragging') ) {
+                  return;
+            }
+            $(".form").css( "z-index", 1 );
+            $(this).css( "z-index", nWnd - 1 );
+         });
+
+         if( cMsg != null )
+            $( "#" + cId ).html( cMsg );
+   
+         oForm = $( "#" + cId );
+
+         return $( "#" + cId );
+      }
+
+      function CloseAllForms()
+      {
+         nWnd = 1; 
+         $(".form").remove();
+      }
+
+      var oFPicker;
+
+      function OpenPrg()
+      { 
+         var oFile; 
+         oFPicker = document.createElement( "input" );
+         oFPicker.type = "file";
+         oFPicker.accept = ".prg,.ch,.txt,.h,.c";
+         oFPicker.style.visibility = "hidden";
+         oFPicker.onchange = function( evt ){ 
+           var reader = new FileReader();
+           oFile = evt.target.files[0];
+           reader.onload = function( e ) {
+              editor.session.setValue( e.target.result ); 
+              sessionStorage.setItem( 'code', e.target.result ); };
+           reader.readAsText( oFile ); 
+           }
+
+        oFPicker.click(); 
+      } 
+
+      function ClosePrg()
+      {
+         editor.session.setValue( '' );   
+         sessionStorage.setItem( 'code', '' );
+      }
+
+      function OpenDbf()
+      { 
+        var oFile; 
+        oFPicker = document.createElement( "input" );
+        oFPicker.type = "file";
+        oFPicker.accept = ".dbf,.dbt,.fpt,.cdx,.ntx";
+        oFPicker.style.visibility = "hidden";
+        oFPicker.onchange = function( evt ){ 
+           var reader = new FileReader();
+           oFile = evt.target.files[0];
+           reader.readAsDataURL( oFile ); 
+           reader.onload = function( e ) {
+               var formData = new FormData();
+               var xhr = new XMLHttpRequest();
+               var blob = new Blob( [e.target.result], {type: "application/octet-stream"} );
+               formData.append( oFile.name, blob );
+               xhr.onreadystatechange = function() { 
+                  if( this.readyState == XMLHttpRequest.DONE && this.status == 200 ) {
+                     Command( this.responseText, true ); } };
+            xhr.open( "POST", 'upload.prg' );
+            xhr.send( formData );
+           }
+         };
+
+        oFPicker.click(); 
+      } 
+
+      function AddLabel()
+      {
+         var cId = "Label" + ( oForm["0"].children.length - 2 );
+         
+         oForm.append( "<label class='label control' id='" + cId + "'>" + cId + "</label>" );
+         $( "#" + cId ).draggable().resizable();
+      }
+
+      function AddInput()
+      {
+         var cId = "input" + ( oForm["0"].children.length - 2 );
+
+         oForm.append( "<input type='text' class='input control' id='" + cId + "' style='width:300px;height:50px;'></input>" );
+         $( "#" + cId ).resizable();
+         $( ".ui-wrapper" ).draggable( {cancel:false} );      
+      }
+
+      function AddButton()
+      {
+         var cId = "Button" + ( oForm["0"].children.length - 2 );
+
+         oForm.append( "<button class='button control' id='" + cId + "' style='width:120px;height:60px;'>" + cId + "</button>" );
+         $( "#" + cId ).resizable();
+         $( ".ui-wrapper" ).draggable( {cancel:false} );
+      }
+
+      function ShowHtml()
+      {
+         var form = {}; 
+
+         form.top    = oForm["0"].style.top;
+         form.left   = oForm["0"].style.left;
+         form.width  = oForm["0"].style.width;
+         form.height = oForm["0"].style.height;
+         form.backgroundColor = oForm["0"].style.backgroundColor;
+         form.controls = []; 
+
+         $( ".control" ).each( function( n ) {
+            form.controls.push( CtrlObj( $( this ) ) ); } );
+         
+         alert( JSON.stringify( form ) );
+      }
+
+      function CtrlObj( oCtrl )
+      {
+         var control = {};
+
+         control.type   = oCtrl.attr( 'id' );
+         control.top    = oCtrl["0"].style.top== 0 ? oCtrl.parent().css( "top" ): oCtrl.css( "top" );
+         control.left   = oCtrl["0"].style.left == 0 ? oCtrl.parent().css( "left" ): oCtrl["0"].style.left;
+         control.width  = oCtrl["0"].style.width;
+         control.height = oCtrl["0"].style.height;
+         
+         return control;
+      }
+
+      function Copy()
+      {
+         editor.focus();
+         document.execCommand('copy');
+      }
+
+      function Paste()
+      {
+         editor.focus();
+         document.execCommand('paste');
+      }
+
+      function Clear()
+      {
+         $('#output').html('');
+         sessionStorage.setItem( 'result', '' );
+      }
+
+      function SelectAll()
+      {
+         editor.selectAll();
+      }
+
+      function AceGotoLine( cLine )
+      {
+         editor.gotoLine( parseInt( cLine ), 0, true );
+      }
+      
+      function GetParams()
+      {
+         MsgGet( 'params:  ', 'params to provide', 'SaveParams(', sessionStorage.getItem( 'params' ) );
+      }
+      
+      function SaveParams( cParams )
+      {
+         sessionStorage.setItem( 'params', cParams );
+      }   
+   </script>  
+</head>

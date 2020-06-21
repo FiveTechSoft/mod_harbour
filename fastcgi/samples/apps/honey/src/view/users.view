@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HWeb Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+  <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+</head>
+<style>
+	li img {
+		margin-top: 7px;
+		margin-left: 5px;
+	}
+</style>
+<body>
+  <div data-role="page" data-theme="a">
+    <div data-role="header">
+		<a href="#" data-icon="back" data-rel="back">Previo</a>
+      <h1>Equipo de Trabajo</h1>
+    </div>
+	<div class="ui-field-contain" >
+		
+		<select name="dpt" id="dpt" data-native-menu="false" >
+			<option>Departamentos</option>
+			<option value="TIC">Informàtica</option>
+			<option value="DIR">Dirección</option>
+			<option value="VNT">Ventas</option>
+			<option value="ALL">Todos</option>
+		</select>
+		
+		<div id="lista_users" data-role="content" data-theme="a" >
+		  <ul id="lista2" data-role="listview" data-split-theme="a" >
+			<li data-role="list-divider">Usuarios</li>
+
+		  </ul>
+		</div>
+	</div>
+</body>
+<script>
+
+	$('#dpt').change(function() {
+	  
+		var oData	= new Object()
+		var cDpt 	= $( "#dpt option:selected" ).val()
+		var oParam 	= new Object()
+		oParam[ 'action' ] = 'load'
+		oParam[ 'dpt' ] = cDpt
+		console.log( oParam)
+		
+		$('#lista2').load( 'users.prg?action=load&dpt=' + cDpt, function(responseTxt, statusTxt, xhr){
+			if(statusTxt == "success")
+			  $('#lista2').listview('refresh');
+			if(statusTxt == "error")
+			  console.log("Error: " + xhr.status + ": " + xhr.statusText);
+		  }); 	  
+	});
+	
+</script>
+
+
+</html>

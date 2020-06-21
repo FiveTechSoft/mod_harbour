@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HWeb - MVC</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-static-top">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">Harbour Web</a>
+		</div>
+	</nav>
+
+</body>
+</html>
+
+
+</html>

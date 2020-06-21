@@ -1,0 +1,156 @@
+				<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark" style="height:35px;">
+					<a class="navbar-brand" style="cursor:pointer;color:aquamarine;" 
+					   onclick="location.href='https://fivetechsoft.github.io/mod_harbour/'">
+						<i class="fas fa-bars fa-1x" style="padding-top:5px"></i></a>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				        <ul class="navbar-nav">
+				           <li class="nav-item active dropdown">
+							  <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+							     data-toggle="dropdown">File</a>
+				              <div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+				                 <a class="dropdown-item" style="color:white;" onclick="OpenPrg()">Open...</a> 
+				                 <a class="dropdown-item" >Save</a> 
+				                 <a class="dropdown-item" >Save as...</a>
+				                 <div class="dropdown-divider"></div>
+				                 <a class="dropdown-item" onclick="ClosePrg()">Close</a>
+				                 <a class="dropdown-item" >Close all</a>
+				              </div>
+			               </li>
+			            </ul>					
+				        <ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">Edit</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;">Cut</a> 
+									<a class="dropdown-item" onclick="Copy()">Copy</a> 
+									<a class="dropdown-item" onclick="Paste()">Paste</a>
+									<a class="dropdown-item" onclick="Clear()">Clear</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" onclick="SelectAll()">Select all</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" 
+									   onclick="MsgGet( 'number:  ', 'Goto line', 'AceGotoLine(' );" >Go to Line...</a>
+									<a class="dropdown-item" >Find...</a>
+									<a class="dropdown-item" >Find again</a>
+									<a class="dropdown-item" >Replace and find again</a>
+									<a class="dropdown-item" >Replace all</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" onclick="editor.findNext()">Next</a>
+									<a class="dropdown-item" onclick="editor.findPrevious()">Prev</a>
+								</div>
+							</li>
+						</ul>					
+				        <ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">DataBase</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;">New...</a> 
+									<a class="dropdown-item" onclick="OpenDbf()">Open...</a> 
+									<a class="dropdown-item" >Workareas...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Append from...</a>
+									<a class="dropdown-item" >Copy to...</a>
+									<a class="dropdown-item" >Sort...</a>
+									<a class="dropdown-item" >Total...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Average...</a>
+									<a class="dropdown-item" >Count...</a>
+									<a class="dropdown-item" >Sum...</a>
+									<a class="dropdown-item" >Calculate...</a>
+									<a class="dropdown-item" >Print report...</a>
+									<a class="dropdown-item" >Print label...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Pack</a>
+									<a class="dropdown-item" >Reindex</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Close All</a>
+								</div>
+							</li>
+						</ul>					
+						<ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">Record</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;">Append</a> 
+									<a class="dropdown-item" style="color:white;">Change</a> 
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Goto...</a> 
+									<a class="dropdown-item" >Locate...</a> 
+									<a class="dropdown-item" >Continue</a> 
+									<a class="dropdown-item" >Seek...</a> 
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Replace</a> 
+									<a class="dropdown-item" >Delete</a> 
+									<a class="dropdown-item" >Recall</a> 
+								</div>
+							</li>
+						</ul>					
+						<ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">Program</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;">Open...</a> 
+									<a class="dropdown-item" >Save</a> 
+									<a class="dropdown-item" >Save as...</a>
+								</div>
+							</li>
+						</ul>					
+						<ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">Run</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" onclick="Run()">Execute</a> 
+									<a class="dropdown-item" >Debug...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" onclick="GetParams()">Params...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" >Build HRB...</a>
+								</div>
+							</li>
+						</ul>					
+						<ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">Window</a>
+								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;" onclick="Command()">Command...</a> 
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" onclick="AddLabel()">Add Say</a>
+									<a class="dropdown-item" onclick="AddInput()">Add Get</a>
+									<a class="dropdown-item" onclick="AddButton()">Add Button</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" onclick="ShowHtml()">Show HTML...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" onclick="CloseAllForms()">Close all</a>
+								</div>
+							</li>
+						</ul>					
+						<ul class="navbar-nav">
+							<li class="nav-item active dropdown">
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+									data-toggle="dropdown">Help</a>
+								<div id="popup8" class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" style="color:white;" href="https://github.com/FiveTechSoft/mod_harbour/wiki">mod_harbour wiki...</a> 
+									<a class="dropdown-item" style="color:white;" href="https://app.slack.com/client/TJH5YU202/CJUHF8SBX">mod_harbour live chat...</a> 
+									<a class="dropdown-item" style="color:white;" href="http://forums.fivetechsupport.com/viewforum.php?f=45&start=0">mod_harbour forums...</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item"  style="color:white;" href="https://harbour.github.io">The Harbour Project</a>
+								</div>
+							</li>
+						</ul>					
+					</div>
+				</nav>
+
+				<script>
+					$('.navbar-nav').hover( 
+						function(){ $( this ).find( "div" ).addClass( 'show' ) },
+						function(){ $( this ).find( "div" ).removeClass('show') } );
+					$('.navbar-nav').mousedown(
+		 				function(){  $( this ).find( "div" ).removeClass('show'); } );
+					$('.dropdown-item').bind( 'mousedown', false );	 	
+				</script>

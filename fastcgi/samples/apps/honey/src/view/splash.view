@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HWeb Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+
+<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet'> 
+<link rel="icon" type="image/png" href="<?prg retu url_images() + 'favicon.ico'?>">
+  <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+</head>
+<style>
+
+	p {
+		margin:0px;
+	}
+	
+	.harbour {
+		 font-family: Helvetica,Arial,sans-serif;
+		 font-size: 40px;
+		 font-weight: bold;	
+		 color: #e0e0e0;
+	}
+	
+	.forweb{
+		font-family: 'Architects Daughter';
+		font-size: 30px;
+		font-weight: bold;	
+		margin-left: 15%;
+		width:100%;
+		color: #b9d2fe;
+	}
+	
+	#contentone
+	{
+		position: absolute;
+		top: 30%;
+		height: 50%;
+		width: 100%;
+		text-align: center;
+		 padding: 0;
+	}		
+	
+</style>
+<body id="main">
+  <div data-role="page" data-theme="a" class="splash">
+  
+		<div id="contentone"  data-theme="a">
+			<p class="harbour">Harbour</p>
+			<p class="forweb">for Web</p>
+		</div> 
+  </div>
+</body>
+<script>
+		
+	$('#main').click( function() {   
+			
+		window.location.href = "<?prg retu url_controller() + 'login.prg' ?>"
+	});
+
+
+</script>
+
+</html>

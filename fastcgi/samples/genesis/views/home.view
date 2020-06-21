@@ -1,0 +1,97 @@
+ <div style="max-height:98%;background-color:white;margin:30px;margin-top:-18px;padding:10px;padding-top:10px;overflow-x:hidden;overflow-y:auto;">
+   <div class="row">
+      <div class="col-md-6">
+         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+         <script type="text/javascript">
+         google.charts.load("current", {packages:["corechart"]});
+         google.charts.setOnLoadCallback(drawChart);
+         function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+               ['Task', 'Hours per Day'],
+               ['New users', 13],
+               ['Returning users', 22],
+               ['Google searches', 11]
+            ]);
+
+            var options = {
+               pieHole: 0.5,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+            chart.draw(data, options);
+         }
+         </script>
+         <h7>Monthly analitycs</h7>
+         <div id="donutchart" style="width: 800px; height: 400px;"></div>
+      </div>
+      <div class="col-md-6">
+         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+         <script type="text/javascript">
+            google.charts.load('current', {
+            'packages':['geochart'],
+            // Note: you will need to get a mapsApiKey for your project.
+            // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+            'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+            });
+            google.charts.setOnLoadCallback(drawRegionsMap);
+
+            function drawRegionsMap() {
+            var data = google.visualization.arrayToDataTable([
+               ['Country', 'Popularity'],
+               ['Germany', 200],
+               ['United States', 500],
+               ['Brazil', 400],
+               ['Canada', 300],
+               ['France', 600],
+               ['Spain',700],
+               ['United Kingdom', 600],
+               ['RU', 300]
+            ]);
+
+            var options = { backgroundColor: '#81d4fa',
+                            defaultColor: '#f5f5f5',
+                            datalessRegionColor: 'pink' };
+
+            var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+            chart.draw(data, options);
+            }
+         </script>
+         <h7>Worldwide users distribution</h7>
+         <div id="regions_div" style="width: 600px; height: 400px;"></div>
+     </div>
+   </div> 
+   <div class="row">
+      <div class="col-md-6" style="padding-left:30px;">
+         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+         <script type="text/javascript">
+            google.charts.load('current', {'packages':['bar']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+               ['Year', 'Sales', 'Expenses', 'Profit'],
+               ['2016', 1000, 400, 200],
+               ['2017', 1170, 460, 250],
+               ['2018', 660, 1120, 300],
+               ['2019', 1030, 540, 350]
+            ]);
+
+            var options = {
+               chart: { subtitle: 'Sales, Expenses, and Profit: 2016-2019',
+               },
+               bars: 'vertical' // Required for Material Bar Charts.
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+            }
+         </script>
+         <h7>Company performance</h7>
+         <div id="barchart_material" style="width: 600px; height: 300px;"></div>
+      </div>
+      <div class="col-md-6">
+      </div>
+   </div>   
+</div>

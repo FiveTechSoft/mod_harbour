@@ -1,0 +1,60 @@
+   <div id="form" class="form">
+      <div id="form_handle" class="ui-resizable-handle ui-resizable-se segrip main"></div>
+      <i onclick="HideForm()" class="fas fa-times" 
+         style="position:absolute;right:14px;top:12px;cursor:pointer;"></i>
+   </div>
+
+   <script>
+      $( "#form" ).resizable( { handles: { 'se': '' } } ).draggable( { drag: function() {
+            $( "#top" ).val( $(this).css( "top" ) ); 
+            $( "#left" ).val( $(this).css( "left" ) ); } } );
+      
+      $( "#form" ).resize( function(){ $( "#width" ).val( $(this).css( "width" ) );
+                                       $( "#height" ).val( $(this).css( "height" ) ); } );
+
+      $( "#form" ).focus( function() { oCtrl = $(this);
+                                       $( "#id" ).val( $(this).attr( "id" ) ); 
+                                       $( "#top" ).val( $(this).css( "top" ) ); 
+                                       $( "#left" ).val( $(this).css( "left" ) );
+                                       $( "#width" ).val( $(this).css( "width" ) );
+                                       $( "#height" ).val( $(this).css( "height" ) );
+                                       $( "#prompt").val( "" );
+                                       $( "#fontfamily" ).val( $(this).css( "fontFamily" ).replace( '"', '').replace( '"', '' ) );
+                                       $( "#fontsize" ).val( $(this).css( "fontSize" ) );
+                                       $( "#color" ).val( RGBToHex( $(this).css( "color" ) ) ); 
+                                       $( "#bgcolor" ).val( RGBToHex( $(this).css( "backgroundColor" ) ) );
+                                       $( "#onclick" ).val( $(this).attr( "data-onclick" ) ); } );
+
+      $( document ).ready( function(){ $( "#form" ).focus(); } );        
+      $( "#form" ).focus();
+
+      $( "#fontfamily" ).focusout( function() {
+         var cId = $('#id').val();
+         $( "#" + cId ).css( 'fontFamily', $(this).val() ); } );
+
+      $( "#fontsize" ).focusout( function() {
+         var cId = $('#id').val();
+         $( "#" + cId ).css( 'fontSize', $(this).val() ); } );
+
+      $( "#color" ).on( "input", function(){ oCtrl.css( "color", $( "#color" ).val() ) } );
+      $( "#bgcolor" ).on( "input", function(){ oCtrl.css( "backgroundColor", $( "#bgcolor" ).val() ) } );
+
+      $( "#form" ).on( "click", function(){ eval( $( "#form" ).attr( "data-onclick" ) ); } );   
+
+      $( "#onclick" ).focusout( function() {
+         var cId = $('#id').val();
+         $( "#" + cId ).attr( 'data-onclick', $(this).val() ); } );
+  
+      function ShowForm()
+      {
+         $( "#form" ).css( "visibility", "visible" );
+         $( "#form_handle" ).css( "visibility", "visible" );
+      }
+
+      function HideForm()
+      {
+         $( "#form" ).css( "visibility", "hidden" );
+         $( "#form_handle" ).css( "visibility", "hidden" );
+      }
+
+   </script>      

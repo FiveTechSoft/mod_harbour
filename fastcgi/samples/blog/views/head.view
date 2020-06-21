@@ -1,0 +1,20 @@
+<html lang="en">
+<head>
+  <title>My blog</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style>  
+     .navbar{margin-bottom:0;}
+     section{width:100%; float:left;}
+     .banner-section{background-image:url("/modharbour_samples/blog/images/mountains.jpg"); background-size:cover; height: 380px; left: 0; position: absolute; top: 0; background-position:0;}
+     .post-title-block{padding:100px 0;}
+     .post-title-block h1 {color: #fff; font-size: 85px; font-weight: bold;}
+     .post-title-block li{font-size:20px; color: #fff;}
+     .image-block{float:left; width:100%; margin-bottom:10px;}
+     .footer-link{float:left; width:100%; background:#222222; text-align:center; padding:30px;}
+     .footer-link a{color:#428bca; font-size:15px;}  
+  </style>  
+  
+</head>

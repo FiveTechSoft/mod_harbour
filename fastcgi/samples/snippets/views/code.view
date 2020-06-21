@@ -1,0 +1,14 @@
+   
+          <div id="editor" style="height:calc(100% - 50px);">{{GetCode()}}</div>
+          <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+          <script>
+             var editor = ace.edit("editor");
+             editor.setTheme("ace/theme/tomorrow_night_blue");
+             editor.setFontSize(18);     
+             editor.setHighlightActiveLine(true);
+             editor.setOptions({ enableBasicAutocompletion: true,
+                                 enableLiveAutocompletion: true });
+             editor.session.setMode("ace/mode/c_cpp");
+          </script>
+
+   

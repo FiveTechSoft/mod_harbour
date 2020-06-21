@@ -1,0 +1,51 @@
+             <header class="header" style="background-color:#f2f2f2;height:210px;">
+               <div class="container" style="height:70px;">
+                  <div class="col-sm-4 col-xs-6">
+                     <h2><br>My eshop</h2>
+                     <h5 style="color:#a0a0a0">Online store</h5>
+                  </div>
+               </div>
+
+               <div class="container" style="height:70px;">
+                  <div class="col-sm-4 col-xs-6">
+                  </div>
+                  <div class="col-sm-5 col-xs-6">
+                     <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                           <button class="btn btn-default" type="button" style="color:white;background-color:{{GetColor()}}">Search</button>
+                        </span>
+                     </div>
+                  </div>
+                  <div class="col-sm-3"></div>
+               </div>
+
+               <div class="container" style="height:70px;">
+                  <div class="row">
+                     <div class="col-sm-3">
+                     </div> 
+                     <div class="col-sm-9">
+                        <div class="horizontal-menu" style="background-color:#2f2f2f;height:70px;">
+                           <a {{If( GetContent() == "home", 'class="active"', "" )}} onclick="SelectTopItem( this ); javascript:location.href='index.prg'" style="width:106px;">
+                              <img src="/modharbour_samples/eshop/images/home.png"> Home</a>
+                              
+                           <a {{If( GetContent() == "wishlist", 'class="active"', "" )}} onclick="SelectTopItem( this ); javascript:location.href='index.prg?wishlist'">
+                              <img src="/modharbour_samples/eshop/images/star.png"> Wishlist (0)</a>
+                              
+                           <a {{If( GetContent() == "login", 'class="active"', "" )}} onclick="SelectTopItem( this ); javascript:location.href='index.prg?login'">
+                              <img src="/modharbour_samples/eshop/images/user.png"> My Account</a>
+                              
+                           <a {{If( GetContent() == "cart", 'class="active"', "" )}} onclick="SelectTopItem( this ); javascript:location.href='index.prg?cart'" style="width:154px;">
+                              <img src="/modharbour_samples/eshop/images/cart.png"> Shopping Cart</a>
+                              
+                           <a {{If( GetContent() == "checkout", 'class="active"', "" )}} onclick="SelectTopItem( this ); javascript:location.href='index.prg?checkout'">
+                              <img src="/modharbour_samples/eshop/images/check.png"> Checkout</a>
+                           
+                           <a style="background-color:{{GetColor()}};" onMouseOver="this.style.color='#2f2f2f'" onMouseOut="this.style.color='white'">
+                              <img src="/modharbour_samples/eshop/images/cartwhite.png"> (0) items</a>
+                        </div>
+                     </div> 
+                  </div>
+               </div>
+            </header>
+

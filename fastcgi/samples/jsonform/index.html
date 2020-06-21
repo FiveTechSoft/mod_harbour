@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Json Forms examples for mod_harbour</title>
+    <!-- Bootstrap core -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Datatables plugin -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+
+      <h1>Json Forms examples</h1>
+      <p class="lead">Construyendo formularios web para mod_harbour<br>
+      <span class="lead"><em>Building webforms for mod_harbour</em></span>
+      </p>
+
+      <hr>
+
+      <h3 class="mt-4">Notas</h3>
+      <p>Como desarrolladores de aplicaciones de escritorio al usar librerias GUI, solemos utilizar un editor de recursos e identificar cada control con ID's. Posteriormente 'damos vida' a esos controles definidos en recursos y los vinculamos a través del ID definido, con nuesto codigo fuente y así para dotarlos de funcionalidad. Por ejemplo, para validación, obtención de los datos, etc.</p>
+      <p>Utilizando el plugin <a href="https://github.com/jsonform/jsonform">JsonForm</a> (o similares), el paradigma de programación descrito arriba se transforma simplemente en que nuestro script de servidor Harbour, obtiene los datos y genera unas reglas de validación para alimentar el plugin</p>
+      <p>La idea es generar un JSON en servidor, con la estructura adecuada y el plugin nos hará la 'magia' del lado del cliente (en navegador), sin tener que generar codigo HTML, ni scripts de validación.</p>
+      <p>Podemos contar con la ayuda de diseñadores visuales, tipo 'Resource workshop' en ecosistemas como <a href="https://draggable.github.io/formeo/">formeo</a> o <a href="https://formio.github.io/formio.js/">form.io</a></p>
+      <cite>Les invito a que piensen en JSON :)</cite>
+
+      <h3 class="mt-4">Ejemplos</h3>
+
+      <div class="row mb-3">
+        <div class="col-12 themed-grid-col">
+          
+          <table id="menu" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+               <tr>
+                   <th>Vista PRG</th>
+                   <th>Modelo PRG</th>
+                   <th>Detalle del test</th>
+                   <th>Enlace</th>
+               </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div> <!-- /container -->
+
+  <script>
+    $(document).ready( function () {
+
+      $('#menu').DataTable({
+        "ajax": "menu.json",
+        "scrollCollapse": true,
+        "paging":         false,
+        "info":           false,
+        "ordering":       false,
+        "searching":      false
+      });
+    });
+  </script>
+
+</body>
+</html>

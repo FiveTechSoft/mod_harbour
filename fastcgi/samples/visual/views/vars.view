@@ -1,0 +1,10 @@
+<script>
+   var labels = 0;
+   var edits = 0;
+   var buttons = 0;
+   var checkboxes = 0;
+   var images = 0;
+   var listboxes = 0;
+   var oCtrl;
+   var oForm = JSON.parse( '{{GetJson()}}' ); 
+</script>

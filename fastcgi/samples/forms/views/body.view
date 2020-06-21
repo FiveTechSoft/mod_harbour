@@ -1,0 +1,39 @@
+<body style="background-color:aquamarine">
+	<div class="container-fluid" style="padding:0px;overflow:hidden;">
+		<div class="row">
+			<div class="col-md-12">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark" style="height:50px;">
+					<a class="navbar-brand" style="cursor:pointer;color:aquamarine;" 
+               onclick="location.href='https://fivetechsoft.github.io/mod_harbour/'">mod_harbour forms</a>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="navbar-nav">
+							<li class="nav-item active">
+								<a class="nav-link" style="cursor:pointer;" onclick="ShowJson();">JSON</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" style="cursor:pointer;" onclick="Save();">Save</a>
+							</li>
+						</ul>
+				        <ul class="navbar-nav ml-md-auto">
+				           <li class="nav-item dropdown">
+				              <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Information</a>
+				              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+				                 <a class="dropdown-item" href="http://forums.fivetechsupport.com/viewforum.php?f=45&start=0">mod_harbour forums</a> 
+				                 <a class="dropdown-item" href="https://app.slack.com/client/TJH5YU202/CJUHF8SBX">mod_harbour live chat</a> 
+				                 <a class="dropdown-item" href="https://github.com/FiveTechSoft/mod_harbour">mod_harbour github</a>
+				                 <div class="dropdown-divider"></div>
+				                 <a class="dropdown-item" href="https://harbour.github.io">The Harbour Project</a>
+				              </div>
+			               </li>
+			            </ul>					
+					</div>
+				</nav>
+			</div>
+		</div>
+		<div id="main" class="row" style="height:calc( 100% - 50px );">
+			<div class="col-md-2" style="padding:0px;height:110%;background:turquoise;">
+			  {{GetContent()}}  
+			</div>
+	</div>
+</body>
+</html>

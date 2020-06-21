@@ -1,0 +1,31 @@
+               <div style="max-height:98%;background-color:white;margin:30px;margin-top:-18px;padding:10px;padding-top:10px;overflow-x:hidden;overflow-y:auto;">
+                  <button onclick="Add();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
+                     <i class="fas fa-plus" style="color:lightgray;padding-right:15px;font-size:16px"></i>Add</button>
+                  <button onclick="window.print();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
+                     <i class="fas fa-print" style="color:lightgray;padding-right:15px;font-size:16px"></i>Print</button><hr>
+                  <div class="row" style="padding-left:15px;"> 
+                     <div class="col-sm-3">  
+                        <select id="rowsperpage" class="selectpicker show-tick" style="height:30px;margin-bottom:10px;margin-right:10px">
+                           <option {{If(GetVal1()==20,"selected","")}}>20</option>
+                           <option {{If(GetVal1()==25,"selected","")}}>25</option>
+                           <option {{If(GetVal1()==30,"selected","")}}>30</option>
+                        </select>   
+                        records per page
+                     </div>   
+                     <div class="col-sm-6"></div>
+                     <div class="col-sm-3" style="padding-right:15px;padding-bottom:5px;margin-top:-5px;">  
+                        <div class="input-group">
+                           <input id="searchfor" type="text" class="form-control" 
+                              placeholder={{If( Empty( GetParam1() ), "Search for...", GetParam1())}}>
+                              <span class="input-group-btn">
+                                 <button class="btn btn-default" 
+                                 type="button" onclick="location.href='index.prg?{{GetContent()}}:search:' + SearchFor()"
+                                 style="width:40px;height:38px;color:white;background-color:{{GetColor1()}}">
+                                 <i class="fas fa-search" style="color:lightgray;padding-right:15px;font-size:16px"></i>
+                                 </button>
+                              </span>
+                        </div>
+                     </div>
+                  </div>   
+                  {{BuildBrowse( GetContent() )}}     
+               </div>
