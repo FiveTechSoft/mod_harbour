@@ -1,7 +1,7 @@
 function Main()
 
    local cCode := "null"
-   local cArgs := AP_Args()
+   local cArgs := mh_Query()
 
    if ! File( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf" )
       DbCreate( hb_GetEnv( "PRGPATH" ) + "/data/forms.dbf",; 
