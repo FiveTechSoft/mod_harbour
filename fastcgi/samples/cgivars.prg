@@ -48,7 +48,7 @@ function Main()
    ?? '</table>' + CRLF
    ?? '<table border=1 cellspacing=2>' + CRLF
    FOR n := 1 TO Len( aEnv )
-      ?? '<tr><td><b>' + aEnv[ n ] + '</b></td><td>' + AP_GetEnv( aEnv[ n ] ) + '</td></tr>' + CRLF
+      ?? '<tr><td><b>' + aEnv[ n ] + '</b></td><td>' + mh_GetEnv( aEnv[ n ] ) + '</td></tr>' + CRLF
    NEXT
    ?? '</table>' + CRLF
 
