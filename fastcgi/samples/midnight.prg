@@ -2,7 +2,7 @@
 
 function Main()
 
-   local cArgs := AP_Args(), cLeftPath := "/", cRightPath := "/", cName
+   local cArgs := mh_Query(), cLeftPath := "/", cRightPath := "/", cName
 
    // ShowConsole()
    // AltD()
