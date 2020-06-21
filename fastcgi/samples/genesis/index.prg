@@ -10,7 +10,7 @@ function Main()
    CheckUser()
    CheckDataBase()
 
-   Controller( AP_Args() )
+   Controller( mh_Query() )
 
    AddLog()
 
