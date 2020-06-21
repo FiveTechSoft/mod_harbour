@@ -9,7 +9,7 @@ function Main()
    
    USE ( hb_GetEnv( "PRGPATH" ) + "/chat" ) SHARED NEW   
    
-   if Empty( AP_Args() )
+   if Empty( mh_Query() )
       BeginPage()
 
       ?? "<div class='browse' id='browse'>"
@@ -17,7 +17,7 @@ function Main()
    
    GetItems()
 
-   if Empty( AP_Args() )
+   if Empty( mh_Query() )
       ?? "</div>"
    
       TEMPLATE
@@ -42,19 +42,19 @@ return nil
 
 function GetItems()
 
-   local hPostPairs := AP_PostPairs()
+   local hPostPairs := mh_PostPairs()
 
    while ! EOF()
       DispRecord()
       SKIP
    end   
-   if AP_Method() == "POST" .and. ! Empty( hPostPairs[ "msg" ] ) .and. ;
+   if mh_Method() == "POST" .and. ! Empty( hPostPairs[ "msg" ] ) .and. ;
       ( ! "<SCRIPT" $ Upper( hb_UrlDecode( hPostPairs[ "msg" ] ) ) .and. ;
         ! "<STYLE" $ Upper( hb_UrlDecode( hPostPairs[ "msg" ] ) ) )
       APPEND BLANK
       if RLock()
          Field->Time   := Left( Time(), 5 )
-         Field->UserId := AP_UserIP()
+         Field->UserId := mh_UserIP()
          Field->Msg    := hb_UrlDecode( hPostPairs[ "msg" ] ) 
          DbUnLock()
       endif         
