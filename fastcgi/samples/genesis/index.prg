@@ -274,31 +274,31 @@ return nil
 
 function Login()
 
-   local hPairs := AP_PostPairs()
+   local hPairs := mh_PostPairs()
     
    do case
       case hb_HHasKey( hPairs, "forgot" )
-         AP_RPuts( View( "default" ) )
+         mh_Echo( View( "default" ) )
          if ! Empty( hPairs[ "username" ] ) 
-            AP_RPuts( "<script>MsgInfo( 'An email has been sent to you to reset your password' )</script>" )
+            mh_Echo( "<script>MsgInfo( 'An email has been sent to you to reset your password' )</script>" )
          else   
-            AP_RPuts( "<script>MsgInfo( 'Please write your email or phone number' )</script>" )
+            mh_Echo( "<script>MsgInfo( 'Please write your email or phone number' )</script>" )
          endif 
          
       case hb_HHasKey( hPairs, "continue" )     
            if Identify( hPairs[ "username" ], hPairs[ "password" ] )
               cContent = "home"
-              AP_HeadersOutSet( "Set-Cookie", "genesis=" + cUserName )
-              AP_RPuts( View( "default" ) )
+              mh_Header( "Set-Cookie: genesis=" + cUserName )
+              mh_Echo( View( "default" ) )
            else
-              AP_RPuts( View( "default" ) )
-              AP_RPuts( "<script>MsgInfo( 'wrong username or password', 'Please try it again' )</script>" )
+              mh_Echo( View( "default" ) )
+              mh_Echo( "<script>MsgInfo( 'wrong username or password', 'Please try it again' )</script>" )
            endif 
            
       case hb_HHasKey( hPairs, "ok" )
            AddUser( hPairs )
-           AP_RPuts( View( "default" ) )
-           AP_RPuts( "<script>MsgInfo( 'Please identify and press continue' )</script>" )
+           mh_Echo( View( "default" ) )
+           mh_Echo( "<script>MsgInfo( 'Please identify and press continue' )</script>" )
    endcase 
 
 return nil
@@ -647,7 +647,7 @@ return cHtml
 
 function Save()
 
-   local hPost := AP_PostPairs(), n
+   local hPost := mh_PostPairs(), n
 
    if GetContent() != "database" 
       OpenTable( "database" )
@@ -691,7 +691,7 @@ function Save()
 
    USE
 
-   AP_RPuts( View( "default" ) )
+   mh_Echo( View( "default" ) )
 
 return nil
 
@@ -723,7 +723,7 @@ return cResult
 
 function GetCookies()
 
-   local hHeadersIn := AP_HeadersIn()
+   local hHeadersIn := mh_HeadersIn()
    local cCookies := If( hb_HHasKey( hHeadersIn, "Cookie" ), hb_hGet( hHeadersIn, "Cookie" ), "" )
    local aCookies := hb_aTokens( cCookies, ";" )
    local cCookie, hCookies := {=>}
