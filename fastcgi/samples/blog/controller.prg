@@ -4,7 +4,7 @@ function Controller( cRequest )
 
    cContent = If( Empty( cRequest ), "home", If( cRequest $ "about,contact", cRequest, "home" ) )
    
-   mh_Query( View( "default" ) )
+   mh_Echo( View( "default" ) )
 
 return nil
 
