@@ -4,7 +4,7 @@ function Controller( cRequest )
 
    cContent = If( Empty( cRequest ), "home", If( cRequest $ "about,contact", cRequest, "home" ) )
    
-   AP_RPuts( View( "default" ) )
+   mh_Query( View( "default" ) )
 
 return nil
 
