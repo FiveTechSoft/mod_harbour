@@ -27,7 +27,7 @@ extern ANSITOHTML
 extern ANSITOWIDE
 extern ANY2STR
 extern APPLYDEFAU
-extern MH_ARGS
+extern MH_QUERY
 extern MH_BODY
 extern MH_FILENAME
 extern MH_GETENV
