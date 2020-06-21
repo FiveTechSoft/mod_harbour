@@ -19,8 +19,8 @@ Function Main( cParam )
       if Empty( cParam )
          InstanceClass( HB_GETENV( 'PRGPATH' ) + '/classes.ini' )
          GetAllClasses()
-         cMemory  := AP_GetEnv( "DOCUMENT_ROOT" ) + "/modharbour_samples/memory.prg" 
-         //cFileRun := AP_GetEnv( "DOCUMENT_ROOT" ) + "/modharbour_samples/run.prg" 
+         cMemory  := mh_GetEnv( "DOCUMENT_ROOT" ) + "/modharbour_samples/memory.prg" 
+         //cFileRun := mh_GetEnv( "DOCUMENT_ROOT" ) + "/modharbour_samples/run.prg" 
          cFileRun := "../run.prg"
          Machine()
       else
@@ -1124,7 +1124,7 @@ ENDCLASS
 //----------------------------------------------------------------------------//
 
 Function ReadMemoryPrg()
-Return hb_MemoRead( AP_GetEnv( "DOCUMENT_ROOT" ) + "/modharbour_samples/memory.prg" )
+Return hb_MemoRead( mh_GetEnv( "DOCUMENT_ROOT" ) + "/modharbour_samples/memory.prg" )
 
 //----------------------------------------------------------------------------//
 
