@@ -82,7 +82,7 @@ function Controller( cRequest )
    endif    
 
    if cRequest == "logout"
-      AP_HeadersOutSet( "Set-Cookie", "genesis=" )
+      mh_Header( "Set-Cookie: genesis=" )
       cRequest = "login"
       cUserName = "guest"
    else   
