@@ -39,20 +39,32 @@ return hPairs
 
 //----------------------------------------------------------------//
 
-function MH_GetPairs()
-
-   local aPairs := hb_ATokens( MH_Query(), "&" )
-   local cPair, aPair, hPairs := {=>} 
-
-   for each cPair in aPairs
-      aPair = hb_ATokens( cPair, "=" )
-      if Len( aPair ) == 2 
-         hPairs[ hb_UrlDecode( aPair[ 1 ] ) ] = hb_UrlDecode( aPair[ 2 ] )
-      else
-         hPairs[ hb_UrlDecode( aPair[ 1 ] ) ] = ""
-      endif   
-   next
+function MH_GetPairs( lUrlDecode )	
+   local cArgs 	:= MH_query()
+   local hPairs 	:= {=>}
+   local cPair, uPair, nPos, cKey
+	
+   hb_default( @lUrlDecode, .T. )
    
+   for each cPair in hb_ATokens( cArgs, "&" )
+		if lUrlDecode
+			cPair = hb_urldecode( cPair )
+		endif		
+		if ( uPair := At( "=", cPair ) ) > 0
+			cKey := Left( cPair, uPair - 1 )			
+			if ( nPos := HB_HPos( hPairs, cKey ) ) == 0
+				hb_HSet( hPairs, cKey, SubStr( cPair, uPair + 1 ) )
+			else
+				uValue 			= hPairs[ cKey ] 				
+				hPairs[ cKey ] = {}
+				AAdd( hPairs[ cKey ], uValue )
+				AAdd( hPairs[ cKey ], SubStr( cPair, uPair + 1 ) )
+			endif				
+		else
+			HB_HSet( hPairs, Lower( cPart ), '' )
+		endif
+	next
+
 return hPairs
 
 //----------------------------------------------------------------//
