@@ -40,6 +40,8 @@ extern MH_METHOD
 extern MH_POSTPAIRS
 extern MH_ECHO
 extern MH_HEADER
+extern MH_MREAD
+extern MH_MWRITE
 extern MH_SETCONTENTTYPE
 extern MH_USERIP
 extern AREMOVE
