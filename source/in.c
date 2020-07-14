@@ -13,7 +13,7 @@
 
 request_rec * GetRequestRec( void );
 
-__declspec(thread) char * szBody = NULL;
+char * szBody = NULL;
 
 //----------------------------------------------------------------//
 
