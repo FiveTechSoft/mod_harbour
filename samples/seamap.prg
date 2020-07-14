@@ -1,8 +1,14 @@
-// {% hb_SetEnv( "HB_INCLUDE", If( "Windows" $ OS(), "c:/", If( "Darwin" $ OS(), "/Users/user", "/home/user" ) ) + "/harbour/include" ) %}
+#ifdef __PLATFORM__WINDOWS
+   #include "c:\harbour\include\hbclass.ch"
+#else
+   #ifdef __PLATFORM__UNIX
+      #include "/usr/include/harbour/hbclass.ch"
+   #else   
+      #include "/Users/anto/harbour/include/hbclass.ch"
+   #endif
+#endif  
 
 //----------------------------------------------------------------------------//
-
-#include "hbclass.ch"
 
 function Main()
 
