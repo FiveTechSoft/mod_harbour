@@ -63,9 +63,6 @@ return nil
 
 //------------------------------------------------------------------------------
 
-#include 'hbclass.ch'
-#include 'harupdf.ch'
-
 CLASS TPdf
 
    DATA hPdf
