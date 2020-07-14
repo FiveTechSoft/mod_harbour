@@ -1,4 +1,15 @@
-// {% hb_SetEnv( "HB_INCLUDE", If( "Linux" $ OS(), "/home/user/harbour/include", If( "Windows" $ OS(), "c:\harbour\include", "/Users/user/harbour/include" ) ) ) %}
+#ifdef __PLATFORM__WINDOWS
+   #include "c:\harbour\include\hbclass.ch"
+   #include "c:\harbour\contrib\hbhpdf\harupdf.ch"
+#else
+   #ifdef __PLATFORM__UNIX
+      #include "/usr/include/harbour/hbclass.ch"
+      #include "/usr/include/harbour/harupdf.ch"
+   #else   
+      #include "/Users/anto/harbour/include/hbclass.ch"
+      #include "/Users/anto/harbour/contrib/hbhpdf/harupdf.ch"
+   #endif
+#endif 
 
 STATIC aTtfFontList:= NIL
 STATIC cFontDir
