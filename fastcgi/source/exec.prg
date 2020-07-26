@@ -7,6 +7,7 @@
 */
 
 #include "hbclass.ch"
+#include "hbhrb.ch"
 
 static hPP
 
@@ -67,7 +68,7 @@ function Execute( cCode, ... )
    oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-q2", "-I" + cHBheaders1, "-I" + cHBheaders2,;
                              "-I" + hb_GetEnv( "HB_INCLUDE" ), hb_GetEnv( "HB_USER_PRGFLAGS" ) )
    if ! Empty( oHrb )
-      uRet = hb_HrbDo( hb_HrbLoad( 2, oHrb ), ... )
+      uRet = hb_HrbDo( hb_HrbLoad( HB_HRB_BIND_OVERLOAD, oHrb ), ... )
    endif
 
    mh_Echo( "" ) // to end headers if there is no mh_Echo() 
@@ -166,13 +167,13 @@ function LoadHRB( cHrbFile_or_oHRB )
    if ValType( cHrbFile_or_oHRB ) == "C"
       if File( hb_GetEnv( "PRGPATH" ) + "/" + cHrbFile_or_oHRB )
          AAdd( M->getList,;
-            hb_HrbLoad( 1, hb_GetEnv( "PRGPATH" ) + "/" + cHrbFile_or_oHRB ) )
+            hb_HrbLoad( HB_HRB_BIND_OVERLOAD, hb_GetEnv( "PRGPATH" ) + "/" + cHrbFile_or_oHRB ) )
          lResult = .T.   
       endif      
    endif
    
    if ValType( cHrbFile_or_oHRB ) == "P"
-      AAdd( M->getList, hb_HrbLoad( 1, cHrbFile_or_oHRB ) )
+      AAdd( M->getList, hb_HrbLoad( HB_HRB_BIND_OVERLOAD, cHrbFile_or_oHRB ) )
       lResult = .T.
    endif
    
