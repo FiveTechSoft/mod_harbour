@@ -17,9 +17,9 @@ http://forums.fivetechsupport.com/viewforum.php?f=45&start=0
 
 ***
 
-live chat of mod_harbour users:
+mod_harbour users google group:
 
-https://harbourproject.slack.com/messages/CJUHF8SBX/
+https://groups.google.com/g/modharbour
 
 ***
 
