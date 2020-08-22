@@ -37,8 +37,8 @@ HB_FUNC( HB_URLDECODE ) // Giancarlo's TIP_URLDECODE
                pszRet[ nPosRet ] |= cElem - ( cElem >= 'a' ? 'a' - 10 :
                                             ( cElem >= 'A' ? 'A' - 10 : '0' ) );
             }
-            // else
-            //   pszRet[ nPosRet ] = cElem == '+' ? ' ' : cElem;
+            else
+               pszRet[ nPosRet ] = cElem == '+' ? ' ' : cElem;
 
             nPos++;
             nPosRet++;
