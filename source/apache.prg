@@ -29,6 +29,11 @@
 #define __HBEXTERN__HBSSL__REQUEST
 #include "../../harbour/contrib/hbssl/hbssl.hbx"
 
+#ifdef __PLATFORM__WINDOWS
+   #define __HBEXTERN__HBWIN__REQUEST
+   #include "../../harbour/contrib/hbwin/hbwin.hbx"
+#endif  
+
 #ifdef HB_WITH_ADS
    #define __HBEXTERN__RDDADS__REQUEST
    #include "../../harbour/contrib/rddads/rddads.hbx"
