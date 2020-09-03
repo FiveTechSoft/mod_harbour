@@ -6,7 +6,7 @@ function Main()
    local cCode
    
    if hb_HHasKey( hPostPairs, "source" )
-      cCode = hb_UrlDecode( hPostPairs[ "source" ] )
+      cCode = hPostPairs[ "source" ]
    else
       ? "This example is used from samples/sandbox.prg"
    endif   
