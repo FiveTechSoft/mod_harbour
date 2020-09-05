@@ -65,14 +65,14 @@ const char * ap_headers_out_val( int iKey )
 
 HB_FUNC( AP_HEADERSOUTKEY )
 {
-   hb_retc( ap_headers_out_key( hb_parnl( 1 ), GetRequestRec() ) );
+   hb_retc( ap_headers_out_key( hb_parnl( 1 ) ) );
 }
 
 //----------------------------------------------------------------//
 
 HB_FUNC( AP_HEADERSOUTVAL )
 {
-   hb_retc( ap_headers_out_val( hb_parnl( 1 ), GetRequestRec() ) );
+   hb_retc( ap_headers_out_val( hb_parnl( 1 ) ) );
 }
 
 //----------------------------------------------------------------//
