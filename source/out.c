@@ -37,9 +37,9 @@ HB_FUNC( AP_HEADERSOUTCOUNT )
 
 //----------------------------------------------------------------//
 
-const char * ap_headers_out_key( int iKey, request_rec * r )
+const char * ap_headers_out_key( int iKey )
 {
-   const apr_array_header_t * fields = apr_table_elts( r->headers_out );
+   const apr_array_header_t * fields = apr_table_elts( GetRequestRec()->headers_out );
    apr_table_entry_t * e = ( apr_table_entry_t * ) fields->elts;
 
    if( iKey >= 0 && iKey < fields->nelts )
@@ -50,9 +50,9 @@ const char * ap_headers_out_key( int iKey, request_rec * r )
 
 //----------------------------------------------------------------//
 
-const char * ap_headers_out_val( int iKey, request_rec * r )
+const char * ap_headers_out_val( int iKey )
 {
-   const apr_array_header_t * fields = apr_table_elts( r->headers_out );
+   const apr_array_header_t * fields = apr_table_elts( GetRequestRec()->headers_out );
    apr_table_entry_t * e = ( apr_table_entry_t * ) fields->elts;
 
    if( iKey >= 0 && iKey < fields->nelts )
