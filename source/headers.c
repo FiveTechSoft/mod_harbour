@@ -57,6 +57,8 @@ HB_FUNC( AP_HEADERSOUT )
    
       for( iKey = 0; iKey < iKeys; iKey++ )
       {
+         hb_itemPutNil( pKey );
+         hb_itemPutNil( pValue );
          hb_itemPutC( pKey,   ap_headers_out_key( iKey ) );
          hb_itemPutC( pValue, ap_headers_out_val( iKey ) );
          hb_hashAdd( hHeadersOut, pKey, pValue );
