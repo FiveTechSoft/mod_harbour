@@ -115,14 +115,14 @@ const char * ap_headers_in_val( int iKey )
 
 HB_FUNC( AP_HEADERSINKEY )
 {
-   hb_retc( ap_headers_in_key( hb_parnl( 1 ), GetRequestRec() ) );
+   hb_retc( ap_headers_in_key( hb_parnl( 1 ) ) );
 }
 
 //----------------------------------------------------------------//
 
 HB_FUNC( AP_HEADERSINVAL )
 {
-   hb_retc( ap_headers_in_val( hb_parnl( 1 ), GetRequestRec() ) );
+   hb_retc( ap_headers_in_val( hb_parnl( 1 ) ) );
 }
 
 //----------------------------------------------------------------//
