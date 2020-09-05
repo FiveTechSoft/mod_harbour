@@ -26,8 +26,10 @@ HB_FUNC( AP_HEADERSIN )
    
       for( iKey = 0; iKey < iKeys; iKey++ )
       {
-         hb_itemPutCConst( pKey,   ap_headers_in_key( iKey ) );
-         hb_itemPutCConst( pValue, ap_headers_in_val( iKey ) );
+         hb_itemPutNil( pKey );
+         hb_itemPutNil( pValue );
+         hb_itemPutC( pKey,   ap_headers_in_key( iKey ) );
+         hb_itemPutC( pValue, ap_headers_in_val( iKey ) );
          hb_hashAdd( hHeadersIn, pKey, pValue );
       }
       
@@ -55,8 +57,10 @@ HB_FUNC( AP_HEADERSOUT )
    
       for( iKey = 0; iKey < iKeys; iKey++ )
       {
-         hb_itemPutCConst( pKey,   ap_headers_out_key( iKey ) );
-         hb_itemPutCConst( pValue, ap_headers_out_val( iKey ) );
+         hb_itemPutNil( pKey );
+         hb_itemPutNil( pValue );
+         hb_itemPutC( pKey,   ap_headers_out_key( iKey ) );
+         hb_itemPutC( pValue, ap_headers_out_val( iKey ) );
          hb_hashAdd( hHeadersOut, pKey, pValue );
       }
       
