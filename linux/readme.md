@@ -84,11 +84,11 @@ In case you get a wrong behavior, please check:
 
 To use the rewrite module you have to modify /etc/apache2/apache2.conf directly and not use .htaccess (because rewrite gets not enough memory). This way it works fine and there are no segmentation fault in error.log
 ```
-<Directory /var/www/html/snnipets>
-  SetEnv APP_TITLE "Snnipets v0.1"
-  SetEnv PATH_URL "/snnipets" 
-  SetEnv PATH_APP "/snnipets" 
-  SetEnv PATH_DATA "/snnipets/data/" 
+<Directory /var/www/html/snipets>
+  SetEnv APP_TITLE "Snipets v0.1"
+  SetEnv PATH_URL "/snipets" 
+  SetEnv PATH_APP "/snipets" 
+  SetEnv PATH_DATA "/snipets/data/" 
   DirectoryIndex index.prg main.prg
   RewriteEngine on
   RewriteCond %{REQUEST_FILENAME} !-f 
