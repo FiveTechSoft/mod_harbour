@@ -82,5 +82,20 @@ In case you get a wrong behavior, please check:
 
 ***
 
+To use the rewrite module you have to modify /etc/apache2/apache2.conf directly and not use .htaccess (because rewrite gets not enough mmemory)
+```
+<Directory /var/www/html/snnipets>
+  SetEnv APP_TITLE "Snnipets v0.1"
+  SetEnv PATH_URL "/snnipets" 
+  SetEnv PATH_APP "/snnipets" 
+  SetEnv PATH_DATA "/snnipets/data/" 
+  DirectoryIndex index.prg main.prg
+  RewriteEngine on
+  RewriteCond %{REQUEST_FILENAME} !-f 
+  RewriteCond %{REQUEST_FILENAME} !-d 
+  RewriteRule ^(.*)$ index.prg/$1 [L]
+</Directory>
+```
+
 [![](https://bitbucket.org/fivetech/screenshots/downloads/harbour.jpg)](https://harbour.github.io "The Harbour Project")
 <a href="https://httpd.apache.org/" alt="The Apache HTTP Server Project"><img width="150" height="150" src="http://www.apache.org/img/support-apache.jpg"></a>
