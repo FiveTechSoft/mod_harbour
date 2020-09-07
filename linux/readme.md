@@ -82,7 +82,7 @@ In case you get a wrong behavior, please check:
 
 ***
 
-To use the rewrite module you have to modify /etc/apache2/apache2.conf directly and not use .htaccess (because rewrite gets not enough mmemory)
+To use the rewrite module you have to modify /etc/apache2/apache2.conf directly and not use .htaccess (because rewrite gets not enough memory)
 ```
 <Directory /var/www/html/snnipets>
   SetEnv APP_TITLE "Snnipets v0.1"
