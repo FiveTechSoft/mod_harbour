@@ -82,7 +82,7 @@ In case you get a wrong behavior, please check:
 
 ***
 
-To use the rewrite module you have to modify /etc/apache2/apache2.conf directly and not use .htaccess (because rewrite gets not enough memory). This way it works fine and there are no segmentation fault in error.log
+To use the rewrite module you have to modify /etc/apache2/apache2.conf directly and not use .htaccess (because rewrite gets not enough memory). This way it works fine and there are no segmentation faults in error.log
 ```
 <Directory /var/www/html/snipets>
   SetEnv APP_TITLE "Snipets v0.1"
