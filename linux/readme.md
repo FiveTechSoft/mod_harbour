@@ -96,6 +96,7 @@ To use the rewrite module you have to modify /etc/apache2/apache2.conf directly 
   RewriteRule ^(.*)$ index.prg/$1 [L]
 </Directory>
 ```
+https://httpd.apache.org/docs/2.4/en/howto/htaccess.html
 ***
 
 [![](https://bitbucket.org/fivetech/screenshots/downloads/harbour.jpg)](https://harbour.github.io "The Harbour Project")
