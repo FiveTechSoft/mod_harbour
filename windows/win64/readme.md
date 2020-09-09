@@ -6,7 +6,7 @@ copy libharbour.dll into c:\Apache24\htdocs\
 
 copy the DLLs from https://github.com/FiveTechSoft/mod_harbour/tree/master/windows/win64/required into c:\Apache24\bin
 
-Add these lines into c:\Apache24\conf\httpd.conf
+Add these lines to the bottom c:\Apache24\conf\httpd.conf
 
 ```
 LoadModule harbour_module modules/mod_harbour.so
