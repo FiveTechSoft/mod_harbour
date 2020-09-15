@@ -41,5 +41,6 @@ hbnetio.hbc
 hbmzip.hbc
 hbziparc.hbc
 hbssl.hbc
+hbzebra.hbc
 
 mod.hbp

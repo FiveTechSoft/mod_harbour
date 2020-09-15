@@ -29,3 +29,4 @@
 -force_load /Users/anto/harbour/lib/darwin/clang/libhbmzip.a
 -force_load /Users/anto/harbour/lib/darwin/clang/libminizip.a
 -force_load /Users/anto/harbour/lib/darwin/clang/libhbssl.a
+-force_load /Users/anto/harbour/lib/darwin/clang/libhbzebra.a

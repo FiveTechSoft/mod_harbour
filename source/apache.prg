@@ -28,6 +28,8 @@
 #include "../../harbour/contrib/hbziparc/hbziparc.hbx"
 #define __HBEXTERN__HBSSL__REQUEST
 #include "../../harbour/contrib/hbssl/hbssl.hbx"
+#define __HBEXTERN__HBZEBRA__REQUEST
+#include "../../harbour/contrib/hbzebra/hbzebra.hbx"
 
 #ifdef __PLATFORM__WINDOWS
    #define __HBEXTERN__HBWIN__REQUEST

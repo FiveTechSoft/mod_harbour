@@ -31,5 +31,6 @@
 -lhbnetio
 -lhbssl
 -lhbtip
+-lhbzebra
 
 -Wl,--no-whole-archive
