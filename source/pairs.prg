@@ -61,7 +61,7 @@ function AP_GetPairs( lUrlDecode )
             AAdd( hPairs[ cKey ], SubStr( cPair, uPair + 1 ) )
          endif				
       else
-	 HB_HSet( hPairs, Lower( cPart ), '' )
+	 HB_HSet( hPairs, Lower( cPair ), '' )
       endif
    next
 
