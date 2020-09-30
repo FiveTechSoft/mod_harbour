@@ -1,6 +1,7 @@
 #include <hbapi.h>
 #include <hbapiitm.h>
 #include <hbvm.h>
+#include <math.h>
 
 int mh_rputs( const char * szText );
 
@@ -58,5 +59,12 @@ HB_FUNC( MODBUILDDATE )
    
    hb_retc_buffer( pszDate );
 }
+
+//----------------------------------------------------------------//
+
+HB_FUNC( MATH_E )
+{
+   hb_retnd( M_E );
+}   
 
 //----------------------------------------------------------------//
