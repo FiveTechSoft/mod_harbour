@@ -1,6 +1,6 @@
 2020/Sep/30
 
-* Added function Math_E() The base of natural logarithms
+* Added function Math_E() The base of natural logarithms. To be used for Neural Networks (amongst other possible uses)
 
 2020/May/22
 
