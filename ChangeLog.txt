@@ -1,3 +1,7 @@
+2020/Sep/30
+
+* Added function Math_E() The base of natural logarithms
+
 2020/May/22
 
 * Multiple SetCookie() support
