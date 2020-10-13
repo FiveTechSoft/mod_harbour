@@ -23,7 +23,7 @@ HB_FUNC( MH_HEADERSIN )
       for( iKey = 0; iKey < iKeys; iKey++ )
       {
          hb_itemPutNil( pKey );
-         hb_itemPulNil( pValue );
+         hb_itemPutNil( pValue );
          hb_itemPutC( pKey,   mh_headers_in_key( iKey ) );
          hb_itemPutC( pValue, mh_headers_in_val( iKey ) );
          hb_hashAdd( hHeadersIn, pKey, pValue );
