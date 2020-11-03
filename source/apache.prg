@@ -70,7 +70,7 @@ function Main()
          hb_threadQuitRequest( pThread )
 	      ErrorLevel( 408 ) // request timeout
       endif    
-      InKey( 0.1 )
+      // InKey( 0.1 )
    else
       ErrorLevel( 404 ) // not found
    endif   
