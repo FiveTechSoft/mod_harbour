@@ -1,0 +1,227 @@
+<html>
+
+<head>
+  <title>Genesis</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, shrink-to-fit=no">
+   <link rel="icon" href="https://raw.githubusercontent.com/FiveTechSoft/mod_harbour/master/samples/favicon.ico" type="image/x-icon">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
+   <script src="https://fivetechsoft.github.io/xcloud/source/js/xcloud.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" crossorigin="anonymous"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+   <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+
+
+ 
+
+  <style>
+      .vertical-menu a {
+      background-color: {{GetColor3()}};
+      color: white;
+      display: block;
+      padding: 20px;
+      padding-left: 30px;
+      text-decoration: none;
+      border-style: solid;
+      border-width:1px;
+      border-color: gray black black black;
+      cursor: pointer;
+      }
+
+      .vertical-menu a.active {
+      background-color: dimgray;
+      color: {{GetColor3()}};
+      }   
+
+      .vertical-menu a:hover {
+         background-color: black;
+         color: white;
+      }
+
+     
+      .table tr:hover td {
+         background-color: yellow;
+      }
+       
+
+
+     
+
+      .impegno-tb>tbody>tr:nth-of-type(odd) {background-color: #ecf3f7;}  
+      .impegno-tb>tbody>tr:nth-of-type(even) {background-color: #e1ebf2;}  
+      
+
+     
+     
+    @media only screen and (min-width: 769px) {
+      th {
+            background: white;
+            position: sticky;
+            top: 0; 
+         }
+      
+     .table-responsive {
+         width:100%;height:570px;overflow-y: scroll; border:1px solid grey;
+      }
+     
+
+    }
+
+
+
+  
+
+     @media only screen and (max-width: 768px) {
+         .table table, 
+         .table thead, 
+         .table tbody, 
+         .table th, 
+         .table td, 
+         .table tr { display: block; }
+         .table thead tr { position: absolute; left: -9999px; top: -9999px; }
+         .table tr th { background: #337ab7; border: 1px solid #337ab7 !important; color: #fff; }
+         .table tr td { border: none; border-bottom: 1px solid #eee; padding-left: 50%; position: relative; text-align: right; white-space: normal; }
+         .table tr td:before { font-weight: bold; left: 6px; padding-right: 10px; position: absolute; text-align: left; top: 6px; white-space: nowrap; width: 45%; }
+         .table tr td:before { content: attr(data-title); }
+    }
+
+
+   </style>
+
+   <script>
+      
+     
+
+      function SelectCategory( oMenuItem, cAction,valcateg )
+      {
+         $( oMenuItem ).addClass( "active" );
+         $( oMenuItem ).siblings().removeClass( "active" );
+         location.href='index.prg?' + cAction + '-' + valcateg;
+       
+      }
+
+      function Add(vcateg)
+      {
+         location.href='index.prg?{{GetContent()}}:add:0:' + vcateg;
+      }
+
+      function Edit( cId )
+      {
+         location.href='index.prg?{{GetContent()}}:edit:' + cId;
+      }
+
+      function Impegna(cid,nrowrastr,vcateg)
+      {
+         location.href='index.prg?impegna:'  + cid + ':' + 'rastrelliera' +':' + vcateg + ':' + nrowrastr  ;
+      }
+
+      function Cancel(vcateg)
+      { const impegna = "impegna";
+         var cContent = '{{GetContent()}}';
+        
+
+         if (cContent == impegna) {
+             history.back();
+         }
+         else {
+            location.href='index.prg?' + cContent +'-'+ vcateg;
+         }
+         
+      }
+
+   
+
+      function Delete( cId )
+      {
+         const impegna = "impegna";
+         var cContent ='{{GetContent()}}';
+
+        if (cContent == impegna) 
+        {
+
+         MsgYesNo( "Si desidera elimare la riga selezionata?", "Please select",
+                   "location.href='index.prg?"+cContent+":del:" + cId + "'" );
+
+        }
+        
+        else {
+         MsgYesNo( "Si desidera eliminare la riga selezionata?", "Please select",
+                   "location.href='index.prg?"+cContent+":del:" + cId + ":" + "{{getcateg()}}" + "'" );
+        }
+         
+
+         
+      }
+
+      function GetRowsPerPage()
+      {
+         var o = $( "#rowsperpage" );
+
+         return o["0"].options[ o["0"].options.selectedIndex ].value;
+      }
+
+      function Logout()
+      {
+         MsgYesNo( "Do you want to logout ?", "Please select",
+                   "location.href='index.prg?logout'" );
+      }
+
+      function SearchFor()
+      {
+         var o = $( "#searchfor" );
+
+         return o["0"].value;
+      }
+
+      function hide()
+      {  const login = 'login';
+         var status = $('#leftmenu').css('display');
+         
+         if (status == 'block'){
+           
+           $('#leftmenu').css('display','none'); 
+           $('#maincontent').toggleClass('col-sm-10 col-sm-12');
+
+         }
+         else {
+           $('#leftmenu').css('display','block');
+           $('#maincontent').toggleClass('col-sm-12 col-sm-10');
+         }
+    
+
+         
+      }
+
+      $(init)
+    
+      function init()
+      {
+        var width = $(document).width();
+        if (width <= 576) {
+         $( "#leftmenu" ).insertAfter( $( "#nav" ) );
+        }
+        else if (width >= 576)  {
+         $( "#leftmenu" ).insertBefore( $( "#maincontent" ) );
+        }
+        
+       
+
+      }
+
+
+
+
+     
+
+   </script>  
+
+
+
+
+</head>
