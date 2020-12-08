@@ -1,0 +1,21 @@
+               <div style="max-height:98%;background-color:white;margin:30px;margin-top:-18px;padding:10px;padding-top:10px;overflow-x:hidden;overflow-y:auto;">
+               <button onclick="window.print();" type="button" class="btn btn-primary" style="background-color:{{GetColor1()}};">
+                  <i class="fas fa-print" style="color:lightgray;padding-right:15px;font-size:16px"></i>
+                  Print</button><hr>
+               <div class="row" style="padding-left:15px;"> 
+                  <div class="col-sm-7"></div>
+                  <div class="col-sm-2" style="padding-right:15px;">  
+                  </div>
+               </div>
+               {{Task()}}     
+               <hr>
+               <div class="row" style="padding-left:15px">
+                  <div class="col-sm-3"></div> 
+                  <div class="col-sm-7"></div>
+                  <div class="col-sm-2">
+                     <button onclick="location.href='index.prg?{{GetContent()}}';" class="btn btn-primary" style="background-color:{{GetColor1()}};">
+                        <i class="fas fa-check" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        continue</button>
+                  </div>   
+               </div>
+               </form>
