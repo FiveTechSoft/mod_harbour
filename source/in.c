@@ -14,6 +14,7 @@
 request_rec * GetRequestRec( void );
 
 char * szBody = NULL;
+HB_SIZE szBodyLen = 0;
 
 //----------------------------------------------------------------//
 
@@ -29,7 +30,7 @@ HB_FUNC( AP_BODY )
    request_rec * r = GetRequestRec();
  
    if( szBody )
-      hb_retc( szBody );
+      hb_retclen( szBody, szBodyLen );
    else
    {   
       if( ap_setup_client_block( r, REQUEST_CHUNKED_ERROR ) != OK )
@@ -47,9 +48,10 @@ HB_FUNC( AP_BODY )
                iTotal += iRead;
                iRead = 0;
             }
-            hb_retc( rbuf );
-            szBody = ( char * ) hb_xgrab( strlen( rbuf ) + 1 );
-            strcpy( szBody, rbuf );
+            hb_retclen( rbuf, length );
+            szBody = ( char * ) hb_xgrab( length + 1 );
+            szBodyLen = length;
+            memcpy( szBody, rbuf, szBodyLen + 1 );
          }
          else
             hb_retc( "" );

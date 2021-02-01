@@ -16,9 +16,9 @@ request_rec * GetRequestRec( void );
 
 //----------------------------------------------------------------//
 
-int mh_rputs( const char * szText )
+int mh_rputs( const char * szText, HB_SIZE iLength )
 {
-   return ap_rputs( szText, GetRequestRec() );
+   return ap_rwrite( szText, iLength, GetRequestRec() );
 }
 
 //----------------------------------------------------------------//
