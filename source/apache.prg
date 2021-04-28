@@ -30,6 +30,8 @@
 #include "../../harbour/contrib/hbssl/hbssl.hbx"
 #define __HBEXTERN__HBZEBRA__REQUEST
 #include "../../harbour/contrib/hbzebra/hbzebra.hbx"
+#define __HBEXTERN__HBTIP__REQUEST
+#include "../../harbour/contrib/hbtip/hbtip.hbx"
 
 #ifdef __PLATFORM__WINDOWS
    #define __HBEXTERN__HBWIN__REQUEST
