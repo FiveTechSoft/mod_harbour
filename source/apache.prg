@@ -137,11 +137,23 @@ function ObjToChar( o )
    hObj[ "CLASS" ] = o:ClassName()
    hObj[ "FROM" ]  = aParents 
 
-   AEval( aDatas, { | cData | hPairs[ cData ] := __ObjSendMsg( o, cData ) } )
+   AEval( aDatas, { | cData | ObjSetData( o, cData, hPairs ) } )
    hObj[ "DATAs" ]   = hPairs
    hObj[ "METHODs" ] = __objGetMsgList( o, .F. )
 
 return ValToChar( hObj )
+
+//----------------------------------------------------------------//
+
+function ObjSetData( o, cData, hPairs )
+
+   TRY
+      hPairs[ cData ] := __ObjSendMsg( o, cData )
+   CATCH      
+      hPairs[ cData ] := "** protected **"
+   END
+   
+return nil 
 
 //----------------------------------------------------------------//
 
