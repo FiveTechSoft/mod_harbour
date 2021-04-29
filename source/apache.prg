@@ -151,7 +151,7 @@ function ObjSetData( o, cData, hPairs )
       hPairs[ cData ] := __ObjSendMsg( o, cData )
    CATCH      
       hPairs[ cData ] := "** protected **"
-   END
+   FINALLY
    
 return nil 
 
