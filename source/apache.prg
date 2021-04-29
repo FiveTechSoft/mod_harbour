@@ -11,7 +11,6 @@
 #xcommand ? [<explist,...>] => AP_RPuts( '<br>' [,<explist>] )
 #xcommand TRY  => BEGIN SEQUENCE WITH {| oErr | Break( oErr ) }
 #xcommand CATCH [<!oErr!>] => RECOVER [USING <oErr>] <-oErr->
-#xcommand FINALLY => ALWAYS
 
 #define CRLF hb_OsNewLine()
 
@@ -154,7 +153,7 @@ function ObjSetData( o, cData, hPairs )
       hPairs[ cData ] := __ObjSendMsg( o, cData )
    CATCH      
       hPairs[ cData ] := "** protected **"
-   FINALLY
+   END
    
 return nil 
 
