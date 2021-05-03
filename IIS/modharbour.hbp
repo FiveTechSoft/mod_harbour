@@ -39,6 +39,7 @@ xhb.hbc
 hbct.hbc
 hbcurl.hbc
 hbnetio.hbc
+hbzebra.hbc
 hbmzip.hbc
 hbziparc.hbc
 hbssl.hbc
