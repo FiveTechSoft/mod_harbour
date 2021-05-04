@@ -1,5 +1,5 @@
    
-          <div class="inner jumbotron" style="background-color:blue;min-width:400px;margin-bottom:0px;" id="editor">{{GetCode()}}</div>
+          <div class="inner jumbotron" style="border-radius:0px; background-color:blue;min-width:400px;margin-bottom:0px;" id="editor">{{GetCode()}}</div>
           <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
           <script>
              var editor = ace.edit("editor");
