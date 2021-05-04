@@ -28,6 +28,9 @@
          background-color: gray;
          color:black;
       }
+      .navbar-custom {
+         height: 41px;
+      }
       .navbar-nav{
          padding-left:15px;
          background-color:#212529;
@@ -72,14 +75,6 @@
          cursor:col-resize;
          float:left;
          height: 100%;
-      }
-      
-      #right{
-          font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
-          margin-left: 50.1%;
-          position: absolute;
-          top: var( --height-nav );
-          bottom: 0px;
       }
       
       #output{
