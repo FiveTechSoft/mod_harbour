@@ -1,5 +1,5 @@
 				<nav class="navbar navbar-expand-md navbar-light bg-light navbar-dark bg-dark fixed-top" style="height:var( --height-nav );">
-               <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+               <button type="button" id="burguer" class="navbar-toggler" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                   <span class="fa fa-navicon" style="font-size:18px;"></span>
                </button>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -104,12 +104,12 @@
 								<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
 									data-toggle="dropdown">Run</a>
 								<div class="dropdown-menu dropdown-menu-left bg-dark" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" onclick="Run()">Execute</a> 
-									<a class="dropdown-item" >Debug...</a>
+									<a class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="Run()">Execute</a> 
+									<a class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show">Debug...</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" onclick="GetParams()">Params...</a>
+									<a class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="GetParams()">Params...</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" >Build HRB...</a>
+									<a class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show" >Build HRB...</a>
 								</div>
 							</li>
 						</ul>					
