@@ -8,6 +8,7 @@
              editor.setFontSize(18);     
              editor.setHighlightActiveLine(true);
              editor.session.setMode("ace/mode/c_cpp");
+             editor.wrap = true;
 
              code = sessionStorage.getItem('code');  
              if( code && code.length != 0 )
