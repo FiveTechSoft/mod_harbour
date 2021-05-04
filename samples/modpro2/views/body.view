@@ -3,7 +3,7 @@
 		{{View("menu")}}
 		<div class="row modpro">
 			{{View("code")}}
-			<div class="col-xs-12 col-md-6" id="output" style="background-color:aquamarine;min-width:400px;"></div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="output" style="background-color:aquamarine;"></div>
 		</div>	
 	</div>
 </body>
