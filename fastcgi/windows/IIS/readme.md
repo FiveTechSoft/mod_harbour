@@ -19,3 +19,6 @@ Click now on OK. Restart your IIS server. Samples should be installed as already
 Don't forget to give the user IIS_IUSRS the right to the samples folder.
 
 many thanks to JF. Lefebvre for his help with this guide :-)
+
+Remember to rename libcurl-x64.dll into libcurl.dll
+ADS64 11.1 dlls are all copied into the same folder as modharbour.exe
