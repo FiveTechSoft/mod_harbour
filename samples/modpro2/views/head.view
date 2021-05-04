@@ -47,6 +47,15 @@
          box-shadow: 5px 5px 5px #606060;
       }
 
+      .row.modpro{
+         top:41px;
+         position:absolute;
+         height:100%;
+         width:100%;
+         overflow-y:hidden;
+         overflow-x:hidden;
+      }
+
       #body{
          background-color:aquamarine;
          width: 100%;
