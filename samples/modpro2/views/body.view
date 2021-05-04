@@ -1,7 +1,7 @@
 <body>
-		{{View("menu")}}
    <div class="container-fluid">
-		<div class="row" style="top:var(--height-nav);position:absolute;height:98%;width:100%;">
+		{{View("menu")}}
+		<div class="row" style="top:43px;position:absolute;height:100%;width:100%;">
 			{{View("code")}}
 			<div class="w-50" id="output" style="background-color:aquamarine;min-width:400px;"></div>
 		</div>	

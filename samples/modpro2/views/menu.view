@@ -1,4 +1,4 @@
-				<nav class="navbar navbar-expand-md navbar-light bg-light navbar-dark bg-dark fixed-top" style="height:var( --height-nav );">
+				<nav id="menu" class="navbar navbar-expand-md navbar-light bg-light navbar-dark bg-dark fixed-top" style="height:var( --height-nav );">
                <button type="button" id="burguer" class="navbar-toggler" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                   <span class="fa fa-navicon" style="font-size:18px;"></span>
                </button>
