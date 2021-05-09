@@ -13,3 +13,5 @@ https://www.evanmiller.org/nginx-modules-guide.html
 In NGINX 1.9.11 onwards a new way of loading modules dynamically has been introduced. This means that selected modules can be loaded into NGINX at runtime based on configuration files. They can also be unloaded by editing the configuration files and reloading NGINX
 
 https://www.nginx.com/resources/wiki/extending/converting/
+
+~/nginx$ ./auto/configure --add-dynamic-module=~/mod_harbour/nginx
