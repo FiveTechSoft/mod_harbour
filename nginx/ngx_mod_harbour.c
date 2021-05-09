@@ -1,7 +1,8 @@
 #include <ngx_config.h>
 #include <ngx_core.h>
+#include <ngx_http.h>
 
-extern ngx_module_t  ngx_mod_harbour;
+// extern ngx_module_t  ngx_mod_harbour;
 
 static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
 {
@@ -19,8 +20,8 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
     out.buf = b;
     out.next = NULL; /* just one buffer */
 
-    b->pos = ngx_hello_world; /* first position in memory of the data */
-    b->last = ngx_hello_world + sizeof(ngx_hello_world) - 1; /* last position in memory of the data */
+    b->pos = ( u_char * ) b; /* first position in memory of the data */
+    b->last = ( u_char * ) b + 10; /* last position in memory of the data */
     b->memory = 1; /* content is in read-only memory */
     b->last_buf = 1; /* there will be no more buffers in the request */
 
@@ -40,13 +41,13 @@ static char * ngx_mod_harbour( ngx_conf_t * cf, ngx_command_t * cmd, void * conf
 
     /* Install the hello world handler. */
     clcf = ngx_http_conf_get_module_loc_conf( cf, ngx_http_core_module );
-    clcf->handler = ngx_http_hello_world_handler;
+    clcf->handler = ngx_mod_harbour_handler;
 
     return NGX_CONF_OK;
 }
 
 ngx_module_t * ngx_modules[] = {
-    &ngx_mod_harbour,
+    ( ngx_module_t * ) ngx_mod_harbour,
     NULL
 };
 
