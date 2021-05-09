@@ -9,4 +9,5 @@ https://trac.nginx.org/nginx/browser/nginx/src#core
 https://stackoverflow.com/questions/21486482/compile-nginx-with-visual-studio
 
 https://www.evanmiller.org/nginx-modules-guide.html
+
 In NGINX 1.9.11 onwards a new way of loading modules dynamically has been introduced. This means that selected modules can be loaded into NGINX at runtime based on configuration files. They can also be unloaded by editing the configuration files and reloading NGINX
