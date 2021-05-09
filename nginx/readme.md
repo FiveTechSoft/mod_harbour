@@ -1,7 +1,7 @@
-https://github.com/perusio/nginx-hello-world-module/blob/master/ngx_http_hello_world_module.c
+1. git clone https://github.com/nginx/nginx
 
-http://nginx.org/en/download.html
+2. http://nginx.org/en/download.html
+
+3. https://github.com/perusio/nginx-hello-world-module/blob/master/ngx_http_hello_world_module.c
 
 https://trac.nginx.org/nginx/browser/nginx/src#core
-
-git clone https://github.com/nginx/nginx
