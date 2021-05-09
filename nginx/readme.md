@@ -3,3 +3,5 @@ https://github.com/perusio/nginx-hello-world-module/blob/master/ngx_http_hello_w
 http://nginx.org/en/download.html
 
 https://trac.nginx.org/nginx/browser/nginx/src#core
+
+git clone https://github.com/nginx/nginx
