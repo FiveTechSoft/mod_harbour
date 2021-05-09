@@ -1,0 +1,5 @@
+-hbdyn
+-omod_harbour.so
+
+-cflag=
+ngx_mod_harbour.c
