@@ -27,12 +27,12 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
     /* Sending the headers for the reply. */
     r->headers_out.status = NGX_HTTP_OK; /* 200 status code */
     /* Get the content length of the body. */
-    r->headers_out.content_length_n = sizeof(ngx_hello_world) - 1;
-    ngx_http_send_header(r); /* Send the headers */
+    r->headers_out.content_length_n = 10; // fix this!
+    ngx_http_send_header( r ); /* Send the headers */
 
     /* Send the body, and return the status code of the output filter chain. */
-    return ngx_http_output_filter(r, &out);
-} /* ngx_http_hello_world_handler */
+    return ngx_http_output_filter( r, &out );
+}
 
 static char * ngx_mod_harbour( ngx_conf_t * cf, ngx_command_t * cmd, void * conf )
 {
@@ -43,7 +43,7 @@ static char * ngx_mod_harbour( ngx_conf_t * cf, ngx_command_t * cmd, void * conf
     clcf->handler = ngx_http_hello_world_handler;
 
     return NGX_CONF_OK;
-} /* ngx_http_hello_world */
+}
 
 ngx_module_t * ngx_modules[] = {
     &ngx_mod_harbour,
