@@ -7,5 +7,5 @@ if test -n "$ngx_module_link"; then
   . auto/module
 else
 	HTTP_MODULES="$HTTP_MODULES ngx_mod_harbour"
-	NGX_ADDON_SRCS="$NGX_ADDON_SRCS $/mod_harbour/nginx/ngx_mod_harbour.c"
+	NGX_ADDON_SRCS="$/mod_harbour/nginx/ngx_mod_harbour.c"
 fi
