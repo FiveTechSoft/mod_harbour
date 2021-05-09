@@ -3,3 +3,6 @@
 
 -cflag=
 ngx_mod_harbour.c
+c:\nginx\src\core\ngx_palloc.c
+#c:\nginx\src\core\ngx_log.c
+c:\nginx\src\os\win32\ngx_alloc.c

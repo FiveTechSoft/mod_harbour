@@ -29,7 +29,7 @@ static ngx_command_t ngx_http_hello_world_commands[] = {
 static u_char ngx_hello_world[] = HELLO_WORLD;
 
 /* The module context. */
-static ngx_http_module_t ngx_http_hello_world_module_ctx = {
+static ngx_http_module_t ngx_mod_harbour_ctx = {
     NULL, /* preconfiguration */
     NULL, /* postconfiguration */
 
@@ -46,7 +46,7 @@ static ngx_http_module_t ngx_http_hello_world_module_ctx = {
 /* Module definition. */
 ngx_module_t ngx_http_hello_world_module = {
     NGX_MODULE_V1,
-    &ngx_http_hello_world_module_ctx, /* module context */
+    &ngx_mod_harbour_ctx, /* module context */
     ngx_http_hello_world_commands, /* module directives */
     NGX_HTTP_MODULE, /* module type */
     NULL, /* init master */
