@@ -1,6 +1,7 @@
 #include <ngx_config.h>
 #include <ngx_core.h>
 #include <ngx_http.h>
+#include <ngx_http_core_module.h>
 
 
 #define HELLO_WORLD "hello world\r\n"
@@ -12,7 +13,7 @@ static ngx_int_t ngx_mod_harbour_handler(ngx_http_request_t *r);
  * This module provided directive: hello world.
  *
  */
-static ngx_command_t ngx_http_hello_world_commands[] = {
+static ngx_command_t ngx_mod_harbour_commands[] = {
 
     { ngx_string("hello_world"), /* directive */
       NGX_HTTP_LOC_CONF|NGX_CONF_NOARGS, /* location context and takes
@@ -44,10 +45,10 @@ static ngx_http_module_t ngx_mod_harbour_ctx = {
 };
 
 /* Module definition. */
-ngx_module_t ngx_http_hello_world_module = {
+ngx_module_t ngx_mod_harbour_module = {
     NGX_MODULE_V1,
     &ngx_mod_harbour_ctx, /* module context */
-    ngx_http_hello_world_commands, /* module directives */
+    ngx_mod_harbour_commands, /* module directives */
     NGX_HTTP_MODULE, /* module type */
     NULL, /* init master */
     NULL, /* init module */
