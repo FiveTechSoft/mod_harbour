@@ -6,15 +6,17 @@
 
 function Main()
 
+  curl_global_init()
+   
   ? FtpUploadFile( "ftp://fivetechsoft.com/test.prg", hb_GetEnv( "PRGPATH" ) + "/test.prg" ) 
+
+   curl_global_cleanup()
 
 return nil
 
 function FtpUploadFile( cUrlFileName, cFileName )
 
    local hCurl, uValue, nResult
-
-   curl_global_init()
 
    if ! empty( hCurl := curl_easy_init() )
       curl_easy_setopt( hCurl, HB_CURLOPT_URL, cUrlFileName )
@@ -34,7 +36,5 @@ function FtpUploadFile( cUrlFileName, cFileName )
          ? "error code:" + Str( nResult )   
       endif
    endif
-
-   curl_global_cleanup()
 
 return nResult == HB_CURLE_OK
