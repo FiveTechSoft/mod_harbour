@@ -15,3 +15,5 @@ In NGINX 1.9.11 onwards a new way of loading modules dynamically has been introd
 https://www.nginx.com/resources/wiki/extending/converting/
 
 ~/nginx$ ./auto/configure --add-dynamic-module=~/mod_harbour/nginx
+
+https://github.com/tjliupeng/nginx-build-windows
