@@ -17,3 +17,5 @@ https://www.nginx.com/resources/wiki/extending/converting/
 ~/nginx$ ./auto/configure --add-dynamic-module=~/mod_harbour/nginx
 
 https://github.com/tjliupeng/nginx-build-windows
+
+https://amefs.net/en/archives/1935.html
