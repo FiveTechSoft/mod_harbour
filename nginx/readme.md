@@ -50,6 +50,13 @@ We need Perl to compile openssl, we can use Strawberry Perl https://strawberrype
 
 14. nmake
 
+15. C:\MinGW\msys\1.0\msys.bat
+
+16. cd nginx
+
+17. ./auto/configure --with-compat --add-dynamic-module=c:/mod_harbour/nginx --with-pcre=objs/lib/pcre-8.40 --with-zlib=o
+bjs/lib/zlib-1.2.11 --with-openssl=objs/lib/openssl
+
 
 http://nginx.org/en/download.html
 
