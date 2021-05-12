@@ -42,6 +42,12 @@ We need Perl to compile openssl, we can use Strawberry Perl https://strawberrype
 --with-select_module  \
 --with-http_ssl_module \
 
+11. return to the "Developer Command Prompt for VS 2019" that is still opened from step 7
+
+12. cd c:\MinGW\msys\1.0\home\your_user_name\nginx
+
+13. nmake
+
 
 http://nginx.org/en/download.html
 
