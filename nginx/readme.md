@@ -12,6 +12,11 @@
 
 7. open a "Developer Command Prompt for VS 2019" (search for Deve...from Windows search)
 
+8. cd nginx/objs/lib/openssl
+
+9. perl Configure -no-asm 
+
+10. nmake
 
 
 http://nginx.org/en/download.html
