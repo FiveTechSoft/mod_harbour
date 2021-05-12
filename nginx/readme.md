@@ -1,8 +1,20 @@
 1. git clone https://github.com/nginx/nginx
 
-2. http://nginx.org/en/download.html
+2. cd nginx
 
-3. https://github.com/perusio/nginx-hello-world-module/blob/master/ngx_http_hello_world_module.c
+3. mkdir objs/lib
+
+4. git clone git://git.openssl.org/openssl objs/lib/openssl
+
+5. git clone https://github.com/rivy/PCRE objs/lib/pcre-8.40
+
+6. git clone https://github.com/madler/zlib objs/lib/zlib-1.2.11
+
+
+
+http://nginx.org/en/download.html
+
+https://github.com/perusio/nginx-hello-world-module/blob/master/ngx_http_hello_world_module.c
 
 https://trac.nginx.org/nginx/browser/nginx/src#core
 
