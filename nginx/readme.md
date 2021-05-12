@@ -1,3 +1,5 @@
+We need Perl to compile openssl, we can use Strawberry Perl or ActivePerl
+
 1. git clone https://github.com/nginx/nginx
 
 2. cd nginx
