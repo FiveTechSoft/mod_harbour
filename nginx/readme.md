@@ -1,3 +1,5 @@
+Install MinGW with msys
+
 We need Perl to compile openssl, we can use Strawberry Perl https://strawberryperl.com/ or ActivePerl https://www.activestate.com/products/perl/
 
 1. git clone https://github.com/nginx/nginx
