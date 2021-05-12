@@ -57,6 +57,29 @@ We need Perl to compile openssl, we can use Strawberry Perl https://strawberrype
 17. ./auto/configure --with-compat --add-dynamic-module=c:/mod_harbour/nginx --with-pcre=objs/lib/pcre-8.40 --with-zlib=o
 bjs/lib/zlib-1.2.11 --with-openssl=objs/lib/openssl
 
+objs/ngx_mod_harbour.so:	objs/addon/nginx/ngx_mod_harbour.o \
+	objs/ngx_mod_harbour_modules.o \
+	objs/lib/pcre-8.40/.libs/libpcre.a \
+	objs/lib/zlib-1.2.11/libz.a
+	$(LINK) -o objs/ngx_mod_harbour.so \
+	objs/addon/nginx/ngx_mod_harbour.o \
+	objs/ngx_mod_harbour_modules.o \
+	advapi32.lib ws2_32.lib objs/lib/pcre-8.40/.libs/libpcre.a objs/lib/zlib-1.2.11/libz.a \
+	-shared
+
+
+objs/ngx_mod_harbour_modules.o:	$(CORE_DEPS) \
+	objs/ngx_mod_harbour_modules.c
+	$(CC) -c  $(CFLAGS) $(ALL_INCS) \
+		-o objs/ngx_mod_harbour_modules.o \
+		objs/ngx_mod_harbour_modules.c
+
+
+objs/addon/nginx/ngx_mod_harbour.o:	$(ADDON_DEPS) \
+	~/mod_harbour/nginx/ngx_mod_harbour.c
+	$(CC) -c  $(CFLAGS) $(ALL_INCS) \
+		-o objs/addon/nginx/ngx_mod_harbour.o \
+		~/mod_harbour/nginx/ngx_mod_harbour.c
 
 http://nginx.org/en/download.html
 
