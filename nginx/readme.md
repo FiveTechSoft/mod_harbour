@@ -4,7 +4,7 @@ We need Perl to compile openssl, we can use Strawberry Perl https://strawberrype
 
 2. cd nginx
 
-3. mkdir objs/lib
+3. mkdir -p objs/lib
 
 4. git clone git://git.openssl.org/openssl objs/lib/openssl
 
