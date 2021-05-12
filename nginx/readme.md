@@ -16,13 +16,15 @@ We need Perl to compile openssl, we can use Strawberry Perl https://strawberrype
 
 6. git clone https://github.com/madler/zlib objs/lib/zlib-1.2.11
 
-7. open a "Developer Command Prompt for VS 2019" (search for Dev... from Windows search)
+7. edit c:\MinGW\msys\1.0\home\anto\nginx\auto\cc\msvc and replace CFLAGS="$CFLAGS -W4" with CFLAGS="$CFLAGS -W3"
 
-8. C:\MinGW\msys\1.0\msys.bat
+8. open a "Developer Command Prompt for VS 2019" (search for Dev... from Windows search)
 
-9. cd nginx
+9. C:\MinGW\msys\1.0\msys.bat
 
-10. auto/configure \
+10. cd nginx
+
+11. auto/configure \
 --with-cc=cl \
 --builddir=objs \
 --prefix= \
@@ -42,11 +44,11 @@ We need Perl to compile openssl, we can use Strawberry Perl https://strawberrype
 --with-select_module  \
 --with-http_ssl_module \
 
-11. return to the "Developer Command Prompt for VS 2019" that is still opened from step 7
+12. return to the "Developer Command Prompt for VS 2019" that is still opened from step 7
 
-12. cd c:\MinGW\msys\1.0\home\your_user_name\nginx
+13. cd c:\MinGW\msys\1.0\home\your_user_name\nginx
 
-13. nmake
+14. nmake
 
 
 http://nginx.org/en/download.html
