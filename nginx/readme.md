@@ -10,7 +10,7 @@
 
 6. git clone https://github.com/madler/zlib objs/lib/zlib-1.2.11
 
-7. open a "Developer Command Prompt for VS 2019" (search for Deve...from Windows search)
+7. open a "Developer Command Prompt for VS 2019" (search for Dev... from Windows search)
 
 8. cd nginx/objs/lib/openssl
 
