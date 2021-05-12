@@ -10,6 +10,8 @@
 
 6. git clone https://github.com/madler/zlib objs/lib/zlib-1.2.11
 
+7. open a "Developer Command Prompt for VS 2019" (search for Deve...from Windows search)
+
 
 
 http://nginx.org/en/download.html
