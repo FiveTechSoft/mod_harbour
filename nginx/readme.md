@@ -2,6 +2,8 @@ Install MinGW with msys
 
 We need Perl to compile openssl, we can use Strawberry Perl https://strawberryperl.com/ or ActivePerl https://www.activestate.com/products/perl/
 
+0. cd c:\MinGW\msys\1.0\home\your_user_name
+
 1. git clone https://github.com/nginx/nginx
 
 2. cd nginx
@@ -16,11 +18,29 @@ We need Perl to compile openssl, we can use Strawberry Perl https://strawberrype
 
 7. open a "Developer Command Prompt for VS 2019" (search for Dev... from Windows search)
 
-8. cd nginx/objs/lib/openssl
+8. C:\MinGW\msys\1.0\msys.bat
 
-9. perl Configure -no-asm 
+9. cd nginx
 
-10. nmake
+10. auto/configure \
+--with-cc=cl \
+--builddir=objs \
+--prefix= \
+--conf-path=conf/nginx.conf \
+--pid-path=logs/nginx.pid \
+--http-log-path=logs/access.log \
+--error-log-path=logs/error.log \
+--sbin-path=nginx.exe \
+--http-client-body-temp-path=temp/client_body_temp \
+--http-proxy-temp-path=temp/proxy_temp \
+--http-fastcgi-temp-path=temp/fastcgi_temp \
+--with-cc-opt=-DFD_SETSIZE=1024 \
+--with-pcre=objs/lib/pcre-8.40 \
+--with-zlib=objs/lib/zlib-1.2.11 \
+--with-openssl=objs/lib/openssl \
+--with-openssl-opt=no-asm \
+--with-select_module  \
+--with-http_ssl_module \
 
 
 http://nginx.org/en/download.html
