@@ -1,0 +1,6 @@
+LIBRARY ngxhttp
+
+DESCRIPTION 'nginx http'
+
+EXPORTS
+           dummy      @1
