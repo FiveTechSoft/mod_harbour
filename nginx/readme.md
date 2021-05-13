@@ -54,8 +54,26 @@ We need Perl to compile openssl, we can use Strawberry Perl https://strawberrype
 
 16. cd nginx
 
-17. ./auto/configure --with-compat --add-dynamic-module=c:/mod_harbour/nginx --with-pcre=objs/lib/pcre-8.40 --with-zlib=o
-bjs/lib/zlib-1.2.11 --with-openssl=objs/lib/openssl
+17. auto/configure
+--with-cc=cl
+--builddir=objs
+--prefix=
+--conf-path=conf/nginx.conf
+--pid-path=logs/nginx.pid
+--http-log-path=logs/access.log
+--error-log-path=logs/error.log
+--sbin-path=nginx.exe
+--http-client-body-temp-path=temp/client_body_temp
+--http-proxy-temp-path=temp/proxy_temp
+--http-fastcgi-temp-path=temp/fastcgi_temp
+--with-cc-opt=-DFD_SETSIZE=1024
+--with-pcre=objs/lib/pcre-8.40
+--with-zlib=objs/lib/zlib-1.2.11
+--with-openssl=objs/lib/openssl
+--with-openssl-opt=no-asm
+--with-select_module
+--with-http_ssl_module 
+--with-compat --add-dynamic-module=c:/mod_harbour/nginx
 
 objs/ngx_mod_harbour.so:	objs/addon/nginx/ngx_mod_harbour.o \
 	objs/ngx_mod_harbour_modules.o \
