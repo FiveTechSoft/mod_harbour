@@ -67,7 +67,7 @@ We need Perl to compile openssl, we can use Strawberry Perl https://strawberrype
 --http-proxy-temp-path=temp/proxy_temp
 --http-fastcgi-temp-path=temp/fastcgi_temp
 --with-cc-opt=-DFD_SETSIZE=1024
---with-pcre=objs/lib/pcre-8.40
+--with-pcre=objs/lib/pcre-8.44
 --with-zlib=objs/lib/zlib-1.2.11
 --with-openssl=objs/lib/openssl
 --with-openssl-opt=no-asm
