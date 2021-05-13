@@ -1,0 +1,6 @@
+LIBRARY ngxevent
+
+DESCRIPTION 'nginx event'
+
+EXPORTS
+           dummy      @1
