@@ -10,7 +10,7 @@ We need Perl to compile openssl, we can use Strawberry Perl https://strawberrype
 
 3. mkdir -p objs/lib
 
-4. git clone git://git.openssl.org/openssl objs/lib/openssl
+4. git clone git://git.openssl.org/openssl objs/lib/openssl  (testing now with https://ftp.openssl.org/source/old/1.1.0/openssl-1.1.0g.tar.gz )
 
 5. git clone https://github.com/rivy/PCRE objs/lib/pcre-8.40
 
