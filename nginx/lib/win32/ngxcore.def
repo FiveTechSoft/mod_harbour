@@ -1,0 +1,6 @@
+LIBRARY ngxcore
+
+DESCRIPTION 'nginx core'
+
+EXPORTS
+           dummy      @1
