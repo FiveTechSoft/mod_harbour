@@ -1,8 +1,6 @@
 #include <ngx_config.h>
 #include <ngx_core.h>
 #include <ngx_http.h>
-#include <ngx_http_core_module.h>
-
 
 #define HELLO_WORLD "hello world\r\n"
 
