@@ -1,0 +1,6 @@
+LIBRARY ngxoswin32
+
+DESCRIPTION 'nginx os win32'
+
+EXPORTS
+           dummy      @1
