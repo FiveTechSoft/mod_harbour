@@ -81,6 +81,8 @@ objs/addon/nginx/ngx_mod_harbour.o:	$(ADDON_DEPS) \
 		-o objs/addon/nginx/ngx_mod_harbour.o \
 		~/mod_harbour/nginx/ngx_mod_harbour.c
 
+https://www.nginx.com/blog/compiling-dynamic-modules-nginx-plus/
+
 http://nginx.org/en/download.html
 
 https://github.com/perusio/nginx-hello-world-module/blob/master/ngx_http_hello_world_module.c
