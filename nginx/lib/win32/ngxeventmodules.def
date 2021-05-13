@@ -1,0 +1,6 @@
+LIBRARY ngxeventmodules
+
+DESCRIPTION 'nginx event modules'
+
+EXPORTS
+           dummy      @1
