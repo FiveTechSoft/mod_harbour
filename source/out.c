@@ -23,6 +23,13 @@ int mh_rputs( const char * szText )
 
 //----------------------------------------------------------------//
 
+int mh_rputslen( const char * szText, HB_SIZE iLength )
+{
+   return ap_rwrite( szText, iLength, GetRequestRec() );
+}
+
+//----------------------------------------------------------------//
+
 int ap_headers_out_count( void )
 {
    return apr_table_elts( GetRequestRec()->headers_out )->nelts;

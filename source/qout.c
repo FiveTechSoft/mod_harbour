@@ -3,6 +3,7 @@
 #include <hbvm.h>
 
 int mh_rputs( const char * szText );
+int mh_rputslen( const char * szText, HB_SIZE iLength );
 
 //----------------------------------------------------------------//
 
@@ -20,7 +21,7 @@ HB_FUNC( AP_RPUTS )
          hb_vmPushNil();
          hb_vmPush( pItem );
          hb_vmFunction( 1 );
-         mh_rputs( hb_parc( -1 ) );
+         mh_rputslen( hb_parc( -1 ), hb_parclen( -1 ) );
       }
       else if( HB_ISHASH( iParam ) || HB_ISARRAY( iParam ) )
       {
@@ -28,7 +29,7 @@ HB_FUNC( AP_RPUTS )
          hb_vmPushNil();
          hb_vmPush( pItem );
          hb_vmFunction( 1 );
-         mh_rputs( hb_parc( -1 ) );
+         mh_rputslen( hb_parc( -1 ), hb_parclen( -1 ) );
       }
       else
       {
@@ -36,7 +37,7 @@ HB_FUNC( AP_RPUTS )
          HB_BOOL bFreeReq;
          char * buffer = hb_itemString( pItem, &nLen, &bFreeReq );
 
-         mh_rputs( buffer );
+         mh_rputslen( buffer, nLen );
          mh_rputs( " " ); 
 
          if( bFreeReq )
