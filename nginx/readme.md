@@ -120,3 +120,5 @@ https://www.nginx.com/resources/wiki/extending/converting/
 https://github.com/tjliupeng/nginx-build-windows
 
 https://amefs.net/en/archives/1935.html
+
+https://forum.nginx.org/
