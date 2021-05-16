@@ -122,3 +122,5 @@ https://github.com/tjliupeng/nginx-build-windows
 https://amefs.net/en/archives/1935.html
 
 https://forum.nginx.org/
+
+~/nginx$ auto/configure --with-compat --add-dynamic-module=/home/anto/mod_harbour/nginx
