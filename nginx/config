@@ -1,7 +1,12 @@
-ngx_module_type=HTTP
-ngx_module_name=ngx_mod_harbour
-ngx_module_srcs="~/mod_harbour/nginx/ngx_mod_harbour.c"
+ngx_addon_name=ngx_mod_harbour_module
 
-. auto/module
+if test -n "$ngx_module_link"; then
+    ngx_module_type=HTTP
+    ngx_module_name=ngx_mod_harbour_module
+    ngx_module_srcs="$ngx_addon_dir/ngx_mod_harbour.c"
 
-ngx_addon_name=$ngx_mod_harbour
+    . auto/module
+else
+    HTTP_MODULES="$HTTP_MODULES ngx_mod_harbour_module"
+    NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/ngx_mod_harbour.c"
+fi
