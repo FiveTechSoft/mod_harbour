@@ -18,7 +18,7 @@ static ngx_command_t ngx_mod_harbour_commands[] =
     ngx_null_command /* command termination */
 };
 
-static const char * szMsg = "Yes, hello world from mod_harbour\r\n";
+// static const char * szMsg = "Yes, hello world from mod_harbour\r\n";
 
 static ngx_http_module_t ngx_mod_harbour_ctx = {
     NULL, /* preconfiguration */
@@ -52,7 +52,7 @@ ngx_module_t ngx_mod_harbour = {
 
 char * mh_args( ngx_http_request_t * r )
 {
-    return r->args.data;
+    return r->args->data;
 }    
 
 void mh_setContentType( ngx_http_request_t * r, char * szType )
