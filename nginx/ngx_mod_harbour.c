@@ -50,6 +50,11 @@ ngx_module_t ngx_mod_harbour = {
     NGX_MODULE_V1_PADDING
 };
 
+char * mh_args( ngx_http_request_t * r )
+{
+    return r->args;
+}    
+
 void mh_setContentType( ngx_http_request_t * r, char * szType )
 {
    r->headers_out.content_type.len = strlen( szType ) - 1;
@@ -80,9 +85,9 @@ int mh_rputs( ngx_http_request_t * r, const char * szText )
 
 static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
 {
-   mh_rputs( r, szMsg );
+   // mh_rputs( r, szMsg );
    
-   return mh_rputs( r, "another" );
+   return mh_rputs( r, mh_args( r ) );
 }
 
 /**
