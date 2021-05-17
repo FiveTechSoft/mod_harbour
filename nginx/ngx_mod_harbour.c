@@ -144,23 +144,51 @@ int CopyFile( const char * from, const char * to, int iOverWrite )
     return errno;
 }
 
+typedef int ( * PHB_APACHE )( void * pRequestRec );
+
 static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
 {
    void * lib_harbour;
    // unsigned int dwThreadId = pthread_self();
    char * szTempFileName = "/tmp/libharbour.so.3.2.0";
+   int iResult = NGX_OK;
 
    CopyFile( "./libharbour.so.3.2.0", szTempFileName, 0 );
 
    if( ( lib_harbour = dlopen( szTempFileName, RTLD_LAZY ) ) )
-   {   
+   {     
+      PHB_APACHE _hb_apache = NULL;
       mh_rputs( r, "ok" );
-      dlclose( lib_harbour );
+      
+
+      #ifdef _WINDOWS_
+         _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
+      #else
+         _hb_apache = dlsym( lib_harbour, "hb_apache" );
+      #endif
+
+      if( _hb_apache == NULL )
+         mh_rputs( r, "<br>failed to load hb_apache()" );
+      else
+         iResult = _hb_apache( r );
+
+      if( lib_harbour != NULL )
+         #ifdef _WINDOWS_	
+            FreeLibrary( lib_harbour );
+         #else
+            dlclose( lib_harbour );
+         #endif
+
+      #ifdef _WINDOWS_ 
+         DeleteFile( szTempFileName );
+      #else
+         remove( szTempFileName );
+      #endif    
    }
    else
-      mh_rputs( r, dlerror() ); 
+      mh_rputs( r, dlerror() );  
 
-   return NGX_OK; 
+   return iResult; 
 }
 
 /**
