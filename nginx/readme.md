@@ -125,4 +125,14 @@ https://forum.nginx.org/
 
 ~/nginx$ auto/configure --with-compat --add-dynamic-module=/home/anto/mod_harbour/nginx
 
+make
+
+copy ngx_mod_harbour.so to /usr/local/nginx/modules
+
+copy nginx.conf to /usr/local/nginx/conf
+
+./nginx -s quit 
+
+./nginx
+
 https://www.nginx.com/blog/compiling-dynamic-modules-nginx-plus/
