@@ -52,7 +52,7 @@ ngx_module_t ngx_mod_harbour = {
 
 char * mh_args( ngx_http_request_t * r )
 {
-    return r->args->data;
+    return ( char * ) r->args.data;
 }    
 
 void mh_setContentType( ngx_http_request_t * r, char * szType )
