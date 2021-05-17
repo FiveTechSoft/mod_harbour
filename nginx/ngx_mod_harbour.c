@@ -1,6 +1,7 @@
 #include <ngx_config.h>
 #include <ngx_core.h>
 #include <ngx_http.h>
+#include <unistd.h>
 
 static char * ngx_mod_harbour_main( ngx_conf_t * cf, ngx_command_t * cmd, void * conf );
 static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r );
@@ -85,9 +86,11 @@ int mh_rputs( ngx_http_request_t * r, const char * szText )
 
 static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
 {
-   // mh_rputs( r, szMsg );
+   void * lib_harbour = dlopen( "./libharbour.so.3.2.0", RTLD_LAZY );
    
-   return mh_rputs( r, mh_args( r ) );
+   lib_harbour = lib_harbour;
+
+   return mh_rputs( r, dlerror() ); 
 }
 
 /**
