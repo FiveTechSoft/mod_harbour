@@ -52,7 +52,7 @@ ngx_module_t ngx_mod_harbour = {
 
 char * mh_args( ngx_http_request_t * r )
 {
-    return r->args;
+    return r->args.data;
 }    
 
 void mh_setContentType( ngx_http_request_t * r, char * szType )
@@ -87,7 +87,7 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
 {
    // mh_rputs( r, szMsg );
    
-   return mh_rputs( r, mh_args( r ).data );
+   return mh_rputs( r, mh_args( r ) );
 }
 
 /**
