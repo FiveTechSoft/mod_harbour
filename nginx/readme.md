@@ -127,7 +127,7 @@ https://forum.nginx.org/
 
 ~/nginx$ auto/configure --with-compat --add-dynamic-module=/home/anto/mod_harbour/nginx
 
-make
+make (or make modules)
 
 copy ngx_mod_harbour.so to /usr/local/nginx/modules
 
