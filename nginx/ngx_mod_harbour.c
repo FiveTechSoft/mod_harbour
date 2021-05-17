@@ -1,10 +1,38 @@
+/**
+ * @file   ngx_mod_harbour.c
+ * @author António P. P. Almeida <appa@perusio.net>
+ * @date   Wed Aug 17 12:06:52 2011
+ *
+ * @brief  A hello world module for Nginx.
+ *
+ * @section LICENSE
+ *
+ * Copyright (C) 2011 by Dominic Fallows, António P. P. Almeida <appa@perusio.net>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 #include <ngx_config.h>
 #include <ngx_core.h>
 #include <ngx_http.h>
 
-#define HELLO_WORLD "hello world\r\n"
+#define HELLO_WORLD "mod_harbour\r\n"
 
-static char *ngx_mod_harbour(ngx_conf_t *cf, ngx_command_t *cmd, void *conf);
+static char * ngx_mod_harbour_main( ngx_conf_t * cf, ngx_command_t * cmd, void * conf );
 static ngx_int_t ngx_mod_harbour_handler(ngx_http_request_t *r);
 
 /**
@@ -13,10 +41,10 @@ static ngx_int_t ngx_mod_harbour_handler(ngx_http_request_t *r);
  */
 static ngx_command_t ngx_mod_harbour_commands[] = {
 
-    { ngx_string("hello_world"), /* directive */
+    { ngx_string("mod_harbour"), /* directive */
       NGX_HTTP_LOC_CONF|NGX_CONF_NOARGS, /* location context and takes
                                             no arguments*/
-      ngx_mod_harbour, /* configuration setup function */
+      ngx_mod_harbour_main, /* configuration setup function */
       0, /* No offset. Only one context is supported. */
       0, /* No offset when storing the module configuration on struct. */
       NULL},
@@ -43,7 +71,7 @@ static ngx_http_module_t ngx_mod_harbour_ctx = {
 };
 
 /* Module definition. */
-ngx_module_t ngx_mod_harbour_module = {
+ngx_module_t ngx_mod_harbour = {
     NGX_MODULE_V1,
     &ngx_mod_harbour_ctx, /* module context */
     ngx_mod_harbour_commands, /* module directives */
@@ -95,7 +123,7 @@ static ngx_int_t ngx_mod_harbour_handler(ngx_http_request_t *r)
 
     /* Send the body, and return the status code of the output filter chain. */
     return ngx_http_output_filter(r, &out);
-} 
+} /* ngx_http_hello_world_handler */
 
 /**
  * Configuration setup function that installs the content handler.
@@ -109,7 +137,7 @@ static ngx_int_t ngx_mod_harbour_handler(ngx_http_request_t *r)
  * @return string
  *   Status of the configuration setup.
  */
-static char * ngx_mod_harbour( ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
+static char * ngx_mod_harbour_main( ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
 {
     ngx_http_core_loc_conf_t *clcf; /* pointer to core location configuration */
 
@@ -118,4 +146,4 @@ static char * ngx_mod_harbour( ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
     clcf->handler = ngx_mod_harbour_handler;
 
     return NGX_CONF_OK;
-}
+} /* ngx_http_hello_world */
