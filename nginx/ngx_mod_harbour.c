@@ -3,7 +3,7 @@
 #include <ngx_http.h>
 
 static char * ngx_mod_harbour_main( ngx_conf_t * cf, ngx_command_t * cmd, void * conf );
-static ngx_int_t ngx_mod_harbour_handler(ngx_http_request_t *r);
+static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r );
 
 static ngx_command_t ngx_mod_harbour_commands[] = 
 {
@@ -60,7 +60,7 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
     r->headers_out.content_type.data = (u_char *) "text/plain";
 
     /* Allocate a new buffer for sending out the reply. */
-    b = ngx_pcalloc(r->pool, sizeof(ngx_buf_t));
+    b = ngx_pcalloc( r->pool, sizeof( ngx_buf_t ) );
 
     /* Insertion in the buffer chain. */
     out.buf = b;
@@ -78,7 +78,7 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
     ngx_http_send_header( r ); /* Send the headers */
 
     /* Send the body, and return the status code of the output filter chain. */
-    return ngx_http_output_filter(r, &out);
+    return ngx_http_output_filter( r, &out );
 } /* ngx_http_hello_world_handler */
 
 /**
@@ -93,12 +93,12 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
  * @return string
  *   Status of the configuration setup.
  */
-static char * ngx_mod_harbour_main( ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
+static char * ngx_mod_harbour_main( ngx_conf_t * cf, ngx_command_t * cmd, void * conf )
 {
     ngx_http_core_loc_conf_t *clcf; /* pointer to core location configuration */
 
     /* Install the hello world handler. */
-    clcf = ngx_http_conf_get_module_loc_conf(cf, ngx_http_core_module);
+    clcf = ngx_http_conf_get_module_loc_conf( cf, ngx_http_core_module );
     clcf->handler = ngx_mod_harbour_handler;
 
     return NGX_CONF_OK;
