@@ -18,7 +18,7 @@ static ngx_command_t ngx_mod_harbour_commands[] =
     ngx_null_command /* command termination */
 };
 
-static u_char szMsg[] = "hello world from mod_harbour\r\n";
+static const char * szMsg = "Yes, hello world from mod_harbour\r\n";
 
 static ngx_http_module_t ngx_mod_harbour_ctx = {
     NULL, /* preconfiguration */
@@ -50,36 +50,40 @@ ngx_module_t ngx_mod_harbour = {
     NGX_MODULE_V1_PADDING
 };
 
+void mh_setContentType( ngx_http_request_t * r, char * szType )
+{
+   r->headers_out.content_type.len = strlen( szType ) - 1;
+   r->headers_out.content_type.data = ( u_char * ) szType;
+}
+
+int mh_rputs( ngx_http_request_t * r, const char * szText )
+{
+   ngx_buf_t * b = ngx_pcalloc( r->pool, sizeof( ngx_buf_t ) );
+   ngx_chain_t out;
+
+   mh_setContentType( r, "text/plain" );
+
+   r->headers_out.status = NGX_HTTP_OK;
+   r->headers_out.content_length_n = strlen( szText );
+   ngx_http_send_header( r );
+ 
+   out.buf = ( void * ) b;
+   out.next = NULL;      
+
+   b->pos = ( void * ) szText;
+   b->last = ( void * ) ( ( char * ) szText + strlen( szText ) );
+   b->memory = 1;
+   b->last_buf = 1;
+
+   return ngx_http_output_filter( r, &out );
+}
+
 static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
 {
-    ngx_buf_t *b;
-    ngx_chain_t out;
-
-    /* Set the Content-Type header. */
-    r->headers_out.content_type.len = sizeof("text/plain") - 1;
-    r->headers_out.content_type.data = (u_char *) "text/plain";
-
-    /* Allocate a new buffer for sending out the reply. */
-    b = ngx_pcalloc( r->pool, sizeof( ngx_buf_t ) );
-
-    /* Insertion in the buffer chain. */
-    out.buf = b;
-    out.next = NULL; /* just one buffer */
-
-    b->pos = szMsg; /* first position in memory of the data */
-    b->last = szMsg + sizeof( szMsg ) - 1; /* last position in memory of the data */
-    b->memory = 1; /* content is in read-only memory */
-    b->last_buf = 1; /* there will be no more buffers in the request */
-
-    /* Sending the headers for the reply. */
-    r->headers_out.status = NGX_HTTP_OK; /* 200 status code */
-    /* Get the content length of the body. */
-    r->headers_out.content_length_n = sizeof( szMsg ) - 1;
-    ngx_http_send_header( r ); /* Send the headers */
-
-    /* Send the body, and return the status code of the output filter chain. */
-    return ngx_http_output_filter( r, &out );
-} /* ngx_http_hello_world_handler */
+   mh_rputs( r, szMsg );
+   
+   return mh_rputs( r, "another" );
+}
 
 /**
  * Configuration setup function that installs the content handler.
