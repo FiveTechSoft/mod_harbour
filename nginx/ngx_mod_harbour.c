@@ -87,7 +87,7 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
 {
    // mh_rputs( r, szMsg );
    
-   return mh_rputs( r, mh_args( r ) );
+   return mh_rputs( r, mh_args( r ).data );
 }
 
 /**
