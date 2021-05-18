@@ -2,6 +2,7 @@
 #include <ngx_core.h>
 #include <ngx_http.h>
 #include <unistd.h>
+#include <ngx_mod_harbour.h>
 
 static char * ngx_mod_harbour_main( ngx_conf_t * cf, ngx_command_t * cmd, void * conf );
 static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r );
