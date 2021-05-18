@@ -145,7 +145,7 @@ int CopyFile( const char * from, const char * to, int iOverWrite )
     return errno;
 }
 
-typedef int ( * PHB_APACHE )( void * pRequestRec );
+typedef int ( * PHB_APACHE )( void * pRequestRec, NGX_API * pNgxApi );
 
 static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
 {
@@ -169,8 +169,13 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
       if( _hb_apache == NULL )
          mh_rputs( r, "<br>failed to load hb_apache()" );
       else
-         iResult = _hb_apache( r );
+      {
+         NGX_API ngxapi;
 
+         ngxapi.mh_rputs = ( PMH_RPUTS ) mh_rputs;  
+
+         iResult = _hb_apache( r, ( void * ) &ngxapi );
+      }
       if( lib_harbour != NULL )
          #ifdef _WINDOWS_	
             FreeLibrary( lib_harbour );
