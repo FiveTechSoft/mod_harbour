@@ -15,6 +15,7 @@
 ../source/pairs.prg
 ../source/paths.prg
 ../source/console.c
+../source/entry.c
 ../source/headers.c
 ../source/in.c
 ../source/mem.c
