@@ -158,9 +158,7 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
    if( ( lib_harbour = dlopen( szTempFileName, RTLD_LAZY ) ) )
    {     
       PHB_APACHE _hb_apache = NULL;
-      mh_rputs( r, "ok" );
       
-
       #ifdef _WINDOWS_
          _hb_apache = ( PHB_APACHE ) GetProcAddress( lib_harbour, "hb_apache" );
       #else
