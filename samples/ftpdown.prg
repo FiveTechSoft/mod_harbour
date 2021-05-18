@@ -1,3 +1,9 @@
+#ifdef __PLATFORM__WINDOWS
+   #include "c:\harbour\contrib\hbcurl\hbcurl.ch"
+#else
+   #include "/usr/include/harbour/hbcurl.ch"
+#endif
+
 function main()
 
 	local hCurl
