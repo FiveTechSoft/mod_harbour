@@ -1,6 +1,6 @@
 #ifndef NGX_API
 
-#define int ( * PMH_RPUTS ) ( void * r, char * szText );
+typedef int ( * PMH_RPUTS ) ( void * r, char * szText );
 
 typedef struct _NGX_API
 {
