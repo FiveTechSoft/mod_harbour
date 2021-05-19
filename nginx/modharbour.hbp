@@ -21,7 +21,7 @@ source/out.c
 ../source/qout.c
 ../source/url.c
 
-#-cflag=-I/usr/include/apache2
+-cflag=-Wno-unused-parameter
 #-cflag=-I/usr/include/apr-1.0
 
 -trace
