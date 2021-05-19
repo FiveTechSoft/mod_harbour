@@ -1,3 +1,5 @@
+nginx html pages: /usr/share/nginx/html
+
 Install MinGW with msys
 
 We need Perl to compile openssl, we can use Strawberry Perl https://strawberryperl.com/ or ActivePerl https://www.activestate.com/products/perl/
