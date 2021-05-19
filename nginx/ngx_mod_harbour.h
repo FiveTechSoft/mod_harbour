@@ -1,5 +1,7 @@
 #ifndef NGX_API
 
+void * GetNgxApi( void );
+
 typedef int ( * PMH_RPUTS ) ( void * r, char * szText );
 
 typedef struct _NGX_API
