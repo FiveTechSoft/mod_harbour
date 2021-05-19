@@ -3,7 +3,7 @@
 void * GetNgxApi( void );
 void * GetRequestRec( void );
 
-typedef int ( * PMH_RPUTS ) ( void * r, char * szText );
+typedef int ( * PMH_RPUTS ) ( void * r, const char * szText );
 
 typedef struct _NGX_API
 {
