@@ -3,6 +3,7 @@
 void * GetNgxApi( void );
 void * GetRequestRec( void );
 const char * mh_args( void * r );
+int mh_rputs( const char * szText );
 
 typedef int ( * PMH_RPUTS ) ( void * r, const char * szText );
 typedef const char * ( * PMH_ARGS ) ( void * r );
