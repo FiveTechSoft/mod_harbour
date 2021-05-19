@@ -20,9 +20,9 @@
 ..\source\console.c
 source\entry.c
 ..\source\headers.c
-source\in.cpp
+source\in.c
 ..\source\mem.c
-source\out.cpp
+source\out.c
 ..\source\qout.c
 ..\source\pointers.c
 ..\source\url.c
