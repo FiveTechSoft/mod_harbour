@@ -11,3 +11,12 @@ HB_FUNC( MH_ARGS )
 }  
 
 //----------------------------------------------------------------//
+
+HB_FUNC( AP_FILENAME )
+{
+   NGX_API * pNgxApi = GetNgxApi();
+  
+   hb_retc( pNgxApi->mh_args( GetRequestRec() ) );
+}
+
+//----------------------------------------------------------------//
