@@ -151,10 +151,10 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
 {
    void * lib_harbour;
    // unsigned int dwThreadId = pthread_self();
-   char * szTempFileName = "/tmp/libharbour.so.3.2.0";
+   char * szTempFileName = "/tmp/libharbour.so";
    int iResult = NGX_OK;
 
-   CopyFile( "./libharbour.so.3.2.0", szTempFileName, 0 );
+   CopyFile( "./libharbour.so", szTempFileName, 0 );
 
    if( ( lib_harbour = dlopen( szTempFileName, RTLD_LAZY ) ) )
    {     
@@ -195,23 +195,10 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
    return iResult; 
 }
 
-/**
- * Configuration setup function that installs the content handler.
- *
- * @param cf
- *   Module configuration structure pointer.
- * @param cmd
- *   Module directives structure pointer.
- * @param conf
- *   Module configuration structure pointer.
- * @return string
- *   Status of the configuration setup.
- */
 static char * ngx_mod_harbour_main( ngx_conf_t * cf, ngx_command_t * cmd, void * conf )
 {
-    ngx_http_core_loc_conf_t *clcf; /* pointer to core location configuration */
+    ngx_http_core_loc_conf_t * clcf;
 
-    /* Install the hello world handler. */
     clcf = ngx_http_conf_get_module_loc_conf( cf, ngx_http_core_module );
     clcf->handler = ngx_mod_harbour_handler;
 
