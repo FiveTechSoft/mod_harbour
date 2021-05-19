@@ -21,7 +21,7 @@ source/out.c
 ../source/qout.c
 ../source/url.c
 
--cflag=-Wno-unused-parameter
+-cflag=-Wno-unused-parameter -Wno-unused-variable
 #-cflag=-I/usr/include/apr-1.0
 
 -trace
