@@ -5,6 +5,7 @@
 -l-hbfship
 -l-hbxpp
 -I./..
+-I./../nginx/src/core -I./../nginx/src/http
 
 ../source/apache.prg
 ../source/cookies.prg
