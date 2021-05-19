@@ -5,7 +5,6 @@
 ngx_mod_harbour.c
 ngx_mod_harbour_modules.c
 ngx_modules.c 
-entry.c
 -Llib/win32
 -llibcrypto
 -llibssl
