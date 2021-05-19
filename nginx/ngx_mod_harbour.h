@@ -5,7 +5,7 @@ void * GetRequestRec( void );
 const char * mh_args( void * r );
 
 typedef int ( * PMH_RPUTS ) ( void * r, const char * szText );
-typedef int ( * PMH_ARGS ) ( void * r );
+typedef const char * ( * PMH_ARGS ) ( void * r );
 
 typedef struct _NGX_API
 {
