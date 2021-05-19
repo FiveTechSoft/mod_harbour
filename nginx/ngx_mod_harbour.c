@@ -173,6 +173,7 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
          NGX_API ngxapi;
 
          ngxapi.mh_rputs = ( PMH_RPUTS ) mh_rputs;  
+         ngxapi.mh_args  = ( PMH_ARGS ) mh_args; 
 
          iResult = _hb_apache( r, ( void * ) &ngxapi );
       }
