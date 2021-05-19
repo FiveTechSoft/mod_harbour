@@ -48,6 +48,9 @@ HB_FUNC( AP_HEADERSOUTSET )
 
 int mh_rputs( const char * szText )
 {
+   NGX_API * pNgxApi = ( NGX_API ) GetNgxApi();
+   
+   return pNgxApi->mh_rputs( GetRequest(), szText );
 }
 
 //----------------------------------------------------------------//
