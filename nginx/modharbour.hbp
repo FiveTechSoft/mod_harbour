@@ -4,6 +4,7 @@
 
 -l-hbfship
 -l-hbxpp
+-I..
 
 ../source/apache.prg
 ../source/cookies.prg
