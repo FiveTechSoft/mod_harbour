@@ -1,6 +1,7 @@
 #ifndef NGX_API
 
 void * GetNgxApi( void );
+void * GetRequestRec( void );
 
 typedef int ( * PMH_RPUTS ) ( void * r, char * szText );
 
