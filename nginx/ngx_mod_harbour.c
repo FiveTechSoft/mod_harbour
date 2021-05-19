@@ -52,9 +52,9 @@ ngx_module_t ngx_mod_harbour = {
     NGX_MODULE_V1_PADDING
 };
 
-char * mh_args( ngx_http_request_t * r )
+const char * mh_args( ngx_http_request_t * r )
 {
-    return ( char * ) r->args.data;
+    return ( const char * ) r->args.data;
 }    
 
 void mh_setContentType( ngx_http_request_t * r, char * szType )
