@@ -7,12 +7,6 @@ ngx_mod_harbour_modules.c
 ngx_modules.c 
 entry.c
 -Llib/win32
--lngxcore
--lngxevent
--lngxeventmodules
--lngxhttp
--lngxhttpmodules
--lngxoswin32
 -llibcrypto
 -llibssl
 -lpcre
