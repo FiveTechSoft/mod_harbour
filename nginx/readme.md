@@ -1,3 +1,5 @@
+Copy ngx_mod_harbour.so and libharbour.so to /usr/local/nginx/modules
+
 nginx html pages: /usr/share/nginx/html
 
 Install MinGW with msys
