@@ -2,6 +2,12 @@ Copy ngx_mod_harbour.so and libharbour.so to /usr/local/nginx/modules
 
 nginx html pages: /usr/share/nginx/html
 
+Stop the server: ~/nginx/objs# ./nginx -s quit
+
+Run it again: ~/nginx/objs# ./nginx
+
+test it: curl http://localhost?test.prg
+
 Install MinGW with msys
 
 We need Perl to compile openssl, we can use Strawberry Perl https://strawberryperl.com/ or ActivePerl https://www.activestate.com/products/perl/
