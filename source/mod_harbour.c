@@ -208,10 +208,10 @@ module AP_MODULE_DECLARE_DATA harbour_module = {
     NULL,                  /* create per-server config structures */
     NULL,                  /* merge  per-server config structures */
     NULL,                  /* table of config file commands       */
-    #ifdef _WINDOWS_
+    // #ifdef _WINDOWS_
        harbour_register_hooks, /* register hooks                  */
        0
-    #else
-       harbour_register_hooks  /* register hooks                  */
-    #endif
+    // #else
+    //    harbour_register_hooks  /* register hooks                  */
+    // #endif
 };
