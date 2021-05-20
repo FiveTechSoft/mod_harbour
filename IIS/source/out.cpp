@@ -82,6 +82,29 @@ int mh_rputs( const char * szText )
 
 //----------------------------------------------------------------//
 
+int mh_rputslen( const char * szText, HB_SIZE iLength )
+{
+   IHttpContext * pHttpContext = GetHttpContext();
+   HTTP_DATA_CHUNK dataChunk;
+   PCSTR pszText = ( PCSTR ) pHttpContext->AllocateRequestMemory( ( DWORD ) ( iLength + 1 ) );
+   IHttpResponse * pHttpResponse = pHttpContext->GetResponse();
+
+   if( pszText )
+   {
+      strcpy_s( ( char * ) pszText, iLength + 1, szText );
+
+      dataChunk.DataChunkType = HttpDataChunkFromMemory;
+      dataChunk.FromMemory.pBuffer = ( PVOID ) pszText;
+      dataChunk.FromMemory.BufferLength = ( ULONG ) iLength;
+
+      return pHttpResponse->WriteEntityChunkByReference( &dataChunk, -1 );
+   }
+   else
+      return 0;
+}
+
+//----------------------------------------------------------------//
+   
 HB_FUNC( AP_RWRITE )
 {
    const char * szText = hb_parc( 1 );
