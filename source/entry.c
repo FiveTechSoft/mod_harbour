@@ -15,3 +15,8 @@ void * GetRequestRec( void )
 {
    return pRequestRec;
 }
+
+HB_FUNC( AP_ENTRY )
+{
+   hb_apache( NULL );
+}   
