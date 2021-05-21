@@ -22,3 +22,8 @@ void * GetNgxApi( void )
 {
    return pNgxApi;
 }  
+
+HB_FUNC( AP_ENTRY )
+{
+   hb_apache( NULL, NULL );
+}   
