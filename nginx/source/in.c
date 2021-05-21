@@ -57,11 +57,11 @@ HB_FUNC( AP_HEADERSINKEY )
    
 //----------------------------------------------------------------//
    
-HB_FUNC( AP_HEADERSINVALUE )
+HB_FUNC( AP_HEADERSINVAL )
 {
    NGX_API * pNgxApi = GetNgxApi();
 
-   hb_retc( "AP_HEADERSINVALUE() not implemented yet" );
+   hb_retc( "AP_HEADERSINVAL() not implemented yet" );
 }   
    
 //----------------------------------------------------------------//
