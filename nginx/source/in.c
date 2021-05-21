@@ -3,7 +3,7 @@
 
 //----------------------------------------------------------------//
 
-HB_FUNC( MH_ARGS )
+HB_FUNC( AP_ARGS )
 {
    NGX_API * pNgxApi = GetNgxApi();
   
