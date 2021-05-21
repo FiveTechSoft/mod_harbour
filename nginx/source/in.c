@@ -31,6 +31,8 @@ HB_FUNC( AP_BODY )
 
 HB_FUNC( AP_GETENV )
 {
+   NGX_API * pNgxApi = GetNgxApi();
+   
    hb_retc( "AP_GETENV() not implemented yet" );
 } 
 
@@ -39,6 +41,8 @@ HB_FUNC( AP_GETENV )
    
 HB_FUNC( AP_HEADERSINCOUNT )
 {
+   NGX_API * pNgxApi = GetNgxApi();
+
    hb_retnl( 0 ); // ap_headers_in_count() );
 }   
    
