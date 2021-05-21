@@ -25,6 +25,15 @@ HB_FUNC( AP_BODY )
 {
    NGX_API * pNgxApi = GetNgxApi();
   
-   hb_retc( "not implemented yet" );
+   hb_retc( "AP_BODY() not implemented yet" );
    
 //----------------------------------------------------------------//
+
+HB_FUNC( AP_GETENV )
+{
+   hb_retc( "AP_GETENV() not implemented yet" );
+} 
+
+   
+//----------------------------------------------------------------//
+   
