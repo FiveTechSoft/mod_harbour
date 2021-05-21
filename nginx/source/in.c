@@ -57,3 +57,12 @@ HB_FUNC( AP_METHOD )
 }   
    
 //----------------------------------------------------------------//
+
+HB_FUNC( AP_USERIP )
+{
+   NGX_API * pNgxApi = GetNgxApi();
+
+   hb_retc( "AP_USERIP() not implemented yet" );
+}   
+   
+//----------------------------------------------------------------//
