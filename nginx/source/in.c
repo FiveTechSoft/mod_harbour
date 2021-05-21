@@ -36,7 +36,6 @@ HB_FUNC( AP_GETENV )
    
    hb_retc( "AP_GETENV() not implemented yet" );
 } 
-
    
 //----------------------------------------------------------------//
    
@@ -45,6 +44,24 @@ HB_FUNC( AP_HEADERSINCOUNT )
    NGX_API * pNgxApi = GetNgxApi();
 
    hb_retnl( 0 ); // ap_headers_in_count() );
+}   
+   
+//----------------------------------------------------------------//
+   
+HB_FUNC( AP_HEADERSINKEY )
+{
+   NGX_API * pNgxApi = GetNgxApi();
+
+   hb_retc( "AP_HEADERSINKEY() not implemented yet" );
+}   
+   
+//----------------------------------------------------------------//
+   
+HB_FUNC( AP_HEADERSINVALUE )
+{
+   NGX_API * pNgxApi = GetNgxApi();
+
+   hb_retc( "AP_HEADERSINVALUE() not implemented yet" );
 }   
    
 //----------------------------------------------------------------//
