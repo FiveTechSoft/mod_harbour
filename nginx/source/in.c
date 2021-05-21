@@ -48,3 +48,12 @@ HB_FUNC( AP_HEADERSINCOUNT )
 }   
    
 //----------------------------------------------------------------//
+
+HB_FUNC( AP_METHOD )
+{
+   NGX_API * pNgxApi = GetNgxApi();
+
+   hb_retc( "AP_METHOD() not implemented yet" );
+}   
+   
+//----------------------------------------------------------------//
