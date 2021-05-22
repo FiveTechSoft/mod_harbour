@@ -165,6 +165,7 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
    out.next = NULL;      
 
    CopyFile( "./libharbour.so", szTempFileName, 0 );
+    
    if( ( lib_harbour = dlopen( szTempFileName, RTLD_LAZY ) ) )
    {     
       PHB_APACHE _hb_apache = NULL;
