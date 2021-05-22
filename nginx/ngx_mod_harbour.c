@@ -52,6 +52,8 @@ ngx_module_t ngx_mod_harbour = {
     NGX_MODULE_V1_PADDING
 };
 
+static ngx_chain_t out, * pLastChainLink;
+
 const char * mh_args( ngx_http_request_t * r )
 {
     return ( const char * ) r->args.data;
@@ -65,24 +67,29 @@ void mh_setContentType( ngx_http_request_t * r, char * szType )
 
 int mh_rputs( ngx_http_request_t * r, const char * szText )
 {
-   ngx_buf_t * b = ngx_pcalloc( r->pool, sizeof( ngx_buf_t ) );
-   ngx_chain_t out;
-
-   mh_setContentType( r, "text/plain" );
+   ngx_buf_t * buffer = ngx_calloc_buf( r->pool );
 
    r->headers_out.status = NGX_HTTP_OK;
-   r->headers_out.content_length_n = strlen( szText );
-   ngx_http_send_header( r );
- 
-   out.buf = ( void * ) b;
-   out.next = NULL;      
+   r->headers_out.content_length_n += strlen( szText );
+    
+   if( ! out.buf )
+   {    
+      out.buf = ( void * ) buffer;
+      out.next = ngx_alloc_chain_link( r->pool );
+      pLastChainLink = out.next;
+   }    
+   else 
+   {    
+       pLastChainLink.buf = ( void * ) buffer;
+       pLastChainLink.next = ngx_alloc_chain_link( r->pool );
+       pLastChainLink = pLastChainLink.next;
+   }    
 
-   b->pos = ( void * ) szText;
-   b->last = ( void * ) ( ( char * ) szText + strlen( szText ) );
-   b->memory = 1;
-   b->last_buf = 1;
+   buffer->pos = ( void * ) szText;
+   buffer->last = ( void * ) ( ( char * ) szText + strlen( szText ) );
+   buffer->memory = 1;
 
-   return ngx_http_output_filter( r, &out );
+   return 0;
 }
 
 int CopyFile( const char * from, const char * to, int iOverWrite )
@@ -154,8 +161,10 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
    char * szTempFileName = "/tmp/libharbour.so";
    int iResult = NGX_OK;
 
-   CopyFile( "./libharbour.so", szTempFileName, 0 );
+   out.buf  = NULL;
+   out.next = NULL;      
 
+   CopyFile( "./libharbour.so", szTempFileName, 0 );
    if( ( lib_harbour = dlopen( szTempFileName, RTLD_LAZY ) ) )
    {     
       PHB_APACHE _hb_apache = NULL;
@@ -175,7 +184,13 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
          ngxapi.mh_rputs = ( PMH_RPUTS ) mh_rputs;  
          ngxapi.mh_args  = ( PMH_ARGS ) mh_args; 
 
+         mh_setContentType( r, "text/plain" );
+          
          iResult = _hb_apache( r, ( void * ) &ngxapi );
+          
+         mh_rputs( r, "after hb_apache() call" ); 
+         ngx_http_send_header( r );
+         ngx_http_output_filter( r, &out );
       }
       if( lib_harbour != NULL )
          #ifdef _WINDOWS_	
@@ -192,7 +207,7 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
    }
    else
       mh_rputs( r, dlerror() );  
-
+   
    return iResult; 
 }
 
