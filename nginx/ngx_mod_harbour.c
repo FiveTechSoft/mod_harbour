@@ -70,19 +70,20 @@ int mh_rputs( ngx_http_request_t * r, const char * szText )
    ngx_buf_t * buffer = ngx_calloc_buf( r->pool );
 
    r->headers_out.status = NGX_HTTP_OK;
-   r->headers_out.content_length_n += strlen( szText );
     
    if( ! out.buf )
    {    
       out.buf = ( void * ) buffer;
       out.next = ngx_alloc_chain_link( r->pool );
       pLastChainLink = out.next;
+      r->headers_out.content_length_n = strlen( szText );
    }    
    else 
    {    
        pLastChainLink->buf = ( void * ) buffer;
        pLastChainLink->next = ngx_alloc_chain_link( r->pool );
        pLastChainLink = pLastChainLink->next;
+       r->headers_out.content_length_n += strlen( szText );
    }    
 
    buffer->pos = ( void * ) szText;
