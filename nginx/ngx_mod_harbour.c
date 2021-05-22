@@ -80,9 +80,9 @@ int mh_rputs( ngx_http_request_t * r, const char * szText )
    }    
    else 
    {    
-       pLastChainLink.buf = ( void * ) buffer;
-       pLastChainLink.next = ngx_alloc_chain_link( r->pool );
-       pLastChainLink = pLastChainLink.next;
+       pLastChainLink->buf = ( void * ) buffer;
+       pLastChainLink->next = ngx_alloc_chain_link( r->pool );
+       pLastChainLink = pLastChainLink->next;
    }    
 
    buffer->pos = ( void * ) szText;
