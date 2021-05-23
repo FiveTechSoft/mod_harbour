@@ -24,7 +24,7 @@ return ""
 
 function AP_FILENAME()
 
-return ""
+return hb_Argv( 1 )
 
 function AP_ARGS()
 

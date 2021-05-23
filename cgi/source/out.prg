@@ -30,37 +30,23 @@ function AP_HEADERSOUT()
 
 return nil
 
-function AP_RPUTS( ... )
-
-return nil
-
 #pragma BEGINDUMP
 
 #include <hbapi.h>
 #include <stdio.h>
 
-int mh_rputs( void * env, const char * szMsg )
+int mh_rputs( const char * szMsg )
 {
    printf( "%s\n", szMsg );
    
    return 0;
 }
 
-int mh_rputslen( void * env, const char * szMsg, int iLength )
+int mh_rputslen( const char * szMsg, int iLength )
 {
    printf( "%s\n", szMsg, iLength );
    
    return 0;
-}
-
-HB_FUNC( MODBUILDDATE )
-{
-   char * pszDate;
-   
-   pszDate = ( char * ) hb_xgrab( 64 );
-   hb_snprintf( pszDate, 64, "%s %s", __DATE__, __TIME__ );
-   
-   hb_retc_buffer( pszDate );
 }
 
 #pragma ENDDUMP
