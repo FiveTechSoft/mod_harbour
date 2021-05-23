@@ -32,5 +32,6 @@
 -lhbssl
 -lhbtip
 -lhbzebra
+-lpng
 
 -Wl,--no-whole-archive
