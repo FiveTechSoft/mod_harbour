@@ -18,9 +18,9 @@ modharbour.def
 ..\source\paths.prg
 ..\source\console.c
 ..\source\headers.c
-source\in.c
+source\in.prg
 ..\source\mem.c
-source\out.c
+source\out.prg
 ..\source\pointers.c
 ..\source\qout.c
 ..\source\url.c
