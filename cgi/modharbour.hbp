@@ -21,7 +21,7 @@ source\in.prg
 ..\source\mem.c
 source\out.prg
 ..\source\pointers.c
-..\source\qout.c
+#..\source\qout.c
 ..\source\url.c
 
 -cflag=
