@@ -56,7 +56,8 @@ int mh_rputs( const char * szMsg )
 
 int mh_rputslen( const char * szMsg, int iLength )
 {
-   printf( "%s\n", szMsg, iLength );
+   iLength = iLength;
+   printf( "%s\n", szMsg );
    
    return 0;
 }
