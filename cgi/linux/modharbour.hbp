@@ -6,7 +6,7 @@
 ..\..\source\apache.prg
 ..\..\source\cookies.prg
 ..\..\source\exec.prg
-..\..\source\headers.c
+#..\..\source\headers.c
 ..\..\source\pairs.prg
 ..\..\source\paths.prg
 ..\..\source\pointers.c
