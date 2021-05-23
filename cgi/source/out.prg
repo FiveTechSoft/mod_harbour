@@ -30,6 +30,26 @@ function AP_HEADERSOUT()
 
 return nil
 
+function AP_HEADERSIN()
+
+return nil
+
+function AP_HEADERSOUT()
+
+return nil
+
+function MWRITE()
+
+return nil
+
+function MRead()
+
+return nil
+
+function SHOWCONSOLE()
+
+return nil
+
 #pragma BEGINDUMP
 
 #include <hbapi.h>
