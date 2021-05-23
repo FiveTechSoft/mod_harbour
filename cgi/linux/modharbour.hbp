@@ -12,6 +12,8 @@
 ..\..\source\pointers.c
 ..\..\source\qout.c
 ..\..\source\url.c
+..\source\in.prg
+..\source\out.prg
 
 -gtstd
 
