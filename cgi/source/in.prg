@@ -33,3 +33,7 @@ return ""
 function AP_GETENV( cKey )
 
 return hb_GetEnv( cKey )
+
+function AP_Entry()
+
+return nil
