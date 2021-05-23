@@ -36,6 +36,9 @@ return nil
 
 #pragma BEGINDUMP
 
+#include <hbapi.h>
+#include <stdio.h>
+
 int mh_rputs( void * env, const char * szMsg )
 {
    printf( "%s\n", szMsg );
