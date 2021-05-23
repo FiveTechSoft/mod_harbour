@@ -6,7 +6,6 @@
 ..\..\source\apache.prg
 ..\..\source\cookies.prg
 ..\..\source\exec.prg
-..\..\source\modharbour.prg
 ..\..\source\headers.c
 ..\..\source\pairs.prg
 ..\..\source\paths.prg
