@@ -33,3 +33,17 @@ return nil
 function AP_RPUTS( ... )
 
 return nil
+
+#pragma BEGINDUMP
+
+int mh_rputs( void * env, const char * szMsg )
+{
+   printf( "%s\n", szMsg );
+}
+
+int mh_rputslen( void * env, const char * szMsg, int iLength )
+{
+   printf( "%s\n", szMsg, iLength );
+}
+
+#pragma ENDDUMP
