@@ -30,14 +30,6 @@ function AP_HEADERSOUT()
 
 return nil
 
-function AP_HEADERSIN()
-
-return nil
-
-function AP_HEADERSOUT()
-
-return nil
-
 function MWRITE()
 
 return nil
