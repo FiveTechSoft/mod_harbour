@@ -39,11 +39,15 @@ return nil
 int mh_rputs( void * env, const char * szMsg )
 {
    printf( "%s\n", szMsg );
+   
+   return 0;
 }
 
 int mh_rputslen( void * env, const char * szMsg, int iLength )
 {
    printf( "%s\n", szMsg, iLength );
+   
+   return 0;
 }
 
 #pragma ENDDUMP
