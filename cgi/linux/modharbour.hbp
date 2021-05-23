@@ -16,7 +16,7 @@
 
 -gtstd
 
--ldflag=@libs.txt
+-ldflag=@..\..\linux\libs.txt
 
 hbcurl.hbc
 hbssl.hbc
