@@ -16,11 +16,11 @@ return ""
 
 function AP_METHOD()
 
-return "GET"
+return hb_GetEnv( "REQUEST_METHOD" )
 
 function AP_USERIP()
 
-return ""
+return hb_GetEnv( "REMOTE_ADDR" )
 
 function AP_FILENAME()
 
@@ -28,7 +28,7 @@ return hb_Argv( 1 )
 
 function AP_ARGS()
 
-return ""
+return hb_GetEnv( "QUERY_STRING" )
 
 function AP_GETENV( cKey )
 
