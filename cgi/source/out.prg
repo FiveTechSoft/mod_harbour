@@ -38,6 +38,14 @@ function MRead()
 
 return nil
 
+#ifndef __PLATFORM__WINDOWS
+
+function ShowConsole()
+
+return nil
+
+#endif
+
 #pragma BEGINDUMP
 
 #include <hbapi.h>
