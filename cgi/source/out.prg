@@ -38,10 +38,6 @@ function MRead()
 
 return nil
 
-function SHOWCONSOLE()
-
-return nil
-
 #pragma BEGINDUMP
 
 #include <hbapi.h>
