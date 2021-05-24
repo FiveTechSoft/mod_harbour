@@ -18,7 +18,7 @@
 ..\source\console.c
 #..\source\headers.c
 source\in.prg
-..\source\mem.c
+#..\source\mem.c
 source\out.prg
 ..\source\pointers.c
 ..\source\qout.c
