@@ -12,7 +12,7 @@
 
 //-------------------------------------------------------------------------------------//
 
-#include "/home/lorenzo/harbour/include/fileio.ch"
+#include "fileio.ch"
 
 function SessionStart() // Starts a session
     /*
