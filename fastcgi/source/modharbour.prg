@@ -33,10 +33,18 @@ return MH_GetEnv( "REMOTE_ADDR" )
 FCGX_Stream * g_in = NULL, * g_out = NULL, * g_err = NULL;
 FCGX_ParamArray g_envp = NULL;
 HB_BOOL bEcho = HB_FALSE;
+char * szBody = NULL;
+int iBodyLen = 0;
 
 HB_FUNC( FCGI_ACCEPT )
 {
    hb_retnl( FCGX_Accept( &g_in, &g_out, &g_err, &g_envp ) );
+
+   if( szBody )
+   {
+      hb_xfree( ( void * ) szBody );
+      szBody = NULL;
+   }   
 }
 
 HB_FUNC( MH_GETENV )
@@ -83,18 +91,28 @@ HB_FUNC( MH_SETCONTENTTYPE )
 
 HB_FUNC( MH_BODY )
 {
-   char * szMethod = FCGX_GetParam( "REQUEST_METHOD", g_envp );
-
-   if( ! strcmp( szMethod, "POST" ) ) 
-   {
-      int iLen = atoi( FCGX_GetParam( "CONTENT_LENGTH", g_envp ) );
-      char * bufp = hb_xgrab( iLen + 1 );
-      FCGX_GetStr( bufp, iLen, g_in );
-      hb_retclen( bufp, iLen );
-      hb_xfree( bufp );
-   }
+   if( szBody )
+      hb_retclen( szBody, iBodyLen );
    else
-      hb_retc( "" );   
+   {   
+      char * szMethod = FCGX_GetParam( "REQUEST_METHOD", g_envp );
+
+      if( ! strcmp( szMethod, "POST" ) ) 
+      {
+         iBodyLen = atoi( FCGX_GetParam( "CONTENT_LENGTH", g_envp ) );
+
+         szBody = ( char * ) hb_xgrab( iBodyLen + 1 );
+         FCGX_GetStr( szBody, iBodyLen, g_in );
+         hb_retclen( szBody, iBodyLen );
+      }   
+   }
+}
+
+HB_FUNC( MH_BODYEX )
+{
+   int iLen = atoi( FCGX_GetParam( "CONTENT_LENGTH", g_envp ) );
+
+   hb_retclen( szBody, iLen );
 }
 
 HB_FUNC( SETEXITSTATUS )

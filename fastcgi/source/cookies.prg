@@ -5,6 +5,8 @@
 ** MIT license https://github.com/FiveTechSoft/mod_harbour/blob/master/LICENSE
 */
 
+THREAD static hUserCookies
+
 //----------------------------------------------------------------//
 
 function GetCookies()
@@ -18,7 +20,15 @@ function GetCookies()
       hb_HSet( hCookies, LTrim( SubStr( cCookie, 1, At( "=", cCookie ) - 1 ) ),;
                SubStr( cCookie, At( "=", cCookie ) + 1 ) )
    next   
-   
+
+   if ! Empty( hUserCookies )
+      for each cCookie in hUserCookies
+         hb_HSet( hCookies, cCookie:__enumKey(), cCookie )
+      next
+   else
+      hUserCookies = {=>}
+   endif
+
  return hCookies
 
 //----------------------------------------------------------------//
@@ -49,6 +59,12 @@ function SetCookie( cName, cValue, nSecs, cPath, cDomain, lHttps, lOnlyHttp )
 
    // we send the cookie
    mh_Header( "Set-Cookie: " + cCookie )
+   
+   if Empty( hUserCookies )
+      hUserCookies = {=>}
+   endif
+      
+   hUserCookies[ cName ] = cValue
 
 return nil
 
@@ -73,5 +89,11 @@ function CookieExpires( nSecs )
               ':' + AllTrim( Str( hb_Sec( tExpire ) ) )
 
 return cExpire
+
+//----------------------------------------------------------------//
+
+function GetUserCookies()
+
+return hUserCookies
 
 //----------------------------------------------------------------//

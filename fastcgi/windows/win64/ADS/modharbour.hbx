@@ -29,6 +29,7 @@ extern ANY2STR
 extern APPLYDEFAU
 extern MH_QUERY
 extern MH_BODY
+extern MH_BODYEX
 extern MH_FILENAME
 extern MH_GETENV
 extern MH_GETPAIRS
