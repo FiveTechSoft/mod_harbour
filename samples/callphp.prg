@@ -18,7 +18,7 @@ return nil
 
 function callPHP( cUrl )
 
-   local uValue
+   local hCurl, uValue
 
    if ! empty( hCurl := curl_easy_init() )
         curl_easy_setopt( hCurl, HB_CURLOPT_URL, cUrl )
