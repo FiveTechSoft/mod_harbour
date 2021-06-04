@@ -6,17 +6,19 @@
 
 function Main()
 
+  curl_global_init()
+
   ? "Hello world"
 
   ? callPHP( "www.fivetechsoft.com/getip.php" ) 
+
+   curl_global_cleanup()
 
 return nil
 
 function callPHP( cUrl )
 
    local uValue
-
-   curl_global_init()
 
    if ! empty( hCurl := curl_easy_init() )
         curl_easy_setopt( hCurl, HB_CURLOPT_URL, cUrl )
@@ -26,7 +28,5 @@ function callPHP( cUrl )
            uValue = curl_easy_dl_buff_get( hCurl )
         endif
    endif
-
-   curl_global_cleanup()
 
 return uValue
