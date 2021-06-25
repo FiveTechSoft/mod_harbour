@@ -12,10 +12,6 @@
 -llibeay32
 -llibcrypto
 
--llibhttpd
--llibapr-1
--Lc:\Apache24\lib
-
 ..\source\apache.prg
 ..\source\cookies.prg
 ..\source\exec.prg
