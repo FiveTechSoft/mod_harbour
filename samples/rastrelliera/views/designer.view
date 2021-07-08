@@ -1,0 +1,235 @@
+<script>
+var nGroups = 1;   
+var nRows = 1;
+var nLabels = 2;
+var nGets = 2;
+var nChecks = 0;
+var nButtons = 0;
+var nRadios = 0;
+
+function AddGroup()
+{
+   $( "#colcenter" ).append( 
+   '<div class="form-group row">\r\n' +
+         '<h5 style="padding-left:15px;padding-top:10px;">Group' + ++nGroups + ' Header</h5>\r\n' + 
+   '</div>\r\n' );
+}
+
+function AddRow()
+{
+   var cRow1 = "#row" + ( ++nRows ) + "-1";
+   var cRow2 = "#row" + nRows + "-2";
+
+   $( "#colcenter" ).append( '<div id="group' + nRows + '" class="form-group row">\r\n' + 
+                             '   <label for="text" class="col-1 col-form-label">Label' + ++nLabels + "</label>\r\n" + 
+                             '   <div id="row' + nRows + '-1" class="col-3">\r\n' +
+                             '      <input id="get' + ++nGets + '" name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
+                             '   </div>\r\n' +
+                             '   <label for="text" class="col-1 col-form-label">Label' + ++nLabels + '</label>\r\n' + 
+                             '   <div id="row' + nRows + "-2" + '" class="col-3">\r\n' +
+                             '      <input id="get' + ++nGets + ' name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
+                             '   </div>\r\n' + 
+                             '</div>\r\n' );
+
+   $( cRow1 ).bind( "focusout", function(){ oFocus = this; } );                               
+   $( cRow2 ).bind( "focusout", function(){ oFocus = this; } );                               
+}
+
+function AddGet()
+{
+   var cRow = "#row" + ( nRows ) + "-3";
+   var cGroup = "#" + oFocus.parentElement.id;
+
+   $( cGroup ).append( '<label for="text" class="col-1 col-form-label">Label' + ++nLabels + "</label>\r\n" + 
+                       '<div id="row' + nRows + '-3" class="col-3">\r\n' +
+                       '   <input id="get' + ++nGets + '" name="fieldname" type="text" class="form-control" value="" placeholder="">\r\n' +
+                       '</div>\r\n' );
+
+   $( cRow ).bind( "focusout", function(){ oFocus = this; } );                               
+}
+
+function AddCheck()
+{
+   var cRow = "#row" + ( ++nChecks );
+   var cGroup = "#" + oFocus.parentElement.id;
+
+   $( cGroup ).append( '<label for="text" class="col-1 col-form-label">Label' + ++nLabels + "</label>\r\n" + 
+                       '<div id="row' + nRows + '-3" class="col-3">\r\n' +
+                       '   <input id="get' + nGets++ + '" name="fieldname" type="checkbox" class="form-control" value="" placeholder="">\r\n' +
+                       '</div>\r\n' );
+
+   $( cRow ).bind( "focusout", function(){ oFocus = this; } );                               
+}
+
+function AddButton()
+{
+   var cRow = "#row" + ( ++nButtons );
+   var cGroup = "#" + oFocus.parentElement.id;
+
+   $( cGroup ).append( '<div id="row' + nRows + '-3" class="col-3">\r\n' +
+                       '   <button id="btn' + nButtons++ + '" name="fieldname" class="btn btn-primary">Button</button>\r\n' +
+                       '</div>\r\n' );
+
+   $( cRow ).bind( "focusout", function(){ oFocus = this; } );                               
+}
+
+function AddRadios()
+{
+   var cRow = "#row" + ( ++nRadios );
+   var cGroup = "#" + oFocus.parentElement.id;
+
+   $( cGroup ).append( '<div id="row' + nRows + '-3" class="col-3">\r\n' +
+                       '<div class="radio">\r\n' +
+                       '   <label><input type="radio" name="optradio" checked> Option 1</label>\r\n' +
+                       '</div>\r\n' +
+                       '<div class="radio">\r\n' +
+                       '   <label><input type="radio" name="optradio"> Option 2</label>\r\n' +
+                       '</div>\r\n' +
+                       '<div class="radio">\r\n' +
+                       '   <label><input type="radio" name="optradio"> Option 3</label>\r\n' +
+                       '</div>\r\n' + 
+                       '</div>\r\n' ); 
+      
+   $( cRow ).bind( "focusout", function(){ oFocus = this; } );                               
+}
+
+function ShowHTML()
+{
+   MsgMemo( "", "HTML" );
+   $( "#memo" ).html( '<div id="form" class="row">' + $( "#form" ).html() + "</div>" );
+}
+
+function Delete()
+{
+   $( oFocus ).prev().remove();
+   $( oFocus ).remove();
+}
+
+function Larger()
+{
+   if( $(oFocus).hasClass( "col-5" ) )
+   {
+      $(oFocus).removeClass( "col-5" )
+      $(oFocus).addClass( "col-6" );
+   }
+   else   
+   {
+      if( $(oFocus).hasClass( "col-4" ) )
+      {
+         $(oFocus).removeClass( "col-4" )
+         $(oFocus).addClass( "col-5" );
+      }
+      else
+      {
+         if( $(oFocus).hasClass( "col-3" ) )
+         {
+            $(oFocus).removeClass( "col-3" )
+            $(oFocus).addClass( "col-4" );
+         }
+         else
+         {
+            if( $(oFocus).hasClass( "col-2" ) )
+            {
+               $(oFocus).removeClass( "col-2" )
+               $(oFocus).addClass( "col-3" );
+            }
+         }
+      }
+   }   
+}
+
+function Smaller()
+{
+   if( $(oFocus).hasClass( "col-6" ) )
+   {
+      $(oFocus).removeClass( "col-6" );
+      $(oFocus).addClass( "col-5" );
+   }   
+   else
+   {
+      if( $(oFocus).hasClass( "col-5" ) )
+      {
+         $(oFocus).removeClass( "col-5" );
+         $(oFocus).addClass( "col-4" );
+      }   
+      else
+      {
+         if( $(oFocus).hasClass( "col-4" ) )
+         {
+            $(oFocus).removeClass( "col-4" );
+            $(oFocus).addClass( "col-3" );
+         }
+         else
+         {
+            if( $(oFocus).hasClass( "col-3") )
+            {
+               $(oFocus).removeClass( "col-3" );
+               $(oFocus).addClass( "col-2" );
+            }   
+         }
+      }
+   }         
+}
+
+</script>
+
+
+            <div style="max-height:98%;background-color:white;margin:30px;margin-top:-18px;padding:10px;padding-top:10px;overflow-x:hidden;overflow-y:auto;">
+               <div class="row" style="padding-left:15px;"> 
+                  <div class="col-sm-7"></div>
+                  <div class="col-sm-2" style="padding-right:15px;">  
+                  </div>
+               </div>
+               {{View([form])}}     
+               <div class="row" style="padding-left:15px">
+                  <div class="col-sm-12">
+                     <button onclick="Smaller();" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fas fa-angle-double-left" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Smaller</button>
+                     <button onclick="Larger();" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">Larger
+                        <i class="fas fa-angle-double-right" style="color:lightgray;padding-right:10px;font-size:18px;padding-left:20px;"></i>
+                        </button>
+                     <button onclick="AddGroup();" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fas fa-plus" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Group</button>                     
+                     <button onclick="AddRow();" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fas fa-plus" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Row</button>
+                     <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" 
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                           style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                           <i class="fas fa-plus" style="color:lightgray;padding-right:10px;font-size:18px"></i>Control
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="color:White;background-color:{{GetColor1()}};">
+                             <a class="dropdown-item" onclick="AddGet()">Get</a>
+                             <a class="dropdown-item" onclick="AddCheck()">CheckBox</a>
+                             <a class="dropdown-item" onclick="AddButton()">Button</a>
+                             <a class="dropdown-item" onclick="AddRadios()">Radios</a>
+                             <a class="dropdown-item" href="#">ComboBox</a>
+                        </div>
+                     </div>
+
+                     <button onclick="ShowHTML();" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fas fa-edit" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Edit</button>
+                     <button onclick="location.href='index.prg?{{GetContent()}}';" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fas fa-search" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Search</button>
+                     <button onclick="location.href='index.prg?{{GetContent()}}';" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fa fa-eye" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        View</button>
+                     <button onclick="Delete()" class="btn btn-primary" 
+                        style="background-color:{{GetColor1()}};padding:30px;padding-top:5px;padding-bottom:5px;">
+                        <i class="fa fa-remove" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+                        Delete</button>
+                  </div>   
+               </div>
+               </form>

@@ -1,0 +1,57 @@
+<script>
+
+   
+
+$(document).ready(function(){   
+
+   $('#leftmenu').css('display','none'); 
+   $('#maincontent').toggleClass('col-sm-10 col-sm-12');
+   $(window).resize(function() {
+      init();
+   });
+});
+
+</script>
+<body onload="control_menu()">
+   <div class="container-fluid" style="overflow:hidden;padding:0px;">
+      <div class="row" style="margin-right:0px;height:100%;">
+      
+          
+      
+         <div id="leftmenu" class="col-sm-2" style="padding:0px;background-color:rgb(34, 45, 50); ">
+          
+               {{If( GetUserName() == nil, "<script>$('#leftmenu').css('display','none');</script>", View("menu"))}}
+           
+         </div>
+        
+
+         <div id = "maincontent" class="{{If( GetUserName() == nil,'col-sm-12','col-sm-10')}} " style="padding-left:0px;padding-right:0px">
+            <nav id="nav" class="navbar navbar-expand-lg navbar-inverse " style="background-color:{{GetColor2()}};border:0px;">
+               <button onclick="hide()" class="navbar" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+                  aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
+                   class="fas fa-bars fa-1x"></i></span></button>
+              
+               <a id="title" class="navbar-brand mr-auto" style="color:white;padding-left:30px;">{{hb_CapFirst(GetContent())}}</a>
+               
+               <div class="nav-item" style="color:white;display:inline-block;cursor:pointer;" 
+                  onclick="{{If(GetUserName()!= nil,'Logout();','')}}">
+                  <a class="nav-link" style="color:white;" style="cursor:pointer;">{{ if(GetUserName() != nil,'Benvenuto ' + GetUserName(),'')}}
+                  <!--<i class="{{If( GetUserName() != nil, 'fa fa-sign-out', 'fas fa-sign-in-alt')}}" style="padding-left:15px;"></i>--></a>
+               </div>
+            </nav> 
+
+         
+           
+            <div style="background-color:#ecf0f5;height:calc( 100% - 50px );padding-top:50px;">
+               {{Router()}}
+            </div>
+
+         </div>
+
+
+         
+      </div>
+   </div>
+</body>
+
+</html>
