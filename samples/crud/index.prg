@@ -73,8 +73,8 @@ function RecEdit()
             cRow += '<input type="checkbox" id="' + FieldName( n ) + '" ' + ;
                     If( FieldGet( n ), "checked", "" ) + ;
                     ' data-toggle="toggle"' + ;
-                    'data-on="Yes" data-off="No"' + CRLF + ;
-                    'data-onstyle="success" data-offstyle="danger">' + CRLF
+                    ' data-on="Yes" data-off="No"' + CRLF + ;
+                    ' data-onstyle="success" data-offstyle="danger">' + CRLF
 
          case FieldType( n ) == "D"
             cRow += "   <input class='form-control' type='date' id='" + FieldName( n ) + ;
