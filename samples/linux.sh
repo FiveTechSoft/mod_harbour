@@ -12,6 +12,9 @@ cd ../..
 cd apps/mvc_notes
 sudo chown -R $user:$user data
 cd ../..
+cd crud
+sudo chown -R $user:$user data
+cd ../..
 cd eshop
 sudo chown -R $user:$user data
 cd ..
