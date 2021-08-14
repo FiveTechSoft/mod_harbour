@@ -1,5 +1,6 @@
 {{ View( "head" ) }}
 
+<body>
 <div class="page-wrapper default-theme sidebar-bg bg1 toggled" style="height:auto">
 
 	{{ View( "nav" ) }}
@@ -17,3 +18,5 @@
 	</main>
 	
 </div>
+</body>
+</html>
