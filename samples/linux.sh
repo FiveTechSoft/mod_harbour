@@ -14,13 +14,13 @@ sudo chown -R $user:$user data
 cd ../..
 cd crud
 sudo chown -R $user:$user data
-cd ../..
+cd ..
 cd eshop
 sudo chown -R $user:$user data
-cd ../..
+cd ..
 cd genesis
 sudo chown -R $user:$user data
-cd ../..
+cd ..
 sudo chown -R $user:$user chat
 sudo chown -R $user:$user machine
 sudo chown -R $user:$user snippets
