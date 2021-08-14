@@ -1,0 +1,105 @@
+<script src="js/menu.js"></script>
+
+
+<style>
+
+	.menu_title {
+		color: white;
+		text-transform: uppercase;
+		font-weight: bold;		
+	}
+
+</style>
+
+
+<nav id="sidebar" class="sidebar-wrapper mysidebar">
+	<div class="sidebar-content">
+	
+		<!-- sidebar-brand  -->
+		<div class="sidebar-item sidebar-brand">			
+			<span class="menu_title">Bussiness</span>
+		</div>
+		
+		<!-- sidebar-header  -->
+
+		
+		<!-- sidebar-menu  -->
+		<div class="sidebar-item sidebar-menu">
+			<ul>
+				<li class="header-menu">
+					<span>General</span>
+				</li>				
+			
+				<li class="sidebar-dropdown">				
+					<a href="#">						
+						<i class="fab fa-mendeley"></i>
+						<span class="menu-text">Files</span>									
+					</a>
+					<div class="sidebar-submenu">
+						<ul>																																																
+							<li><a href="index.prg?customer">Customers</a></li>
+							<li><a href="index.prg?concepto">Menuitem 2</a></li>
+							<li><a href="" >Menuitem 3</a></li>									
+						</ul>
+					</div>
+				</li>	
+				
+				<li class="sidebar-dropdown">				
+					<a href="#">						
+						<i class="fab fa-elementor"></i>
+						<span class="menu-text">System</span>									
+					</a>
+					<div class="sidebar-submenu">
+						<ul>																																																
+							<li><a href="" >Info</a></li>
+							<li><a href="">About</a></li>									
+						</ul>
+					</div>
+				</li>						
+			</ul>			
+			
+		</div>
+		<!-- sidebar-menu  -->
+	</div>
+	
+	<!-- sidebar-footer  -->
+	<div class="sidebar-footer">
+
+		<div class="dropdown">
+			<a href="#" class="mydrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="fa fa-cog"></i>
+				<span class="badge-sonar"></span>
+			</a>
+			
+			
+			<div class="dropdown-menu notifications dropdown-myitem" aria-labelledby="dropdownMenuMessage">
+
+				<a class="dropdown-item" href="#">	
+					<i class="fas fa-bars"></i> Config Menu
+				</a>
+				
+				<a class="dropdown-item" href="#">	
+					<i class="fas fa-unlock-alt"></i> Password
+				</a>
+
+				<a class="dropdown-item" href="#" onclick="alert(123)">	
+					<i class="far fa-id-badge"></i> Licence
+				</a>					
+				
+			</div>			
+		</div>			
+	</div>
+</nav>
+
+<script>
+
+	function GoRef( ) {
+	
+		window.location.href = "logout"
+	}
+	
+
+</script>
+
+
+

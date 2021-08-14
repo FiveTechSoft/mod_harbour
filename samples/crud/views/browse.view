@@ -1,0 +1,90 @@
+<link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+
+<table
+  id="table"
+  data-toggle="table"
+  data-height="650"
+  data-unique-id="_recno"
+  data-search="true"
+  data-pagination="true"
+  data-toolbar="#toolbar"
+  data-side-pagination="server"
+  data-query-params="queryParams"
+  data-url="data.prg">
+  {{ GetColumns() }}
+</table>
+<div id="toolbar">
+  <button id="button" class="btn btn-success" style="margin:5px" onclick="alert('add')">Add</button>
+  <button id="button" class="btn btn-warning" style="margin:5px" onclick="Edit()">Edit</button>
+  <button id="button" class="btn btn-danger" style="margin:5px" onclick="alert('delete')">Delete</button>
+</div>
+
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Edit Record</h5>
+			</div>
+			<div class="modal-body">
+				<div id="editForm" class="form-inline d-inline">
+           {{RecEdit()}}
+				</div>
+			</div>
+			<div class="modal-footer d-inline">
+				<button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+				<button id="confimEdit" type="button" class="btn btn-primary float-right">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+  var $table = $('#table')
+
+  $table.bootstrapTable('refreshOptions', { queryParamsType: "limit" } );
+
+  $table.bootstrapTable( {
+     onClickCell: function( row, $element, field ) { 
+        alert( "onClickCell" );
+        alert( row );
+     }
+  })  
+
+  function queryParams(params) {
+    // alert('queryParams: ' + JSON.stringify(params))
+    params[ 'tabla' ] = "{{ GetRequest() }}";
+    return params
+  }
+
+  function Edit()
+  {
+     var aSelected = $table.bootstrapTable( 'getSelections' );
+
+     if( aSelected.length == 0 )
+        alert( "please select the record to edit" );
+
+     if( aSelected.length > 1 )
+        alert( "only one record at a time can be edited" );
+
+     if( aSelected.length == 1 )
+     {
+        var aRow = $table.bootstrapTable( 'getRowByUniqueId', aSelected[ 0 ]._recno );
+
+        for( var [item, value] of Object.entries( aRow ) ) {
+          if( document.getElementById( item ) != null )
+             document.getElementById( item ).value = value;
+        }
+
+        $("#editModal").modal( 'toggle' );
+     }   
+  }
+
+</script>
+
+<style>
+   .form-inline label {
+      justify-content: left;
+   }   
+</style>

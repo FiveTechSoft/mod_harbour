@@ -1,0 +1,18 @@
+<nav  class="navbar bg-dark navbar-dark fixed-top mynavbar">
+	
+	<div id="toggle-sidebar">
+		  <span></span>
+		  <span></span>
+		  <span></span>
+		  <span></span>	  
+	</div>
+	
+	<div id="navbar_title">
+		<a href="">My webapp</a>		
+	</div>	
+
+	<ul class="navbar-nav ml-auto">			
+		<a class="myitem" href=""><i class="fas fa-sign-in-alt"></i> Logout</a>
+	</ul>	
+
+</nav>

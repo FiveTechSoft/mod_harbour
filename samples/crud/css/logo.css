@@ -1,0 +1,20 @@
+body {
+	background-color: #aab5cd;
+}
+
+.logo {
+	position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+	cursor: pointer;
+}
+
+.logo img {
+	width: 100%;
+}
+
+.logo_main  img {
+    box-shadow: 5px 5px 10px black;
+    box-sizing: content-box;
+}

@@ -1,0 +1,19 @@
+{{ View( "head" ) }}
+
+<div class="page-wrapper default-theme sidebar-bg bg1 toggled" style="height:auto">
+
+	{{ View( "nav" ) }}
+	{{ View( "menu" ) }}
+	
+	<main class="page-content pt-0">
+		<div id="overlay" class="overlay"></div>
+		<div id="main_container" class="container-fluid mycontainer">
+			<div id="main">	
+				<div>
+					{{ View( "browse" ) }}
+				</div>	
+			</div>
+		</div>
+	</main>
+	
+</div>
