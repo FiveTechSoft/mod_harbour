@@ -60,36 +60,40 @@ return cHtml + "</tr>" + CRLF + "</thead>" + CRLF
 
 function RecEdit()
 
-   local cHtml := "<div class='form-group custom-input'>" + CRLF
+   local cHtml := Space( 8 ) + "<div class='form-group custom-input'>" + CRLF
    local n, cValue, cRow
 
    for n = 1 to FCount()
       cValue = FieldGet( n )
-      cRow = "<label id='label_" + FieldName( n ) + "' class='col-2 col-form-label float: right'>" + ;
-              FieldName( n ) + ":</label>" + CRLF
-      cRow += "<div class='col-10'>" + CRLF
+      cRow = Space( 22 ) + "<label id='label_" + FieldName( n ) + ;
+             "' class='col-2 col-form-label float: right'>" + ;
+             FieldName( n ) + ":</label>" + CRLF
+      cRow += Space( 22 ) + "<div class='col-10'>" + CRLF
       do case
          case FieldType( n ) == "L"
-            cRow += '<input type="checkbox" id="' + FieldName( n ) + '" ' + ;
+            cRow += Space( 25 ) + '<input type="checkbox" id="' + FieldName( n ) + '" ' + ;
                     If( FieldGet( n ), "checked", "" ) + ;
                     ' data-toggle="toggle"' + ;
-                    ' data-on="Yes" data-off="No"' + CRLF + ;
+                    ' data-on="Yes" data-off="No"' + ;
+                    ' data-type="' + FieldType( n ) + '"' + ;
                     ' data-onstyle="success" data-offstyle="danger">' + CRLF
 
          case FieldType( n ) == "D"
-            cRow += "   <input class='form-control' type='date' id='" + FieldName( n ) + ;
+            cRow += Space( 25 ) + "<input class='form-control' type='date' id='" + FieldName( n ) + ;
                     "' value='" + AllTrim( Str( Year( cValue ) ) ) + "-" + ;
-                    StrZero( Month( cValue ), 2 ) + "-" + StrZero( Day( cValue ), 2 ) + "'>" + CRLF
+                    StrZero( Month( cValue ), 2 ) + "-" + StrZero( Day( cValue ), 2 ) + "'" + ;
+                    ' data-type="' + FieldType( n ) + '">' + CRLF
          
          otherwise
-            cRow += "   <input class='form-control' type='text' id='" + FieldName( n ) + ;
-                    "' value='" + ValToChar( cValue ) + "'>" + CRLF
+            cRow += Space( 25 ) + "<input class='form-control' type='text' id='" + FieldName( n ) + ;
+                    "'" + ' data-type="' + FieldType( n ) + '"' + ;
+                    " value='" + ValToChar( cValue ) + "'>" + CRLF
       endcase
-      cRow  += "</div>" + CRLF
+      cRow  += Space( 22 ) + "</div>" + CRLF
       cHtml += cRow
    next
 
-return cHtml + "</div>" + CRLF
+return cHtml + Space( 19 ) + "</div>" + CRLF
 
 //----------------------------------------------------------------------------//
 
