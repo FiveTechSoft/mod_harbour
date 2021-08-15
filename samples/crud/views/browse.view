@@ -72,8 +72,18 @@
         var aRow = $table.bootstrapTable( 'getRowByUniqueId', aSelected[ 0 ]._recno );
 
         for( var [item, value] of Object.entries( aRow ) ) {
-          if( document.getElementById( item ) != null )
-             document.getElementById( item ).value = value;
+           var control = document.getElementById( item );
+           
+           if( control != null )
+           {
+              control.value = value;
+
+              if( $( control ).attr( "data-type" ) == 'L' )
+                 if( value )
+                    $( control ).bootstrapToggle( 'on' );
+                 else
+                    $( control ).bootstrapToggle( 'off' );
+           }  
         }
 
         $("#editModal").modal( 'toggle' );
