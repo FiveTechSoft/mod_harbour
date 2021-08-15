@@ -44,17 +44,17 @@ return cRequest
 
 function GetColumns()
 
-   local cHtml := "<thead>" + CRLF + "<tr>" + CRLF
+   local cHtml := "<thead>" + CRLF + Space( 7 ) + "<tr>" + CRLF
    local n
 
-   cHtml += "<th data-checkbox='true'></th>" + CRLF
+   cHtml += Space( 10 ) + "<th data-checkbox='true'></th>" + CRLF
 
    for n = 1 to FCount()
-      cHtml += "   <th data-field=" + "'" + FieldName( n ) + "'" + ;
+      cHtml += Space( 10 ) + "<th data-field=" + "'" + FieldName( n ) + "'" + ;
                " data-sortable='true'>" + FieldName( n ) + "</th>" + CRLF
    next  
 
-return cHtml + "</tr>" + CRLF + "</thead>" + CRLF
+return cHtml + Space( 7 ) + "</tr>" + CRLF + Space( 5 ) + "</thead>" + CRLF
 
 //----------------------------------------------------------------------------//
 
