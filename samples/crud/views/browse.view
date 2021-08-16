@@ -20,7 +20,7 @@
      <button id="button" class="btn btn-danger" style="margin:5px" onclick="alert('delete')">Delete</button>
    </div>
 
-   <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+   <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
      <div class="modal-dialog modal-dialog-centered" role="document">
         <form action="addeditdel.prg" method="post">
             <div class="modal-content">
@@ -91,7 +91,8 @@
            }  
         }
 
-        $("#editModal").modal( 'toggle' );
+        $( "#editModal" ).draggable( { handle: ".modal-header"} );
+        $("#editModal").modal( 'show' );
      }   
   }
 

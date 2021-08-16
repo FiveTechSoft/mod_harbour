@@ -72,6 +72,7 @@ function RecEdit()
       do case
          case FieldType( n ) == "L"
             cRow += Space( 25 ) + '<input type="checkbox" id="' + FieldName( n ) + '" ' + ;
+                    " name='" + FieldName( n ) + "'" + ;
                     If( FieldGet( n ), "checked", "" ) + ;
                     ' data-toggle="toggle"' + ;
                     ' data-on="Yes" data-off="No"' + ;
@@ -80,12 +81,14 @@ function RecEdit()
 
          case FieldType( n ) == "D"
             cRow += Space( 25 ) + "<input class='form-control' type='date' id='" + FieldName( n ) + ;
-                    "' value='" + AllTrim( Str( Year( cValue ) ) ) + "-" + ;
+                    "' name='" + FieldName( n ) + "'" + ;
+                    " value='" + AllTrim( Str( Year( cValue ) ) ) + "-" + ;
                     StrZero( Month( cValue ), 2 ) + "-" + StrZero( Day( cValue ), 2 ) + "'" + ;
                     ' data-type="' + FieldType( n ) + '">' + CRLF
          
          otherwise
-            cRow += Space( 25 ) + "<input class='form-control' type='text' " + ;
+            cRow += Space( 25 ) + "<input class='form-control' type='text'" + ;
+                    " name='" + FieldName( n ) + "' " + ;
                     If( FieldType( n ) == "+", "readonly", "" ) + " id='" + FieldName( n ) + ;
                     "'" + ' data-type="' + FieldType( n ) + '"' + ;
                     " value='" + ValToChar( cValue ) + "'>" + CRLF
