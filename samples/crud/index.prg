@@ -85,7 +85,8 @@ function RecEdit()
                     ' data-type="' + FieldType( n ) + '">' + CRLF
          
          otherwise
-            cRow += Space( 25 ) + "<input class='form-control' type='text' id='" + FieldName( n ) + ;
+            cRow += Space( 25 ) + "<input class='form-control' type='text' " + ;
+                    If( FieldType( n ) == "+", "readonly", "" ) + " id='" + FieldName( n ) + ;
                     "'" + ' data-type="' + FieldType( n ) + '"' + ;
                     " value='" + ValToChar( cValue ) + "'>" + CRLF
       endcase
