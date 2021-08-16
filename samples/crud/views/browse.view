@@ -83,6 +83,9 @@
                     $( control ).bootstrapToggle( 'on' );
                  else
                     $( control ).bootstrapToggle( 'off' );
+
+              if( $( control ).attr( "data-type" ) == 'D' )
+                 control.value = value.substring( 0, 4 ) + "-" + value.substring( 4, 6 ) + "-" + value.substring( 6, 8 );
            }  
         }
 
