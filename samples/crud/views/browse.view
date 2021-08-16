@@ -22,20 +22,22 @@
 
    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
      <div class="modal-dialog modal-dialog-centered" role="document">
-	  	 <div class="modal-content">
-	 		<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Edit Record</h5>
-			</div>
-			<div class="modal-body">
-				<div id="editForm" class="form-inline d-inline">
-           {{RecEdit()}}
-				</div>
-			</div>
-			<div class="modal-footer d-inline">
-				<button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
-				<button id="confimEdit" type="button" class="btn btn-primary float-right">Save changes</button>
-			</div>
-	 	 </div>
+        <form action="addeditdel.prg" method="post">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Edit Record</h5>
+               </div>
+               <div class="modal-body">
+                  <div id="editForm" class="form-inline d-inline">
+                  {{RecEdit()}}
+                  </div>
+               </div>
+               <div class="modal-footer d-inline">
+                  <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+                  <button id="save" type="submit" class="btn btn-primary float-right">Save changes</button>
+               </div>
+            </div>
+       </form> 
 	  </div>
   </div>
 

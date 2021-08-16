@@ -1,5 +1,5 @@
 function Main()
 
-   ?? "<script>alert( {{GetRequest()}} )</script>"
+   ?? AP_PostPairs()
 
 return nil   
