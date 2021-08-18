@@ -22,7 +22,7 @@
 
    <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
      <div class="modal-dialog modal-dialog-centered" role="document">
-        <form action="addeditdel.prg" method="post">
+        <form action="save.prg?{{GetRequest()}}" method="post">
             <div class="modal-content">
                <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLongTitle">Edit Record</h5>
