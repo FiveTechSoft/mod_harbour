@@ -15,7 +15,7 @@
      {{ GetColumns() }}
    </table>
    <div id="toolbar">
-     <button id="button" class="btn btn-success" style="margin:5px" onclick="alert('add')">Add</button>
+     <button id="button" class="btn btn-success" style="margin:5px" onclick="location.href='index.prg?{{GetRequest()}}&add'">Add</button>
      <button id="button" class="btn btn-warning" style="margin:5px" onclick="Edit()">Edit</button>
      <button id="button" class="btn btn-danger" style="margin:5px" onclick="alert('delete')">Delete</button>
    </div>
