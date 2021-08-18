@@ -4,6 +4,10 @@ function Main()
 
    if ! Empty( GetRequest() )
       USE ( HB_GetEnv( "PRGPATH" ) + '/data/' + GetRequest() ) SHARED NEW VIA 'DBFCDX'
+
+      if Len( AP_GetPairs() ) > 1 .and. HB_HKeyAt( AP_GetPairs(), 2 ) == "add"
+         APPEND BLANK
+      endif   
    endif   
 
    ?? View( "main" )
