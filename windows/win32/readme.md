@@ -4,6 +4,12 @@ copy mod_harbour.so into c:\Apache24\modules\
 
 copy libharbour.dll into c:\Apache24\htdocs\
 
+for 32 bits, please copy these DLLs also where libharbour.dll is placed:
+(These DLLs names appear in the Harbour building log)
+c:\OpenSSL-Win32\libeay32.dll 
+c:\OpenSSL-Win32\ssleay32.dll 
+c:\curl\bin\libcurl.dll
+
 Add these into c:\Apache24\conf\httpd.conf
 
 ```
