@@ -86,10 +86,10 @@ function AP_RPuts( cText, ... )
 
    local n, aArgs := hb_AParams()
 
-   UWrite( cText )
+   UWrite( hb_ValToExp( cText ) )
 
    for n = 2 to Len( aArgs )
-      UWrite( aArgs[ n ] )
+      UWrite( hb_ValToExp( aArgs[ n ] ) )
    next
 
 return nil
