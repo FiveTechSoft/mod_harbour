@@ -86,10 +86,10 @@ function AP_RPuts( cText, ... )
 
    local n, aArgs := hb_AParams()
 
-   UWrite( hb_ValToExp( cText ) )
+   UWrite( If( ValType( cText ) == "C", cText, hb_ValToExp( cText ) )
 
    for n = 2 to Len( aArgs )
-      UWrite( hb_ValToExp( aArgs[ n ] ) )
+      UWrite( If( ValType( aArgs[ n ] ) == "C", aArgs[ n ], hb_ValToExp( aArgs[ n ] ) )
    next
 
 return nil
