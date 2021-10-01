@@ -57,7 +57,7 @@ function Main()
       oLogAccess:Close()
       ? "Server error:", oServer:cError
       ErrorLevel( 1 )
-      RETURN
+      return nil
    ENDIF
 
    oLogError:Close()
