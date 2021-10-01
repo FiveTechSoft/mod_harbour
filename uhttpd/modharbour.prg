@@ -96,6 +96,12 @@ return nil
 
 //----------------------------------------------------------------//
 
+function AP_FileName()
+
+return SubStr( server[ "REQUEST_URI" ], 1, RAt( "." ) + 3 ) 
+
+//----------------------------------------------------------------//
+
 function Execute( cCode, oServer, ... )
 
    local oHrb, uRet, lReplaced := .T.
