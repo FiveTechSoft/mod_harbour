@@ -34,8 +34,8 @@ function Main()
       FErase( ".uhttpd.stop" )
    ENDIF
 
-   oLogAccess = UHttpdLog():New( "modharbour.log" )
-   oLogError  = UHttpdLog():New( "modharbour.log" )
+   oLogAccess = UHttpdLog():New( "access.log" )
+   oLogError  = UHttpdLog():New( "error.log" )
 
    ? "Starting modharbour server..."
    ? "Listening on port:", nPort := 8002
