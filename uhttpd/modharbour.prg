@@ -84,12 +84,12 @@ return server[ "REQUEST_METHOD" ]
 
 function AP_RPuts( cText, ... )
 
-   local n
+   local n, aArgs := hb_AParams()
 
    UWrite( cText )
 
-   for n = 1 to pcount() - 1 
-
+   for n = 2 to Len( aArgs )
+      UWrite( aArgs[ n ] )
    next
 
 return nil
