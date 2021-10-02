@@ -8,6 +8,12 @@ Run it again: ~/nginx/objs# ./nginx
 
 test it: curl http://localhost?test.prg
 
+In /usr/local/nginx/conf/nginx.conf
+
+first line:
+
+load_module modules/ngx_mod_harbour.so;
+
 Install MinGW with msys
 
 We need Perl to compile openssl, we can use Strawberry Perl https://strawberryperl.com/ or ActivePerl https://www.activestate.com/products/perl/
