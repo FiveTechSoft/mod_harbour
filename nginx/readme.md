@@ -1,3 +1,13 @@
+How to build it:
+
+```
+git clone https://github.com/nginx/nginx
+auto/configure --add-dynamic-module=/home/user/mod_harbour/nginx
+make
+```
+
+How to install it:
+
 Copy ngx_mod_harbour.so and libharbour.so to /usr/local/nginx/modules
 
 nginx html pages: /usr/share/nginx/html
