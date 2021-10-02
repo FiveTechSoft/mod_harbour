@@ -1,8 +1,8 @@
 #include <ngx_config.h>
 #include <ngx_core.h>
 #include <ngx_http.h>
-#include <unistd.h>
-#include "/home/anto/mod_harbour/nginx/ngx_mod_harbour.h"
+// #include <unistd.h>
+#include "ngx_mod_harbour.h"
 
 static char * ngx_mod_harbour_main( ngx_conf_t * cf, ngx_command_t * cmd, void * conf );
 static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r );
@@ -93,6 +93,8 @@ int mh_rputs( ngx_http_request_t * r, const char * szText )
    return 0;
 }
 
+#ifndef _WINDOWS_
+
 int CopyFile( const char * from, const char * to, int iOverWrite )
 {
     int fd_to, fd_from;
@@ -153,6 +155,8 @@ int CopyFile( const char * from, const char * to, int iOverWrite )
     return errno;
 }
 
+#endif
+
 typedef int ( * PHB_APACHE )( void * pRequestRec, NGX_API * pNgxApi );
 
 static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
@@ -167,7 +171,12 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
 
    CopyFile( "./libharbour.so", szTempFileName, 0 );
     
-   if( ( lib_harbour = dlopen( szTempFileName, RTLD_LAZY ) ) )
+   #ifdef _WINDOWS_ 
+      lib_harbour = LoadLibrary( szTempFileName );
+   #else
+      lib_harbour = dlopen( szTempFileName, RTLD_LAZY );
+   #endif   
+   if( lib_harbour ) 
    {     
       PHB_APACHE _hb_apache = NULL;
       
@@ -208,8 +217,12 @@ static ngx_int_t ngx_mod_harbour_handler( ngx_http_request_t * r )
       #endif    
    }
    else
+   #ifdef _WINDOWS_ 
+      mh_rputs( r, "<br>failed to load libharbour.so" );
+   #else
       mh_rputs( r, dlerror() );  
-   
+   #endif
+
    return iResult; 
 }
 

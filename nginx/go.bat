@@ -11,7 +11,7 @@
 )
 
 @cd %current_dir%
-c:\harbour\bin\win\bcc\hbmk2 mod.hbp -comp=msvc -Ic:\harbour\src\3rd\pcre -Ic:\nginx\src\core -Ic:\nginx\src\os\win32 -I. -Ic:\nginx\src\http -Ic:\nginx\src\event -Ic:\nginx\src\event\modules -Ic:\nginx\src\stream -Ic:\nginx\src\http\modules
+c:\harbour\bin\win\bcc\hbmk2 mod.hbp -comp=msvc -Ic:\openssl\include -Ic:\harbour\src\3rd\pcre -Ic:\nginx\src\core -Ic:\nginx\src\os\win32 -I. -Ic:\nginx\src\http -Ic:\nginx\src\event -Ic:\nginx\src\event\modules -Ic:\nginx\src\stream -Ic:\nginx\src\http\modules
 
 @set path=%oldpath%
 @set include=%oldinclude%
