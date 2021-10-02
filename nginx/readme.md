@@ -2,6 +2,7 @@ How to build it:
 
 ```
 git clone https://github.com/nginx/nginx
+cd nginx
 auto/configure --add-dynamic-module=/home/user/mod_harbour/nginx
 make
 ```
