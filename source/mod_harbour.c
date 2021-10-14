@@ -111,7 +111,6 @@ static int harbour_handler( request_rec * r )
    char * szTempFileName;
    const char * szDllName;
    unsigned int dwThreadId;
-   unsigned int iTries = 0;
 
    #ifdef _WINDOWS_
       HMODULE lib_harbour = NULL;
@@ -181,10 +180,11 @@ static int harbour_handler( request_rec * r )
 
    if( lib_harbour != NULL )
       #ifdef _WINDOWS_	
-         while( ! FreeLibrary( lib_harbour ) && iTries++ < 150 )
+         while( ! FreeLibrary( lib_harbour ) )
             Sleep( 100 );
       #else
-         dlclose( lib_harbour );
+         while( ! dlclose( lib_harbour ) )
+            sleep( 100 );
       #endif
 
    #ifdef _WINDOWS_ 
