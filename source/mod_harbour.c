@@ -183,7 +183,7 @@ static int harbour_handler( request_rec * r )
          while( ! FreeLibrary( lib_harbour ) )
             Sleep( 100 );
       #else
-         while( ! dlclose( lib_harbour ) )
+         while( dlclose( lib_harbour ) )
             sleep( 100 );
       #endif
 
