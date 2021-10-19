@@ -14,6 +14,8 @@
 
 #define CRLF hb_OsNewLine()
 
+#define __HBEXTERN__HARBOUR__REQUEST
+#include "../../harbour/include/harbour.hbx"
 #define __HBEXTERN__HBHPDF__REQUEST
 #include "../../harbour/contrib/hbhpdf/hbhpdf.hbx"
 #define __HBEXTERN__XHB__REQUEST
