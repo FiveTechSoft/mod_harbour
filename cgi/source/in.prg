@@ -1,4 +1,4 @@
-static cBody, hHeadersIn
+static cBody, hHeadersIn := {=>}
 
 function AP_BODY()
 
@@ -11,6 +11,10 @@ function AP_BODY()
    endif   
 
 return cBody
+
+function AP_HeadersIn()
+
+return hHeadersIn
 
 function AP_HEADERSINCOUNT()
 

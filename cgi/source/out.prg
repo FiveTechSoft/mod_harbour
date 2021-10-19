@@ -1,16 +1,20 @@
+static hHeadersOut := {=>}, cContentType := "text/html"
+
 function AP_HEADERSOUTCOUNT()
 
-return 0
+return Len( hHeadersOut )
 
 function AP_HEADERSOUTKEY( nKey )
 
-return ""
+return HB_HKeyAt( hHeadersOut, nKey )
 
 function AP_HEADERSOUTVAL( nKey )
 
-return ""
+return hHeadersOut[ HB_HKeyAt( hHeadersOut, nKey ) ]
 
 function AP_HEADERSOUTSET( cKey, uValue )
+
+   hHeadersOut[ cKey ] = uValue
 
 return nil
 
@@ -20,15 +24,13 @@ return nil
 
 function AP_SETCONTENTTYPE( cType )
 
+   cContentType = cType
+
 return nil
-
-function AP_HEADERSIN()
-
-return {=>}
 
 function AP_HEADERSOUT()
 
-return nil
+return hHeadersOut
 
 function MWRITE()
 
