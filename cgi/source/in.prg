@@ -1,23 +1,28 @@
+static cBody, hHeadersIn
+
 function AP_BODY()
 
-   local nLen := Val( hb_GetEnv( "CONTENT_LENGTH" ) )
-   local cBuffer := Space( nLen )
+   local nLen, cBuffer
 
-   fread( hb_GetStdIn(), @cBuffer, nLen )
+   if cBody == nil
+      nLen = Val( hb_GetEnv( "CONTENT_LENGTH" ) )
+      cBody = Space( nLen )
+      fread( hb_GetStdIn(), @cBody, nLen )
+   endif   
 
-return cBuffer
+return cBody
 
 function AP_HEADERSINCOUNT()
 
-return 0
+return Len( hHeadersIn )
 
 function AP_HEADERSINKEY( nKey )
 
-return ""
+return HB_HKeyAt( hHeadersIn, nKey )
 
 function AP_HEADERSINVAL( nKey )
 
-return ""
+return hHeadersIn[ HB_HKeyAt( hHeadersIn, nKey ) ]
 
 function AP_METHOD()
 
