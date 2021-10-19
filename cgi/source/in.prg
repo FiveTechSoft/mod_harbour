@@ -1,6 +1,11 @@
 function AP_BODY()
 
-return ""
+   local nLen := Val( hb_GetEnv( "CONTENT_LENGTH" ) )
+   local cBuffer := Space( nLen )
+
+   fread( hb_GetStdIn(), @cBuffer, nLen )
+
+return cBuffer
 
 function AP_HEADERSINCOUNT()
 
