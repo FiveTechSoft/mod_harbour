@@ -3,7 +3,17 @@ static cOutput := ""
 
 exit procedure OutputFlush()
 
-   Printf( "Content-type: " + cContentType + hb_OsNewLine() + hb_OsNewLine() )
+   local n, cKey
+
+   Printf( "Content-type: " + cContentType + hb_OsNewLine() )
+   
+   for n = 1 to Len( hHeadersOut )
+      Printf( cKey := HB_HKeyAt( hHeadersOut, n ) )
+      Printf( ": " + hHeadersOut[ cKey ] )
+   next
+
+   Printf( hb_OsNewLine() + hb_OsNewLine() )
+
    Printf( cOutput )
    cOutput = ""
 
