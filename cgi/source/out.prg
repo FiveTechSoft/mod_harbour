@@ -3,6 +3,9 @@ static cOutput := ""
 
 exit procedure OutputFlush()
 
+   Printf( cOutput )
+   cOutput = ""
+
 return
 
 function Output( cText )
@@ -62,21 +65,32 @@ return nil
 #pragma BEGINDUMP
 
 #include <hbapi.h>
+#include <hbvm.h>
 #include <stdio.h>
 
 int mh_rputs( const char * szMsg )
 {
-   printf( "%s\n", szMsg );
+   hb_vmPushSymbol( hb_dynsymGetSymbol( "OUTPUT" ) );
+   hb_vmPushNil();
+   hb_vmPushString( szMsg, strlen( szMsg ) );
+   hb_vmFunction( 1 );
    
    return 0;
 }
 
 int mh_rputslen( const char * szMsg, int iLength )
 {
-   iLength = iLength;
-   printf( "%s\n", szMsg );
+   hb_vmPushSymbol( hb_dynsymGetSymbol( "OUTPUT" ) );
+   hb_vmPushNil();
+   hb_vmPushString( szMsg, iLength );
+   hb_vmFunction( 1 );
    
    return 0;
+}
+
+HB_FUNC( PRINTF )
+{
+   printf( "%s", hb_parc( 1 ) );
 }
 
 #pragma ENDDUMP
