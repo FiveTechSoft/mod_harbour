@@ -1,4 +1,15 @@
 static hHeadersOut := {=>}, cContentType := "text/html"
+static cOutput := ""
+
+exit procedure OutputFlush()
+
+return
+
+function Output( cText )
+
+   cOutput += cText
+
+return nil   
 
 function AP_HEADERSOUTCOUNT()
 
