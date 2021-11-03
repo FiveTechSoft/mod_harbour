@@ -3,6 +3,7 @@ static cOutput := ""
 
 exit procedure OutputFlush()
 
+   Printf( "Content-type: " + cContentType + hb_OsNewLine() + hb_OsNewLine() )
    Printf( cOutput )
    cOutput = ""
 
