@@ -5,4 +5,5 @@
 </Directory>
 
 RewriteEngine on
-RewriteRule "^/([a-zA-Z]+)$" "/cgi-bin/modharbour.exe?$1.prg" [NC,PT]```
+RewriteRule "^/([a-zA-Z]+)$" "/cgi-bin/modharbour.exe?$1.prg" [NC,PT]
+```
