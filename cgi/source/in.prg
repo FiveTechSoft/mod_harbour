@@ -59,7 +59,7 @@ return nil
 
 HB_FUNC( GETSTDIN )
 {
-   hb_retptr( fileno( stdin ) );
+   hb_retnll( fileno( stdin ) );
 }
 
 #pragma ENDDUMP
