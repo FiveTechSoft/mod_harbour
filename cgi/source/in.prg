@@ -7,7 +7,7 @@ function AP_BODY()
    if cBody == nil
       nLen = Val( hb_GetEnv( "CONTENT_LENGTH" ) )
       cBody = Space( nLen )
-      fread( hb_GetStdIn(), @cBody, nLen )
+      fread( GetStdIn(), @cBody, nLen ) // hb_getStdIn()
    endif   
 
 return cBody
@@ -51,3 +51,15 @@ return hb_GetEnv( cKey )
 function AP_Entry()
 
 return nil
+
+#pragma BEGINDUMP
+
+#include <hbapi.h>
+#include <stdio.h>
+
+HB_FUNC( GETSTDIN )
+{
+   hb_retptr( fileno( stdin ) );
+}
+
+#pragma ENDDUMP
