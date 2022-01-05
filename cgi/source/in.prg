@@ -1,3 +1,5 @@
+ANNOUNCE HB_GT_SYS
+
 static cBody, hHeadersIn := {=>}
 
 function AP_BODY()
