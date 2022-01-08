@@ -1,9 +1,6 @@
 ```
-<Directory "c:/Apache24/cgi-bin">
-    Options +ExecCGI
-    SetHandler cgi-script
+<Directory C:/xampp/htdocs>
+  RewriteEngine on
+  RewriteRule ^([a-zA-Z]*)$ /cgi-bin/mdharbour.exe?$1 [NC,QSA]
 </Directory>
-
-RewriteEngine on
-RewriteRule "^/([a-zA-Z]+)$" "/cgi-bin/modharbour.exe?$1.prg" [NC,PT]
 ```
