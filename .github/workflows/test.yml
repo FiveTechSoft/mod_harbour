@@ -1,0 +1,8 @@
+jobs:
+  linux:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: build
+        run: |
+          start-http-server 8000 &
+          curl http://127.0.0.1:8000/
