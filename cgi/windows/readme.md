@@ -1,3 +1,3 @@
 Use:
 
-modharbour.exe test.prg
+localhost/cgi-bin/modharbour.exe test.prg
