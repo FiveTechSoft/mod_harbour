@@ -40,7 +40,7 @@ return hb_GetEnv( "REMOTE_ADDR" )
 
 function AP_FILENAME()
 
-return hb_Argv( 1 )
+return If( At( "?", hb_ArgV( 1 ) ) == 0, hb_ArgV( 1 ), SubStr( hb_Argv( 1 ), 1, At( "?", hb_Argv( 1 ) ) - 1 ) )
 
 function AP_ARGS()
 
