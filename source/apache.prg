@@ -59,6 +59,26 @@ function Main()
 
    local cFileName, pThread
 
+   #ifdef __PLATFORM__WINDOWS
+      local lWindows := .T.
+   #else
+      local lWindows := .F.
+   #endif      
+
+   if Empty( GetEnv( "GATEWAY_INTERFACE" ) )
+      QOut( "Attention: This is modharbour CGI version and has to be executed" )
+      QOut( "from the server as a cgi-bin, i.e.:" )
+      QOut()
+      QOut( "http://server_address/cgi-bin/" + SubStr( hb_ArgV( 0 ), RAt( If( lWindows, "\", "/" ), hb_ArgV( 0 ) ) + 1 ) + ;
+            "?prg=test.prg")
+      QOut()
+      QOut( "(c) FiveTech Software 2012-2022" )
+      QOut( "www.fivetechsoft.com" )
+      QOut( "https://github.com/FiveTechSoft/mod_harbour" )
+      QOut()
+      QUIT
+   endif 
+
    ErrorBlock( { | o | DoBreak( o ) } )
 
    cFileName = AP_FileName()

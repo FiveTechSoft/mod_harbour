@@ -5,7 +5,9 @@ exit procedure OutputFlush()
 
    local n, cKey
 
-   Printf( "Content-type: " + cContentType + hb_OsNewLine() )
+   if ! Empty( cOutput )
+      Printf( "Content-type: " + cContentType + hb_OsNewLine() )
+   endif   
    
    for n = 1 to Len( hHeadersOut )
       Printf( cKey := HB_HKeyAt( hHeadersOut, n ) )
