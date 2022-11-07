@@ -38,30 +38,33 @@ return hPairs
 
 //----------------------------------------------------------------//
 
-function AP_GetPairs( lUrlDecode )	
+function AP_GetPairs( lUrlDecode )
 
    local cArgs 	:= AP_Args()
    local hPairs := {=>}
-   local cPair, uPair, nPos, cKey
-	
+   local cPair, uPair, cKey, uValue
+
    hb_default( @lUrlDecode, .T. )
-   
+
    for each cPair in hb_ATokens( cArgs, "&" )
       if lUrlDecode
          cPair = hb_urldecode( cPair )
-      endif		
+      endif
       if ( uPair := At( "=", cPair ) ) > 0
-         cKey := Left( cPair, uPair - 1 )			
-	 if ( nPos := HB_HPos( hPairs, cKey ) ) == 0
-	    hb_HSet( hPairs, cKey, SubStr( cPair, uPair + 1 ) )
-	 else
-	    uValue = hPairs[ cKey ] 				
+         cKey := Left( cPair, uPair - 1 )
+         if HB_HPos( hPairs, cKey ) == 0
+            hb_HSet( hPairs, cKey, SubStr( cPair, uPair + 1 ) )
+         else
+            uValue = hPairs[ cKey ]
             hPairs[ cKey ] = {}
-	    AAdd( hPairs[ cKey ], uValue )
+            AAdd( hPairs[ cKey ], uValue )
             AAdd( hPairs[ cKey ], SubStr( cPair, uPair + 1 ) )
-         endif				
+         endif
       else
-	 HB_HSet( hPairs, Lower( cPair ), '' )
+         cPair := lower( cPair )
+         if At( ".prg", cPair ) == 0
+            HB_HSet( hPairs, Lower( cPair ), '' )
+         endif
       endif
    next
 
