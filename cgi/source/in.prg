@@ -4,7 +4,7 @@ static cBody, hHeadersIn := {=>}
 
 function AP_BODY()
 
-   local nLen, cBuffer
+   local nLen
 
    if cBody == nil
       nLen = Val( hb_GetEnv( "CONTENT_LENGTH" ) )
@@ -40,7 +40,23 @@ return hb_GetEnv( "REMOTE_ADDR" )
 
 function AP_FILENAME()
 
-return If( At( "?", hb_ArgV( 1 ) ) == 0, hb_ArgV( 1 ), SubStr( hb_Argv( 1 ), 1, At( "?", hb_Argv( 1 ) ) - 1 ) )
+   local hGet, cFileName := hb_ArgV( 1 )
+
+   If Len( cFileName ) == 0
+      cFileName := GetEnv( "REQUEST_URI" )
+   EndIf
+
+   If At( "?prg=", cFileName ) > 0 .and. hb_isHash( hGet := AP_GetPairs() ) .and. hb_hHasKey( hGet, "prg" )
+      cFileName := hGet[ "prg" ]
+   ElseIf At( "?", cFileName ) > 0
+      cFileName := SubStr( cFileName, 1, At( "?", cFileName ) - 1 )
+   EndIf
+
+   If Left( cFileName, 1 ) == "/"
+      cFileName := SubStr( cFileName, 2, Len( cFileName ) )
+   EndIf
+
+return cFileName
 
 function AP_ARGS()
 

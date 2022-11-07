@@ -19,10 +19,17 @@ HB_FUNC( SHOWCONSOLE )     // to use the debugger locally on Windows
    ShowWindow( GetConsoleWindow(),  3 );
    ShowWindow( GetConsoleWindow(), 10 );
 }
+HB_FUNC( DEBUGSTRING )
+{
+   OutputDebugString( hb_parc( 1 ) );
+}
 
 #else
 
 HB_FUNC( SHOWCONSOLE )
+{
+}
+HB_FUNC( DEBUGSTRING )
 {
 }
 
