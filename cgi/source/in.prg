@@ -56,7 +56,7 @@ function AP_FILENAME()
       cFileName := SubStr( cFileName, 2, Len( cFileName ) )
    EndIf
 
-   If Len( cFileName ) > 0 .and. ( At( ".prg", cFileName ) == 0 .or. At( ".hrb", cFileName ) )
+   If Len( cFileName ) > 0 .and. At( ".prg", cFileName ) == 0 .and. At( ".hrb", cFileName ) == 0
       cFileName := cFileName + ".prg"
    EndIf
 
