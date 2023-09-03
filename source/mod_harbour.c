@@ -181,10 +181,10 @@ static int harbour_handler( request_rec * r )
    if( lib_harbour != NULL )
       #ifdef _WINDOWS_	
          while( ! FreeLibrary( lib_harbour ) )
-            Sleep( 100 );
+            hb_idleSleep(0);
       #else
          while( dlclose( lib_harbour ) )
-            sleep( 100 );
+            hb_idleSleep(0);
       #endif
 
    #ifdef _WINDOWS_ 
