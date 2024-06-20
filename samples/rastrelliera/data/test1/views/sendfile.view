@@ -1,0 +1,38 @@
+<style>
+   h3:hover {
+      color: red;
+   }
+</style>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<input id="filepicker" type='file' style="display:none;"/>
+			<h3 id="picker" style="cursor:pointer;">
+				Please select a file to send
+			</h3><br>
+			<h4 id="filename"></h4> 
+            <br>
+			<div class="progress">
+				<div class="progress-bar w-0">
+				</div>
+			</div> 
+            <br><br>
+			<button type="button" class="btn btn-primary" style="margin-right:15px;width:100px;">
+               <i class="fas fa-check" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+				Send
+			</button>
+			<button type="button" class="btn btn-primary" style="width:100px;">
+               <i class="fas fa-remove" style="color:lightgray;padding-right:10px;font-size:18px"></i>
+				Cancel
+			</button>
+		</div>
+	</div>
+</div>
+<script>
+   $( "#picker" ).bind( "click" , function() {
+        $( "#filepicker" ).click();
+      });
+   $( "#filepicker" ).bind( "change", function( evt ) {
+	   $( "#filename" ).html( evt.target.files[0].name )
+	  }); 
+</script>

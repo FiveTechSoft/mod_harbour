@@ -1,0 +1,33 @@
+<style>
+    .form-group {
+       margin: 4px;
+}
+</style>
+<div id="form" class="row">
+   <div class="col-md-1">
+   </div>  
+   <div id="colcenter" class="col-md-11">
+      <div class="form-group row">
+         <h5 style="padding-left:15px;padding-top:10px;">Group1 Header</h5>
+      </div> 
+      <div id="group1" class="form-group row">
+         <label for="text" class="col-1 col-form-label">Label1</label> 
+         <div id="row1-1" class="col-3">
+            <input id="get1" name="fieldname" type="text" class="form-control" value="" placeholder="">
+         </div>
+         <label for="text" class="col-1 col-form-label">Label2</label> 
+         <div id="row1-2" class="col-3">
+            <input id="get2" name="fieldname" type="text" class="form-control" value="" placeholder="">
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   var oFocus; 
+   $("#row1-1").focusout(function(){
+      oFocus = this;
+   });
+   $("#row1-2").focusout(function(){
+      oFocus = this;
+   });
+</script>   
