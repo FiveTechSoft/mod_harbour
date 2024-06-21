@@ -1,0 +1,3 @@
+@echo Borrando Libreria SO...
+@del c:\xampp\apache\modules\mod_harbour.so
+@if exist .\lib ( @rmdir .\lib /S/Q )

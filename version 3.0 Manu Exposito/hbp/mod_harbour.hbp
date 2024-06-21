@@ -1,0 +1,55 @@
+###############################################################################
+# Crea la dll, so y las libs
+###############################################################################
+
+-hbdynvm
+-o..\lib\mod_harbour.so
+-mt
+-trace
+-info
+-n -es2 -w3 -kmo -i-
+#-cflag=-Wall
+
+# Ficheros de cabecera
+-i..\include
+
+# Librerias excluidas forzosamente
+-l-hbfship
+-l-hbxpp
+
+# Librerias necesarias
+-llibcrypto-1_1-x64
+-llibssl-1_1-x64
+-llibcurl-x64
+
+# Fichero de cabecera y librerias de Apache
+-ic:\xampp\apache\include
+-Lc:\xampp\apache\lib
+-lapr-1
+-laprutil-1
+-llibapr-1
+-llibaprutil-1
+-llibhttpd  
+
+# Fuentes de funciones en C
+../src/c/mod_harbour.c
+../src/c/ap_functions.c
+../src/c/apr_functions.c
+../src/c/debug.c
+
+# Fuentes en PRG
+../src/prg/mh_apache.prg
+../src/prg/mh_classes.prg
+../src/prg/errorsys.prg
+
+# Contribuciones
+hbcurl.hbc
+hbssl.hbc
+hbhpdf.hbc
+xhb.hbc
+hbct.hbc
+hbmzip.hbc
+hbziparc.hbc
+hbmemio.hbc
+hbnetio.hbc
+hbmisc.hbc

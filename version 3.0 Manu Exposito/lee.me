@@ -1,0 +1,19 @@
+1) Copiar el fichero mod_harbour.so en un PATH activo o en el directorio "apache\modules"
+2) Añadir al fichero de configuracion de apache httpd.conf, situado en "apache\conf", las siguientes lineas:
+
+LoadModule harbour_module modules/mod_harbour.so
+<FilesMatch "\.prg"> 
+	SetHandler harbour 
+</FilesMatch>
+<FilesMatch "\.hrb"> 
+	SetHandler harbour_hrb 
+</FilesMatch>
+
+-------------------------------------------------------------------------------------
+Para probar:
+
+LoadModule harbour_module modules/mod_harbour.so
+AddType harbour .prg
+AddType harbour_hrb .hrb
+
+-------------------------------------------------------------------------------------

@@ -1,0 +1,125 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Crea",
+            "type": "shell",
+            "windows": {
+                "command": "${workspaceFolder}/cmd/win/crea",
+            },
+            "linux": {
+                "command": "${workspaceFolder}/cmd/linux/crea.sh",
+            },
+            "presentation": {
+                "focus": true,
+                "panel": "new",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "options": {
+                "statusbar": {
+                    "tooltip": "Construye las libreria harbour_mod.so",
+                    "color": "#7bff00",
+                    "label": "$(settings-gear) Crea"
+                }
+            }
+        },
+        {
+            "label": "Copia",
+            "type": "shell",
+            "windows": {
+                "command": "${workspaceFolder}/cmd/win/copia",
+            },
+            "linux": {
+                "command": "${workspaceFolder}/cmd/linux/copia.sh",
+            },
+            "presentation": {
+                "focus": true,
+                "panel": "new",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "options": {
+                "statusbar": {
+                    "tooltip": "Copia harbour_mod.so en Apache",
+                    "color": "#ffee00",
+                    "label": "$(settings-gear) Copia"
+                }
+            }
+        },
+        {
+            "label": "Limpia",
+            "type": "shell",
+            "windows": {
+                "command": "${workspaceFolder}/cmd/win/limpia",
+            },
+            "linux": {
+                "command": "${workspaceFolder}/cmd/linux/limpia.sh",
+            },
+            "presentation": {
+                "focus": true,
+                "panel": "new",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "options": {
+                "statusbar": {
+                    "tooltip": "Limpia entorno y borra mod_harbour.so si existe",
+                    "color": "#ffffff",
+                     "label": "$(trash) Limpia"
+                }
+            }
+        },
+        {
+            "label": "Copia tests",
+            "type": "shell",
+            "windows": {
+                "command": "${workspaceFolder}/cmd/win/copiatests",
+            },
+            "linux": {
+                "command": "${workspaceFolder}/cmd/linux/copiatests.sh",
+            },
+            "presentation": {
+                "focus": true,
+                "panel": "new",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "options": {
+                "statusbar": {
+                    "tooltip": "Copia los PRG en Apache",
+                    "color": "#0400ff",
+                    "label": "$(settings-gear) Copia tests"
+                }
+            }
+        },
+        {
+            "label": "Empaqueta",
+            "type": "shell",
+            "windows": {
+                "command": "${workspaceFolder}/cmd/win/packer",
+            },
+            "linux": {
+                "command": "${workspaceFolder}/cmd/linux/packer.sh",
+            },
+            "args": [
+                "mod_harbour"
+            ],
+            "presentation": {
+                "focus": true,
+                "panel": "new",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "options": {
+                "statusbar": {
+                    "tooltip": "Empaqueta fuentes de MOS_HARBOURPLUS y entorno",
+                    "color": "#ffee00",
+                     "label": "$(package) Empaqueta"
+                }
+            }
+        },
+    ]
+}

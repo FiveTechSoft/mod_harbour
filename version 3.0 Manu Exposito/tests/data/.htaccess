@@ -1,0 +1,8 @@
+<Files "*">
+  Order Allow,Deny
+  Deny from all
+</Files>
+
+<Files "*.pdf">
+   Allow from all
+</Files>   
