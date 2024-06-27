@@ -1,0 +1,26 @@
+name: Generate PDF
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    
+    - name: Set up Pandoc
+      run: sudo apt-get install -y pandoc
+    
+    - name: Convert Markdown to PDF
+      run: pandoc -s README.md -o output.pdf
+    
+    - name: Upload PDF as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: output-pdf
+        path: output.pdf
