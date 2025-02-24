@@ -1,4 +1,3 @@
-#include <Windows.h>
 #include <hbapi.h>
 #include <hbvm.h>
 
@@ -11,9 +10,9 @@ HB_EXPORT_ATTR int hb_apache( void * _pRequestRec )
    pRequestRec = _pRequestRec;
  
    hb_vmInit( HB_TRUE );
-   OutputDebugString( "after hb_vmInit()\n" );
+   // OutputDebugString( "after hb_vmInit()\n" );
    iResult = hb_vmQuit();
-   OutputDebugString( "after hb_vmQuit()\n" );
+   // OutputDebugString( "after hb_vmQuit()\n" );
    return iResult;
 }   
 
