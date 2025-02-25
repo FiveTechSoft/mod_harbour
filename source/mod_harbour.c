@@ -22,6 +22,8 @@
    #include <unistd.h>
 #endif        
 
+void hb_idleSleep( double dSeconds );
+
 #ifdef _WINDOWS_
 
 char * GetErrorMessage( DWORD dwLastError )
